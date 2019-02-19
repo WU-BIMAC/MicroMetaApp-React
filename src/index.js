@@ -7,7 +7,7 @@ import { Footer } from "./components/footer";
 import { Toolbar } from "./components/toolbar";
 import { Canvas } from "./components/canvas";
 
-export class App extends React.PureComponent {
+export default class App extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.toolbarRef = React.createRef();
