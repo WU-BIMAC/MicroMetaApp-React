@@ -1,6 +1,7 @@
 /* eslint-disable no-dupe-keys */
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import { DragDropContainer, DropTarget } from "react-drag-drop-container";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
@@ -270,6 +271,7 @@ class App extends React.Component {
 			display: "-webkit-flex", // NEW - Chrome
 			display: "flex" // NEW, Spec - Opera 12.1, Firefox 20+
 		};
+
 		return (
 			<div>
 				<Header />
@@ -282,6 +284,16 @@ class App extends React.Component {
 		);
 	}
 }
+
+App.propTypes = {
+	height: PropTypes.number,
+	width: PropTypes.number
+};
+
+App.defaultProps = {
+	height: 600,
+	width: 800
+};
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
