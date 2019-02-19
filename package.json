@@ -15,10 +15,11 @@
     "react-beautiful-dnd": "^10.0.4",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-drag-drop-container": "^6.1.1",
-    "react-jsonschema-form": "^1.2.1",
     "resolve": "1.10.0",
     "terser-webpack-plugin": "1.2.2",
-    "url-loader": "1.1.2"
+	"url-loader": "1.1.2",
+	"react-jsonschema-form": "^1.2.1",
+	"react-resizable": "^1.7.5"
   },
   "scripts": {
     "test": "node scripts/test.js",
