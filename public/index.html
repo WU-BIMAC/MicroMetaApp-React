@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+		<script src="./../dist/microscopeApp.js"></script>
+		<link rel="stylesheet" type="text/css" href="index.css">
 		<meta charset="utf-8" />
-		<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+		<link rel="shortcut icon" href="./favicon.ico" />
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -12,7 +16,7 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+		<link rel="manifest" href="./manifest.json" />
 		<!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -36,6 +40,35 @@
 
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+		-->
+		<script>
+			(function(){
+				var MicroscopyApp = window.MicroscopyTool.default;
+				ReactDOM.render(
+					React.createElement(
+						MicroscopyApp,
+						{
+							"height": 600,
+							"width": 800,
+							"onLoadSchema" : function(complete){
+								// Maybe some UI to select something...
+								// Not all browsers have `window.fetch`, used for demoing purposes.
+								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
+								window.fetch('https://raw.githubusercontent.com/WU-BIMAC/4DNMicroscopyMetadataToolReact/master/src/schema/testSchema.json')
+								.then(function(resp){
+									console.log(resp);
+									return resp.text();
+								})
+								.then(function(respText){
+									var schema = JSON.parse(respText);
+									complete(schema);
+								});
+							}
+						}
+					),
+					document.getElementById("root")
+				);
+			})();
+		</script>
 	</body>
 </html>
