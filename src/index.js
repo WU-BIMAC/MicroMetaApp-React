@@ -1,37 +1,95 @@
+/* eslint-disable no-dupe-keys */
+import PropTypes from "prop-types";
 import React from "react";
-import ReactDOM from "react-dom";
 
-import { App } from "./app";
+import { Header } from "./components/header";
+import { Footer } from "./components/footer";
+import { Toolbar } from "./components/toolbar";
+import { Canvas } from "./components/canvas";
 
-import "./index.css";
-import * as serviceWorker from "./serviceWorker";
+export default class App extends React.PureComponent {
+	constructor(props) {
+		super(props);
+		this.toolbarRef = React.createRef();
+		this.canvasRef = React.createRef();
 
-var schema = require("./schema/testSchema.json");
+		this.handleCompleteOpenNewSchema = this.handleCompleteOpenNewSchema.bind(this);
+		this.handleOpenNewSchema = this.handleOpenNewSchema.bind(this);
 
-// const getDraggingStyle = (isDragging, draggableStyle) => ({
-// 	// some basic styles to make the items look a bit nicer
-// 	userSelect: "none",
-// 	// change background colour if dragging
-// 	background: isDragging ? "lightgreen" : "white",
-// 	// styles we need to apply on draggables
-// 	...draggableStyle,
-// 	border: "2px solid",
-// 	backgroundColor: "white",
-// 	color: "black"
-// });
+		this.state = {
+			schema: props.schema || null
+		};
+	}
 
-ReactDOM.render(
-	<App height={700} width={700} onLoadSchema={getNewSchema} />,
-	document.getElementById("root")
-);
+	static getDerivedStateFromProps(props, state) {
+		if (props.schema !== state.schema && props.schema !== null) {
+			return { schema: props.schema };
+		}
+		return null;
+	}
 
-function getNewSchema(complete) {
-	setTimeout(function() {
-		complete(schema);
-	}, 1000);
+	handleOpenNewSchema(e) {
+		this.setState({ loading: true }, function() {
+			this.props.onLoadSchema(this.handleCompleteOpenNewSchema);
+		});
+	}
+
+	handleCompleteOpenNewSchema(newSchema) {
+		this.setState({ schema: newSchema });
+	}
+
+	render() {
+		const style = {
+			display: "-webkit-box", // OLD - iOS 6-, Safari 3.1-6
+			display: "-moz-box", // OLD - Firefox 19- (doesn't work very well)
+			display: "-ms-flexbox", // TWEENER - IE 10
+			display: "-webkit-flex", // NEW - Chrome
+			display: "flex" // NEW, Spec - Opera 12.1, Firefox 20+
+		};
+
+		//TODO with this strategy i can create multiple views
+		//1st view: selection tier / new mic / use mic (+ import mic here maybe?)
+		//2nd view: canvas with toolbar (+ possibile schema replacement?
+		//	or the scheme selection can be done in the previous view)
+		//	(+ export mic on file for the moment)
+		//3rd view: settings (+ export settings on file for the moment)
+
+		if (this.state.schema === null) {
+			return (
+				<div>
+					<button onClick={this.handleOpenNewSchema}>Open new schema</button>
+				</div>
+			);
+		}
+
+		return (
+			<div>
+				<Header />
+				<div style={style}>
+					<Canvas ref={this.canvasRef} imagesPath={this.props.imagesPath} />
+					<Toolbar ref={this.toolbarRef} schema={this.state.schema} />
+				</div>
+				<Footer />
+			</div>
+		);
+	}
 }
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+App.propTypes = {
+	height: PropTypes.number,
+	width: PropTypes.number,
+	schema: PropTypes.arrayOf(PropTypes.object),
+};
+
+App.defaultProps = {
+	height: 600,
+	width: 800,
+	schema: null,
+	imagesPath : "./assets/",
+	onLoadSchema: function(complete){
+		// Do some stuff... show pane for people to browse/select schema.. etc.
+		setTimeout(function(){
+			complete();
+		});
+	}
+};

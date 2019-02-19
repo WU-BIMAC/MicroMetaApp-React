@@ -2,8 +2,6 @@ import React from "react";
 import { CanvasElement } from "./canvasElement";
 import { DropTarget, DragDropContainer } from "react-drag-drop-container";
 
-const imagesPath = process.env.PUBLIC_URL + "/assets/";
-
 export class Canvas extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -97,7 +95,7 @@ export class Canvas extends React.PureComponent {
 
 	render() {
 		//FIXME this should come from props later
-		const imageFilePath = `${imagesPath}Microscope_with_Knobs_BackPort_Fluorescence_Beam.png`;
+		const imageFilePath = `${this.props.imagesPath}Microscope_with_Knobs_BackPort_Fluorescence_Beam.png`;
 		const style = {
 			container: {
 				height: "90vh",
