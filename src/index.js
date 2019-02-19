@@ -3,9 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { DragDropContainer, DropTarget } from "react-drag-drop-container";
-import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-const imagesPath = process.env.PUBLIC_URL + "/assets/";
+
+// I would maybe make this a prop to be passed into App (?) so wrapper app can define where images are stored.
+const imagesPath = "./assets/";
 var schema = require("./schema/testSchema.json");
 
 // const getDraggingStyle = (isDragging, draggableStyle) => ({
@@ -256,7 +257,7 @@ class Canvas extends React.Component {
 	}
 }
 
-class App extends React.Component {
+class MicroscopyApp extends React.Component {
 	constructor(props) {
 		super(props);
 		this.toolbarRef = React.createRef();
@@ -284,17 +285,17 @@ class App extends React.Component {
 	}
 }
 
-App.propTypes = {
+MicroscopyApp.propTypes = {
 	height: PropTypes.number,
 	width: PropTypes.number
 };
 
-App.defaultProps = {
+MicroscopyApp.defaultProps = {
 	height: 600,
 	width: 800
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+export default MicroscopyApp;
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
