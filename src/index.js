@@ -66,7 +66,7 @@ export default class App extends React.PureComponent {
 			<div>
 				<Header />
 				<div style={style}>
-					<Canvas ref={this.canvasRef} />
+					<Canvas ref={this.canvasRef} imagesPath={this.props.imagesPath} />
 					<Toolbar ref={this.toolbarRef} schema={this.state.schema} />
 				</div>
 				<Footer />
@@ -78,11 +78,18 @@ export default class App extends React.PureComponent {
 App.propTypes = {
 	height: PropTypes.number,
 	width: PropTypes.number,
-	schema: PropTypes.arrayOf(PropTypes.object)
+	schema: PropTypes.arrayOf(PropTypes.object),
 };
 
 App.defaultProps = {
 	height: 600,
 	width: 800,
-	schema: null
+	schema: null,
+	imagesPath : "./assets/",
+	onLoadSchema: function(complete){
+		// Do some stuff... show pane for people to browse/select schema.. etc.
+		setTimeout(function(){
+			complete();
+		});
+	}
 };

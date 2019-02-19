@@ -47,7 +47,24 @@
 				ReactDOM.render(
 					React.createElement(
 						MicroscopyApp,
-						{ height: 600, width: 800 }
+						{
+							"height": 600,
+							"width": 800,
+							"onLoadSchema" : function(complete){
+								// Maybe some UI to select something...
+								// Not all browsers have `window.fetch`, used for demoing purposes.
+								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
+								window.fetch('https://raw.githubusercontent.com/WU-BIMAC/4DNMicroscopyMetadataToolReact/master/src/schema/testSchema.json')
+								.then(function(resp){
+									console.log(resp);
+									return resp.text();
+								})
+								.then(function(respText){
+									var schema = JSON.parse(respText);
+									complete(schema);
+								});
+							}
+						}
 					),
 					document.getElementById("root")
 				);
