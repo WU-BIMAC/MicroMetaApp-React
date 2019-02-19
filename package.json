@@ -8,14 +8,10 @@
 		"img-loader": "^3.0.1",
 		"jquery": "^3.3.1",
 		"popper.js": "^1.14.7",
-		"react": "^16.8.1",
 		"react-beautiful-dnd": "^10.0.4",
 		"react-bootstrap": "^1.0.0-beta.5",
-		"react-dom": "^16.8.1",
 		"react-drag-drop-container": "^6.1.1",
-		"react-grid-layout": "^0.16.6",
 		"react-jsonschema-form": "^1.2.1",
-		"react-scripts": "2.1.5",
 		"typescript": "^3.3.3"
 	},
 	"scripts": {
@@ -34,6 +30,11 @@
 		"not op_mini all"
 	],
 	"devDependencies": {
-		
+		"react-scripts": "2.1.5"
+	},
+	"peerDependencies": {
+		"react": "^16.8.1",
+		"react-dom": "^16.8.1",
+		"react-grid-layout": "^0.16.6"
 	}
 }
