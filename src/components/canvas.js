@@ -68,6 +68,11 @@ export class Canvas extends React.PureComponent {
 		console.log("render");
 		// eslint-disable-next-line no-console
 		console.log(elementList);
+		const style = {
+			fontSize: "14px",
+			fontWeight: "bold",
+			paddingRight: "6px"
+		};
 		let droppableElement = elementList.map((item, index) => (
 			<div style={item.style} key={"draggableWrapper" + index}>
 				<DragDropContainer
@@ -76,9 +81,13 @@ export class Canvas extends React.PureComponent {
 					dragClone={false}
 					dragData={{ source: "canvas", index: index }}
 					onDrop={this.landedOn}
+					dragHandleClassName="grabber"
 				>
 					{// eslint-disable-next-line no-console
 						console.log(item)}
+					<span className="grabber" style={style}>
+						&#8759;
+					</span>
 					<CanvasElement text={item.text} id={item.id} />
 				</DragDropContainer>
 			</div>
