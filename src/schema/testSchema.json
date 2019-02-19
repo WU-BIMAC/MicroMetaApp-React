@@ -23,6 +23,7 @@
 		"type": "object",
 		"title": "Car",
 		"description": "A car is used for transportation.",
+		"canBeInstanced": true,
 		"allOf": [
 			{
 				"$ref": "#/definitions/Vehicle"
@@ -44,6 +45,7 @@
 		"type": "object",
 		"title": "Bike",
 		"description": "A bike is used for transportation.",
+		"canBeInstanced": true,
 		"allOf": [
 			{
 				"$ref": "#/definitions/Vehicle"
