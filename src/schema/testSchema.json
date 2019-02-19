@@ -1,0 +1,62 @@
+[
+	{
+		"$schema": "http://json-schema.org/draft-07/schema",
+		"id": "Vehicle.json",
+		"type": "object",
+		"title": "Vehicle",
+		"description": "A vehicle is used for transportation.",
+		"properties": {
+			"registrationNumber": {
+				"type": "integer",
+				"description": "The registration number of the vehicle."
+			},
+			"owner": {
+				"type": "string",
+				"description": "The owner of the vehicle."
+			}
+		},
+		"required": ["registrationNumber", "owner"]
+	},
+	{
+		"$schema": "http://json-schema.org/draft-07/schema",
+		"id": "Car.json",
+		"type": "object",
+		"title": "Car",
+		"description": "A car is used for transportation.",
+		"allOf": [
+			{
+				"$ref": "#/definitions/Vehicle"
+			},
+			{
+				"properties": {
+					"engine": {
+						"type": "string",
+						"description": "The type of car engine."
+					}
+				},
+				"required": ["engine"]
+			}
+		]
+	},
+	{
+		"$schema": "http://json-schema.org/draft-07/schema",
+		"id": "Bike.json",
+		"type": "object",
+		"title": "Bike",
+		"description": "A bike is used for transportation.",
+		"allOf": [
+			{
+				"$ref": "#/definitions/Vehicle"
+			},
+			{
+				"properties": {
+					"type": {
+						"enum": ["sport", "chopper"],
+						"description": "The type of bike."
+					}
+				},
+				"required": ["type"]
+			}
+		]
+	}
+]
