@@ -19,7 +19,7 @@ module.exports = {
 		// or whatever component is exported from "./src/index.js" (or other file),
 		// globally available in browser context (via attaching it to global window object),
 		// e.g. accessible from aforementioned index.html page / script.
-		path: path.resolve("./public"),
+		path: path.resolve("./dist"),
 		filename: "microscopeApp.js"
 	},
 	module: {

@@ -3,7 +3,8 @@
 	<head>
 		<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
 		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-		<script src="./microscopeApp.js"></script>
+		<script src="./../dist/microscopeApp.js"></script>
+		<link rel="stylesheet" type="text/css" href="index.css">
 		<meta charset="utf-8" />
 		<link rel="shortcut icon" href="./favicon.ico" />
 		<meta
@@ -44,7 +45,10 @@
 			(function(){
 				var MicroscopyApp = window.MicroscopyTool.default;
 				ReactDOM.render(
-					React.createElement(MicroscopyApp, { height: 600, width: 800 }),
+					React.createElement(
+						MicroscopyApp,
+						{ height: 600, width: 800 }
+					),
 					document.getElementById("root")
 				);
 			})();
