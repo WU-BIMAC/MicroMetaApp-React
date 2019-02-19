@@ -13,9 +13,7 @@ export default class App extends React.PureComponent {
 		this.toolbarRef = React.createRef();
 		this.canvasRef = React.createRef();
 
-		this.handleCompleteOpenNewSchema = this.handleCompleteOpenNewSchema.bind(
-			this
-		);
+		this.handleCompleteOpenNewSchema = this.handleCompleteOpenNewSchema.bind(this);
 		this.handleOpenNewSchema = this.handleOpenNewSchema.bind(this);
 
 		this.state = {
