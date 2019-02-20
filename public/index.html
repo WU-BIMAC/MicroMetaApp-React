@@ -43,13 +43,16 @@
 		-->
 		<script>
 			(function(){
+				// Parent app could be required to handle detecting window resize
 				var MicroscopyApp = window.MicroscopeApp.default;
+				var width = window.innerWidth;
+				var height = window.innerHeight;
 				ReactDOM.render(
 					React.createElement(
 						MicroscopyApp,
 						{
-							"height": 600,
-							"width": 800,
+							"height": height,
+							"width": width,
 							"onLoadSchema" : function(complete){
 								// Maybe some UI to select something...
 								// Not all browsers have `window.fetch`, used for demoing purposes.
