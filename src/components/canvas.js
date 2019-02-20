@@ -24,12 +24,11 @@ export class Canvas extends React.PureComponent {
 				return { elementData };
 			}
 		});
+		// eslint-disable-next-line no-console
+		console.log(this.state.elementData);
 	}
 
-	landedOn(e) {
-		// eslint-disable-next-line no-console
-		// console.log(e);
-	}
+	landedOn(e) {}
 
 	dropped(e) {
 		let sourceElement = e.dragData;
@@ -91,8 +90,6 @@ export class Canvas extends React.PureComponent {
 					onDrop={this.landedOn}
 					dragHandleClassName="grabber"
 				>
-					{// eslint-disable-next-line no-console
-						console.log(item)}
 					<span className="grabber" style={style}>
 						&#8759;
 					</span>

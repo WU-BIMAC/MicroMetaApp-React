@@ -24,7 +24,9 @@ export default class App extends React.PureComponent {
 		 */
 		this.overlaysContainerRef = React.createRef();
 
-		this.handleCompleteOpenNewSchema = this.handleCompleteOpenNewSchema.bind(this);
+		this.handleCompleteOpenNewSchema = this.handleCompleteOpenNewSchema.bind(
+			this
+		);
 		this.handleOpenNewSchema = this.handleOpenNewSchema.bind(this);
 
 		this.state = {
@@ -40,7 +42,7 @@ export default class App extends React.PureComponent {
 		return null;
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		/**
 		 * We may not have access to window/document until Component has been mounted,
 		 * esp. if server-side rendering is utilized. One common approach is to set state
@@ -48,7 +50,7 @@ export default class App extends React.PureComponent {
 		 * resize event listener (if required for some reason)) or accessing window properties.
 		 * This method is very similar to constructor in purpose.
 		 */
-		this.setState({ "mounted" : true });
+		this.setState({ mounted: true });
 	}
 
 	handleOpenNewSchema(e) {
@@ -88,17 +90,29 @@ export default class App extends React.PureComponent {
 
 		if (schema === null) {
 			return (
-				<AppContainer width={width} height={height} forwardedRef={this.overlaysContainerRef}>
+				<AppContainer
+					width={width}
+					height={height}
+					forwardedRef={this.overlaysContainerRef}
+				>
 					<button onClick={this.handleOpenNewSchema}>Open new schema</button>
 				</AppContainer>
 			);
 		}
 
 		return (
-			<AppContainer width={width} height={height} forwardedRef={this.overlaysContainerRef}>
+			<AppContainer
+				width={width}
+				height={height}
+				forwardedRef={this.overlaysContainerRef}
+			>
 				<Header />
 				<div style={style}>
-					<Canvas ref={this.canvasRef} imagesPath={imagesPath} overlaysContainer={this.overlaysContainerRef.current} />
+					<Canvas
+						ref={this.canvasRef}
+						imagesPath={imagesPath}
+						overlaysContainer={this.overlaysContainerRef.current}
+					/>
 					<Toolbar ref={this.toolbarRef} schema={schema} />
 				</div>
 				<Footer />
@@ -108,7 +122,6 @@ export default class App extends React.PureComponent {
 }
 
 class AppContainer extends React.PureComponent {
-
 	render() {
 		var { height, width, forwardedRef } = this.props;
 		var style = { height, width, boxSizing: "border-box" };
@@ -117,7 +130,7 @@ class AppContainer extends React.PureComponent {
 		return (
 			<div id="microscopy-app-container" style={style}>
 				{this.props.children}
-				<div id="microscopy-app-overlays-container" ref={forwardedRef}/>
+				<div id="microscopy-app-overlays-container" ref={forwardedRef} />
 			</div>
 		);
 	}

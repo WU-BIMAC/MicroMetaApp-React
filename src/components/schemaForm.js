@@ -19,10 +19,7 @@ export class SchemaForm extends React.PureComponent {
 	onChange() {}
 
 	onSubmit(data) {
-		//this.setState({ formData : data });
 		this.props.onSubmit(this.props.id, data);
-		// eslint-disable-next-line no-console
-		console.log(data);
 	}
 
 	onError() {}
@@ -49,7 +46,7 @@ export class SchemaForm extends React.PureComponent {
  * @todo Own file.
  */
 export class ModalWindow extends React.PureComponent {
-	render(){
+	render() {
 		return ReactDOM.createPortal(
 			<div
 				style={{
@@ -75,11 +72,10 @@ export class ModalWindow extends React.PureComponent {
 						boxShadow: "0 1px 6px -2px #000"
 					}}
 				>
-					{ this.props.children }
+					{this.props.children}
 				</div>
 			</div>,
 			this.props.overlaysContainer
 		);
 	}
 }
-

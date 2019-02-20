@@ -26,7 +26,7 @@
 		"canBeInstanced": true,
 		"allOf": [
 			{
-				"$ref": "#/definitions/Vehicle"
+				"$ref": "schema/Vehicle"
 			},
 			{
 				"properties": {
@@ -48,7 +48,7 @@
 		"canBeInstanced": true,
 		"allOf": [
 			{
-				"$ref": "#/definitions/Vehicle"
+				"$ref": "schema/Vehicle"
 			},
 			{
 				"properties": {
