@@ -89,7 +89,6 @@ export class Canvas extends React.PureComponent {
 		const imageFilePath = `${this.props.imagesPath}Microscope_with_Knobs_BackPort_Fluorescence_Beam.png`;
 		const style = {
 			container: {
-				height: "90vh",
 				borderBottom: "2px solid",
 				borderTop: "2px solid",
 				borderRight: "2px solid",

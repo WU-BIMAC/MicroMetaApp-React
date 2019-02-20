@@ -5,7 +5,11 @@ export class Header extends React.PureComponent {
 		const style = {
 			backgroundColor: "grey",
 			textAlign: "center",
-			height: "4.8vh"
+			// Consistent height should make it
+			// simpler to layout controls or other
+			// things I think
+			height: "60px",
+			boxSizing: "border-box"
 		};
 		return <div style={style}> HEADER </div>;
 	}

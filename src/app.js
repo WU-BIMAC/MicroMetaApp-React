@@ -39,12 +39,21 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
+		var { imagesPath, width, height} = this.props;
+		var schema = this.state.schema;
+		//const style = {
+		//  This is setting/overriding the same key of style obj I think (?)
+		//  unless a CSS-in-JS library handles this (idk) (this would work in a stylesheet)
+		//	display: "-webkit-box", // OLD - iOS 6-, Safari 3.1-6
+		//	display: "-moz-box", // OLD - Firefox 19- (doesn't work very well)
+		//	display: "-ms-flexbox", // TWEENER - IE 10
+		//	display: "-webkit-flex", // NEW - Chrome
+		//	display: "flex" // NEW, Spec - Opera 12.1, Firefox 20+
+		//};
+
 		const style = {
-			display: "-webkit-box", // OLD - iOS 6-, Safari 3.1-6
-			display: "-moz-box", // OLD - Firefox 19- (doesn't work very well)
-			display: "-ms-flexbox", // TWEENER - IE 10
-			display: "-webkit-flex", // NEW - Chrome
-			display: "flex" // NEW, Spec - Opera 12.1, Firefox 20+
+			display: "flex",
+			height: width - 60 - 40 // 60px header 40px footer
 		};
 
 		//TODO with this strategy i can create multiple views
@@ -54,25 +63,42 @@ export default class App extends React.PureComponent {
 		//	(+ export mic on file for the moment)
 		//3rd view: settings (+ export settings on file for the moment)
 
-		if (this.state.schema === null) {
+		if (schema === null) {
 			return (
-				<div>
+				<AppContainer width={width} height={height}>
 					<button onClick={this.handleOpenNewSchema}>Open new schema</button>
-				</div>
+				</AppContainer>
 			);
 		}
 
 		return (
-			<div>
+			<AppContainer width={width} height={height}>
 				<Header />
 				<div style={style}>
-					<Canvas ref={this.canvasRef} imagesPath={this.props.imagesPath} />
-					<Toolbar ref={this.toolbarRef} schema={this.state.schema} />
+					<Canvas ref={this.canvasRef} imagesPath={imagesPath} />
+					<Toolbar ref={this.toolbarRef} schema={schema} />
 				</div>
 				<Footer />
+			</AppContainer>
+		);
+	}
+}
+
+
+class AppContainer extends React.Component {
+
+	render(){
+		var { height, width } = this.props;
+		var style = { height, width, boxSizing: "border-box" };
+		// border-box allows element to account for padding and border
+		// when calculating/using `height` and `width` style properties.
+		return (
+			<div id="microscopy-app-container" style={style}>
+				{ this.props.children }
 			</div>
 		);
 	}
+
 }
 
 App.propTypes = {

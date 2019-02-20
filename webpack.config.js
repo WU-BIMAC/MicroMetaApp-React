@@ -1,26 +1,25 @@
 const path = require("path");
 const env = process.env.NODE_ENV;
 
-// Todo: Fill with appropriate ones (minify, uglify) depending
-// on value of 'env'. Then consume.
-var plugins = [],
-	mode = env === "production" ? "production" : "development";
+/**
+ * @todo
+ * Fill with appropriate ones such as minify plugin
+ * depending on value of 'env' & consume.
+ */
+const plugins = [];
+const mode = env === "production" ? "production" : "development";
+
 
 module.exports = {
 	// Entry point to our code. This index.js (or other-name)
 	// file/module should export the MicroscropyApp Component
 	mode: mode,
-	entry: "./src/index.js", 
+	entry: "./src/app.js", 
 	output: {
-		library: "MicroscopyTool",
+		library: "MicroscopeApp", // Unsure if best naming convention
 		libraryTarget: "umd",
-		// I think this 'library' & 'libraryTarget' setting(s), at least in earlier version of webpack,
-		// should make the "MicroscopyApp" component,
-		// or whatever component is exported from "./src/index.js" (or other file),
-		// globally available in browser context (via attaching it to global window object),
-		// e.g. accessible from aforementioned index.html page / script.
 		path: path.resolve("./dist"),
-		filename: "microscopeApp.js"
+		filename: mode === "production" ? "microscope-app.min.js" : "microscope-app.dev.js"
 	},
 	module: {
 		rules: [
@@ -41,7 +40,6 @@ module.exports = {
 		]
 	},
 	externals: {
-		// Things which we don't transpile and expect user of library/component to have or provide.
 		"react" : {
 			"commonjs": "react",
 			"commonjs2" : "react",
