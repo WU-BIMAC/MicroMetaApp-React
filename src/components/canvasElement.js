@@ -4,7 +4,7 @@ import { Resizable, ResizableBox } from "react-resizable";
 
 import "react-resizable/css/styles.css";
 
-export class CanvasElement extends React.PureComponent {
+export class CanvasElement extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,7 +19,10 @@ export class CanvasElement extends React.PureComponent {
 
 	render() {
 		if (this.state.editing) {
-			return <SchemaForm schema={this.props.schema} id={this.props.id} onSubmit={this.props.onSubmit}/>;
+			return (
+				<SchemaForm schema={this.props.schema} id={this.props.id} onSubmit={this.props.onSubmit}
+					overlaysContainer={this.props.overlaysContainer} />
+			);
 		}
 
 		const style = {

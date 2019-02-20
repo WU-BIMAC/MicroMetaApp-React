@@ -7,7 +7,6 @@ export class SchemaForm extends React.PureComponent {
 		super(props);
 		this.state = {
 			schema: props.schema
-			//formData : null
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -31,6 +30,24 @@ export class SchemaForm extends React.PureComponent {
 	render() {
 		//var fullSchema = transform(this.props.schema);
 
+		return (
+			<ModalWindow overlaysContainer={this.props.overlaysContainer}>
+				<Form
+					schema={this.state.schema}
+					onChange={this.onChange}
+					onSubmit={this.onSubmit}
+					onError={this.onError}
+				/>
+			</ModalWindow>
+		);
+	}
+}
+
+/**
+ * @todo Own file.
+ */
+export class ModalWindow extends React.PureComponent {
+	render(){
 		return ReactDOM.createPortal(
 			<div
 				style={{
@@ -39,7 +56,7 @@ export class SchemaForm extends React.PureComponent {
 					top: 0,
 					bottom: 0,
 					right: 0,
-					backgroundColor: "rgba(0,0,0,0.1)",
+					backgroundColor: "rgba(0,0,0,0.33)",
 					display: "flex",
 					alignItems: "center"
 				}}
@@ -50,18 +67,17 @@ export class SchemaForm extends React.PureComponent {
 						marginLeft: "auto",
 						marginRight: "auto",
 						backgroundColor: "#fff",
-						height: "80%"
+						height: "80%",
+						padding: 10,
+						borderRadius: 5,
+						boxShadow: "0 1px 6px -2px #000"
 					}}
 				>
-					<Form
-						schema={this.state.schema}
-						onChange={this.onChange}
-						onSubmit={this.onSubmit}
-						onError={this.onError}
-					/>
+					{ this.props.children }
 				</div>
 			</div>,
-			document.getElementById("overlays")
+			this.props.overlaysContainer
 		);
 	}
 }
+

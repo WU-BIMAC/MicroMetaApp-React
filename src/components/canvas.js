@@ -19,7 +19,7 @@ export class Canvas extends React.PureComponent {
 			if (elementData[id] === data) {
 				return null;
 			} else {
-				elementData = Object.clone(elementData);
+				elementData = Object.assign({}, elementData);
 				elementData[id] = data;
 				return { elementData };
 			}
@@ -48,8 +48,8 @@ export class Canvas extends React.PureComponent {
 					position: "absolute",
 					top: e.y,
 					left: e.x,
-					width: "50",
-					height: "50"
+					width: 50,
+					height: 50
 				}
 			};
 			newElementList.push(newElement);
@@ -63,8 +63,8 @@ export class Canvas extends React.PureComponent {
 					position: "absolute",
 					top: e.y,
 					left: e.x,
-					width: "50",
-					height: "50"
+					width: 50,
+					height: 50
 				}
 			};
 			newElementList[sourceElement.index] = newElement;
@@ -101,6 +101,7 @@ export class Canvas extends React.PureComponent {
 						id={item.id}
 						schema={item.schema}
 						onSubmit={this.onCanvasElementDataSubmit}
+						overlaysContainer={this.props.overlaysContainer}
 					/>
 				</DragDropContainer>
 			</div>
