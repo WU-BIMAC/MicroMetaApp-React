@@ -12,13 +12,24 @@ export default class App extends React.PureComponent {
 		super(props);
 		this.toolbarRef = React.createRef();
 		this.canvasRef = React.createRef();
+
+		/**
+		 * This ref does not have 'current' until App has been mounted.
+		 * Because App is a PureComponent which doesn't get updated unless
+		 * state or props change, we need to have at least one state or prop change
+		 * occur before `this.overlaysContainerRef.current` is passed down correctly
+		 * to child Components (and not be null or undefined). This is currently done via
+		 * schema being null initially and then updated via 'Load Schema' button, but since
+		 * this prop is optional, we implement the componentDidMount func below.
+		 */
 		this.overlaysContainerRef = React.createRef();
 
 		this.handleCompleteOpenNewSchema = this.handleCompleteOpenNewSchema.bind(this);
 		this.handleOpenNewSchema = this.handleOpenNewSchema.bind(this);
 
 		this.state = {
-			schema: props.schema || null
+			schema: props.schema || null,
+			mounted: false
 		};
 	}
 
@@ -27,6 +38,17 @@ export default class App extends React.PureComponent {
 			return { schema: props.schema };
 		}
 		return null;
+	}
+
+	componentDidMount(){
+		/**
+		 * We may not have access to window/document until Component has been mounted,
+		 * esp. if server-side rendering is utilized. One common approach is to set state
+		 * mounted=true and then only do things which require access to window (e.g. binding browser window
+		 * resize event listener (if required for some reason)) or accessing window properties.
+		 * This method is very similar to constructor in purpose.
+		 */
+		this.setState({ "mounted" : true });
 	}
 
 	handleOpenNewSchema(e) {
