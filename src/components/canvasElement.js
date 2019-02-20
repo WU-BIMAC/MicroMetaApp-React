@@ -1,12 +1,27 @@
 import React from "react";
+import { SchemaForm } from "./schemaForm";
 import { Resizable, ResizableBox } from "react-resizable";
 
 import "react-resizable/css/styles.css";
 
 export class CanvasElement extends React.PureComponent {
+	constructor(props) {
+		super(props);
+		this.state = {
+			editing: false
+		};
+		this.onClick = this.onClick.bind(this);
+	}
+
+	onClick() {
+		this.setState({ editing: true });
+	}
+
 	render() {
-		// eslint-disable-next-line no-console
-		console.log("testCanvasElement");
+		if (this.state.editing) {
+			return <SchemaForm schema={this.props.schema} id={this.props.id} onSubmit={this.props.onSubmit}/>;
+		}
+
 		const style = {
 			backgroundColor: "grey",
 			textAlign: "center",
@@ -21,7 +36,7 @@ export class CanvasElement extends React.PureComponent {
 				maxConstraints={[this.props.maxWidth, this.props.maxHeight]}
 				lockAspectRatio={true}
 			>
-				<button style={style} onClick={this.props.onClick}>
+				<button style={style} onClick={this.onClick}>
 					{this.props.text}
 				</button>
 			</ResizableBox>

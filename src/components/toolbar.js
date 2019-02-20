@@ -14,7 +14,8 @@ export class Toolbar extends React.PureComponent {
 			if (!obj.canBeInstanced) continue;
 			let element = {
 				text: `${obj.title}`,
-				id: `${i}`
+				id: `${i}`,
+				schema: obj
 			};
 			this.state.elementList.push(element);
 		}
@@ -27,7 +28,12 @@ export class Toolbar extends React.PureComponent {
 				targetKey="dragdrop"
 				key={"draggable" + item.id}
 				dragClone={true}
-				dragData={{ source: "toolbar", text: item.text, id: item.id }}
+				dragData={{
+					source: "toolbar",
+					text: item.text,
+					id: item.id,
+					schema: item.schema
+				}}
 			>
 				<ToolbarElement text={item.text} id={item.id} />
 			</DragDropContainer>

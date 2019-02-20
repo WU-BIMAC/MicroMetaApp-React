@@ -6,10 +6,24 @@ export class Canvas extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			elementList: []
+			elementList: [],
+			elementData : {}
 		};
 		this.landedOn = this.landedOn.bind(this);
 		this.dropped = this.dropped.bind(this);
+		this.onCanvasElementDataSubmit = this.onCanvasElementDataSubmit.bind(this);
+	} 
+
+	onCanvasElementDataSubmit(id, data){
+		this.setState(({ elementData })=>{
+			if (elementData[id] === data){
+				return null;
+			} else {
+				elementData = Object.clone(elementData);
+				elementData[id] = data;
+				return { elementData };
+			}
+		})
 	}
 
 	landedOn(e) {
@@ -29,6 +43,7 @@ export class Canvas extends React.PureComponent {
 					"_" +
 					newElementList.length,
 				id: sourceElement.id + "_" + newElementList.length,
+				schema: sourceElement.schema,
 				style: {
 					position: "absolute",
 					top: e.y,
@@ -43,6 +58,7 @@ export class Canvas extends React.PureComponent {
 			let newElement = {
 				text: item.text,
 				id: item.id,
+				schema: item.schema,
 				style: {
 					position: "absolute",
 					top: e.y,
@@ -52,8 +68,6 @@ export class Canvas extends React.PureComponent {
 				}
 			};
 			newElementList[sourceElement.index] = newElement;
-			// eslint-disable-next-line no-console
-			console.log(item.style);
 		}
 		this.setState({
 			elementList: newElementList
@@ -62,10 +76,6 @@ export class Canvas extends React.PureComponent {
 
 	createList() {
 		let elementList = this.state.elementList;
-		// eslint-disable-next-line no-console
-		console.log("render");
-		// eslint-disable-next-line no-console
-		console.log(elementList);
 		const style = {
 			fontSize: "14px",
 			fontWeight: "bold",
@@ -86,7 +96,7 @@ export class Canvas extends React.PureComponent {
 					<span className="grabber" style={style}>
 						&#8759;
 					</span>
-					<CanvasElement text={item.text} id={item.id} />
+					<CanvasElement text={item.text} id={item.id} schema={item.schema} onSubmit={this.onCanvasElementDataSubmit} />
 				</DragDropContainer>
 			</div>
 		));
@@ -95,7 +105,9 @@ export class Canvas extends React.PureComponent {
 
 	render() {
 		//FIXME this should come from props later
-		const imageFilePath = `${this.props.imagesPath}Microscope_with_Knobs_BackPort_Fluorescence_Beam.png`;
+		const imageFilePath = `${
+			this.props.imagesPath
+		}Microscope_with_Knobs_BackPort_Fluorescence_Beam.png`;
 		const style = {
 			container: {
 				height: "90vh",
