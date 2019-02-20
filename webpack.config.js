@@ -10,7 +10,7 @@ module.exports = {
 	// Entry point to our code. This index.js (or other-name)
 	// file/module should export the MicroscropyApp Component
 	mode: mode,
-	entry: "./src/index.js", 
+	entry: "./src/index.js",
 	output: {
 		library: "MicroscopyTool",
 		libraryTarget: "umd",
@@ -33,26 +33,23 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				use: [
-					"style-loader",
-					"css-loader"
-				]
+				use: ["style-loader", "css-loader"]
 			}
 		]
 	},
 	externals: {
 		// Things which we don't transpile and expect user of library/component to have or provide.
-		"react" : {
-			"commonjs": "react",
-			"commonjs2" : "react",
-			"amd" : "react",
-			"root" : "React"
+		react: {
+			commonjs: "react",
+			commonjs2: "react",
+			amd: "react",
+			root: "React"
 		},
-		"react-dom" : {
-			"commonjs": "react-dom",
-			"commonjs2" : "react-dom",
-			"amd" : "react-dom",
-			"root" : "ReactDOM"
+		"react-dom": {
+			commonjs: "react-dom",
+			commonjs2: "react-dom",
+			amd: "react-dom",
+			root: "ReactDOM"
 		}
 	}
 };

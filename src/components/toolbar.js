@@ -44,10 +44,10 @@ export class Toolbar extends React.PureComponent {
 	render() {
 		const style = {
 			//display: "inline-block",
+			boxSizing: "border-box",
 			backgroundColor: "grey",
 			textAlign: "center",
 			verticalAlign: "middle",
-			height: "90vh",
 			borderBottom: "2px solid",
 			borderTop: "2px solid",
 			//border: "3px solid",

@@ -7,23 +7,23 @@ export class Canvas extends React.PureComponent {
 		super(props);
 		this.state = {
 			elementList: [],
-			elementData : {}
+			elementData: {}
 		};
 		this.landedOn = this.landedOn.bind(this);
 		this.dropped = this.dropped.bind(this);
 		this.onCanvasElementDataSubmit = this.onCanvasElementDataSubmit.bind(this);
-	} 
+	}
 
-	onCanvasElementDataSubmit(id, data){
-		this.setState(({ elementData })=>{
-			if (elementData[id] === data){
+	onCanvasElementDataSubmit(id, data) {
+		this.setState(({ elementData }) => {
+			if (elementData[id] === data) {
 				return null;
 			} else {
 				elementData = Object.clone(elementData);
 				elementData[id] = data;
 				return { elementData };
 			}
-		})
+		});
 	}
 
 	landedOn(e) {
@@ -96,7 +96,12 @@ export class Canvas extends React.PureComponent {
 					<span className="grabber" style={style}>
 						&#8759;
 					</span>
-					<CanvasElement text={item.text} id={item.id} schema={item.schema} onSubmit={this.onCanvasElementDataSubmit} />
+					<CanvasElement
+						text={item.text}
+						id={item.id}
+						schema={item.schema}
+						onSubmit={this.onCanvasElementDataSubmit}
+					/>
 				</DragDropContainer>
 			</div>
 		));
@@ -110,7 +115,6 @@ export class Canvas extends React.PureComponent {
 		}Microscope_with_Knobs_BackPort_Fluorescence_Beam.png`;
 		const style = {
 			container: {
-				height: "90vh",
 				borderBottom: "2px solid",
 				borderTop: "2px solid",
 				borderRight: "2px solid",
