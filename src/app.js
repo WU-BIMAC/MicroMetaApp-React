@@ -55,7 +55,7 @@ export default class App extends React.PureComponent {
 
 		const style = {
 			display: "flex",
-			height: width - 60 - 40 // 60px header 40px footer
+			height: height - 60 - 40 // 60px header 40px footer
 		};
 
 		//TODO with this strategy i can create multiple views
