@@ -1,21 +1,26 @@
 [
 	{
 		"$schema": "http://json-schema.org/draft-07/schema",
-		"id": "Vehicle.json",
-		"type": "object",
-		"title": "Vehicle",
-		"description": "A vehicle is used for transportation.",
-		"properties": {
-			"registrationNumber": {
-				"type": "integer",
-				"description": "The registration number of the vehicle."
-			},
-			"owner": {
-				"type": "string",
-				"description": "The owner of the vehicle."
+		"id": "Common.json",
+		"definitions": {
+			"vehicle": {
+				"id": "Vehicle.json",
+				"type": "object",
+				"title": "Vehicle",
+				"description": "A vehicle is used for transportation.",
+				"properties": {
+					"registrationNumber": {
+						"type": "integer",
+						"description": "The registration number of the vehicle."
+					},
+					"owner": {
+						"type": "string",
+						"description": "The owner of the vehicle."
+					}
+				},
+				"required": ["registrationNumber", "owner"]
 			}
-		},
-		"required": ["registrationNumber", "owner"]
+		}
 	},
 	{
 		"$schema": "http://json-schema.org/draft-07/schema",
@@ -26,7 +31,7 @@
 		"canBeInstanced": true,
 		"allOf": [
 			{
-				"$ref": "schema/Vehicle"
+				"$ref": "Common.json#/definitions/vehicle"
 			},
 			{
 				"properties": {
@@ -48,7 +53,7 @@
 		"canBeInstanced": true,
 		"allOf": [
 			{
-				"$ref": "schema/Vehicle"
+				"$ref": "Common.json#/definitions/vehicle"
 			},
 			{
 				"properties": {
