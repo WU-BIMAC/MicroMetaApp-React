@@ -30,6 +30,8 @@ export class SchemaForm extends React.PureComponent {
 	render() {
 		//var fullSchema = transform(this.props.schema);
 
+		// Maybe ModalWindow could wrap entire <SchemaForm> (in CanvasElement render method)
+		// instead of being rendered by <SchemaForm> if SchemaForm could be later used in other places.
 		return (
 			<ModalWindow overlaysContainer={this.props.overlaysContainer}>
 				<Form

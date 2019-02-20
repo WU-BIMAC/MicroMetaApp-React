@@ -4,7 +4,7 @@ import { Resizable, ResizableBox } from "react-resizable";
 
 import "react-resizable/css/styles.css";
 
-export class CanvasElement extends React.Component {
+export class CanvasElement extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
