@@ -23,6 +23,7 @@ export class Toolbar extends React.PureComponent {
 
 	createList() {
 		let elementList = this.state.elementList;
+
 		let droppableElement = elementList.map((item, index) => (
 			<DragDropContainer
 				targetKey="dragdrop"
@@ -30,12 +31,15 @@ export class Toolbar extends React.PureComponent {
 				dragClone={true}
 				dragData={{
 					source: "toolbar",
-					text: item.text,
 					id: item.id,
 					schema: item.schema
 				}}
 			>
-				<ToolbarElement text={item.text} id={item.id} />
+				<ToolbarElement
+					id={item.id}
+					image={`${this.props.imagesPath}${item.schema.image}`}
+					name={item.schema.title}
+				/>
 			</DragDropContainer>
 		));
 		return droppableElement;

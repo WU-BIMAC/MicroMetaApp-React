@@ -113,7 +113,11 @@ export default class App extends React.PureComponent {
 						imagesPath={imagesPath}
 						overlaysContainer={this.overlaysContainerRef.current}
 					/>
-					<Toolbar ref={this.toolbarRef} schema={schema} />
+					<Toolbar
+						ref={this.toolbarRef}
+						imagesPath={imagesPath}
+						schema={schema}
+					/>
 				</div>
 				<Footer />
 			</AppContainer>
