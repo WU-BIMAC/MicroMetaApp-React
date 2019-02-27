@@ -1,6 +1,24 @@
 [
 	{
 		"$schema": "http://json-schema.org/draft-07/schema",
+		"id": "GenericMirror.json",
+		"type": "object",
+		"title": "GenericMirror",
+		"description": "A generic mirror.",
+		"category": "generic",
+		"image": "GenericMirror.png",
+		"tier": 2,
+		"properties": {
+			"name": {
+				"type": "string",
+				"description": "The name of this component.",
+				"tier": 3,
+				"category": "generic"
+			}
+		}
+	},
+	{
+		"$schema": "http://json-schema.org/draft-07/schema",
 		"id": "AutoFocus.json",
 		"type": "object",
 		"title": "AutoFocus",

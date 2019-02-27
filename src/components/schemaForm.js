@@ -1,17 +1,47 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Form from "react-jsonschema-form";
+import Tabs, { TabPane } from "rc-tabs";
+import TabContent from "rc-tabs/lib/TabContent";
+import ScrollableTabBar from "rc-tabs/lib/TabBar";
+import "rc-tabs/assets/index.css";
 
 export class SchemaForm extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			schema: props.schema
+			activeKey: "0"
 		};
+
+		this.buttons = [];
+		this.formRefs = [];
+		this.data = [];
+		this.errors = [];
 
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onError = this.onError.bind(this);
+		this.onTabChange = this.onTabChange.bind(this);
+
+		this.onConfirm = this.onConfirm.bind(this);
+		this.onCancel = this.onCancel.bind(this);
+
+		this.createForms = this.createForms.bind(this);
+
+		this.processData = this.processData.bind(this);
+		this.processErrors = this.processErrors.bind(this);
+
+		//this.revalidateForm = this.revalidateForm.bind(this);
+
+		this.partialSchema = this.transformSchema(this.props.schema);
+		this.partialInputData = [];
+		if (this.props.inputData !== undefined) {
+			this.partialInputData = this.transformInputData(
+				this.props.inputData,
+				this.partialSchema
+			);
+		}
+		this.forms = this.createForms();
 	}
 
 	componentWillUnmount() {}
@@ -19,24 +49,176 @@ export class SchemaForm extends React.PureComponent {
 	onChange() {}
 
 	onSubmit(data) {
-		this.props.onSubmit(this.props.id, data);
+		let currentData = this.data.slice();
+		let currentErrors = this.errors.slice();
+		currentData.push(data);
+		currentErrors.push(null);
+		this.data = currentData;
+		this.errors = currentErrors;
+		this.processData();
 	}
 
-	onError() {}
+	onError(errors) {
+		let currentData = this.data.slice();
+		let currentErrors = this.errors.slice();
+		currentData.push(null);
+		currentErrors.push(errors);
+		this.data = currentData;
+		this.errors = currentErrors;
+		this.processErrors();
+	}
 
-	render() {
-		//var fullSchema = transform(this.props.schema);
+	processData() {
+		let currentData = this.data;
+		let numberOfForms = this.formRefs.length;
+		if (currentData.length < numberOfForms) return;
+		let consolidatedData = this.transformOutputData(currentData);
+		this.props.onConfirm(this.props.id, consolidatedData);
+	}
 
+	processErrors() {
+		let currentErrors = this.errors;
+		let numberOfForms = this.formRefs.length;
+		if (currentErrors.length < numberOfForms) return;
+		for (let i = 0; i < currentErrors.length; i++) {
+			if (currentErrors[i] !== null) {
+				this.setState({ activeKey: `${i}` });
+				return;
+			}
+		}
+	}
+
+	onConfirm() {
+		let localForms = this.formRefs;
+		this.data = [];
+		this.errors = [];
+		for (let i = 0; i < localForms.length; i++) {
+			let ref = localForms[i];
+			ref.submit();
+		}
+	}
+
+	onCancel() {
+		this.props.onCancel();
+	}
+
+	transformOutputData(data) {
+		let consolidatedData = {};
+		data.map(item => {
+			Object.keys(item.formData).forEach(key => {
+				consolidatedData[key] = item.formData[key];
+			});
+		});
+		return consolidatedData;
+	}
+
+	transformInputData(inputData, partialSchema) {
+		let partialInputData = [];
+		Object.keys(partialSchema).forEach(key => {
+			if (partialInputData[key] === undefined) partialInputData[key] = {};
+			Object.keys(partialSchema[key].properties).forEach(propKey => {
+				partialInputData[key][propKey] = inputData[propKey];
+			});
+		});
+		return partialInputData;
+	}
+
+	transformSchema(schema) {
+		let partialSchema = [];
+		Object.keys(schema.properties).forEach(key => {
+			let category = schema.properties[key].category;
+			let keysForCategory = partialSchema[category];
+			if (keysForCategory === undefined || keysForCategory === null) {
+				keysForCategory = { properties: {} };
+			}
+			keysForCategory.properties[key] = schema.properties[key];
+			partialSchema[category] = keysForCategory;
+		});
+		Object.keys(partialSchema).forEach(key => {
+			partialSchema[key]["title"] = key;
+			partialSchema[key]["type"] = "object";
+			let required = [];
+			Object.keys(partialSchema[key].properties).forEach(propKey => {
+				required.push(propKey);
+			});
+			partialSchema[key]["required"] = required;
+		});
+		return partialSchema;
+	}
+
+	createUISchema() {
+		// ui: readonly
+		// for fields that should not be modified
+		// and hidden for tier above current tier
+	}
+
+	createForms() {
 		// Maybe ModalWindow could wrap entire <SchemaForm> (in CanvasElement render method)
 		// instead of being rendered by <SchemaForm> if SchemaForm could be later used in other places.
+		let currentButtons = [];
+		let currentFormRefs = [];
+		const currentForms = Object.keys(this.partialSchema).map((item, index) => (
+			<Form
+				schema={this.partialSchema[item]}
+				onChange={this.onChange}
+				onSubmit={this.onSubmit}
+				onError={this.onError}
+				formData={this.partialInputData[item]}
+				showErrorList={false}
+				ref={form => {
+					currentFormRefs[index] = form;
+				}}
+				style={{ overflow: "hidden" }}
+			>
+				<button
+					ref={btn => {
+						currentButtons[index] = btn;
+					}}
+					style={{ display: "none" }}
+				/>
+			</Form>
+		));
+		this.buttons = currentButtons;
+		this.formRefs = currentFormRefs;
+		return currentForms;
+	}
+
+	onTabChange(key) {
+		this.setState({
+			activeKey: key
+		});
+	}
+	//Around tabs
+	//<div style={{ overflow: "scroll", height: "90%" }} />
+	//<div />
+	render() {
+		let forms = this.forms;
 		return (
 			<ModalWindow overlaysContainer={this.props.overlaysContainer}>
-				<Form
-					schema={this.state.schema}
-					onChange={this.onChange}
-					onSubmit={this.onSubmit}
-					onError={this.onError}
-				/>
+				<div>
+					<Tabs
+						onChange={this.onTabChange}
+						renderTabBar={() => <ScrollableTabBar />}
+						renderTabContent={() => <TabContent animatedWithMargin />}
+						activeKey={this.state.activeKey}
+					>
+						{Object.keys(this.partialSchema).map((item, index) => (
+							<TabPane tab={item} key={index} forceRender={true}>
+								{forms[index]}
+							</TabPane>
+						))}
+					</Tabs>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							justifyContent: "center"
+						}}
+					>
+						<button onClick={this.onConfirm}>Confirm</button>
+						<button onClick={this.onCancel}>Cancel</button>
+					</div>
+				</div>
 			</ModalWindow>
 		);
 	}

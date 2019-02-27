@@ -1,30 +1,31 @@
 import React from "react";
-import { ToolbarElement } from "./toolbarElement";
+import { ImageElement } from "./imageElement";
+import Collapsible from "react-collapsible";
 import { DragDropContainer } from "react-drag-drop-container";
 
 export class Toolbar extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			elementList: []
+			elementList: {}
 		};
-
 		for (let i = 0; i < props.schema.length; i++) {
 			let obj = props.schema[i];
-			if (!obj.canBeInstanced) continue;
+			let category = obj.category;
 			let element = {
-				text: `${obj.title}`,
 				id: `${i}`,
 				schema: obj
 			};
-			this.state.elementList.push(element);
+			if (this.state.elementList[category] === undefined) {
+				this.state.elementList[category] = [];
+			}
+			this.state.elementList[category].push(element);
 		}
 	}
 
-	createList() {
+	createCategoryItems(key) {
 		let elementList = this.state.elementList;
-
-		let droppableElement = elementList.map((item, index) => (
+		let categoryItems = elementList[key].map(item => (
 			<DragDropContainer
 				targetKey="dragdrop"
 				key={"draggable" + item.id}
@@ -35,14 +36,28 @@ export class Toolbar extends React.PureComponent {
 					schema: item.schema
 				}}
 			>
-				<ToolbarElement
+				<ImageElement
 					id={item.id}
 					image={`${this.props.imagesPath}${item.schema.image}`}
 					name={item.schema.title}
 				/>
 			</DragDropContainer>
 		));
-		return droppableElement;
+		return <div style={{ flexWrap: "wrap" }}>{categoryItems}</div>;
+	}
+
+	createCategories() {
+		let elementList = this.state.elementList;
+		let toolbar = [];
+		Object.keys(elementList).forEach(key =>
+			toolbar.push(
+				<Collapsible key={key} trigger={key}>
+					{this.createCategoryItems(key)}
+				</Collapsible>
+			)
+		);
+		//console.log(toolbar);
+		return toolbar;
 	}
 
 	render() {
@@ -66,9 +81,10 @@ export class Toolbar extends React.PureComponent {
 			width: "25%", // For OLD syntax, otherwise collapses.
 			msFlex: "1", // TWEENER - IE 10
 			WebkitFlex: "1", // NEW - Chrome
-			flex: "1" // NEW, Spec - Opera 12.1, Firefox 20+
+			flex: "1", // NEW, Spec - Opera 12.1, Firefox 20+
+			OverflowEvent: "hidden"
 		};
-		let droppableElement = this.createList();
-		return <div style={style}>{droppableElement}</div>;
+		let toolbar = this.createCategories();
+		return <div style={style}>{toolbar}</div>;
 	}
 }

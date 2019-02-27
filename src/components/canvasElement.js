@@ -1,4 +1,5 @@
 import React from "react";
+import { ImageElement } from "./imageElement";
 import { SchemaForm } from "./schemaForm";
 import { Resizable, ResizableBox } from "react-resizable";
 
@@ -11,42 +12,52 @@ export class CanvasElement extends React.PureComponent {
 			editing: false
 		};
 		this.onClick = this.onClick.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
+
+		this.onConfirm = this.onConfirm.bind(this);
+		this.onCancel = this.onCancel.bind(this);
 	}
 
 	onClick() {
 		this.setState({ editing: true });
 	}
 
-	onSubmit(id, data) {
-		//TODO transform results to do what i need to do
+	onConfirm(id, data) {
 		this.setState({ editing: false });
-		// eslint-disable-next-line no-console
-		console.log(data);
-		this.props.onSubmit(id, data);
+		//TODO should i update the data here ? or through props ?
+		this.props.onConfirm(id, data);
+	}
+
+	onCancel() {
+		this.setState({ editing: false });
 	}
 
 	render() {
 		if (this.state.editing) {
 			//TODO transform schema to fit SchemaForm (multiple different schema per object)
-			let currentSchema = this.props.schema;
-			// eslint-disable-next-line no-console
-			console.log(currentSchema);
 			return (
 				<SchemaForm
 					schema={this.props.schema}
+					inputData={this.props.inputData}
 					id={this.props.id}
-					onSubmit={this.onSubmit}
+					onConfirm={this.onConfirm}
+					onCancel={this.onCancel}
 					overlaysContainer={this.props.overlaysContainer}
 				/>
 			);
 		}
 
 		const style = {
-			backgroundColor: "grey",
 			textAlign: "center",
 			height: "100%",
-			width: "100%"
+			width: "100%",
+			display: "flex", // NEW, Spec - Opera 12.1, Firefox 20+
+			justifyContent: "center",
+			backgroundColor: "transparent",
+			padding: "0",
+			border: "none",
+			font: "14px",
+			color: "inherit",
+			cursor: "pointer"
 		};
 		return (
 			<ResizableBox
@@ -57,7 +68,10 @@ export class CanvasElement extends React.PureComponent {
 				lockAspectRatio={true}
 			>
 				<button style={style} onClick={this.onClick}>
-					{this.props.text}
+					<ImageElement
+						image={this.props.image}
+						name={this.props.schema.title}
+					/>
 				</button>
 			</ResizableBox>
 		);
@@ -74,3 +88,22 @@ CanvasElement.defaultProps = {
 		console.log("Clicked!", e.clientX, e.clientY);
 	}
 };
+
+export class CanvasElementDeleteButton extends React.PureComponent {
+	constructor(props) {
+		super(props);
+		this.onClick = this.onClick.bind(this);
+	}
+
+	onClick() {
+		this.props.onDelete(this.props.index);
+	}
+
+	render() {
+		return (
+			<button type="button" onClick={this.onClick} style={this.props.myStyle}>
+				x
+			</button>
+		);
+	}
+}
