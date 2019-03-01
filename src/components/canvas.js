@@ -9,9 +9,18 @@ export default class Canvas extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
+			microscopeSchema: null,
 			elementList: [],
 			elementData: {}
 		};
+		for (let i = 0; i < props.schema.length; i++) {
+			let obj = props.schema[i];
+			if (obj.title !== "Microscope") continue;
+			this.state.microscopeSchema = {
+				id: `${obj.title}`,
+				schema: obj
+			};
+		}
 		this.landedOn = this.landedOn.bind(this);
 		this.dropped = this.dropped.bind(this);
 		this.onDelete = this.onDelete.bind(this);
@@ -147,9 +156,9 @@ export default class Canvas extends React.PureComponent {
 
 	render() {
 		//FIXME this should come from props later
-		const imageFilePath = `${
-			this.props.imagesPath
-		}Microscope_with_Knobs_BackPort_Fluorescence_Beam.png`;
+		const imageFilePath = `${this.props.imagesPath}${
+			this.state.microscopeSchema.schema.image
+		}`;
 		const styleContainer = {
 			borderBottom: "2px solid",
 			borderTop: "2px solid",

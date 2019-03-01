@@ -13,6 +13,7 @@ export default class Toolbar extends React.PureComponent {
 		};
 		for (let i = 0; i < props.schema.length; i++) {
 			let obj = props.schema[i];
+			if (obj.title === "Microscope") continue;
 			let category = obj.category;
 			let element = {
 				id: `${obj.title}-${i}`,

@@ -239,6 +239,7 @@ export default class App extends React.PureComponent {
 					<Canvas
 						ref={this.canvasRef}
 						imagesPath={imagesPath}
+						schema={schema}
 						updateElementData={this.updateElementData}
 						overlaysContainer={this.overlaysContainerRef.current}
 					/>
