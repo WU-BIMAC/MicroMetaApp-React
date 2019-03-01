@@ -61,7 +61,7 @@
 				"type": "string",
 				"description": "The type of auto-focus.",
 				"tier": 4,
-				"category": "autoFocus"
+				"category": "microscope"
 			}
 		}
 	},

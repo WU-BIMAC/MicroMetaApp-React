@@ -4,7 +4,7 @@ import { Resizable } from "react-resizable";
 import { ResizableBox } from "react-resizable";
 
 import ImageElement from "./imageElement";
-import SchemaForm from "./schemaForm";
+import MultiTabFormWithHeader from "./multiTabFormWithHeader";
 
 export default class CanvasElement extends React.PureComponent {
 	constructor(props) {
@@ -34,7 +34,7 @@ export default class CanvasElement extends React.PureComponent {
 	render() {
 		if (this.state.editing) {
 			return (
-				<SchemaForm
+				<MultiTabFormWithHeader
 					schema={this.props.schema}
 					inputData={this.props.inputData}
 					id={this.props.id}

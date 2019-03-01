@@ -5,8 +5,9 @@ import Tabs, { TabPane } from "rc-tabs";
 import TabContent from "rc-tabs/lib/TabContent";
 import ScrollableTabBar from "rc-tabs/lib/TabBar";
 import "rc-tabs/assets/index.css";
+import Button from "react-bootstrap/Button";
 
-export default class SchemaForm extends React.PureComponent {
+export default class MultiTabFormWithHeader extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -191,11 +192,17 @@ export default class SchemaForm extends React.PureComponent {
 	//Around tabs
 	//<div style={{ overflow: "scroll", height: "90%" }} />
 	//<div />
+
 	render() {
+		const styleButton = {
+			width: "200px"
+		};
 		let forms = this.forms;
 		return (
 			<ModalWindow overlaysContainer={this.props.overlaysContainer}>
 				<div>
+					<div>{this.props.schema.title}</div>
+					<div>{this.props.schema.description}</div>
 					<Tabs
 						onChange={this.onTabChange}
 						renderTabBar={() => <ScrollableTabBar />}
@@ -215,8 +222,12 @@ export default class SchemaForm extends React.PureComponent {
 							justifyContent: "center"
 						}}
 					>
-						<button onClick={this.onConfirm}>Confirm</button>
-						<button onClick={this.onCancel}>Cancel</button>
+						<Button style={styleButton} size="lg" onClick={this.onConfirm}>
+							Confirm
+						</Button>
+						<Button style={styleButton} size="lg" onClick={this.onCancel}>
+							Cancel
+						</Button>
 					</div>
 				</div>
 			</ModalWindow>

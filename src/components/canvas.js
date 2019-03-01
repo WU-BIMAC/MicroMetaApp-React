@@ -9,18 +9,9 @@ export default class Canvas extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			microscopeSchema: null,
 			elementList: [],
 			elementData: {}
 		};
-		for (let i = 0; i < props.schema.length; i++) {
-			let obj = props.schema[i];
-			if (obj.title !== "Microscope") continue;
-			this.state.microscopeSchema = {
-				id: `${obj.title}`,
-				schema: obj
-			};
-		}
 		this.landedOn = this.landedOn.bind(this);
 		this.dropped = this.dropped.bind(this);
 		this.onDelete = this.onDelete.bind(this);
@@ -120,52 +111,52 @@ export default class Canvas extends React.PureComponent {
 			display: "flex",
 			justifyContent: "space-between"
 		};
-		let droppableElement = elementList.map((item, index) => (
-			<div style={item.style} key={"draggableWrapper" + index}>
-				<DragDropContainer
-					targetKey="canvas"
-					key={"draggable" + index}
-					dragClone={false}
-					dragData={{ source: "canvas", index: index }}
-					onDrop={this.landedOn}
-					dragHandleClassName="grabber"
-				>
-					<div style={styleContainer}>
-						<div className="grabber" style={styleGrabber}>
-							&#8759;
+		let droppableElement = [];
+		elementList.map((item, index) =>
+			droppableElement.push(
+				<div style={item.style} key={"draggableWrapper" + index}>
+					<DragDropContainer
+						targetKey="canvas"
+						key={"draggable" + index}
+						dragClone={false}
+						dragData={{ source: "canvas", index: index }}
+						onDrop={this.landedOn}
+						dragHandleClassName="grabber"
+					>
+						<div style={styleContainer}>
+							<div className="grabber" style={styleGrabber}>
+								&#8759;
+							</div>
+							<CanvasElementDeleteButton
+								index={index}
+								onDelete={this.onDelete}
+								myStyle={styleCloser}
+							/>
 						</div>
-						<CanvasElementDeleteButton
-							index={index}
-							onDelete={this.onDelete}
-							myStyle={styleCloser}
+						<CanvasElement
+							id={item.id}
+							image={`${this.props.imagesPath}${item.schema.image}`}
+							schema={item.schema}
+							onConfirm={this.onCanvasElementDataSave}
+							overlaysContainer={this.props.overlaysContainer}
+							inputData={elementData[item.id]}
 						/>
-					</div>
-					<CanvasElement
-						id={item.id}
-						image={`${this.props.imagesPath}${item.schema.image}`}
-						schema={item.schema}
-						onConfirm={this.onCanvasElementDataSave}
-						overlaysContainer={this.props.overlaysContainer}
-						inputData={elementData[item.id]}
-					/>
-				</DragDropContainer>
-			</div>
-		));
+					</DragDropContainer>
+				</div>
+			)
+		);
 		return droppableElement;
 	}
 
 	render() {
 		//FIXME this should come from props later
-		const imageFilePath = `${this.props.imagesPath}${
-			this.state.microscopeSchema.schema.image
-		}`;
 		const styleContainer = {
 			borderBottom: "2px solid",
 			borderTop: "2px solid",
 			borderRight: "2px solid",
 			color: "black",
 			width: "75%",
-			backgroundImage: `url(${imageFilePath})`,
+			backgroundImage: `url(${this.props.backgroundImage})`,
 			backgroundRepeat: "no-repeat",
 			backgroundPosition: "50%",
 			backgroundSize: "contain"

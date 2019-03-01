@@ -37,7 +37,9 @@ export default class App extends React.PureComponent {
 			this
 		);
 		this.handleOpenNewSchema = this.handleOpenNewSchema.bind(this);
+
 		this.updateElementData = this.updateElementData.bind(this);
+		this.onMicroscopeDataSave = this.onMicroscopeDataSave.bind(this);
 
 		this.handleActiveTierSelection = this.handleActiveTierSelection.bind(this);
 		this.setCreateNewMicroscope = this.setCreateNewMicroscope.bind(this);
@@ -127,17 +129,22 @@ export default class App extends React.PureComponent {
 		console.log(microscope);
 		let filename = "export-test.json";
 		let contentType = "application/json;charset=utf-8;";
-		var fakeDownloadButton = document.createElement("fakeDownloadButton");
-		fakeDownloadButton.download = filename;
-		fakeDownloadButton.href =
+		var a = document.createElement("a");
+		a.download = filename;
+		a.href =
 			"data:" +
 			contentType +
 			"," +
 			encodeURIComponent(JSON.stringify(microscope));
-		fakeDownloadButton.target = "_blank";
-		document.body.appendChild(fakeDownloadButton);
-		fakeDownloadButton.click();
-		document.body.removeChild(fakeDownloadButton);
+		a.target = "_blank";
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+	}
+
+	onMicroscopeDataSave(id, data) {
+		let microscope = Object.assign(this.state.microscope, data);
+		this.setState({ microscope: microscope });
 	}
 
 	render() {
@@ -228,6 +235,18 @@ export default class App extends React.PureComponent {
 			height: height - 60 - 40
 		};
 
+		let componentSchemas = [];
+		let microscopeSchema = {};
+		let counter = 0;
+		for (let i = 0; i < schema.length; i++) {
+			let obj = schema[i];
+			if (obj.title === "Microscope") {
+				microscopeSchema = Object.assign(microscopeSchema, obj);
+			} else {
+				componentSchemas[counter] = obj;
+				counter++;
+			}
+		}
 		return (
 			<AppContainer
 				width={width}
@@ -238,18 +257,23 @@ export default class App extends React.PureComponent {
 				<div style={style}>
 					<Canvas
 						ref={this.canvasRef}
-						imagesPath={imagesPath}
-						schema={schema}
+						imagesPath={`${imagesPath}`}
+						backgroundImage={`${imagesPath}${microscopeSchema.image}`}
 						updateElementData={this.updateElementData}
 						overlaysContainer={this.overlaysContainerRef.current}
 					/>
 					<Toolbar
 						ref={this.toolbarRef}
 						imagesPath={imagesPath}
-						schema={schema}
+						componentSchemas={componentSchemas}
 					/>
 				</div>
-				<Footer onClickExport={this.exportJsonDataToFile} />
+				<Footer
+					microscopeSchema={microscopeSchema}
+					onConfirm={this.onMicroscopeDataSave}
+					onClickExport={this.exportJsonDataToFile}
+					overlaysContainer={this.overlaysContainerRef.current}
+				/>
 			</AppContainer>
 		);
 	}

@@ -11,9 +11,8 @@ export default class Toolbar extends React.PureComponent {
 		this.state = {
 			elementList: {}
 		};
-		for (let i = 0; i < props.schema.length; i++) {
-			let obj = props.schema[i];
-			if (obj.title === "Microscope") continue;
+		for (let i = 0; i < props.componentSchemas.length; i++) {
+			let obj = props.componentSchemas[i];
 			let category = obj.category;
 			let element = {
 				id: `${obj.title}-${i}`,
