@@ -1,9 +1,11 @@
 import React from "react";
-import { ImageElement } from "./imageElement";
 import Collapsible from "react-collapsible";
 import { DragDropContainer } from "react-drag-drop-container";
+import Button from "react-bootstrap/Button";
 
-export class Toolbar extends React.PureComponent {
+import ImageElement from "./imageElement";
+
+export default class Toolbar extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,7 +15,7 @@ export class Toolbar extends React.PureComponent {
 			let obj = props.schema[i];
 			let category = obj.category;
 			let element = {
-				id: `${i}`,
+				id: `${obj.title}-${i}`,
 				schema: obj
 			};
 			if (this.state.elementList[category] === undefined) {
@@ -25,64 +27,92 @@ export class Toolbar extends React.PureComponent {
 
 	createCategoryItems(key) {
 		let elementList = this.state.elementList;
-		let categoryItems = elementList[key].map(item => (
-			<DragDropContainer
-				targetKey="dragdrop"
-				key={"draggable" + item.id}
-				dragClone={true}
-				dragData={{
-					source: "toolbar",
-					id: item.id,
-					schema: item.schema
-				}}
-			>
+		let imageElements = [];
+		elementList[key].map(item =>
+			imageElements.push(
 				<ImageElement
+					key={`ImageElement-${item.id}`}
 					id={item.id}
 					image={`${this.props.imagesPath}${item.schema.image}`}
 					name={item.schema.title}
+					width={100}
+					height={100}
 				/>
-			</DragDropContainer>
-		));
-		return <div style={{ flexWrap: "wrap" }}>{categoryItems}</div>;
+			)
+		);
+		let categoryItems = [];
+		elementList[key].map((item, index) =>
+			categoryItems.push(
+				<DragDropContainer
+					targetKey="canvas"
+					key={"draggable" + item.id}
+					dragClone={true}
+					dragData={{
+						source: "toolbar",
+						id: item.id,
+						schema: item.schema
+					}}
+					style={{
+						width: `${
+							imageElements[index].state === undefined
+								? 100
+								: imageElements[index].state.width
+						}px`,
+						height: `${
+							imageElements[index].state === undefined
+								? 100
+								: imageElements[index].state.height
+						}px`
+					}}
+				>
+					{imageElements[index]}
+				</DragDropContainer>
+			)
+		);
+		const styleContainer = {
+			flexFlow: "row wrap",
+			padding: "5px",
+			margin: "5px"
+		};
+		return <div style={styleContainer}>{categoryItems}</div>;
 	}
 
 	createCategories() {
 		let elementList = this.state.elementList;
 		let toolbar = [];
-		Object.keys(elementList).forEach(key =>
+		const style = {
+			width: "100%"
+		};
+
+		Object.keys(elementList).forEach(key => {
 			toolbar.push(
-				<Collapsible key={key} trigger={key}>
+				<Collapsible
+					key={`Collapsible${key}`}
+					trigger={
+						<Button key={`Trigger${key}`} style={style} size="lg">
+							{key}
+						</Button>
+					}
+				>
 					{this.createCategoryItems(key)}
 				</Collapsible>
-			)
-		);
-		//console.log(toolbar);
+			);
+		});
 		return toolbar;
 	}
 
 	render() {
 		const style = {
-			//display: "inline-block",
 			boxSizing: "border-box",
-			backgroundColor: "grey",
-			textAlign: "center",
-			verticalAlign: "middle",
+			backgroundColor: "LightGray",
 			borderBottom: "2px solid",
 			borderTop: "2px solid",
-			//border: "3px solid",
+			width: "25%",
 			color: "black",
-			WebkitBoxOrdinalGroup: "2", // OLD - iOS 6-, Safari 3.1-6
-			MozBoxOrdinalGroup: "2", // OLD - Firefox 19-
-			msFlexOrder: "2", // TWEENER - IE 10
-			WebkitOrder: "2", // NEW - Chrome
-			order: "2", // NEW, Spec - Opera 12.1, Firefox 20+
-			WebkitBoxFlex: "1", // OLD - iOS 6-, Safari 3.1-6
-			MozBoxFlex: "1", // Firefox 19-
-			width: "25%", // For OLD syntax, otherwise collapses.
-			msFlex: "1", // TWEENER - IE 10
-			WebkitFlex: "1", // NEW - Chrome
-			flex: "1", // NEW, Spec - Opera 12.1, Firefox 20+
-			OverflowEvent: "hidden"
+			overflow: "hidden",
+			OverflowEvent: "hidden",
+			textAlign: "center",
+			verticalAlign: "middle"
 		};
 		let toolbar = this.createCategories();
 		return <div style={style}>{toolbar}</div>;

@@ -1,11 +1,12 @@
 import React from "react";
-import { ImageElement } from "./imageElement";
-import { SchemaForm } from "./schemaForm";
-import { Resizable, ResizableBox } from "react-resizable";
 
-import "react-resizable/css/styles.css";
+import { Resizable } from "react-resizable";
+import { ResizableBox } from "react-resizable";
 
-export class CanvasElement extends React.PureComponent {
+import ImageElement from "./imageElement";
+import SchemaForm from "./schemaForm";
+
+export default class CanvasElement extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -23,7 +24,6 @@ export class CanvasElement extends React.PureComponent {
 
 	onConfirm(id, data) {
 		this.setState({ editing: false });
-		//TODO should i update the data here ? or through props ?
 		this.props.onConfirm(id, data);
 	}
 
@@ -33,7 +33,6 @@ export class CanvasElement extends React.PureComponent {
 
 	render() {
 		if (this.state.editing) {
-			//TODO transform schema to fit SchemaForm (multiple different schema per object)
 			return (
 				<SchemaForm
 					schema={this.props.schema}

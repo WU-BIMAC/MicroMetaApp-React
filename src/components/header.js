@@ -1,15 +1,13 @@
 import React from "react";
 
-export class Header extends React.PureComponent {
+export default class Header extends React.PureComponent {
 	render() {
 		const style = {
-			backgroundColor: "grey",
+			backgroundColor: "LightGray",
+			height: "50px",
+			boxSizing: "border-box",
 			textAlign: "center",
-			// Consistent height should make it
-			// simpler to layout controls or other
-			// things I think
-			height: "60px",
-			boxSizing: "border-box"
+			verticalAlign: "middle"
 		};
 		return <div style={style}> HEADER </div>;
 	}

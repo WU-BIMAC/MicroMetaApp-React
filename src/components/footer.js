@@ -1,13 +1,20 @@
 import React from "react";
-
-export class Footer extends React.PureComponent {
+import Button from "react-bootstrap/Button";
+export default class Footer extends React.PureComponent {
 	render() {
 		const style = {
-			backgroundColor: "grey",
+			backgroundColor: "LightGray",
+			height: "50px",
+			boxSizing: "border-box",
 			textAlign: "center",
-			height: "40px",
-			boxSizing: "border-box"
+			verticalAlign: "middle"
 		};
-		return <div style={style}> FOOTER </div>;
+		const styleButton = {};
+		let exportButton = (
+			<Button onClick={this.props.onClickExport} style={styleButton} size="lg">
+				Export current microscope
+			</Button>
+		);
+		return <div style={style}> {exportButton} </div>;
 	}
 }

@@ -1,8 +1,11 @@
 import React from "react";
-import { CanvasElement, CanvasElementDeleteButton } from "./canvasElement";
-import { DropTarget, DragDropContainer } from "react-drag-drop-container";
+import { DropTarget } from "react-drag-drop-container";
+import { DragDropContainer } from "react-drag-drop-container";
 
-export class Canvas extends React.PureComponent {
+import CanvasElement from "./canvasElement";
+import { CanvasElementDeleteButton } from "./canvasElement";
+
+export default class Canvas extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,12 +16,18 @@ export class Canvas extends React.PureComponent {
 		this.dropped = this.dropped.bind(this);
 		this.onDelete = this.onDelete.bind(this);
 		this.onCanvasElementDataSave = this.onCanvasElementDataSave.bind(this);
+		this.getElementData = this.getElementData.bind(this);
 	}
 
 	onCanvasElementDataSave(id, data) {
 		let currentElementData = Object.assign({}, this.state.elementData);
 		currentElementData[id] = data;
 		this.setState({ elementData: currentElementData });
+		this.props.updateElementData(currentElementData);
+	}
+
+	getElementData() {
+		return Object.assign({}, this.state.elementData);
 	}
 
 	landedOn(e) {}
@@ -63,29 +72,19 @@ export class Canvas extends React.PureComponent {
 		let elementList = this.state.elementList.slice();
 		let elementData = Object.assign({}, this.state.elementData);
 
-		console.log(elementList.length);
 		if (elementList.length === 0) return;
-		console.log(elementData.length);
 		if (elementData.length === 0) return;
-
-		console.log("elementListBeforeDelete");
-		console.log(elementList);
-		let newElementList = elementList.slice();
-		newElementList.splice(index, 1);
-		console.log("elementListAfterDelete");
-		console.log(newElementList);
 
 		let id = elementList[index].id;
 
-		console.log("elementDataBeforeDelete");
-		console.log(elementData);
+		let newElementList = elementList.slice();
+		newElementList.splice(index, 1);
+
 		let newElementData = Object.assign({}, elementData);
 		if (elementData[id] !== undefined) {
 			let indexOf = elementData.indexOf(id);
 			newElementData.splice(indexOf, 1);
 		}
-		console.log("elementDataAfterDelete");
-		console.log(newElementData);
 
 		this.setState({
 			elementList: newElementList,
@@ -115,7 +114,7 @@ export class Canvas extends React.PureComponent {
 		let droppableElement = elementList.map((item, index) => (
 			<div style={item.style} key={"draggableWrapper" + index}>
 				<DragDropContainer
-					targetKey="dragdrop"
+					targetKey="canvas"
 					key={"draggable" + index}
 					dragClone={false}
 					dragData={{ source: "canvas", index: index }}
@@ -151,40 +150,32 @@ export class Canvas extends React.PureComponent {
 		const imageFilePath = `${
 			this.props.imagesPath
 		}Microscope_with_Knobs_BackPort_Fluorescence_Beam.png`;
-		const style = {
-			container: {
-				borderBottom: "2px solid",
-				borderTop: "2px solid",
-				borderRight: "2px solid",
-				color: "black",
-				WebkitBoxOrdinalGroup: "1", // OLD - iOS 6-, Safari 3.1-6
-				MozBoxOrdinalGroup: "1", // OLD - Firefox 19-
-				msFlexOrder: "1", // TWEENER - IE 10
-				WebkitOrder: "1", // NEW - Chrome
-				order: "1",
-				width: "75%",
-				MozBoxFlex: "1",
-				backgroundImage: `url(${imageFilePath})`,
-				backgroundRepeat: "no-repeat",
-				backgroundPosition: "50%",
-				backgroundSize: "contain"
-			},
-			droptarget: {
-				width: "100%",
-				height: "100%"
-			}
+		const styleContainer = {
+			borderBottom: "2px solid",
+			borderTop: "2px solid",
+			borderRight: "2px solid",
+			color: "black",
+			width: "75%",
+			backgroundImage: `url(${imageFilePath})`,
+			backgroundRepeat: "no-repeat",
+			backgroundPosition: "50%",
+			backgroundSize: "contain"
+		};
+		const styleFullWindow = {
+			width: "100%",
+			height: "100%"
 		};
 		return (
 			//TODO i could use the img container with absolute position and put stuff on top of it
 			//<img src={imageFilePath} alt={imageFilePath} style={style.image} />
 			//TODO this should be in a scrollable pane
-			<div style={style.container}>
+			<div style={styleContainer}>
 				<DropTarget
-					style={style.droptarget}
+					style={styleFullWindow}
 					onHit={this.dropped}
-					targetKey={"dragdrop"}
+					targetKey="canvas"
 				>
-					<div style={style.droptarget} />
+					<div style={styleFullWindow} />
 					{this.createList()}
 				</DropTarget>
 			</div>

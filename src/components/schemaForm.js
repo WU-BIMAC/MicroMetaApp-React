@@ -6,7 +6,7 @@ import TabContent from "rc-tabs/lib/TabContent";
 import ScrollableTabBar from "rc-tabs/lib/TabBar";
 import "rc-tabs/assets/index.css";
 
-export class SchemaForm extends React.PureComponent {
+export default class SchemaForm extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {

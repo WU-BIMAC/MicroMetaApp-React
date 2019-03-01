@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
     "bfj": "6.1.1",
     "file-loader": "2.0.0",
+    "fs": "0.0.1-security",
     "fs-extra": "7.0.1",
     "identity-obj-proxy": "3.0.0",
     "imagemin": "^6.1.0",

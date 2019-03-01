@@ -1,20 +1,21 @@
 import React from "react";
 
-export class ImageElement extends React.PureComponent {
+export default class ImageElement extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			newHeight: undefined,
-			newWidth: undefined
+			height: props.height,
+			width: props.width
 		};
+
 		this.onImgLoad = this.onImgLoad.bind(this);
 	}
 
 	onImgLoad({ target: img }) {
-		// if (this.state.height !== undefined || this.state.width !== undefined)
-		// 	return;
-		let newHeight = img.height / 5;
-		let newWidth = img.width / 5;
+		//let newHeight = img.height / 5;
+		//let newWidth = img.width / 5;
+		let newHeight = 100;
+		let newWidth = 100;
 		this.setState({
 			newHeight: newHeight,
 			newWidth: newWidth
@@ -37,14 +38,9 @@ export class ImageElement extends React.PureComponent {
 				style={imageStyle}
 			/>
 		);
-		//`${this.state.height}px`,
-		//`${this.state.width}px`,
 		const style = {
-			textAlign: "center",
-			height: "100px",
-			width: "100px",
-			display: "flex", // NEW, Spec - Opera 12.1, Firefox 20+
-			justifyContent: "center",
+			height: `${this.state.height}px`,
+			width: `${this.state.width}px`,
 			backgroundColor: "transparent"
 		};
 		return <div style={style}>{img}</div>;

@@ -1,18 +1,28 @@
-/* eslint-disable no-dupe-keys */
 import PropTypes from "prop-types";
 import React from "react";
 
-import { Header } from "./components/header";
-import { Footer } from "./components/footer";
-import { Toolbar } from "./components/toolbar";
-import { Canvas } from "./components/canvas";
+import Header from "./components/header";
+import Footer from "./components/footer";
+import Toolbar from "./components/toolbar";
+import Canvas from "./components/canvas";
+import MicroscopePreLoader from "./components/microscopePreLoader";
+import MicroscopeLoader from "./components/microscopeLoader";
 
 export default class App extends React.PureComponent {
 	constructor(props) {
 		super(props);
+		this.state = {
+			microscope: props.microscope || null,
+			schema: props.schema || null,
+			mounted: false,
+			activeTier: 1,
+			isCreatingNewMicroscope: null,
+			micName: null,
+			elementData: {}
+		};
+
 		this.toolbarRef = React.createRef();
 		this.canvasRef = React.createRef();
-
 		/**
 		 * This ref does not have 'current' until App has been mounted.
 		 * Because App is a PureComponent which doesn't get updated unless
@@ -23,21 +33,29 @@ export default class App extends React.PureComponent {
 		 * this prop is optional, we implement the componentDidMount func below.
 		 */
 		this.overlaysContainerRef = React.createRef();
-
 		this.handleCompleteOpenNewSchema = this.handleCompleteOpenNewSchema.bind(
 			this
 		);
 		this.handleOpenNewSchema = this.handleOpenNewSchema.bind(this);
+		this.updateElementData = this.updateElementData.bind(this);
 
-		this.state = {
-			schema: props.schema || null,
-			mounted: false
-		};
+		this.handleActiveTierSelection = this.handleActiveTierSelection.bind(this);
+		this.setCreateNewMicroscope = this.setCreateNewMicroscope.bind(this);
+		this.setLoadMicroscope = this.setLoadMicroscope.bind(this);
+
+		this.handleMicroscopeSelection = this.handleMicroscopeSelection.bind(this);
+		this.createNewMicroscope = this.createNewMicroscope.bind(this);
+		this.cancel = this.cancel.bind(this);
+
+		this.exportJsonDataToFile = this.exportJsonDataToFile.bind(this);
 	}
 
 	static getDerivedStateFromProps(props, state) {
 		if (props.schema !== state.schema && props.schema !== null) {
 			return { schema: props.schema };
+		}
+		if (props.microscope !== state.microscope && props.microscope !== null) {
+			return { microscope: props.microscope };
 		}
 		return null;
 	}
@@ -63,23 +81,75 @@ export default class App extends React.PureComponent {
 		this.setState({ schema: newSchema });
 	}
 
-	render() {
-		var { imagesPath, width, height } = this.props;
-		var schema = this.state.schema;
-		//const style = {
-		//  This is setting/overriding the same key of style obj I think (?)
-		//  unless a CSS-in-JS library handles this (idk) (this would work in a stylesheet)
-		//	display: "-webkit-box", // OLD - iOS 6-, Safari 3.1-6
-		//	display: "-moz-box", // OLD - Firefox 19- (doesn't work very well)
-		//	display: "-ms-flexbox", // TWEENER - IE 10
-		//	display: "-webkit-flex", // NEW - Chrome
-		//	display: "flex" // NEW, Spec - Opera 12.1, Firefox 20+
-		//};
+	handleActiveTierSelection(item) {
+		this.setState({ activeTier: item });
+	}
 
-		const style = {
-			display: "flex",
-			height: height - 60 - 40 // 60px header 40px footer
-		};
+	setCreateNewMicroscope() {
+		this.setState({
+			isCreatingNewMicroscope: true,
+			micName: "Create from scratch"
+		});
+	}
+
+	setLoadMicroscope() {
+		this.setState({ isCreatingNewMicroscope: false });
+	}
+
+	handleMicroscopeSelection(item) {
+		this.setState({ micName: item });
+	}
+
+	createNewMicroscope() {
+		if (this.state.micName === "Create from scratch") {
+			this.setState({ microscope: {}, elementData: {} });
+		} else {
+			//Load microscope from file
+		}
+	}
+
+	cancel() {
+		this.setState({
+			microscope: null,
+			isCreatingNewMicroscope: null,
+			micName: null,
+			elementData: {}
+		});
+	}
+
+	updateElementData(elementData) {
+		this.setState({ elementData: elementData });
+	}
+
+	exportJsonDataToFile() {
+		let elementData = this.state.elementData;
+		let microscope = Object.assign(this.state.microscope, elementData);
+		console.log(microscope);
+		let filename = "export-test.json";
+		let contentType = "application/json;charset=utf-8;";
+		var fakeDownloadButton = document.createElement("fakeDownloadButton");
+		fakeDownloadButton.download = filename;
+		fakeDownloadButton.href =
+			"data:" +
+			contentType +
+			"," +
+			encodeURIComponent(JSON.stringify(microscope));
+		fakeDownloadButton.target = "_blank";
+		document.body.appendChild(fakeDownloadButton);
+		fakeDownloadButton.click();
+		document.body.removeChild(fakeDownloadButton);
+	}
+
+	render() {
+		let {
+			imagesPath,
+			micTemplatesPath,
+			micSavedPath,
+			width,
+			height
+		} = this.props;
+		let schema = this.state.schema;
+		let microscope = this.state.microscope;
 
 		//TODO with this strategy i can create multiple views
 		//1st view: selection tier / new mic / use mic (+ import mic here maybe?)
@@ -95,10 +165,68 @@ export default class App extends React.PureComponent {
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
-					<button onClick={this.handleOpenNewSchema}>Open new schema</button>
+					<button onClick={this.handleOpenNewSchema}>Load schema</button>
 				</AppContainer>
 			);
 		}
+
+		if (this.state.isCreatingNewMicroscope === null) {
+			return (
+				<AppContainer
+					width={width}
+					height={height}
+					forwardedRef={this.overlaysContainerRef}
+				>
+					<MicroscopePreLoader
+						onClickTierSelection={this.handleActiveTierSelection}
+						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
+						onClickLoadMicroscope={this.setLoadMicroscope}
+					/>
+				</AppContainer>
+			);
+		}
+
+		if (this.state.isCreatingNewMicroscope && microscope === null) {
+			return (
+				<AppContainer
+					width={width}
+					height={height}
+					forwardedRef={this.overlaysContainerRef}
+				>
+					<MicroscopeLoader
+						micTemplatesPath={micTemplatesPath}
+						micSavedPath={micSavedPath}
+						onClickMicroscopeSelection={this.handleMicroscopeSelection}
+						onClickCreateNewMicroscope={this.createNewMicroscope}
+						onClickCancel={this.cancel}
+					/>
+				</AppContainer>
+			);
+		}
+
+		if (!this.state.isCreatingNewMicroscope && microscope === null) {
+			return (
+				<AppContainer
+					width={width}
+					height={height}
+					forwardedRef={this.overlaysContainerRef}
+				>
+					<MicroscopeLoader
+						micTemplatesPath={micTemplatesPath}
+						micSavedPath={micSavedPath}
+						onClickMicroscopeSelection={this.handleMicroscopeSelection}
+						onClickCreateNewMicroscope={this.createNewMicroscope}
+						onClickCancel={this.cancel}
+					/>
+				</AppContainer>
+			);
+		}
+
+		const style = {
+			display: "flex",
+			flexFlow: "row",
+			height: height - 60 - 40
+		};
 
 		return (
 			<AppContainer
@@ -111,6 +239,7 @@ export default class App extends React.PureComponent {
 					<Canvas
 						ref={this.canvasRef}
 						imagesPath={imagesPath}
+						updateElementData={this.updateElementData}
 						overlaysContainer={this.overlaysContainerRef.current}
 					/>
 					<Toolbar
@@ -119,7 +248,7 @@ export default class App extends React.PureComponent {
 						schema={schema}
 					/>
 				</div>
-				<Footer />
+				<Footer onClickExport={this.exportJsonDataToFile} />
 			</AppContainer>
 		);
 	}
@@ -143,15 +272,25 @@ class AppContainer extends React.PureComponent {
 App.propTypes = {
 	height: PropTypes.number,
 	width: PropTypes.number,
-	schema: PropTypes.arrayOf(PropTypes.object)
+	schema: PropTypes.arrayOf(PropTypes.object),
+	microscope: PropTypes.arrayOf(PropTypes.object)
 };
 
 App.defaultProps = {
 	height: 600,
 	width: 800,
 	schema: null,
+	microscope: null,
 	imagesPath: "./assets/",
+	micTemplatesPath: "./microscopeTemplates",
+	micSavedPath: "./microscopeSaved",
 	onLoadSchema: function(complete) {
+		// Do some stuff... show pane for people to browse/select schema.. etc.
+		setTimeout(function() {
+			complete();
+		});
+	},
+	onLoadMicroscope: function(complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function() {
 			complete();
