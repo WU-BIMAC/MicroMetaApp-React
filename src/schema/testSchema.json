@@ -16,7 +16,7 @@
 				"category": "generic"
 			},
 			"id": {
-				"type": "number",
+				"type": "string",
 				"description": "The id of this microscope.",
 				"tier": 3,
 				"category": "generic",
@@ -102,7 +102,7 @@
 				"category": "generic"
 			},
 			"id": {
-				"type": "number",
+				"type": "string",
 				"description": "The id of this component.",
 				"tier": 3,
 				"category": "generic",
@@ -195,7 +195,7 @@
 				"category": "generic"
 			},
 			"id": {
-				"type": "number",
+				"type": "string",
 				"description": "The id of this component.",
 				"tier": 2,
 				"category": "generic",

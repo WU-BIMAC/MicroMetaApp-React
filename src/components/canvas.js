@@ -5,6 +5,8 @@ import { DragDropContainer } from "react-drag-drop-container";
 import CanvasElement from "./canvasElement";
 import { CanvasElementDeleteButton } from "./canvasElement";
 
+const uuidv4 = require("uuid/v4");
+
 export default class Canvas extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -35,11 +37,13 @@ export default class Canvas extends React.PureComponent {
 	dropped(e) {
 		let sourceElement = e.dragData;
 		let newElementList = this.state.elementList.slice();
-		let newElementData = Object.assign({}, this.state.elementData);
+		let newElementDataList = Object.assign({}, this.state.elementData);
 		let newElement = null;
+
 		if (sourceElement.source === "toolbar") {
+			let uuid = uuidv4();
 			newElement = {
-				id: sourceElement.id + "_" + newElementList.length,
+				id: sourceElement.schema.title + "_" + uuid,
 				schema: sourceElement.schema,
 				style: {
 					position: "absolute",
@@ -50,6 +54,15 @@ export default class Canvas extends React.PureComponent {
 				}
 			};
 			newElementList.push(newElement);
+
+			let newElementData = {
+				name: `New ${newElement.schema.title}`,
+				id: uuid,
+				tier: newElement.schema.tier,
+				xPosition: e.x,
+				yPosition: e.y
+			};
+			newElementDataList[newElement.id] = newElementData;
 		} else {
 			let item = this.state.elementList[sourceElement.index];
 			newElement = {
@@ -64,13 +77,16 @@ export default class Canvas extends React.PureComponent {
 				}
 			};
 			newElementList[sourceElement.index] = newElement;
+			newElementDataList[newElement.id].xPosition = e.x;
+			newElementDataList[newElement.id].yPosition = e.y;
 		}
-		newElementData[newElement.id] = {};
 
 		this.setState({
 			elementList: newElementList,
-			elementData: newElementData
+			elementData: newElementDataList
 		});
+
+		this.props.updateElementData(newElementDataList);
 	}
 
 	onDelete(index) {
