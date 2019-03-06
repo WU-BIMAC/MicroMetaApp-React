@@ -136,21 +136,37 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			partialSchema[category] = keysForCategory;
 		});
 		Object.keys(partialSchema).forEach(key => {
-			partialSchema[key]["title"] = key;
-			partialSchema[key]["type"] = "object";
+			partialSchema[key].title = key;
+			partialSchema[key].type = "object";
 			let required = [];
 			Object.keys(partialSchema[key].properties).forEach(propKey => {
 				required.push(propKey);
 			});
-			partialSchema[key]["required"] = required;
+			partialSchema[key].required = required;
 		});
 		return partialSchema;
 	}
 
-	createUISchema() {
+	createUISchema(partialSchema) {
 		// ui: readonly
 		// for fields that should not be modified
 		// and hidden for tier above current tier
+		let partialUISchema = [];
+		Object.keys(partialSchema).forEach(key => {
+			partialUISchema[key] = {
+				name: {
+					"ui:autofocus": true
+				}
+			};
+			Object.keys(partialSchema[key].properties).forEach(propKey => {
+				console.log(partialSchema[key].properties[propKey]);
+				if (partialSchema[key].properties[propKey].readonly !== undefined) {
+					partialUISchema[propKey] = { "ui:readonly": true };
+				}
+			});
+		});
+		console.log(partialUISchema);
+		return partialUISchema;
 	}
 
 	createForms() {
@@ -158,9 +174,11 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		// instead of being rendered by <SchemaForm> if SchemaForm could be later used in other places.
 		let currentButtons = [];
 		let currentFormRefs = [];
+		let partialUISchema = this.createUISchema(this.partialSchema);
 		const currentForms = Object.keys(this.partialSchema).map((item, index) => (
 			<Form
 				schema={this.partialSchema[item]}
+				uiSchema={partialUISchema[item]}
 				onChange={this.onChange}
 				onSubmit={this.onSubmit}
 				onError={this.onError}

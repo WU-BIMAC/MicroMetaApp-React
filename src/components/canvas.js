@@ -34,9 +34,11 @@ export default class Canvas extends React.PureComponent {
 
 	dropped(e) {
 		let sourceElement = e.dragData;
-		let newElementList = this.state.elementList.slice(0);
+		let newElementList = this.state.elementList.slice();
+		let newElementData = Object.assign({}, this.state.elementData);
+		let newElement = null;
 		if (sourceElement.source === "toolbar") {
-			let newElement = {
+			newElement = {
 				id: sourceElement.id + "_" + newElementList.length,
 				schema: sourceElement.schema,
 				style: {
@@ -50,7 +52,7 @@ export default class Canvas extends React.PureComponent {
 			newElementList.push(newElement);
 		} else {
 			let item = this.state.elementList[sourceElement.index];
-			let newElement = {
+			newElement = {
 				id: item.id,
 				schema: item.schema,
 				style: {
@@ -63,8 +65,11 @@ export default class Canvas extends React.PureComponent {
 			};
 			newElementList[sourceElement.index] = newElement;
 		}
+		newElementData[newElement.id] = {};
+
 		this.setState({
-			elementList: newElementList
+			elementList: newElementList,
+			elementData: newElementData
 		});
 	}
 
@@ -84,6 +89,7 @@ export default class Canvas extends React.PureComponent {
 		if (elementData[id] !== undefined) {
 			let indexOf = elementData.indexOf(id);
 			newElementData.splice(indexOf, 1);
+			this.props.updateElementData(newElementData);
 		}
 
 		this.setState({

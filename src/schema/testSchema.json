@@ -19,13 +19,15 @@
 				"type": "number",
 				"description": "The id of this microscope.",
 				"tier": 3,
-				"category": "generic"
+				"category": "generic",
+				"readonly": true
 			},
 			"tier": {
 				"type": "number",
 				"description": "The tier level of this microscope.",
 				"tier": 1,
-				"category": "generic"
+				"category": "generic",
+				"readonly": true
 			},
 			"manufacturer": {
 				"type": "string",
@@ -103,13 +105,15 @@
 				"type": "number",
 				"description": "The id of this component.",
 				"tier": 3,
-				"category": "generic"
+				"category": "generic",
+				"readonly": true
 			},
 			"tier": {
 				"type": "number",
 				"description": "The tier level of this component.",
 				"tier": 3,
-				"category": "generic"
+				"category": "generic",
+				"readonly": true
 			},
 			"manufacturer": {
 				"type": "string",
@@ -194,13 +198,15 @@
 				"type": "number",
 				"description": "The id of this component.",
 				"tier": 2,
-				"category": "generic"
+				"category": "generic",
+				"readonly": true
 			},
 			"tier": {
 				"type": "number",
 				"description": "The tier level of this component.",
 				"tier": 2,
-				"category": "generic"
+				"category": "generic",
+				"readonly": true
 			},
 			"manufacturer": {
 				"type": "string",

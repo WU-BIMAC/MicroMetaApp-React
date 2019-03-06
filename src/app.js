@@ -143,8 +143,9 @@ export default class App extends React.PureComponent {
 	}
 
 	onMicroscopeDataSave(id, data) {
-		let microscope = Object.assign(this.state.microscope, data);
-		this.setState({ microscope: microscope });
+		let oldMicroscope = this.state.microscope;
+		let newMicroscope = Object.assign(oldMicroscope, data);
+		this.setState({ microscope: newMicroscope });
 	}
 
 	render() {
@@ -247,6 +248,7 @@ export default class App extends React.PureComponent {
 				counter++;
 			}
 		}
+
 		return (
 			<AppContainer
 				width={width}
@@ -273,6 +275,7 @@ export default class App extends React.PureComponent {
 					onConfirm={this.onMicroscopeDataSave}
 					onClickExport={this.exportJsonDataToFile}
 					overlaysContainer={this.overlaysContainerRef.current}
+					inputData={microscope}
 				/>
 			</AppContainer>
 		);
