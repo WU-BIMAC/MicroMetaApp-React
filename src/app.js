@@ -5,8 +5,15 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import Toolbar from "./components/toolbar";
 import Canvas from "./components/canvas";
+import DataLoader from "./components/dataLoader";
 import MicroscopePreLoader from "./components/microscopePreLoader";
 import MicroscopeLoader from "./components/microscopeLoader";
+
+const validate = require("jsonschema").validate;
+const uuidv4 = require("uuid/v4");
+
+const createFromScratch = "Create from scratch";
+const createFromFile = "Create from file";
 
 export default class App extends React.PureComponent {
 	constructor(props) {
@@ -14,13 +21,19 @@ export default class App extends React.PureComponent {
 		this.state = {
 			microscope: props.microscope || null,
 			schema: props.schema || null,
+			adaptedMicroscopeSchema: null,
+			adaptedComponentsSchema: null,
 			mounted: false,
 			activeTier: 1,
 			isCreatingNewMicroscope: null,
 			micName: null,
-			elementData: {}
+			elementData: null,
+			isDropzoneActive: false,
+			isMicroscopeValidated: false,
+			areComponentsValidated: false
 		};
 
+		//this.isMicroscopeValidated = false;
 		this.toolbarRef = React.createRef();
 		this.canvasRef = React.createRef();
 		/**
@@ -45,9 +58,14 @@ export default class App extends React.PureComponent {
 		this.setCreateNewMicroscope = this.setCreateNewMicroscope.bind(this);
 		this.setLoadMicroscope = this.setLoadMicroscope.bind(this);
 
+		this.uploadMicroscopeFromDropzone = this.uploadMicroscopeFromDropzone.bind(
+			this
+		);
 		this.handleMicroscopeSelection = this.handleMicroscopeSelection.bind(this);
 		this.createNewMicroscope = this.createNewMicroscope.bind(this);
 		this.cancel = this.cancel.bind(this);
+
+		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
 
 		this.exportJsonDataToFile = this.exportJsonDataToFile.bind(this);
 	}
@@ -74,9 +92,14 @@ export default class App extends React.PureComponent {
 	}
 
 	handleOpenNewSchema(e) {
-		this.setState({ loading: true }, function() {
-			this.props.onLoadSchema(this.handleCompleteOpenNewSchema);
-		});
+		return new Promise(() =>
+			setTimeout(
+				this.setState({ loading: true }, function() {
+					this.props.onLoadSchema(this.handleCompleteOpenNewSchema);
+				}),
+				10000
+			)
+		);
 	}
 
 	handleCompleteOpenNewSchema(newSchema) {
@@ -84,13 +107,13 @@ export default class App extends React.PureComponent {
 	}
 
 	handleActiveTierSelection(item) {
-		this.setState({ activeTier: item });
+		this.setState({ activeTier: Number(item) });
 	}
 
 	setCreateNewMicroscope() {
 		this.setState({
 			isCreatingNewMicroscope: true,
-			micName: "Create from scratch"
+			micName: createFromScratch
 		});
 	}
 
@@ -99,15 +122,101 @@ export default class App extends React.PureComponent {
 	}
 
 	handleMicroscopeSelection(item) {
-		this.setState({ micName: item });
+		let isDropzoneActive = false;
+		if (item === createFromFile) {
+			isDropzoneActive = true;
+		}
+		this.setState({ micName: item, isDropzoneActive: isDropzoneActive });
+	}
+
+	uploadMicroscopeFromDropzone(microscope) {
+		this.setState({ microscope: microscope });
+	}
+
+	createAdaptedSchemas() {
+		let activeTier = this.state.activeTier;
+		let schema = this.state.schema;
+		console.log(schema);
+		let componentSchemas = [];
+		let microscopeSchema = {};
+		let counter = 0;
+		for (let i = 0; i < schema.length; i++) {
+			let obj = schema[i];
+			let fieldsToRemove = [];
+			if (i === 0) console.log(obj);
+			Object.keys(obj.properties).forEach(propKey => {
+				if (obj.properties[propKey].tier > activeTier) {
+					fieldsToRemove.push(propKey);
+				}
+			});
+			if (i === 0) console.log(fieldsToRemove);
+			for (let y = 0; y < fieldsToRemove.length; y++) {
+				let key = fieldsToRemove[y];
+				if (obj.properties[key] === undefined) continue;
+				delete obj.properties[key];
+				if (obj.required === undefined) continue;
+				let requiredIndex = obj.required.indexOf(key);
+				if (i === 0) console.log(requiredIndex);
+				obj.required.splice(requiredIndex, 1);
+				if (i === 0) console.log(obj.required);
+			}
+
+			if (obj.title === "Microscope") {
+				microscopeSchema = Object.assign(microscopeSchema, obj);
+			} else {
+				componentSchemas[counter] = obj;
+				counter++;
+			}
+		}
+
+		return [microscopeSchema, componentSchemas];
 	}
 
 	createNewMicroscope() {
-		if (this.state.micName === "Create from scratch") {
-			this.setState({ microscope: {}, elementData: {} });
+		let adaptedSchemas = this.createAdaptedSchemas();
+		let microscopeSchema = adaptedSchemas[0];
+		let componentsSchema = adaptedSchemas[1];
+		let activeTier = this.state.activeTier;
+		console.log("HERE");
+		if (this.state.micName === createFromScratch) {
+			let uuid = uuidv4();
+			let microscope = {
+				//todo this means the microscope schema needs to be at 0 all the time
+				//need to find better solution
+				name: `New ${microscopeSchema.title}`,
+				schema_id: microscopeSchema.id,
+				id: uuid,
+				tier: activeTier
+			};
+			this.setState({ microscope, elementData: {} });
+		} else if (this.state.micName === createFromFile) {
+			let modifiedMic = this.state.microscope;
+			if (activeTier !== this.state.microscope.tier) {
+				//TODO warning tier is different ask if continue?
+				modifiedMic.tier = activeTier;
+			}
+			let newElementData = {};
+			if (this.state.microscope.components !== undefined)
+				Object.keys(this.state.microscope.components).forEach(item => {
+					newElementData[item] = this.state.microscope.components[item];
+				});
+			let validation = validate(modifiedMic, microscopeSchema);
+			let validated = validation.valid;
+			console.log(validation);
+			this.setState({
+				microscope: modifiedMic,
+				elementData: newElementData,
+				isMicroscopeValidated: validated
+			});
+			//Validate schemas using jsonschema????
 		} else {
 			//Load microscope from file
 		}
+
+		this.setState({
+			adaptedMicroscopeSchema: microscopeSchema,
+			adaptedComponentsSchema: componentsSchema
+		});
 	}
 
 	cancel() {
@@ -115,19 +224,59 @@ export default class App extends React.PureComponent {
 			microscope: null,
 			isCreatingNewMicroscope: null,
 			micName: null,
-			elementData: {}
+			elementData: null,
+			isDropzoneActive: false
 		});
 	}
 
-	updateElementData(elementData) {
-		this.setState({ elementData: elementData });
+	updateElementData(elementData, areComponentsValidated) {
+		this.setState({
+			elementData: elementData,
+			areComponentsValidated: areComponentsValidated
+		});
 	}
 
 	exportJsonDataToFile() {
+		let validated = true;
+		if (!this.state.isMicroscopeValidated) {
+			this.setState({
+				isMicroscopeValidated: true
+			});
+			this.setState({
+				isMicroscopeValidated: false
+			});
+			validated = false;
+		}
+		if (!this.state.areComponentsValidated) {
+			this.setState({
+				areComponentsValidated: true
+			});
+			this.setState({
+				areComponentsValidated: false
+			});
+			validated = false;
+		}
+		if (!validated) {
+			console.log(
+				"should re-render: mic-" +
+					this.state.isMicroscopeValidated +
+					" comps-" +
+					this.state.areComponentsValidated
+			);
+			return;
+		}
+
 		let elementData = this.state.elementData;
-		let microscope = Object.assign(this.state.microscope, elementData);
+		let components = [];
+		Object.keys(elementData).forEach((item, index) => {
+			components[index] = elementData[item];
+		});
+		let comps = { components };
+		let microscope = Object.assign(this.state.microscope, comps);
 		console.log(microscope);
-		let filename = "export-test.json";
+		let micName = microscope.name;
+		micName = micName.replace(/\s+/g, "_").toLowerCase();
+		let filename = `${micName}.json`;
 		let contentType = "application/json;charset=utf-8;";
 		var a = document.createElement("a");
 		a.download = filename;
@@ -145,7 +294,8 @@ export default class App extends React.PureComponent {
 	onMicroscopeDataSave(id, data) {
 		let oldMicroscope = this.state.microscope;
 		let newMicroscope = Object.assign(oldMicroscope, data);
-		this.setState({ microscope: newMicroscope });
+		this.setState({ microscope: newMicroscope, isMicroscopeValidated: true });
+		//this.isMicroscopeValidated = true;
 	}
 
 	render() {
@@ -158,6 +308,11 @@ export default class App extends React.PureComponent {
 		} = this.props;
 		let schema = this.state.schema;
 		let microscope = this.state.microscope;
+		let elementData = this.state.elementData;
+
+		// Alex: Idea for scaling
+		height = Math.max(600, height);
+		width = Math.max(600, width);
 
 		//TODO with this strategy i can create multiple views
 		//1st view: selection tier / new mic / use mic (+ import mic here maybe?)
@@ -173,7 +328,7 @@ export default class App extends React.PureComponent {
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
-					<button onClick={this.handleOpenNewSchema}>Load schema</button>
+					<DataLoader onClick={this.handleOpenNewSchema} />
 				</AppContainer>
 			);
 		}
@@ -186,6 +341,7 @@ export default class App extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopePreLoader
+						tiers={this.props.tiers}
 						onClickTierSelection={this.handleActiveTierSelection}
 						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
 						onClickLoadMicroscope={this.setLoadMicroscope}
@@ -194,7 +350,10 @@ export default class App extends React.PureComponent {
 			);
 		}
 
-		if (this.state.isCreatingNewMicroscope && microscope === null) {
+		if (
+			this.state.isCreatingNewMicroscope &&
+			(microscope === null || elementData === null)
+		) {
 			return (
 				<AppContainer
 					width={width}
@@ -202,8 +361,11 @@ export default class App extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
+						microscopes={this.props.microscopes}
 						micTemplatesPath={micTemplatesPath}
 						micSavedPath={micSavedPath}
+						onFileDrop={this.uploadMicroscopeFromDropzone}
+						isDropzoneActive={this.state.isDropzoneActive}
 						onClickMicroscopeSelection={this.handleMicroscopeSelection}
 						onClickCreateNewMicroscope={this.createNewMicroscope}
 						onClickCancel={this.cancel}
@@ -212,7 +374,10 @@ export default class App extends React.PureComponent {
 			);
 		}
 
-		if (!this.state.isCreatingNewMicroscope && microscope === null) {
+		if (
+			!this.state.isCreatingNewMicroscope &&
+			(microscope === null || elementData === null)
+		) {
 			return (
 				<AppContainer
 					width={width}
@@ -220,8 +385,10 @@ export default class App extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
+						microscopes={this.props.microscopes}
 						micTemplatesPath={micTemplatesPath}
 						micSavedPath={micSavedPath}
+						onFileDrop={this.uploadMicroscopeFromDropzone}
 						onClickMicroscopeSelection={this.handleMicroscopeSelection}
 						onClickCreateNewMicroscope={this.createNewMicroscope}
 						onClickCancel={this.cancel}
@@ -233,21 +400,11 @@ export default class App extends React.PureComponent {
 		const style = {
 			display: "flex",
 			flexFlow: "row",
-			height: height - 60 - 40
+			height: height - 60 - 60
 		};
 
-		let componentSchemas = [];
-		let microscopeSchema = {};
-		let counter = 0;
-		for (let i = 0; i < schema.length; i++) {
-			let obj = schema[i];
-			if (obj.title === "Microscope") {
-				microscopeSchema = Object.assign(microscopeSchema, obj);
-			} else {
-				componentSchemas[counter] = obj;
-				counter++;
-			}
-		}
+		let microscopeSchema = this.state.adaptedMicroscopeSchema;
+		let componentsSchema = this.state.adaptedComponentsSchema;
 
 		return (
 			<AppContainer
@@ -258,24 +415,31 @@ export default class App extends React.PureComponent {
 				<Header />
 				<div style={style}>
 					<Canvas
+						activeTier={this.state.activeTier}
 						ref={this.canvasRef}
 						imagesPath={`${imagesPath}`}
+						componentSchemas={componentsSchema}
+						inputData={this.state.elementData}
 						backgroundImage={`${imagesPath}${microscopeSchema.image}`}
 						updateElementData={this.updateElementData}
 						overlaysContainer={this.overlaysContainerRef.current}
+						areComponentsValidated={this.state.areComponentsValidated}
 					/>
 					<Toolbar
+						activeTier={this.state.activeTier}
 						ref={this.toolbarRef}
 						imagesPath={imagesPath}
-						componentSchemas={componentSchemas}
+						componentSchemas={componentsSchema}
 					/>
 				</div>
 				<Footer
+					activeTier={this.state.activeTier}
 					microscopeSchema={microscopeSchema}
 					onConfirm={this.onMicroscopeDataSave}
 					onClickExport={this.exportJsonDataToFile}
 					overlaysContainer={this.overlaysContainerRef.current}
 					inputData={microscope}
+					isMicroscopeValidated={this.state.isMicroscopeValidated}
 				/>
 			</AppContainer>
 		);
@@ -312,13 +476,10 @@ App.defaultProps = {
 	imagesPath: "./assets/",
 	micTemplatesPath: "./microscopeTemplates",
 	micSavedPath: "./microscopeSaved",
+	tiers: ["1", "2", "3", "4", "5"],
+	validationBeforeSave: true,
+	microscopes: [createFromScratch, createFromFile],
 	onLoadSchema: function(complete) {
-		// Do some stuff... show pane for people to browse/select schema.. etc.
-		setTimeout(function() {
-			complete();
-		});
-	},
-	onLoadMicroscope: function(complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function() {
 			complete();

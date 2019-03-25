@@ -4,7 +4,7 @@ export default class Header extends React.PureComponent {
 	render() {
 		const style = {
 			backgroundColor: "LightGray",
-			height: "50px",
+			height: "60px",
 			boxSizing: "border-box",
 			textAlign: "center",
 			verticalAlign: "middle"

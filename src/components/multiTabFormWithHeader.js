@@ -80,6 +80,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 	processErrors() {
 		let currentErrors = this.errors;
 		let numberOfForms = this.formRefs.length;
+		//console.log(currentErrors);
 		if (currentErrors.length < numberOfForms) return;
 		for (let i = 0; i < currentErrors.length; i++) {
 			if (currentErrors[i] !== null) {
@@ -147,7 +148,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		return partialSchema;
 	}
 
-	createUISchema(partialSchema) {
+	createUISchema(activeTier, partialSchema) {
 		let partialUISchema = [];
 		Object.keys(partialSchema).forEach((key, index1) => {
 			if (partialUISchema[key] === undefined) partialUISchema[key] = {};
@@ -176,8 +177,10 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		// instead of being rendered by <SchemaForm> if SchemaForm could be later used in other places.
 		let currentButtons = [];
 		let currentFormRefs = [];
-		let partialUISchema = this.createUISchema(this.partialSchema);
-		console.log(partialUISchema);
+		let partialUISchema = this.createUISchema(
+			this.props.activeTier,
+			this.partialSchema
+		);
 		const currentForms = Object.keys(this.partialSchema).map((item, index) => (
 			<Form
 				schema={this.partialSchema[item]}
@@ -215,8 +218,15 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 	//<div />
 
 	render() {
-		const styleButton = {
-			width: "200px"
+		const confirmButton = {
+			width: "250px",
+			marginLeft: "5px",
+			marginRight: "5px"
+		};
+		const cancelButton = {
+			width: "250px",
+			marginLeft: "5px",
+			marginRight: "5px"
 		};
 		let forms = this.forms;
 		return (
@@ -240,13 +250,14 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 						style={{
 							display: "flex",
 							flexDirection: "row",
+							flexWap: "wrap",
 							justifyContent: "center"
 						}}
 					>
-						<Button style={styleButton} size="lg" onClick={this.onConfirm}>
+						<Button style={confirmButton} size="lg" onClick={this.onConfirm}>
 							Confirm
 						</Button>
-						<Button style={styleButton} size="lg" onClick={this.onCancel}>
+						<Button style={cancelButton} size="lg" onClick={this.onCancel}>
 							Cancel
 						</Button>
 					</div>
@@ -283,7 +294,8 @@ export class ModalWindow extends React.PureComponent {
 						height: "80%",
 						padding: 10,
 						borderRadius: 5,
-						boxShadow: "0 1px 6px -2px #000"
+						boxShadow: "0 1px 6px -2px #000",
+						overflow: "auto"
 					}}
 				>
 					{this.props.children}

@@ -16,3 +16,30 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 		monospace;
 }
+
+.notValidated {
+	border: 5px ridge red;
+	animation: animation_notValidated 2s linear 250ms 1;
+}
+
+.notValidated_dragged {
+	border: 5px ridge red;
+}
+
+@keyframes animation_notValidated {
+	0% {
+		transform: rotateZ(0deg) scale(2, 2);
+	}
+	25% {
+		transform: rotateZ(90deg) scale(1.75, 1.75);
+	}
+	50% {
+		transform: rotateZ(180deg) scale(1.5, 1.5);
+	}
+	75% {
+		transform: rotateZ(270deg) scale(1.25, 1.25);
+	}
+	100% {
+		transform: rotateZ(360deg);
+	}
+}

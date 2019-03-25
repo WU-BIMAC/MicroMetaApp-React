@@ -12,10 +12,20 @@ export default class CanvasElement extends React.PureComponent {
 		this.state = {
 			editing: false
 		};
+
+		this.startWidth = null;
+		this.startHeight = null;
+
 		this.onClick = this.onClick.bind(this);
 
 		this.onConfirm = this.onConfirm.bind(this);
 		this.onCancel = this.onCancel.bind(this);
+
+		this.onResizeStart = this.onResizeStart.bind(this);
+		this.onResize = this.onResize.bind(this);
+		this.onResizeStop = this.onResizeStop.bind(this);
+
+		this.counter = 0;
 	}
 
 	onClick() {
@@ -31,10 +41,24 @@ export default class CanvasElement extends React.PureComponent {
 		this.setState({ editing: false });
 	}
 
+	onResizeStart(e, data) {}
+
+	onResize(e, data) {
+		let width = data.size.width;
+		let height = data.size.height;
+		let imgWidth = width;
+		let imgHeight = height;
+		let id = this.props.id;
+		this.props.updateDimensions(id, imgWidth, imgHeight, true);
+	}
+
+	onResizeStop(e, data) {}
+
 	render() {
 		if (this.state.editing) {
 			return (
 				<MultiTabFormWithHeader
+					activeTier={this.props.activeTier}
 					schema={this.props.schema}
 					inputData={this.props.inputData}
 					id={this.props.id}
@@ -45,31 +69,67 @@ export default class CanvasElement extends React.PureComponent {
 			);
 		}
 
-		const style = {
+		let style = {
 			textAlign: "center",
 			height: "100%",
 			width: "100%",
 			display: "flex", // NEW, Spec - Opera 12.1, Firefox 20+
 			justifyContent: "center",
 			backgroundColor: "transparent",
-			padding: "0",
-			border: "none",
+			padding: "0px",
+			margin: "0px",
 			font: "14px",
 			color: "inherit",
 			cursor: "pointer"
 		};
+		let width = this.props.width;
+		let height = this.props.height;
+		let styleImage = {
+			width: width,
+			height: height
+		};
+		if (this.counter < 3) {
+			this.startWidth = width;
+			this.startHeight = height;
+			this.counter++;
+		}
+		if (!this.props.validated) {
+			width += 10;
+			height += 10;
+		}
+		let minWidth = this.startWidth / 1.5;
+		let minHeight = this.startHeight / 1.5;
+		let maxWidth = this.startWidth * 1.5;
+		let maxHeight = this.startHeight * 1.5;
+
 		return (
 			<ResizableBox
-				width={100}
-				height={100}
-				minConstraints={[100, 100]}
-				maxConstraints={[this.props.maxWidth, this.props.maxHeight]}
+				width={width}
+				height={height}
+				minConstraints={[minWidth, minHeight]}
+				maxConstraints={[maxWidth, maxHeight]}
 				lockAspectRatio={true}
+				onResizeStart={this.onResizeStart}
+				onResize={this.onResize}
+				onResizeStop={this.onResizeStop}
 			>
-				<button style={style} onClick={this.onClick}>
+				<button
+					className={
+						!this.props.validated
+							? this.props.dragged
+								? "notValidated_dragged"
+								: "notValidated"
+							: ""
+					}
+					style={style}
+					onClick={this.onClick}
+				>
 					<ImageElement
+						updateDimensions={this.props.updateDimensions}
+						id={this.props.id}
 						image={this.props.image}
 						name={this.props.schema.title}
+						style={styleImage}
 					/>
 				</button>
 			</ResizableBox>

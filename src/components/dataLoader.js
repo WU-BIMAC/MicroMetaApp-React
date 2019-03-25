@@ -1,13 +1,32 @@
 import React from "react";
-
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Button from "react-bootstrap/Button";
+import Dropzone from "react-dropzone";
 
 import DropdownMenu from "./DropdownMenu";
 
-export default class MicroscopePreLoader extends React.PureComponent {
+export default class DataLoader extends React.PureComponent {
 	constructor(props) {
 		super(props);
+		this.state = {
+			isLoading: false
+		};
+
+		this.simulateClick = this.simulateClick.bind(this);
+		this.onClick = this.onClick.bind(this);
+	}
+
+	onClick() {
+		this.setState({ isLoading: true }, () => {
+			this.props.onClick().then(() => {
+				this.setState({ isLoading: false });
+			});
+		});
+	}
+
+	simulateClick(buttonRef) {
+		if (buttonRef === null) return;
+		buttonRef.click();
 	}
 
 	render() {
@@ -33,32 +52,19 @@ export default class MicroscopePreLoader extends React.PureComponent {
 			height: "100%",
 			alignItems: "center"
 		};
-		let tierInputData = this.props.tiers;
+		const { isLoading } = this.state;
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowInternalContainer}>
-					<DropdownMenu
-						title={"Tier"}
-						handleMenuItemClick={this.props.onClickTierSelection}
-						inputData={tierInputData}
-					/>
-					<div>
-						<Button
-							onClick={this.props.onClickCreateNewMicroscope}
-							style={buttonStyle}
-							size="lg"
-						>
-							Create microscope
-						</Button>
-						<Button
-							onClick={this.props.onClickLoadMicroscope}
-							style={buttonStyle}
-							size="lg"
-							disabled
-						>
-							Use microscope
-						</Button>
-					</div>
+					<Button
+						ref={this.simulateClick}
+						disabled={isLoading}
+						onClick={!isLoading ? this.onClick : null}
+						style={buttonStyle}
+						size="lg"
+					>
+						{isLoading ? "Loading…" : "Load schema"}
+					</Button>
 				</div>
 			</div>
 		);
