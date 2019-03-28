@@ -2,6 +2,7 @@ import React from "react";
 
 import { Resizable } from "react-resizable";
 import { ResizableBox } from "react-resizable";
+import { AnimateKeyframes } from "react-simple-animate";
 
 import ImageElement from "./imageElement";
 import MultiTabFormWithHeader from "./multiTabFormWithHeader";
@@ -82,6 +83,15 @@ export default class CanvasElement extends React.PureComponent {
 			color: "inherit",
 			cursor: "pointer"
 		};
+		let play = false;
+		if (!this.props.validated) {
+			style = Object.assign(style, { border: "5px ridge red" });
+			if (!this.props.dragged) {
+				play = true;
+			}
+		} else {
+			style = Object.assign(style, { border: "none" });
+		}
 		let width = this.props.width;
 		let height = this.props.height;
 		let styleImage = {
@@ -113,25 +123,40 @@ export default class CanvasElement extends React.PureComponent {
 				onResize={this.onResize}
 				onResizeStop={this.onResizeStop}
 			>
-				<button
-					className={
-						!this.props.validated
-							? this.props.dragged
-								? "notValidated_dragged"
-								: "notValidated"
-							: ""
-					}
-					style={style}
-					onClick={this.onClick}
+				<AnimateKeyframes
+					key={"Animation-0"}
+					play={play}
+					durationSeconds={1}
+					keyframes={[
+						"opacity: 1",
+						"opacity: 0.8",
+						"opacity: 0.6",
+						"opacity: 0.4",
+						"opacity: 0.2",
+						"opacity: 0.4",
+						"opacity: 0.6",
+						"opacity: 0.8",
+						"opacity: 1",
+						"opacity: 0.8",
+						"opacity: 0.6",
+						"opacity: 0.4",
+						"opacity: 0.2",
+						"opacity: 0.4",
+						"opacity: 0.6",
+						"opacity: 0.8",
+						"opacity: 1"
+					]}
 				>
-					<ImageElement
-						updateDimensions={this.props.updateDimensions}
-						id={this.props.id}
-						image={this.props.image}
-						name={this.props.schema.title}
-						style={styleImage}
-					/>
-				</button>
+					<button style={style} onClick={this.onClick}>
+						<ImageElement
+							updateDimensions={this.props.updateDimensions}
+							id={this.props.id}
+							image={this.props.image}
+							name={this.props.schema.title}
+							style={styleImage}
+						/>
+					</button>
+				</AnimateKeyframes>
 			</ResizableBox>
 		);
 	}

@@ -17,12 +17,12 @@ export default class Canvas extends React.PureComponent {
 			imagesDimension: {}
 		};
 
-		for (let i = 0; i < props.componentSchemas.length; i++) {
-			let schema = props.componentSchemas[i];
+		Object.keys(props.componentSchemas).forEach(schemaIndex => {
+			let schema = props.componentSchemas[schemaIndex];
 			let schema_id = schema.id;
 			//Validate schemas using jsonschema????
-			Object.keys(props.inputData).forEach(item => {
-				let object = props.inputData[item];
+			Object.keys(props.inputData).forEach(objIndex => {
+				let object = props.inputData[objIndex];
 				if (props.activeTier < object.tier) return;
 				if (schema_id !== object.schema_id) return;
 				let validation = validate(object, schema);
@@ -42,8 +42,7 @@ export default class Canvas extends React.PureComponent {
 				};
 				this.state.elementList.push(newElement);
 			});
-		}
-		//console.log(this.state.elementList);
+		});
 
 		this.dragged = this.dragged.bind(this);
 		this.dropped = this.dropped.bind(this);

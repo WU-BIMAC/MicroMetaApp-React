@@ -1,7 +1,11 @@
 {
-	"name": "4dn_microscopy_metadata_tool",
+	"name": "4dn-microscopy-metadata-tool",
 	"version": "0.1.0",
+	"main": "dist/MicroscopyMetadataTool.min.js",
 	"private": true,
+	"publishConfig": {
+		"access": "restricted"
+	},
 	"dependencies": {
 		"bfj": "6.1.1",
 		"file-loader": "2.0.0",
@@ -11,14 +15,12 @@
 		"jquery": "^3.3.1",
 		"jsonschema": "^1.2.4",
 		"popper.js": "^1.14.7",
-		"rc-tabs": "^9.6.2",
-		"react": "^16.8.4",
+		"rc-tabs": "^9.6.3",
 		"react-app-polyfill": "^0.2.2",
 		"react-bootstrap": "^1.0.0-beta.6",
 		"react-collapsible": "^2.6.0",
-		"react-dom": "^16.8.4",
 		"react-drag-drop-container": "^6.1.1",
-		"react-dropzone": "^10.0.5",
+		"react-dropzone": "^10.0.6",
 		"react-jsonschema-form": "^1.3.0",
 		"react-resizable": "^1.7.5",
 		"react-simple-animate": "^2.6.5",
@@ -31,7 +33,8 @@
 	"scripts": {
 		"test": "node scripts/test.js",
 		"build": "gulp build",
-		"dev": "gulp dev"
+		"dev": "gulp dev",
+		"prepublish": "npm run build"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -81,7 +84,9 @@
 		"style-loader": "0.23.1",
 		"webpack": "^4.29.6",
 		"webpack-cli": "^3.3.0",
-		"workbox-webpack-plugin": "3.6.3"
+		"workbox-webpack-plugin": "3.6.3",
+		"react-dom": "^16.8.5",
+		"react": "^16.8.5"
 	},
 	"peerDependencies": {
 		"react": "^16.8.1",

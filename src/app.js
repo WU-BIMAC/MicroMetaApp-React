@@ -15,7 +15,7 @@ const uuidv4 = require("uuid/v4");
 const createFromScratch = "Create from scratch";
 const createFromFile = "Create from file";
 
-export default class App extends React.PureComponent {
+export default class MicroscopyMetadataTool extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -94,9 +94,7 @@ export default class App extends React.PureComponent {
 	handleOpenNewSchema(e) {
 		return new Promise(() =>
 			setTimeout(
-				this.setState({ loading: true }, function() {
-					this.props.onLoadSchema(this.handleCompleteOpenNewSchema);
-				}),
+				this.props.onLoadSchema(this.handleCompleteOpenNewSchema),
 				10000
 			)
 		);
@@ -136,29 +134,24 @@ export default class App extends React.PureComponent {
 	createAdaptedSchemas() {
 		let activeTier = this.state.activeTier;
 		let schema = this.state.schema;
-		console.log(schema);
 		let componentSchemas = [];
 		let microscopeSchema = {};
 		let counter = 0;
 		for (let i = 0; i < schema.length; i++) {
 			let obj = schema[i];
 			let fieldsToRemove = [];
-			if (i === 0) console.log(obj);
 			Object.keys(obj.properties).forEach(propKey => {
 				if (obj.properties[propKey].tier > activeTier) {
 					fieldsToRemove.push(propKey);
 				}
 			});
-			if (i === 0) console.log(fieldsToRemove);
 			for (let y = 0; y < fieldsToRemove.length; y++) {
 				let key = fieldsToRemove[y];
 				if (obj.properties[key] === undefined) continue;
 				delete obj.properties[key];
 				if (obj.required === undefined) continue;
 				let requiredIndex = obj.required.indexOf(key);
-				if (i === 0) console.log(requiredIndex);
 				obj.required.splice(requiredIndex, 1);
-				if (i === 0) console.log(obj.required);
 			}
 
 			if (obj.title === "Microscope") {
@@ -177,7 +170,6 @@ export default class App extends React.PureComponent {
 		let microscopeSchema = adaptedSchemas[0];
 		let componentsSchema = adaptedSchemas[1];
 		let activeTier = this.state.activeTier;
-		console.log("HERE");
 		if (this.state.micName === createFromScratch) {
 			let uuid = uuidv4();
 			let microscope = {
@@ -195,14 +187,22 @@ export default class App extends React.PureComponent {
 				//TODO warning tier is different ask if continue?
 				modifiedMic.tier = activeTier;
 			}
+			let components = this.state.microscope.components;
 			let newElementData = {};
-			if (this.state.microscope.components !== undefined)
-				Object.keys(this.state.microscope.components).forEach(item => {
-					newElementData[item] = this.state.microscope.components[item];
+			if (components !== undefined) {
+				Object.keys(componentsSchema).forEach(schemaIndex => {
+					let schema = componentsSchema[schemaIndex];
+					let schema_id = schema.id;
+					Object.keys(components).forEach(objIndex => {
+						let obj = components[objIndex];
+						if (schema_id !== obj.schema_id) return;
+						let id = schema.title + "_" + obj.id;
+						newElementData[id] = obj;
+					});
 				});
+			}
 			let validation = validate(modifiedMic, microscopeSchema);
 			let validated = validation.valid;
-			console.log(validation);
 			this.setState({
 				microscope: modifiedMic,
 				elementData: newElementData,
@@ -240,17 +240,11 @@ export default class App extends React.PureComponent {
 		let validated = true;
 		if (!this.state.isMicroscopeValidated) {
 			this.setState({
-				isMicroscopeValidated: true
-			});
-			this.setState({
 				isMicroscopeValidated: false
 			});
 			validated = false;
 		}
 		if (!this.state.areComponentsValidated) {
-			this.setState({
-				areComponentsValidated: true
-			});
 			this.setState({
 				areComponentsValidated: false
 			});
@@ -323,19 +317,19 @@ export default class App extends React.PureComponent {
 
 		if (schema === null) {
 			return (
-				<AppContainer
+				<MicroscopyMetadataToolContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<DataLoader onClick={this.handleOpenNewSchema} />
-				</AppContainer>
+				</MicroscopyMetadataToolContainer>
 			);
 		}
 
 		if (this.state.isCreatingNewMicroscope === null) {
 			return (
-				<AppContainer
+				<MicroscopyMetadataToolContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
@@ -346,7 +340,7 @@ export default class App extends React.PureComponent {
 						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
 						onClickLoadMicroscope={this.setLoadMicroscope}
 					/>
-				</AppContainer>
+				</MicroscopyMetadataToolContainer>
 			);
 		}
 
@@ -355,7 +349,7 @@ export default class App extends React.PureComponent {
 			(microscope === null || elementData === null)
 		) {
 			return (
-				<AppContainer
+				<MicroscopyMetadataToolContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
@@ -370,7 +364,7 @@ export default class App extends React.PureComponent {
 						onClickCreateNewMicroscope={this.createNewMicroscope}
 						onClickCancel={this.cancel}
 					/>
-				</AppContainer>
+				</MicroscopyMetadataToolContainer>
 			);
 		}
 
@@ -379,7 +373,7 @@ export default class App extends React.PureComponent {
 			(microscope === null || elementData === null)
 		) {
 			return (
-				<AppContainer
+				<MicroscopyMetadataToolContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
@@ -393,7 +387,7 @@ export default class App extends React.PureComponent {
 						onClickCreateNewMicroscope={this.createNewMicroscope}
 						onClickCancel={this.cancel}
 					/>
-				</AppContainer>
+				</MicroscopyMetadataToolContainer>
 			);
 		}
 
@@ -407,7 +401,7 @@ export default class App extends React.PureComponent {
 		let componentsSchema = this.state.adaptedComponentsSchema;
 
 		return (
-			<AppContainer
+			<MicroscopyMetadataToolContainer
 				width={width}
 				height={height}
 				forwardedRef={this.overlaysContainerRef}
@@ -441,12 +435,12 @@ export default class App extends React.PureComponent {
 					inputData={microscope}
 					isMicroscopeValidated={this.state.isMicroscopeValidated}
 				/>
-			</AppContainer>
+			</MicroscopyMetadataToolContainer>
 		);
 	}
 }
 
-class AppContainer extends React.PureComponent {
+class MicroscopyMetadataToolContainer extends React.PureComponent {
 	render() {
 		var { height, width, forwardedRef } = this.props;
 		var style = { height, width, boxSizing: "border-box" };
@@ -461,14 +455,14 @@ class AppContainer extends React.PureComponent {
 	}
 }
 
-App.propTypes = {
+MicroscopyMetadataTool.propTypes = {
 	height: PropTypes.number,
 	width: PropTypes.number,
 	schema: PropTypes.arrayOf(PropTypes.object),
 	microscope: PropTypes.arrayOf(PropTypes.object)
 };
 
-App.defaultProps = {
+MicroscopyMetadataTool.defaultProps = {
 	height: 600,
 	width: 800,
 	schema: null,

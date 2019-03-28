@@ -13,9 +13,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 			fileLoading: false
 		};
 
-		this.handleParseBinaryString = this.handleParseBinaryString.bind(this);
-
-		this.readDroppedFiles = this.readDroppedFiles.bind(this);
+		this.dropzoneDropAccepted = this.dropzoneDropAccepted.bind(this);
+		this.dropzoneDropRejected = this.dropzoneDropRejected.bind(this);
+		this.dropzoneDrop = this.dropzoneDrop.bind(this);
+		this.dropzoneDialogOpen = this.dropzoneDialogOpen.bind(this);
+		this.dropzoneDialogCancel = this.dropzoneDialogCancel.bind(this);
 
 		this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
 		this.onFileReaderError = this.onFileReaderError.bind(this);
@@ -23,42 +25,55 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	onFileReaderAbort(e) {
-		this.setState({ fileLoading: false, fileLoaded: false });
+		console.log("abort");
+		this.setState({ fileLoaded: false });
 	}
 
 	onFileReaderError(e) {
-		this.setState({ fileLoading: false, fileLoaded: false });
-	}
-
-	handleParseBinaryString(binaryString) {
-		return new Promise(() => {
-			setTimeout(
-				this.setState({ fileLoading: true }, function() {
-					let microscope = JSON.parse(binaryString);
-					this.props.onFileDrop(microscope);
-				}),
-				10000
-			);
-		});
+		console.log("error");
+		this.setState({ fileLoaded: false });
 	}
 
 	onFileReaderLoad(e) {
+		console.log("read");
 		let binaryStr = e.target.result;
-		// let microscope = JSON.parse(binaryStr);
-		//this.props.onFileDrop(microscope);
-		//this.setState({ fileLoaded: true });
-		this.handleParseBinaryString(binaryStr, this.props.onFileDrop).then(
-			this.setState({ fileLoading: false, fileLoaded: true })
-		);
+		let microscope = JSON.parse(binaryStr);
+		this.props.onFileDrop(microscope);
+		this.setState({ fileLoaded: true });
 	}
 
-	readDroppedFiles(acceptedFiles) {
+	dropzoneDrop() {
+		console.log("drop");
+		this.setState({ fileLoading: true, fileLoaded: false });
+	}
+
+	dropzoneDropRejected() {
+		console.log("rejected");
+		this.setState({ fileLoading: false, fileLoaded: false });
+	}
+
+	dropzoneDropAccepted(acceptedFiles) {
+		console.log("accepted");
+		console.log(acceptedFiles);
+
 		const reader = new FileReader();
 		reader.onabort = this.onFileReaderAbort;
 		reader.onerror = this.onFileReaderError;
 		reader.onload = this.onFileReaderLoad;
 
 		acceptedFiles.forEach(file => reader.readAsBinaryString(file));
+
+		this.setState({ fileLoading: false });
+	}
+
+	dropzoneDialogOpen() {
+		console.log("open");
+		this.setState({ fileLoading: true, fileLoaded: false });
+	}
+
+	dropzoneDialogCancel() {
+		console.log("cancel");
+		this.setState({ fileLoading: false, fileLoaded: false });
 	}
 
 	render() {
@@ -100,6 +115,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			dropzoneStyle = Object.assign(dropzoneStyle, { display: "none" });
 		}
 
+		console.log("loading: " + fileLoading + " loaded:" + fileLoaded);
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowInternalContainer}>
@@ -109,13 +125,19 @@ export default class MicroscopeLoader extends React.PureComponent {
 						inputData={inputData}
 					/>
 					<Dropzone
-						onDrop={acceptedFiles => this.readDroppedFiles(acceptedFiles)}
+						onFileDialogCancel={this.dropzoneDialogCancel}
+						onDrop={this.dropzoneDrop}
+						onDropAccepted={this.dropzoneDropAccepted}
+						onDropRejected={this.dropzoneDropRejected}
+						accept={".json"}
 						multiple={false}
 					>
 						{({ getRootProps, getInputProps }) => (
 							<section style={dropzoneStyle}>
 								<div {...getRootProps()}>
-									<input {...getInputProps()} />
+									<input
+										{...getInputProps({ onClick: this.dropzoneDialogOpen })}
+									/>
 									<p>Drag 'n' drop some files here, or click to select files</p>
 								</div>
 							</section>

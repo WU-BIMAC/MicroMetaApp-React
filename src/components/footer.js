@@ -82,13 +82,25 @@ export default class Footer extends React.PureComponent {
 			<AnimateKeyframes
 				key={"Animation-0"}
 				play={play}
-				durationSeconds={2}
+				durationSeconds={1}
 				keyframes={[
-					"transform: rotateZ(0deg) scale(2, 2);",
-					"transform: rotateZ(90deg) scale(1.75, 1.75)",
-					"transform: rotateZ(180deg) scale(1.5, 1.5)",
-					"transform: rotateZ(270deg) scale(1.25, 1.25)",
-					"transform: rotateZ(360deg)"
+					"opacity: 1",
+					"opacity: 0.8",
+					"opacity: 0.6",
+					"opacity: 0.4",
+					"opacity: 0.2",
+					"opacity: 0.4",
+					"opacity: 0.6",
+					"opacity: 0.8",
+					"opacity: 1",
+					"opacity: 0.8",
+					"opacity: 0.6",
+					"opacity: 0.4",
+					"opacity: 0.2",
+					"opacity: 0.4",
+					"opacity: 0.6",
+					"opacity: 0.8",
+					"opacity: 1"
 				]}
 				// keyframes is an array of styles, and each style
 				// will be distributed over 100% of the duration
