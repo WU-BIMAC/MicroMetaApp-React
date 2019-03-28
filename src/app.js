@@ -67,6 +67,15 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		);
 		this.handleMicroscopeSelection = this.handleMicroscopeSelection.bind(this);
 		this.createNewMicroscope = this.createNewMicroscope.bind(this);
+		this.createNewMicroscopeFromScratch = this.createNewMicroscopeFromScratch.bind(
+			this
+		);
+		this.createNewMicroscopeFromDroppedFile = this.createNewMicroscopeFromDroppedFile.bind(
+			this
+		);
+		this.createNewMicroscopeFromSelectedFile = this.createNewMicroscopeFromSelectedFile.bind(
+			this
+		);
 		this.cancel = this.cancel.bind(this);
 
 		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
@@ -183,52 +192,105 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		return [microscopeSchema, componentSchemas];
 	}
 
+	createNewMicroscopeFromScratch(activeTier, microscopeSchema) {
+		let uuid = uuidv4();
+		let microscope = {
+			//todo this means the microscope schema needs to be at 0 all the time
+			//need to find better solution
+			name: `New ${microscopeSchema.title}`,
+			schema_id: microscopeSchema.id,
+			id: uuid,
+			tier: activeTier
+		};
+		this.setState({ microscope, elementData: {} });
+	}
+
+	createNewMicroscopeFromDroppedFile(
+		activeTier,
+		microscopeSchema,
+		componentsSchema
+	) {
+		let modifiedMic = this.state.microscope;
+		if (activeTier !== this.state.microscope.tier) {
+			//TODO warning tier is different ask if continue?
+			modifiedMic.tier = activeTier;
+		}
+		let components = this.state.microscope.components;
+		let newElementData = {};
+		if (components !== undefined) {
+			Object.keys(componentsSchema).forEach(schemaIndex => {
+				let schema = componentsSchema[schemaIndex];
+				let schema_id = schema.id;
+				Object.keys(components).forEach(objIndex => {
+					let obj = components[objIndex];
+					if (schema_id !== obj.schema_id) return;
+					let id = schema.title + "_" + obj.id;
+					newElementData[id] = obj;
+				});
+			});
+		}
+		let validation = validate(modifiedMic, microscopeSchema);
+		let validated = validation.valid;
+		this.setState({
+			microscope: modifiedMic,
+			elementData: newElementData,
+			isMicroscopeValidated: validated
+		});
+	}
+
+	createNewMicroscopeFromSelectedFile(
+		activeTier,
+		microscopeSchema,
+		componentsSchema
+	) {
+		let microscope = this.state.microscopes[this.state.micName];
+		let modifiedMic = microscope;
+		if (activeTier !== microscope.tier) {
+			//TODO warning tier is different ask if continue?
+			modifiedMic.tier = activeTier;
+		}
+		let components = microscope.components;
+		let newElementData = {};
+		if (components !== undefined) {
+			Object.keys(componentsSchema).forEach(schemaIndex => {
+				let schema = componentsSchema[schemaIndex];
+				let schema_id = schema.id;
+				Object.keys(components).forEach(objIndex => {
+					let obj = components[objIndex];
+					if (schema_id !== obj.schema_id) return;
+					let id = schema.title + "_" + obj.id;
+					newElementData[id] = obj;
+				});
+			});
+		}
+		let validation = validate(modifiedMic, microscopeSchema);
+		let validated = validation.valid;
+		this.setState({
+			microscope: modifiedMic,
+			elementData: newElementData,
+			isMicroscopeValidated: validated
+		});
+	}
+
 	createNewMicroscope() {
 		let adaptedSchemas = this.createAdaptedSchemas();
 		let microscopeSchema = adaptedSchemas[0];
 		let componentsSchema = adaptedSchemas[1];
 		let activeTier = this.state.activeTier;
 		if (this.state.micName === createFromScratch) {
-			let uuid = uuidv4();
-			let microscope = {
-				//todo this means the microscope schema needs to be at 0 all the time
-				//need to find better solution
-				name: `New ${microscopeSchema.title}`,
-				schema_id: microscopeSchema.id,
-				id: uuid,
-				tier: activeTier
-			};
-			this.setState({ microscope, elementData: {} });
+			this.createNewMicroscopeFromScratch(activeTier, microscopeSchema);
 		} else if (this.state.micName === createFromFile) {
-			let modifiedMic = this.state.microscope;
-			if (activeTier !== this.state.microscope.tier) {
-				//TODO warning tier is different ask if continue?
-				modifiedMic.tier = activeTier;
-			}
-			let components = this.state.microscope.components;
-			let newElementData = {};
-			if (components !== undefined) {
-				Object.keys(componentsSchema).forEach(schemaIndex => {
-					let schema = componentsSchema[schemaIndex];
-					let schema_id = schema.id;
-					Object.keys(components).forEach(objIndex => {
-						let obj = components[objIndex];
-						if (schema_id !== obj.schema_id) return;
-						let id = schema.title + "_" + obj.id;
-						newElementData[id] = obj;
-					});
-				});
-			}
-			let validation = validate(modifiedMic, microscopeSchema);
-			let validated = validation.valid;
-			this.setState({
-				microscope: modifiedMic,
-				elementData: newElementData,
-				isMicroscopeValidated: validated
-			});
-			//Validate schemas using jsonschema????
+			this.createNewMicroscopeFromDroppedFile(
+				activeTier,
+				microscopeSchema,
+				componentsSchema
+			);
 		} else {
-			//Load microscope from file
+			this.createNewMicroscopeFromSelectedFile(
+				activeTier,
+				microscopeSchema,
+				componentsSchema
+			);
 		}
 
 		this.setState({
@@ -366,16 +428,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		) {
 			let defaultArray = [createFromScratch, createFromFile];
 			let microscopeNames = [];
-			console.log("MicDB");
-			console.log(microscopes);
 			if (microscopes) {
 				Object.keys(microscopes).forEach(key => {
 					microscopeNames.push(key);
 				});
 			}
 			microscopeNames = defaultArray.concat(microscopeNames);
-			console.log("MicNames");
-			console.log(microscopeNames);
 			return (
 				<MicroscopyMetadataToolContainer
 					width={width}

@@ -35,6 +35,12 @@ export default class DropdownMenu extends React.PureComponent {
 			height: "50px",
 			margin: "5px"
 		};
+		const dropdownMenuStyle = {
+			overflow: "auto",
+			maxHeight: "100px",
+			maxWidth: "410px",
+			width: "410px"
+		};
 		return (
 			<Dropdown>
 				<Dropdown.Toggle
@@ -44,9 +50,7 @@ export default class DropdownMenu extends React.PureComponent {
 				>
 					{this.state.currentTitle}
 				</Dropdown.Toggle>
-				<Dropdown.Menu style={{ overflow: "auto", width: "100%" }}>
-					{dropdownItems}
-				</Dropdown.Menu>
+				<Dropdown.Menu style={dropdownMenuStyle}>{dropdownItems}</Dropdown.Menu>
 			</Dropdown>
 		);
 	}
