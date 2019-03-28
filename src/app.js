@@ -137,31 +137,33 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let componentSchemas = [];
 		let microscopeSchema = {};
 		let counter = 0;
-		for (let i = 0; i < schema.length; i++) {
-			let obj = schema[i];
+		console.log(schema);
+		Object.keys(schema).forEach(schemaIndex => {
+			let singleSchema = schema[schemaIndex];
+			//for (let i = 0; i < schema.length; i++) {
+			//let obj = schema[i];
 			let fieldsToRemove = [];
-			Object.keys(obj.properties).forEach(propKey => {
-				if (obj.properties[propKey].tier > activeTier) {
+			Object.keys(singleSchema.properties).forEach(propKey => {
+				if (singleSchema.properties[propKey].tier > activeTier) {
 					fieldsToRemove.push(propKey);
 				}
 			});
 			for (let y = 0; y < fieldsToRemove.length; y++) {
 				let key = fieldsToRemove[y];
-				if (obj.properties[key] === undefined) continue;
-				delete obj.properties[key];
-				if (obj.required === undefined) continue;
-				let requiredIndex = obj.required.indexOf(key);
-				obj.required.splice(requiredIndex, 1);
+				if (singleSchema.properties[key] === undefined) continue;
+				delete singleSchema.properties[key];
+				if (singleSchema.required === undefined) continue;
+				let requiredIndex = singleSchema.required.indexOf(key);
+				singleSchema.required.splice(requiredIndex, 1);
 			}
 
-			if (obj.title === "Microscope") {
-				microscopeSchema = Object.assign(microscopeSchema, obj);
+			if (singleSchema.title === "Microscope") {
+				microscopeSchema = Object.assign(microscopeSchema, singleSchema);
 			} else {
-				componentSchemas[counter] = obj;
+				componentSchemas[counter] = singleSchema;
 				counter++;
 			}
-		}
-
+		});
 		return [microscopeSchema, componentSchemas];
 	}
 
@@ -348,6 +350,14 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			this.state.isCreatingNewMicroscope &&
 			(microscope === null || elementData === null)
 		) {
+			let defaultArray = [createFromScratch, createFromFile];
+			let microscopes = null;
+			if (this.props.microscopes) {
+				//TODO create array from microscopes json keys and use the map to retrieve json files to load
+				microscopes = defaultArray.concat(this.props.microscopes);
+			} else {
+				microscopes = defaultArray;
+			}
 			return (
 				<MicroscopyMetadataToolContainer
 					width={width}
@@ -355,9 +365,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
-						microscopes={this.props.microscopes}
-						micTemplatesPath={micTemplatesPath}
-						micSavedPath={micSavedPath}
+						microscopes={microscopes}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
 						isDropzoneActive={this.state.isDropzoneActive}
 						onClickMicroscopeSelection={this.handleMicroscopeSelection}
@@ -372,6 +380,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			!this.state.isCreatingNewMicroscope &&
 			(microscope === null || elementData === null)
 		) {
+			let microscopes = null;
 			return (
 				<MicroscopyMetadataToolContainer
 					width={width}
@@ -379,9 +388,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
-						microscopes={this.props.microscopes}
-						micTemplatesPath={micTemplatesPath}
-						micSavedPath={micSavedPath}
+						microscopes={microscopes}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
 						onClickMicroscopeSelection={this.handleMicroscopeSelection}
 						onClickCreateNewMicroscope={this.createNewMicroscope}
@@ -456,6 +463,7 @@ class MicroscopyMetadataToolContainer extends React.PureComponent {
 }
 
 MicroscopyMetadataTool.propTypes = {
+	//TODO need to be added here and in all subclasses
 	height: PropTypes.number,
 	width: PropTypes.number,
 	schema: PropTypes.arrayOf(PropTypes.object),
@@ -468,11 +476,8 @@ MicroscopyMetadataTool.defaultProps = {
 	schema: null,
 	microscope: null,
 	imagesPath: "./assets/",
-	micTemplatesPath: "./microscopeTemplates",
-	micSavedPath: "./microscopeSaved",
 	tiers: ["1", "2", "3", "4", "5"],
-	validationBeforeSave: true,
-	microscopes: [createFromScratch, createFromFile],
+	microscopes: {},
 	onLoadSchema: function(complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function() {

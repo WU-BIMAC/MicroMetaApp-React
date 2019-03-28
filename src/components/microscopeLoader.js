@@ -115,7 +115,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 			dropzoneStyle = Object.assign(dropzoneStyle, { display: "none" });
 		}
 
-		console.log("loading: " + fileLoading + " loaded:" + fileLoaded);
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowInternalContainer}>

@@ -26,15 +26,13 @@
 		"react-simple-animate": "^2.6.5",
 		"resolve": "1.10.0",
 		"terser-webpack-plugin": "1.2.2",
-		"typescript": "^3.3.4000",
 		"url-loader": "1.1.2",
 		"uuid": "^3.3.2"
 	},
 	"scripts": {
 		"test": "node scripts/test.js",
 		"build": "gulp build",
-		"dev": "gulp dev",
-		"prepublish": "npm run build"
+		"dev": "gulp dev"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
