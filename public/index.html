@@ -78,6 +78,10 @@
 										var schema = JSON.parse(respText);
 										complete(schema);
 									});
+							},
+							onLoadMicroscopes: function(complete) {
+								let microscopesDB = {};
+								complete(microscopesDB);
 							}
 						}),
 						document.getElementById("root")

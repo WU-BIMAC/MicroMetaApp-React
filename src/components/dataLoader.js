@@ -9,24 +9,48 @@ export default class DataLoader extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isLoading: false
+			isLoadingSchema: false,
+			isLoadingMicroscopes: false,
+			isSchemaLoaded: false,
+			isMicroscopesLoaded: false
 		};
 
-		this.simulateClick = this.simulateClick.bind(this);
-		this.onClick = this.onClick.bind(this);
+		this.simulateClickLoadSchema = this.simulateClickLoadSchema.bind(this);
+		this.onClickLoadSchema = this.onClickLoadSchema.bind(this);
+
+		this.simulateClickLoadMicroscopes = this.simulateClickLoadMicroscopes.bind(
+			this
+		);
+		this.onClickLoadMicroscopes = this.onClickLoadMicroscopes.bind(this);
 	}
 
-	onClick() {
-		this.setState({ isLoading: true }, () => {
-			this.props.onClick().then(() => {
-				this.setState({ isLoading: false });
+	onClickLoadSchema() {
+		this.setState({ isLoadingSchema: true }, () => {
+			this.props.onClickLoadSchema().then(() => {
+				this.setState({ isLoadingSchema: false, isSchemaLoaded: true });
 			});
 		});
 	}
 
-	simulateClick(buttonRef) {
-		if (buttonRef === null) return;
-		buttonRef.click();
+	onClickLoadMicroscopes() {
+		this.setState({ isLoadingMicroscopes: true }, () => {
+			this.props.onClickLoadMicroscopes().then(() => {
+				this.setState({
+					isLoadingMicroscopes: false,
+					isMicroscopesLoaded: true
+				});
+			});
+		});
+	}
+
+	simulateClickLoadSchema(loadSchemaButtonRef) {
+		if (loadSchemaButtonRef === null) return;
+		loadSchemaButtonRef.click();
+	}
+
+	simulateClickLoadMicroscopes(loadMicroscopesButtonRef) {
+		if (loadMicroscopesButtonRef === null) return;
+		loadMicroscopesButtonRef.click();
 	}
 
 	render() {
@@ -52,18 +76,46 @@ export default class DataLoader extends React.PureComponent {
 			height: "100%",
 			alignItems: "center"
 		};
-		const { isLoading } = this.state;
+		let isLoadingSchema = this.state.isLoadingSchema;
+		let isLoadingMicroscopes = this.state.isLoadingMicroscopes;
+		let isSchemaLoaded = this.state.isSchemaLoaded;
+		let isMicroscopesLoaded = this.state.isMicroscopesLoaded;
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowInternalContainer}>
 					<Button
-						ref={this.simulateClick}
-						disabled={isLoading}
-						onClick={!isLoading ? this.onClick : null}
+						ref={this.simulateClickLoadSchema}
+						disabled={isLoadingSchema || isSchemaLoaded}
+						onClick={
+							!isLoadingSchema && !isSchemaLoaded
+								? this.onClickLoadSchema
+								: null
+						}
 						style={buttonStyle}
 						size="lg"
 					>
-						{isLoading ? "Loading…" : "Load schema"}
+						{isLoadingSchema
+							? "Loading schema"
+							: isSchemaLoaded
+								? "Schema loaded"
+								: "Load schema"}
+					</Button>
+					<Button
+						ref={this.simulateClickLoadMicroscopes}
+						disabled={isLoadingMicroscopes || isMicroscopesLoaded}
+						onClick={
+							!isLoadingMicroscopes && !isMicroscopesLoaded
+								? this.onClickLoadMicroscopes
+								: null
+						}
+						style={buttonStyle}
+						size="lg"
+					>
+						{isLoadingMicroscopes
+							? "Loading microscopes"
+							: isMicroscopesLoaded
+								? "Microscopes loaded"
+								: "Load microscopes"}
 					</Button>
 				</div>
 			</div>

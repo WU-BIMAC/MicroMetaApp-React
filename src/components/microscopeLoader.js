@@ -25,17 +25,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	onFileReaderAbort(e) {
-		console.log("abort");
 		this.setState({ fileLoaded: false });
 	}
 
 	onFileReaderError(e) {
-		console.log("error");
 		this.setState({ fileLoaded: false });
 	}
 
 	onFileReaderLoad(e) {
-		console.log("read");
 		let binaryStr = e.target.result;
 		let microscope = JSON.parse(binaryStr);
 		this.props.onFileDrop(microscope);
@@ -43,19 +40,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	dropzoneDrop() {
-		console.log("drop");
 		this.setState({ fileLoading: true, fileLoaded: false });
 	}
 
 	dropzoneDropRejected() {
-		console.log("rejected");
 		this.setState({ fileLoading: false, fileLoaded: false });
 	}
 
 	dropzoneDropAccepted(acceptedFiles) {
-		console.log("accepted");
-		console.log(acceptedFiles);
-
 		const reader = new FileReader();
 		reader.onabort = this.onFileReaderAbort;
 		reader.onerror = this.onFileReaderError;
@@ -67,12 +59,10 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	dropzoneDialogOpen() {
-		console.log("open");
 		this.setState({ fileLoading: true, fileLoaded: false });
 	}
 
 	dropzoneDialogCancel() {
-		console.log("cancel");
 		this.setState({ fileLoading: false, fileLoaded: false });
 	}
 

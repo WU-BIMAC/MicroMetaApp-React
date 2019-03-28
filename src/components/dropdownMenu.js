@@ -44,7 +44,9 @@ export default class DropdownMenu extends React.PureComponent {
 				>
 					{this.state.currentTitle}
 				</Dropdown.Toggle>
-				<Dropdown.Menu style={{ width: "100%" }}>{dropdownItems}</Dropdown.Menu>
+				<Dropdown.Menu style={{ overflow: "auto", width: "100%" }}>
+					{dropdownItems}
+				</Dropdown.Menu>
 			</Dropdown>
 		);
 	}

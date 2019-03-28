@@ -21,6 +21,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.state = {
 			microscope: props.microscope || null,
 			schema: props.schema || null,
+			microscopes: props.microscopes || null,
 			adaptedMicroscopeSchema: null,
 			adaptedComponentsSchema: null,
 			mounted: false,
@@ -46,10 +47,13 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		 * this prop is optional, we implement the componentDidMount func below.
 		 */
 		this.overlaysContainerRef = React.createRef();
-		this.handleCompleteOpenNewSchema = this.handleCompleteOpenNewSchema.bind(
+
+		this.handleLoadSchema = this.handleLoadSchema.bind(this);
+		this.handleCompleteLoadSchema = this.handleCompleteLoadSchema.bind(this);
+		this.handleLoadMicroscopes = this.handleLoadMicroscopes.bind(this);
+		this.handleCompleteLoadMicroscopes = this.handleCompleteLoadMicroscopes.bind(
 			this
 		);
-		this.handleOpenNewSchema = this.handleOpenNewSchema.bind(this);
 
 		this.updateElementData = this.updateElementData.bind(this);
 		this.onMicroscopeDataSave = this.onMicroscopeDataSave.bind(this);
@@ -77,6 +81,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		if (props.microscope !== state.microscope && props.microscope !== null) {
 			return { microscope: props.microscope };
 		}
+		if (props.microscopes !== state.microscopes && props.microscopes !== null) {
+			return { microscopes: props.microscopes };
+		}
 		return null;
 	}
 
@@ -91,16 +98,26 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.setState({ mounted: true });
 	}
 
-	handleOpenNewSchema(e) {
+	handleLoadMicroscopes(e) {
 		return new Promise(() =>
 			setTimeout(
-				this.props.onLoadSchema(this.handleCompleteOpenNewSchema),
+				this.props.onLoadMicroscopes(this.handleCompleteLoadMicroscopes),
 				10000
 			)
 		);
 	}
 
-	handleCompleteOpenNewSchema(newSchema) {
+	handleCompleteLoadMicroscopes(newMicroscopes) {
+		this.setState({ microscopes: newMicroscopes });
+	}
+
+	handleLoadSchema(e) {
+		return new Promise(() =>
+			setTimeout(this.props.onLoadSchema(this.handleCompleteLoadSchema), 10000)
+		);
+	}
+
+	handleCompleteLoadSchema(newSchema) {
 		this.setState({ schema: newSchema });
 	}
 
@@ -137,7 +154,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let componentSchemas = [];
 		let microscopeSchema = {};
 		let counter = 0;
-		console.log(schema);
 		Object.keys(schema).forEach(schemaIndex => {
 			let singleSchema = schema[schemaIndex];
 			//for (let i = 0; i < schema.length; i++) {
@@ -295,15 +311,10 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	render() {
-		let {
-			imagesPath,
-			micTemplatesPath,
-			micSavedPath,
-			width,
-			height
-		} = this.props;
+		let { imagesPath, width, height } = this.props;
 		let schema = this.state.schema;
 		let microscope = this.state.microscope;
+		let microscopes = this.state.microscopes;
 		let elementData = this.state.elementData;
 
 		// Alex: Idea for scaling
@@ -317,19 +328,22 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		//	(+ export mic on file for the moment)
 		//3rd view: settings (+ export settings on file for the moment)
 
-		if (schema === null) {
+		if (schema === null && microscopes === null && microscope === null) {
 			return (
 				<MicroscopyMetadataToolContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
-					<DataLoader onClick={this.handleOpenNewSchema} />
+					<DataLoader
+						onClickLoadSchema={this.handleLoadSchema}
+						onClickLoadMicroscopes={this.handleLoadMicroscopes}
+					/>
 				</MicroscopyMetadataToolContainer>
 			);
 		}
 
-		if (this.state.isCreatingNewMicroscope === null) {
+		if (microscope === null && this.state.isCreatingNewMicroscope === null) {
 			return (
 				<MicroscopyMetadataToolContainer
 					width={width}
@@ -351,13 +365,17 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			(microscope === null || elementData === null)
 		) {
 			let defaultArray = [createFromScratch, createFromFile];
-			let microscopes = null;
-			if (this.props.microscopes) {
-				//TODO create array from microscopes json keys and use the map to retrieve json files to load
-				microscopes = defaultArray.concat(this.props.microscopes);
-			} else {
-				microscopes = defaultArray;
+			let microscopeNames = [];
+			console.log("MicDB");
+			console.log(microscopes);
+			if (microscopes) {
+				Object.keys(microscopes).forEach(key => {
+					microscopeNames.push(key);
+				});
 			}
+			microscopeNames = defaultArray.concat(microscopeNames);
+			console.log("MicNames");
+			console.log(microscopeNames);
 			return (
 				<MicroscopyMetadataToolContainer
 					width={width}
@@ -365,7 +383,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
-						microscopes={microscopes}
+						microscopes={microscopeNames}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
 						isDropzoneActive={this.state.isDropzoneActive}
 						onClickMicroscopeSelection={this.handleMicroscopeSelection}
@@ -475,13 +493,19 @@ MicroscopyMetadataTool.defaultProps = {
 	width: 800,
 	schema: null,
 	microscope: null,
+	microscopes: null,
 	imagesPath: "./assets/",
 	tiers: ["1", "2", "3", "4", "5"],
-	microscopes: {},
 	onLoadSchema: function(complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function() {
-			complete();
+			complete(null);
+		});
+	},
+	onLoadMicroscopes: function(complete) {
+		// Do some stuff... show pane for people to browse/select schema.. etc.
+		setTimeout(function() {
+			complete(null);
 		});
 	}
 };
