@@ -8,4 +8,4 @@ serviceWorker.js
 /public/assets
 /public/index.html
 /.vscode
-/schema
+/schemas
