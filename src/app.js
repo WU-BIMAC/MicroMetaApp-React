@@ -97,14 +97,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	componentDidMount() {
-		/**
-		 * We may not have access to window/document until Component has been mounted,
-		 * esp. if server-side rendering is utilized. One common approach is to set state
-		 * mounted=true and then only do things which require access to window (e.g. binding browser window
-		 * resize event listener (if required for some reason)) or accessing window properties.
-		 * This method is very similar to constructor in purpose.
-		 */
 		this.setState({ mounted: true });
+	}
+
+	componentWillUnmount() {
+		this.setState({ mounted: false });
 	}
 
 	handleLoadMicroscopes(e) {
@@ -501,6 +498,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						updateElementData={this.updateElementData}
 						overlaysContainer={this.overlaysContainerRef.current}
 						areComponentsValidated={this.state.areComponentsValidated}
+						parentWidth={width}
+						parentHeight={height}
 					/>
 					<Toolbar
 						activeTier={this.state.activeTier}

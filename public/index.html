@@ -52,6 +52,8 @@
 				// Parent app could be required to handle detecting window resize
 				var MicroscopyMetadataToolApp = window.MicroscopyMetadataTool.default;
 
+				//var debouncedRender = _.debounce(render, 500);
+
 				function render() {
 					let dims = {
 						width: window.innerWidth,
@@ -68,7 +70,7 @@
 								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
 								window
 									.fetch(
-										"https://raw.githubusercontent.com/WU-BIMAC/4DNMicroscopyMetadataToolReact/master/src/schema/testSchema.json"
+										"https://raw.githubusercontent.com/WU-BIMAC/4DNMicroscopyMetadataToolReact/master/schema/testSchema.json"
 									)
 									.then(function(resp) {
 										console.log(resp);

@@ -14,7 +14,12 @@ export default class Canvas extends React.PureComponent {
 		this.state = {
 			elementList: [],
 			elementData: Object.assign({}, this.props.inputData),
-			imagesDimension: {}
+			imagesDimension: {},
+			width: null,
+			height: null,
+			mounted: false
+			//prevParentDims: null,
+			//parentDims: null
 		};
 
 		Object.keys(props.componentSchemas).forEach(schemaIndex => {
@@ -54,6 +59,40 @@ export default class Canvas extends React.PureComponent {
 		this.areAllElementsValidated = this.areAllElementsValidated.bind(this);
 
 		this.props.updateElementData(this.state.elementList, true);
+
+		this.ref = React.createRef();
+	}
+
+	componentDidMount() {
+		console.log("componentDidMount");
+		if (this.ref.current.clientWidth !== this.state.width) {
+			let newWidth = this.ref.current.clientWidth;
+			this.setState({ width: newWidth });
+		}
+		if (this.ref.current.clientHeight !== this.state.height) {
+			let newHeight = this.ref.current.clientHeight;
+			this.setState({ height: newHeight });
+		}
+		this.setState({ mounted: true });
+	}
+
+	componentWillUnmount() {
+		console.log("componentWillUnmount");
+		this.setState({ mounted: false });
+	}
+
+	static getDerivedStateFromProps(props, state) {
+		console.log("getDerivedStateFromProps");
+		if (!state.mounted || !this || !this.ref || !this.ref.current) return null;
+		if (this.ref.current.clientWidth !== state.width) {
+			let newWidth = this.ref.current.clientWidth;
+			return { width: newWidth };
+		}
+		if (this.ref.current.clientHeight !== state.height) {
+			let newHeight = this.ref.current.clientHeight;
+			return { height: newHeight };
+		}
+		return null;
 	}
 
 	updatedDimensions(id, width, height, isResize) {
@@ -67,7 +106,6 @@ export default class Canvas extends React.PureComponent {
 		}
 		newImagesDimension[id] = { width, height };
 		this.setState({ imagesDimension: newImagesDimension });
-		//this.imagesDimension = newImagesDimension;
 	}
 
 	areAllElementsValidated() {
@@ -114,7 +152,15 @@ export default class Canvas extends React.PureComponent {
 		let newElementDataList = Object.assign({}, this.state.elementData);
 		let newElement = null;
 		let x = e.x;
-		let y = e.y;
+		let y = e.y - 60;
+		if (sourceElement.source !== "toolbar") {
+			x -= 7;
+			y -= 7;
+		}
+		let width = this.state.width;
+		let height = this.state.height;
+		let percentX = (100 * x) / width;
+		let percentY = (100 * y) / height;
 
 		if (sourceElement.source === "toolbar") {
 			let uuid = uuidv4();
@@ -125,8 +171,8 @@ export default class Canvas extends React.PureComponent {
 				dragged: false,
 				style: {
 					position: "absolute",
-					top: y,
-					left: x
+					left: `${percentX}%`,
+					top: `${percentY}%`
 				}
 			};
 			newElementList.push(newElement);
@@ -136,21 +182,20 @@ export default class Canvas extends React.PureComponent {
 				id: uuid,
 				tier: newElement.schema.tier,
 				schema_id: newElement.schema.id,
-				xPosition: x,
-				yPosition: y
+				xPosition: `${percentX}%`,
+				yPosition: `${percentY}%`
 			};
 			newElementDataList[newElement.id] = newElementData;
 		} else {
 			let item = this.state.elementList[sourceElement.index];
 			let style = Object.assign({}, newElementList[sourceElement.index].style);
-			x = x - 7.5;
-			y = y - 7.5;
-			style.top = y;
-			style.left = x;
+			style.left = `${percentX}%`;
+			style.top = `${percentY}%`;
+
 			newElementList[sourceElement.index].style = style;
 			newElementList[sourceElement.index].dragged = false;
-			newElementDataList[item.id].xPosition = x;
-			newElementDataList[item.id].yPosition = y;
+			newElementDataList[item.id].xPosition = `${percentX}%`;
+			newElementDataList[item.id].yPosition = `${percentY}%`;
 		}
 
 		this.setState({
@@ -210,6 +255,8 @@ export default class Canvas extends React.PureComponent {
 		let imagesDimension = this.state.imagesDimension;
 		let stylesContainer = {};
 		let stylesImages = {};
+		let oldDims = this.state.prevParentDims;
+		let newDims = this.state.parentDims;
 		elementList.map(item => {
 			let style = item.style;
 			let width =
@@ -276,7 +323,6 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	render() {
-		//FIXME this should come from props later
 		const styleContainer = {
 			borderBottom: "2px solid",
 			borderTop: "2px solid",
@@ -288,9 +334,13 @@ export default class Canvas extends React.PureComponent {
 			backgroundPosition: "50%",
 			backgroundSize: "contain"
 		};
+		let width = this.state.width;
+		let height = this.state.height;
+		console.log("W: " + width + " H: " + height);
 		const styleFullWindow = {
-			width: "100%",
-			height: "100%"
+			width: `${width}px`,
+			height: `${height}px`,
+			position: "relative"
 		};
 		return (
 			//TODO i could use the img container with absolute position and put stuff on top of it
@@ -302,8 +352,9 @@ export default class Canvas extends React.PureComponent {
 					onHit={this.dropped}
 					targetKey="canvas"
 				>
-					<div style={styleFullWindow} />
-					{this.createList()}
+					<div ref={this.ref} style={styleFullWindow}>
+						{this.createList()}
+					</div>
 				</DropTarget>
 			</div>
 		);
