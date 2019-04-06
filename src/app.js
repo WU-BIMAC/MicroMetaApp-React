@@ -26,6 +26,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			adaptedComponentsSchema: null,
 			mounted: false,
 			activeTier: 1,
+			validationTier: 1,
 			isCreatingNewMicroscope: null,
 			micName: null,
 			elementData: null,
@@ -76,6 +77,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.createNewMicroscopeFromSelectedFile = this.createNewMicroscopeFromSelectedFile.bind(
 			this
 		);
+		this.setMicroscopeScale = this.setMicroscopeScale.bind(this);
 		this.cancel = this.cancel.bind(this);
 
 		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
@@ -128,7 +130,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	handleActiveTierSelection(item) {
-		this.setState({ activeTier: Number(item) });
+		let tier = Number(item);
+		this.setState({ activeTier: tier, validationTier: tier });
 	}
 
 	setCreateNewMicroscope() {
@@ -154,17 +157,29 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.setState({ microscope: microscope });
 	}
 
-	createAdaptedSchemas() {
+	setMicroscopeScale(scale) {
+		this.state.microscope.scale = scale;
+	}
+
+	createAdaptedSchemas(validationTier) {
 		let activeTier = this.state.activeTier;
 		let schema = this.state.schema;
-		let componentSchemas = [];
+		let componentsSchema = [];
 		let microscopeSchema = {};
+		let microscope = this.state.microscope;
 		let counter = 0;
+
 		Object.keys(schema).forEach(schemaIndex => {
-			let singleSchema = schema[schemaIndex];
-			//for (let i = 0; i < schema.length; i++) {
-			//let obj = schema[i];
+			let singleSchemaOriginal = schema[schemaIndex];
+			let singleSchema = Object.assign({}, singleSchemaOriginal);
+			singleSchema.properties = Object.assign(
+				{},
+				singleSchemaOriginal.properties
+			);
+			if (singleSchema.required !== undefined)
+				singleSchema.required = singleSchemaOriginal.required.slice(0);
 			let fieldsToRemove = [];
+			let fieldsToSetNotRequired = [];
 			Object.keys(singleSchema.properties).forEach(propKey => {
 				if (singleSchema.properties[propKey].tier > activeTier) {
 					fieldsToRemove.push(propKey);
@@ -178,15 +193,40 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				let requiredIndex = singleSchema.required.indexOf(key);
 				singleSchema.required.splice(requiredIndex, 1);
 			}
+			Object.keys(singleSchema.properties).forEach(propKey => {
+				if (singleSchema.properties[propKey].tier > validationTier) {
+					fieldsToSetNotRequired.push(propKey);
+				}
+			});
+			for (let y = 0; y < fieldsToSetNotRequired.length; y++) {
+				let key = fieldsToSetNotRequired[y];
+				if (singleSchema.properties[key] === undefined) continue;
+				if (singleSchema.required === undefined) continue;
+				let requiredIndex = singleSchema.required.indexOf(key);
+				singleSchema.required.splice(requiredIndex, 1);
+			}
 
 			if (singleSchema.title === "Microscope") {
 				microscopeSchema = Object.assign(microscopeSchema, singleSchema);
 			} else {
-				componentSchemas[counter] = singleSchema;
+				componentsSchema[counter] = singleSchema;
 				counter++;
 			}
 		});
-		return [microscopeSchema, componentSchemas];
+
+		let validated = false;
+		if (microscope !== null) {
+			let validation = validate(microscope, microscopeSchema);
+			validated = validation.valid;
+		}
+
+		this.setState({
+			adaptedMicroscopeSchema: microscopeSchema,
+			adaptedComponentsSchema: componentsSchema,
+			validationTier: validationTier,
+			isMicroscopeValidated: validated
+		});
+		return [microscopeSchema, componentsSchema];
 	}
 
 	createNewMicroscopeFromScratch(activeTier, microscopeSchema) {
@@ -216,12 +256,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let newElementData = {};
 		if (components !== undefined) {
 			Object.keys(componentsSchema).forEach(schemaIndex => {
-				let schema = componentsSchema[schemaIndex];
-				let schema_id = schema.id;
+				let compSchema = componentsSchema[schemaIndex];
+				let schema_id = compSchema.id;
 				Object.keys(components).forEach(objIndex => {
 					let obj = components[objIndex];
 					if (schema_id !== obj.schema_id) return;
-					let id = schema.title + "_" + obj.id;
+					let id = compSchema.title + "_" + obj.id;
 					newElementData[id] = obj;
 				});
 			});
@@ -250,12 +290,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let newElementData = {};
 		if (components !== undefined) {
 			Object.keys(componentsSchema).forEach(schemaIndex => {
-				let schema = componentsSchema[schemaIndex];
-				let schema_id = schema.id;
+				let compSchema = componentsSchema[schemaIndex];
+				let schema_id = compSchema.id;
 				Object.keys(components).forEach(objIndex => {
 					let obj = components[objIndex];
 					if (schema_id !== obj.schema_id) return;
-					let id = schema.title + "_" + obj.id;
+					let id = compSchema.title + "_" + obj.id;
 					newElementData[id] = obj;
 				});
 			});
@@ -270,7 +310,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	createNewMicroscope() {
-		let adaptedSchemas = this.createAdaptedSchemas();
+		let validationTier = this.state.activeTier;
+		let adaptedSchemas = this.createAdaptedSchemas(validationTier);
 		let microscopeSchema = adaptedSchemas[0];
 		let componentsSchema = adaptedSchemas[1];
 		let activeTier = this.state.activeTier;
@@ -289,11 +330,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				componentsSchema
 			);
 		}
-
-		this.setState({
-			adaptedMicroscopeSchema: microscopeSchema,
-			adaptedComponentsSchema: componentsSchema
-		});
 	}
 
 	cancel() {
@@ -328,13 +364,14 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			validated = false;
 		}
 		if (!validated) {
+			//TODO throw warning instead of stopping validation
 			console.log(
 				"should re-render: mic-" +
 					this.state.isMicroscopeValidated +
 					" comps-" +
 					this.state.areComponentsValidated
 			);
-			return;
+			//return;
 		}
 
 		let elementData = this.state.elementData;
@@ -377,8 +414,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let elementData = this.state.elementData;
 
 		// Alex: Idea for scaling
-		height = Math.max(600, height);
 		width = Math.max(600, width);
+		height = Math.max(600, height);
 
 		//TODO with this strategy i can create multiple views
 		//1st view: selection tier / new mic / use mic (+ import mic here maybe?)
@@ -477,8 +514,32 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			height: height - 60 - 60
 		};
 
+		//TODO should be passing these to canvas and toolbar instead of
+		// using percentage size inside the component
+		let canvasWidth = Math.ceil(width * 0.75);
+		let canvasHeight = height - 60 - 60;
+		let canvasDims = {
+			width: canvasWidth,
+			height: canvasHeight
+		};
+
+		let toolbarWidth = Math.floor(width * 0.25);
+		let toolbarHeight = height - 60 - 60;
+		let toolbarDims = {
+			width: toolbarWidth,
+			height: toolbarHeight
+		};
+
+		let headerFooterDims = {
+			width: width,
+			height: 60
+		};
+
 		let microscopeSchema = this.state.adaptedMicroscopeSchema;
 		let componentsSchema = this.state.adaptedComponentsSchema;
+
+		//console.log(microscopeSchema);
+		//console.log(componentsSchema);
 
 		return (
 			<MicroscopyMetadataToolContainer
@@ -486,7 +547,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				height={height}
 				forwardedRef={this.overlaysContainerRef}
 			>
-				<Header />
+				<Header dimensions={headerFooterDims} />
 				<div style={style}>
 					<Canvas
 						activeTier={this.state.activeTier}
@@ -498,24 +559,29 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						updateElementData={this.updateElementData}
 						overlaysContainer={this.overlaysContainerRef.current}
 						areComponentsValidated={this.state.areComponentsValidated}
-						parentWidth={width}
-						parentHeight={height}
+						height={canvasHeight}
+						dimensions={canvasDims}
+						setScale={this.setMicroscopeScale}
 					/>
 					<Toolbar
 						activeTier={this.state.activeTier}
 						ref={this.toolbarRef}
 						imagesPath={imagesPath}
 						componentSchemas={componentsSchema}
+						dimensions={toolbarDims}
 					/>
 				</div>
 				<Footer
 					activeTier={this.state.activeTier}
+					validationTier={this.state.validationTier}
 					microscopeSchema={microscopeSchema}
 					onConfirm={this.onMicroscopeDataSave}
 					onClickExport={this.exportJsonDataToFile}
+					onClickChangeValidation={this.createAdaptedSchemas}
 					overlaysContainer={this.overlaysContainerRef.current}
 					inputData={microscope}
 					isMicroscopeValidated={this.state.isMicroscopeValidated}
+					dimensions={headerFooterDims}
 				/>
 			</MicroscopyMetadataToolContainer>
 		);
@@ -547,7 +613,7 @@ MicroscopyMetadataTool.propTypes = {
 
 MicroscopyMetadataTool.defaultProps = {
 	height: 600,
-	width: 800,
+	width: 600,
 	schema: null,
 	microscope: null,
 	microscopes: null,

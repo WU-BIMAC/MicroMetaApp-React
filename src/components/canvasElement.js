@@ -59,7 +59,6 @@ export default class CanvasElement extends React.PureComponent {
 		if (this.state.editing) {
 			return (
 				<MultiTabFormWithHeader
-					activeTier={this.props.activeTier}
 					schema={this.props.schema}
 					inputData={this.props.inputData}
 					id={this.props.id}

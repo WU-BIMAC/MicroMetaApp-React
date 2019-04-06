@@ -2,9 +2,12 @@ import React from "react";
 
 export default class Header extends React.PureComponent {
 	render() {
+		let width = this.props.dimensions.width;
+		let height = this.props.dimensions.height;
 		const style = {
 			backgroundColor: "LightGray",
-			height: "60px",
+			width: width,
+			height: height,
 			boxSizing: "border-box",
 			textAlign: "center",
 			verticalAlign: "middle"

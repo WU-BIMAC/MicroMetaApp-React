@@ -10,7 +10,9 @@ export default class DropdownMenu extends React.PureComponent {
 		this.state = {
 			inputData: props.inputData,
 			title: props.title,
-			currentTitle: `${props.title} ${props.inputData[0]}`
+			currentTitle: `${props.title} ${
+				props.inputData[this.props.defaultValue || 0]
+			}`
 		};
 
 		this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
@@ -25,21 +27,23 @@ export default class DropdownMenu extends React.PureComponent {
 
 	render() {
 		let inputData = this.state.inputData;
+		let width = this.props.width || 250;
+		let margin = this.props.margin || 0;
 		let dropdownItems = inputData.map(item => (
 			<Dropdown.Item key={item} onClick={this.handleMenuItemClick} id={item}>
 				{item}
 			</Dropdown.Item>
 		));
 		const dropdownStyle = {
-			width: "410px",
+			width: `${width}px`,
 			height: "50px",
-			margin: "5px"
+			margin: `${margin}px`
 		};
 		const dropdownMenuStyle = {
 			overflow: "auto",
 			maxHeight: "100px",
-			maxWidth: "410px",
-			width: "410px"
+			maxWidth: `${width}px`,
+			width: `${width}px`
 		};
 		return (
 			<Dropdown>

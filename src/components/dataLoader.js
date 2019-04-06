@@ -3,8 +3,6 @@ import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Button from "react-bootstrap/Button";
 import Dropzone from "react-dropzone";
 
-import DropdownMenu from "./DropdownMenu";
-
 export default class DataLoader extends React.PureComponent {
 	constructor(props) {
 		super(props);

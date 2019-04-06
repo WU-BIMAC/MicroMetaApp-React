@@ -90,11 +90,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 			alignItems: "center"
 		};
 
+		let width = 410;
+		let margin = 5;
 		let inputData = this.props.microscopes;
 		let dropzoneStyle = {
 			borderStyle: "dashed",
 			borderWidth: "thin",
-			width: "410px"
+			width: `${width}px`
 		};
 
 		let isDropzoneActive = this.props.isDropzoneActive;
@@ -112,6 +114,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 						title={""}
 						handleMenuItemClick={this.props.onClickMicroscopeSelection}
 						inputData={inputData}
+						width={width}
+						margin={margin}
 					/>
 					<Dropzone
 						onFileDialogCancel={this.dropzoneDialogCancel}

@@ -6,6 +6,7 @@ import TabContent from "rc-tabs/lib/TabContent";
 import ScrollableTabBar from "rc-tabs/lib/TabBar";
 import "rc-tabs/assets/index.css";
 import Button from "react-bootstrap/Button";
+import { isFulfilled } from "q";
 
 export default class MultiTabFormWithHeader extends React.PureComponent {
 	constructor(props) {
@@ -34,18 +35,42 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 
 		//this.revalidateForm = this.revalidateForm.bind(this);
 
-		this.partialSchema = this.transformSchema(this.props.schema);
-		this.partialInputData = [];
+		console.log("constructor");
+		console.log(this.props.schema);
+		this.partialSchema = MultiTabFormWithHeader.transformSchema(
+			this.props.schema
+		);
+		let partialInputData = [];
 		if (this.props.inputData !== undefined) {
-			this.partialInputData = this.transformInputData(
+			partialInputData = MultiTabFormWithHeader.transformInputData(
 				this.props.inputData,
 				this.partialSchema
 			);
 		}
-		this.forms = this.createForms();
+
+		this.forms = this.createForms(this.partialSchema, partialInputData);
 	}
 
-	componentWillUnmount() {}
+	// static getDerivedStateFromProps(props, state) {
+	// 	if (props.schema !== null) {
+	// 		console.log("getDerivedStateFromProps");
+	// 		console.log(props.schema);
+	// 		let partialSchema = MultiTabFormWithHeader.transformSchema(props.schema);
+	// 		let partialInputData = [];
+	// 		if (props.inputData !== undefined) {
+	// 			partialInputData = MultiTabFormWithHeader.transformInputData(
+	// 				props.inputData,
+	// 				partialSchema
+	// 			);
+	// 		}
+	// 		//let forms = this.createForms(partialSchema, partialInputData);
+	// 		return {
+	// 			partialSchema: partialSchema,
+	// 			partialInputData: partialInputData
+	// 		};
+	// 	}
+	// 	return null;
+	// }
 
 	onChange() {}
 
@@ -114,7 +139,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		return consolidatedData;
 	}
 
-	transformInputData(inputData, partialSchema) {
+	static transformInputData(inputData, partialSchema) {
 		let partialInputData = [];
 		Object.keys(partialSchema).forEach(key => {
 			if (partialInputData[key] === undefined) partialInputData[key] = {};
@@ -125,7 +150,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		return partialInputData;
 	}
 
-	transformSchema(schema) {
+	static transformSchema(schema) {
 		let partialSchema = [];
 		Object.keys(schema.properties).forEach(key => {
 			let category = schema.properties[key].category;
@@ -140,15 +165,17 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			partialSchema[key].title = key;
 			partialSchema[key].type = "object";
 			let required = [];
-			Object.keys(partialSchema[key].properties).forEach(propKey => {
-				required.push(propKey);
-			});
-			partialSchema[key].required = required;
+			if (schema.required !== undefined) {
+				Object.keys(partialSchema[key].properties).forEach(propKey => {
+					if (schema.required.indexOf(propKey) != -1) required.push(propKey);
+				});
+			}
+			if (required.length !== 0) partialSchema[key].required = required;
 		});
 		return partialSchema;
 	}
 
-	createUISchema(activeTier, partialSchema) {
+	createUISchema(partialSchema) {
 		let partialUISchema = [];
 		Object.keys(partialSchema).forEach((key, index1) => {
 			if (partialUISchema[key] === undefined) partialUISchema[key] = {};
@@ -172,23 +199,20 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		return partialUISchema;
 	}
 
-	createForms() {
+	createForms(partialSchema, partialInputData) {
 		// Maybe ModalWindow could wrap entire <SchemaForm> (in CanvasElement render method)
 		// instead of being rendered by <SchemaForm> if SchemaForm could be later used in other places.
 		let currentButtons = [];
 		let currentFormRefs = [];
-		let partialUISchema = this.createUISchema(
-			this.props.activeTier,
-			this.partialSchema
-		);
-		const currentForms = Object.keys(this.partialSchema).map((item, index) => (
+		let partialUISchema = this.createUISchema(partialSchema);
+		let currentForms = Object.keys(partialSchema).map((item, index) => (
 			<Form
-				schema={this.partialSchema[item]}
+				schema={partialSchema[item]}
 				uiSchema={partialUISchema[item]}
 				onChange={this.onChange}
 				onSubmit={this.onSubmit}
 				onError={this.onError}
-				formData={this.partialInputData[item]}
+				formData={partialInputData[item]}
 				showErrorList={false}
 				ref={form => {
 					currentFormRefs[index] = form;
@@ -228,6 +252,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			marginLeft: "5px",
 			marginRight: "5px"
 		};
+		let partialSchema = this.partialSchema;
 		let forms = this.forms;
 		return (
 			<ModalWindow overlaysContainer={this.props.overlaysContainer}>
@@ -240,7 +265,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 						renderTabContent={() => <TabContent animatedWithMargin />}
 						activeKey={this.state.activeKey}
 					>
-						{Object.keys(this.partialSchema).map((item, index) => (
+						{Object.keys(partialSchema).map((item, index) => (
 							<TabPane tab={item} key={index} forceRender={true}>
 								{forms[index]}
 							</TabPane>

@@ -29,6 +29,27 @@ export default class Toolbar extends React.PureComponent {
 		this.updatedDimensions = this.updatedDimensions.bind(this);
 	}
 
+	// static getDerivedStateFromProps(props, state) {
+	// 	if (props.componentSchemas !== null) {
+	// 		let elementList = [];
+	// 		for (let i = 0; i < props.componentSchemas.length; i++) {
+	// 			let obj = props.componentSchemas[i];
+	// 			if (props.activeTier < obj.tier) return;
+	// 			let category = obj.category;
+	// 			let element = {
+	// 				id: `${obj.title}-${i}`,
+	// 				schema: obj
+	// 			};
+	// 			if (elementList[category] === undefined) {
+	// 				elementList[category] = [];
+	// 			}
+	// 			elementList[category].push(element);
+	// 		}
+	// 		return { elementList: elementList };
+	// 	}
+	// 	return null;
+	// }
+
 	updatedDimensions(id, width, height) {
 		let newImagesDimension = Object.assign({}, this.state.imagesDimension);
 		if (newImagesDimension[id] !== undefined) {
@@ -91,7 +112,7 @@ export default class Toolbar extends React.PureComponent {
 						dragData={{
 							source: "toolbar",
 							id: item.id,
-							schema: item.schema
+							schema_id: item.schema.id
 						}}
 					>
 						{imageElements[index]}
@@ -160,15 +181,18 @@ export default class Toolbar extends React.PureComponent {
 			imagesDimension.length !== elementList.length
 		)
 			return;
-		const style = {
+		let width = this.props.dimensions.width;
+		let height = this.props.dimensions.height;
+		//console.log("t w: " + width + " h: " + height);
+		let style = {
 			boxSizing: "border-box",
 			backgroundColor: "LightGray",
 			borderBottom: "2px solid",
 			borderTop: "2px solid",
-			width: "25%",
-			color: "black",
+			width: `${width}px`,
+			height: `${height}px`,
 			overflow: "auto",
-			OverflowEvent: "hidden",
+			//			OverflowEvent: "hidden",
 			textAlign: "center",
 			verticalAlign: "middle"
 		};

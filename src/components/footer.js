@@ -3,6 +3,9 @@ import Button from "react-bootstrap/Button";
 import { AnimateKeyframes } from "react-simple-animate";
 
 import MultiTabFormWithHeader from "./multiTabFormWithHeader";
+import DropdownMenu from "./DropdownMenu";
+
+const validationTier = "Validate tier: ";
 
 export default class Footer extends React.PureComponent {
 	constructor(props) {
@@ -17,6 +20,8 @@ export default class Footer extends React.PureComponent {
 		this.onClickEdit = this.onClickEdit.bind(this);
 		this.onConfirm = this.onConfirm.bind(this);
 		this.onCancel = this.onCancel.bind(this);
+
+		this.onClickChangeValidation = this.onClickChangeValidation.bind(this);
 	}
 
 	onClickEdit() {
@@ -34,12 +39,18 @@ export default class Footer extends React.PureComponent {
 		this.setState({ editing: false });
 	}
 
+	onClickChangeValidation(item) {
+		let tier = Number(item);
+		this.props.onClickChangeValidation(tier);
+	}
+
 	render() {
+		let width = this.props.dimensions.width;
+		let height = this.props.dimensions.height;
+
 		if (this.state.editing) {
-			console.log(this.props.microscopeSchema);
 			return (
 				<MultiTabFormWithHeader
-					activeTier={this.props.activeTier}
 					schema={this.props.microscopeSchema}
 					inputData={this.props.inputData}
 					id={this.props.id}
@@ -52,7 +63,8 @@ export default class Footer extends React.PureComponent {
 
 		const style = {
 			backgroundColor: "LightGray",
-			height: "60px",
+			width: width,
+			height: height,
 			boxSizing: "border-box",
 			display: "flex",
 			flexDirection: "row",
@@ -61,7 +73,7 @@ export default class Footer extends React.PureComponent {
 			alignItems: "center",
 			padding: "5px"
 		};
-		const styleButton = {
+		let styleButton = {
 			width: "250px",
 			marginLeft: "5px",
 			marginRight: "5px"
@@ -125,6 +137,34 @@ export default class Footer extends React.PureComponent {
 				Export microscope
 			</Button>
 		);
+		//this could be moved to derived state from props
+		let inputData = [];
+		for (let i = 1; i <= this.props.activeTier; i++) {
+			inputData.push(i);
+		}
+		let defaultValidationTier = this.props.validationTier - 1;
+		buttons[2] = (
+			<DropdownMenu
+				key={"Button-2"}
+				title={validationTier}
+				handleMenuItemClick={this.onClickChangeValidation}
+				inputData={inputData}
+				width={250}
+				defaultValue={defaultValidationTier}
+			/>
+		);
+		//Dropdown menu validation with microscope tier and lower
+		// items to pick level of validation
+		// buttons[2] = (
+		// 	<Button
+		// 		key={"Button-2"}
+		// 		onClick={this.props.onClickC}
+		// 		style={styleButton}
+		// 		size="lg"
+		// 	>
+		// 		Export microscope
+		// 	</Button>
+		// );
 		return <div style={style}>{buttons}</div>;
 	}
 }

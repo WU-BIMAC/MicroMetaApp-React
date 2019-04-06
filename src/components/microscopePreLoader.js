@@ -11,6 +11,8 @@ export default class MicroscopePreLoader extends React.PureComponent {
 	}
 
 	render() {
+		let width = 410;
+		let margin = 5;
 		const buttonStyle = {
 			width: "200px",
 			height: "50px",
@@ -41,6 +43,8 @@ export default class MicroscopePreLoader extends React.PureComponent {
 						title={"Tier"}
 						handleMenuItemClick={this.props.onClickTierSelection}
 						inputData={tierInputData}
+						width={width}
+						margin={margin}
 					/>
 					<div>
 						<Button
