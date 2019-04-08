@@ -34,18 +34,14 @@ export default class Canvas extends React.PureComponent {
 				if (schema_id !== object.schema_id) return;
 				let validation = validate(object, schema);
 				let validated = validation.valid;
-
 				let newElement = {
 					id: schema.title + "_" + object.id,
-					schema: schema,
+					schema_id: schema_id,
 					validated: validated,
-					style: {
-						position: "absolute",
-						left: object.xPosition,
-						top: object.yPosition,
-						width: 50,
-						height: 50
-					}
+					dragged: false,
+					obj: object,
+					x: object.xPosition,
+					y: object.yPosition
 				};
 				this.state.elementList.push(newElement);
 			});
@@ -111,6 +107,29 @@ export default class Canvas extends React.PureComponent {
 					return { offsetY: offsetYPercent, backgroundScale: backgroundScale };
 			}
 		}
+
+		if (props.componentsSchema !== null) {
+			let componentsSchema = {};
+			Object.keys(props.componentSchemas).forEach(schemaIndex => {
+				let schema = props.componentSchemas[schemaIndex];
+				let schema_id = schema.id;
+				componentsSchema[schema_id] = schema;
+			});
+			let elementList = state.elementList;
+			for (let i = 0; i < elementList.length; i++) {
+				let element = elementList[i];
+				let schema_id = element.schema_id;
+				let schema = componentsSchema[schema_id];
+				let object = element.obj;
+				let validation = validate(object, schema);
+				let validated = validation.valid;
+				element.validated = validated;
+			}
+			return {
+				componentsSchema: componentsSchema
+			};
+		}
+
 		let scale = 1;
 		if (
 			(state.scale === null && state.backgroundScale !== null) ||
@@ -125,17 +144,6 @@ export default class Canvas extends React.PureComponent {
 		}
 		if (scale !== state.scale) return { scale: scale };
 
-		if (props.componentsSchema !== null) {
-			let componentsSchema = {};
-			Object.keys(props.componentSchemas).forEach(schemaIndex => {
-				let schema = props.componentSchemas[schemaIndex];
-				let schema_id = schema.id;
-				componentsSchema[schema_id] = schema;
-			});
-			return {
-				componentsSchema: componentsSchema
-			};
-		}
 		return null;
 	}
 
@@ -243,8 +251,9 @@ export default class Canvas extends React.PureComponent {
 				tier: schema.tier,
 				schema_id: schema.id,
 				xPosition: percentX,
-				yPosition: percentX
+				yPosition: percentY
 			};
+			newElement.obj = newElementData;
 			newElementDataList[newElement.id] = newElementData;
 		} else {
 			let item = this.state.elementList[sourceElement.index];

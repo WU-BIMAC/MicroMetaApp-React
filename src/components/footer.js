@@ -75,11 +75,15 @@ export default class Footer extends React.PureComponent {
 		};
 		let styleButton = {
 			width: "250px",
+			minWidth: "250px",
+			height: "50px",
 			marginLeft: "5px",
 			marginRight: "5px"
 		};
 		let saveButton = {
 			width: "250px",
+			minWidth: "250px",
+			height: "50px",
 			marginLeft: "5px",
 			marginRight: "5px"
 		};
@@ -153,18 +157,6 @@ export default class Footer extends React.PureComponent {
 				defaultValue={defaultValidationTier}
 			/>
 		);
-		//Dropdown menu validation with microscope tier and lower
-		// items to pick level of validation
-		// buttons[2] = (
-		// 	<Button
-		// 		key={"Button-2"}
-		// 		onClick={this.props.onClickC}
-		// 		style={styleButton}
-		// 		size="lg"
-		// 	>
-		// 		Export microscope
-		// 	</Button>
-		// );
 		return <div style={style}>{buttons}</div>;
 	}
 }

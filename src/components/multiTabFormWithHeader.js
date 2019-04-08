@@ -35,8 +35,8 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 
 		//this.revalidateForm = this.revalidateForm.bind(this);
 
-		console.log("constructor");
-		console.log(this.props.schema);
+		// console.log("constructor");
+		// console.log(this.props.schema);
 		this.partialSchema = MultiTabFormWithHeader.transformSchema(
 			this.props.schema
 		);
