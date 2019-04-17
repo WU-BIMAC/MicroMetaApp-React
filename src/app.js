@@ -82,7 +82,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
 
-		this.exportJsonDataToFile = this.exportJsonDataToFile.bind(this);
+		this.handleExportMicroscope = this.handleExportMicroscope.bind(this);
+		this.handleSaveMicroscope = this.handleSaveMicroscope.bind(this);
+		this.handleCompleteSaveMicroscope = this.handleCompleteSaveMicroscope.bind(
+			this
+		);
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -350,7 +354,25 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		});
 	}
 
-	exportJsonDataToFile() {
+	handleExportMicroscope(microscope) {
+		let micName = microscope.name;
+		micName = micName.replace(/\s+/g, "_").toLowerCase();
+		let filename = `${micName}.json`;
+		let contentType = "application/json;charset=utf-8;";
+		var a = document.createElement("a");
+		a.download = filename;
+		a.href =
+			"data:" +
+			contentType +
+			"," +
+			encodeURIComponent(JSON.stringify(microscope));
+		a.target = "_blank";
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+	}
+
+	handleSaveMicroscope(item) {
 		let validated = true;
 		if (!this.state.isMicroscopeValidated) {
 			this.setState({
@@ -374,7 +396,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			);
 			//return;
 		}
-
 		let elementData = this.state.elementData;
 		let components = [];
 		Object.keys(elementData).forEach((item, index) => {
@@ -383,21 +404,19 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let comps = { components };
 		let microscope = Object.assign(this.state.microscope, comps);
 		console.log(microscope);
-		let micName = microscope.name;
-		micName = micName.replace(/\s+/g, "_").toLowerCase();
-		let filename = `${micName}.json`;
-		let contentType = "application/json;charset=utf-8;";
-		var a = document.createElement("a");
-		a.download = filename;
-		a.href =
-			"data:" +
-			contentType +
-			"," +
-			encodeURIComponent(JSON.stringify(microscope));
-		a.target = "_blank";
-		document.body.appendChild(a);
-		a.click();
-		document.body.removeChild(a);
+		if (item.startsWith("Save")) {
+			this.props.onSaveMicroscope(
+				this.handleCompleteSaveMicroscope,
+				microscope
+			);
+		} else {
+			this.handleExportMicroscope(microscope);
+		}
+	}
+
+	handleCompleteSaveMicroscope(micName) {
+		console.log(micName + " saved");
+		//WARN Microscope save
 	}
 
 	onMicroscopeDataSave(id, data) {
@@ -577,7 +596,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					validationTier={this.state.validationTier}
 					microscopeSchema={microscopeSchema}
 					onConfirm={this.onMicroscopeDataSave}
-					onClickExport={this.exportJsonDataToFile}
+					onClickSave={this.handleSaveMicroscope}
+					hasSaveOption={this.props.onSaveMicroscope ? true : false}
 					onClickChangeValidation={this.createAdaptedSchemas}
 					overlaysContainer={this.overlaysContainerRef.current}
 					inputData={microscope}
@@ -630,6 +650,13 @@ MicroscopyMetadataTool.defaultProps = {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function() {
 			complete(null);
+		});
+	},
+	onSaveMicroscope: function(complete, microscope) {
+		// Do some stuff... show pane for people to browse/select schema.. etc.
+		setTimeout(function() {
+			console.log(microscope);
+			complete(microscope.name);
 		});
 	}
 };

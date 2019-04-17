@@ -1,8 +1,6 @@
 import React from "react";
 
-import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 export default class DropdownMenu extends React.PureComponent {
 	constructor(props) {
@@ -29,6 +27,7 @@ export default class DropdownMenu extends React.PureComponent {
 		let inputData = this.state.inputData;
 		let width = this.props.width || 250;
 		let margin = this.props.margin || 0;
+		let direction = "down" || this.props.direction;
 		let dropdownItems = inputData.map(item => (
 			<Dropdown.Item key={item} onClick={this.handleMenuItemClick} id={item}>
 				{item}
@@ -51,6 +50,7 @@ export default class DropdownMenu extends React.PureComponent {
 					id="dropdown-basic-button"
 					style={dropdownStyle}
 					size="lg"
+					drop={direction}
 				>
 					{this.state.currentTitle}
 				</Dropdown.Toggle>

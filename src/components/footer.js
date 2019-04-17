@@ -1,11 +1,13 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { AnimateKeyframes } from "react-simple-animate";
 
 import MultiTabFormWithHeader from "./multiTabFormWithHeader";
 import DropdownMenu from "./DropdownMenu";
 
-const validationTier = "Validate tier: ";
+const validationTier = "Validate @ tier: ";
 
 export default class Footer extends React.PureComponent {
 	constructor(props) {
@@ -73,14 +75,7 @@ export default class Footer extends React.PureComponent {
 			alignItems: "center",
 			padding: "5px"
 		};
-		let styleButton = {
-			width: "250px",
-			minWidth: "250px",
-			height: "50px",
-			marginLeft: "5px",
-			marginRight: "5px"
-		};
-		let saveButton = {
+		let styleEditButton = {
 			width: "250px",
 			minWidth: "250px",
 			height: "50px",
@@ -89,7 +84,9 @@ export default class Footer extends React.PureComponent {
 		};
 		let play = false;
 		if (!this.props.isMicroscopeValidated) {
-			saveButton = Object.assign(saveButton, { border: "5px ridge red" });
+			styleEditButton = Object.assign(styleEditButton, {
+				border: "5px ridge red"
+			});
 			play = true;
 		}
 
@@ -124,22 +121,12 @@ export default class Footer extends React.PureComponent {
 				<Button
 					key={"Button-0"}
 					onClick={this.onClickEdit}
-					style={saveButton}
+					style={styleEditButton}
 					size="lg"
 				>
 					Edit microscope
 				</Button>
 			</AnimateKeyframes>
-		);
-		buttons[1] = (
-			<Button
-				key={"Button-1"}
-				onClick={this.props.onClickExport}
-				style={styleButton}
-				size="lg"
-			>
-				Export microscope
-			</Button>
 		);
 		//this could be moved to derived state from props
 		let inputData = [];
@@ -147,16 +134,52 @@ export default class Footer extends React.PureComponent {
 			inputData.push(i);
 		}
 		let defaultValidationTier = this.props.validationTier - 1;
-		buttons[2] = (
+		buttons[1] = (
 			<DropdownMenu
-				key={"Button-2"}
+				key={"Button-1"}
 				title={validationTier}
 				handleMenuItemClick={this.onClickChangeValidation}
 				inputData={inputData}
 				width={250}
+				margin={5}
 				defaultValue={defaultValidationTier}
+				direction={"up"}
 			/>
 		);
+		let saveOptions = [];
+		if (this.props.hasSaveOption) {
+			saveOptions.push("Save microscope");
+		}
+		saveOptions.push("Export microscope");
+		//Rethink this, maybe drop down split button with multi actions?
+		buttons[2] = (
+			<DropdownMenu
+				key={"Button-2"}
+				title={""}
+				handleMenuItemClick={this.props.onClickSave}
+				inputData={saveOptions}
+				width={250}
+				margin={5}
+				direction={"up"}
+			/>
+		);
+		// let styleSaveButton = {
+		// 	width: "250px",
+		// 	minWidth: "250px",
+		// 	height: "50px",
+		// 	marginLeft: "5px",
+		// 	marginRight: "5px"
+		// };
+		// buttons[2] = (
+		// 	<Button
+		// 		key={"Button-2"}
+		// 		onClick={this.props.onClickExport}
+		// 		style={styleSaveButton}
+		// 		size="lg"
+		// 	>
+		// 		Export microscope
+		// 		</Button>
+		// );
 		return <div style={style}>{buttons}</div>;
 	}
 }
