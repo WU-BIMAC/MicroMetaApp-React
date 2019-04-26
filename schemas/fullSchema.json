@@ -1,0 +1,4645 @@
+[
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "Microscope.json",
+	"type": "object",
+	"title": "Microscope",
+	"description": "This element describes the instrument used to capture the Image. It is primarily a container for manufacturer's model and catalog numbers for the Microscope, LightSource, Detector, Objective and Filters components. The Objective element contains the additional elements LensNA and Magnification. The Filters element can be composed either of separate excitation, emission filters and a dichroic mirror or a single filter set. Within the Image itself, a reference is made to this one Filter element. There may be multiple light sources, detectors, objectives and filters on a microscope. Each of these has their own ID attribute, which can be referred to from Channel. It is understood that the light path configuration can be different for each channel, but cannot be different for each timepoint or each plane of an XYZ stack",
+	"image": "Microscope_default.png",
+	"tier": 1,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of the microscope.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"1",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
+		},
+		"Type": {
+			"type":"string",
+			"description":"This element describes the type of this microscope.",
+			"tier":"1",
+			"category":"MicroscopeBody"
+		},
+		"EyePieceFieldNumber": {
+			"type":"string",
+			"description":"The Field Number represents the diaphragm size of the microscope eyepiece expressed in mm",
+			"tier":"3",
+			"category":"MicroscopeBody"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "LightGuide.json",
+	"type": "object",
+	"title": "LightGuide",
+	"description": "Light Guides interface with illuminators to transfer light to the speciment in a usable manner.",
+	"category": "LightSourceCoupling",
+	"image": "LightSourceCoupling_LightGuide.png",
+	"tier": 4,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 4,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of light guide used in this case.",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"Geometry": {
+			"type":"string",
+			"description":"The shape of this LightGuide",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"MaterialName": {
+			"type":"string",
+			"description":"This records the chemical composition or the nonproprietary trade designation of the material used for this light guide",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"PeakWavelength": {
+			"type":"string",
+			"description":"The wavelength associated with maximum light intensity transmitted by this light guide",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"PeakWavelengthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"SingleMode": {
+			"type":"string",
+			"description":"Records whether or not the light guide is single-mode. If not, then the guide is assumend to be multi-modal",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"WaveguideMode": {
+			"type":"string",
+			"description":"When boundary conditions are imposed by a physical structure, a wave of a particular frequency can be described in terms of a transverse mode (or superposition of such modes). These modes generally follow different propagation constants",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"RefractiveIndex": {
+			"type":"string",
+			"description":"The refractive index of the material this light guide is made of",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"NumericalAperture": {
+			"type":"string",
+			"description":"The numerical aperture of the light guide expressed as a floating point (real) number. Expected range 0.02 - 1.5",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"AcceptanceAngle": {
+			"type":"string",
+			"description":"The angle within which light beam may be coupled into the bound modes of an optical fiber.",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"AcceptanceAngleUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"Diameter": {
+			"type":"string",
+			"description":"The outer diameter of the light guide",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"DiameterUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"LightGuide"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"4",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this LightSourceCoupling device",
+			"tier":"4",
+			"category":"Generic"
+		},
+		"Transmittance": {
+			"type":"string",
+			"description":"The amount of light this LightSourceCoupling apparatus transmits at a maximum. A fraction, as a value from 0.0 to 1.0",
+			"tier":"5",
+			"category":"LightSourceCoupling"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "LightEmittingDiode.json",
+	"type": "object",
+	"title": "LightEmittingDiode",
+	"description": "The LightEmittingDiode element is used to describe various kinds of LED lamps",
+	"category": "LightSource",
+	"image": "LightSource_LightEmittingDiode.png",
+	"tier": 1,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of LightEmittingDiode light source.",
+			"tier":"3",
+			"category":"LightEmittingDiode"
+		},
+		"PeakWavelenght": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"LightEmittingDiode"
+		},
+		"PeakWavelenghtUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"LightEmittingDiode"
+		},
+		"LumenPower": {
+			"type":"string",
+			"description":"The amount of light this light source generate at maximum expressed in lumen. The lumen is the SI derived unit of luminous flux, a measure of the total quantity of visible light emitted by a source.",
+			"tier":"3",
+			"category":"LightEmittingDiode"
+		},
+		"LumenPowerUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"LightEmittingDiode"
+		},
+		"ProjectionAngle": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"LightEmittingDiode"
+		},
+		"ProjectionAngleUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"LightEmittingDiode"
+		},
+		"ID": {
+			"type":"string",
+			"description":"A LightSource ID must be specified for each light source, and the individual light sources can be referred to by their LightSource IDs (eg from Channel).",
+			"tier":"1",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
+		},
+		"NominalPower": {
+			"type":"string",
+			"description":"The nominal power of the light-source",
+			"tier":"3",
+			"category":"LightSource"
+		},
+		"NominalPowerUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"null",
+			"category":"LightSource"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "MicroscopeTable.json",
+	"type": "object",
+	"title": "MicroscopeTable",
+	"description": "This element describes the type of this microscope table",
+	"category": "MicroscopyBasics",
+	"image": "MicroscopyBasics_MicroscopeTable.png",
+	"tier": 4,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 4,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"4",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element.",
+			"tier":"4",
+			"category":"Generic"
+		},
+		"Type": {
+			"type":"string",
+			"description":"This element describes the type of microscope table available for this instrument.",
+			"tier":"4",
+			"category":"MicroscopeTable"
+		},
+		"TableWidth": {
+			"type":"string",
+			"description":"The width of this microscope table",
+			"tier":"5",
+			"category":"MicroscopeTable"
+		},
+		"TableWidthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"MicroscopeTable"
+		},
+		"TableDepth": {
+			"type":"string",
+			"description":"The depth of this microscope table",
+			"tier":"5",
+			"category":"MicroscopeTable"
+		},
+		"TableDepthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"MicroscopeTable"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "PiezoElectricObjective.json",
+	"type": "object",
+	"title": "PiezoElectricObjective",
+	"description": "This is a piezoelectric objective-lens positioning device",
+	"category": "SampleHolderAndFocusing.Focusing",
+	"image": "SampleHolderAndFocusing_Focusing_PiezoElectricObjective.png",
+	"tier": 3,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Resolution": {
+			"type":"string",
+			"description":"The motion resolution of this device",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"ResolutionUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"PositionLinearityError": {
+			"type":"string",
+			"description":"The positioning error associated with this device. Typically expressed as % error.",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"PositionLinearityErrorUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"SettingTime": {
+			"type":"string",
+			"description":"Measures the time it takes for this device to stabilize at the target position",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"SettlingTimeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"Repetability": {
+			"type":"string",
+			"description":"Measures the precision with which this device is capable of returning to a previously visited position",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"RepeatabilityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
+		},
+		"MovementAxes": {
+			"type":"string",
+			"description":"The axis along which this device moves.",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"XTravelRange": {
+			"type":"string",
+			"description":"The X axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"XTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"YTravelRange": {
+			"type":"string",
+			"description":"The Y axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"YTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"ZTravelRange": {
+			"type":"string",
+			"description":"The Z axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"ZTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"MaxVelocity": {
+			"type":"string",
+			"description":"The maximum velocity this device is capable of moving at",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"MaxVelocityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "AdditionalFilter.json",
+	"type": "object",
+	"title": "AdditionalFilter",
+	"description": "An optical filter is a device that selectively transmits light of different wavelengths.This element refers to a filter positioned along the light path in addition to the excitation and the emission filters.This element can be associated with an optional FilterWheel - Note: FilterWheel is not the same as a FilterSet.",
+	"category": "AdditinalOptics",
+	"image": "AdditinalOptics_AdditionalFilter.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Filter",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of filter used in this case.",
+			"tier":"3",
+			"category":"FIlter"
+		},
+		"FilterWheel": {
+			"type":"string",
+			"description":"A filter 'wheel' in OME can refer to any arrangement of filters in a filter holder of any shape. It could, for example, be a filter slider.",
+			"tier":"3",
+			"category":"FIlter"
+		},
+		"ReflectionCoating": {
+			"type":"string",
+			"description":"An optical coating is one or more thin layers of material deposited on an optical component such as a lens or mirror, which alters the way in which the optic reflects and transmits light",
+			"tier":"5",
+			"category":"FIlter"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "PolarizationOptics.json",
+	"type": "object",
+	"title": "PolarizationOptics",
+	"description": "This is an optical filter that lets light waves of a specific polarization pass through while blocking light waves of other polarizations",
+	"category": "AdditionalOptics",
+	"image": "AdditionalOptics_PolarizationOptics.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Polarization Optics element",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Function": {
+			"type":"string",
+			"description":"This records whether this polarizer optics is used to generate polarized light or to analyze polarized light",
+			"tier":"2",
+			"category":"PolarizationOptics"
+		},
+		"Construction": {
+			"type":"string",
+			"description":"The modality in with which this Polarization Optics is constructed",
+			"tier":"3",
+			"category":"PolarizationOptics"
+		},
+		"Fabrication": {
+			"type":"string",
+			"description":"The way in with which this Polarization Optics is fabricated",
+			"tier":"5",
+			"category":"PolarizationOptics"
+		},
+		"Retardation": {
+			"type":"string",
+			"description":"Retardation describes the phase shift between the polarization component projected along the fast axis and the component projected along the slow axis",
+			"tier":"3",
+			"category":"PolarizationOptics"
+		},
+		"MaterialName": {
+			"type":"string",
+			"description":"This records the chemical composition or the nonproprietary trade designation of the glass",
+			"tier":"5",
+			"category":"PolarizationOptics"
+		},
+		"GlassCode": {
+			"type":"string",
+			"description":"If available provide the international glass code. This is based on U.S. military standard MIL-G-174, and is a six-digit number specifying the glass according to its refractive index nd at the Fraunhofer d- (or D3-) line, and its Abbe number Vd also taken at that line. The resulting glass code is the value of nd-1 rounded to three digits, followed by Vd rounded to three digits, with all decimal points ignored. For example, BK7 has nd = 1.5168 and Vd = 64.17, giving a six-digit glass code of 517642",
+			"tier":"5",
+			"category":"PolarizationOptics"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "Filament.json",
+	"type": "object",
+	"title": "Filament",
+	"description": "The Filament element is used to describe various kinds of filament bulbs such as Incadescent or Halogen. The Power of the Filament is now stored in the LightSource.",
+	"category": "LightSource",
+	"image": "LightSource_Filament.png",
+	"tier": 1,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of filament.",
+			"tier":"3",
+			"category":"Filament"
+		},
+		"ID": {
+			"type":"string",
+			"description":"A LightSource ID must be specified for each light source, and the individual light sources can be referred to by their LightSource IDs (eg from Channel).",
+			"tier":"1",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
+		},
+		"NominalPower": {
+			"type":"string",
+			"description":"The nominal power of the light-source",
+			"tier":"3",
+			"category":"LightSource"
+		},
+		"NominalPowerUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"null",
+			"category":"LightSource"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "Laser.json",
+	"type": "object",
+	"title": "Laser",
+	"description": "A laser ('light amplification by stimulated emission of radiation') is a device that emits light through a process of optical amplification based on the stimulated emission of electromagnetic radiation.",
+	"category": "LightSource",
+	"image": "LightSource_Laser.png",
+	"tier": 1,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"Type is the general category of laser.",
+			"tier":"5",
+			"category":"Laser"
+		},
+		"LaserMedium": {
+			"type":"string",
+			"description":"The Medium attribute specifies the actual lasing medium for a given laser type.           ",
+			"tier":"5",
+			"category":"Laser"
+		},
+		"Wavelength": {
+			"type":"string",
+			"description":"The Wavelength of the laser",
+			"tier":"2",
+			"category":"Laser"
+		},
+		"WavelengthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Laser"
+		},
+		"FrequencyMultiplication": {
+			"type":"string",
+			"description":"FrequencyMultiplication that may be specified.",
+			"tier":"5",
+			"category":"Laser"
+		},
+		"Tuneable": {
+			"type":"string",
+			"description":"Whether or not the laser is Tuneable.",
+			"tier":"5",
+			"category":"Laser"
+		},
+		"Pulse": {
+			"type":"string",
+			"description":"The Pulse mode of the laser.",
+			"tier":"5",
+			"category":"Laser"
+		},
+		"PockelCell": {
+			"type":"string",
+			"description":"If true the laser has a PockelCell to rotate the polarization of the beam.",
+			"tier":"5",
+			"category":"Laser"
+		},
+		"RepetitionRate": {
+			"type":"string",
+			"description":"The is the rate in Hz at which the laser pulses if the Pulse type is 'Repetitive' hertz[Hz]",
+			"tier":"5",
+			"category":"Laser"
+		},
+		"RepetitionRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Laser"
+		},
+		"ID": {
+			"type":"string",
+			"description":"A LightSource ID must be specified for each light source, and the individual light sources can be referred to by their LightSource IDs (eg from Channel).",
+			"tier":"1",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
+		},
+		"NominalPower": {
+			"type":"string",
+			"description":"The nominal power of the light-source",
+			"tier":"3",
+			"category":"LightSource"
+		},
+		"NominalPowerUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"null",
+			"category":"LightSource"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "IntensifiedCCD.json",
+	"type": "object",
+	"title": "IntensifiedCCD",
+	"description": "The type of Intensified CCD camera used",
+	"category": "Detector.Camera",
+	"image": "Detector_Camera_IntensifiedCCD.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of intensifiedCCD camera used.",
+			"tier":"3",
+			"category":"IntensifiedCCD"
+		},
+		"Illumination": {
+			"type":"string",
+			"description":"The type of illumination the camera chip receives",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ArrayWidth": {
+			"type":"string",
+			"description":"The width of this camera chip expressed in pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ArrayHeight": {
+			"type":"string",
+			"description":"The height of this camera chip expressed in pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWidth": {
+			"type":"string",
+			"description":"The physical width of each pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWidthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelHeight": {
+			"type":"string",
+			"description":"The physical height of each pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelHeightUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageWidth": {
+			"type":"string",
+			"description":"The width of the image generated by the camera",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageWidthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageHeight": {
+			"type":"string",
+			"description":"The width of the image generated by the camera",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageHeightUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWellCapacity": {
+			"type":"string",
+			"description":"The maximum amount of charge each pixel well can hold, measured in electron counts",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"PixelWellCapacityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"RegisterWellCapacity": {
+			"type":"string",
+			"description":"The maximum amount of charge each register well can hold, measured in electron counts",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"RegisterWellCapacityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"VerticalClockSpeed": {
+			"type":"string",
+			"description":"The maximal speed each vertical colunm of pixels in the camera chip, can be shifted down and read",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"VerticalClockSpeedUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumFrameRate": {
+			"type":"string",
+			"description":"The maximal rate this camera can acquire a single frame",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumFrameRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumReadoutRate": {
+			"type":"string",
+			"description":"The maximal pixel read out rate allowed by this camera",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumReadoutRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Detector",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Gain": {
+			"type":"string",
+			"description":"The analog gain is the conversion unit for this detector. It specifies how many electrons correspond to 1 signal unit. It is expressed in e-/Analog-to-Digit-Unit (ADU).",
+			"tier":"3",
+			"category":"Detector"
+		},
+		"Mount": {
+			"type":"string",
+			"description":"The type of mount used for the camera.",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"ReadNoise": {
+			"type":"string",
+			"description":"Read noise includes thermal noise build-up and clock induced charge. This is generally expressed in e- rms",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"ReadNoiseUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DetectorNoiseModel": {
+			"type":"string",
+			"description":"The noise contribution that comes from the detector",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DarkCurrentRate": {
+			"type":"string",
+			"description":"Median current detected in the absence of light. Generally expressed in e-/pixel/sec",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DarkCurrentRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"PeakWavelength": {
+			"type":"string",
+			"description":"The wavelength associated with maximum light intensity detected by this device",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"PeakWavelenghtUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"QuantumEfficiencyatPeakWavelength": {
+			"type":"string",
+			"description":"The Quantum Efficiency observed at peak wavelength. Quantum Efficiency is generally defined as is the ratio of incident photon to converted electrons. Typically expressed as a number between 0 and 1.",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingTemperature": {
+			"type":"string",
+			"description":"The ambient temperature at which this detector is designed to operate",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingTemperatureUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingHumidity": {
+			"type":"string",
+			"description":"The ambient humidity at which this detector is designed to operate",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Name",
+		"PeakWavelength",
+		"QuantumEfficiencyatPeakWavelength",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "Reflector.json",
+	"type": "object",
+	"title": "Reflector",
+	"description": "This is a total reflector mirror",
+	"category": "Mirror",
+	"image": "Mirror_Reflector.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Mirror",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Reflectance": {
+			"type":"string",
+			"description":"The amount of light the mirror reflects at a maximum. It is represented as a fraction, as a value from 0.0 to 1.0",
+			"tier":"4",
+			"category":"Mirror"
+		},
+		"MirrorType": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"Geometry": {
+			"type":"string",
+			"description":"The geometrical shape of the surface of this mirror",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"AngleOfIncidence": {
+			"type":"string",
+			"description":"This field records the optimal angle of incidence (AOI) for this mirror. TheAOI is the angle between the optical axis of the incident light and the axis normal to the surface of the mirror. In specular reflection AOI is by definition equal to the Angle Of Reflection (AOR).",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"AngleOfIncidenceUnit": {
+			"type":"string",
+			"description":"This field records the optimal angle of incidence (AOI) for this mirror. TheAOI is the angle between the optical axis of the incident light and the axis normal to the surface of the mirror. In specular reflection AOI is by definition equal to the Angle Of Reflection (AOR).",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"RadiusOfCurvature": {
+			"type":"string",
+			"description":"A spherical lens or mirror surface has a center of curvature located either along or decentered from the system local optical axis. The vertex of the lens surface is located on the local optical axis. The distance from the vertex to the center of curvature is the radius of curvature of the surface",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"RadiusOfCurvatureUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"SubstrateType": {
+			"type":"string",
+			"description":"This field records the type of substrate that is used for the beamsplitter coating. It is typically a ground and polished piece of optical glass.",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"SubstrateMaterial": {
+			"type":"string",
+			"description":"This records the chemical composition or the nonproprietary trade designation of the mirror's optical substrate. For dichoric mirrors the substrate is typically composed of a glass material with low autofluorescence, such as UV-grade fused silica.",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"GlassCode": {
+			"type":"string",
+			"description":"If available provide the international glass code. This is based on U.S. military standard MIL-G-174, and is a six-digit number specifying the glass according to its refractive index nd at the Fraunhofer d- (or D3-) line, and its Abbe number Vd also taken at that line. The resulting glass code is the value of nd-1 rounded to three digits, followed by Vd rounded to three digits, with all decimal points ignored. For example, BK7 has nd = 1.5168 and Vd = 64.17, giving a six-digit glass code of 517642",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "Prism.json",
+	"type": "object",
+	"title": "Prism",
+	"description": "A prism is a block of glass or other transparent material with flat, polished surfaces. A prism can be employed to deflect or deviate a light beam, rotate or invert an image, separate polarization states, or disperse light into its component wavelengths. Prisms can be classified in three general categories: reflecting prisms, polarizing prisms, and refracting or dispersion prisms. Reflecting prisms are useful for redirecting light beams by total internal reflection. Refracting prisms can be employed to bend and separate light into its component colors. Polarizing prisms are birefringent crystals that divide incident non-polarized light into separate components polarized orthogonally to each other. These prisms are employed to produce polarized light for optical instruments such as microscopes and polarimeters. A prism can be viewed as an ensamble of different rigidly mounted mirrors, with each face having a permanent orientation with respect to all the others",
+	"category": "AdditionalOptics",
+	"image": "AdditionalOptics_Prism.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Prism",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Type": {
+			"type":"string",
+			"description":"The category to which this prism belongs.",
+			"tier":"3",
+			"category":"Prism"
+		},
+		"Geometry": {
+			"type":"string",
+			"description":"The geometrical shape of this prism",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"Reflectance": {
+			"type":"string",
+			"description":"The amount of light the prism reflects at a maximum. It is represented as a fraction, as a value from 0.0 to 1.0",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"PrismAngle": {
+			"type":"string",
+			"description":"The angle between two surfaces of a Prism",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"PrismAngleUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"AngleOfIncidence": {
+			"type":"string",
+			"description":"The angle of incidence (AOI) is the angle between a beam of light incident on the prism surface and the line perpendicular to the surface at the point of incidence, called the normal.",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"IncidenceAngleUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"DeviationAngle": {
+			"type":"string",
+			"description":"A beam passing through an object like a prism is deflected twice: once entering, and again when exiting. The sum of these two deflections is called the deviation angle and is measured with respect to the incident ray",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"DevianceAngleUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"MaterialName": {
+			"type":"string",
+			"description":"This records the chemical composition or the nonproprietary trade designation of the glass",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"GlassCode": {
+			"type":"string",
+			"description":"If available provide the international glass code. This is based on U.S. military standard MIL-G-174, and is a six-digit number specifying the glass according to its refractive index nd at the Fraunhofer d- (or D3-) line, and its Abbe number Vd also taken at that line. The resulting glass code is the value of nd-1 rounded to three digits, followed by Vd rounded to three digits, with all decimal points ignored. For example, BK7 has nd = 1.5168 and Vd = 64.17, giving a six-digit glass code of 517642",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"RefractiveIndex": {
+			"type":"string",
+			"description":"The refractive index of the material of which the prism is made",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"AbbeNumber": {
+			"type":"string",
+			"description":"The Abbe Number is a measure of the material's dispersion (variation of refractive index versus wavelength), with high values indicating low dispersion",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"Density": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"DensityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Prism"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "SampleHolder.json",
+	"type": "object",
+	"title": "SampleHolder",
+	"description": "This element describes an optional sample holder mounted on the microscope stage.",
+	"category": "SampleHolderAndFocusing",
+	"image": "SampleHolderAndFocusing_SampleHolder.png",
+	"tier": 3,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of sample holder.",
+			"tier":"5",
+			"category":"SampleHolder"
+		},
+		"RotationAngle": {
+			"type":"string",
+			"description":"The angle by which this device is capable of rotating",
+			"tier":"5",
+			"category":"SampleHolder"
+		},
+		"RotationAngleUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"SampleHolder"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
+		},
+		"MovementAxes": {
+			"type":"string",
+			"description":"The axis along which this device moves.",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"XTravelRange": {
+			"type":"string",
+			"description":"The X axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"XTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"YTravelRange": {
+			"type":"string",
+			"description":"The Y axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"YTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"ZTravelRange": {
+			"type":"string",
+			"description":"The Z axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"ZTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"MaxVelocity": {
+			"type":"string",
+			"description":"The maximum velocity this device is capable of moving at",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"MaxVelocityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "DetectorCalibration.json",
+	"type": "object",
+	"title": "DetectorCalibration",
+	"description": "This procedure measures the performance of the dectector.",
+	"category": "Calibration",
+	"image": "Calibration_DetectorCalibration.png",
+	"tier": 3,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Date": {
+			"type":"string",
+			"description":"The date in which this calibration procedure was performed.",
+			"tier":"3",
+			"category":"IntensityCalibration"
+		},
+		"ObservedExcitationWavelenght": {
+			"type":"string",
+			"description":"Observed peak excitation wavelength.",
+			"tier":"3",
+			"category":"IntensityCalibration"
+		},
+		"ObservedExcitationWavelenghtUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"IntensityCalibration"
+		},
+		"ObservedExcitationPower": {
+			"type":"string",
+			"description":"Observed mean excitation light irradiance as measured at the sample plane over the Field of View (FOV).",
+			"tier":"null",
+			"category":"IntensityCalibration"
+		},
+		"ObservedExcitationPowerUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"IntensityCalibration"
+		},
+		"ObservedExcitationVariance": {
+			"type":"string",
+			"description":"Observed irradiance variation over the Field of View (FOV).",
+			"tier":"3",
+			"category":"IntensityCalibration"
+		}
+	},
+	"required": [
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "Optovar.json",
+	"type": "object",
+	"title": "Optovar",
+	"description": "Optovars are magnification changing devices originally developed by Zeiss, which provide additional magnification that can be beneficial when a desired field of view is required for the imaging sensor. Magnification changer components are placed before the tube lens within the infinity space of the optical system. Typical magnification increments are: 1.25x, 1.6x, and 2x",
+	"category": "Magnification",
+	"image": "Magnification_Optovar.png",
+	"tier": 1,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"1",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
+		},
+		"LensType": {
+			"type":"string",
+			"description":"The type of lens used by the Magnification Changer available with this microscope",
+			"tier":"3",
+			"category":"Optovar"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "FilterSet.json",
+	"type": "object",
+	"title": "FilterSet",
+	"description": "A filter set is typically composed of one excitation filter, one emission filter and a dichroic. Often they are pre-assebled by the manufacturer and pruchased as a whole",
+	"category": "LightPath",
+	"image": "LightPath_FilterSet.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this FilterSet element",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "IntensityCalibrationTool.json",
+	"type": "object",
+	"title": "IntensityCalibrationTool",
+	"description": "A tool, such as the Meta-Max calibration toold developed by the 4D Nucleome Imaging Standards Working Group, used to perform an intensity calibration procedure.",
+	"category": "Calibration",
+	"image": "Calibration_IntensityCalibrationTool.png",
+	"tier": 3,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Intensity Calibration Tool.",
+			"tier":"3",
+			"category":"Generic"
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of calibration proceudure this tool is intended to perform.",
+			"tier":"3",
+			"category":"IntensityCalibrationTool"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "Direct.json",
+	"type": "object",
+	"title": "Direct",
+	"description": "Direct coupling consists of either direct mounting or a optical light path that connects the Light Source with the microscope",
+	"category": "LightSourceCoupling",
+	"image": "LightSourceCoupling_Direct.png",
+	"tier": 4,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 4,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of direct coupling available for this Instrument.",
+			"tier":"5",
+			"category":"Direct"
+		},
+		"Mount": {
+			"type":"string",
+			"description":"The mount utilized to attach a LightSource to the microscope",
+			"tier":"5",
+			"category":"Direct"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"4",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this LightSourceCoupling device",
+			"tier":"4",
+			"category":"Generic"
+		},
+		"Transmittance": {
+			"type":"string",
+			"description":"The amount of light this LightSourceCoupling apparatus transmits at a maximum. A fraction, as a value from 0.0 to 1.0",
+			"tier":"5",
+			"category":"LightSourceCoupling"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "CMOS.json",
+	"type": "object",
+	"title": "CMOS",
+	"description": "A complementary metal-oxide-semiconductor camera",
+	"category": "Detector.Camera",
+	"image": "Detector_Camera_CMOS.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of CCD camera used.",
+			"tier":"3",
+			"category":"CMOS"
+		},
+		"Illumination": {
+			"type":"string",
+			"description":"The type of illumination the camera chip receives",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ArrayWidth": {
+			"type":"string",
+			"description":"The width of this camera chip expressed in pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ArrayHeight": {
+			"type":"string",
+			"description":"The height of this camera chip expressed in pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWidth": {
+			"type":"string",
+			"description":"The physical width of each pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWidthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelHeight": {
+			"type":"string",
+			"description":"The physical height of each pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelHeightUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageWidth": {
+			"type":"string",
+			"description":"The width of the image generated by the camera",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageWidthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageHeight": {
+			"type":"string",
+			"description":"The width of the image generated by the camera",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageHeightUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWellCapacity": {
+			"type":"string",
+			"description":"The maximum amount of charge each pixel well can hold, measured in electron counts",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"PixelWellCapacityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"RegisterWellCapacity": {
+			"type":"string",
+			"description":"The maximum amount of charge each register well can hold, measured in electron counts",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"RegisterWellCapacityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"VerticalClockSpeed": {
+			"type":"string",
+			"description":"The maximal speed each vertical colunm of pixels in the camera chip, can be shifted down and read",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"VerticalClockSpeedUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumFrameRate": {
+			"type":"string",
+			"description":"The maximal rate this camera can acquire a single frame",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumFrameRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumReadoutRate": {
+			"type":"string",
+			"description":"The maximal pixel read out rate allowed by this camera",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumReadoutRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Detector",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Gain": {
+			"type":"string",
+			"description":"The analog gain is the conversion unit for this detector. It specifies how many electrons correspond to 1 signal unit. It is expressed in e-/Analog-to-Digit-Unit (ADU).",
+			"tier":"3",
+			"category":"Detector"
+		},
+		"Mount": {
+			"type":"string",
+			"description":"The type of mount used for the camera.",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"ReadNoise": {
+			"type":"string",
+			"description":"Read noise includes thermal noise build-up and clock induced charge. This is generally expressed in e- rms",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"ReadNoiseUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DetectorNoiseModel": {
+			"type":"string",
+			"description":"The noise contribution that comes from the detector",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DarkCurrentRate": {
+			"type":"string",
+			"description":"Median current detected in the absence of light. Generally expressed in e-/pixel/sec",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DarkCurrentRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"PeakWavelength": {
+			"type":"string",
+			"description":"The wavelength associated with maximum light intensity detected by this device",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"PeakWavelenghtUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"QuantumEfficiencyatPeakWavelength": {
+			"type":"string",
+			"description":"The Quantum Efficiency observed at peak wavelength. Quantum Efficiency is generally defined as is the ratio of incident photon to converted electrons. Typically expressed as a number between 0 and 1.",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingTemperature": {
+			"type":"string",
+			"description":"The ambient temperature at which this detector is designed to operate",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingTemperatureUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingHumidity": {
+			"type":"string",
+			"description":"The ambient humidity at which this detector is designed to operate",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Name",
+		"PeakWavelength",
+		"QuantumEfficiencyatPeakWavelength",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "Dichroic.json",
+	"type": "object",
+	"title": "Dichroic",
+	"description": "null",
+	"category": "LightPath",
+	"image": "LightPath_Dichroic.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"DichroicType": {
+			"type":"string",
+			"description":"The type of dichroic mirror used in this case.",
+			"tier":"3",
+			"category":"Dichroic"
+		},
+		"HardSputtered": {
+			"type":"string",
+			"description":"This field records whether this coating of this dichroic is hard-sputtered or traditional.",
+			"tier":"3",
+			"category":"Dichroic"
+		},
+		"AttenuationLevel": {
+			"type":"string",
+			"description":"The attenuation level, aka blocking level, is used as a measure of the out-of-band attenuation of an optical filter or dichroic mirror over an extended range of the spectrum. The attenuation level is often defined in units of optical density (OD), wherease OD= -log10(T), and T=Transmittance (0?T?1).",
+			"tier":"3",
+			"category":"Dichroic"
+		},
+		"FilterWheel": {
+			"type":"string",
+			"description":"A filter 'wheel' in OME can refer to any arrangement of filters in a filter holder of any shape. It could, for example, be a filter slider",
+			"tier":"4",
+			"category":"Dichroic"
+		},
+		"AttenuationMethod": {
+			"type":"string",
+			"description":"The mean by which this dichroic filter achieves out-of-band transmission attenuation.",
+			"tier":"5",
+			"category":"Dichroic"
+		},
+		"Technology": {
+			"type":"string",
+			"description":"The main types of filter technology used in fluorescence analysis are absorption (aka colored) glass, thin-film coating, and acousto-optical tunable, liquid-crystal tunable filters.",
+			"tier":"5",
+			"category":"Dichroic"
+		},
+		"Polarization": {
+			"type":"string",
+			"description":"The polarization state of this dichroic",
+			"tier":"5",
+			"category":"Dichroic"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Mirror",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Reflectance": {
+			"type":"string",
+			"description":"The amount of light the mirror reflects at a maximum. It is represented as a fraction, as a value from 0.0 to 1.0",
+			"tier":"4",
+			"category":"Mirror"
+		},
+		"MirrorType": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"Geometry": {
+			"type":"string",
+			"description":"The geometrical shape of the surface of this mirror",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"AngleOfIncidence": {
+			"type":"string",
+			"description":"This field records the optimal angle of incidence (AOI) for this mirror. TheAOI is the angle between the optical axis of the incident light and the axis normal to the surface of the mirror. In specular reflection AOI is by definition equal to the Angle Of Reflection (AOR).",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"AngleOfIncidenceUnit": {
+			"type":"string",
+			"description":"This field records the optimal angle of incidence (AOI) for this mirror. TheAOI is the angle between the optical axis of the incident light and the axis normal to the surface of the mirror. In specular reflection AOI is by definition equal to the Angle Of Reflection (AOR).",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"RadiusOfCurvature": {
+			"type":"string",
+			"description":"A spherical lens or mirror surface has a center of curvature located either along or decentered from the system local optical axis. The vertex of the lens surface is located on the local optical axis. The distance from the vertex to the center of curvature is the radius of curvature of the surface",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"RadiusOfCurvatureUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"SubstrateType": {
+			"type":"string",
+			"description":"This field records the type of substrate that is used for the beamsplitter coating. It is typically a ground and polished piece of optical glass.",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"SubstrateMaterial": {
+			"type":"string",
+			"description":"This records the chemical composition or the nonproprietary trade designation of the mirror's optical substrate. For dichoric mirrors the substrate is typically composed of a glass material with low autofluorescence, such as UV-grade fused silica.",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"GlassCode": {
+			"type":"string",
+			"description":"If available provide the international glass code. This is based on U.S. military standard MIL-G-174, and is a six-digit number specifying the glass according to its refractive index nd at the Fraunhofer d- (or D3-) line, and its Abbe number Vd also taken at that line. The resulting glass code is the value of nd-1 rounded to three digits, followed by Vd rounded to three digits, with all decimal points ignored. For example, BK7 has nd = 1.5168 and Vd = 64.17, giving a six-digit glass code of 517642",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "ObjectiveTurret.json",
+	"type": "object",
+	"title": "ObjectiveTurret",
+	"description": "This is a objective turret positoning device.",
+	"category": "SampleHolderAndFocusing.Focusing",
+	"image": "SampleHolderAndFocusing_Focusing_ObjectiveTurret.png",
+	"tier": 3,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Resolution": {
+			"type":"string",
+			"description":"The motion resolution of this device",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"ResolutionUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"PositionLinearityError": {
+			"type":"string",
+			"description":"The positioning error associated with this device. Typically expressed as % error.",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"PositionLinearityErrorUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"SettingTime": {
+			"type":"string",
+			"description":"Measures the time it takes for this device to stabilize at the target position",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"SettlingTimeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"Repetability": {
+			"type":"string",
+			"description":"Measures the precision with which this device is capable of returning to a previously visited position",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"RepeatabilityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
+		},
+		"MovementAxes": {
+			"type":"string",
+			"description":"The axis along which this device moves.",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"XTravelRange": {
+			"type":"string",
+			"description":"The X axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"XTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"YTravelRange": {
+			"type":"string",
+			"description":"The Y axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"YTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"ZTravelRange": {
+			"type":"string",
+			"description":"The Z axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"ZTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"MaxVelocity": {
+			"type":"string",
+			"description":"The maximum velocity this device is capable of moving at",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"MaxVelocityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "BeamSplitter.json",
+	"type": "object",
+	"title": "BeamSplitter",
+	"description": "This is a mirror that reflects part of the light, regardless of wavelenght",
+	"category": "Mirror",
+	"image": "Mirror_BeamSplitter.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Transmittance": {
+			"type":"string",
+			"description":"The amount of light the beamsplitter transmits at a maximum. A fraction, as a value from 0.0 to 1.0",
+			"tier":"4",
+			"category":"BeamSplitter"
+		},
+		"TransmissionAngle": {
+			"type":"string",
+			"description":"The angle at which light is transmitted by this beamsplitter",
+			"tier":"5",
+			"category":"BeamSplitter"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Mirror",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Reflectance": {
+			"type":"string",
+			"description":"The amount of light the mirror reflects at a maximum. It is represented as a fraction, as a value from 0.0 to 1.0",
+			"tier":"4",
+			"category":"Mirror"
+		},
+		"MirrorType": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"Geometry": {
+			"type":"string",
+			"description":"The geometrical shape of the surface of this mirror",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"AngleOfIncidence": {
+			"type":"string",
+			"description":"This field records the optimal angle of incidence (AOI) for this mirror. TheAOI is the angle between the optical axis of the incident light and the axis normal to the surface of the mirror. In specular reflection AOI is by definition equal to the Angle Of Reflection (AOR).",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"AngleOfIncidenceUnit": {
+			"type":"string",
+			"description":"This field records the optimal angle of incidence (AOI) for this mirror. TheAOI is the angle between the optical axis of the incident light and the axis normal to the surface of the mirror. In specular reflection AOI is by definition equal to the Angle Of Reflection (AOR).",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"RadiusOfCurvature": {
+			"type":"string",
+			"description":"A spherical lens or mirror surface has a center of curvature located either along or decentered from the system local optical axis. The vertex of the lens surface is located on the local optical axis. The distance from the vertex to the center of curvature is the radius of curvature of the surface",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"RadiusOfCurvatureUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"SubstrateType": {
+			"type":"string",
+			"description":"This field records the type of substrate that is used for the beamsplitter coating. It is typically a ground and polished piece of optical glass.",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"SubstrateMaterial": {
+			"type":"string",
+			"description":"This records the chemical composition or the nonproprietary trade designation of the mirror's optical substrate. For dichoric mirrors the substrate is typically composed of a glass material with low autofluorescence, such as UV-grade fused silica.",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"GlassCode": {
+			"type":"string",
+			"description":"If available provide the international glass code. This is based on U.S. military standard MIL-G-174, and is a six-digit number specifying the glass according to its refractive index nd at the Fraunhofer d- (or D3-) line, and its Abbe number Vd also taken at that line. The resulting glass code is the value of nd-1 rounded to three digits, followed by Vd rounded to three digits, with all decimal points ignored. For example, BK7 has nd = 1.5168 and Vd = 64.17, giving a six-digit glass code of 517642",
+			"tier":"5",
+			"category":"Mirror"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "GenericExcitationSource.json",
+	"type": "object",
+	"title": "GenericExcitationSource",
+	"description": "The GenericExcitationSource element is used to represent a source as a collection of key/value pairs, stored in a Map. The other lightsource objects should always be used in preference to this if possible.",
+	"category": "LightSource",
+	"image": "LightSource_GenericExcitationSource.png",
+	"tier": 1,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"A LightSource ID must be specified for each light source, and the individual light sources can be referred to by their LightSource IDs (eg from Channel).",
+			"tier":"1",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
+		},
+		"NominalPower": {
+			"type":"string",
+			"description":"The nominal power of the light-source",
+			"tier":"3",
+			"category":"LightSource"
+		},
+		"NominalPowerUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"null",
+			"category":"LightSource"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "Arc.json",
+	"type": "object",
+	"title": "Arc",
+	"description": "The Arc element is used to describe various kinds of Arc lamps - Hg, Xe, HgXe. The Power of the Arc is now stored in the LightSource",
+	"category": "LightSource",
+	"image": "LightSource_Arc.png",
+	"tier": 1,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of Arc lamp.",
+			"tier":"3",
+			"category":"Arc"
+		},
+		"ID": {
+			"type":"string",
+			"description":"A LightSource ID must be specified for each light source, and the individual light sources can be referred to by their LightSource IDs (eg from Channel).",
+			"tier":"1",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
+		},
+		"NominalPower": {
+			"type":"string",
+			"description":"The nominal power of the light-source",
+			"tier":"3",
+			"category":"LightSource"
+		},
+		"NominalPowerUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"null",
+			"category":"LightSource"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "PiezoElectricStage.json",
+	"type": "object",
+	"title": "PiezoElectricStage",
+	"description": "This is a piezoelectric stage positioning device.",
+	"category": "SampleHolderAndFocusing.Focusing",
+	"image": "SampleHolderAndFocusing_Focusing_PiezoElectricStage.png",
+	"tier": 3,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Resolution": {
+			"type":"string",
+			"description":"The motion resolution of this device",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"ResolutionUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"PositionLinearityError": {
+			"type":"string",
+			"description":"The positioning error associated with this device. Typically expressed as % error.",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"PositionLinearityErrorUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"SettingTime": {
+			"type":"string",
+			"description":"Measures the time it takes for this device to stabilize at the target position",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"SettlingTimeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"Repetability": {
+			"type":"string",
+			"description":"Measures the precision with which this device is capable of returning to a previously visited position",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"RepeatabilityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
+		},
+		"MovementAxes": {
+			"type":"string",
+			"description":"The axis along which this device moves.",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"XTravelRange": {
+			"type":"string",
+			"description":"The X axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"XTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"YTravelRange": {
+			"type":"string",
+			"description":"The Y axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"YTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"ZTravelRange": {
+			"type":"string",
+			"description":"The Z axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"ZTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"MaxVelocity": {
+			"type":"string",
+			"description":"The maximum velocity this device is capable of moving at",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"MaxVelocityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "PhotoMultiplier.json",
+	"type": "object",
+	"title": "PhotoMultiplier",
+	"description": "A photomultiplier tube, useful for light detection of very weak signals, is a photoemissive device in which the absorption of a photon results in the emission of an electron. These detectors work by amplifying the electrons generated by a photocathode exposed to a photon flux",
+	"category": "Detector",
+	"image": "Detector_PhotoMultiplier.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of photomultiplier used.",
+			"tier":"3",
+			"category":"PhotoMultiplier"
+		},
+		"RadiantSensitivity": {
+			"type":"string",
+			"description":"The radiant sensitivity observed with this PhotoMultiplier at peak wavelength.",
+			"tier":"5",
+			"category":"PhotoMultiplier"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Detector",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Gain": {
+			"type":"string",
+			"description":"The analog gain is the conversion unit for this detector. It specifies how many electrons correspond to 1 signal unit. It is expressed in e-/Analog-to-Digit-Unit (ADU).",
+			"tier":"3",
+			"category":"Detector"
+		},
+		"Mount": {
+			"type":"string",
+			"description":"The type of mount used for the camera.",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"ReadNoise": {
+			"type":"string",
+			"description":"Read noise includes thermal noise build-up and clock induced charge. This is generally expressed in e- rms",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"ReadNoiseUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DetectorNoiseModel": {
+			"type":"string",
+			"description":"The noise contribution that comes from the detector",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DarkCurrentRate": {
+			"type":"string",
+			"description":"Median current detected in the absence of light. Generally expressed in e-/pixel/sec",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DarkCurrentRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"PeakWavelength": {
+			"type":"string",
+			"description":"The wavelength associated with maximum light intensity detected by this device",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"PeakWavelenghtUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"QuantumEfficiencyatPeakWavelength": {
+			"type":"string",
+			"description":"The Quantum Efficiency observed at peak wavelength. Quantum Efficiency is generally defined as is the ratio of incident photon to converted electrons. Typically expressed as a number between 0 and 1.",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingTemperature": {
+			"type":"string",
+			"description":"The ambient temperature at which this detector is designed to operate",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingTemperatureUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingHumidity": {
+			"type":"string",
+			"description":"The ambient humidity at which this detector is designed to operate",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Name",
+		"PeakWavelength",
+		"QuantumEfficiencyatPeakWavelength",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "MechanicalStage.json",
+	"type": "object",
+	"title": "MechanicalStage",
+	"description": "This is a mechanical stage positioning device",
+	"category": "SampleHolderAndFocusing.Focusing",
+	"image": "SampleHolderAndFocusing_Focusing_MechanicalStage.png",
+	"tier": 3,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Resolution": {
+			"type":"string",
+			"description":"The motion resolution of this device",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"ResolutionUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"PositionLinearityError": {
+			"type":"string",
+			"description":"The positioning error associated with this device. Typically expressed as % error.",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"PositionLinearityErrorUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"SettingTime": {
+			"type":"string",
+			"description":"Measures the time it takes for this device to stabilize at the target position",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"SettlingTimeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"Repetability": {
+			"type":"string",
+			"description":"Measures the precision with which this device is capable of returning to a previously visited position",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"RepeatabilityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Focusing"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
+		},
+		"MovementAxes": {
+			"type":"string",
+			"description":"The axis along which this device moves.",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"XTravelRange": {
+			"type":"string",
+			"description":"The X axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"XTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"YTravelRange": {
+			"type":"string",
+			"description":"The Y axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"YTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"ZTravelRange": {
+			"type":"string",
+			"description":"The Z axis range this device is capable of moving in",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"ZTravelRangeUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"MaxVelocity": {
+			"type":"string",
+			"description":"The maximum velocity this device is capable of moving at",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"MaxVelocityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Stage"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "EmissionFilter.json",
+	"type": "object",
+	"title": "EmissionFilter",
+	"description": "An optical filter is a device that selectively transmits light of different wavelengths.This element refers to an emission filter. For each fluorescence Image there should be at least one emission filter element specified per Channel.This element can be associated with an optional FilterWheel - Note: FilterWheel is not the same as a FilterSet.",
+	"category": "LightPath",
+	"image": "LightPath_EmissionFilter.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Filter",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of filter used in this case.",
+			"tier":"3",
+			"category":"FIlter"
+		},
+		"FilterWheel": {
+			"type":"string",
+			"description":"A filter 'wheel' in OME can refer to any arrangement of filters in a filter holder of any shape. It could, for example, be a filter slider.",
+			"tier":"3",
+			"category":"FIlter"
+		},
+		"ReflectionCoating": {
+			"type":"string",
+			"description":"An optical coating is one or more thin layers of material deposited on an optical component such as a lens or mirror, which alters the way in which the optic reflects and transmits light",
+			"tier":"5",
+			"category":"FIlter"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "AutoFocus.json",
+	"type": "object",
+	"title": "AutoFocus",
+	"description": "This element describes the focus stabilization device(s) available for this microscope.",
+	"category": "SampleHolderAndFocusing.Focusing",
+	"image": "SampleHolderAndFocusing_Focusing_AutoFocus.png",
+	"tier": 3,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of this autofocus device.",
+			"tier":"3",
+			"category":"AutoFocus"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Name",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "CCD.json",
+	"type": "object",
+	"title": "CCD",
+	"description": "A charged coupled device camera",
+	"category": "Detector.Camera",
+	"image": "Detector_Camera_CCD.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of CCD camera used.",
+			"tier":"3",
+			"category":"CCD"
+		},
+		"Illumination": {
+			"type":"string",
+			"description":"The type of illumination the camera chip receives",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ArrayWidth": {
+			"type":"string",
+			"description":"The width of this camera chip expressed in pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ArrayHeight": {
+			"type":"string",
+			"description":"The height of this camera chip expressed in pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWidth": {
+			"type":"string",
+			"description":"The physical width of each pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWidthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelHeight": {
+			"type":"string",
+			"description":"The physical height of each pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelHeightUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageWidth": {
+			"type":"string",
+			"description":"The width of the image generated by the camera",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageWidthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageHeight": {
+			"type":"string",
+			"description":"The width of the image generated by the camera",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageHeightUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWellCapacity": {
+			"type":"string",
+			"description":"The maximum amount of charge each pixel well can hold, measured in electron counts",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"PixelWellCapacityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"RegisterWellCapacity": {
+			"type":"string",
+			"description":"The maximum amount of charge each register well can hold, measured in electron counts",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"RegisterWellCapacityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"VerticalClockSpeed": {
+			"type":"string",
+			"description":"The maximal speed each vertical colunm of pixels in the camera chip, can be shifted down and read",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"VerticalClockSpeedUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumFrameRate": {
+			"type":"string",
+			"description":"The maximal rate this camera can acquire a single frame",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumFrameRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumReadoutRate": {
+			"type":"string",
+			"description":"The maximal pixel read out rate allowed by this camera",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumReadoutRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Detector",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Gain": {
+			"type":"string",
+			"description":"The analog gain is the conversion unit for this detector. It specifies how many electrons correspond to 1 signal unit. It is expressed in e-/Analog-to-Digit-Unit (ADU).",
+			"tier":"3",
+			"category":"Detector"
+		},
+		"Mount": {
+			"type":"string",
+			"description":"The type of mount used for the camera.",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"ReadNoise": {
+			"type":"string",
+			"description":"Read noise includes thermal noise build-up and clock induced charge. This is generally expressed in e- rms",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"ReadNoiseUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DetectorNoiseModel": {
+			"type":"string",
+			"description":"The noise contribution that comes from the detector",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DarkCurrentRate": {
+			"type":"string",
+			"description":"Median current detected in the absence of light. Generally expressed in e-/pixel/sec",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DarkCurrentRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"PeakWavelength": {
+			"type":"string",
+			"description":"The wavelength associated with maximum light intensity detected by this device",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"PeakWavelenghtUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"QuantumEfficiencyatPeakWavelength": {
+			"type":"string",
+			"description":"The Quantum Efficiency observed at peak wavelength. Quantum Efficiency is generally defined as is the ratio of incident photon to converted electrons. Typically expressed as a number between 0 and 1.",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingTemperature": {
+			"type":"string",
+			"description":"The ambient temperature at which this detector is designed to operate",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingTemperatureUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingHumidity": {
+			"type":"string",
+			"description":"The ambient humidity at which this detector is designed to operate",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Name",
+		"PeakWavelength",
+		"QuantumEfficiencyatPeakWavelength",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "Lens.json",
+	"type": "object",
+	"title": "Lens",
+	"description": "A lens is a component of glass or transparent plastic material, usually circular in diameter, which has two primary surfaces that are ground and polished in a specific manner designed to produce either a convergence or divergence of light passing through the material. This element describes a lens utilized in this microscope",
+	"category": "AdditionalOptics",
+	"image": "AdditionalOptics_Lens.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Lens",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Type": {
+			"type":"string",
+			"description":"The general category to which this lens belongs.",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"Geometry": {
+			"type":"string",
+			"description":"The geometrical shape of the lens surfaces",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"Construction": {
+			"type":"string",
+			"description":"Whether or not the lens is simple or composite",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"Magnification": {
+			"type":"string",
+			"description":"The nominal magnification provided by this lens",
+			"tier":"2",
+			"category":"Lens"
+		},
+		"AttenuationCoefficient": {
+			"type":"string",
+			"description":"The attenuation coefficient (aka blocking coefficient) is a material property that characterizes the degree of transparency of a lens. The attenuation coefficient is often defined in units of optical density (OD), wherease OD= -log10(T), and T=Transmittance (0?T?1).",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"RadiusOfCurvature": {
+			"type":"string",
+			"description":"A spherical lens or mirror surface has a center of curvature located either along or decentered from the system local optical axis. The vertex of the lens surface is located on the local optical axis. The distance from the vertex to the center of curvature is the radius of curvature of the surface",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"RadiusOfCurvatureUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"FocalDistanceToObject": {
+			"type":"string",
+			"description":"The distance between the front principal plane of the lens and the specimen",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"FocalDistanceToObjectUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"FocalDistanceToImage": {
+			"type":"string",
+			"description":"The distance from the rear principal plane to the image",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"FocalDistanceToImageUnits": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"FocalLength": {
+			"type":"string",
+			"description":"The distance from the rear principal plane of the lens and its focal point",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"FocalLengthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"MaterialName": {
+			"type":"string",
+			"description":"This records the chemical composition or the nonproprietary trade designation of the glass",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"GlassCode": {
+			"type":"string",
+			"description":"If available provide the international glass code. This is based on U.S. military standard MIL-G-174, and is a six-digit number specifying the glass according to its refractive index nd at the Fraunhofer d- (or D3-) line, and its Abbe number Vd also taken at that line. The resulting glass code is the value of nd-1 rounded to three digits, followed by Vd rounded to three digits, with all decimal points ignored. For example, BK7 has nd = 1.5168 and Vd = 64.17, giving a six-digit glass code of 517642",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"RefractiveIndex": {
+			"type":"string",
+			"description":"The refractive index of the material the prism is made of",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"AbbeNumber": {
+			"type":"string",
+			"description":"The Abbe Number is a measure of the material's dispersion (variation of refractive index versus wavelength), with high values indicating low dispersion",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"Density": {
+			"type":"string",
+			"description":"The density of the material this lens is made of",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"DensityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"Diameter": {
+			"type":"string",
+			"description":"The physical diamter of this lens",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"DiameterUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Lens"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "ExcitationFilter.json",
+	"type": "object",
+	"title": "ExcitationFilter",
+	"description": "An optical filter is a device that selectively transmits light of different wavelengths.This element refers to an excitation filter. This element can be associated with an optional FilterWheel - Note: FilterWheel is not the same as a FilterSet.",
+	"category": "LightPath",
+	"image": "LightPath_ExcitationFilter.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Filter",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Type": {
+			"type":"string",
+			"description":"The type of filter used in this case.",
+			"tier":"3",
+			"category":"FIlter"
+		},
+		"FilterWheel": {
+			"type":"string",
+			"description":"A filter 'wheel' in OME can refer to any arrangement of filters in a filter holder of any shape. It could, for example, be a filter slider.",
+			"tier":"3",
+			"category":"FIlter"
+		},
+		"ReflectionCoating": {
+			"type":"string",
+			"description":"An optical coating is one or more thin layers of material deposited on an optical component such as a lens or mirror, which alters the way in which the optic reflects and transmits light",
+			"tier":"5",
+			"category":"FIlter"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "AnalogVideo.json",
+	"type": "object",
+	"title": "AnalogVideo",
+	"description": "A device used to capture analog videos",
+	"category": "Detector.Camera",
+	"image": "Detector_Camera_AnalogVideo.png",
+	"tier": 2,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		},
+		"Illumination": {
+			"type":"string",
+			"description":"The type of illumination the camera chip receives",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ArrayWidth": {
+			"type":"string",
+			"description":"The width of this camera chip expressed in pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ArrayHeight": {
+			"type":"string",
+			"description":"The height of this camera chip expressed in pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWidth": {
+			"type":"string",
+			"description":"The physical width of each pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWidthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelHeight": {
+			"type":"string",
+			"description":"The physical height of each pixel",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelHeightUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageWidth": {
+			"type":"string",
+			"description":"The width of the image generated by the camera",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageWidthUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageHeight": {
+			"type":"string",
+			"description":"The width of the image generated by the camera",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"ImageHeightUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Camera"
+		},
+		"PixelWellCapacity": {
+			"type":"string",
+			"description":"The maximum amount of charge each pixel well can hold, measured in electron counts",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"PixelWellCapacityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"RegisterWellCapacity": {
+			"type":"string",
+			"description":"The maximum amount of charge each register well can hold, measured in electron counts",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"RegisterWellCapacityUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"VerticalClockSpeed": {
+			"type":"string",
+			"description":"The maximal speed each vertical colunm of pixels in the camera chip, can be shifted down and read",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"VerticalClockSpeedUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumFrameRate": {
+			"type":"string",
+			"description":"The maximal rate this camera can acquire a single frame",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumFrameRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumReadoutRate": {
+			"type":"string",
+			"description":"The maximal pixel read out rate allowed by this camera",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"MaximumReadoutRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Camera"
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Detector",
+			"tier":"2",
+			"category":"Generic"
+		},
+		"Gain": {
+			"type":"string",
+			"description":"The analog gain is the conversion unit for this detector. It specifies how many electrons correspond to 1 signal unit. It is expressed in e-/Analog-to-Digit-Unit (ADU).",
+			"tier":"3",
+			"category":"Detector"
+		},
+		"Mount": {
+			"type":"string",
+			"description":"The type of mount used for the camera.",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"ReadNoise": {
+			"type":"string",
+			"description":"Read noise includes thermal noise build-up and clock induced charge. This is generally expressed in e- rms",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"ReadNoiseUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DetectorNoiseModel": {
+			"type":"string",
+			"description":"The noise contribution that comes from the detector",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DarkCurrentRate": {
+			"type":"string",
+			"description":"Median current detected in the absence of light. Generally expressed in e-/pixel/sec",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"DarkCurrentRateUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"PeakWavelength": {
+			"type":"string",
+			"description":"The wavelength associated with maximum light intensity detected by this device",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"PeakWavelenghtUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"QuantumEfficiencyatPeakWavelength": {
+			"type":"string",
+			"description":"The Quantum Efficiency observed at peak wavelength. Quantum Efficiency is generally defined as is the ratio of incident photon to converted electrons. Typically expressed as a number between 0 and 1.",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingTemperature": {
+			"type":"string",
+			"description":"The ambient temperature at which this detector is designed to operate",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingTemperatureUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"AmbientOperatingHumidity": {
+			"type":"string",
+			"description":"The ambient humidity at which this detector is designed to operate",
+			"tier":"5",
+			"category":"Detector"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Name",
+		"PeakWavelength",
+		"QuantumEfficiencyatPeakWavelength",
+		"Manufacturer",
+		"Model"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "Objective.json",
+	"type": "object",
+	"title": "Objective",
+	"description": "A description of the microscope's objective lens. Required elements include the lens numerical aperture, and the magnification, both of which a floating point (real) numbers. The values are those that are fixed for a particular objective: either because it has been manufactured to this specification or the value has been measured on this particular objective. Correction: This is the type of correction coating applied to this lens. Immersion: This is the types of immersion medium the lens is designed to work with. It is not the same as 'Medium' in ObjectiveRef (a single type) as here Immersion can have compound values like 'Multi'. LensNA: The numerical aperture of the lens (as a float) NominalMagnification: The specified magnification e.g. x10 CalibratedMagnification: The measured magnification e.g. x10.3 WorkingDistance: WorkingDistance of the lens",
+	"category": "Magnification",
+	"image": "Magnification_Objective.png",
+	"tier": 1,
+	"properties": {
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
+		},
+		"ID": {
+			"type":"string",
+			"description":"null",
+			"tier":"1",
+			"category":"Generic",
+			"readonly": true
+		},
+		"Name": {
+			"type":"string",
+			"description":"null",
+			"tier":"1",
+			"category":"Generic"
+		},
+		"Correction": {
+			"type":"string",
+			"description":"The correction applied to the lens",
+			"tier":"2",
+			"category":"Objective"
+		},
+		"NominalMagnification": {
+			"type":"string",
+			"description":"null",
+			"tier":"1",
+			"category":"Objective"
+		},
+		"CalibratedMagnification": {
+			"type":"string",
+			"description":"The magnification of the lens as measured by a calibration process- i.e. '59.987' for a 60X lens",
+			"tier":"5",
+			"category":"Objective"
+		},
+		"LensNA": {
+			"type":"string",
+			"description":"The numerical aperture of the lens expressed as a floating point (real) number. Expected range 0.02 - 1.5.",
+			"tier":"1",
+			"category":"Objective"
+		},
+		"NominalImmersionMedium": {
+			"type":"string",
+			"description":"The immersion medium the lens is designed for",
+			"tier":"2",
+			"category":"Objective"
+		},
+		"Infinity": {
+			"type":"string",
+			"description":"Records whether or not the objective is infinity corrected",
+			"tier":"3",
+			"category":"Objective"
+		},
+		"CoverslipTickness": {
+			"type":"string",
+			"description":"null",
+			"tier":"2",
+			"category":"Objective"
+		},
+		"WorkingDistance": {
+			"type":"string",
+			"description":"The working distance of the lens expressed as a floating point (real) number.",
+			"tier":"3",
+			"category":"Objective"
+		},
+		"WorkingDistanceUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"3",
+			"category":"Objective"
+		},
+		"Iris": {
+			"type":"string",
+			"description":"Records whether or not the objective was fitted with an Iris",
+			"tier":"4",
+			"category":"Objective"
+		},
+		"ObjectiveFieldNumber": {
+			"type":"string",
+			"description":"The maximal diameter of the viewfield allowed by this objective expressed in mm and measured at the intermediate image plane. NB: The field of view is influenced by the magnification and diameter of the ocular (eyepiece) field diaphragm, but also by the limits imposed by the design of the objective.",
+			"tier":"3",
+			"category":"Objective"
+		},
+		"ParfocalizingDistance": {
+			"type":"string",
+			"description":"The distance between the objective lens mounting plane and the specimen.",
+			"tier":"5",
+			"category":"Objective"
+		},
+		"BackFocalPlanePosition": {
+			"type":"string",
+			"description":"The position of the back focal plane with respect to the specimen position.",
+			"tier":"5",
+			"category":"Objective"
+		},
+		"ParfocalizingDistanceUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"null",
+			"category":"Objective"
+		},
+		"BackFocalPlanePositionUnit": {
+			"type":"string",
+			"description":"null",
+			"tier":"null",
+			"category":"Objective"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of the component.",
+			"tier":"1",
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The Model of the component.",
+			"tier":"3",
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of the component",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
+			"tier":"5",
+			"category":"ManufacturerSpec"
+		}
+	},
+	"required": [
+		"ID",
+		"Manufacturer",
+		"Model"
+	]
+}
+]
