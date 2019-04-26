@@ -449,8 +449,8 @@
 	"type": "object",
 	"title": "PiezoElectricObjective",
 	"description": "This is a piezoelectric objective-lens positioning device",
-	"category": "SampleHolderAndFocusing.Focusing",
-	"image": "SampleHolderAndFocusing_Focusing_PiezoElectricObjective.png",
+	"category": ".Focusing",
+	"image": "_Focusing_PiezoElectricObjective.png",
 	"tier": 3,
 	"properties": {
 		"tier": {
@@ -617,8 +617,8 @@
 	"type": "object",
 	"title": "AdditionalFilter",
 	"description": "An optical filter is a device that selectively transmits light of different wavelengths.This element refers to a filter positioned along the light path in addition to the excitation and the emission filters.This element can be associated with an optional FilterWheel - Note: FilterWheel is not the same as a FilterSet.",
-	"category": "AdditinalOptics",
-	"image": "AdditinalOptics_AdditionalFilter.png",
+	"category": "AdditionalOptics",
+	"image": "AdditionalOptics_AdditionalFilter.png",
 	"tier": 2,
 	"properties": {
 		"tier": {
@@ -1028,8 +1028,8 @@
 	"type": "object",
 	"title": "IntensifiedCCD",
 	"description": "The type of Intensified CCD camera used",
-	"category": "Detector.Camera",
-	"image": "Detector_Camera_IntensifiedCCD.png",
+	"category": ".Camera",
+	"image": "_Camera_IntensifiedCCD.png",
 	"tier": 2,
 	"properties": {
 		"tier": {
@@ -2087,8 +2087,8 @@
 	"type": "object",
 	"title": "CMOS",
 	"description": "A complementary metal-oxide-semiconductor camera",
-	"category": "Detector.Camera",
-	"image": "Detector_Camera_CMOS.png",
+	"category": ".Camera",
+	"image": "_Camera_CMOS.png",
 	"tier": 2,
 	"properties": {
 		"tier": {
@@ -2535,8 +2535,8 @@
 	"type": "object",
 	"title": "ObjectiveTurret",
 	"description": "This is a objective turret positoning device.",
-	"category": "SampleHolderAndFocusing.Focusing",
-	"image": "SampleHolderAndFocusing_Focusing_ObjectiveTurret.png",
+	"category": ".Focusing",
+	"image": "_Focusing_ObjectiveTurret.png",
 	"tier": 3,
 	"properties": {
 		"tier": {
@@ -3005,8 +3005,8 @@
 	"type": "object",
 	"title": "PiezoElectricStage",
 	"description": "This is a piezoelectric stage positioning device.",
-	"category": "SampleHolderAndFocusing.Focusing",
-	"image": "SampleHolderAndFocusing_Focusing_PiezoElectricStage.png",
+	"category": ".Focusing",
+	"image": "_Focusing_PiezoElectricStage.png",
 	"tier": 3,
 	"properties": {
 		"tier": {
@@ -3333,8 +3333,8 @@
 	"type": "object",
 	"title": "MechanicalStage",
 	"description": "This is a mechanical stage positioning device",
-	"category": "SampleHolderAndFocusing.Focusing",
-	"image": "SampleHolderAndFocusing_Focusing_MechanicalStage.png",
+	"category": ".Focusing",
+	"image": "_Focusing_MechanicalStage.png",
 	"tier": 3,
 	"properties": {
 		"tier": {
@@ -3586,8 +3586,8 @@
 	"type": "object",
 	"title": "AutoFocus",
 	"description": "This element describes the focus stabilization device(s) available for this microscope.",
-	"category": "SampleHolderAndFocusing.Focusing",
-	"image": "SampleHolderAndFocusing_Focusing_AutoFocus.png",
+	"category": ".Focusing",
+	"image": "_Focusing_AutoFocus.png",
 	"tier": 3,
 	"properties": {
 		"tier": {
@@ -3660,8 +3660,8 @@
 	"type": "object",
 	"title": "CCD",
 	"description": "A charged coupled device camera",
-	"category": "Detector.Camera",
-	"image": "Detector_Camera_CCD.png",
+	"category": ".Camera",
+	"image": "_Camera_CCD.png",
 	"tier": 2,
 	"properties": {
 		"tier": {
@@ -3990,7 +3990,7 @@
 		},
 		"AttenuationCoefficient": {
 			"type":"string",
-			"description":"The attenuation coefficient (aka blocking coefficient) is a material property that characterizes the degree of transparency of a lens. The attenuation coefficient is often defined in units of optical density (OD), wherease OD= -log10(T), and T=Transmittance (0?T?1).",
+			"description":"The attenuationï¿½coefficient (aka blocking coefficient) is a material property that characterizes the degree of transparency of a lens. The attenuation coefficient is often defined in units of optical density (OD), wherease OD= -log10(T), and T=Transmittance (0?T?1).",
 			"tier":"5",
 			"category":"Lens"
 		},
@@ -4217,8 +4217,8 @@
 	"type": "object",
 	"title": "AnalogVideo",
 	"description": "A device used to capture analog videos",
-	"category": "Detector.Camera",
-	"image": "Detector_Camera_AnalogVideo.png",
+	"category": ".Camera",
+	"image": "_Camera_AnalogVideo.png",
 	"tier": 2,
 	"properties": {
 		"tier": {

@@ -243,8 +243,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			//todo this means the microscope schema needs to be at 0 all the time
 			//need to find better solution
 			name: `New ${microscopeSchema.title}`,
-			schema_id: microscopeSchema.id,
-			id: uuid,
+			schema_ID: microscopeSchema.ID,
+			ID: uuid,
 			tier: activeTier,
 			validationTier: activeTier
 		};
@@ -269,11 +269,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		if (components !== undefined) {
 			Object.keys(componentsSchema).forEach(schemaIndex => {
 				let compSchema = componentsSchema[schemaIndex];
-				let schema_id = compSchema.id;
+				let schema_ID = compSchema.ID;
 				Object.keys(components).forEach(objIndex => {
 					let obj = components[objIndex];
-					if (schema_id !== obj.schema_id) return;
-					let id = compSchema.title + "_" + obj.id;
+					if (schema_ID !== obj.schema_ID) return;
+					let id = compSchema.title + "_" + obj.ID;
 					newElementData[id] = obj;
 				});
 			});
@@ -308,11 +308,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		if (components !== undefined) {
 			Object.keys(componentsSchema).forEach(schemaIndex => {
 				let compSchema = componentsSchema[schemaIndex];
-				let schema_id = compSchema.id;
+				let schema_ID = compSchema.ID;
 				Object.keys(components).forEach(objIndex => {
 					let obj = components[objIndex];
-					if (schema_id !== obj.schema_id) return;
-					let id = compSchema.title + "_" + obj.id;
+					if (schema_ID !== obj.schema_ID) return;
+					let id = compSchema.title + "_" + obj.ID;
 					newElementData[id] = obj;
 				});
 			});

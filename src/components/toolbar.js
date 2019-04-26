@@ -14,10 +14,10 @@ export default class Toolbar extends React.PureComponent {
 		};
 		for (let i = 0; i < props.componentSchemas.length; i++) {
 			let obj = props.componentSchemas[i];
-			if (props.activeTier < obj.tier) return;
+			if (props.activeTier < obj.tier) continue;
 			let category = obj.category;
 			let element = {
-				id: `${obj.title}-${i}`,
+				ID: `${obj.title}-${i}`,
 				schema: obj
 			};
 			if (this.state.elementList[category] === undefined) {
@@ -72,19 +72,19 @@ export default class Toolbar extends React.PureComponent {
 		let stylesImages = {};
 		elementList[key].map(item => {
 			let width =
-				imagesDimension[item.id] === undefined
+				imagesDimension[item.ID] === undefined
 					? 100
-					: imagesDimension[item.id].width;
+					: imagesDimension[item.ID].width;
 			let height =
-				imagesDimension[item.id] === undefined
+				imagesDimension[item.ID] === undefined
 					? 100
-					: imagesDimension[item.id].height;
-			stylesContainer[item.id] = {
+					: imagesDimension[item.ID].height;
+			stylesContainer[item.ID] = {
 				width: `${width + 20}px`,
 				height: `${height + 20}px`,
 				padding: "10px"
 			};
-			stylesImages[item.id] = {
+			stylesImages[item.ID] = {
 				width: `${width}px`,
 				height: `${height}px`
 			};
@@ -92,27 +92,27 @@ export default class Toolbar extends React.PureComponent {
 		elementList[key].map(item =>
 			imageElements.push(
 				<ImageElement
-					key={`ImageElement-${item.id}`}
-					id={item.id}
+					key={`ImageElement-${item.ID}`}
+					id={item.ID}
 					image={`${this.props.imagesPath}${item.schema.image}`}
 					name={item.schema.title}
 					updateDimensions={this.updatedDimensions}
-					style={stylesImages[item.id]}
+					style={stylesImages[item.ID]}
 				/>
 			)
 		);
 		let categoryItems = [];
 		elementList[key].map((item, index) =>
 			categoryItems.push(
-				<div key={"div" + item.id} style={stylesContainer[item.id]}>
+				<div key={"div" + item.ID} style={stylesContainer[item.ID]}>
 					<DragDropContainer
 						targetKey="canvas"
-						key={"draggable" + item.id}
+						key={"draggable" + item.ID}
 						dragClone={true}
 						dragData={{
 							source: "toolbar",
-							id: item.id,
-							schema_id: item.schema.id
+							ID: item.ID,
+							schema_ID: item.schema.ID
 						}}
 					>
 						{imageElements[index]}

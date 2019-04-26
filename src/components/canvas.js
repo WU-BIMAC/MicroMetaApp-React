@@ -26,17 +26,17 @@ export default class Canvas extends React.PureComponent {
 
 		Object.keys(props.componentSchemas).forEach(schemaIndex => {
 			let schema = props.componentSchemas[schemaIndex];
-			let schema_id = schema.id;
+			let schema_id = schema.ID;
 			//Validate schemas using jsonschema????
 			Object.keys(props.inputData).forEach(objIndex => {
 				let object = props.inputData[objIndex];
 				if (props.activeTier < object.tier) return;
-				if (schema_id !== object.schema_id) return;
+				if (schema_id !== object.schema_ID) return;
 				let validation = validate(object, schema);
 				let validated = validation.valid;
 				let newElement = {
-					id: schema.title + "_" + object.id,
-					schema_id: schema_id,
+					ID: schema.title + "_" + object.ID,
+					schema_ID: schema_id,
 					validated: validated,
 					dragged: false,
 					obj: object,
@@ -112,13 +112,13 @@ export default class Canvas extends React.PureComponent {
 			let componentsSchema = {};
 			Object.keys(props.componentSchemas).forEach(schemaIndex => {
 				let schema = props.componentSchemas[schemaIndex];
-				let schema_id = schema.id;
+				let schema_id = schema.ID;
 				componentsSchema[schema_id] = schema;
 			});
 			let elementList = state.elementList;
 			for (let i = 0; i < elementList.length; i++) {
 				let element = elementList[i];
-				let schema_id = element.schema_id;
+				let schema_id = element.schema_ID;
 				let schema = componentsSchema[schema_id];
 				let object = element.obj;
 				let validation = validate(object, schema);
@@ -185,7 +185,7 @@ export default class Canvas extends React.PureComponent {
 	onCanvasElementDataSave(id, data) {
 		let elementList = this.state.elementList;
 		for (let i = 0; i < elementList.length; i++) {
-			if (elementList[i].id === id) {
+			if (elementList[i].ID === id) {
 				elementList[i].validated = true;
 				break;
 			}
@@ -230,14 +230,14 @@ export default class Canvas extends React.PureComponent {
 
 		if (sourceElement.source === "toolbar") {
 			let uuid = uuidv4();
-			let schema_id = sourceElement.schema_id;
-			let schema = componentsSchema[schema_id];
+			let schema_ID = sourceElement.schema_ID;
+			let schema = componentsSchema[schema_ID];
 			newElement = {
 				//Schema is old version needs to be updated constantly
 				//AKA needs to put schemas in canvas and retrieve them
 				//on the fly
-				id: schema.title + "_" + uuid,
-				schema_id: schema.id,
+				ID: schema.title + "_" + uuid,
+				schema_ID: schema.ID,
 				validated: false,
 				dragged: false,
 				x: percentX,
@@ -247,21 +247,21 @@ export default class Canvas extends React.PureComponent {
 
 			let newElementData = {
 				name: `New ${schema.title}`,
-				id: uuid,
+				ID: uuid,
 				tier: schema.tier,
-				schema_id: schema.id,
+				schema_ID: schema.ID,
 				xPosition: percentX,
 				yPosition: percentY
 			};
 			newElement.obj = newElementData;
-			newElementDataList[newElement.id] = newElementData;
+			newElementDataList[newElement.ID] = newElementData;
 		} else {
 			let item = this.state.elementList[sourceElement.index];
 			newElementList[sourceElement.index].x = percentX;
 			newElementList[sourceElement.index].y = percentY;
 			newElementList[sourceElement.index].dragged = false;
-			newElementDataList[item.id].xPosition = percentX;
-			newElementDataList[item.id].yPosition = percentY;
+			newElementDataList[item.ID].xPosition = percentX;
+			newElementDataList[item.ID].yPosition = percentY;
 		}
 
 		this.setState({
@@ -280,7 +280,7 @@ export default class Canvas extends React.PureComponent {
 		if (elementList.length === 0) return;
 		if (elementData.length === 0) return;
 
-		let id = elementList[index].id;
+		let id = elementList[index].ID;
 		elementList.splice(index, 1);
 
 		if (elementData[id] !== undefined) {
@@ -336,21 +336,21 @@ export default class Canvas extends React.PureComponent {
 				top: `${y}%`
 			};
 			let width =
-				imagesDimension[item.id] === undefined
+				imagesDimension[item.ID] === undefined
 					? 100
-					: imagesDimension[item.id].width;
+					: imagesDimension[item.ID].width;
 			let height =
-				imagesDimension[item.id] === undefined
+				imagesDimension[item.ID] === undefined
 					? 100
-					: imagesDimension[item.id].height;
-			stylesContainer[item.id] = Object.assign(
+					: imagesDimension[item.ID].height;
+			stylesContainer[item.ID] = Object.assign(
 				{
 					width: `${width}px`,
 					height: `${height + 20}px`
 				},
 				style
 			);
-			stylesImages[item.id] = {
+			stylesImages[item.ID] = {
 				width: width,
 				height: height
 			};
@@ -359,10 +359,10 @@ export default class Canvas extends React.PureComponent {
 		let componentsSchema = this.state.componentsSchema;
 
 		elementList.map((item, index) => {
-			let schema_id = item.schema_id;
+			let schema_id = item.schema_ID;
 			let schema = componentsSchema[schema_id];
 			droppableElement.push(
-				<div style={stylesContainer[item.id]} key={"draggableWrapper" + index}>
+				<div style={stylesContainer[item.ID]} key={"draggableWrapper" + index}>
 					<DragDropContainer
 						targetKey="canvas"
 						key={"draggable" + index}
@@ -383,15 +383,15 @@ export default class Canvas extends React.PureComponent {
 						</div>
 						<CanvasElement
 							activeTier={this.props.activeTier}
-							id={item.id}
+							id={item.ID}
 							image={`${this.props.imagesPath}${schema.image}`}
 							schema={schema}
 							onConfirm={this.onCanvasElementDataSave}
 							updateDimensions={this.updatedDimensions}
 							overlaysContainer={this.props.overlaysContainer}
-							inputData={elementData[item.id]}
-							width={stylesImages[item.id].width}
-							height={stylesImages[item.id].height}
+							inputData={elementData[item.ID]}
+							width={stylesImages[item.ID].width}
+							height={stylesImages[item.ID].height}
 							validated={item.validated}
 							dragged={item.dragged}
 						/>
