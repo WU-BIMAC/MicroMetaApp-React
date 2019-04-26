@@ -150,12 +150,16 @@ export default class Toolbar extends React.PureComponent {
 		let elementList = this.state.elementList;
 		let toolbar = [];
 		Object.keys(elementList).forEach(key => {
+			let index = key.lastIndexOf(".");
+			let simpleKey;
+			if (index !== -1) simpleKey = key.substring(index + 1);
+			else simpleKey = key;
 			toolbar.push(
 				<Collapsible
 					key={`Collapsible${key}`}
 					trigger={
 						<Button key={`Trigger${key}`} size="lg" style={style}>
-							<div>{key}</div>
+							<div>{simpleKey}</div>
 							<div style={styleTransitionClose}>&#9665;</div>
 						</Button>
 					}
