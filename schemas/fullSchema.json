@@ -8,12 +8,11 @@
 	"image": "Microscope_default.png",
 	"tier": 1,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of the microscope.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -21,12 +20,6 @@
 			"tier":"1",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"1",
-			"category":"Generic"
 		},
 		"Type": {
 			"type":"string",
@@ -69,6 +62,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of the microscope.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -86,13 +86,6 @@
 	"image": "LightSourceCoupling_LightGuide.png",
 	"tier": 4,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 4,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Type": {
 			"type":"string",
 			"description":"The type of light guide used in this case.",
@@ -171,18 +164,18 @@
 			"tier":"5",
 			"category":"LightGuide"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this LightSourceCoupling device",
+			"tier":"4",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"4",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this LightSourceCoupling device",
-			"tier":"4",
-			"category":"Generic"
 		},
 		"Transmittance": {
 			"type":"string",
@@ -219,6 +212,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 4,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -236,13 +236,6 @@
 	"image": "LightSource_LightEmittingDiode.png",
 	"tier": 1,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Type": {
 			"type":"string",
 			"description":"The type of LightEmittingDiode light source.",
@@ -285,18 +278,18 @@
 			"tier":"5",
 			"category":"LightEmittingDiode"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"A LightSource ID must be specified for each light source, and the individual light sources can be referred to by their LightSource IDs (eg from Channel).",
 			"tier":"1",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"1",
-			"category":"Generic"
 		},
 		"NominalPower": {
 			"type":"string",
@@ -339,6 +332,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -357,12 +357,11 @@
 	"image": "MicroscopyBasics_MicroscopeTable.png",
 	"tier": 4,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 4,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element.",
+			"tier":"4",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -370,12 +369,6 @@
 			"tier":"4",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element.",
-			"tier":"4",
-			"category":"Generic"
 		},
 		"Type": {
 			"type":"string",
@@ -436,6 +429,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 4,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -453,13 +453,6 @@
 	"image": "SampleHolderAndFocusing_Focusing_PiezoElectricObjective.png",
 	"tier": 3,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Resolution": {
 			"type":"string",
 			"description":"The motion resolution of this device",
@@ -508,18 +501,18 @@
 			"tier":"5",
 			"category":"Focusing"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"3",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"3",
-			"category":"Generic"
 		},
 		"MovementAxes": {
 			"type":"string",
@@ -604,6 +597,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -621,12 +621,11 @@
 	"image": "AdditionalOptics_AdditionalFilter.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Filter",
+			"tier":"2",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -634,12 +633,6 @@
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Filter",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Type": {
 			"type":"string",
@@ -688,6 +681,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -706,12 +706,11 @@
 	"image": "AdditionalOptics_PolarizationOptics.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Polarization Optics element",
+			"tier":"2",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -719,12 +718,6 @@
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Polarization Optics element",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Function": {
 			"type":"string",
@@ -791,6 +784,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -808,18 +808,17 @@
 	"image": "LightSource_Filament.png",
 	"tier": 1,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Type": {
 			"type":"string",
 			"description":"The type of filament.",
 			"tier":"3",
 			"category":"Filament"
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -827,12 +826,6 @@
 			"tier":"1",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"1",
-			"category":"Generic"
 		},
 		"NominalPower": {
 			"type":"string",
@@ -875,6 +868,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -893,13 +893,6 @@
 	"image": "LightSource_Laser.png",
 	"tier": 1,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Type": {
 			"type":"string",
 			"description":"Type is the general category of laser.",
@@ -960,18 +953,18 @@
 			"tier":"5",
 			"category":"Laser"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"A LightSource ID must be specified for each light source, and the individual light sources can be referred to by their LightSource IDs (eg from Channel).",
 			"tier":"1",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"1",
-			"category":"Generic"
 		},
 		"NominalPower": {
 			"type":"string",
@@ -1014,6 +1007,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -1032,13 +1032,6 @@
 	"image": "Detector_Camera_IntensifiedCCD.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Type": {
 			"type":"string",
 			"description":"The type of intensifiedCCD camera used.",
@@ -1171,18 +1164,18 @@
 			"tier":"5",
 			"category":"Camera"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Detector",
+			"tier":"2",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Detector",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Gain": {
 			"type":"string",
@@ -1291,6 +1284,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -1312,12 +1312,11 @@
 	"image": "Mirror_Reflector.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Mirror",
+			"tier":"2",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -1325,12 +1324,6 @@
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Mirror",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Reflectance": {
 			"type":"string",
@@ -1421,6 +1414,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -1438,12 +1438,11 @@
 	"image": "AdditionalOptics_Prism.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Prism",
+			"tier":"2",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -1451,12 +1450,6 @@
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Prism",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Type": {
 			"type":"string",
@@ -1577,6 +1570,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -1594,13 +1594,6 @@
 	"image": "SampleHolderAndFocusing_SampleHolder.png",
 	"tier": 3,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Type": {
 			"type":"string",
 			"description":"The type of sample holder.",
@@ -1619,18 +1612,18 @@
 			"tier":"5",
 			"category":"SampleHolder"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"3",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"3",
-			"category":"Generic"
 		},
 		"MovementAxes": {
 			"type":"string",
@@ -1715,6 +1708,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -1732,13 +1732,6 @@
 	"image": "Calibration_DetectorCalibration.png",
 	"tier": 3,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
-		},
 		"ID": {
 			"type":"string",
 			"description":"null",
@@ -1781,6 +1774,13 @@
 			"description":"Observed irradiance variation over the Field of View (FOV).",
 			"tier":"3",
 			"category":"IntensityCalibration"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -1796,12 +1796,11 @@
 	"image": "Magnification_Optovar.png",
 	"tier": 1,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -1809,12 +1808,6 @@
 			"tier":"1",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"1",
-			"category":"Generic"
 		},
 		"LensType": {
 			"type":"string",
@@ -1851,6 +1844,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -1868,12 +1868,11 @@
 	"image": "LightPath_FilterSet.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this FilterSet element",
+			"tier":"2",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -1881,12 +1880,6 @@
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this FilterSet element",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Manufacturer": {
 			"type":"string",
@@ -1917,6 +1910,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -1935,12 +1935,11 @@
 	"image": "Calibration_IntensityCalibrationTool.png",
 	"tier": 3,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Intensity Calibration Tool.",
+			"tier":"3",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -1948,12 +1947,6 @@
 			"tier":"3",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Intensity Calibration Tool.",
-			"tier":"3",
-			"category":"Generic"
 		},
 		"Type": {
 			"type":"string",
@@ -1990,6 +1983,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -2007,13 +2007,6 @@
 	"image": "LightSourceCoupling_Direct.png",
 	"tier": 4,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 4,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Type": {
 			"type":"string",
 			"description":"The type of direct coupling available for this Instrument.",
@@ -2026,18 +2019,18 @@
 			"tier":"5",
 			"category":"Direct"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this LightSourceCoupling device",
+			"tier":"4",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"4",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this LightSourceCoupling device",
-			"tier":"4",
-			"category":"Generic"
 		},
 		"Transmittance": {
 			"type":"string",
@@ -2074,6 +2067,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 4,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -2091,13 +2091,6 @@
 	"image": "Detector_Camera_CMOS.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Type": {
 			"type":"string",
 			"description":"The type of CCD camera used.",
@@ -2230,18 +2223,18 @@
 			"tier":"5",
 			"category":"Camera"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Detector",
+			"tier":"2",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Detector",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Gain": {
 			"type":"string",
@@ -2350,6 +2343,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -2371,13 +2371,6 @@
 	"image": "LightPath_Dichroic.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
-		},
 		"DichroicType": {
 			"type":"string",
 			"description":"The type of dichroic mirror used in this case.",
@@ -2420,18 +2413,18 @@
 			"tier":"5",
 			"category":"Dichroic"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Mirror",
+			"tier":"2",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Mirror",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Reflectance": {
 			"type":"string",
@@ -2522,6 +2515,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -2539,13 +2539,6 @@
 	"image": "SampleHolderAndFocusing_Focusing_ObjectiveTurret.png",
 	"tier": 3,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Resolution": {
 			"type":"string",
 			"description":"The motion resolution of this device",
@@ -2594,18 +2587,18 @@
 			"tier":"5",
 			"category":"Focusing"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"3",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"3",
-			"category":"Generic"
 		},
 		"MovementAxes": {
 			"type":"string",
@@ -2690,6 +2683,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -2707,13 +2707,6 @@
 	"image": "Mirror_BeamSplitter.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Transmittance": {
 			"type":"string",
 			"description":"The amount of light the beamsplitter transmits at a maximum. A fraction, as a value from 0.0 to 1.0",
@@ -2726,18 +2719,18 @@
 			"tier":"5",
 			"category":"BeamSplitter"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Mirror",
+			"tier":"2",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Mirror",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Reflectance": {
 			"type":"string",
@@ -2828,6 +2821,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -2845,12 +2845,11 @@
 	"image": "LightSource_GenericExcitationSource.png",
 	"tier": 1,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -2858,12 +2857,6 @@
 			"tier":"1",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"1",
-			"category":"Generic"
 		},
 		"NominalPower": {
 			"type":"string",
@@ -2906,6 +2899,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -2924,18 +2924,17 @@
 	"image": "LightSource_Arc.png",
 	"tier": 1,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Type": {
 			"type":"string",
 			"description":"The type of Arc lamp.",
 			"tier":"3",
 			"category":"Arc"
+		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"1",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -2943,12 +2942,6 @@
 			"tier":"1",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"1",
-			"category":"Generic"
 		},
 		"NominalPower": {
 			"type":"string",
@@ -2991,6 +2984,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -3009,13 +3009,6 @@
 	"image": "SampleHolderAndFocusing_Focusing_PiezoElectricStage.png",
 	"tier": 3,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Resolution": {
 			"type":"string",
 			"description":"The motion resolution of this device",
@@ -3064,18 +3057,18 @@
 			"tier":"5",
 			"category":"Focusing"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"3",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"3",
-			"category":"Generic"
 		},
 		"MovementAxes": {
 			"type":"string",
@@ -3160,6 +3153,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -3177,13 +3177,6 @@
 	"image": "Detector_PhotoMultiplier.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Type": {
 			"type":"string",
 			"description":"The type of photomultiplier used.",
@@ -3196,18 +3189,18 @@
 			"tier":"5",
 			"category":"PhotoMultiplier"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Detector",
+			"tier":"2",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Detector",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Gain": {
 			"type":"string",
@@ -3316,6 +3309,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -3337,13 +3337,6 @@
 	"image": "SampleHolderAndFocusing_Focusing_MechanicalStage.png",
 	"tier": 3,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Resolution": {
 			"type":"string",
 			"description":"The motion resolution of this device",
@@ -3392,18 +3385,18 @@
 			"tier":"5",
 			"category":"Focusing"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"3",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"3",
-			"category":"Generic"
 		},
 		"MovementAxes": {
 			"type":"string",
@@ -3488,6 +3481,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -3505,12 +3505,11 @@
 	"image": "LightPath_EmissionFilter.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Filter",
+			"tier":"2",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -3518,12 +3517,6 @@
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Filter",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Type": {
 			"type":"string",
@@ -3572,6 +3565,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -3590,12 +3590,11 @@
 	"image": "SampleHolderAndFocusing_Focusing_AutoFocus.png",
 	"tier": 3,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this element",
+			"tier":"3",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -3603,12 +3602,6 @@
 			"tier":"3",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this element",
-			"tier":"3",
-			"category":"Generic"
 		},
 		"Type": {
 			"type":"string",
@@ -3645,6 +3638,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -3664,13 +3664,6 @@
 	"image": "Detector_Camera_CCD.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Type": {
 			"type":"string",
 			"description":"The type of CCD camera used.",
@@ -3803,18 +3796,18 @@
 			"tier":"5",
 			"category":"Camera"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Detector",
+			"tier":"2",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Detector",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Gain": {
 			"type":"string",
@@ -3923,6 +3916,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -3944,12 +3944,11 @@
 	"image": "AdditionalOptics_Lens.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Lens",
+			"tier":"2",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -3957,12 +3956,6 @@
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Lens",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Type": {
 			"type":"string",
@@ -4119,6 +4112,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -4136,12 +4136,11 @@
 	"image": "LightPath_ExcitationFilter.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Filter",
+			"tier":"2",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -4149,12 +4148,6 @@
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Filter",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Type": {
 			"type":"string",
@@ -4203,6 +4196,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -4221,13 +4221,6 @@
 	"image": "Detector_Camera_AnalogVideo.png",
 	"tier": 2,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
-		},
 		"Illumination": {
 			"type":"string",
 			"description":"The type of illumination the camera chip receives",
@@ -4354,18 +4347,18 @@
 			"tier":"5",
 			"category":"Camera"
 		},
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this Detector",
+			"tier":"2",
+			"category":"Generic"
+		},
 		"ID": {
 			"type":"string",
 			"description":"null",
 			"tier":"2",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Detector",
-			"tier":"2",
-			"category":"Generic"
 		},
 		"Gain": {
 			"type":"string",
@@ -4474,6 +4467,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [
@@ -4495,12 +4495,11 @@
 	"image": "Magnification_Objective.png",
 	"tier": 1,
 	"properties": {
-		"tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
+		"Name": {
+			"type":"string",
+			"description":"null",
+			"tier":"1",
+			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
@@ -4508,12 +4507,6 @@
 			"tier":"1",
 			"category":"Generic",
 			"readonly": true
-		},
-		"Name": {
-			"type":"string",
-			"description":"null",
-			"tier":"1",
-			"category":"Generic"
 		},
 		"Correction": {
 			"type":"string",
@@ -4634,6 +4627,13 @@
 			"description":"Attach a PDF file with the specifications for the component as provided by the manufacturer",
 			"tier":"5",
 			"category":"ManufacturerSpec"
+		},
+		"tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 1,
+			"category": "Generic",
+			"readonly": true
 		}
 	},
 	"required": [

@@ -165,7 +165,7 @@ export default class Toolbar extends React.PureComponent {
 					}
 					triggerWhenOpen={
 						<Button key={`Trigger${key}`} size="lg" style={style}>
-							<div>{key}</div>
+							<div>{simpleKey}</div>
 							<div style={styleTransitionOpen}>&#9665;</div>
 						</Button>
 					}
