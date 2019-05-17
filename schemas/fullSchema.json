@@ -2974,8 +2974,8 @@
 	"properties": {
 		"ID": {
 			"type":"string",
-			"description":"null",
-			"tier":null,
+			"description":"NA",
+			"tier":1,
 			"category":"Generic",
 			"readonly": true
 		},
