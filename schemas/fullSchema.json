@@ -144,7 +144,7 @@
 			"schemaID":"CouplingLens.json",
 			"isReferenceID":true,
 			"min":0,
-			"max":1
+			"max":1,
 			"current":0
 		},
 		{
@@ -1437,7 +1437,7 @@
 			"schemaID":"RelayLens.json",
 			"isReferenceID":true,
 			"min":0,
-			"max":1
+			"max":1,
 			"current":0
 		}
 	],
@@ -1658,7 +1658,7 @@
 			"schemaID":"RelayLens.json",
 			"isReferenceID":true,
 			"min":0,
-			"max":1
+			"max":1,
 			"current":0
 		}
 	],
@@ -2831,7 +2831,7 @@
 			"schemaID":"ExcitationFilter.json",
 			"isReferenceID":true,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		},
 		{
@@ -2839,7 +2839,7 @@
 			"schemaID":"Dichroic.json",
 			"isReferenceID":true,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		},
 		{
@@ -2847,7 +2847,7 @@
 			"schemaID":"EmissionFilter.json",
 			"isReferenceID":true,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		}
 	],
@@ -3092,7 +3092,7 @@
 			"schemaID":"CouplingLens.json",
 			"isReferenceID":true,
 			"min":0,
-			"max":1
+			"max":1,
 			"current":0
 		}
 	],
@@ -3208,7 +3208,7 @@
 			"schemaID":"RelayLens.json",
 			"isReferenceID":true,
 			"min":0,
-			"max":1
+			"max":1,
 			"current":0
 		}
 	],
@@ -3569,7 +3569,7 @@
 			"schemaID":"lectanceRange.json",
 			"isReferenceID":true,
 			"min":0,
-			"max":-1
+			"max":-1,
 			"current":0
 		}
 	],
@@ -4533,7 +4533,7 @@
 			"schemaID":"RelayLens.json",
 			"isReferenceID":true,
 			"min":0,
-			"max":1
+			"max":1,
 			"current":0
 		}
 	],
@@ -5183,7 +5183,7 @@
 			"schemaID":"RelayLens.json",
 			"isReferenceID":true,
 			"min":0,
-			"max":1
+			"max":1,
 			"current":0
 		}
 	],
@@ -5902,7 +5902,7 @@
 			"schemaID":"RelayLens.json",
 			"isReferenceID":true,
 			"min":0,
-			"max":1
+			"max":1,
 			"current":0
 		}
 	],
