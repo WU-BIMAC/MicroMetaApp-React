@@ -152,7 +152,7 @@
 			"schemaID":"WavelengthRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		}
 	],
@@ -371,7 +371,7 @@
 			"schemaID":"LEDModule.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":-1
+			"max":-1,
 			"current":1
 		}
 	],
@@ -844,7 +844,7 @@
 			"schemaID":"TransmittanceRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":-1
+			"max":-1,
 			"current":1
 		}
 	],
@@ -999,7 +999,7 @@
 			"schemaID":"WavelengthRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		}
 	],
@@ -1264,7 +1264,7 @@
 			"schemaID":"Pump.json",
 			"isReferenceID":false,
 			"min":0,
-			"max":1
+			"max":1,
 			"current":0
 		}
 	],
@@ -1429,7 +1429,7 @@
 			"schemaID":"WavelengthRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		},
 		{
@@ -1650,7 +1650,7 @@
 			"schemaID":"WavelengthRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		},
 		{
@@ -2366,7 +2366,7 @@
 			"schemaID":"WavelengthRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		}
 	],
@@ -3200,7 +3200,7 @@
 			"schemaID":"WavelengthRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		},
 		{
@@ -3561,7 +3561,7 @@
 			"schemaID":"TransmittanceRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":-1
+			"max":-1,
 			"current":1
 		},
 		{
@@ -4150,7 +4150,7 @@
 			"schemaID":"Map.json",
 			"isReferenceID":false,
 			"min":0,
-			"max":1
+			"max":1,
 			"current":0
 		}
 	],
@@ -4525,7 +4525,7 @@
 			"schemaID":"WavelengthRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		},
 		{
@@ -4934,7 +4934,7 @@
 			"schemaID":"TransmittanceRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":-1
+			"max":-1,
 			"current":1
 		}
 	],
@@ -5175,7 +5175,7 @@
 			"schemaID":"WavelengthRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		},
 		{
@@ -5739,7 +5739,7 @@
 			"schemaID":"TransmittanceRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":-1
+			"max":-1,
 			"current":1
 		}
 	],
@@ -5894,7 +5894,7 @@
 			"schemaID":"WavelengthRange.json",
 			"isReferenceID":false,
 			"min":1,
-			"max":1
+			"max":1,
 			"current":1
 		},
 		{
