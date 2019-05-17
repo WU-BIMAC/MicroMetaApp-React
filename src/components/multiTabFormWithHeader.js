@@ -162,11 +162,14 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 
 	static transformSchemaCategorizeField(schema) {
 		let partialSchema = {};
+		console.log("schema");
+		console.log(schema);
 		//let prop = schema.properties;
-		Object.keys(schema).forEach(key => {
+		Object.keys(schema.properties).forEach(key => {
 			//for (let key in prop) {
 			//if (!prop.hasOwnProperty(key)) continue;
 			let property = schema.properties[key];
+			console.log(property);
 			if (property.type === "object") {
 				let localPartialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(
 					property
@@ -176,6 +179,12 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 				// 	partialSchema[key2] = localPartialSchema[key2];
 				// }
 				//partialSchema.push(localPartialSchema);
+				return;
+			} else if (property.type === "array") {
+				let localPartialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(
+					property.items
+				);
+				partialSchema = Object.assign(partialSchema, localPartialSchema);
 				return;
 			}
 			let category = property.category;
@@ -191,7 +200,9 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 	}
 
 	static transformSchema(schema) {
-		let partialSchema = this.transformSchemaCategorizeField(schema);
+		let partialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(
+			schema
+		);
 		// for (let key in partialSchema) {
 		// 	//if (!partialSchema.hasOwnProperty(key)) continue;
 		// 	partialSchema[key].title = key;

@@ -233,7 +233,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				validationTier
 			);
 
-			console.log(singleSchema);
+			//console.log(singleSchema);
 
 			if (singleSchema.title === "Microscope") {
 				microscopeSchema = Object.assign(microscopeSchema, singleSchema);
@@ -588,12 +588,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let componentsSchema = this.state.adaptedComponentsSchema;
 		let childrenSchema = this.state.adaptedChildrenSchema;
 
-		console.log("microscope");
-		console.log(microscopeSchema);
-		console.log("components");
-		console.log(componentsSchema);
-		console.log("children");
-		console.log(childrenSchema);
+		// console.log("microscope");
+		// console.log(microscopeSchema);
+		// console.log("components");
+		// console.log(componentsSchema);
+		// console.log("children");
+		// console.log(childrenSchema);
 
 		return (
 			<MicroscopyMetadataToolContainer
