@@ -24,6 +24,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			microscopes: props.microscopes || null,
 			adaptedMicroscopeSchema: null,
 			adaptedComponentsSchema: null,
+			adaptedChildrenSchema: null,
 			mounted: false,
 			activeTier: 1,
 			validationTier: 1,
@@ -81,6 +82,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.cancel = this.cancel.bind(this);
 
 		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
+		this.createAdaptedSchema = this.createAdaptedSchema.bind(this);
 
 		this.handleExportMicroscope = this.handleExportMicroscope.bind(this);
 		this.handleSaveMicroscope = this.handleSaveMicroscope.bind(this);
@@ -165,33 +167,34 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.state.microscope.scale = scale;
 	}
 
-	createAdaptedSchemas(validationTier) {
-		let activeTier = this.state.activeTier;
-		let schema = this.state.schema;
-		let componentsSchema = [];
-		let microscopeSchema = {};
-		let microscope = this.state.microscope;
-		let counter = 0;
-
-		Object.keys(schema).forEach(schemaIndex => {
-			let singleSchemaOriginal = schema[schemaIndex];
-			let singleSchema = Object.assign({}, singleSchemaOriginal);
-			singleSchema.properties = Object.assign(
-				{},
-				singleSchemaOriginal.properties
-			);
-			if (singleSchema.required !== undefined)
-				singleSchema.required = singleSchemaOriginal.required.slice(0);
-			let fieldsToRemove = [];
-			let fieldsToSetNotRequired = [];
-			Object.keys(singleSchema.properties).forEach(propKey => {
-				if (singleSchema.properties[propKey].tier > activeTier) {
+	createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier) {
+		let singleSchema = Object.assign({}, singleSchemaOriginal);
+		singleSchema.properties = Object.assign(
+			{},
+			singleSchemaOriginal.properties
+		);
+		if (singleSchema.required !== undefined)
+			singleSchema.required = singleSchemaOriginal.required.slice(0);
+		let fieldsToRemove = [];
+		let fieldsToSetNotRequired = [];
+		Object.keys(singleSchema.properties).forEach(propKey => {
+			let property = singleSchema.properties[propKey];
+			if (property.type === "object") {
+				singleSchema.properties[propKey] = this.createAdaptedSchemas(
+					property,
+					activeTier,
+					validationTier
+				);
+				return;
+			} else {
+				if (property.tier > activeTier) {
 					fieldsToRemove.push(propKey);
 				}
-			});
+			}
 			for (let y = 0; y < fieldsToRemove.length; y++) {
 				let key = fieldsToRemove[y];
-				if (singleSchema.properties[key] === undefined) continue;
+				let property = singleSchema.properties[key];
+				if (property === undefined) continue;
 				delete singleSchema.properties[key];
 				if (singleSchema.required === undefined) continue;
 				let requiredIndex = singleSchema.required.indexOf(key);
@@ -209,12 +212,35 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				let requiredIndex = singleSchema.required.indexOf(key);
 				singleSchema.required.splice(requiredIndex, 1);
 			}
+		});
+		return singleSchema;
+	}
+
+	createAdaptedSchemas(validationTier) {
+		let activeTier = this.state.activeTier;
+		let schema = this.state.schema;
+		let componentsSchema = [];
+		let childrenSchema = [];
+		let microscopeSchema = {};
+		let microscope = this.state.microscope;
+		let compCounter = 0;
+		let childrenCounter = 0;
+		Object.keys(schema).forEach(schemaIndex => {
+			let singleSchemaOriginal = schema[schemaIndex];
+			let singleSchema = this.createAdaptedSchema(
+				singleSchemaOriginal,
+				activeTier,
+				validationTier
+			);
 
 			if (singleSchema.title === "Microscope") {
 				microscopeSchema = Object.assign(microscopeSchema, singleSchema);
+			} else if (singleSchema.category === "ChildrenElement") {
+				childrenSchema[childrenCounter] = singleSchema;
+				childrenCounter++;
 			} else {
-				componentsSchema[counter] = singleSchema;
-				counter++;
+				componentsSchema[compCounter] = singleSchema;
+				compCounter++;
 			}
 		});
 
@@ -228,6 +254,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.setState({
 			adaptedMicroscopeSchema: microscopeSchema,
 			adaptedComponentsSchema: componentsSchema,
+			adaptedChildrenSchema: childrenSchema,
 			validationTier: validationTier,
 			isMicroscopeValidated: validated
 		});
@@ -557,9 +584,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		let microscopeSchema = this.state.adaptedMicroscopeSchema;
 		let componentsSchema = this.state.adaptedComponentsSchema;
+		let childrenSchema = this.state.childrenSchema;
 
-		//console.log(microscopeSchema);
-		//console.log(componentsSchema);
+		console.log(microscopeSchema);
+		console.log(componentsSchema);
+		console.log(childrenSchema);
 
 		return (
 			<MicroscopyMetadataToolContainer
