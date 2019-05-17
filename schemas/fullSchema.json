@@ -6332,8 +6332,8 @@
 		},
 		"ParfocalizingDistanceUnit": {
 			"type":"string",
-			"description":"null",
-			"tier":null,
+			"description":"NA",
+			"tier":1,
 			"category":"Objective"
 		},
 		"BackFocalPlanePosition": {
@@ -6344,8 +6344,8 @@
 		},
 		"BackFocalPlanePositionUnit": {
 			"type":"string",
-			"description":"null",
-			"tier":null,
+			"description":"NA",
+			"tier":1,
 			"category":"Objective"
 		},
 		"Manufacturer": {
