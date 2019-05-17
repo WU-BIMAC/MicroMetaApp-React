@@ -325,8 +325,8 @@
 					"description":"The location of a file containing the wavelenght profile of this component.",
 					"tier":5,
 					"category":"WavelengthRange"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"WavelenghtProfile"
@@ -514,8 +514,8 @@
 					"description":"The location of a file containing the wavelenght profile of this component.",
 					"tier":5,
 					"category":"LEDModule_1"
-				},
-			"required": [
+				}
+			},			"required": [
 				"PeakWavelenght",
 				"LumenPower",
 				"CutIn",
@@ -951,8 +951,8 @@
 					"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.          ",
 					"tier":3,
 					"category":"TransmittanceRange_1"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"Transmittance"
@@ -1118,8 +1118,8 @@
 					"description":"The location of a file containing the wavelenght profile of this component.",
 					"tier":5,
 					"category":"WavelengthRange"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"WavelenghtProfile"
@@ -1598,8 +1598,8 @@
 					"description":"The location of a file containing the wavelenght profile of this component.",
 					"tier":5,
 					"category":"WavelengthRange"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"WavelenghtProfile"
@@ -1951,8 +1951,8 @@
 					"description":"The location of a file containing the wavelenght profile of this component.",
 					"tier":5,
 					"category":"WavelengthRange"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"WavelenghtProfile"
@@ -2539,8 +2539,8 @@
 					"description":"The location of a file containing the wavelenght profile of this component.",
 					"tier":5,
 					"category":"WavelengthRange"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"WavelenghtProfile"
@@ -3501,8 +3501,8 @@
 					"description":"The location of a file containing the wavelenght profile of this component.",
 					"tier":5,
 					"category":"WavelengthRange"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"WavelenghtProfile"
@@ -3772,8 +3772,8 @@
 					"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.          ",
 					"tier":3,
 					"category":"TransmittanceRange_1"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"Transmittance"
@@ -4706,8 +4706,8 @@
 					"description":"The location of a file containing the wavelenght profile of this component.",
 					"tier":5,
 					"category":"WavelengthRange"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"WavelenghtProfile"
@@ -5041,8 +5041,8 @@
 					"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.          ",
 					"tier":3,
 					"category":"TransmittanceRange_1"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"Transmittance"
@@ -5476,8 +5476,8 @@
 					"description":"The location of a file containing the wavelenght profile of this component.",
 					"tier":5,
 					"category":"WavelengthRange"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"WavelenghtProfile"
@@ -5846,8 +5846,8 @@
 					"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.          ",
 					"tier":3,
 					"category":"TransmittanceRange_1"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"Transmittance"
@@ -6189,8 +6189,8 @@
 					"description":"The location of a file containing the wavelenght profile of this component.",
 					"tier":5,
 					"category":"WavelengthRange"
-				},
-			"required": [
+				}
+			},			"required": [
 				"CutIn",
 				"CutOut",
 				"WavelenghtProfile"
