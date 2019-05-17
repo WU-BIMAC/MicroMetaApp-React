@@ -2899,7 +2899,7 @@
 			"type":"object",
 			"description":"This empty element has a reference (the Filter ID attribute) to the Filters placed in the Excitation light path                ",
 			"tier":3,
-			"schemaID":"ExcitationFilter.json"
+			"schemaID":"ExcitationFilter.json",
 			"properties": {
 				"ExcitationFilter": {
 					"type":"string",
@@ -2912,7 +2912,7 @@
 			"type":"object",
 			"description":"This empty element has a reference (the Mirror ID attribute) to the Mirror/Dichroic placed in the light path",
 			"tier":3,
-			"schemaID":"Dichroic.json"
+			"schemaID":"Dichroic.json",
 			"properties": {
 				"Dichroic": {
 					"type":"string",
@@ -2925,7 +2925,7 @@
 			"type":"object",
 			"description":"This empty element has a reference (the Filter ID attribute) to the Filters placed in the Emission light path",
 			"tier":3,
-			"schemaID":"EmissionFilter.json"
+			"schemaID":"EmissionFilter.json",
 			"properties": {
 				"EmissionFilter": {
 					"type":"string",
