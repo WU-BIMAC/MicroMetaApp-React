@@ -141,23 +141,41 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 
 	static transformInputData(inputData, partialSchema) {
 		let partialInputData = [];
-		Object.keys(partialSchema).forEach(key => {
+		for (let key in partialSchema) {
+			//if (!partialSchema.hasOwnProperty(key)) continue;
 			if (partialInputData[key] === undefined) partialInputData[key] = {};
-			Object.keys(partialSchema[key].properties).forEach(propKey => {
-				partialInputData[key][propKey] = inputData[propKey];
-			});
-		});
+			for (let key2 in partialSchema[key].properties) {
+				//if (!partialSchema[key].properties.hasOwnProperty(key2)) continue;
+				partialInputData[key][key2] = inputData[key2];
+			}
+		}
+		// Object.keys(partialSchema).forEach(key => {
+		// 	if (partialInputData[key] === undefined) partialInputData[key] = {};
+		// 	Object.keys(partialSchema[key].properties).forEach(propKey => {
+		// 		partialInputData[key][propKey] = inputData[propKey];
+		// 	});
+		// });
+		console.log("partialInputData");
+		console.log(partialInputData);
 		return partialInputData;
 	}
 
-	static transformSchema(schema) {
-		let partialSchema = [];
-		console.log(schema);
-		Object.keys(schema.properties).forEach(key => {
+	static transformSchemaCategorizeField(schema) {
+		let partialSchema = {};
+		//let prop = schema.properties;
+		Object.keys(schema).forEach(key => {
+			//for (let key in prop) {
+			//if (!prop.hasOwnProperty(key)) continue;
 			let property = schema.properties[key];
 			if (property.type === "object") {
-				let localPartialSchema = this.transformSchema(property);
-				partialSchema.push(localPartialSchema);
+				let localPartialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(
+					property
+				);
+				partialSchema = Object.assign(partialSchema, localPartialSchema);
+				// for (let key2 in localPartialSchema) {
+				// 	partialSchema[key2] = localPartialSchema[key2];
+				// }
+				//partialSchema.push(localPartialSchema);
 				return;
 			}
 			let category = property.category;
@@ -169,18 +187,27 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			keysForCategory.properties[key] = property;
 			partialSchema[category] = keysForCategory;
 		});
-		console.log(partialSchema);
+		return partialSchema;
+	}
+
+	static transformSchema(schema) {
+		let partialSchema = this.transformSchemaCategorizeField(schema);
+		// for (let key in partialSchema) {
+		// 	//if (!partialSchema.hasOwnProperty(key)) continue;
+		// 	partialSchema[key].title = key;
+		// 	partialSchema[key].type = "object";
+		// 	let required = [];
+		// 	if (schema.required !== undefined) {
+		// 		for (let key2 in partialSchema[key].properties) {
+		// 			//if (!partialSchema[key].properties.hasOwnProperty(key2)) continue;
+		// 			if (schema.required.indexOf(key2) != -1) required.push(key2);
+		// 		}
+		// 	}
+		// 	if (required.length !== 0) partialSchema[key].required = required;
+		// }
 		Object.keys(partialSchema).forEach(key => {
-			if (
-				partialSchema[key].title === undefined ||
-				partialSchema[key].title === null
-			)
-				partialSchema[key].title = key;
-			if (
-				partialSchema[key].type === undefined ||
-				partialSchema[key].type === null
-			)
-				partialSchema[key].type = "object";
+			partialSchema[key].title = key;
+			partialSchema[key].type = "object";
 			let required = [];
 			if (schema.required !== undefined) {
 				Object.keys(partialSchema[key].properties).forEach(propKey => {
@@ -189,11 +216,38 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			}
 			if (required.length !== 0) partialSchema[key].required = required;
 		});
+		console.log("partialSchema");
+		console.log(partialSchema);
 		return partialSchema;
 	}
 
 	createUISchema(partialSchema) {
 		let partialUISchema = [];
+		// let counter1 = 0;
+		// let counter2 = 0;
+		// for (let key in partialSchema) {
+		// 	//if (!partialSchema.hasOwnProperty(key)) continue;
+		// 	if (partialUISchema[key] === undefined) partialUISchema[key] = {};
+		// 	for (let key2 in partialSchema[key].properties) {
+		// 		//if (!partialSchema[key].properties.hasOwnProperty(key2)) continue;
+		// 		let uiProperties = {};
+		// 		if (partialUISchema[key][key2] !== undefined) {
+		// 			Object.assign(uiProperties, partialUISchema[key][key2]);
+		// 		}
+		// 		if (counter1 === 0 && counter2 === 0) {
+		// 			partialUISchema[key][key2] = Object.assign(uiProperties, {
+		// 				"ui:autofocus": true
+		// 			});
+		// 		}
+		// 		if (partialSchema[key].properties[key2].readonly !== undefined) {
+		// 			partialUISchema[key][key2] = Object.assign(uiProperties, {
+		// 				"ui:readonly": true
+		// 			});
+		// 		}
+		// 		counter2++;
+		// 	}
+		// 	counter1++;
+		// }
 		Object.keys(partialSchema).forEach((key, index1) => {
 			if (partialUISchema[key] === undefined) partialUISchema[key] = {};
 			Object.keys(partialSchema[key].properties).forEach((propKey, index2) => {

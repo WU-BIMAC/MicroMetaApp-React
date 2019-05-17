@@ -246,12 +246,12 @@ export default class Canvas extends React.PureComponent {
 			newElementList.push(newElement);
 
 			let newElementData = {
-				name: `New ${schema.title}`,
+				Name: `New ${schema.title}`,
 				ID: uuid,
-				tier: schema.tier,
-				schema_ID: schema.ID,
-				xPosition: percentX,
-				yPosition: percentY
+				Tier: schema.tier,
+				Schema_ID: schema.ID,
+				PositionX: percentX,
+				PositionY: percentY
 			};
 			newElement.obj = newElementData;
 			newElementDataList[newElement.ID] = newElementData;
