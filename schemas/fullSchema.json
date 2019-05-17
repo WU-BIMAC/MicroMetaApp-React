@@ -16,7 +16,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":1,
 			"category":"Generic",
 			"readonly": true
@@ -100,7 +100,7 @@
 		},
 		"CutInUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"ReflectanceRange"
 		},
@@ -112,7 +112,7 @@
 		},
 		"CutOutUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"ReflectanceRange"
 		},
@@ -171,7 +171,7 @@
 		},
 		"PeakWavelengthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"LightGuide"
 		},
@@ -195,7 +195,7 @@
 		},
 		"AcceptanceAngleUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"LightGuide"
 		},
@@ -231,7 +231,7 @@
 		},
 		"DiameterUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"LightGuide"
 		},
@@ -243,7 +243,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":4,
 			"category":"Generic",
 			"readonly": true
@@ -304,7 +304,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -316,7 +316,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -403,8 +403,8 @@
 		},
 		"NominalPowerUnit": {
 			"type":"string",
-			"description":"null",
-			"tier":null,
+			"description":"NA",
+			"tier":1,
 			"category":"LightSource"
 		},
 		"Manufacturer": {
@@ -451,13 +451,13 @@
 			"properties": {
 				"PeakWavelenght": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":2,
 					"category":"LEDModule_1"
 				},
 				"PeakWavelenghtUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":2,
 					"category":"LEDModule_1"
 				},
@@ -469,19 +469,19 @@
 				},
 				"LumenPowerUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":3,
 					"category":"LEDModule_1"
 				},
 				"ProjectionAngle": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"LEDModule_1"
 				},
 				"ProjectionAngleUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"LEDModule_1"
 				},
@@ -493,7 +493,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":3,
 					"category":"LEDModule_1"
 				},
@@ -505,7 +505,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":3,
 					"category":"LEDModule_1"
 				},
@@ -563,7 +563,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":4,
 			"category":"Generic",
 			"readonly": true
@@ -582,7 +582,7 @@
 		},
 		"TableWidthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"MicroscopeTable"
 		},
@@ -594,7 +594,7 @@
 		},
 		"TableDepthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"MicroscopeTable"
 		},
@@ -673,7 +673,7 @@
 		},
 		"ResolutionUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Focusing"
 		},
@@ -697,7 +697,7 @@
 		},
 		"SettlingTimeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Focusing"
 		},
@@ -709,7 +709,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -728,7 +728,7 @@
 		},
 		"XTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -740,7 +740,7 @@
 		},
 		"YTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -752,7 +752,7 @@
 		},
 		"ZTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -764,7 +764,7 @@
 		},
 		"MaxVelocityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -857,7 +857,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -930,7 +930,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":3,
 					"category":"TransmittanceRange_1"
 				},
@@ -942,7 +942,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":3,
 					"category":"TransmittanceRange_1"
 				},
@@ -1012,7 +1012,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -1097,7 +1097,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -1109,7 +1109,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -1189,8 +1189,8 @@
 		},
 		"NominalPowerUnit": {
 			"type":"string",
-			"description":"null",
-			"tier":null,
+			"description":"NA",
+			"tier":1,
 			"category":"LightSource"
 		},
 		"Manufacturer": {
@@ -1289,7 +1289,7 @@
 		},
 		"WavelengthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Laser"
 		},
@@ -1325,7 +1325,7 @@
 		},
 		"RepetitionRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Laser"
 		},
@@ -1350,8 +1350,8 @@
 		},
 		"NominalPowerUnit": {
 			"type":"string",
-			"description":"null",
-			"tier":null,
+			"description":"NA",
+			"tier":1,
 			"category":"LightSource"
 		},
 		"Manufacturer": {
@@ -1450,7 +1450,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -1475,7 +1475,7 @@
 		},
 		"ReadNoiseUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -1493,7 +1493,7 @@
 		},
 		"DarkCurrentRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -1505,7 +1505,7 @@
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -1523,7 +1523,7 @@
 		},
 		"AmbientOperatingTemperatureUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -1577,7 +1577,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -1589,7 +1589,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -1695,7 +1695,7 @@
 		},
 		"PixelWidthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -1707,7 +1707,7 @@
 		},
 		"PixelHeightUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -1719,7 +1719,7 @@
 		},
 		"ImageWidthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -1731,7 +1731,7 @@
 		},
 		"ImageHeightUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -1743,7 +1743,7 @@
 		},
 		"PixelWellCapacityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -1755,7 +1755,7 @@
 		},
 		"RegisterWellCapacityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -1767,7 +1767,7 @@
 		},
 		"VerticalClockSpeedUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -1779,7 +1779,7 @@
 		},
 		"MaximumFrameRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -1791,7 +1791,7 @@
 		},
 		"MaximumReadoutRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -1803,7 +1803,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -1828,7 +1828,7 @@
 		},
 		"ReadNoiseUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -1846,7 +1846,7 @@
 		},
 		"DarkCurrentRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -1858,7 +1858,7 @@
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -1876,7 +1876,7 @@
 		},
 		"AmbientOperatingTemperatureUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -1930,7 +1930,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -1942,7 +1942,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -2016,7 +2016,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -2059,7 +2059,7 @@
 		},
 		"RadiusOfCurvatureUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"LensGroup"
 		},
@@ -2071,7 +2071,7 @@
 		},
 		"FocalDistanceToObjectUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"LensGroup"
 		},
@@ -2083,7 +2083,7 @@
 		},
 		"FocalDistanceToImageUnits": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"LensGroup"
 		},
@@ -2095,7 +2095,7 @@
 		},
 		"FocalLengthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"LensGroup"
 		},
@@ -2131,7 +2131,7 @@
 		},
 		"DensityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"LensGroup"
 		},
@@ -2143,7 +2143,7 @@
 		},
 		"DiameterUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"LensGroup"
 		},
@@ -2230,7 +2230,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -2243,7 +2243,7 @@
 		},
 		"MirrorType": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Mirror"
 		},
@@ -2273,7 +2273,7 @@
 		},
 		"RadiusOfCurvatureUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Mirror"
 		},
@@ -2379,7 +2379,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -2410,7 +2410,7 @@
 		},
 		"PrismAngleUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Prism"
 		},
@@ -2422,7 +2422,7 @@
 		},
 		"AngleOfIncidenceUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Prism"
 		},
@@ -2434,7 +2434,7 @@
 		},
 		"DevianceAngleUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Prism"
 		},
@@ -2470,7 +2470,7 @@
 		},
 		"DensityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Prism"
 		},
@@ -2518,7 +2518,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -2530,7 +2530,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -2602,7 +2602,7 @@
 		},
 		"RotationAngleUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"SampleHolder"
 		},
@@ -2614,7 +2614,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -2633,7 +2633,7 @@
 		},
 		"XTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -2645,7 +2645,7 @@
 		},
 		"YTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -2657,7 +2657,7 @@
 		},
 		"ZTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -2669,7 +2669,7 @@
 		},
 		"MaxVelocityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -2751,7 +2751,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":1,
 			"category":"Generic",
 			"readonly": true
@@ -2860,7 +2860,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -3011,7 +3011,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -3117,7 +3117,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":4,
 			"category":"Generic",
 			"readonly": true
@@ -3245,7 +3245,7 @@
 		},
 		"PixelWidthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -3257,7 +3257,7 @@
 		},
 		"PixelHeightUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -3269,7 +3269,7 @@
 		},
 		"ImageWidthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -3281,7 +3281,7 @@
 		},
 		"ImageHeightUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -3293,7 +3293,7 @@
 		},
 		"PixelWellCapacityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -3305,7 +3305,7 @@
 		},
 		"RegisterWellCapacityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -3317,7 +3317,7 @@
 		},
 		"VerticalClockSpeedUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -3329,7 +3329,7 @@
 		},
 		"MaximumFrameRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -3341,7 +3341,7 @@
 		},
 		"MaximumReadoutRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -3353,7 +3353,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -3378,7 +3378,7 @@
 		},
 		"ReadNoiseUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -3396,7 +3396,7 @@
 		},
 		"DarkCurrentRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -3408,7 +3408,7 @@
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -3426,7 +3426,7 @@
 		},
 		"AmbientOperatingTemperatureUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -3480,7 +3480,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -3492,7 +3492,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -3551,7 +3551,7 @@
 	"ID": "Dichroic.json",
 	"type": "object",
 	"title": "Dichroic",
-	"description": "null",
+	"description": "NA",
 	"category": "LightPath",
 	"image": "LightPath_Dichroic.png",
 	"tier": 2,
@@ -3636,7 +3636,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -3649,7 +3649,7 @@
 		},
 		"MirrorType": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Mirror"
 		},
@@ -3679,7 +3679,7 @@
 		},
 		"RadiusOfCurvatureUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Mirror"
 		},
@@ -3751,7 +3751,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":3,
 					"category":"TransmittanceRange_1"
 				},
@@ -3763,7 +3763,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":3,
 					"category":"TransmittanceRange_1"
 				},
@@ -3824,7 +3824,7 @@
 		},
 		"ResolutionUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Focusing"
 		},
@@ -3848,7 +3848,7 @@
 		},
 		"SettlingTimeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Focusing"
 		},
@@ -3860,7 +3860,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -3879,7 +3879,7 @@
 		},
 		"XTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -3891,7 +3891,7 @@
 		},
 		"YTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -3903,7 +3903,7 @@
 		},
 		"ZTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -3915,7 +3915,7 @@
 		},
 		"MaxVelocityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -4012,7 +4012,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -4025,7 +4025,7 @@
 		},
 		"MirrorType": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Mirror"
 		},
@@ -4055,7 +4055,7 @@
 		},
 		"RadiusOfCurvatureUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Mirror"
 		},
@@ -4176,8 +4176,8 @@
 		},
 		"NominalPowerUnit": {
 			"type":"string",
-			"description":"null",
-			"tier":null,
+			"description":"NA",
+			"tier":1,
 			"category":"LightSource"
 		},
 		"Manufacturer": {
@@ -4274,8 +4274,8 @@
 		},
 		"NominalPowerUnit": {
 			"type":"string",
-			"description":"null",
-			"tier":null,
+			"description":"NA",
+			"tier":1,
 			"category":"LightSource"
 		},
 		"Manufacturer": {
@@ -4354,7 +4354,7 @@
 		},
 		"ResolutionUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Focusing"
 		},
@@ -4378,7 +4378,7 @@
 		},
 		"SettlingTimeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Focusing"
 		},
@@ -4390,7 +4390,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -4409,7 +4409,7 @@
 		},
 		"XTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -4421,7 +4421,7 @@
 		},
 		"YTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -4433,7 +4433,7 @@
 		},
 		"ZTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -4445,7 +4445,7 @@
 		},
 		"MaxVelocityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -4558,7 +4558,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -4583,7 +4583,7 @@
 		},
 		"ReadNoiseUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -4601,7 +4601,7 @@
 		},
 		"DarkCurrentRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -4613,7 +4613,7 @@
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -4631,7 +4631,7 @@
 		},
 		"AmbientOperatingTemperatureUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -4685,7 +4685,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -4697,7 +4697,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -4763,7 +4763,7 @@
 		},
 		"ResolutionUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Focusing"
 		},
@@ -4787,7 +4787,7 @@
 		},
 		"SettlingTimeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Focusing"
 		},
@@ -4799,7 +4799,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -4818,7 +4818,7 @@
 		},
 		"XTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -4830,7 +4830,7 @@
 		},
 		"YTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -4842,7 +4842,7 @@
 		},
 		"ZTravelRangeUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -4854,7 +4854,7 @@
 		},
 		"MaxVelocityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Stage"
 		},
@@ -4947,7 +4947,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -5020,7 +5020,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":3,
 					"category":"TransmittanceRange_1"
 				},
@@ -5032,7 +5032,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":3,
 					"category":"TransmittanceRange_1"
 				},
@@ -5094,7 +5094,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -5220,7 +5220,7 @@
 		},
 		"PixelWidthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -5232,7 +5232,7 @@
 		},
 		"PixelHeightUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -5244,7 +5244,7 @@
 		},
 		"ImageWidthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -5256,7 +5256,7 @@
 		},
 		"ImageHeightUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -5268,7 +5268,7 @@
 		},
 		"PixelWellCapacityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -5280,7 +5280,7 @@
 		},
 		"RegisterWellCapacityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -5292,7 +5292,7 @@
 		},
 		"VerticalClockSpeedUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -5304,7 +5304,7 @@
 		},
 		"MaximumFrameRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -5316,7 +5316,7 @@
 		},
 		"MaximumReadoutRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -5328,7 +5328,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -5353,7 +5353,7 @@
 		},
 		"ReadNoiseUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -5371,7 +5371,7 @@
 		},
 		"DarkCurrentRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -5383,7 +5383,7 @@
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -5401,7 +5401,7 @@
 		},
 		"AmbientOperatingTemperatureUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -5455,7 +5455,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -5467,7 +5467,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -5540,7 +5540,7 @@
 		},
 		"CutInUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"WavelengthRange"
 		},
@@ -5552,7 +5552,7 @@
 		},
 		"CutOutUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"WavelengthRange"
 		},
@@ -5589,13 +5589,13 @@
 	"properties": {
 		"PeakWavelenght": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"LEDModule"
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"LEDModule"
 		},
@@ -5607,19 +5607,19 @@
 		},
 		"LumenPowerUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"LEDModule"
 		},
 		"ProjectionAngle": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"LEDModule"
 		},
 		"ProjectionAngleUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"LEDModule"
 		},
@@ -5631,7 +5631,7 @@
 		},
 		"CutInUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"LEDModule"
 		},
@@ -5643,7 +5643,7 @@
 		},
 		"CutOutUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"LEDModule"
 		},
@@ -5688,7 +5688,7 @@
 		},
 		"CutInUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"TransmittanceRange"
 		},
@@ -5700,7 +5700,7 @@
 		},
 		"CutOutUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"TransmittanceRange"
 		},
@@ -5752,7 +5752,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -5825,7 +5825,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":3,
 					"category":"TransmittanceRange_1"
 				},
@@ -5837,7 +5837,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":3,
 					"category":"TransmittanceRange_1"
 				},
@@ -5933,7 +5933,7 @@
 		},
 		"PixelWidthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -5945,7 +5945,7 @@
 		},
 		"PixelHeightUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -5957,7 +5957,7 @@
 		},
 		"ImageWidthUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -5969,7 +5969,7 @@
 		},
 		"ImageHeightUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Camera"
 		},
@@ -5981,7 +5981,7 @@
 		},
 		"PixelWellCapacityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -5993,7 +5993,7 @@
 		},
 		"RegisterWellCapacityUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -6005,7 +6005,7 @@
 		},
 		"VerticalClockSpeedUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -6017,7 +6017,7 @@
 		},
 		"MaximumFrameRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -6029,7 +6029,7 @@
 		},
 		"MaximumReadoutRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Camera"
 		},
@@ -6041,7 +6041,7 @@
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -6066,7 +6066,7 @@
 		},
 		"ReadNoiseUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -6084,7 +6084,7 @@
 		},
 		"DarkCurrentRateUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -6096,7 +6096,7 @@
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -6114,7 +6114,7 @@
 		},
 		"AmbientOperatingTemperatureUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":5,
 			"category":"Detector"
 		},
@@ -6168,7 +6168,7 @@
 				},
 				"CutInUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -6180,7 +6180,7 @@
 				},
 				"CutOutUnit": {
 					"type":"string",
-					"description":"null",
+					"description":"NA",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -6247,13 +6247,13 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":1,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":1,
 			"category":"Generic",
 			"readonly": true
@@ -6266,7 +6266,7 @@
 		},
 		"NominalMagnification": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":1,
 			"category":"Objective"
 		},
@@ -6296,7 +6296,7 @@
 		},
 		"CoverslipTickness": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":2,
 			"category":"Objective"
 		},
@@ -6308,7 +6308,7 @@
 		},
 		"WorkingDistanceUnit": {
 			"type":"string",
-			"description":"null",
+			"description":"NA",
 			"tier":3,
 			"category":"Objective"
 		},

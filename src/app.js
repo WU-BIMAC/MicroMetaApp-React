@@ -227,7 +227,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let childrenCounter = 0;
 		Object.keys(schema).forEach(schemaIndex => {
 			let singleSchemaOriginal = schema[schemaIndex];
-			console.log(singleSchemaOriginal);
 			let singleSchema = this.createAdaptedSchema(
 				singleSchemaOriginal,
 				activeTier,
@@ -251,13 +250,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			let validation = validate(microscope, microscopeSchema);
 			validated = validation.valid;
 		}
-
-		console.log("microscope");
-		console.log(microscopeSchema);
-		console.log("components");
-		console.log(componentsSchema);
-		console.log("children");
-		console.log(childrenSchema);
 
 		this.setState({
 			adaptedMicroscopeSchema: microscopeSchema,
@@ -594,12 +586,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let componentsSchema = this.state.adaptedComponentsSchema;
 		let childrenSchema = this.state.childrenSchema;
 
-		// console.log("microscope");
-		// console.log(microscopeSchema);
-		// console.log("components");
-		// console.log(componentsSchema);
-		// console.log("children");
-		// console.log(childrenSchema);
+		console.log("microscope");
+		console.log(microscopeSchema);
+		console.log("components");
+		console.log(componentsSchema);
+		console.log("children");
+		console.log(childrenSchema);
 
 		return (
 			<MicroscopyMetadataToolContainer
