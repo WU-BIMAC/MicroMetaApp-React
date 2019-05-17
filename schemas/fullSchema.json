@@ -268,7 +268,7 @@
 			"type":"string",
 			"description":"This is a reference to a lens positioned at connector between this light source coupling element and the microscope body.",
 			"tier":5,
-			"category":"CouplingLens"
+			"category":"CouplingLens",
 			"linkTo":"CouplingLens"
 		},
 		"Description": {
@@ -1544,7 +1544,7 @@
 			"type":"string",
 			"description":"This is a reference to a lens positioned at the mount connecting this detector to the microscope body.",
 			"tier":3,
-			"category":"RelayLens"
+			"category":"RelayLens",
 			"linkTo":"RelayLens"
 		},
 		"Description": {
@@ -1887,7 +1887,7 @@
 			"type":"string",
 			"description":"This is a reference to a lens positioned at the mount connecting this detector to the microscope body.",
 			"tier":3,
-			"category":"RelayLens"
+			"category":"RelayLens",
 			"linkTo":"RelayLens"
 		},
 		"Description": {
@@ -2793,21 +2793,21 @@
 			"type":"string",
 			"description":"This empty element has a reference (the Filter ID attribute) to the Filters placed in the Excitation light path                ",
 			"tier":3,
-			"category":"ExcitationFilter"
+			"category":"ExcitationFilter",
 			"linkTo":"ExcitationFilter"
 		},
 		"Dichroic": {
 			"type":"string",
 			"description":"This empty element has a reference (the Mirror ID attribute) to the Mirror/Dichroic placed in the light path",
 			"tier":3,
-			"category":"Dichroic"
+			"category":"Dichroic",
 			"linkTo":"Dichroic"
 		},
 		"EmissionFilter": {
 			"type":"string",
 			"description":"This empty element has a reference (the Filter ID attribute) to the Filters placed in the Emission light path",
 			"tier":3,
-			"category":"EmissionFilter"
+			"category":"EmissionFilter",
 			"linkTo":"EmissionFilter"
 		},
 		"Description": {
@@ -3026,7 +3026,7 @@
 			"type":"string",
 			"description":"This is a reference to a lens positioned at connector between this light source coupling element and the microscope body.",
 			"tier":5,
-			"category":"CouplingLens"
+			"category":"CouplingLens",
 			"linkTo":"CouplingLens"
 		},
 		"Description": {
@@ -3366,7 +3366,7 @@
 			"type":"string",
 			"description":"This is a reference to a lens positioned at the mount connecting this detector to the microscope body.",
 			"tier":3,
-			"category":"RelayLens"
+			"category":"RelayLens",
 			"linkTo":"RelayLens"
 		},
 		"Description": {
@@ -3632,7 +3632,7 @@
 				"description":"This records the range of wavelengths that are reflected by the mirror      ",
 				"type":"string",
 				"tier":3,
-				"category":"lectanceRange"
+				"category":"lectanceRange",
 				"linkTo":"lectanceRange"
 			}
 		},
@@ -4543,7 +4543,7 @@
 			"type":"string",
 			"description":"This is a reference to a lens positioned at the mount connecting this detector to the microscope body.",
 			"tier":3,
-			"category":"RelayLens"
+			"category":"RelayLens",
 			"linkTo":"RelayLens"
 		},
 		"Description": {
@@ -5294,7 +5294,7 @@
 			"type":"string",
 			"description":"This is a reference to a lens positioned at the mount connecting this detector to the microscope body.",
 			"tier":3,
-			"category":"RelayLens"
+			"category":"RelayLens",
 			"linkTo":"RelayLens"
 		},
 		"Description": {
@@ -5984,7 +5984,7 @@
 			"type":"string",
 			"description":"This is a reference to a lens positioned at the mount connecting this detector to the microscope body.",
 			"tier":3,
-			"category":"RelayLens"
+			"category":"RelayLens",
 			"linkTo":"RelayLens"
 		},
 		"Description": {
