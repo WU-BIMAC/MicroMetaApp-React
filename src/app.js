@@ -180,7 +180,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		Object.keys(singleSchema.properties).forEach(propKey => {
 			let property = singleSchema.properties[propKey];
 			if (property.type === "object") {
-				singleSchema.properties[propKey] = this.createAdaptedSchemas(
+				singleSchema.properties[propKey] = this.createAdaptedSchema(
 					property,
 					activeTier,
 					validationTier
