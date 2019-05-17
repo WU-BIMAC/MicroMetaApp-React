@@ -285,6 +285,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":4,
@@ -438,6 +439,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -629,6 +631,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":4,
@@ -799,6 +802,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -959,6 +963,7 @@
 			]
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -1126,6 +1131,7 @@
 			]
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -1224,6 +1230,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -1385,6 +1392,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -1606,6 +1614,7 @@
 			]
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -1959,6 +1968,7 @@
 			]
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -2178,6 +2188,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -2326,6 +2337,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -2547,6 +2559,7 @@
 			]
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -2704,6 +2717,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":3,
@@ -2793,6 +2807,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -2896,6 +2911,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"ExcitationFilter": {
+			"title":"ExcitationFilter",
 			"type":"object",
 			"description":"This empty element has a reference (the Filter ID attribute) to the Filters placed in the Excitation light path                ",
 			"tier":3,
@@ -2905,10 +2921,12 @@
 					"type":"string",
 					"description":"This empty element has a reference (the Filter ID attribute) to the Filters placed in the Excitation light path                ",
 					"tier":3,
-			"category":"ExcitationFilter"				}
+					"category":"ExcitationFilter"
+				}
 			}
 		},
 		"Dichroic": {
+			"title":"Dichroic",
 			"type":"object",
 			"description":"This empty element has a reference (the Mirror ID attribute) to the Mirror/Dichroic placed in the light path",
 			"tier":3,
@@ -2918,10 +2936,12 @@
 					"type":"string",
 					"description":"This empty element has a reference (the Mirror ID attribute) to the Mirror/Dichroic placed in the light path",
 					"tier":3,
-			"category":"Dichroic"				}
+					"category":"Dichroic"
+				}
 			}
 		},
 		"EmissionFilter": {
+			"title":"EmissionFilter",
 			"type":"object",
 			"description":"This empty element has a reference (the Filter ID attribute) to the Filters placed in the Emission light path",
 			"tier":3,
@@ -2931,10 +2951,12 @@
 					"type":"string",
 					"description":"This empty element has a reference (the Filter ID attribute) to the Filters placed in the Emission light path",
 					"tier":3,
-			"category":"EmissionFilter"				}
+					"category":"EmissionFilter"
+				}
 			}
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -3053,6 +3075,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":3,
@@ -3159,6 +3182,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":4,
@@ -3509,6 +3533,7 @@
 			]
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -3732,6 +3757,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -3950,6 +3976,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -4108,6 +4135,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -4211,6 +4239,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -4309,6 +4338,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -4480,6 +4510,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -4714,6 +4745,7 @@
 			]
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -4889,6 +4921,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -5049,6 +5082,7 @@
 			]
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -5136,6 +5170,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":3,
@@ -5484,6 +5519,7 @@
 			]
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -5854,6 +5890,7 @@
 			]
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -6197,6 +6234,7 @@
 			]
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
@@ -6379,6 +6417,7 @@
 			"category":"ManufacturerSpec"
 		},
 		"Description": {
+			"title":"Description",
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,

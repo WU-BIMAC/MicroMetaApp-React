@@ -152,18 +152,35 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 
 	static transformSchema(schema) {
 		let partialSchema = [];
+		console.log(schema);
 		Object.keys(schema.properties).forEach(key => {
-			let category = schema.properties[key].category;
+			let property = schema.properties[key];
+			if (property.type === "object") {
+				let localPartialSchema = this.transformSchema(property);
+				partialSchema.push(localPartialSchema);
+				return;
+			}
+			let category = property.category;
+
 			let keysForCategory = partialSchema[category];
 			if (keysForCategory === undefined || keysForCategory === null) {
 				keysForCategory = { properties: {} };
 			}
-			keysForCategory.properties[key] = schema.properties[key];
+			keysForCategory.properties[key] = property;
 			partialSchema[category] = keysForCategory;
 		});
+		console.log(partialSchema);
 		Object.keys(partialSchema).forEach(key => {
-			partialSchema[key].title = key;
-			partialSchema[key].type = "object";
+			if (
+				partialSchema[key].title === undefined ||
+				partialSchema[key].title === null
+			)
+				partialSchema[key].title = key;
+			if (
+				partialSchema[key].type === undefined ||
+				partialSchema[key].type === null
+			)
+				partialSchema[key].type = "object";
 			let required = [];
 			if (schema.required !== undefined) {
 				Object.keys(partialSchema[key].properties).forEach(propKey => {

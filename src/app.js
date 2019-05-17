@@ -233,6 +233,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				validationTier
 			);
 
+			console.log(singleSchema);
+
 			if (singleSchema.title === "Microscope") {
 				microscopeSchema = Object.assign(microscopeSchema, singleSchema);
 			} else if (singleSchema.category === "ChildrenElement") {
@@ -258,7 +260,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			validationTier: validationTier,
 			isMicroscopeValidated: validated
 		});
-		return [microscopeSchema, componentsSchema];
+		return [microscopeSchema, componentsSchema, childrenSchema];
 	}
 
 	createNewMicroscopeFromScratch() {
@@ -584,7 +586,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		let microscopeSchema = this.state.adaptedMicroscopeSchema;
 		let componentsSchema = this.state.adaptedComponentsSchema;
-		let childrenSchema = this.state.childrenSchema;
+		let childrenSchema = this.state.adaptedChildrenSchema;
 
 		console.log("microscope");
 		console.log(microscopeSchema);
