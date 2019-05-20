@@ -65,6 +65,16 @@ export default class CanvasElement extends React.PureComponent {
 					onConfirm={this.onConfirm}
 					onCancel={this.onCancel}
 					overlaysContainer={this.props.overlaysContainer}
+					currentChildrenComponentIdentifier={
+						this.props.currentChildrenComponentIdentifier
+					}
+					minChildrenComponentIdentifier={
+						this.props.minChildrenComponentIdentifier
+					}
+					maxChildrenComponentIdentifier={
+						this.props.maxChildrenComponentIdentifier
+					}
+					elementByType={this.props.elementByType}
 				/>
 			);
 		}

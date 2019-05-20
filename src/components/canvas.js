@@ -8,6 +8,10 @@ import { CanvasElementDeleteButton } from "./canvasElement";
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
+const currentNumberOf_identifier = "Number_Of_";
+const minNumberOf_identifier = "Min_Number_Of_";
+const maxNumberOf_identifier = "Max_Number_Of_";
+
 export default class Canvas extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -244,7 +248,6 @@ export default class Canvas extends React.PureComponent {
 				y: percentY
 			};
 			newElementList.push(newElement);
-
 			let newElementData = {
 				Name: `New ${schema.title}`,
 				ID: uuid,
@@ -253,6 +256,31 @@ export default class Canvas extends React.PureComponent {
 				PositionX: percentX,
 				PositionY: percentY
 			};
+			Object.keys(schema.properties).forEach(key => {
+				if (schema.properties[key].type === "array") {
+					let currentNumber = currentNumberOf_identifier + key;
+					let minNumber = minNumberOf_identifier + key;
+					let maxNumber = maxNumberOf_identifier + key;
+					if (schema.required.indexOf(key) != -1) {
+						newElementData[currentNumber] = 1;
+						newElementData[minNumber] = 1;
+						newElementData[maxNumber] = -1;
+					} else {
+						newElementData[currentNumber] = 0;
+						newElementData[minNumber] = 0;
+						newElementData[maxNumber] = -1;
+					}
+				} else if (schema.properties[key].type === "object") {
+					let currentNumber = currentNumberOf_identifier + key;
+					let minNumber = minNumberOf_identifier + key;
+					let maxNumber = maxNumberOf_identifier + key;
+					if (schema.required.indexOf(key) === -1) {
+						newElementData[currentNumber] = 0;
+						newElementData[minNumber] = 0;
+						newElementData[maxNumber] = 1;
+					}
+				}
+			});
 			newElement.obj = newElementData;
 			newElementDataList[newElement.ID] = newElementData;
 		} else {
@@ -357,6 +385,15 @@ export default class Canvas extends React.PureComponent {
 		});
 		let droppableElement = [];
 		let componentsSchema = this.state.componentsSchema;
+		let elementByType = {};
+		Object.keys(elementData).forEach(function(key) {
+			let element = elementData[key];
+			let schemaID = element.Schema_ID.replace(".json", "");
+			if (elementByType[schemaID] === undefined) {
+				elementByType[schemaID] = {};
+			}
+			elementByType[schemaID][element.Name] = element.ID;
+		});
 
 		elementList.map((item, index) => {
 			let schema_id = item.schema_ID;
@@ -394,6 +431,10 @@ export default class Canvas extends React.PureComponent {
 							height={stylesImages[item.ID].height}
 							validated={item.validated}
 							dragged={item.dragged}
+							currentChildrenComponentIdentifier={currentNumberOf_identifier}
+							minChildrenComponentIdentifier={minNumberOf_identifier}
+							maxChildrenComponentIdentifier={maxNumberOf_identifier}
+							elementByType={elementByType}
 						/>
 					</DragDropContainer>
 				</div>

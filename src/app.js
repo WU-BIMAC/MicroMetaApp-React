@@ -173,46 +173,60 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			{},
 			singleSchemaOriginal.properties
 		);
+
 		if (singleSchema.required !== undefined)
-			singleSchema.required = singleSchemaOriginal.required.slice(0);
+			if (singleSchemaOriginal.type === "array") {
+				singleSchema.items.required = singleSchemaOriginal.items.required.slice(
+					0
+				);
+			} else {
+				singleSchema.required = singleSchemaOriginal.required.slice(0);
+			}
+
 		let fieldsToRemove = [];
 		let fieldsToSetNotRequired = [];
-		Object.keys(singleSchema.properties).forEach(propKey => {
-			let property = singleSchema.properties[propKey];
-			if (property.type === "object") {
-				singleSchema.properties[propKey] = this.createAdaptedSchema(
+
+		let required = singleSchema.required;
+		let properties = singleSchema.properties;
+		if (singleSchemaOriginal.type === "array") {
+			required = singleSchema.items.required;
+			properties = singleSchema.items.properties;
+		}
+
+		Object.keys(properties).forEach(propKey => {
+			let property = properties[propKey];
+			if (property.type === "object" || property.type === "array") {
+				properties[propKey] = this.createAdaptedSchema(
 					property,
 					activeTier,
 					validationTier
 				);
 				return;
-			} else {
-				if (property.tier > activeTier) {
-					fieldsToRemove.push(propKey);
-				}
 			}
-			for (let y = 0; y < fieldsToRemove.length; y++) {
-				let key = fieldsToRemove[y];
-				let property = singleSchema.properties[key];
-				if (property === undefined) continue;
-				delete singleSchema.properties[key];
-				if (singleSchema.required === undefined) continue;
-				let requiredIndex = singleSchema.required.indexOf(key);
-				singleSchema.required.splice(requiredIndex, 1);
+			if (property.tier > activeTier) {
+				fieldsToRemove.push(propKey);
 			}
-			Object.keys(singleSchema.properties).forEach(propKey => {
-				if (singleSchema.properties[propKey].tier > validationTier) {
-					fieldsToSetNotRequired.push(propKey);
-				}
-			});
-			for (let y = 0; y < fieldsToSetNotRequired.length; y++) {
-				let key = fieldsToSetNotRequired[y];
-				if (singleSchema.properties[key] === undefined) continue;
-				if (singleSchema.required === undefined) continue;
-				let requiredIndex = singleSchema.required.indexOf(key);
-				singleSchema.required.splice(requiredIndex, 1);
+			if (property.tier > validationTier && !fieldsToRemove.includes(propKey)) {
+				fieldsToSetNotRequired.push(propKey);
 			}
 		});
+		for (let y = 0; y < fieldsToRemove.length; y++) {
+			let key = fieldsToRemove[y];
+			let propertyToRemove = properties[key];
+			if (propertyToRemove === undefined) continue;
+			delete properties[key];
+			if (required === undefined) continue;
+			let requiredIndex = required.indexOf(key);
+			if (requiredIndex !== -1) required.splice(requiredIndex, 1);
+		}
+		for (let y = 0; y < fieldsToSetNotRequired.length; y++) {
+			let key = fieldsToSetNotRequired[y];
+			let propertyToRemove = properties[key];
+			if (propertyToRemove === undefined) continue;
+			if (required === undefined) continue;
+			let requiredIndex = required.indexOf(key);
+			if (requiredIndex !== -1) required.splice(requiredIndex, 1);
+		}
 		return singleSchema;
 	}
 
@@ -432,7 +446,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		});
 		let comps = { components };
 		let microscope = Object.assign(this.state.microscope, comps);
-		console.log(microscope);
 		if (item.startsWith("Save")) {
 			this.props.onSaveMicroscope(
 				this.handleCompleteSaveMicroscope,
