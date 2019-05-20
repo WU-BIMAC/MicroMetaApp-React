@@ -133,7 +133,6 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 	processErrors() {
 		let currentErrors = this.errors;
 		let numberOfForms = this.formRefs.length;
-		//console.log(currentErrors);
 		if (currentErrors.length < numberOfForms) return;
 		for (let i = 0; i < currentErrors.length; i++) {
 			if (currentErrors[i] !== null) {
@@ -264,7 +263,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			}
 
 			//keysForCategory.properties[key] = property;
-			let newProperty = Object.assign(property, {});
+			let newProperty = Object.assign({}, property);
 
 			if (property.linkTo !== undefined) {
 				newProperty["enum"] = ["na"];
@@ -281,7 +280,9 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 						newProperty["enumNames"].push(propElementByTypeName);
 					});
 				}
+				console.log("old prop");
 				console.log(property);
+				console.log("new prop");
 				console.log(newProperty);
 			}
 			keysForCategory.properties[key] = newProperty;
@@ -378,21 +379,19 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 
 	onClickAddChildComponent(key) {
 		let currentChildrenComponents = Object.assign(
-			this.state.currentChildrenComponents,
-			{}
+			{},
+			this.state.currentChildrenComponents
 		);
 		currentChildrenComponents[key] = currentChildrenComponents[key] + 1;
-		console.log(currentChildrenComponents);
 		this.setState({ currentChildrenComponents: currentChildrenComponents });
 	}
 
 	onClickRemoveChildComponent(key) {
 		let currentChildrenComponents = Object.assign(
-			this.state.currentChildrenComponents,
-			{}
+			{},
+			this.state.currentChildrenComponents
 		);
 		currentChildrenComponents[key] = currentChildrenComponents[key] - 1;
-		console.log(currentChildrenComponents);
 		this.setState({ currentChildrenComponents: currentChildrenComponents });
 	}
 
