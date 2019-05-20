@@ -1,5 +1,7 @@
 const path = require("path");
 const env = process.env.NODE_ENV;
+const webpack = require("webpack");
+const packageJson = require("./package.json");
 
 /**
  * @todo
@@ -54,7 +56,7 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			assets: path.resolve(__dirname, "assets")
+			"assets" : path.resolve(__dirname, "assets")
 		}
 	},
 	externals: {
@@ -71,5 +73,15 @@ module.exports = {
 			amd: "react-dom",
 			root: "ReactDOM"
 		}
-	}
+	},
+	plugins: [
+		new webpack.DefinePlugin({
+			VERSION: JSON.stringify(packageJson.version),
+		}),
+		new webpack.DefinePlugin({
+			"process.env": {
+				NODE_ENV: JSON.stringify(mode)
+			}
+		}),
+	]
 };

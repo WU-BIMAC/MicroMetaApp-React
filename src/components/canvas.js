@@ -15,6 +15,7 @@ const maxNumberOf_identifier = "Max_Number_Of_";
 export default class Canvas extends React.PureComponent {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			elementList: [],
 			elementData: Object.assign({}, this.props.inputData),
@@ -28,7 +29,7 @@ export default class Canvas extends React.PureComponent {
 			scale: null
 		};
 
-		Object.keys(props.componentSchemas).forEach(schemaIndex => {
+		Object.keys(props.componentSchemas).forEach((schemaIndex) => {
 			let schema = props.componentSchemas[schemaIndex];
 			let schema_id = schema.ID;
 			//Validate schemas using jsonschema????

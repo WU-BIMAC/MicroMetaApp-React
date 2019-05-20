@@ -6,7 +6,6 @@ import TabContent from "rc-tabs/lib/TabContent";
 import ScrollableTabBar from "rc-tabs/lib/TabBar";
 import "rc-tabs/assets/index.css";
 import Button from "react-bootstrap/Button";
-import { isFulfilled } from "q";
 
 export default class MultiTabFormWithHeader extends React.PureComponent {
 	constructor(props) {
