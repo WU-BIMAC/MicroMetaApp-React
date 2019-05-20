@@ -29,7 +29,7 @@ export default class Canvas extends React.PureComponent {
 			scale: null
 		};
 
-		Object.keys(props.componentSchemas).forEach((schemaIndex) => {
+		Object.keys(props.componentSchemas).forEach(schemaIndex => {
 			let schema = props.componentSchemas[schemaIndex];
 			let schema_id = schema.ID;
 			//Validate schemas using jsonschema????
@@ -153,6 +153,7 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	updatedDimensions(id, width, height, isResize) {
+		console.log("udpateDim " + id + " - " + width + " x " + height);
 		let newImagesDimension = Object.assign({}, this.state.imagesDimension);
 		if (newImagesDimension[id] !== undefined && !isResize) {
 			if (
@@ -372,10 +373,16 @@ export default class Canvas extends React.PureComponent {
 				imagesDimension[item.ID] === undefined
 					? 100
 					: imagesDimension[item.ID].height;
+			let containerWidth = width;
+			let containerHeight = height;
+			if (!item.validated) {
+				containerWidth += 10;
+				containerHeight += 10;
+			}
 			stylesContainer[item.ID] = Object.assign(
 				{
-					width: `${width}px`,
-					height: `${height + 20}px`
+					width: `${containerWidth}px`,
+					height: `${containerHeight + 20}px`
 				},
 				style
 			);

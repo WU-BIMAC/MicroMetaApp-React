@@ -42,9 +42,12 @@ export default class CanvasElement extends React.PureComponent {
 		this.setState({ editing: false });
 	}
 
-	onResizeStart(e, data) {}
+	onResizeStart(e, data) {
+		console.log(data);
+	}
 
 	onResize(e, data) {
+		console.log(data);
 		let width = data.size.width;
 		let height = data.size.height;
 		let imgWidth = width;
@@ -116,10 +119,12 @@ export default class CanvasElement extends React.PureComponent {
 			width += 10;
 			height += 10;
 		}
-		let minWidth = this.startWidth / 1.5;
-		let minHeight = this.startHeight / 1.5;
-		let maxWidth = this.startWidth * 1.5;
-		let maxHeight = this.startHeight * 1.5;
+		let minWidth = this.startWidth / 2;
+		let minHeight = this.startHeight / 2;
+		let maxWidth = this.startWidth * 2;
+		let maxHeight = this.startHeight * 2;
+
+		console.log(this.props.id + " - " + width + " X " + height);
 
 		return (
 			<ResizableBox

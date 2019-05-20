@@ -194,13 +194,35 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		return consolidatedData;
 	}
 
+	static findInputPropKeyValue(propKey, inputData) {
+		let value = null;
+		for (let key in inputData) {
+			//Object.keys(inputData).forEach(function (key) {
+			if (inputData[key] instanceof Array || inputData[key] instanceof Object) {
+				if (inputData[key][propKey] !== undefined)
+					return inputData[key][propKey];
+				else
+					value = MultiTabFormWithHeader.findInputPropKeyValue(
+						propKey,
+						inputData[key]
+					);
+			}
+		}
+		return value;
+	}
+
 	static transformInputData(inputData, partialSchema) {
 		let partialInputData = [];
 		//TODO find data inside objects and arrays
 		Object.keys(partialSchema).forEach(function(key) {
 			if (partialInputData[key] === undefined) partialInputData[key] = {};
 			Object.keys(partialSchema[key].properties).forEach(function(propKey) {
-				partialInputData[key][propKey] = inputData[propKey];
+				if (inputData[propKey] !== undefined)
+					partialInputData[key][propKey] = inputData[propKey];
+				else
+					partialInputData[key][
+						propKey
+					] = MultiTabFormWithHeader.findInputPropKeyValue(propKey, inputData);
 			});
 		});
 		return partialInputData;
