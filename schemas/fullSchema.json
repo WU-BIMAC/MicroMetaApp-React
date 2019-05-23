@@ -10,50 +10,50 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":1,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":1,
 			"category":"Generic",
 			"readonly": true
 		},
 		"Type": {
 			"type":"string",
-			"description":"This element describes the type of this microscope.",
+			"description":"The type of this microscope.",
 			"tier":1,
 			"category":"MicroscopeBody"
 		},
 		"EyePieceFieldNumber": {
 			"type":"string",
-			"description":"The Field Number represents the diaphragm size of the microscope eyepiece expressed in mm",
+			"description":"The Field Number represents the diaphragm size of the microscope eyepiece expressed in mm.",
 			"tier":3,
 			"category":"MicroscopeBody"
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -86,13 +86,13 @@
 	"ID": "ReflectanceRange.json",
 	"type": "object",
 	"title": "ReflectanceRange",
-	"description": "This records the range of wavelengths that are reflected by the mirror      ",
+	"description": "This records the range of wavelengths that are reflected by the mirror.",
 	"category": "ChildrenElement",
 	"tier": 3,
 	"properties": {
 		"CutIn": {
 			"type":"string",
-			"description":"CutIn is the wavelength below which the response rate is below 50%.          ",
+			"description":"CutIn is the wavelength below which the response rate is below 50%.",
 			"tier":3,
 			"category":"ReflectanceRange"
 		},
@@ -104,7 +104,7 @@
 		},
 		"CutOut": {
 			"type":"string",
-			"description":"CutOut is the wavelength above which the response rate is below 50%.          ",
+			"description":"CutOut is the wavelength above which the response rate is below 50%.",
 			"tier":3,
 			"category":"ReflectanceRange"
 		},
@@ -217,13 +217,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this LightSourceCoupling device",
+			"description":"A user defined name for this component.",
 			"tier":4,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":4,
 			"category":"Generic",
 			"readonly": true
@@ -236,25 +236,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -285,7 +285,7 @@
 			"properties": {
 				"CutIn": {
 					"type":"string",
-					"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+					"description":"CutIn is the wavelength below which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -297,7 +297,7 @@
 				},
 				"CutOut": {
 					"type":"string",
-					"description":"CutOut is the wavelength above which the response rate is below 50%",
+					"description":"CutOut is the wavelength above which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -363,7 +363,7 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":1,
 			"category":"Generic"
 		},
@@ -383,30 +383,30 @@
 		"NominalPowerUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":1,
+			"tier":3,
 			"category":"LightSource"
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -431,7 +431,7 @@
 				"properties": {
 					"PeakWavelenght": {
 						"type":"string",
-						"description":"NA",
+						"description":"The wavelength at which there is maximal response rate.",
 						"tier":2,
 						"category":"LEDModule"
 					},
@@ -455,7 +455,7 @@
 					},
 					"ProjectionAngle": {
 						"type":"string",
-						"description":"NA",
+						"description":"The angle at which this light source projects light.",
 						"tier":5,
 						"category":"LEDModule"
 					},
@@ -467,7 +467,7 @@
 					},
 					"CutIn": {
 						"type":"string",
-						"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+						"description":"CutIn is the wavelength below which the response rate is below 50%.",
 						"tier":3,
 						"category":"LEDModule"
 					},
@@ -528,23 +528,236 @@
 },
 {
 	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "CouplingLens.json",
+	"type": "object",
+	"title": "CouplingLens",
+	"description": "A lens positioned at connector between this light source coupling element and the microscope body.",
+	"category": "AdditionalOptics",
+	"image": "AdditionalOptics_CouplingLens.png",
+	"tier": 5,
+	"properties": {
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this component.",
+			"tier":2,
+			"category":"Generic"
+		},
+		"ID": {
+			"type":"string",
+			"description":"A unique identifier for this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The general category to which this lens belongs.",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Geometry": {
+			"type":"string",
+			"description":"The geometrical shape of the lens surfaces",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Construction": {
+			"type":"string",
+			"description":"Whether or not the lens is simple or composite",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Magnification": {
+			"type":"string",
+			"description":"The nominal magnification provided by this lens",
+			"tier":2,
+			"category":"Lens"
+		},
+		"AttenuationCoefficient": {
+			"type":"string",
+			"description":"The attenuation coefficient (aka blocking coefficient) is a material property that characterizes the degree of transparency of a lens. The attenuation coefficient is often defined in units of optical density (OD), wherease OD= -log10(T), and T=Transmittance (0?T?1).",
+			"tier":5,
+			"category":"Lens"
+		},
+		"RadiusOfCurvature": {
+			"type":"string",
+			"description":"A spherical lens or mirror surface has a center of curvature located either along or decentered from the system local optical axis. The vertex of the lens surface is located on the local optical axis. The distance from the vertex to the center of curvature is the radius of curvature of the surface",
+			"tier":5,
+			"category":"Lens"
+		},
+		"RadiusOfCurvatureUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToObject": {
+			"type":"string",
+			"description":"The distance between the front principal plane of the lens and the specimen",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToObjectUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToImage": {
+			"type":"string",
+			"description":"The distance from the rear principal plane to the image",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToImageUnits": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalLength": {
+			"type":"string",
+			"description":"The distance from the rear principal plane of the lens and its focal point",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalLengthUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"MaterialName": {
+			"type":"string",
+			"description":"This records the chemical composition or the nonproprietary trade designation of the glass",
+			"tier":5,
+			"category":"Lens"
+		},
+		"GlassCode": {
+			"type":"string",
+			"description":"If available provide the international glass code. This is based on U.S. military standard MIL-G-174, and is a six-digit number specifying the glass according to its refractive index nd at the Fraunhofer d- (or D3-) line, and its Abbe number Vd also taken at that line. The resulting glass code is the value of nd-1 rounded to three digits, followed by Vd rounded to three digits, with all decimal points ignored. For example, BK7 has nd = 1.5168 and Vd = 64.17, giving a six-digit glass code of 517642",
+			"tier":5,
+			"category":"Lens"
+		},
+		"RefractiveIndex": {
+			"type":"string",
+			"description":"The refractive index of the material the prism is made of",
+			"tier":5,
+			"category":"Lens"
+		},
+		"AbbeNumber": {
+			"type":"string",
+			"description":"The Abbe Number is a measure of the material's dispersion (variation of refractive index versus wavelength), with high values indicating low dispersion",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Density": {
+			"type":"string",
+			"description":"The density of the material this lens is made of",
+			"tier":5,
+			"category":"Lens"
+		},
+		"DensityUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Diameter": {
+			"type":"string",
+			"description":"The physical diamter of this lens",
+			"tier":5,
+			"category":"Lens"
+		},
+		"DiameterUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of this component.",
+			"tier":1,
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The model of this component.",
+			"tier":3,
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of this component",
+			"tier":5,
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of this component",
+			"tier":5,
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Provide the location of a PDF file with the specifications for the component as provided by the manufacturer.",
+			"tier":5,
+			"category":"ManufacturerSpec"
+		},
+		"Description": {
+			"title":"Description",
+			"type":"string",
+			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
+			"tier":2,
+			"category":"CouplingLens"
+		},
+		"Tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 5,
+			"category": "Generic",
+			"readonly": true
+		}
+	},
+	"required": [
+		"ID",
+		"Name",
+		"Type",
+		"Construction",
+		"Magnification",
+		"AttenuationCoefficient",
+		"FocalDistanceToObject",
+		"FocalDistanceToImage",
+		"FocalLength",
+		"RefractiveIndex",
+		"AbbeNumber",
+		"Manufacturer",
+		"Model",
+		"SerialNumber",
+		"SpecsFile",
+		"Description"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
 	"ID": "MicroscopeTable.json",
 	"type": "object",
 	"title": "MicroscopeTable",
-	"description": "This element describes the type of this microscope table",
+	"description": "This element describes the table on which this Microscope rests during acquisition.",
 	"category": "MicroscopyBasics",
 	"image": "MicroscopyBasics_MicroscopeTable.png",
 	"tier": 4,
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element.",
+			"description":"A user defined name for this component.",
 			"tier":4,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":4,
 			"category":"Generic",
 			"readonly": true
@@ -581,25 +794,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -683,13 +896,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":3,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -750,25 +963,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -822,13 +1035,13 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Filter",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -859,25 +1072,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -889,37 +1102,37 @@
 		},
 		"TransmittanceRange": {
 			"type":"array",
-			"description":"This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used      ",
-			"tier":3,
+			"description":"This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used.",
+			"tier":2,
 			"items": {
 				"properties": {
 					"CutIn": {
 						"type":"string",
-						"description":"CutIn is the wavelength below which the response rate is below 50%.          ",
-						"tier":3,
+						"description":"CutIn is the wavelength below which the response rate is below 50%.",
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutInUnit": {
 						"type":"string",
 						"description":"NA",
-						"tier":3,
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutOut": {
 						"type":"string",
-						"description":"CutOut is the wavelength above which the response rate is below 50%.          ",
-						"tier":3,
+						"description":"CutOut is the wavelength above which the response rate is below 50%.",
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutOutUnit": {
 						"type":"string",
 						"description":"NA",
-						"tier":3,
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"Transmittance": {
 						"type":"string",
-						"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.          ",
+						"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.",
 						"tier":3,
 						"category":"TransmittanceRange"
 					}
@@ -971,13 +1184,13 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Polarization Optics element",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -1020,25 +1233,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -1055,7 +1268,7 @@
 			"properties": {
 				"CutIn": {
 					"type":"string",
-					"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+					"description":"CutIn is the wavelength below which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -1067,7 +1280,7 @@
 				},
 				"CutOut": {
 					"type":"string",
-					"description":"CutOut is the wavelength above which the response rate is below 50%",
+					"description":"CutOut is the wavelength above which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -1135,7 +1348,7 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":1,
 			"category":"Generic"
 		},
@@ -1155,30 +1368,30 @@
 		"NominalPowerUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":1,
+			"tier":3,
 			"category":"LightSource"
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -1220,7 +1433,7 @@
 	"ID": "Laser.json",
 	"type": "object",
 	"title": "Laser",
-	"description": "A laser ('light amplification by stimulated emission of radiation') is a device that emits light through a process of optical amplification based on the stimulated emission of electromagnetic radiation.",
+	"description": "A Light Amplification by Stimulated Emission of Radiation (LASER) is a device that emits light through a process of optical amplification based on the stimulated emission of electromagnetic radiation.",
 	"category": "LightSource",
 	"image": "LightSource_Laser.png",
 	"tier": 1,
@@ -1287,7 +1500,7 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":1,
 			"category":"Generic"
 		},
@@ -1307,30 +1520,30 @@
 		"NominalPowerUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":1,
+			"tier":3,
 			"category":"LightSource"
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -1354,8 +1567,8 @@
 			"properties": {
 				"ID": {
 					"type":"string",
-					"description":"NA",
-					"tier":1,
+					"description":"A unique identifier for this component.",
+					"tier":5,
 					"category":"Pump",
 					"readonly": true
 				}
@@ -1396,17 +1609,17 @@
 	"description": "The GenericDetector element is used to represent a detector as a collection of key/value pairs, stored in a Map. The other detector objects should always be used in preference to this if possible.",
 	"category": "Detector",
 	"image": "Detector_GenericDetector.png",
-	"tier": 1,
+	"tier": 2,
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Detector",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -1456,19 +1669,19 @@
 		"PeakWavelength": {
 			"type":"string",
 			"description":"The wavelength associated with maximum light intensity detected by this device",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"QuantumEfficiencyatPeakWavelength": {
 			"type":"string",
 			"description":"The Quantum Efficiency observed at peak wavelength. Quantum Efficiency is generally defined as is the ratio of incident photon to converted electrons. Typically expressed as a number between 0 and 1.",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"AmbientOperatingTemperature": {
@@ -1491,25 +1704,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -1526,7 +1739,7 @@
 			"properties": {
 				"CutIn": {
 					"type":"string",
-					"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+					"description":"CutIn is the wavelength below which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -1538,7 +1751,7 @@
 				},
 				"CutOut": {
 					"type":"string",
-					"description":"CutOut is the wavelength above which the response rate is below 50%",
+					"description":"CutOut is the wavelength above which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -1575,10 +1788,17 @@
 			"tier":2,
 			"category":"GenericDetector"
 		},
+		"Map": {
+			"type":"object",
+			"description":"This is a Mapping of key/value pairs used to store customized metadata that describes this element.",
+			"tier":3,
+			"properties": {
+			}
+		},
 		"Tier": {
 			"type": "integer",
 			"description": "The tier level of this component.",
-			"tier": 1,
+			"tier": 2,
 			"category": "Generic",
 			"readonly": true
 		}
@@ -1597,7 +1817,8 @@
 		"SerialNumber",
 		"SpecsFile",
 		"WavelengthRange",
-		"Description"
+		"Description",
+		"Map"
 	]
 },
 {
@@ -1744,13 +1965,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Detector",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -1800,19 +2021,19 @@
 		"PeakWavelength": {
 			"type":"string",
 			"description":"The wavelength associated with maximum light intensity detected by this device",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"QuantumEfficiencyatPeakWavelength": {
 			"type":"string",
 			"description":"The Quantum Efficiency observed at peak wavelength. Quantum Efficiency is generally defined as is the ratio of incident photon to converted electrons. Typically expressed as a number between 0 and 1.",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"AmbientOperatingTemperature": {
@@ -1835,25 +2056,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -1870,7 +2091,7 @@
 			"properties": {
 				"CutIn": {
 					"type":"string",
-					"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+					"description":"CutIn is the wavelength below which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -1882,7 +2103,7 @@
 				},
 				"CutOut": {
 					"type":"string",
-					"description":"CutOut is the wavelength above which the response rate is below 50%",
+					"description":"CutOut is the wavelength above which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -1954,219 +2175,6 @@
 },
 {
 	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "LensGroup.json",
-	"type": "object",
-	"title": "LensGroup",
-	"description": "A lens is a component of glass or transparent plastic material, usually circular in diameter, which has two primary surfaces that are ground and polished in a specific manner designed to produce either a convergence or divergence of light passing through the material. This element describes a lens utilized in this microscope",
-	"category": "AdditionalOptics",
-	"image": "AdditionalOptics_LensGroup.png",
-	"tier": 2,
-	"properties": {
-		"Name": {
-			"type":"string",
-			"description":"A user defined name for this Lens",
-			"tier":2,
-			"category":"Generic"
-		},
-		"ID": {
-			"type":"string",
-			"description":"NA",
-			"tier":2,
-			"category":"Generic",
-			"readonly": true
-		},
-		"Type": {
-			"type":"string",
-			"description":"The general category to which this lens belongs.",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"Geometry": {
-			"type":"string",
-			"description":"The geometrical shape of the lens surfaces",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"Construction": {
-			"type":"string",
-			"description":"Whether or not the lens is simple or composite",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"Magnification": {
-			"type":"string",
-			"description":"The nominal magnification provided by this lens",
-			"tier":2,
-			"category":"LensGroup"
-		},
-		"AttenuationCoefficient": {
-			"type":"string",
-			"description":"The attenuation coefficient (aka blocking coefficient) is a material property that characterizes the degree of transparency of a lens. The attenuation coefficient is often defined in units of optical density (OD), wherease OD= -log10(T), and T=Transmittance (0?T?1).",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"RadiusOfCurvature": {
-			"type":"string",
-			"description":"A spherical lens or mirror surface has a center of curvature located either along or decentered from the system local optical axis. The vertex of the lens surface is located on the local optical axis. The distance from the vertex to the center of curvature is the radius of curvature of the surface",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"RadiusOfCurvatureUnit": {
-			"type":"string",
-			"description":"NA",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"FocalDistanceToObject": {
-			"type":"string",
-			"description":"The distance between the front principal plane of the lens and the specimen",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"FocalDistanceToObjectUnit": {
-			"type":"string",
-			"description":"NA",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"FocalDistanceToImage": {
-			"type":"string",
-			"description":"The distance from the rear principal plane to the image",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"FocalDistanceToImageUnits": {
-			"type":"string",
-			"description":"NA",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"FocalLength": {
-			"type":"string",
-			"description":"The distance from the rear principal plane of the lens and its focal point",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"FocalLengthUnit": {
-			"type":"string",
-			"description":"NA",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"MaterialName": {
-			"type":"string",
-			"description":"This records the chemical composition or the nonproprietary trade designation of the glass",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"GlassCode": {
-			"type":"string",
-			"description":"If available provide the international glass code. This is based on U.S. military standard MIL-G-174, and is a six-digit number specifying the glass according to its refractive index nd at the Fraunhofer d- (or D3-) line, and its Abbe number Vd also taken at that line. The resulting glass code is the value of nd-1 rounded to three digits, followed by Vd rounded to three digits, with all decimal points ignored. For example, BK7 has nd = 1.5168 and Vd = 64.17, giving a six-digit glass code of 517642",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"RefractiveIndex": {
-			"type":"string",
-			"description":"The refractive index of the material the prism is made of",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"AbbeNumber": {
-			"type":"string",
-			"description":"The Abbe Number is a measure of the material's dispersion (variation of refractive index versus wavelength), with high values indicating low dispersion",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"Density": {
-			"type":"string",
-			"description":"The density of the material this lens is made of",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"DensityUnit": {
-			"type":"string",
-			"description":"NA",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"Diameter": {
-			"type":"string",
-			"description":"The physical diamter of this lens",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"DiameterUnit": {
-			"type":"string",
-			"description":"NA",
-			"tier":5,
-			"category":"LensGroup"
-		},
-		"Manufacturer": {
-			"type":"string",
-			"description":"The manufacturer of the component.",
-			"tier":1,
-			"category":"ManufacturerSpec"
-		},
-		"Model": {
-			"type":"string",
-			"description":"The Model of the component.",
-			"tier":3,
-			"category":"ManufacturerSpec"
-		},
-		"SerialNumber": {
-			"type":"string",
-			"description":"The serial number of the component",
-			"tier":5,
-			"category":"ManufacturerSpec"
-		},
-		"LotNumber": {
-			"type":"string",
-			"description":"The lot number of the component",
-			"tier":5,
-			"category":"ManufacturerSpec"
-		},
-		"SpecsFile": {
-			"type":"string",
-			"description":"Provide the location of a PDF file with the specifications for the component as provided by the manufacturer.",
-			"tier":5,
-			"category":"ManufacturerSpec"
-		},
-		"Description": {
-			"title":"Description",
-			"type":"string",
-			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
-			"tier":2,
-			"category":"LensGroup"
-		},
-		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
-		}
-	},
-	"required": [
-		"ID",
-		"Name",
-		"Type",
-		"Construction",
-		"Magnification",
-		"AttenuationCoefficient",
-		"FocalDistanceToObject",
-		"FocalDistanceToImage",
-		"FocalLength",
-		"RefractiveIndex",
-		"AbbeNumber",
-		"Manufacturer",
-		"Model",
-		"SerialNumber",
-		"SpecsFile",
-		"Description"
-	]
-},
-{
-	"$schema": "http://json-schema.org/draft-07/schema",
 	"ID": "Reflector.json",
 	"type": "object",
 	"title": "Reflector",
@@ -2177,13 +2185,13 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Mirror",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -2191,12 +2199,12 @@
 		"Reflectance": {
 			"type":"string",
 			"description":"The amount of light the mirror reflects at a maximum. It is represented as a fraction, as a value from 0.0 to 1.0",
-			"tier":4,
+			"tier":3,
 			"category":"Mirror"
 		},
 		"MirrorType": {
 			"type":"string",
-			"description":"NA",
+			"description":"The general category to which this lens belongs.",
 			"tier":5,
 			"category":"Mirror"
 		},
@@ -2250,25 +2258,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -2317,13 +2325,13 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Prism",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -2420,25 +2428,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -2455,7 +2463,7 @@
 			"properties": {
 				"CutIn": {
 					"type":"string",
-					"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+					"description":"CutIn is the wavelength below which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -2467,7 +2475,7 @@
 				},
 				"CutOut": {
 					"type":"string",
-					"description":"CutOut is the wavelength above which the response rate is below 50%",
+					"description":"CutOut is the wavelength above which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -2552,13 +2560,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":3,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -2619,25 +2627,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -2678,6 +2686,219 @@
 },
 {
 	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "RelayLens.json",
+	"type": "object",
+	"title": "RelayLens",
+	"description": "A lens positioned at the mount connecting this detector to the microscope body.",
+	"category": "AdditionalOptics",
+	"image": "AdditionalOptics_RelayLens.png",
+	"tier": 3,
+	"properties": {
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this component.",
+			"tier":2,
+			"category":"Generic"
+		},
+		"ID": {
+			"type":"string",
+			"description":"A unique identifier for this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The general category to which this lens belongs.",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Geometry": {
+			"type":"string",
+			"description":"The geometrical shape of the lens surfaces",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Construction": {
+			"type":"string",
+			"description":"Whether or not the lens is simple or composite",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Magnification": {
+			"type":"string",
+			"description":"The nominal magnification provided by this lens",
+			"tier":2,
+			"category":"Lens"
+		},
+		"AttenuationCoefficient": {
+			"type":"string",
+			"description":"The attenuation coefficient (aka blocking coefficient) is a material property that characterizes the degree of transparency of a lens. The attenuation coefficient is often defined in units of optical density (OD), wherease OD= -log10(T), and T=Transmittance (0?T?1).",
+			"tier":5,
+			"category":"Lens"
+		},
+		"RadiusOfCurvature": {
+			"type":"string",
+			"description":"A spherical lens or mirror surface has a center of curvature located either along or decentered from the system local optical axis. The vertex of the lens surface is located on the local optical axis. The distance from the vertex to the center of curvature is the radius of curvature of the surface",
+			"tier":5,
+			"category":"Lens"
+		},
+		"RadiusOfCurvatureUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToObject": {
+			"type":"string",
+			"description":"The distance between the front principal plane of the lens and the specimen",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToObjectUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToImage": {
+			"type":"string",
+			"description":"The distance from the rear principal plane to the image",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToImageUnits": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalLength": {
+			"type":"string",
+			"description":"The distance from the rear principal plane of the lens and its focal point",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalLengthUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"MaterialName": {
+			"type":"string",
+			"description":"This records the chemical composition or the nonproprietary trade designation of the glass",
+			"tier":5,
+			"category":"Lens"
+		},
+		"GlassCode": {
+			"type":"string",
+			"description":"If available provide the international glass code. This is based on U.S. military standard MIL-G-174, and is a six-digit number specifying the glass according to its refractive index nd at the Fraunhofer d- (or D3-) line, and its Abbe number Vd also taken at that line. The resulting glass code is the value of nd-1 rounded to three digits, followed by Vd rounded to three digits, with all decimal points ignored. For example, BK7 has nd = 1.5168 and Vd = 64.17, giving a six-digit glass code of 517642",
+			"tier":5,
+			"category":"Lens"
+		},
+		"RefractiveIndex": {
+			"type":"string",
+			"description":"The refractive index of the material the prism is made of",
+			"tier":5,
+			"category":"Lens"
+		},
+		"AbbeNumber": {
+			"type":"string",
+			"description":"The Abbe Number is a measure of the material's dispersion (variation of refractive index versus wavelength), with high values indicating low dispersion",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Density": {
+			"type":"string",
+			"description":"The density of the material this lens is made of",
+			"tier":5,
+			"category":"Lens"
+		},
+		"DensityUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Diameter": {
+			"type":"string",
+			"description":"The physical diamter of this lens",
+			"tier":5,
+			"category":"Lens"
+		},
+		"DiameterUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of this component.",
+			"tier":1,
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The model of this component.",
+			"tier":3,
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of this component",
+			"tier":5,
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of this component",
+			"tier":5,
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Provide the location of a PDF file with the specifications for the component as provided by the manufacturer.",
+			"tier":5,
+			"category":"ManufacturerSpec"
+		},
+		"Description": {
+			"title":"Description",
+			"type":"string",
+			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
+			"tier":2,
+			"category":"RelayLens"
+		},
+		"Tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 3,
+			"category": "Generic",
+			"readonly": true
+		}
+	},
+	"required": [
+		"ID",
+		"Name",
+		"Type",
+		"Construction",
+		"Magnification",
+		"AttenuationCoefficient",
+		"FocalDistanceToObject",
+		"FocalDistanceToImage",
+		"FocalLength",
+		"RefractiveIndex",
+		"AbbeNumber",
+		"Manufacturer",
+		"Model",
+		"SerialNumber",
+		"SpecsFile",
+		"Description"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
 	"ID": "Optovar.json",
 	"type": "object",
 	"title": "Optovar",
@@ -2688,44 +2909,50 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":1,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":1,
 			"category":"Generic",
 			"readonly": true
 		},
+		"Magnification": {
+			"type":"string",
+			"description":"The magnification of the optovar lens as specified by the manufacturer.",
+			"tier":1,
+			"category":"Optovar"
+		},
 		"LensType": {
 			"type":"string",
-			"description":"The type of lens used by the Magnification Changer available with this microscope",
-			"tier":3,
+			"description":"The type of lens used by the Magnification Changer available with this microscope.",
+			"tier":5,
 			"category":"Optovar"
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -2772,38 +2999,38 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this FilterSet element",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -2815,22 +3042,22 @@
 		},
 		"ExcitationFilter": {
 			"type":"string",
-			"description":"This empty element has a reference (the Filter ID attribute) to the Filters placed in the Excitation light path                ",
-			"tier":3,
+			"description":"This empty element has a reference (the Filter ID attribute) to the Filters placed in the Excitation light path.",
+			"tier":2,
 			"category":"ExcitationFilter",
 			"linkTo":"ExcitationFilter"
 		},
 		"Dichroic": {
 			"type":"string",
 			"description":"This empty element has a reference (the Mirror ID attribute) to the Mirror/Dichroic placed in the light path",
-			"tier":3,
+			"tier":2,
 			"category":"Dichroic",
 			"linkTo":"Dichroic"
 		},
 		"EmissionFilter": {
 			"type":"string",
 			"description":"This empty element has a reference (the Filter ID attribute) to the Filters placed in the Emission light path",
-			"tier":3,
+			"tier":2,
 			"category":"EmissionFilter",
 			"linkTo":"EmissionFilter"
 		},
@@ -2873,8 +3100,8 @@
 	"properties": {
 		"ID": {
 			"type":"string",
-			"description":"NA",
-			"tier":1,
+			"description":"A unique identifier for this component.",
+			"tier":5,
 			"category":"Generic",
 			"readonly": true
 		},
@@ -2902,13 +3129,13 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Intensity Calibration Tool.",
+			"description":"A user defined name for this component.",
 			"tier":3,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -2921,25 +3148,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -2999,13 +3226,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this LightSourceCoupling device",
+			"description":"A user defined name for this component.",
 			"tier":4,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":4,
 			"category":"Generic",
 			"readonly": true
@@ -3018,25 +3245,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -3225,13 +3452,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Detector",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -3281,19 +3508,19 @@
 		"PeakWavelength": {
 			"type":"string",
 			"description":"The wavelength associated with maximum light intensity detected by this device",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"QuantumEfficiencyatPeakWavelength": {
 			"type":"string",
 			"description":"The Quantum Efficiency observed at peak wavelength. Quantum Efficiency is generally defined as is the ratio of incident photon to converted electrons. Typically expressed as a number between 0 and 1.",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"AmbientOperatingTemperature": {
@@ -3316,25 +3543,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -3351,7 +3578,7 @@
 			"properties": {
 				"CutIn": {
 					"type":"string",
-					"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+					"description":"CutIn is the wavelength below which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -3363,7 +3590,7 @@
 				},
 				"CutOut": {
 					"type":"string",
-					"description":"CutOut is the wavelength above which the response rate is below 50%",
+					"description":"CutOut is the wavelength above which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -3438,7 +3665,7 @@
 	"ID": "Dichroic.json",
 	"type": "object",
 	"title": "Dichroic",
-	"description": "NA",
+	"description": "A dichroic beamsplitter or dichroic mirror is a mirror that spectrally separate light by transmitting and reflecting light as a function of wavelength. In the context of fluorescence microscopy, they are typically used to reflect the excitation light, but transmit the emitted fluorescence. Dichroic mirrors can be categorized in different manners. However, the most important criteria for choosing a dichoric mirror are the transmittance and the reflectance wavelenght ranges.",
 	"category": "LightPath",
 	"image": "LightPath_Dichroic.png",
 	"tier": 2,
@@ -3482,7 +3709,7 @@
 		"FilterWheel": {
 			"type":"string",
 			"description":"A filter 'wheel' in OME can refer to any arrangement of filters in a filter holder of any shape. It could, for example, be a filter slider",
-			"tier":4,
+			"tier":3,
 			"category":"Dichroic"
 		},
 		"TransmittanceProfileFile": {
@@ -3499,13 +3726,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Mirror",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -3513,12 +3740,12 @@
 		"Reflectance": {
 			"type":"string",
 			"description":"The amount of light the mirror reflects at a maximum. It is represented as a fraction, as a value from 0.0 to 1.0",
-			"tier":4,
+			"tier":3,
 			"category":"Mirror"
 		},
 		"MirrorType": {
 			"type":"string",
-			"description":"NA",
+			"description":"The general category to which this lens belongs.",
 			"tier":5,
 			"category":"Mirror"
 		},
@@ -3572,25 +3799,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -3609,37 +3836,37 @@
 		},
 		"TransmittanceRange": {
 			"type":"array",
-			"description":"This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used      ",
-			"tier":3,
+			"description":"This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used.",
+			"tier":2,
 			"items": {
 				"properties": {
 					"CutIn": {
 						"type":"string",
-						"description":"CutIn is the wavelength below which the response rate is below 50%.          ",
-						"tier":3,
+						"description":"CutIn is the wavelength below which the response rate is below 50%.",
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutInUnit": {
 						"type":"string",
 						"description":"NA",
-						"tier":3,
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutOut": {
 						"type":"string",
-						"description":"CutOut is the wavelength above which the response rate is below 50%.          ",
-						"tier":3,
+						"description":"CutOut is the wavelength above which the response rate is below 50%.",
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutOutUnit": {
 						"type":"string",
 						"description":"NA",
-						"tier":3,
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"Transmittance": {
 						"type":"string",
-						"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.          ",
+						"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.",
 						"tier":3,
 						"category":"TransmittanceRange"
 					}
@@ -3653,13 +3880,13 @@
 		},
 		"ReflectanceRange": {
 			"type":"array",
-			"description":"This records the range of wavelengths that are reflected by the mirror      ",
+			"description":"This records the range of wavelengths that are reflected by the mirror.",
 			"tier":3,
 			"items": {
 				"properties": {
 					"CutIn": {
 						"type":"string",
-						"description":"CutIn is the wavelength below which the response rate is below 50%.          ",
+						"description":"CutIn is the wavelength below which the response rate is below 50%.",
 						"tier":3,
 						"category":"ReflectanceRange"
 					},
@@ -3671,7 +3898,7 @@
 					},
 					"CutOut": {
 						"type":"string",
-						"description":"CutOut is the wavelength above which the response rate is below 50%.          ",
+						"description":"CutOut is the wavelength above which the response rate is below 50%.",
 						"tier":3,
 						"category":"ReflectanceRange"
 					},
@@ -3762,13 +3989,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":3,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -3829,25 +4056,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -3902,7 +4129,7 @@
 		"Transmittance": {
 			"type":"string",
 			"description":"The amount of light the beamsplitter transmits at a maximum. A fraction, as a value from 0.0 to 1.0",
-			"tier":4,
+			"tier":3,
 			"category":"BeamSplitter"
 		},
 		"TransmissionAngle": {
@@ -3913,13 +4140,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Mirror",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -3927,12 +4154,12 @@
 		"Reflectance": {
 			"type":"string",
 			"description":"The amount of light the mirror reflects at a maximum. It is represented as a fraction, as a value from 0.0 to 1.0",
-			"tier":4,
+			"tier":3,
 			"category":"Mirror"
 		},
 		"MirrorType": {
 			"type":"string",
-			"description":"NA",
+			"description":"The general category to which this lens belongs.",
 			"tier":5,
 			"category":"Mirror"
 		},
@@ -3986,25 +4213,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -4055,7 +4282,7 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":1,
 			"category":"Generic"
 		},
@@ -4075,30 +4302,30 @@
 		"NominalPowerUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":1,
+			"tier":3,
 			"category":"LightSource"
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -4117,8 +4344,8 @@
 		},
 		"Map": {
 			"type":"object",
-			"description":"NA",
-			"tier":1,
+			"description":"This is a Mapping of key/value pairs used to store customized metadata that describes this element.",
+			"tier":3,
 			"properties": {
 			}
 		},
@@ -4159,7 +4386,7 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":1,
 			"category":"Generic"
 		},
@@ -4179,30 +4406,30 @@
 		"NominalPowerUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":1,
+			"tier":3,
 			"category":"LightSource"
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -4287,13 +4514,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":3,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -4354,25 +4581,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -4438,13 +4665,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Detector",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -4494,19 +4721,19 @@
 		"PeakWavelength": {
 			"type":"string",
 			"description":"The wavelength associated with maximum light intensity detected by this device",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"QuantumEfficiencyatPeakWavelength": {
 			"type":"string",
 			"description":"The Quantum Efficiency observed at peak wavelength. Quantum Efficiency is generally defined as is the ratio of incident photon to converted electrons. Typically expressed as a number between 0 and 1.",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"AmbientOperatingTemperature": {
@@ -4529,25 +4756,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -4564,7 +4791,7 @@
 			"properties": {
 				"CutIn": {
 					"type":"string",
-					"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+					"description":"CutIn is the wavelength below which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -4576,7 +4803,7 @@
 				},
 				"CutOut": {
 					"type":"string",
-					"description":"CutOut is the wavelength above which the response rate is below 50%",
+					"description":"CutOut is the wavelength above which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -4686,13 +4913,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":3,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -4753,25 +4980,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -4825,13 +5052,13 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Filter",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -4862,25 +5089,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -4892,37 +5119,37 @@
 		},
 		"TransmittanceRange": {
 			"type":"array",
-			"description":"This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used      ",
-			"tier":3,
+			"description":"This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used.",
+			"tier":2,
 			"items": {
 				"properties": {
 					"CutIn": {
 						"type":"string",
-						"description":"CutIn is the wavelength below which the response rate is below 50%.          ",
-						"tier":3,
+						"description":"CutIn is the wavelength below which the response rate is below 50%.",
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutInUnit": {
 						"type":"string",
 						"description":"NA",
-						"tier":3,
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutOut": {
 						"type":"string",
-						"description":"CutOut is the wavelength above which the response rate is below 50%.          ",
-						"tier":3,
+						"description":"CutOut is the wavelength above which the response rate is below 50%.",
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutOutUnit": {
 						"type":"string",
 						"description":"NA",
-						"tier":3,
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"Transmittance": {
 						"type":"string",
-						"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.          ",
+						"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.",
 						"tier":3,
 						"category":"TransmittanceRange"
 					}
@@ -4974,13 +5201,13 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this element",
+			"description":"A user defined name for this component.",
 			"tier":3,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":3,
 			"category":"Generic",
 			"readonly": true
@@ -4993,25 +5220,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -5191,13 +5418,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Detector",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -5247,19 +5474,19 @@
 		"PeakWavelength": {
 			"type":"string",
 			"description":"The wavelength associated with maximum light intensity detected by this device",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"QuantumEfficiencyatPeakWavelength": {
 			"type":"string",
 			"description":"The Quantum Efficiency observed at peak wavelength. Quantum Efficiency is generally defined as is the ratio of incident photon to converted electrons. Typically expressed as a number between 0 and 1.",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"AmbientOperatingTemperature": {
@@ -5282,25 +5509,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -5317,7 +5544,7 @@
 			"properties": {
 				"CutIn": {
 					"type":"string",
-					"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+					"description":"CutIn is the wavelength below which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -5329,7 +5556,7 @@
 				},
 				"CutOut": {
 					"type":"string",
-					"description":"CutOut is the wavelength above which the response rate is below 50%",
+					"description":"CutOut is the wavelength above which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -5401,6 +5628,219 @@
 },
 {
 	"$schema": "http://json-schema.org/draft-07/schema",
+	"ID": "AdditionalLens.json",
+	"type": "object",
+	"title": "AdditionalLens",
+	"description": "A lens poistioned in the light path in the light path for a given channel.",
+	"category": "AdditionalOptics",
+	"image": "AdditionalOptics_AdditionalLens.png",
+	"tier": 2,
+	"properties": {
+		"Name": {
+			"type":"string",
+			"description":"A user defined name for this component.",
+			"tier":2,
+			"category":"Generic"
+		},
+		"ID": {
+			"type":"string",
+			"description":"A unique identifier for this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly": true
+		},
+		"Type": {
+			"type":"string",
+			"description":"The general category to which this lens belongs.",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Geometry": {
+			"type":"string",
+			"description":"The geometrical shape of the lens surfaces",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Construction": {
+			"type":"string",
+			"description":"Whether or not the lens is simple or composite",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Magnification": {
+			"type":"string",
+			"description":"The nominal magnification provided by this lens",
+			"tier":2,
+			"category":"Lens"
+		},
+		"AttenuationCoefficient": {
+			"type":"string",
+			"description":"The attenuation coefficient (aka blocking coefficient) is a material property that characterizes the degree of transparency of a lens. The attenuation coefficient is often defined in units of optical density (OD), wherease OD= -log10(T), and T=Transmittance (0?T?1).",
+			"tier":5,
+			"category":"Lens"
+		},
+		"RadiusOfCurvature": {
+			"type":"string",
+			"description":"A spherical lens or mirror surface has a center of curvature located either along or decentered from the system local optical axis. The vertex of the lens surface is located on the local optical axis. The distance from the vertex to the center of curvature is the radius of curvature of the surface",
+			"tier":5,
+			"category":"Lens"
+		},
+		"RadiusOfCurvatureUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToObject": {
+			"type":"string",
+			"description":"The distance between the front principal plane of the lens and the specimen",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToObjectUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToImage": {
+			"type":"string",
+			"description":"The distance from the rear principal plane to the image",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalDistanceToImageUnits": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalLength": {
+			"type":"string",
+			"description":"The distance from the rear principal plane of the lens and its focal point",
+			"tier":5,
+			"category":"Lens"
+		},
+		"FocalLengthUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"MaterialName": {
+			"type":"string",
+			"description":"This records the chemical composition or the nonproprietary trade designation of the glass",
+			"tier":5,
+			"category":"Lens"
+		},
+		"GlassCode": {
+			"type":"string",
+			"description":"If available provide the international glass code. This is based on U.S. military standard MIL-G-174, and is a six-digit number specifying the glass according to its refractive index nd at the Fraunhofer d- (or D3-) line, and its Abbe number Vd also taken at that line. The resulting glass code is the value of nd-1 rounded to three digits, followed by Vd rounded to three digits, with all decimal points ignored. For example, BK7 has nd = 1.5168 and Vd = 64.17, giving a six-digit glass code of 517642",
+			"tier":5,
+			"category":"Lens"
+		},
+		"RefractiveIndex": {
+			"type":"string",
+			"description":"The refractive index of the material the prism is made of",
+			"tier":5,
+			"category":"Lens"
+		},
+		"AbbeNumber": {
+			"type":"string",
+			"description":"The Abbe Number is a measure of the material's dispersion (variation of refractive index versus wavelength), with high values indicating low dispersion",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Density": {
+			"type":"string",
+			"description":"The density of the material this lens is made of",
+			"tier":5,
+			"category":"Lens"
+		},
+		"DensityUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Diameter": {
+			"type":"string",
+			"description":"The physical diamter of this lens",
+			"tier":5,
+			"category":"Lens"
+		},
+		"DiameterUnit": {
+			"type":"string",
+			"description":"NA",
+			"tier":5,
+			"category":"Lens"
+		},
+		"Manufacturer": {
+			"type":"string",
+			"description":"The manufacturer of this component.",
+			"tier":1,
+			"category":"ManufacturerSpec"
+		},
+		"Model": {
+			"type":"string",
+			"description":"The model of this component.",
+			"tier":3,
+			"category":"ManufacturerSpec"
+		},
+		"SerialNumber": {
+			"type":"string",
+			"description":"The serial number of this component",
+			"tier":5,
+			"category":"ManufacturerSpec"
+		},
+		"LotNumber": {
+			"type":"string",
+			"description":"The lot number of this component",
+			"tier":5,
+			"category":"ManufacturerSpec"
+		},
+		"SpecsFile": {
+			"type":"string",
+			"description":"Provide the location of a PDF file with the specifications for the component as provided by the manufacturer.",
+			"tier":5,
+			"category":"ManufacturerSpec"
+		},
+		"Description": {
+			"title":"Description",
+			"type":"string",
+			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
+			"tier":2,
+			"category":"AdditionalLens"
+		},
+		"Tier": {
+			"type": "integer",
+			"description": "The tier level of this component.",
+			"tier": 2,
+			"category": "Generic",
+			"readonly": true
+		}
+	},
+	"required": [
+		"ID",
+		"Name",
+		"Type",
+		"Construction",
+		"Magnification",
+		"AttenuationCoefficient",
+		"FocalDistanceToObject",
+		"FocalDistanceToImage",
+		"FocalLength",
+		"RefractiveIndex",
+		"AbbeNumber",
+		"Manufacturer",
+		"Model",
+		"SerialNumber",
+		"SpecsFile",
+		"Description"
+	]
+},
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
 	"ID": "WavelengthRange.json",
 	"type": "object",
 	"title": "WavelengthRange",
@@ -5410,7 +5850,7 @@
 	"properties": {
 		"CutIn": {
 			"type":"string",
-			"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+			"description":"CutIn is the wavelength below which the response rate is below 50%.",
 			"tier":5,
 			"category":"WavelengthRange"
 		},
@@ -5422,7 +5862,7 @@
 		},
 		"CutOut": {
 			"type":"string",
-			"description":"CutOut is the wavelength above which the response rate is below 50%",
+			"description":"CutOut is the wavelength above which the response rate is below 50%.",
 			"tier":5,
 			"category":"WavelengthRange"
 		},
@@ -5463,7 +5903,7 @@
 	"properties": {
 		"PeakWavelenght": {
 			"type":"string",
-			"description":"NA",
+			"description":"The wavelength at which there is maximal response rate.",
 			"tier":2,
 			"category":"LEDModule"
 		},
@@ -5487,7 +5927,7 @@
 		},
 		"ProjectionAngle": {
 			"type":"string",
-			"description":"NA",
+			"description":"The angle at which this light source projects light.",
 			"tier":5,
 			"category":"LEDModule"
 		},
@@ -5499,7 +5939,7 @@
 		},
 		"CutIn": {
 			"type":"string",
-			"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+			"description":"CutIn is the wavelength below which the response rate is below 50%.",
 			"tier":3,
 			"category":"LEDModule"
 		},
@@ -5548,44 +5988,44 @@
 	"ID": "TransmittanceRange.json",
 	"type": "object",
 	"title": "TransmittanceRange",
-	"description": "This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used      ",
+	"description": "This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used.",
 	"category": "ChildrenElement",
-	"tier": 3,
+	"tier": 2,
 	"properties": {
 		"CutIn": {
 			"type":"string",
-			"description":"CutIn is the wavelength below which the response rate is below 50%.          ",
-			"tier":3,
+			"description":"CutIn is the wavelength below which the response rate is below 50%.",
+			"tier":2,
 			"category":"TransmittanceRange"
 		},
 		"CutInUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":3,
+			"tier":2,
 			"category":"TransmittanceRange"
 		},
 		"CutOut": {
 			"type":"string",
-			"description":"CutOut is the wavelength above which the response rate is below 50%.          ",
-			"tier":3,
+			"description":"CutOut is the wavelength above which the response rate is below 50%.",
+			"tier":2,
 			"category":"TransmittanceRange"
 		},
 		"CutOutUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":3,
+			"tier":2,
 			"category":"TransmittanceRange"
 		},
 		"Transmittance": {
 			"type":"string",
-			"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.          ",
+			"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.",
 			"tier":3,
 			"category":"TransmittanceRange"
 		},
 		"Tier": {
 			"type": "integer",
 			"description": "The tier level of this component.",
-			"tier": 3,
+			"tier": 2,
 			"category": "Generic",
 			"readonly": true
 		}
@@ -5608,13 +6048,13 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Filter",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -5645,25 +6085,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -5675,37 +6115,37 @@
 		},
 		"TransmittanceRange": {
 			"type":"array",
-			"description":"This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used      ",
-			"tier":3,
+			"description":"This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used.",
+			"tier":2,
 			"items": {
 				"properties": {
 					"CutIn": {
 						"type":"string",
-						"description":"CutIn is the wavelength below which the response rate is below 50%.          ",
-						"tier":3,
+						"description":"CutIn is the wavelength below which the response rate is below 50%.",
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutInUnit": {
 						"type":"string",
 						"description":"NA",
-						"tier":3,
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutOut": {
 						"type":"string",
-						"description":"CutOut is the wavelength above which the response rate is below 50%.          ",
-						"tier":3,
+						"description":"CutOut is the wavelength above which the response rate is below 50%.",
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"CutOutUnit": {
 						"type":"string",
 						"description":"NA",
-						"tier":3,
+						"tier":2,
 						"category":"TransmittanceRange"
 					},
 					"Transmittance": {
 						"type":"string",
-						"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.          ",
+						"description":"The amount of light the filter transmits at a maximum. A fraction, as a value from 0.0 to 1.0.",
 						"tier":3,
 						"category":"TransmittanceRange"
 					}
@@ -5883,13 +6323,13 @@
 		},
 		"Name": {
 			"type":"string",
-			"description":"A user defined name for this Detector",
+			"description":"A user defined name for this component.",
 			"tier":2,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":2,
 			"category":"Generic",
 			"readonly": true
@@ -5939,19 +6379,19 @@
 		"PeakWavelength": {
 			"type":"string",
 			"description":"The wavelength associated with maximum light intensity detected by this device",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"PeakWavelenghtUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"QuantumEfficiencyatPeakWavelength": {
 			"type":"string",
 			"description":"The Quantum Efficiency observed at peak wavelength. Quantum Efficiency is generally defined as is the ratio of incident photon to converted electrons. Typically expressed as a number between 0 and 1.",
-			"tier":5,
+			"tier":3,
 			"category":"Detector"
 		},
 		"AmbientOperatingTemperature": {
@@ -5974,25 +6414,25 @@
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
@@ -6009,7 +6449,7 @@
 			"properties": {
 				"CutIn": {
 					"type":"string",
-					"description":"CutIn is the wavelength below which the response rate is below 50%          ",
+					"description":"CutIn is the wavelength below which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -6021,7 +6461,7 @@
 				},
 				"CutOut": {
 					"type":"string",
-					"description":"CutOut is the wavelength above which the response rate is below 50%",
+					"description":"CutOut is the wavelength above which the response rate is below 50%.",
 					"tier":5,
 					"category":"WavelengthRange"
 				},
@@ -6102,32 +6542,32 @@
 	"properties": {
 		"Name": {
 			"type":"string",
-			"description":"NA",
+			"description":"A user defined name for this component.",
 			"tier":1,
 			"category":"Generic"
 		},
 		"ID": {
 			"type":"string",
-			"description":"NA",
+			"description":"A unique identifier for this component.",
 			"tier":1,
 			"category":"Generic",
 			"readonly": true
 		},
 		"Correction": {
 			"type":"string",
-			"description":"The correction applied to the lens",
+			"description":"The correction applied to the lens.",
 			"tier":2,
 			"category":"Objective"
 		},
 		"NominalMagnification": {
 			"type":"string",
-			"description":"NA",
+			"description":"The magnification of the lens as specified by the manufacturer - i.e. 60 represents a 60X lens.",
 			"tier":1,
 			"category":"Objective"
 		},
 		"CalibratedMagnification": {
 			"type":"string",
-			"description":"The magnification of the lens as measured by a calibration process- i.e. '59.987' for a 60X lens",
+			"description":"The magnification of the lens as measured by a calibration process- i.e. '59.987' for a 60X lens.",
 			"tier":5,
 			"category":"Objective"
 		},
@@ -6139,13 +6579,13 @@
 		},
 		"NominalImmersionMedium": {
 			"type":"string",
-			"description":"The immersion medium the lens is designed for",
+			"description":"The immersion medium the lens is designed for.",
 			"tier":2,
 			"category":"Objective"
 		},
 		"Infinity": {
 			"type":"string",
-			"description":"Records whether or not the objective is infinity corrected",
+			"description":"Records whether or not the objective is infinity corrected.",
 			"tier":3,
 			"category":"Objective"
 		},
@@ -6169,7 +6609,7 @@
 		},
 		"Iris": {
 			"type":"string",
-			"description":"Records whether or not the objective was fitted with an Iris",
+			"description":"Records whether or not the objective was fitted with an Iris.",
 			"tier":4,
 			"category":"Objective"
 		},
@@ -6188,7 +6628,7 @@
 		"ParfocalizingDistanceUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":1,
+			"tier":5,
 			"category":"Objective"
 		},
 		"BackFocalPlanePosition": {
@@ -6200,30 +6640,30 @@
 		"BackFocalPlanePositionUnit": {
 			"type":"string",
 			"description":"NA",
-			"tier":1,
+			"tier":5,
 			"category":"Objective"
 		},
 		"Manufacturer": {
 			"type":"string",
-			"description":"The manufacturer of the component.",
+			"description":"The manufacturer of this component.",
 			"tier":1,
 			"category":"ManufacturerSpec"
 		},
 		"Model": {
 			"type":"string",
-			"description":"The Model of the component.",
+			"description":"The model of this component.",
 			"tier":3,
 			"category":"ManufacturerSpec"
 		},
 		"SerialNumber": {
 			"type":"string",
-			"description":"The serial number of the component",
+			"description":"The serial number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
 		"LotNumber": {
 			"type":"string",
-			"description":"The lot number of the component",
+			"description":"The lot number of this component",
 			"tier":5,
 			"category":"ManufacturerSpec"
 		},
