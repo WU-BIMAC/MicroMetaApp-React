@@ -89,7 +89,7 @@
 	"description":"This records the range of wavelengths that are reflected by the mirror.",
 	"category":"ChildrenElement",
 	"tier":3,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"ReflectanceRange"
 	],
 	"properties": {
@@ -139,7 +139,7 @@
 	"category":"LightSourceCoupling",
 	"image":"LightSourceCoupling_LightGuide.png",
 	"tier":4,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"LightSourceCoupling",
@@ -365,7 +365,7 @@
 	"category":"LightSource",
 	"image":"LightSource_LightEmittingDiode.png",
 	"tier":1,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"LightSource",
@@ -553,7 +553,7 @@
 	"category":"AdditionalOptics",
 	"image":"AdditionalOptics_CouplingLens.png",
 	"tier":5,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Lens",
@@ -772,7 +772,7 @@
 	"category":"MicroscopyBasics",
 	"image":"MicroscopyBasics_MicroscopeTable.png",
 	"tier":4,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"MicroscopeTable"
@@ -886,7 +886,7 @@
 	"category":"SampleHolderAndFocusing.Focusing",
 	"image":"SampleHolderAndFocusing_Focusing_PiezoElectricObjective.png",
 	"tier":3,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Stage",
@@ -1068,7 +1068,7 @@
 	"category":"AdditionalOptics",
 	"image":"AdditionalOptics_AdditionalFilter.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"FIlter",
@@ -1224,7 +1224,7 @@
 	"category":"AdditionalOptics",
 	"image":"AdditionalOptics_PolarizationOptics.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"PolarizationOptics",
@@ -1388,7 +1388,7 @@
 	"category":"LightSource",
 	"image":"LightSource_Filament.png",
 	"tier":1,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"LightSource",
@@ -1492,7 +1492,7 @@
 	"category":"LightSource",
 	"image":"LightSource_Laser.png",
 	"tier":1,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"LightSource",
@@ -1672,7 +1672,7 @@
 	"category":"Detector",
 	"image":"Detector_GenericDetector.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Detector",
@@ -1900,7 +1900,7 @@
 	"category":"Detector.Camera",
 	"image":"Detector_Camera_IntensifiedCCD.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Detector",
@@ -2261,7 +2261,7 @@
 	"category":"Mirror",
 	"image":"Mirror_Reflector.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Mirror",
@@ -2407,7 +2407,7 @@
 	"category":"AdditionalOptics",
 	"image":"AdditionalOptics_Prism.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Prism",
@@ -2630,7 +2630,7 @@
 	"category":"SampleHolderAndFocusing",
 	"image":"SampleHolderAndFocusing_SampleHolder.png",
 	"tier":3,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Stage",
@@ -2790,7 +2790,7 @@
 	"category":"AdditionalOptics",
 	"image":"AdditionalOptics_RelayLens.png",
 	"tier":3,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Lens",
@@ -3009,7 +3009,7 @@
 	"category":"Magnification",
 	"image":"Magnification_Optovar.png",
 	"tier":1,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Optovar"
@@ -3104,7 +3104,7 @@
 	"category":"LightPath",
 	"image":"LightPath_FilterSet.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"FilterSet",
@@ -3213,7 +3213,7 @@
 	"description":"The Pump element is a reference to a LightSource. It is used within the Laser element to specify the light source for the laser's pump (if any).",
 	"category":"ChildrenElement",
 	"tier":5,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"Reference",
 		"Pump"
@@ -3247,7 +3247,7 @@
 	"category":"Calibration",
 	"image":"Calibration_IntensityCalibrationTool.png",
 	"tier":3,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"IntensityCalibrationTool"
@@ -3337,7 +3337,7 @@
 	"category":"LightSourceCoupling",
 	"image":"LightSourceCoupling_Direct.png",
 	"tier":4,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"LightSourceCoupling",
@@ -3450,7 +3450,7 @@
 	"category":"Detector.Camera",
 	"image":"Detector_Camera_CMOS.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Detector",
@@ -3811,7 +3811,7 @@
 	"category":"LightPath",
 	"image":"LightPath_Dichroic.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Mirror",
@@ -4100,7 +4100,7 @@
 	"category":"SampleHolderAndFocusing.Focusing",
 	"image":"SampleHolderAndFocusing_Focusing_ObjectiveTurret.png",
 	"tier":3,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Stage",
@@ -4282,7 +4282,7 @@
 	"category":"Mirror",
 	"image":"Mirror_BeamSplitter.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Mirror",
@@ -4442,7 +4442,7 @@
 	"category":"LightSource",
 	"image":"LightSource_GenericExcitationSource.png",
 	"tier":1,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"LightSource",
@@ -4546,7 +4546,7 @@
 	"category":"LightSource",
 	"image":"LightSource_Arc.png",
 	"tier":1,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"LightSource",
@@ -4650,7 +4650,7 @@
 	"category":"SampleHolderAndFocusing.Focusing",
 	"image":"SampleHolderAndFocusing_Focusing_PiezoElectricStage.png",
 	"tier":3,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Stage",
@@ -4832,7 +4832,7 @@
 	"category":"Detector",
 	"image":"Detector_PhotoMultiplier.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Detector",
@@ -5064,7 +5064,7 @@
 	"category":"SampleHolderAndFocusing.Focusing",
 	"image":"SampleHolderAndFocusing_Focusing_MechanicalStage.png",
 	"tier":3,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Stage",
@@ -5246,7 +5246,7 @@
 	"category":"LightPath",
 	"image":"LightPath_EmissionFilter.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"FIlter",
@@ -5402,7 +5402,7 @@
 	"category":"SampleHolderAndFocusing.Focusing",
 	"image":"SampleHolderAndFocusing_Focusing_AutoFocus.png",
 	"tier":3,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"AutoFocus"
@@ -5492,7 +5492,7 @@
 	"category":"Detector.Camera",
 	"image":"Detector_Camera_CCD.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Detector",
@@ -5853,7 +5853,7 @@
 	"category":"AdditionalOptics",
 	"image":"AdditionalOptics_AdditionalLens.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Lens",
@@ -6071,7 +6071,7 @@
 	"description":"This records a range of wavelengths associated with the associated microscope component. Multiple of this elements may be used.",
 	"category":"ChildrenElement",
 	"tier":5,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"WavelengthRange"
 	],
 	"properties": {
@@ -6127,7 +6127,7 @@
 	"description":"A Light Emitting Diode (LED) light source is often composed of multiple modules each with its own wavelenght characteristics. This element describes an individual LED module. Multiple of this elements may be used.",
 	"category":"ChildrenElement",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"LEDModule"
 	],
 	"properties": {
@@ -6221,7 +6221,7 @@
 	"description":"This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used.",
 	"category":"ChildrenElement",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"TransmittanceRange"
 	],
 	"properties": {
@@ -6278,7 +6278,7 @@
 	"category":"LightPath",
 	"image":"LightPath_ExcitationFilter.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"FIlter",
@@ -6434,7 +6434,7 @@
 	"category":"Detector.Camera",
 	"image":"Detector_Camera_AnalogVideo.png",
 	"tier":2,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Detector",
@@ -6788,7 +6788,7 @@
 	"category":"Magnification",
 	"image":"Magnification_Objective.png",
 	"tier":1,
-	"subCategoriesOrder":" [
+	"subCategoriesOrder": [
 		"Generic",
 		"ManufacturerSpec",
 		"Objective"
