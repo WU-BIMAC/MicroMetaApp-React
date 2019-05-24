@@ -302,10 +302,6 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 						newProperty["enumNames"].push(propElementByTypeName);
 					});
 				}
-				console.log("old prop");
-				console.log(property);
-				console.log("new prop");
-				console.log(newProperty);
 			}
 			keysForCategory.properties[key] = newProperty;
 			partialSchema[newCategory] = keysForCategory;
@@ -330,6 +326,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			-1,
 			"default"
 		);
+
 		return partialSchema;
 	}
 

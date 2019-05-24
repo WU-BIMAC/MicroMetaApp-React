@@ -19,7 +19,7 @@
 			"description":"A unique identifier for this component.",
 			"tier":1,
 			"category":"Generic",
-			"readonly": true
+			"readonly":true
 		},
 		"Type": {
 			"type":"string",
@@ -82,13 +82,16 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "ReflectanceRange.json",
-	"type": "object",
-	"title": "ReflectanceRange",
-	"description": "This records the range of wavelengths that are reflected by the mirror.",
-	"category": "ChildrenElement",
-	"tier": 3,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"ReflectanceRange.json",
+	"type":"object",
+	"title":"ReflectanceRange",
+	"description":"This records the range of wavelengths that are reflected by the mirror.",
+	"category":"ChildrenElement",
+	"tier":3,
+	"subCategoriesOrder":" [
+		"ReflectanceRange"
+	],
 	"properties": {
 		"CutIn": {
 			"type":"string",
@@ -115,11 +118,11 @@
 			"category":"ReflectanceRange"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":3,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -128,14 +131,22 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "LightGuide.json",
-	"type": "object",
-	"title": "LightGuide",
-	"description": "Light Guides interface with illuminators to transfer light to the speciment in a usable manner.",
-	"category": "LightSourceCoupling",
-	"image": "LightSourceCoupling_LightGuide.png",
-	"tier": 4,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"LightGuide.json",
+	"type":"object",
+	"title":"LightGuide",
+	"description":"Light Guides interface with illuminators to transfer light to the speciment in a usable manner.",
+	"category":"LightSourceCoupling",
+	"image":"LightSourceCoupling_LightGuide.png",
+	"tier":4,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"LightSourceCoupling",
+		"LightGuide",
+		"CouplingLens",
+		"WavelengthRange"
+	],
 	"properties": {
 		"Type": {
 			"type":"string",
@@ -276,7 +287,7 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":4,
-			"category":"LightGuide"
+			"category":"Generic"
 		},
 		"WavelengthRange": {
 			"type":"object",
@@ -321,11 +332,11 @@
 			]
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 4,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":4,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -346,14 +357,21 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "LightEmittingDiode.json",
-	"type": "object",
-	"title": "LightEmittingDiode",
-	"description": "The LightEmittingDiode element is used to describe various kinds of LED lamps",
-	"category": "LightSource",
-	"image": "LightSource_LightEmittingDiode.png",
-	"tier": 1,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"LightEmittingDiode.json",
+	"type":"object",
+	"title":"LightEmittingDiode",
+	"description":"The LightEmittingDiode element is used to describe various kinds of LED lamps",
+	"category":"LightSource",
+	"image":"LightSource_LightEmittingDiode.png",
+	"tier":1,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"LightSource",
+		"LightEmittingDiode",
+		"LEDModule"
+	],
 	"properties": {
 		"Type": {
 			"type":"string",
@@ -421,7 +439,7 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"LightEmittingDiode"
+			"category":"Generic"
 		},
 		"LEDModule": {
 			"type":"array",
@@ -506,11 +524,11 @@
 			}
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":1,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -527,14 +545,20 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "CouplingLens.json",
-	"type": "object",
-	"title": "CouplingLens",
-	"description": "A lens positioned at connector between this light source coupling element and the microscope body.",
-	"category": "AdditionalOptics",
-	"image": "AdditionalOptics_CouplingLens.png",
-	"tier": 5,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"CouplingLens.json",
+	"type":"object",
+	"title":"CouplingLens",
+	"description":"A lens positioned at connector between this light source coupling element and the microscope body.",
+	"category":"AdditionalOptics",
+	"image":"AdditionalOptics_CouplingLens.png",
+	"tier":5,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Lens",
+		"CouplingLens"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -710,14 +734,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"CouplingLens"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 5,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":5,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -740,14 +764,19 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "MicroscopeTable.json",
-	"type": "object",
-	"title": "MicroscopeTable",
-	"description": "This element describes the table on which this Microscope rests during acquisition.",
-	"category": "MicroscopyBasics",
-	"image": "MicroscopyBasics_MicroscopeTable.png",
-	"tier": 4,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"MicroscopeTable.json",
+	"type":"object",
+	"title":"MicroscopeTable",
+	"description":"This element describes the table on which this Microscope rests during acquisition.",
+	"category":"MicroscopyBasics",
+	"image":"MicroscopyBasics_MicroscopeTable.png",
+	"tier":4,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"MicroscopeTable"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -827,14 +856,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":4,
-			"category":"MicroscopeTable"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 4,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":4,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -849,14 +878,21 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "PiezoElectricObjective.json",
-	"type": "object",
-	"title": "PiezoElectricObjective",
-	"description": "This is a piezoelectric objective-lens positioning device",
-	"category": "SampleHolderAndFocusing.Focusing",
-	"image": "SampleHolderAndFocusing_Focusing_PiezoElectricObjective.png",
-	"tier": 3,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"PiezoElectricObjective.json",
+	"type":"object",
+	"title":"PiezoElectricObjective",
+	"description":"This is a piezoelectric objective-lens positioning device",
+	"category":"SampleHolderAndFocusing.Focusing",
+	"image":"SampleHolderAndFocusing_Focusing_PiezoElectricObjective.png",
+	"tier":3,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Stage",
+		"Focusing",
+		"PiezoElectricObjective"
+	],
 	"properties": {
 		"Resolution": {
 			"type":"string",
@@ -996,14 +1032,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"PiezoElectricObjective"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":3,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -1024,14 +1060,21 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "AdditionalFilter.json",
-	"type": "object",
-	"title": "AdditionalFilter",
-	"description": "An optical filter is a device that selectively transmits light of different wavelengths.This element refers to a filter positioned along the light path in addition to the excitation and the emission filters.This element can be associated with an optional FilterWheel - Note: FilterWheel is not the same as a FilterSet.",
-	"category": "AdditionalOptics",
-	"image": "AdditionalOptics_AdditionalFilter.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"AdditionalFilter.json",
+	"type":"object",
+	"title":"AdditionalFilter",
+	"description":"An optical filter is a device that selectively transmits light of different wavelengths.This element refers to a filter positioned along the light path in addition to the excitation and the emission filters.This element can be associated with an optional FilterWheel - Note: FilterWheel is not the same as a FilterSet.",
+	"category":"AdditionalOptics",
+	"image":"AdditionalOptics_AdditionalFilter.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"FIlter",
+		"AdditionalFilter",
+		"TransmittanceRange"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -1149,14 +1192,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"AdditionalFilter"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -1173,14 +1216,20 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "PolarizationOptics.json",
-	"type": "object",
-	"title": "PolarizationOptics",
-	"description": "This is an optical filter that lets light waves of a specific polarization pass through while blocking light waves of other polarizations",
-	"category": "AdditionalOptics",
-	"image": "AdditionalOptics_PolarizationOptics.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"PolarizationOptics.json",
+	"type":"object",
+	"title":"PolarizationOptics",
+	"description":"This is an optical filter that lets light waves of a specific polarization pass through while blocking light waves of other polarizations",
+	"category":"AdditionalOptics",
+	"image":"AdditionalOptics_PolarizationOptics.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"PolarizationOptics",
+		"WavelengthRange"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -1308,14 +1357,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"PolarizationOptics"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -1331,14 +1380,20 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "Filament.json",
-	"type": "object",
-	"title": "Filament",
-	"description": "The Filament element is used to describe various kinds of filament bulbs such as Incadescent or Halogen. The Power of the Filament is now stored in the LightSource.",
-	"category": "LightSource",
-	"image": "LightSource_Filament.png",
-	"tier": 1,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"Filament.json",
+	"type":"object",
+	"title":"Filament",
+	"description":"The Filament element is used to describe various kinds of filament bulbs such as Incadescent or Halogen. The Power of the Filament is now stored in the LightSource.",
+	"category":"LightSource",
+	"image":"LightSource_Filament.png",
+	"tier":1,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"LightSource",
+		"Filament"
+	],
 	"properties": {
 		"Type": {
 			"type":"string",
@@ -1406,14 +1461,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"Filament"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":1,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -1429,14 +1484,21 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "Laser.json",
-	"type": "object",
-	"title": "Laser",
-	"description": "A Light Amplification by Stimulated Emission of Radiation (LASER) is a device that emits light through a process of optical amplification based on the stimulated emission of electromagnetic radiation.",
-	"category": "LightSource",
-	"image": "LightSource_Laser.png",
-	"tier": 1,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"Laser.json",
+	"type":"object",
+	"title":"Laser",
+	"description":"A Light Amplification by Stimulated Emission of Radiation (LASER) is a device that emits light through a process of optical amplification based on the stimulated emission of electromagnetic radiation.",
+	"category":"LightSource",
+	"image":"LightSource_Laser.png",
+	"tier":1,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"LightSource",
+		"Laser",
+		"Pump"
+	],
 	"properties": {
 		"Type": {
 			"type":"string",
@@ -1558,7 +1620,7 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"Laser"
+			"category":"Generic"
 		},
 		"Pump": {
 			"type":"object",
@@ -1578,11 +1640,11 @@
 			]
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":1,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -1602,14 +1664,22 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "GenericDetector.json",
-	"type": "object",
-	"title": "GenericDetector",
-	"description": "The GenericDetector element is used to represent a detector as a collection of key/value pairs, stored in a Map. The other detector objects should always be used in preference to this if possible.",
-	"category": "Detector",
-	"image": "Detector_GenericDetector.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"GenericDetector.json",
+	"type":"object",
+	"title":"GenericDetector",
+	"description":"The GenericDetector element is used to represent a detector as a collection of key/value pairs, stored in a Map. The other detector objects should always be used in preference to this if possible.",
+	"category":"Detector",
+	"image":"Detector_GenericDetector.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Detector",
+		"GenericDetector",
+		"WavelengthRange",
+		"RelayLens"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -1786,7 +1856,7 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"GenericDetector"
+			"category":"Generic"
 		},
 		"Map": {
 			"type":"object",
@@ -1796,11 +1866,11 @@
 			}
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -1822,14 +1892,23 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "IntensifiedCCD.json",
-	"type": "object",
-	"title": "IntensifiedCCD",
-	"description": "The type of Intensified CCD camera used",
-	"category": "Detector.Camera",
-	"image": "Detector_Camera_IntensifiedCCD.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"IntensifiedCCD.json",
+	"type":"object",
+	"title":"IntensifiedCCD",
+	"description":"The type of Intensified CCD camera used",
+	"category":"Detector.Camera",
+	"image":"Detector_Camera_IntensifiedCCD.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Detector",
+		"Camera",
+		"IntensifiedCCD",
+		"WavelengthRange",
+		"RelayLens"
+	],
 	"properties": {
 		"Type": {
 			"type":"string",
@@ -2138,14 +2217,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"IntensifiedCCD"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -2174,14 +2253,20 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "Reflector.json",
-	"type": "object",
-	"title": "Reflector",
-	"description": "This is a total reflector mirror",
-	"category": "Mirror",
-	"image": "Mirror_Reflector.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"Reflector.json",
+	"type":"object",
+	"title":"Reflector",
+	"description":"This is a total reflector mirror",
+	"category":"Mirror",
+	"image":"Mirror_Reflector.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Mirror",
+		"Reflector"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -2291,14 +2376,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"Reflector"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -2314,14 +2399,20 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "Prism.json",
-	"type": "object",
-	"title": "Prism",
-	"description": "A prism is a block of glass or other transparent material with flat, polished surfaces. A prism can be employed to deflect or deviate a light beam, rotate or invert an image, separate polarization states, or disperse light into its component wavelengths. Prisms can be classified in three general categories: reflecting prisms, polarizing prisms, and refracting or dispersion prisms. Reflecting prisms are useful for redirecting light beams by total internal reflection. Refracting prisms can be employed to bend and separate light into its component colors. Polarizing prisms are birefringent crystals that divide incident non-polarized light into separate components polarized orthogonally to each other. These prisms are employed to produce polarized light for optical instruments such as microscopes and polarimeters. A prism can be viewed as an ensamble of different rigidly mounted mirrors, with each face having a permanent orientation with respect to all the others",
-	"category": "AdditionalOptics",
-	"image": "AdditionalOptics_Prism.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"Prism.json",
+	"type":"object",
+	"title":"Prism",
+	"description":"A prism is a block of glass or other transparent material with flat, polished surfaces. A prism can be employed to deflect or deviate a light beam, rotate or invert an image, separate polarization states, or disperse light into its component wavelengths. Prisms can be classified in three general categories: reflecting prisms, polarizing prisms, and refracting or dispersion prisms. Reflecting prisms are useful for redirecting light beams by total internal reflection. Refracting prisms can be employed to bend and separate light into its component colors. Polarizing prisms are birefringent crystals that divide incident non-polarized light into separate components polarized orthogonally to each other. These prisms are employed to produce polarized light for optical instruments such as microscopes and polarimeters. A prism can be viewed as an ensamble of different rigidly mounted mirrors, with each face having a permanent orientation with respect to all the others",
+	"category":"AdditionalOptics",
+	"image":"AdditionalOptics_Prism.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Prism",
+		"WavelengthRange"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -2503,14 +2594,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"Prism"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -2531,14 +2622,20 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "SampleHolder.json",
-	"type": "object",
-	"title": "SampleHolder",
-	"description": "This element describes an optional sample holder mounted on the microscope stage.",
-	"category": "SampleHolderAndFocusing",
-	"image": "SampleHolderAndFocusing_SampleHolder.png",
-	"tier": 3,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"SampleHolder.json",
+	"type":"object",
+	"title":"SampleHolder",
+	"description":"This element describes an optional sample holder mounted on the microscope stage.",
+	"category":"SampleHolderAndFocusing",
+	"image":"SampleHolderAndFocusing_SampleHolder.png",
+	"tier":3,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Stage",
+		"SampleHolder"
+	],
 	"properties": {
 		"Type": {
 			"type":"string",
@@ -2660,14 +2757,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":3,
-			"category":"SampleHolder"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":3,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -2685,14 +2782,20 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "RelayLens.json",
-	"type": "object",
-	"title": "RelayLens",
-	"description": "A lens positioned at the mount connecting this detector to the microscope body.",
-	"category": "AdditionalOptics",
-	"image": "AdditionalOptics_RelayLens.png",
-	"tier": 3,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"RelayLens.json",
+	"type":"object",
+	"title":"RelayLens",
+	"description":"A lens positioned at the mount connecting this detector to the microscope body.",
+	"category":"AdditionalOptics",
+	"image":"AdditionalOptics_RelayLens.png",
+	"tier":3,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Lens",
+		"RelayLens"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -2868,14 +2971,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"RelayLens"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":3,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -2898,14 +3001,19 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "Optovar.json",
-	"type": "object",
-	"title": "Optovar",
-	"description": "Optovars are magnification changing devices originally developed by Zeiss, which provide additional magnification that can be beneficial when a desired field of view is required for the imaging sensor. Magnification changer components are placed before the tube lens within the infinity space of the optical system. Typical magnification increments are: 1.25x, 1.6x, and 2x",
-	"category": "Magnification",
-	"image": "Magnification_Optovar.png",
-	"tier": 1,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"Optovar.json",
+	"type":"object",
+	"title":"Optovar",
+	"description":"Optovars are magnification changing devices originally developed by Zeiss, which provide additional magnification that can be beneficial when a desired field of view is required for the imaging sensor. Magnification changer components are placed before the tube lens within the infinity space of the optical system. Typical magnification increments are: 1.25x, 1.6x, and 2x",
+	"category":"Magnification",
+	"image":"Magnification_Optovar.png",
+	"tier":1,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Optovar"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -2967,14 +3075,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"Optovar"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":1,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -2988,14 +3096,22 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "FilterSet.json",
-	"type": "object",
-	"title": "FilterSet",
-	"description": "A filter set is typically composed of one excitation filter, one emission filter and a dichroic. Often they are pre-assebled by the manufacturer and pruchased as a whole",
-	"category": "LightPath",
-	"image": "LightPath_FilterSet.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"FilterSet.json",
+	"type":"object",
+	"title":"FilterSet",
+	"description":"A filter set is typically composed of one excitation filter, one emission filter and a dichroic. Often they are pre-assebled by the manufacturer and pruchased as a whole",
+	"category":"LightPath",
+	"image":"LightPath_FilterSet.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"FilterSet",
+		"ExcitationFilter",
+		"Dichroic",
+		"EmissionFilter"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -3066,14 +3182,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"FilterSet"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -3090,13 +3206,18 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "Pump.json",
-	"type": "object",
-	"title": "Pump",
-	"description": "The Pump element is a reference to a LightSource. It is used within the Laser element to specify the light source for the laser's pump (if any).",
-	"category": "ChildrenElement",
-	"tier": 5,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"Pump.json",
+	"type":"object",
+	"title":"Pump",
+	"description":"The Pump element is a reference to a LightSource. It is used within the Laser element to specify the light source for the laser's pump (if any).",
+	"category":"ChildrenElement",
+	"tier":5,
+	"subCategoriesOrder":" [
+		"Generic",
+		"Reference",
+		"Pump"
+	],
 	"properties": {
 		"ID": {
 			"type":"string",
@@ -3106,11 +3227,11 @@
 			"readonly": true
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 5,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":5,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -3118,14 +3239,19 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "IntensityCalibrationTool.json",
-	"type": "object",
-	"title": "IntensityCalibrationTool",
-	"description": "A tool, such as the Meta-Max calibration toold developed by the 4D Nucleome Imaging Standards Working Group, used to perform an intensity calibration procedure.",
-	"category": "Calibration",
-	"image": "Calibration_IntensityCalibrationTool.png",
-	"tier": 3,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"IntensityCalibrationTool.json",
+	"type":"object",
+	"title":"IntensityCalibrationTool",
+	"description":"A tool, such as the Meta-Max calibration toold developed by the 4D Nucleome Imaging Standards Working Group, used to perform an intensity calibration procedure.",
+	"category":"Calibration",
+	"image":"Calibration_IntensityCalibrationTool.png",
+	"tier":3,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"IntensityCalibrationTool"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -3181,14 +3307,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":3,
-			"category":"IntensityCalibrationTool"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":3,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -3203,14 +3329,21 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "Direct.json",
-	"type": "object",
-	"title": "Direct",
-	"description": "Direct coupling consists of either direct mounting or a optical light path that connects the Light Source with the microscope",
-	"category": "LightSourceCoupling",
-	"image": "LightSourceCoupling_Direct.png",
-	"tier": 4,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"Direct.json",
+	"type":"object",
+	"title":"Direct",
+	"description":"Direct coupling consists of either direct mounting or a optical light path that connects the Light Source with the microscope",
+	"category":"LightSourceCoupling",
+	"image":"LightSourceCoupling_Direct.png",
+	"tier":4,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"LightSourceCoupling",
+		"Direct",
+		"CouplingLens"
+	],
 	"properties": {
 		"Type": {
 			"type":"string",
@@ -3285,14 +3418,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":4,
-			"category":"Direct"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 4,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":4,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -3309,14 +3442,23 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "CMOS.json",
-	"type": "object",
-	"title": "CMOS",
-	"description": "A complementary metal-oxide-semiconductor camera",
-	"category": "Detector.Camera",
-	"image": "Detector_Camera_CMOS.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"CMOS.json",
+	"type":"object",
+	"title":"CMOS",
+	"description":"A complementary metal-oxide-semiconductor camera",
+	"category":"Detector.Camera",
+	"image":"Detector_Camera_CMOS.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Detector",
+		"Camera",
+		"CMOS",
+		"WavelengthRange",
+		"RelayLens"
+	],
 	"properties": {
 		"Type": {
 			"type":"string",
@@ -3625,14 +3767,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"CMOS"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -3661,14 +3803,22 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "Dichroic.json",
-	"type": "object",
-	"title": "Dichroic",
-	"description": "A dichroic beamsplitter or dichroic mirror is a mirror that spectrally separate light by transmitting and reflecting light as a function of wavelength. In the context of fluorescence microscopy, they are typically used to reflect the excitation light, but transmit the emitted fluorescence. Dichroic mirrors can be categorized in different manners. However, the most important criteria for choosing a dichoric mirror are the transmittance and the reflectance wavelenght ranges.",
-	"category": "LightPath",
-	"image": "LightPath_Dichroic.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"Dichroic.json",
+	"type":"object",
+	"title":"Dichroic",
+	"description":"A dichroic beamsplitter or dichroic mirror is a mirror that spectrally separate light by transmitting and reflecting light as a function of wavelength. In the context of fluorescence microscopy, they are typically used to reflect the excitation light, but transmit the emitted fluorescence. Dichroic mirrors can be categorized in different manners. However, the most important criteria for choosing a dichoric mirror are the transmittance and the reflectance wavelenght ranges.",
+	"category":"LightPath",
+	"image":"LightPath_Dichroic.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Mirror",
+		"Dichroic",
+		"TransmittanceRange",
+		"ReflectanceRange"
+	],
 	"properties": {
 		"DichroicType": {
 			"type":"string",
@@ -3832,7 +3982,7 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"Dichroic"
+			"category":"Generic"
 		},
 		"TransmittanceRange": {
 			"type":"array",
@@ -3916,11 +4066,11 @@
 			}
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -3942,14 +4092,21 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "ObjectiveTurret.json",
-	"type": "object",
-	"title": "ObjectiveTurret",
-	"description": "This is a objective turret positoning device.",
-	"category": "SampleHolderAndFocusing.Focusing",
-	"image": "SampleHolderAndFocusing_Focusing_ObjectiveTurret.png",
-	"tier": 3,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"ObjectiveTurret.json",
+	"type":"object",
+	"title":"ObjectiveTurret",
+	"description":"This is a objective turret positoning device.",
+	"category":"SampleHolderAndFocusing.Focusing",
+	"image":"SampleHolderAndFocusing_Focusing_ObjectiveTurret.png",
+	"tier":3,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Stage",
+		"Focusing",
+		"ObjectiveTurret"
+	],
 	"properties": {
 		"Resolution": {
 			"type":"string",
@@ -4089,14 +4246,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"ObjectiveTurret"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":3,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -4117,14 +4274,20 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "BeamSplitter.json",
-	"type": "object",
-	"title": "BeamSplitter",
-	"description": "This is a mirror that reflects part of the light, regardless of wavelenght",
-	"category": "Mirror",
-	"image": "Mirror_BeamSplitter.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"BeamSplitter.json",
+	"type":"object",
+	"title":"BeamSplitter",
+	"description":"This is a mirror that reflects part of the light, regardless of wavelenght",
+	"category":"Mirror",
+	"image":"Mirror_BeamSplitter.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Mirror",
+		"BeamSplitter"
+	],
 	"properties": {
 		"Transmittance": {
 			"type":"string",
@@ -4246,14 +4409,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"BeamSplitter"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -4271,14 +4434,20 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "GenericExcitationSource.json",
-	"type": "object",
-	"title": "GenericExcitationSource",
-	"description": "The GenericExcitationSource element is used to represent a source as a collection of key/value pairs, stored in a Map. The other lightsource objects should always be used in preference to this if possible.",
-	"category": "LightSource",
-	"image": "LightSource_GenericExcitationSource.png",
-	"tier": 1,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"GenericExcitationSource.json",
+	"type":"object",
+	"title":"GenericExcitationSource",
+	"description":"The GenericExcitationSource element is used to represent a source as a collection of key/value pairs, stored in a Map. The other lightsource objects should always be used in preference to this if possible.",
+	"category":"LightSource",
+	"image":"LightSource_GenericExcitationSource.png",
+	"tier":1,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"LightSource",
+		"GenericExcitationSource"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -4340,7 +4509,7 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"GenericExcitationSource"
+			"category":"Generic"
 		},
 		"Map": {
 			"type":"object",
@@ -4350,11 +4519,11 @@
 			}
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":1,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -4369,14 +4538,20 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "Arc.json",
-	"type": "object",
-	"title": "Arc",
-	"description": "The Arc element is used to describe various kinds of Arc lamps - Hg, Xe, HgXe. The Power of the Arc is now stored in the LightSource",
-	"category": "LightSource",
-	"image": "LightSource_Arc.png",
-	"tier": 1,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"Arc.json",
+	"type":"object",
+	"title":"Arc",
+	"description":"The Arc element is used to describe various kinds of Arc lamps - Hg, Xe, HgXe. The Power of the Arc is now stored in the LightSource",
+	"category":"LightSource",
+	"image":"LightSource_Arc.png",
+	"tier":1,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"LightSource",
+		"Arc"
+	],
 	"properties": {
 		"Type": {
 			"type":"string",
@@ -4444,14 +4619,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"Arc"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":1,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -4467,14 +4642,21 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "PiezoElectricStage.json",
-	"type": "object",
-	"title": "PiezoElectricStage",
-	"description": "This is a piezoelectric stage positioning device.",
-	"category": "SampleHolderAndFocusing.Focusing",
-	"image": "SampleHolderAndFocusing_Focusing_PiezoElectricStage.png",
-	"tier": 3,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"PiezoElectricStage.json",
+	"type":"object",
+	"title":"PiezoElectricStage",
+	"description":"This is a piezoelectric stage positioning device.",
+	"category":"SampleHolderAndFocusing.Focusing",
+	"image":"SampleHolderAndFocusing_Focusing_PiezoElectricStage.png",
+	"tier":3,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Stage",
+		"Focusing",
+		"PiezoElectricStage"
+	],
 	"properties": {
 		"Resolution": {
 			"type":"string",
@@ -4614,14 +4796,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"PiezoElectricStage"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":3,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -4642,14 +4824,22 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "PhotoMultiplier.json",
-	"type": "object",
-	"title": "PhotoMultiplier",
-	"description": "A photomultiplier tube, useful for light detection of very weak signals, is a photoemissive device in which the absorption of a photon results in the emission of an electron. These detectors work by amplifying the electrons generated by a photocathode exposed to a photon flux",
-	"category": "Detector",
-	"image": "Detector_PhotoMultiplier.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"PhotoMultiplier.json",
+	"type":"object",
+	"title":"PhotoMultiplier",
+	"description":"A photomultiplier tube, useful for light detection of very weak signals, is a photoemissive device in which the absorption of a photon results in the emission of an electron. These detectors work by amplifying the electrons generated by a photocathode exposed to a photon flux",
+	"category":"Detector",
+	"image":"Detector_PhotoMultiplier.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Detector",
+		"PhotoMultiplier",
+		"WavelengthRange",
+		"RelayLens"
+	],
 	"properties": {
 		"Type": {
 			"type":"string",
@@ -4838,14 +5028,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"PhotoMultiplier"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -4866,14 +5056,21 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "MechanicalStage.json",
-	"type": "object",
-	"title": "MechanicalStage",
-	"description": "This is a mechanical stage positioning device",
-	"category": "SampleHolderAndFocusing.Focusing",
-	"image": "SampleHolderAndFocusing_Focusing_MechanicalStage.png",
-	"tier": 3,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"MechanicalStage.json",
+	"type":"object",
+	"title":"MechanicalStage",
+	"description":"This is a mechanical stage positioning device",
+	"category":"SampleHolderAndFocusing.Focusing",
+	"image":"SampleHolderAndFocusing_Focusing_MechanicalStage.png",
+	"tier":3,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Stage",
+		"Focusing",
+		"MechanicalStage"
+	],
 	"properties": {
 		"Resolution": {
 			"type":"string",
@@ -5013,14 +5210,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"MechanicalStage"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":3,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -5041,14 +5238,21 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "EmissionFilter.json",
-	"type": "object",
-	"title": "EmissionFilter",
-	"description": "An optical filter is a device that selectively transmits light of different wavelengths.This element refers to an emission filter. For each fluorescence Image there should be at least one emission filter element specified per Channel.This element can be associated with an optional FilterWheel - Note: FilterWheel is not the same as a FilterSet.",
-	"category": "LightPath",
-	"image": "LightPath_EmissionFilter.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"EmissionFilter.json",
+	"type":"object",
+	"title":"EmissionFilter",
+	"description":"An optical filter is a device that selectively transmits light of different wavelengths.This element refers to an emission filter. For each fluorescence Image there should be at least one emission filter element specified per Channel.This element can be associated with an optional FilterWheel - Note: FilterWheel is not the same as a FilterSet.",
+	"category":"LightPath",
+	"image":"LightPath_EmissionFilter.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"FIlter",
+		"EmissionFilter",
+		"TransmittanceRange"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -5166,14 +5370,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"EmissionFilter"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -5190,14 +5394,19 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "AutoFocus.json",
-	"type": "object",
-	"title": "AutoFocus",
-	"description": "This element describes the focus stabilization device(s) available for this microscope.",
-	"category": "SampleHolderAndFocusing.Focusing",
-	"image": "SampleHolderAndFocusing_Focusing_AutoFocus.png",
-	"tier": 3,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"AutoFocus.json",
+	"type":"object",
+	"title":"AutoFocus",
+	"description":"This element describes the focus stabilization device(s) available for this microscope.",
+	"category":"SampleHolderAndFocusing.Focusing",
+	"image":"SampleHolderAndFocusing_Focusing_AutoFocus.png",
+	"tier":3,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"AutoFocus"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -5253,14 +5462,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":3,
-			"category":"AutoFocus"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 3,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":3,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -5275,14 +5484,23 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "CCD.json",
-	"type": "object",
-	"title": "CCD",
-	"description": "A charged coupled device camera",
-	"category": "Detector.Camera",
-	"image": "Detector_Camera_CCD.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"CCD.json",
+	"type":"object",
+	"title":"CCD",
+	"description":"A charged coupled device camera",
+	"category":"Detector.Camera",
+	"image":"Detector_Camera_CCD.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Detector",
+		"Camera",
+		"CCD",
+		"WavelengthRange",
+		"RelayLens"
+	],
 	"properties": {
 		"Type": {
 			"type":"string",
@@ -5591,14 +5809,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"CCD"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -5627,14 +5845,20 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "AdditionalLens.json",
-	"type": "object",
-	"title": "AdditionalLens",
-	"description": "A lens poistioned in the light path in the light path for a given channel.",
-	"category": "AdditionalOptics",
-	"image": "AdditionalOptics_AdditionalLens.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"AdditionalLens.json",
+	"type":"object",
+	"title":"AdditionalLens",
+	"description":"A lens poistioned in the light path in the light path for a given channel.",
+	"category":"AdditionalOptics",
+	"image":"AdditionalOptics_AdditionalLens.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Lens",
+		"AdditionalLens"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -5810,14 +6034,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"AdditionalLens"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -5840,13 +6064,16 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "WavelengthRange.json",
-	"type": "object",
-	"title": "WavelengthRange",
-	"description": "This records a range of wavelengths associated with the associated microscope component. Multiple of this elements may be used.",
-	"category": "ChildrenElement",
-	"tier": 5,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"WavelengthRange.json",
+	"type":"object",
+	"title":"WavelengthRange",
+	"description":"This records a range of wavelengths associated with the associated microscope component. Multiple of this elements may be used.",
+	"category":"ChildrenElement",
+	"tier":5,
+	"subCategoriesOrder":" [
+		"WavelengthRange"
+	],
 	"properties": {
 		"CutIn": {
 			"type":"string",
@@ -5879,11 +6106,11 @@
 			"category":"WavelengthRange"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 5,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":5,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -5893,13 +6120,16 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "LEDModule.json",
-	"type": "object",
-	"title": "LEDModule",
-	"description": "A Light Emitting Diode (LED) light source is often composed of multiple modules each with its own wavelenght characteristics. This element describes an individual LED module. Multiple of this elements may be used.",
-	"category": "ChildrenElement",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"LEDModule.json",
+	"type":"object",
+	"title":"LEDModule",
+	"description":"A Light Emitting Diode (LED) light source is often composed of multiple modules each with its own wavelenght characteristics. This element describes an individual LED module. Multiple of this elements may be used.",
+	"category":"ChildrenElement",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"LEDModule"
+	],
 	"properties": {
 		"PeakWavelenght": {
 			"type":"string",
@@ -5968,11 +6198,11 @@
 			"category":"LEDModule"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -5984,13 +6214,16 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "TransmittanceRange.json",
-	"type": "object",
-	"title": "TransmittanceRange",
-	"description": "This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used.",
-	"category": "ChildrenElement",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"TransmittanceRange.json",
+	"type":"object",
+	"title":"TransmittanceRange",
+	"description":"This records the range of wavelengths that are transmitted by the filter. It also records the maximum amount of light transmitted. Multiple of this elements can be used.",
+	"category":"ChildrenElement",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"TransmittanceRange"
+	],
 	"properties": {
 		"CutIn": {
 			"type":"string",
@@ -6023,11 +6256,11 @@
 			"category":"TransmittanceRange"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -6037,14 +6270,21 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "ExcitationFilter.json",
-	"type": "object",
-	"title": "ExcitationFilter",
-	"description": "An optical filter is a device that selectively transmits light of different wavelengths.This element refers to an excitation filter. This element can be associated with an optional FilterWheel - Note: FilterWheel is not the same as a FilterSet.",
-	"category": "LightPath",
-	"image": "LightPath_ExcitationFilter.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"ExcitationFilter.json",
+	"type":"object",
+	"title":"ExcitationFilter",
+	"description":"An optical filter is a device that selectively transmits light of different wavelengths.This element refers to an excitation filter. This element can be associated with an optional FilterWheel - Note: FilterWheel is not the same as a FilterSet.",
+	"category":"LightPath",
+	"image":"LightPath_ExcitationFilter.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"FIlter",
+		"ExcitationFilter",
+		"TransmittanceRange"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -6162,14 +6402,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"ExcitationFilter"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -6186,14 +6426,23 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "AnalogVideo.json",
-	"type": "object",
-	"title": "AnalogVideo",
-	"description": "A device used to capture analog videos",
-	"category": "Detector.Camera",
-	"image": "Detector_Camera_AnalogVideo.png",
-	"tier": 2,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"AnalogVideo.json",
+	"type":"object",
+	"title":"AnalogVideo",
+	"description":"A device used to capture analog videos",
+	"category":"Detector.Camera",
+	"image":"Detector_Camera_AnalogVideo.png",
+	"tier":2,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Detector",
+		"Camera",
+		"AnalogVideo",
+		"WavelengthRange",
+		"RelayLens"
+	],
 	"properties": {
 		"Illumination": {
 			"type":"string",
@@ -6496,14 +6745,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"AnalogVideo"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 2,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":2,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
@@ -6531,14 +6780,19 @@
 	]
 },
 {
-	"$schema": "http://json-schema.org/draft-07/schema",
-	"ID": "Objective.json",
-	"type": "object",
-	"title": "Objective",
-	"description": "A description of the microscope's objective lens. Required elements include the lens numerical aperture, and the magnification, both of which a floating point (real) numbers. The values are those that are fixed for a particular objective: either because it has been manufactured to this specification or the value has been measured on this particular objective. Correction: This is the type of correction coating applied to this lens. Immersion: This is the types of immersion medium the lens is designed to work with. It is not the same as 'Medium' in ObjectiveRef (a single type) as here Immersion can have compound values like 'Multi'. LensNA: The numerical aperture of the lens (as a float) NominalMagnification: The specified magnification e.g. x10 CalibratedMagnification: The measured magnification e.g. x10.3 WorkingDistance: WorkingDistance of the lens",
-	"category": "Magnification",
-	"image": "Magnification_Objective.png",
-	"tier": 1,
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"ID":"Objective.json",
+	"type":"object",
+	"title":"Objective",
+	"description":"A description of the microscope's objective lens. Required elements include the lens numerical aperture, and the magnification, both of which a floating point (real) numbers. The values are those that are fixed for a particular objective: either because it has been manufactured to this specification or the value has been measured on this particular objective. Correction: This is the type of correction coating applied to this lens. Immersion: This is the types of immersion medium the lens is designed to work with. It is not the same as 'Medium' in ObjectiveRef (a single type) as here Immersion can have compound values like 'Multi'. LensNA: The numerical aperture of the lens (as a float) NominalMagnification: The specified magnification e.g. x10 CalibratedMagnification: The measured magnification e.g. x10.3 WorkingDistance: WorkingDistance of the lens",
+	"category":"Magnification",
+	"image":"Magnification_Objective.png",
+	"tier":1,
+	"subCategoriesOrder":" [
+		"Generic",
+		"ManufacturerSpec",
+		"Objective"
+	],
 	"properties": {
 		"Name": {
 			"type":"string",
@@ -6678,14 +6932,14 @@
 			"type":"string",
 			"description":"The AnnotationRef element is a reference to an element derived from the CommentAnnotation element, which consists of a simple comment multi-line annotation.",
 			"tier":2,
-			"category":"Objective"
+			"category":"Generic"
 		},
 		"Tier": {
-			"type": "integer",
-			"description": "The tier level of this component.",
-			"tier": 1,
-			"category": "Generic",
-			"readonly": true
+			"type":"integer",
+			"description":"The tier level of this component.",
+			"tier":1,
+			"category":"Generic",
+			"readonly":true
 		}
 	},
 	"required": [
