@@ -21,7 +21,6 @@ export default class ImageElement extends React.PureComponent {
 			height: newHeight,
 			width: newWidth
 		});
-		console.log("load image");
 		this.props.updateDimensions(this.props.id, newWidth, newHeight);
 	}
 
