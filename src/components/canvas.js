@@ -153,7 +153,7 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	updatedDimensions(id, width, height, isResize) {
-		console.log("udpateDim " + id + " - " + width + " x " + height);
+		//console.log("udpateDim " + id + " - " + width + " x " + height);
 		let newImagesDimension = Object.assign({}, this.state.imagesDimension);
 		if (newImagesDimension[id] !== undefined && !isResize) {
 			if (

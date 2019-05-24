@@ -47,7 +47,7 @@ export default class CanvasElement extends React.PureComponent {
 	}
 
 	onResize(e, data) {
-		console.log(data);
+		//console.log(data);
 		let width = data.size.width;
 		let height = data.size.height;
 		let imgWidth = width;
@@ -124,7 +124,7 @@ export default class CanvasElement extends React.PureComponent {
 		let maxWidth = this.startWidth * 2;
 		let maxHeight = this.startHeight * 2;
 
-		console.log(this.props.id + " - " + width + " X " + height);
+		//console.log(this.props.id + " - " + width + " X " + height);
 
 		return (
 			<ResizableBox
