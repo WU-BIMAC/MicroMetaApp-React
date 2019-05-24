@@ -86,8 +86,12 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 				this.partialSchema
 			);
 		}
-
-		this.forms = this.createForms(this.partialSchema, partialInputData);
+		let subCategoriesOrder = this.props.schema.subCategoriesOrder;
+		this.forms = this.createForms(
+			subCategoriesOrder,
+			this.partialSchema,
+			partialInputData
+		);
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -354,7 +358,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		return partialUISchema;
 	}
 
-	createForms(partialSchema, partialInputData) {
+	createForms(subCategoriesOrder, partialSchema, partialInputData) {
 		// Maybe ModalWindow could wrap entire <SchemaForm> (in CanvasElement render method)
 		// instead of being rendered by <SchemaForm> if SchemaForm could be later used in other places.
 		let currentButtons = [];
@@ -370,13 +374,23 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 				formData={partialInputData[item]}
 				showErrorList={false}
 				ref={form => {
-					currentFormRefs[index] = form;
+					if (subCategoriesOrder.includes(item)) {
+						let i = subCategoriesOrder.indexOf(item);
+						currentFormRefs.splice(i, 0, form);
+					} else {
+						currentFormRefs.push(form);
+					}
 				}}
 				style={{ overflow: "hidden" }}
 			>
 				<button
 					ref={btn => {
-						currentButtons[index] = btn;
+						if (subCategoriesOrder.includes(item)) {
+							let i = subCategoriesOrder.indexOf(item);
+							currentButtons.splice(i, 0, btn);
+						} else {
+							currentButtons.push(btn);
+						}
 					}}
 					style={{ display: "none" }}
 				/>
