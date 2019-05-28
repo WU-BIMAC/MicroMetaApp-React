@@ -8,6 +8,7 @@
 	"image":"Microscope_default.png",
 	"tier":1,
 	"subCategoriesOrder": [
+		"Generic",
 		"ManufacturerSpec",
 		"MicroscopeBody"
 	],
