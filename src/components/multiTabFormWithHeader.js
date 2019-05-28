@@ -226,10 +226,15 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			Object.keys(partialSchema[key].properties).forEach(function(propKey) {
 				if (inputData[propKey] !== undefined)
 					partialInputData[key][propKey] = inputData[propKey];
-				else
-					partialInputData[key][
-						propKey
-					] = MultiTabFormWithHeader.findInputPropKeyValue(propKey, inputData);
+				else {
+					let val = MultiTabFormWithHeader.findInputPropKeyValue(
+						propKey,
+						inputData
+					);
+					if (val !== null) {
+						partialInputData[key][propKey] = val;
+					}
+				}
 			});
 		});
 		return partialInputData;
@@ -356,6 +361,10 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 						"ui:readonly": true
 					});
 				}
+				// if (partialSchema[key].properties[propKey].type === "string")
+				// 	partialUISchema[key][propKey] = Object.assign(uiProperties, {
+				// 		"ui:emptyValue": ""
+				// 	});
 			});
 		});
 		return partialUISchema;
