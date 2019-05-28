@@ -33,7 +33,8 @@
 	"scripts": {
 		"test": "node scripts/test.js",
 		"build": "gulp build",
-		"dev": "gulp dev"
+		"dev": "gulp dev",
+		"build-all" : "gulp build-dev && gulp build"
 	},
 	"eslintConfig": {
 		"extends": "react-app"

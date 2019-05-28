@@ -23,7 +23,7 @@ module.exports = {
 		filename:
 			mode === "production"
 				? "MicroscopyMetadataTool.min.js"
-				: "MicroscopyMetadataTool.js"
+				: "MicroscopyMetadataTool.dev.js"
 	},
 	module: {
 		rules: [
