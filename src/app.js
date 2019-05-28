@@ -285,8 +285,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let microscope = {
 			//todo this means the microscope schema needs to be at 0 all the time
 			//need to find better solution
-			name: `New ${microscopeSchema.title}`,
-			schema_ID: microscopeSchema.ID,
+			Name: `New ${microscopeSchema.title}`,
+			Schema_ID: microscopeSchema.ID,
 			ID: uuid,
 			tier: activeTier,
 			validationTier: activeTier
@@ -431,12 +431,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		}
 		if (!validated) {
 			//TODO throw warning instead of stopping validation
-			console.log(
-				"should re-render: mic-" +
-					this.state.isMicroscopeValidated +
-					" comps-" +
-					this.state.areComponentsValidated
-			);
+			// console.log(
+			// 	"should re-render: mic-" +
+			// 		this.state.isMicroscopeValidated +
+			// 		" comps-" +
+			// 		this.state.areComponentsValidated
+			// );
 			//return;
 		}
 		let elementData = this.state.elementData;
@@ -457,8 +457,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	handleCompleteSaveMicroscope(micName) {
-		console.log(micName + " saved");
+		//console.log(micName + " saved");
 		//WARN Microscope save
+		window.alert(micName + " saved");
 	}
 
 	onMicroscopeDataSave(id, data) {
