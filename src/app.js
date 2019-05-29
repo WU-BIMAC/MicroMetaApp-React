@@ -9,6 +9,7 @@ import DataLoader from "./components/dataLoader";
 import MicroscopePreLoader from "./components/microscopePreLoader";
 import MicroscopeLoader from "./components/microscopeLoader";
 
+const path = require("path");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
@@ -620,10 +621,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					<Canvas
 						activeTier={this.state.activeTier}
 						ref={this.canvasRef}
-						imagesPath={`${imagesPath}`}
+						imagesPath={imagesPath}
 						componentSchemas={componentsSchema}
 						inputData={this.state.elementData}
-						backgroundImage={`${imagesPath}${microscopeSchema.image}`}
+						//backgroundImage={`${imagesPath}${microscopeSchema.image}`}
+						backgroundImage={path.join(imagesPath, microscopeSchema.image)}
 						updateElementData={this.updateElementData}
 						overlaysContainer={this.overlaysContainerRef.current}
 						areComponentsValidated={this.state.areComponentsValidated}

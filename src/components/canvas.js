@@ -4,7 +4,9 @@ import { DragDropContainer } from "react-drag-drop-container";
 
 import CanvasElement from "./canvasElement";
 import { CanvasElementDeleteButton } from "./canvasElement";
+import { pathToFileURL } from "url";
 
+const path = require("path");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
@@ -428,7 +430,8 @@ export default class Canvas extends React.PureComponent {
 						<CanvasElement
 							activeTier={this.props.activeTier}
 							id={item.ID}
-							image={`${this.props.imagesPath}${schema.image}`}
+							//image={`${this.props.imagesPath}${schema.image}`}
+							image={path.join(this.props.imagesPath, schema.image)}
 							schema={schema}
 							onConfirm={this.onCanvasElementDataSave}
 							updateDimensions={this.updatedDimensions}

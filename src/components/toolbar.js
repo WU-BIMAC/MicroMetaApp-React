@@ -5,6 +5,8 @@ import Button from "react-bootstrap/Button";
 
 import ImageElement from "./imageElement";
 
+const path = require("path");
+
 export default class Toolbar extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -94,7 +96,8 @@ export default class Toolbar extends React.PureComponent {
 				<ImageElement
 					key={`ImageElement-${item.ID}`}
 					id={item.ID}
-					image={`${this.props.imagesPath}${item.schema.image}`}
+					//image={`${this.props.imagesPath}${item.schema.image}`}
+					image={path.join(this.props.imagesPath, item.schema.image)}
 					name={item.schema.title}
 					updateDimensions={this.updatedDimensions}
 					style={stylesImages[item.ID]}
