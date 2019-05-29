@@ -398,7 +398,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	handleExportMicroscope(microscope) {
-		let micName = microscope.name;
+		let micName = microscope.Name;
 		micName = micName.replace(/\s+/g, "_").toLowerCase();
 		let filename = `${micName}.json`;
 		let contentType = "application/json;charset=utf-8;";
