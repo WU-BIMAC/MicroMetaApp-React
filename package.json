@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"main": "./dist/MicroscopyMetadataTool.min.js",
 	"unpkg": "./dist/MicroscopyMetadataTool.min.js",
-	"module" : "./dist/MicroscopyMetadataTool.dev.js",
+	"module": "./dist/MicroscopyMetadataTool.dev.js",
 	"private": true,
 	"publishConfig": {
 		"access": "restricted"
@@ -34,7 +34,7 @@
 		"test": "node scripts/test.js",
 		"build": "gulp build",
 		"dev": "gulp dev",
-		"build-all" : "gulp build-dev && gulp build"
+		"build-all": "gulp build-dev && gulp build"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
