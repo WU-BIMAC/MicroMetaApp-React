@@ -300,6 +300,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			let newProperty = Object.assign({}, property);
 
 			if (property.linkTo !== undefined) {
+				newProperty["default"] = "na";
 				newProperty["enum"] = ["na"];
 				newProperty["enumNames"] = ["Not assigned"];
 				if (elementByType[property.linkTo] !== undefined) {
@@ -378,7 +379,6 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		currentFormRefs,
 		currentButtonsRefs
 	) {
-		console.log(schema);
 		return (
 			<Form
 				schema={schema}
