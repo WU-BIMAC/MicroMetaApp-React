@@ -355,7 +355,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				let schema_ID = compSchema.ID;
 				Object.keys(components).forEach(objIndex => {
 					let obj = components[objIndex];
-					if (schema_ID !== obj.schema_ID) return;
+					if (schema_ID !== obj.Schema_ID) return;
 					let id = compSchema.title + "_" + obj.ID;
 					newElementData[id] = obj;
 				});
