@@ -201,7 +201,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					activeTier,
 					validationTier
 				);
-				return;
+				//return;
 			}
 			if (property.tier > activeTier) {
 				fieldsToRemove.push(propKey);

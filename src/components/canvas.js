@@ -45,8 +45,8 @@ export default class Canvas extends React.PureComponent {
 					validated: validated,
 					dragged: false,
 					obj: object,
-					x: object.xPosition,
-					y: object.yPosition
+					x: object.PositionX,
+					y: object.PositionY
 				};
 				this.state.elementList.push(newElement);
 			});
@@ -289,8 +289,8 @@ export default class Canvas extends React.PureComponent {
 			newElementList[sourceElement.index].x = percentX;
 			newElementList[sourceElement.index].y = percentY;
 			newElementList[sourceElement.index].dragged = false;
-			newElementDataList[item.ID].xPosition = percentX;
-			newElementDataList[item.ID].yPosition = percentY;
+			newElementDataList[item.ID].PositionX = percentX;
+			newElementDataList[item.ID].PositionY = percentY;
 		}
 
 		this.setState({
