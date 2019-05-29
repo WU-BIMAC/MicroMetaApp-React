@@ -378,6 +378,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		currentFormRefs,
 		currentButtonsRefs
 	) {
+		console.log(schema);
 		return (
 			<Form
 				schema={schema}

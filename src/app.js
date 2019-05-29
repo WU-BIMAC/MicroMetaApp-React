@@ -706,7 +706,7 @@ MicroscopyMetadataTool.defaultProps = {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function() {
 			console.log(microscope);
-			complete(microscope.name);
+			complete(microscope.Name);
 		});
 	}
 };

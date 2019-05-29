@@ -22,7 +22,6 @@ export default class Canvas extends React.PureComponent {
 			elementList: [],
 			elementData: Object.assign({}, this.props.inputData),
 			componentsSchema: {},
-			imagesDimension: {},
 			imgHeight: null,
 			imgWidth: null,
 			backgroundScale: null,
@@ -48,7 +47,9 @@ export default class Canvas extends React.PureComponent {
 					dragged: false,
 					obj: object,
 					x: object.PositionX,
-					y: object.PositionY
+					y: object.PositionY,
+					width: object.Width,
+					height: object.Height
 				};
 				this.state.elementList.push(newElement);
 			});
@@ -155,16 +156,32 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	updatedDimensions(id, width, height, isResize) {
-		let newImagesDimension = Object.assign({}, this.state.imagesDimension);
-		if (newImagesDimension[id] !== undefined && !isResize) {
-			if (
-				newImagesDimension[id].width >= width ||
-				newImagesDimension[id].height >= height
-			)
+		let element = null;
+		this.state.elementList.forEach(item => {
+			if (item.ID === id) element = item;
+		});
+		let newElementDataList = Object.assign({}, this.state.elementData);
+		let obj = newElementDataList[id];
+
+		console.log("updatedDimensions");
+		if (element === null || obj === undefined) return;
+
+		//let newImagesDimension = Object.assign({}, this.state.imagesDimension);
+
+		if (!isResize) {
+			if (element.width >= width || element.height >= height) {
+				console.log("bigger than before noresize");
 				return;
+			}
 		}
-		newImagesDimension[id] = { width, height };
-		this.setState({ imagesDimension: newImagesDimension });
+		console.log("set new size " + width + " x " + height);
+		element.width = width;
+		element.height = height;
+		obj.Width = width;
+		obj.Height = height;
+		//this.setState({ imagesDimension: newImagesDimension });
+		let validated = this.areAllElementsValidated();
+		this.props.updateElementData(newElementDataList, validated);
 	}
 
 	onImgLoad({ target: img }) {
@@ -248,7 +265,9 @@ export default class Canvas extends React.PureComponent {
 				validated: false,
 				dragged: false,
 				x: percentX,
-				y: percentY
+				y: percentY,
+				width: 100,
+				height: 100
 			};
 			newElementList.push(newElement);
 			let newElementData = {
@@ -257,7 +276,9 @@ export default class Canvas extends React.PureComponent {
 				Tier: schema.tier,
 				Schema_ID: schema.ID,
 				PositionX: percentX,
-				PositionY: percentY
+				PositionY: percentY,
+				Width: 100,
+				Height: 100
 			};
 			Object.keys(schema.properties).forEach(key => {
 				if (schema.properties[key].type === "array") {
@@ -352,7 +373,6 @@ export default class Canvas extends React.PureComponent {
 			justifyContent: "space-between",
 			height: "20px"
 		};
-		let imagesDimension = this.state.imagesDimension;
 		let stylesContainer = {};
 		let stylesImages = {};
 		elementList.map(item => {
@@ -366,16 +386,8 @@ export default class Canvas extends React.PureComponent {
 				left: `${x}%`,
 				top: `${y}%`
 			};
-			let width =
-				imagesDimension[item.ID] === undefined
-					? 100
-					: imagesDimension[item.ID].width;
-			let height =
-				imagesDimension[item.ID] === undefined
-					? 100
-					: imagesDimension[item.ID].height;
-			let containerWidth = width;
-			let containerHeight = height;
+			let containerWidth = item.width;
+			let containerHeight = item.height;
 			if (!item.validated) {
 				containerWidth += 10;
 				containerHeight += 10;
@@ -388,8 +400,8 @@ export default class Canvas extends React.PureComponent {
 				style
 			);
 			stylesImages[item.ID] = {
-				width: width,
-				height: height
+				width: item.width,
+				height: item.height
 			};
 		});
 		let droppableElement = [];
