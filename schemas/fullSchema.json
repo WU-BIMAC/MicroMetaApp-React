@@ -36,7 +36,7 @@
 				"Dissection",
 				"Electrophysiology",
 				"Other"
-			]
+			],
 			"category":"MicroscopeBody"
 		},
 		"EyePieceFieldNumber": {
@@ -152,7 +152,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"ReflectanceRange"
 		},
 ,
@@ -203,7 +203,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"ReflectanceRange"
 		},
 ,
@@ -246,7 +246,7 @@
 				"Fiber optics",
 				"Liquid",
 				"Other"
-			]
+			],
 			"category":"LightGuide"
 		},
 ,
@@ -297,7 +297,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"LightGuide"
 		},
 ,
@@ -330,7 +330,7 @@
 				"deg",
 				"rad",
 				"gon"
-			]
+			],
 			"category":"LightGuide"
 		},
 ,
@@ -345,7 +345,7 @@
 				"Backlight",
 				"Diffuse Axial",
 				"Other"
-			]
+			],
 			"category":"LightGuide"
 		},
 ,
@@ -358,7 +358,7 @@
 				"Silica",
 				"Borosilicate",
 				"Other"
-			]
+			],
 			"category":"LightGuide"
 		},
 ,
@@ -379,7 +379,7 @@
 				"Transverse magnetic",
 				"Hybrid",
 				"Other"
-			]
+			],
 			"category":"LightGuide"
 		},
 ,
@@ -429,7 +429,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"LightGuide"
 		},
 ,
@@ -556,7 +556,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -607,7 +607,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -676,7 +676,7 @@
 				"Mounted",
 				"Collimate",
 				"Other"
-			]
+			],
 			"category":"LightEmittingDiode"
 		},
 ,
@@ -729,7 +729,7 @@
 				"aW",
 				"zW",
 				"yW"
-			]
+			],
 			"category":"LightSource"
 		},
 ,
@@ -828,7 +828,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"LEDModule"
 					},
 ,
@@ -865,7 +865,7 @@
 							"aW",
 							"zW",
 							"yW"
-						]
+						],
 						"category":"LEDModule"
 					},
 ,
@@ -884,7 +884,7 @@
 							"deg",
 							"rad",
 							"gon"
-						]
+						],
 						"category":"LEDModule"
 					},
 ,
@@ -935,7 +935,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"LEDModule"
 					},
 ,
@@ -986,7 +986,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"LEDModule"
 					},
 ,
@@ -1054,7 +1054,7 @@
 				"Mounted",
 				"Collimate",
 				"Other"
-			]
+			],
 			"category":"LightEmittingDiode"
 		},
 ,
@@ -1107,7 +1107,7 @@
 				"aW",
 				"zW",
 				"yW"
-			]
+			],
 			"category":"LightSource"
 		},
 ,
@@ -1206,7 +1206,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"LEDModule"
 					},
 ,
@@ -1243,7 +1243,7 @@
 							"aW",
 							"zW",
 							"yW"
-						]
+						],
 						"category":"LEDModule"
 					},
 ,
@@ -1262,7 +1262,7 @@
 							"deg",
 							"rad",
 							"gon"
-						]
+						],
 						"category":"LEDModule"
 					},
 ,
@@ -1313,7 +1313,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"LEDModule"
 					},
 ,
@@ -1364,7 +1364,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"LEDModule"
 					},
 ,
@@ -1453,7 +1453,7 @@
 				"Concave Meniscus",
 				"Equiconvex",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -1472,7 +1472,7 @@
 				"Rod",
 				"Toric",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -1484,7 +1484,7 @@
 				"Simple",
 				"Composite",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -1548,7 +1548,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -1598,7 +1598,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -1648,7 +1648,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -1698,7 +1698,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -1717,7 +1717,7 @@
 				"Polytetrafluoroethylene (PFTE)",
 				"Zinc Selenide (ZnSe)",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -1758,7 +1758,7 @@
 				"g/ml",
 				"mg/µg",
 				"µg/ng"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -1808,7 +1808,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -1922,7 +1922,7 @@
 				"Passive Air",
 				"Stone",
 				"Other"
-			]
+			],
 			"category":"MicroscopeTable"
 		},
 ,
@@ -1972,7 +1972,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"MicroscopeTable"
 		},
 ,
@@ -2022,7 +2022,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"MicroscopeTable"
 		},
 ,
@@ -2151,7 +2151,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Focusing"
 		},
 ,
@@ -2206,7 +2206,7 @@
 				"min",
 				"h",
 				"d"
-			]
+			],
 			"category":"Focusing"
 		},
 ,
@@ -2237,7 +2237,7 @@
 				"XY",
 				"XYZ",
 				"Other"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -2288,7 +2288,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -2339,7 +2339,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -2390,7 +2390,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -2412,7 +2412,7 @@
 				"µm/s",
 				"nm/s",
 				"Other"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -2531,7 +2531,7 @@
 				"Acousto-optical",
 				"Liquid-crystal",
 				"Other"
-			]
+			],
 			"category":"FIlter"
 		},
 ,
@@ -2644,7 +2644,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"TransmittanceRange"
 					},
 ,
@@ -2695,7 +2695,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"TransmittanceRange"
 					},
 ,
@@ -2780,7 +2780,7 @@
 			"enum": [
 				"Polarizer",
 				"Analyzer"
-			]
+			],
 			"category":"PolarizationOptics"
 		},
 ,
@@ -2793,7 +2793,7 @@
 				"Zero Order",
 				"Multiple Order",
 				"Other"
-			]
+			],
 			"category":"PolarizationOptics"
 		},
 ,
@@ -2811,7 +2811,7 @@
 				"Polymer",
 				"Quarz",
 				"Other"
-			]
+			],
 			"category":"PolarizationOptics"
 		},
 ,
@@ -2824,7 +2824,7 @@
 				"Quarter Wave",
 				"Full Wave",
 				"Other"
-			]
+			],
 			"category":"PolarizationOptics"
 		},
 ,
@@ -2841,7 +2841,7 @@
 				"Yttrium Orthovanadate (YVO4)",
 				"Zinc Selenide (ZnSe)",
 				"Other"
-			]
+			],
 			"category":"PolarizationOptics"
 		},
 ,
@@ -2939,7 +2939,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -2990,7 +2990,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -3064,7 +3064,7 @@
 				"Longpass",
 				"Shortpass",
 				"Other"
-			]
+			],
 			"category":"Dichroic"
 		},
 ,
@@ -3092,7 +3092,7 @@
 				"Reflection",
 				"Rifraction",
 				" Other"
-			]
+			],
 			"category":"Dichroic"
 		},
 ,
@@ -3107,7 +3107,7 @@
 				"Acousto-optical",
 				"Liquid-crystal",
 				"Other"
-			]
+			],
 			"category":"Dichroic"
 		},
 ,
@@ -3120,7 +3120,7 @@
 				"Circular",
 				"Elliptical",
 				"Other"
-			]
+			],
 			"category":"Dichroic"
 		},
 ,
@@ -3176,7 +3176,7 @@
 				"Concave",
 				"Planar",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -3192,7 +3192,7 @@
 				"Hyeprboloidal",
 				"Paraboloidal",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -3210,7 +3210,7 @@
 			"default":"deg",
 			"enum": [
 				"deg"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -3260,7 +3260,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -3272,7 +3272,7 @@
 				"Metallic",
 				"Dielectric",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -3288,7 +3288,7 @@
 				"Zerodur (Lithium Aluminum Ailicon Oxide)",
 				"Zinc Selenide (ZnSe)",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -3394,7 +3394,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"TransmittanceRange"
 					},
 ,
@@ -3445,7 +3445,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"TransmittanceRange"
 					},
 ,
@@ -3517,7 +3517,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"ReflectanceRange"
 					},
 ,
@@ -3568,7 +3568,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"ReflectanceRange"
 					},
 
@@ -3629,7 +3629,7 @@
 				"Incandescent",
 				"Halogen",
 				"Other"
-			]
+			],
 			"category":"Filament"
 		},
 ,
@@ -3682,7 +3682,7 @@
 				"aW",
 				"zW",
 				"yW"
-			]
+			],
 			"category":"LightSource"
 		},
 ,
@@ -3772,7 +3772,7 @@
 				"Incandescent",
 				"Halogen",
 				"Other"
-			]
+			],
 			"category":"Filament"
 		},
 ,
@@ -3825,7 +3825,7 @@
 				"aW",
 				"zW",
 				"yW"
-			]
+			],
 			"category":"LightSource"
 		},
 ,
@@ -3923,7 +3923,7 @@
 				"Semiconductor",
 				"FreeElectron",
 				"Other"
-			]
+			],
 			"category":"Laser"
 		},
 ,
@@ -3966,7 +3966,7 @@
 				"GaAlAs",
 				"EMinus",
 				"Other"
-			]
+			],
 			"category":"Laser"
 		},
 ,
@@ -4017,7 +4017,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Laser"
 		},
 ,
@@ -4046,7 +4046,7 @@
 				"Repetitive",
 				"ModeLocked",
 				"Other"
-			]
+			],
 			"category":"Laser"
 		},
 ,
@@ -4093,7 +4093,7 @@
 				"yHz",
 				"fps",
 				"pixel per second"
-			]
+			],
 			"category":"Laser"
 		},
 ,
@@ -4146,7 +4146,7 @@
 				"aW",
 				"zW",
 				"yW"
-			]
+			],
 			"category":"LightSource"
 		},
 ,
@@ -4285,7 +4285,7 @@
 				"SLR adapter",
 				"D-SLR adapter",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -4305,7 +4305,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -4317,7 +4317,7 @@
 				"Poisson",
 				"Gaussian",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -4337,7 +4337,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -4387,7 +4387,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -4415,7 +4415,7 @@
 				"°F",
 				"K",
 				"°R"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -4513,7 +4513,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -4564,7 +4564,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -4656,7 +4656,7 @@
 				"Conventional",
 				"EBCCD",
 				"Other"
-			]
+			],
 			"category":"IntensifiedCCD"
 		},
 ,
@@ -4669,7 +4669,7 @@
 				"Front",
 				"Back",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -4734,7 +4734,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -4785,7 +4785,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -4836,7 +4836,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -4887,7 +4887,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -4907,7 +4907,7 @@
 				"e-",
 				"Coulomb",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -4927,7 +4927,7 @@
 				"e-",
 				"Coulomb",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -4968,7 +4968,7 @@
 				"min",
 				"h",
 				"d"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -5008,7 +5008,7 @@
 				"yHz",
 				"fps",
 				"pixel per second"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -5048,7 +5048,7 @@
 				"yHz",
 				"fps",
 				"pixel per second"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -5085,7 +5085,7 @@
 				"SLR adapter",
 				"D-SLR adapter",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -5105,7 +5105,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -5117,7 +5117,7 @@
 				"Poisson",
 				"Gaussian",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -5137,7 +5137,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -5187,7 +5187,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -5215,7 +5215,7 @@
 				"°F",
 				"K",
 				"°R"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -5313,7 +5313,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -5364,7 +5364,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -5476,7 +5476,7 @@
 				"Concave",
 				"Planar",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -5492,7 +5492,7 @@
 				"Hyeprboloidal",
 				"Paraboloidal",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -5510,7 +5510,7 @@
 			"default":"deg",
 			"enum": [
 				"deg"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -5560,7 +5560,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -5572,7 +5572,7 @@
 				"Metallic",
 				"Dielectric",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -5588,7 +5588,7 @@
 				"Zerodur (Lithium Aluminum Ailicon Oxide)",
 				"Zinc Selenide (ZnSe)",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -5701,7 +5701,7 @@
 				"Polarizing",
 				"Refracting",
 				"Other"
-			]
+			],
 			"category":"Prism"
 		},
 ,
@@ -5727,7 +5727,7 @@
 				"Grim",
 				"Compound",
 				"Other"
-			]
+			],
 			"category":"Prism"
 		},
 ,
@@ -5753,7 +5753,7 @@
 				"deg",
 				"rad",
 				"gon"
-			]
+			],
 			"category":"Prism"
 		},
 ,
@@ -5772,7 +5772,7 @@
 				"deg",
 				"rad",
 				"gon"
-			]
+			],
 			"category":"Prism"
 		},
 ,
@@ -5791,7 +5791,7 @@
 				"deg",
 				"rad",
 				"gon"
-			]
+			],
 			"category":"Prism"
 		},
 ,
@@ -5809,7 +5809,7 @@
 				"Yttrium Orthovanadate (YVO4)",
 				"Zinc Selenide (ZnSe)",
 				"Other"
-			]
+			],
 			"category":"Prism"
 		},
 ,
@@ -5850,7 +5850,7 @@
 				"g/ml",
 				"mg/µg",
 				"µg/ng"
-			]
+			],
 			"category":"Prism"
 		},
 ,
@@ -5941,7 +5941,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -5992,7 +5992,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -6066,7 +6066,7 @@
 				"Rigid Stand",
 				"Translational",
 				"Other"
-			]
+			],
 			"category":"SampleHolder"
 		},
 ,
@@ -6085,7 +6085,7 @@
 				"deg",
 				"rad",
 				"gon"
-			]
+			],
 			"category":"SampleHolder"
 		},
 ,
@@ -6116,7 +6116,7 @@
 				"XY",
 				"XYZ",
 				"Other"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -6167,7 +6167,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -6218,7 +6218,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -6269,7 +6269,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -6291,7 +6291,7 @@
 				"µm/s",
 				"nm/s",
 				"Other"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -6404,7 +6404,7 @@
 				"Concave Meniscus",
 				"Equiconvex",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -6423,7 +6423,7 @@
 				"Rod",
 				"Toric",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -6435,7 +6435,7 @@
 				"Simple",
 				"Composite",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -6499,7 +6499,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -6549,7 +6549,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -6599,7 +6599,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -6649,7 +6649,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -6668,7 +6668,7 @@
 				"Polytetrafluoroethylene (PFTE)",
 				"Zinc Selenide (ZnSe)",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -6709,7 +6709,7 @@
 				"g/ml",
 				"mg/µg",
 				"µg/ng"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -6759,7 +6759,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -6883,7 +6883,7 @@
 				"Concave Meniscus",
 				"Equiconvex",
 				"Other"
-			]
+			],
 			"category":"Optovar"
 		},
 ,
@@ -7136,7 +7136,7 @@
 				"Detector",
 				"Excitation",
 				"Other"
-			]
+			],
 			"category":"IntensityCalibrationTool"
 		},
 ,
@@ -7230,7 +7230,7 @@
 				"Longpass",
 				"Shortpass",
 				"Other"
-			]
+			],
 			"category":"Dichroic"
 		},
 ,
@@ -7258,7 +7258,7 @@
 				"Reflection",
 				"Rifraction",
 				" Other"
-			]
+			],
 			"category":"Dichroic"
 		},
 ,
@@ -7273,7 +7273,7 @@
 				"Acousto-optical",
 				"Liquid-crystal",
 				"Other"
-			]
+			],
 			"category":"Dichroic"
 		},
 ,
@@ -7286,7 +7286,7 @@
 				"Circular",
 				"Elliptical",
 				"Other"
-			]
+			],
 			"category":"Dichroic"
 		},
 ,
@@ -7342,7 +7342,7 @@
 				"Concave",
 				"Planar",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -7358,7 +7358,7 @@
 				"Hyeprboloidal",
 				"Paraboloidal",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -7376,7 +7376,7 @@
 			"default":"deg",
 			"enum": [
 				"deg"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -7426,7 +7426,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -7438,7 +7438,7 @@
 				"Metallic",
 				"Dielectric",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -7454,7 +7454,7 @@
 				"Zerodur (Lithium Aluminum Ailicon Oxide)",
 				"Zinc Selenide (ZnSe)",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -7560,7 +7560,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"TransmittanceRange"
 					},
 ,
@@ -7611,7 +7611,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"TransmittanceRange"
 					},
 ,
@@ -7683,7 +7683,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"ReflectanceRange"
 					},
 ,
@@ -7734,7 +7734,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"ReflectanceRange"
 					},
 
@@ -7796,7 +7796,7 @@
 				"Mounted",
 				"Optical light path",
 				"Other"
-			]
+			],
 			"category":"Direct"
 		},
 ,
@@ -7927,7 +7927,7 @@
 				"EMCCD",
 				"Interline",
 				"Other"
-			]
+			],
 			"category":"CMOS"
 		},
 ,
@@ -7940,7 +7940,7 @@
 				"Front",
 				"Back",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -8005,7 +8005,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -8056,7 +8056,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -8107,7 +8107,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -8158,7 +8158,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -8178,7 +8178,7 @@
 				"e-",
 				"Coulomb",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -8198,7 +8198,7 @@
 				"e-",
 				"Coulomb",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -8239,7 +8239,7 @@
 				"min",
 				"h",
 				"d"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -8279,7 +8279,7 @@
 				"yHz",
 				"fps",
 				"pixel per second"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -8319,7 +8319,7 @@
 				"yHz",
 				"fps",
 				"pixel per second"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -8356,7 +8356,7 @@
 				"SLR adapter",
 				"D-SLR adapter",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -8376,7 +8376,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -8388,7 +8388,7 @@
 				"Poisson",
 				"Gaussian",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -8408,7 +8408,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -8458,7 +8458,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -8486,7 +8486,7 @@
 				"°F",
 				"K",
 				"°R"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -8584,7 +8584,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -8635,7 +8635,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -8764,7 +8764,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Focusing"
 		},
 ,
@@ -8819,7 +8819,7 @@
 				"min",
 				"h",
 				"d"
-			]
+			],
 			"category":"Focusing"
 		},
 ,
@@ -8850,7 +8850,7 @@
 				"XY",
 				"XYZ",
 				"Other"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -8901,7 +8901,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -8952,7 +8952,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -9003,7 +9003,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -9025,7 +9025,7 @@
 				"µm/s",
 				"nm/s",
 				"Other"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -9157,7 +9157,7 @@
 				"Concave",
 				"Planar",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -9173,7 +9173,7 @@
 				"Hyeprboloidal",
 				"Paraboloidal",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -9191,7 +9191,7 @@
 			"default":"deg",
 			"enum": [
 				"deg"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -9241,7 +9241,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -9253,7 +9253,7 @@
 				"Metallic",
 				"Dielectric",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -9269,7 +9269,7 @@
 				"Zerodur (Lithium Aluminum Ailicon Oxide)",
 				"Zinc Selenide (ZnSe)",
 				"Other"
-			]
+			],
 			"category":"Mirror"
 		},
 ,
@@ -9409,7 +9409,7 @@
 				"aW",
 				"zW",
 				"yW"
-			]
+			],
 			"category":"LightSource"
 		},
 ,
@@ -9546,7 +9546,7 @@
 				"aW",
 				"zW",
 				"yW"
-			]
+			],
 			"category":"LightSource"
 		},
 ,
@@ -9644,7 +9644,7 @@
 				"Xe",
 				"HgXe",
 				"Other"
-			]
+			],
 			"category":"Arc"
 		},
 ,
@@ -9697,7 +9697,7 @@
 				"aW",
 				"zW",
 				"yW"
-			]
+			],
 			"category":"LightSource"
 		},
 ,
@@ -9827,7 +9827,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Focusing"
 		},
 ,
@@ -9882,7 +9882,7 @@
 				"min",
 				"h",
 				"d"
-			]
+			],
 			"category":"Focusing"
 		},
 ,
@@ -9913,7 +9913,7 @@
 				"XY",
 				"XYZ",
 				"Other"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -9964,7 +9964,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -10015,7 +10015,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -10066,7 +10066,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -10088,7 +10088,7 @@
 				"µm/s",
 				"nm/s",
 				"Other"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -10186,7 +10186,7 @@
 				"Photodiode",
 				"APD",
 				"Other"
-			]
+			],
 			"category":"PhotoMultiplier"
 		},
 ,
@@ -10230,7 +10230,7 @@
 				"SLR adapter",
 				"D-SLR adapter",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -10250,7 +10250,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -10262,7 +10262,7 @@
 				"Poisson",
 				"Gaussian",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -10282,7 +10282,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -10332,7 +10332,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -10360,7 +10360,7 @@
 				"°F",
 				"K",
 				"°R"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -10458,7 +10458,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -10509,7 +10509,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -10630,7 +10630,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Focusing"
 		},
 ,
@@ -10685,7 +10685,7 @@
 				"min",
 				"h",
 				"d"
-			]
+			],
 			"category":"Focusing"
 		},
 ,
@@ -10716,7 +10716,7 @@
 				"XY",
 				"XYZ",
 				"Other"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -10767,7 +10767,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -10818,7 +10818,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -10869,7 +10869,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -10891,7 +10891,7 @@
 				"µm/s",
 				"nm/s",
 				"Other"
-			]
+			],
 			"category":"Stage"
 		},
 ,
@@ -11010,7 +11010,7 @@
 				"Acousto-optical",
 				"Liquid-crystal",
 				"Other"
-			]
+			],
 			"category":"FIlter"
 		},
 ,
@@ -11123,7 +11123,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"TransmittanceRange"
 					},
 ,
@@ -11174,7 +11174,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"TransmittanceRange"
 					},
 ,
@@ -11259,7 +11259,7 @@
 				"Image based",
 				"Optical",
 				"Other"
-			]
+			],
 			"category":"AutoFocus"
 		},
 ,
@@ -11352,7 +11352,7 @@
 				"EMCCD",
 				"Interline",
 				"Other"
-			]
+			],
 			"category":"CCD"
 		},
 ,
@@ -11365,7 +11365,7 @@
 				"Front",
 				"Back",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -11430,7 +11430,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -11481,7 +11481,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -11532,7 +11532,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -11583,7 +11583,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -11603,7 +11603,7 @@
 				"e-",
 				"Coulomb",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -11623,7 +11623,7 @@
 				"e-",
 				"Coulomb",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -11664,7 +11664,7 @@
 				"min",
 				"h",
 				"d"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -11704,7 +11704,7 @@
 				"yHz",
 				"fps",
 				"pixel per second"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -11744,7 +11744,7 @@
 				"yHz",
 				"fps",
 				"pixel per second"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -11781,7 +11781,7 @@
 				"SLR adapter",
 				"D-SLR adapter",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -11801,7 +11801,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -11813,7 +11813,7 @@
 				"Poisson",
 				"Gaussian",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -11833,7 +11833,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -11883,7 +11883,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -11911,7 +11911,7 @@
 				"°F",
 				"K",
 				"°R"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -12009,7 +12009,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -12060,7 +12060,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -12170,7 +12170,7 @@
 				"Concave Meniscus",
 				"Equiconvex",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -12189,7 +12189,7 @@
 				"Rod",
 				"Toric",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -12201,7 +12201,7 @@
 				"Simple",
 				"Composite",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -12265,7 +12265,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -12315,7 +12315,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -12365,7 +12365,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -12415,7 +12415,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -12434,7 +12434,7 @@
 				"Polytetrafluoroethylene (PFTE)",
 				"Zinc Selenide (ZnSe)",
 				"Other"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -12475,7 +12475,7 @@
 				"g/ml",
 				"mg/µg",
 				"µg/ng"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -12525,7 +12525,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Lens"
 		},
 ,
@@ -12657,7 +12657,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"WavelengthRange"
 		},
 ,
@@ -12708,7 +12708,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"WavelengthRange"
 		},
 ,
@@ -12792,7 +12792,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"LEDModule"
 		},
 ,
@@ -12829,7 +12829,7 @@
 				"aW",
 				"zW",
 				"yW"
-			]
+			],
 			"category":"LEDModule"
 		},
 ,
@@ -12848,7 +12848,7 @@
 				"deg",
 				"rad",
 				"gon"
-			]
+			],
 			"category":"LEDModule"
 		},
 ,
@@ -12899,7 +12899,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"LEDModule"
 		},
 ,
@@ -12950,7 +12950,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"LEDModule"
 		},
 ,
@@ -13036,7 +13036,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"TransmittanceRange"
 		},
 ,
@@ -13087,7 +13087,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"TransmittanceRange"
 		},
 ,
@@ -13160,7 +13160,7 @@
 				"Acousto-optical",
 				"Liquid-crystal",
 				"Other"
-			]
+			],
 			"category":"FIlter"
 		},
 ,
@@ -13273,7 +13273,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"TransmittanceRange"
 					},
 ,
@@ -13324,7 +13324,7 @@
 							"pt",
 							"pixel",
 							"reference frame"
-						]
+						],
 						"category":"TransmittanceRange"
 					},
 ,
@@ -13399,7 +13399,7 @@
 				"Front",
 				"Back",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -13464,7 +13464,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -13515,7 +13515,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -13566,7 +13566,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -13617,7 +13617,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -13637,7 +13637,7 @@
 				"e-",
 				"Coulomb",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -13657,7 +13657,7 @@
 				"e-",
 				"Coulomb",
 				"Other"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -13698,7 +13698,7 @@
 				"min",
 				"h",
 				"d"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -13738,7 +13738,7 @@
 				"yHz",
 				"fps",
 				"pixel per second"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -13778,7 +13778,7 @@
 				"yHz",
 				"fps",
 				"pixel per second"
-			]
+			],
 			"category":"Camera"
 		},
 ,
@@ -13815,7 +13815,7 @@
 				"SLR adapter",
 				"D-SLR adapter",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -13835,7 +13835,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -13847,7 +13847,7 @@
 				"Poisson",
 				"Gaussian",
 				"Other"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -13867,7 +13867,7 @@
 				"A",
 				"e-/pixel/sec",
 				"e- rms"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -13917,7 +13917,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -13945,7 +13945,7 @@
 				"°F",
 				"K",
 				"°R"
-			]
+			],
 			"category":"Detector"
 		},
 ,
@@ -14043,7 +14043,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -14094,7 +14094,7 @@
 						"pt",
 						"pixel",
 						"reference frame"
-					]
+					],
 					"category":"WavelengthRange"
 				},
 ,
@@ -14212,7 +14212,7 @@
 				"UV",
 				"VioletCorrected",
 				"Other"
-			]
+			],
 			"category":"Objective"
 		},
 ,
@@ -14249,7 +14249,7 @@
 				"Water",
 				"WaterDipping",
 				"Other"
-			]
+			],
 			"category":"Objective"
 		},
 ,
@@ -14314,7 +14314,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Objective"
 		},
 ,
@@ -14379,7 +14379,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Objective"
 		},
 ,
@@ -14430,7 +14430,7 @@
 				"pt",
 				"pixel",
 				"reference frame"
-			]
+			],
 			"category":"Objective"
 		},
 ,
