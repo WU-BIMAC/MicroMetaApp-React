@@ -36,7 +36,7 @@ export default class Canvas extends React.PureComponent {
 			Object.keys(props.inputData).forEach(objIndex => {
 				let object = props.inputData[objIndex];
 				if (props.activeTier < object.tier) return;
-				if (schema_id !== object.schema_ID) return;
+				if (schema_id !== object.Schema_ID) return;
 				let validation = validate(object, schema);
 				let validated = validation.valid;
 				let newElement = {
