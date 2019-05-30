@@ -166,20 +166,18 @@ export default class Canvas extends React.PureComponent {
 		console.log("updatedDimensions");
 		if (element === null || obj === undefined) return;
 
-		//let newImagesDimension = Object.assign({}, this.state.imagesDimension);
-
 		if (!isResize) {
-			if (element.width >= width || element.height >= height) {
-				console.log("bigger than before noresize");
+			if (element.width >= width && element.height >= height) {
 				return;
 			}
 		}
+
 		console.log("set new size " + width + " x " + height);
 		element.width = width;
 		element.height = height;
 		obj.Width = width;
 		obj.Height = height;
-		//this.setState({ imagesDimension: newImagesDimension });
+
 		let validated = this.areAllElementsValidated();
 		this.props.updateElementData(newElementDataList, validated);
 	}
