@@ -290,7 +290,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			Schema_ID: microscopeSchema.ID,
 			ID: uuid,
 			Tier: activeTier,
-			ValidationTier: activeTier
+			ValidationTier: activeTier,
+			Version: microscopeSchema.version
 		};
 		this.setState({ microscope, elementData: {} });
 	}

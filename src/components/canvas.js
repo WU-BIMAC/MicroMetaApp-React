@@ -273,6 +273,7 @@ export default class Canvas extends React.PureComponent {
 				ID: uuid,
 				Tier: schema.tier,
 				Schema_ID: schema.ID,
+				Version: schema.version,
 				PositionX: percentX,
 				PositionY: percentY,
 				Width: 100,
