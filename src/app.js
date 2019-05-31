@@ -289,8 +289,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			Name: `New ${microscopeSchema.title}`,
 			Schema_ID: microscopeSchema.ID,
 			ID: uuid,
-			tier: activeTier,
-			validationTier: activeTier
+			Tier: activeTier,
+			ValidationTier: activeTier
 		};
 		this.setState({ microscope, elementData: {} });
 	}
@@ -298,14 +298,14 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	createNewMicroscopeFromDroppedFile() {
 		let modifiedMic = this.state.microscope;
 		let activeTier = this.state.activeTier;
-		if (activeTier !== this.state.microscope.tier) {
+		if (activeTier !== this.state.microscope.Tier) {
 			//TODO warning tier is different ask if continue?
-			modifiedMic.tier = activeTier;
+			modifiedMic.Tier = activeTier;
 		}
 		if (modifiedMic.validationTier > activeTier) {
 			modifiedMic.validationTier = activeTier;
 		}
-		let adaptedSchemas = this.createAdaptedSchemas(modifiedMic.validationTier);
+		let adaptedSchemas = this.createAdaptedSchemas(modifiedMic.ValidationTier);
 		let microscopeSchema = adaptedSchemas[0];
 		let componentsSchema = adaptedSchemas[1];
 		let components = this.state.microscope.components;
@@ -327,7 +327,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.setState({
 			microscope: modifiedMic,
 			elementData: newElementData,
-			validationTier: modifiedMic.validationTier,
+			validationTier: modifiedMic.ValidationTier,
 			isMicroscopeValidated: validated
 		});
 	}
@@ -336,15 +336,15 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let microscope = this.state.microscopes[this.state.micName];
 		let modifiedMic = microscope;
 		let activeTier = this.state.activeTier;
-		if (activeTier !== microscope.tier) {
+		if (activeTier !== microscope.Tier) {
 			//TODO warning tier is different ask if continue?
-			modifiedMic.tier = activeTier;
+			modifiedMic.Tier = activeTier;
 		}
 
-		if (modifiedMic.validationTier > activeTier) {
-			modifiedMic.validationTier = activeTier;
+		if (modifiedMic.ValidationTier > activeTier) {
+			modifiedMic.ValidationTier = activeTier;
 		}
-		let adaptedSchemas = this.createAdaptedSchemas(modifiedMic.validationTier);
+		let adaptedSchemas = this.createAdaptedSchemas(modifiedMic.ValidationTier);
 		let microscopeSchema = adaptedSchemas[0];
 		let componentsSchema = adaptedSchemas[1];
 		let components = microscope.components;
@@ -366,7 +366,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.setState({
 			microscope: modifiedMic,
 			elementData: newElementData,
-			validationTier: modifiedMic.validationTier,
+			validationTier: modifiedMic.ValidationTier,
 			isMicroscopeValidated: validated
 		});
 	}
