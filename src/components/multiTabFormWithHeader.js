@@ -38,7 +38,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 				}
 			});
 		}
-
+		this.formDescs = [];
 		this.buttonsRefs = [];
 		this.formNames = [];
 		this.forms = [];
@@ -280,6 +280,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 				}
 				return;
 			}
+
 			let category = property.category;
 			let newCategory = category;
 			if (counter !== -1) newCategory += "_" + counter;
@@ -319,6 +320,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			keysForCategory.properties[key] = newProperty;
 			partialSchema[newCategory] = keysForCategory;
 		});
+
 		Object.keys(partialSchema).forEach(function(key) {
 			let required = [];
 			if (schema.required !== undefined) {
@@ -419,24 +421,40 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		let currentFormRefs = [];
 		let partialUISchema = this.createUISchema(partialSchema);
 		let currentForms = [];
-		for (let i = 0; i < subCategoriesOrder.length; i++) {
-			let key = subCategoriesOrder[i];
-			if (partialSchema[key] === undefined) continue;
-			currentFormNames.splice(i, 0, key);
+		//let keys = Object.keys(subCategoriesOrder);
+		Object.keys(subCategoriesOrder).forEach((key, index) => {
+			//for (let i = 0; i < subCategoriesOrder.length; i++) {
+			let description = subCategoriesOrder[key];
+			if (partialSchema[key] === undefined) return;
+			partialSchema[key] = Object.assign(partialSchema[key], {
+				description
+			});
+			console.log(partialSchema[key]);
+			currentFormNames.splice(index, 0, key);
 			let form = this.createForm(
 				partialSchema[key],
 				partialUISchema[key],
 				partialInputData[key],
-				i,
+				index,
 				currentFormRefs,
 				currentButtonsRefs
 			);
 			currentForms.push(form);
-		}
+			//}
+		});
 		let schemaKeys = Object.keys(partialSchema);
 		for (let i = 0; i < schemaKeys.length; i++) {
 			let key = schemaKeys[i];
-			if (subCategoriesOrder.includes(key)) continue;
+			if (Object.keys(subCategoriesOrder).includes(key)) continue;
+			let description = null;
+			Object.keys(subCategoriesOrder).forEach((subKey, index) => {
+				if (key.startsWith(subKey)) {
+					description = subCategoriesOrder[subKey];
+				}
+			});
+			if (description === null) description = "";
+			partialSchema[key] = Object.assign(partialSchema[key], { description });
+			console.log(partialSchema[key]);
 			currentFormNames.push(key);
 			let form = this.createForm(
 				partialSchema[key],
@@ -605,11 +623,12 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			);
 		});
 		let hasChildren = Object.keys(currentChildrenComponents).length > 0;
+		//<div>{this.props.schema.description}</div>
 		return (
 			<ModalWindow overlaysContainer={this.props.overlaysContainer}>
 				<div>
-					<div>{this.props.schema.title}</div>
-					<div>{this.props.schema.description}</div>
+					<h3>{this.props.schema.title}</h3>
+
 					<Tabs
 						onChange={this.onTabChange}
 						renderTabBar={() => <ScrollableTabBar />}

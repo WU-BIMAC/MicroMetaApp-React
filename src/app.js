@@ -189,10 +189,14 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		let required = singleSchema.required;
 		let properties = singleSchema.properties;
+
 		if (singleSchemaOriginal.type === "array") {
 			required = singleSchema.items.required;
 			properties = singleSchema.items.properties;
 		}
+
+		if (properties === null || properties === undefined)
+			console.log(singleSchema);
 
 		Object.keys(properties).forEach(propKey => {
 			let property = properties[propKey];
@@ -235,10 +239,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let activeTier = this.state.activeTier;
 		let schema = this.state.schema;
 		let componentsSchema = [];
+		let settingsSchema = [];
 		let childrenSchema = [];
 		let microscopeSchema = {};
 		let microscope = this.state.microscope;
 		let compCounter = 0;
+		let settingsCounter = 0;
 		let childrenCounter = 0;
 		Object.keys(schema).forEach(schemaIndex => {
 			let singleSchemaOriginal = schema[schemaIndex];
@@ -252,9 +258,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 			if (singleSchema.title === "Microscope") {
 				microscopeSchema = Object.assign(microscopeSchema, singleSchema);
-			} else if (singleSchema.category === "ChildrenElement") {
+			} else if (singleSchema.category === "ChildElement") {
 				childrenSchema[childrenCounter] = singleSchema;
 				childrenCounter++;
+			} else if (singleSchema.category === "Settings") {
+				settingsSchema[settingsCounter] = singleSchema;
+				settingsCounter++;
 			} else {
 				componentsSchema[compCounter] = singleSchema;
 				compCounter++;
@@ -271,11 +280,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.setState({
 			adaptedMicroscopeSchema: microscopeSchema,
 			adaptedComponentsSchema: componentsSchema,
+			adaptedSettingsSchema: settingsSchema,
 			adaptedChildrenSchema: childrenSchema,
 			validationTier: validationTier,
 			isMicroscopeValidated: validated
 		});
-		return [microscopeSchema, componentsSchema, childrenSchema];
+		return [microscopeSchema, componentsSchema, settingsSchema, childrenSchema];
 	}
 
 	createNewMicroscopeFromScratch() {
