@@ -43,6 +43,7 @@ export default class Canvas extends React.PureComponent {
 				let newElement = {
 					ID: schema.title + "_" + object.ID,
 					schema_ID: schema_id,
+					name: object.Name,
 					validated: validated,
 					dragged: false,
 					obj: object,
@@ -209,6 +210,7 @@ export default class Canvas extends React.PureComponent {
 		for (let i = 0; i < elementList.length; i++) {
 			if (elementList[i].ID === id) {
 				elementList[i].validated = true;
+				elementList[i].name = data.Name;
 				break;
 			}
 		}
@@ -279,6 +281,7 @@ export default class Canvas extends React.PureComponent {
 				Width: 100,
 				Height: 100
 			};
+			newElement.name = newElementData.Name;
 			Object.keys(schema.properties).forEach(key => {
 				if (schema.properties[key].type === "array") {
 					let currentNumber = currentNumberOf_identifier + key;
@@ -363,9 +366,14 @@ export default class Canvas extends React.PureComponent {
 			border: "none",
 			font: "14px",
 			fontWeight: "bold",
-			color: "inherit",
 			backgroundColor: "transparent",
 			cursor: "pointer"
+		};
+		//fontSizeAdjust: 0.58,
+		const styleName = {
+			textAlign: "center",
+			fontSize: "75%",
+			backgroundColor: "transparent"
 		};
 		const styleContainer = {
 			display: "flex",
@@ -394,7 +402,7 @@ export default class Canvas extends React.PureComponent {
 			stylesContainer[item.ID] = Object.assign(
 				{
 					width: `${containerWidth}px`,
-					height: `${containerHeight + 20}px`
+					height: `${containerHeight + 30}px`
 				},
 				style
 			);
@@ -457,6 +465,7 @@ export default class Canvas extends React.PureComponent {
 							maxChildrenComponentIdentifier={maxNumberOf_identifier}
 							elementByType={elementByType}
 						/>
+						<div style={styleName}>{item.name}</div>
 					</DragDropContainer>
 				</div>
 			);

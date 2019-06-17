@@ -20,8 +20,8 @@ export default class Footer extends React.PureComponent {
 		//this.isMicroscopeValidated = false;
 
 		this.onClickEdit = this.onClickEdit.bind(this);
-		this.onConfirm = this.onConfirm.bind(this);
-		this.onCancel = this.onCancel.bind(this);
+		this.onFormConfirm = this.onFormConfirm.bind(this);
+		this.onFormCancel = this.onFormCancel.bind(this);
 
 		this.onClickChangeValidation = this.onClickChangeValidation.bind(this);
 	}
@@ -30,14 +30,14 @@ export default class Footer extends React.PureComponent {
 		this.setState({ editing: true });
 	}
 
-	onConfirm(id, data) {
+	onFormConfirm(id, data) {
 		this.setState({ editing: false });
 		//, isMicroscopeValidated: true
 		//this.isMicroscopeValidated = true;
-		this.props.onConfirm(id, data);
+		this.props.onFormConfirm(id, data);
 	}
 
-	onCancel() {
+	onFormCancel() {
 		this.setState({ editing: false });
 	}
 
@@ -56,8 +56,8 @@ export default class Footer extends React.PureComponent {
 					schema={this.props.microscopeSchema}
 					inputData={this.props.inputData}
 					id={this.props.id}
-					onConfirm={this.onConfirm}
-					onCancel={this.onCancel}
+					onConfirm={this.onFormConfirm}
+					onCancel={this.onFormCancel}
 					overlaysContainer={this.props.overlaysContainer}
 				/>
 			);
@@ -75,13 +75,14 @@ export default class Footer extends React.PureComponent {
 			alignItems: "center",
 			padding: "5px"
 		};
-		let styleEditButton = {
+		let styleButton = {
 			width: "250px",
 			minWidth: "250px",
 			height: "50px",
 			marginLeft: "5px",
 			marginRight: "5px"
 		};
+		let styleEditButton = Object.assign({}, styleButton);
 		let play = false;
 		if (!this.props.isMicroscopeValidated) {
 			styleEditButton = Object.assign(styleEditButton, {
@@ -180,6 +181,16 @@ export default class Footer extends React.PureComponent {
 		// 		Export microscope
 		// 		</Button>
 		// );
+		buttons[3] = (
+			<Button
+				key={"Button-3"}
+				onClick={this.props.onClickBack}
+				style={styleButton}
+				size="lg"
+			>
+				Back
+			</Button>
+		);
 		return <div style={style}>{buttons}</div>;
 	}
 }

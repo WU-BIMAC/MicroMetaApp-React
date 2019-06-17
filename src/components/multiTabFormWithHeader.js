@@ -7,6 +7,8 @@ import ScrollableTabBar from "rc-tabs/lib/TabBar";
 import "rc-tabs/assets/index.css";
 import Button from "react-bootstrap/Button";
 
+const add_components_warning = "If you modify the number of sub-components, the information not saved are going to be lost!";
+
 export default class MultiTabFormWithHeader extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -628,7 +630,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			<ModalWindow overlaysContainer={this.props.overlaysContainer}>
 				<div>
 					<h3>{this.props.schema.title}</h3>
-
+					<p>{hasChildren ? add_components_warning : ""}</p>
 					<Tabs
 						onChange={this.onTabChange}
 						renderTabBar={() => <ScrollableTabBar />}

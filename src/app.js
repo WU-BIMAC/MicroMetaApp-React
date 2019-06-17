@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import ReactDOM from "react-dom";
 import React from "react";
 
 import Header from "./components/header";
@@ -9,9 +10,12 @@ import DataLoader from "./components/dataLoader";
 import MicroscopePreLoader from "./components/microscopePreLoader";
 import MicroscopeLoader from "./components/microscopeLoader";
 
+import html2canvas from "html2canvas";
+
 const path = require("path");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
+const saveAs = require("file-saver");
 
 const createFromScratch = "Create from scratch";
 const createFromFile = "Create from file";
@@ -80,7 +84,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			this
 		);
 		this.setMicroscopeScale = this.setMicroscopeScale.bind(this);
-		this.cancel = this.cancel.bind(this);
+
+		this.onClickBack = this.onClickBack.bind(this);
 
 		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
 		this.createAdaptedSchema = this.createAdaptedSchema.bind(this);
@@ -392,7 +397,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		}
 	}
 
-	cancel() {
+	onClickBack() {
 		this.setState({
 			microscope: null,
 			isCreatingNewMicroscope: null,
@@ -409,7 +414,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		});
 	}
 
-	handleExportMicroscope(microscope) {
+	handleExportMicroscope(
+		microscope //, img
+	) {
 		let micName = microscope.Name;
 		micName = micName.replace(/\s+/g, "_").toLowerCase();
 		let filename = `${micName}.json`;
@@ -425,6 +432,16 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
+
+		// let filename2 = `${micName}.jpeg`;
+		// var link = document.createElement("b");
+		// //document.body.appendChild(link);
+		// link.download = filename2;
+		// link.href = img.toDataURL();
+		// link.target = "_blank";
+		// link.click();
+
+		// saveAs(img, filename2);
 	}
 
 	handleSaveMicroscope(item) {
@@ -458,13 +475,32 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		});
 		let comps = { components };
 		let microscope = Object.assign(this.state.microscope, comps);
+		//let node = this.canvasRef.current;
+		//let node = ReactDOM.findDOMNode(this.canvasRef.current);
+		// htmlToImage.toBlob(node).then(function(blob) {
+
+		// });
+		// html2canvas(node, { allowTaint: true }).then(canvas => {
+		// 	if (item.startsWith("Save")) {
+		// 		this.props.onSaveMicroscope(
+		// 			this.handleCompleteSaveMicroscope,
+		// 			microscope,
+		// 			canvas
+		// 		);
+		// 	} else {
+		// 		this.handleExportMicroscope(microscope, canvas);
+		// 	}
+		// });
 		if (item.startsWith("Save")) {
 			this.props.onSaveMicroscope(
 				this.handleCompleteSaveMicroscope,
 				microscope
+				//canvas
 			);
 		} else {
-			this.handleExportMicroscope(microscope);
+			this.handleExportMicroscope(
+				microscope // canvas
+			);
 		}
 	}
 
@@ -555,7 +591,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						isDropzoneActive={this.state.isDropzoneActive}
 						onClickMicroscopeSelection={this.handleMicroscopeSelection}
 						onClickCreateNewMicroscope={this.createNewMicroscope}
-						onClickCancel={this.cancel}
+						onClickBack={this.onClickBack}
 					/>
 				</MicroscopyMetadataToolContainer>
 			);
@@ -577,7 +613,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						onFileDrop={this.uploadMicroscopeFromDropzone}
 						onClickMicroscopeSelection={this.handleMicroscopeSelection}
 						onClickCreateNewMicroscope={this.createNewMicroscope}
-						onClickCancel={this.cancel}
+						onClickBacnk={this.onClickBack}
 					/>
 				</MicroscopyMetadataToolContainer>
 			);
@@ -656,8 +692,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					activeTier={this.state.activeTier}
 					validationTier={this.state.validationTier}
 					microscopeSchema={microscopeSchema}
-					onConfirm={this.onMicroscopeDataSave}
+					onFormConfirm={this.onMicroscopeDataSave}
 					onClickSave={this.handleSaveMicroscope}
+					onClickBack={this.onClickBack}
 					hasSaveOption={this.props.onSaveMicroscope ? true : false}
 					onClickChangeValidation={this.createAdaptedSchemas}
 					overlaysContainer={this.overlaysContainerRef.current}

@@ -155,11 +155,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 									: "Confirm"}
 						</Button>
 						<Button
-							onClick={this.props.onClickCancel}
+							onClick={this.props.onClickBack}
 							style={buttonStyle}
 							size="lg"
 						>
-							Cancel
+							Back
 						</Button>
 					</div>
 				</div>
