@@ -7,7 +7,8 @@ import ScrollableTabBar from "rc-tabs/lib/TabBar";
 import "rc-tabs/assets/index.css";
 import Button from "react-bootstrap/Button";
 
-const add_components_warning = "If you modify the number of sub-components, the information not saved are going to be lost!";
+const add_components_warning =
+	"If you modify the number of sub-components, the information not saved are going to be lost!";
 
 export default class MultiTabFormWithHeader extends React.PureComponent {
 	constructor(props) {
@@ -203,18 +204,45 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		return consolidatedData;
 	}
 
-	static findInputPropKeyValue(propKey, inputData) {
+	static findInputPropKeyValue(index, propKey, inputData) {
 		let value = null;
 		for (let key in inputData) {
 			//Object.keys(inputData).forEach(function (key) {
-			if (inputData[key] instanceof Array || inputData[key] instanceof Object) {
-				if (inputData[key][propKey] !== undefined)
+			if (inputData[key] instanceof Array) {
+				// console.log("FindInput");
+				// console.log("key " + key);
+				// console.log("data");
+				// console.log(inputData[key]);
+				if (inputData[key][propKey] !== undefined) {
+					//if (index !== -1) return inputData[key][index][propKey];
+					//else
 					return inputData[key][propKey];
-				else
+				} else {
 					value = MultiTabFormWithHeader.findInputPropKeyValue(
+						index,
 						propKey,
 						inputData[key]
 					);
+				}
+			} else if (inputData[key] instanceof Object) {
+				if (index === - 1) {
+					value = MultiTabFormWithHeader.findInputPropKeyValue(
+						index,
+						propKey,
+						inputData[key]
+					);
+				} else if (key !== index) {
+					continue;
+				} else if (inputData[key][propKey] !== undefined) {
+					return inputData[key][propKey];
+				}
+				else {
+					value = MultiTabFormWithHeader.findInputPropKeyValue(
+						index,
+						propKey,
+						inputData[key]
+					);
+				}
 			}
 		}
 		return value;
@@ -229,7 +257,12 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 				if (inputData[propKey] !== undefined)
 					partialInputData[key][propKey] = inputData[propKey];
 				else {
+					let stringIndex = key.lastIndexOf("_");
+					let index = -1;
+					if (stringIndex != -1) index = key.substr(stringIndex + 1, 1);
+					console.log("key " + key + " - index " + index);
 					let val = MultiTabFormWithHeader.findInputPropKeyValue(
+						index,
 						propKey,
 						inputData
 					);
@@ -431,7 +464,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			partialSchema[key] = Object.assign(partialSchema[key], {
 				description
 			});
-			console.log(partialSchema[key]);
+			//console.log(partialSchema[key]);
 			currentFormNames.splice(index, 0, key);
 			let form = this.createForm(
 				partialSchema[key],
@@ -456,7 +489,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			});
 			if (description === null) description = "";
 			partialSchema[key] = Object.assign(partialSchema[key], { description });
-			console.log(partialSchema[key]);
+			//console.log(partialSchema[key]);
 			currentFormNames.push(key);
 			let form = this.createForm(
 				partialSchema[key],
