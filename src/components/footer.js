@@ -151,6 +151,7 @@ export default class Footer extends React.PureComponent {
 		if (this.props.hasSaveOption) {
 			saveOptions.push("Save microscope");
 		}
+		saveOptions.push("Export image");
 		saveOptions.push("Export microscope");
 		//Rethink this, maybe drop down split button with multi actions?
 		buttons[2] = (

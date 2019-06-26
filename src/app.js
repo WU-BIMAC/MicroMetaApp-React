@@ -15,7 +15,6 @@ import html2canvas from "html2canvas";
 const path = require("path");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
-const saveAs = require("file-saver");
 
 const createFromScratch = "Create from scratch";
 const createFromFile = "Create from file";
@@ -91,10 +90,15 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.createAdaptedSchema = this.createAdaptedSchema.bind(this);
 
 		this.handleExportMicroscope = this.handleExportMicroscope.bind(this);
+		this.handleExportMicroscopeImage = this.handleExportMicroscopeImage.bind(
+			this
+		);
 		this.handleSaveMicroscope = this.handleSaveMicroscope.bind(this);
 		this.handleCompleteSaveMicroscope = this.handleCompleteSaveMicroscope.bind(
 			this
 		);
+
+		//this.toDataUrl = this.toDataUrl.bind(this);
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -414,9 +418,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		});
 	}
 
-	handleExportMicroscope(
-		microscope //, img
-	) {
+	handleExportMicroscope(microscope) {
 		let micName = microscope.Name;
 		micName = micName.replace(/\s+/g, "_").toLowerCase();
 		let filename = `${micName}.json`;
@@ -432,17 +434,50 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
-
-		// let filename2 = `${micName}.jpeg`;
-		// var link = document.createElement("b");
-		// //document.body.appendChild(link);
-		// link.download = filename2;
-		// link.href = img.toDataURL();
-		// link.target = "_blank";
-		// link.click();
-
-		// saveAs(img, filename2);
 	}
+
+	handleExportMicroscopeImage(microscope, img /*, dataUrl*/) {
+		//console.log("im here");
+		let filename2 = `${microscope.Name}.png`;
+		var a = document.createElement("a");
+		document.body.appendChild(a);
+		a.download = filename2;
+		// a.href = img
+		// 	.toDataURL("image/png")
+		// 	.replace("image/png", "image/octet-stream");
+		//let dataUrl = toDataUrl()
+		//console.log(img);
+		a.href = img.toDataURL();
+		//a.href = dataUrl;
+		a.target = "_blank";
+		a.click();
+		document.body.removeChild(a);
+	}
+
+	// toDataUrl(src, callback, outputFormat, microscope, completeCallback) {
+	// 	var img = new Image();
+	// 	img.crossOrigin = "Anonymous";
+	// 	img.onload = function() {
+	// 		var canvas = document.createElement("CANVAS");
+	// 		var ctx = canvas.getContext("2d");
+	// 		var dataURL;
+	// 		canvas.height = this.height;
+	// 		canvas.width = this.width;
+	// 		ctx.drawImage(this, 0, 0);
+	// 		dataURL = canvas.toDataURL(outputFormat);
+	// 		callback(microscope, dataURL, completeCallback);
+	// 	};
+	// 	img.src = src.toDataURL();
+	// 	console.log("dataurl1:");
+	// 	console.log(img.src);
+	// 	if (img.complete || img.complete === undefined) {
+	// 		img.src = "data:image/gif;base64,";
+	// 		//R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="//
+	// 		img.src += src.toDataURL();
+	// 	}
+	// 	console.log("dataurl2:");
+	// 	console.log(img.src);
+	// }
 
 	handleSaveMicroscope(item) {
 		let validated = true;
@@ -475,33 +510,44 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		});
 		let comps = { components };
 		let microscope = Object.assign(this.state.microscope, comps);
-		//let node = this.canvasRef.current;
-		//let node = ReactDOM.findDOMNode(this.canvasRef.current);
-		// htmlToImage.toBlob(node).then(function(blob) {
+		let node = ReactDOM.findDOMNode(this.canvasRef.current);
+		html2canvas(node, {
+			allowTaint: true,
+			foreignObjectRendering: true,
+			logging: true,
+			letterRendering: 1,
+			useCORS: true
+		}).then(canvas => {
+			var myImage = canvas.toDataURL("image/png");
+			window.open(myImage);
+			document.body.appendChild(canvas);
+			if (item.startsWith("Save microscope")) {
+				this.props.onSaveMicroscope(
+					microscope,
+					this.handleCompleteSaveMicroscope,
+					canvas
+				);
 
-		// });
-		// html2canvas(node, { allowTaint: true }).then(canvas => {
-		// 	if (item.startsWith("Save")) {
-		// 		this.props.onSaveMicroscope(
-		// 			this.handleCompleteSaveMicroscope,
-		// 			microscope,
-		// 			canvas
-		// 		);
-		// 	} else {
-		// 		this.handleExportMicroscope(microscope, canvas);
-		// 	}
-		// });
-		if (item.startsWith("Save")) {
-			this.props.onSaveMicroscope(
-				this.handleCompleteSaveMicroscope,
-				microscope
-				//canvas
-			);
-		} else {
-			this.handleExportMicroscope(
-				microscope // canvas
-			);
-		}
+				// this.toDataUrl(
+				// 	canvas,
+				// 	this.props.onSaveMicroscope,
+				// 	"image/png",
+				// 	microscope,
+				// 	this.handleCompleteSaveMicroscope
+				// );
+			} else if (item.startsWith("Export microscope")) {
+				this.handleExportMicroscope(microscope);
+			} else if (item.startsWith("Export image")) {
+				this.handleExportMicroscopeImage(microscope, canvas);
+				// this.toDataUrl(
+				// 	canvas,
+				// 	this.handleExportMicroscopeImage,
+				// 	"image/png",
+				// 	microscope
+				// );
+			}
+			document.body.removeChild(canvas);
+		});
 	}
 
 	handleCompleteSaveMicroscope(micName) {

@@ -152,30 +152,42 @@ export default class Toolbar extends React.PureComponent {
 		};
 		let elementList = this.state.elementList;
 		let toolbar = [];
+		let names = [];
 		Object.keys(elementList).forEach(key => {
 			let index = key.lastIndexOf(".");
 			let simpleKey;
 			if (index !== -1) simpleKey = key.substring(index + 1);
 			else simpleKey = key;
-			toolbar.push(
-				<Collapsible
-					key={`Collapsible${key}`}
-					trigger={
-						<Button key={`Trigger${key}`} size="lg" style={style}>
-							<div>{simpleKey}</div>
-							<div style={styleTransitionClose}>&#9665;</div>
-						</Button>
-					}
-					triggerWhenOpen={
-						<Button key={`Trigger${key}`} size="lg" style={style}>
-							<div>{simpleKey}</div>
-							<div style={styleTransitionOpen}>&#9665;</div>
-						</Button>
-					}
-				>
-					{this.createCategoryItems(key)}
-				</Collapsible>
-			);
+			names.push(simpleKey);
+		});
+		names.sort();
+		names.forEach(name => {
+			Object.keys(elementList).forEach(key => {
+				let index = key.lastIndexOf(".");
+				let simpleKey;
+				if (index !== -1) simpleKey = key.substring(index + 1);
+				else simpleKey = key;
+				if (simpleKey !== name) return;
+				toolbar.push(
+					<Collapsible
+						key={`Collapsible-${key}`}
+						trigger={
+							<Button key={`Trigger${key}`} size="lg" style={style}>
+								<div>{simpleKey}</div>
+								<div style={styleTransitionClose}>&#9665;</div>
+							</Button>
+						}
+						triggerWhenOpen={
+							<Button key={`Trigger${key}`} size="lg" style={style}>
+								<div>{simpleKey}</div>
+								<div style={styleTransitionOpen}>&#9665;</div>
+							</Button>
+						}
+					>
+						{this.createCategoryItems(key)}
+					</Collapsible>
+				);
+			});
 		});
 		return toolbar;
 	}
