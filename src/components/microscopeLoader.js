@@ -10,7 +10,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 		super(props);
 		this.state = {
 			fileLoaded: false,
-			fileLoading: false
+			fileLoading: false,
+			selectedManu: null,
+			micNames: null
 		};
 
 		this.dropzoneDropAccepted = this.dropzoneDropAccepted.bind(this);
@@ -22,6 +24,24 @@ export default class MicroscopeLoader extends React.PureComponent {
 		this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
 		this.onFileReaderError = this.onFileReaderError.bind(this);
 		this.onFileReaderLoad = this.onFileReaderLoad.bind(this);
+
+		this.onClickManufacturerSelection = this.onClickManufacturerSelection.bind(
+			this
+		);
+	}
+
+	static getDerivedStateFromProps(props, state) {
+		if (props.loadingMode === 2) {
+			if (props.microscopes !== null && props.microscopes !== undefined) {
+				if (state.selectedManu === null) {
+					let selectedManu = Object.keys(props.microscopes)[0];
+					let micNames = props.microscopes[selectedManu];
+					props.onClickMicroscopeSelection(micNames[0]);
+					return { selectedManu: selectedManu, micNames: micNames };
+				}
+			}
+		}
+		return null;
 	}
 
 	onFileReaderAbort(e) {
@@ -66,6 +86,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 		this.setState({ fileLoading: false, fileLoaded: false });
 	}
 
+	onClickManufacturerSelection(item) {
+		console.log("im here");
+		let micNames = this.props.microscopes[item];
+		this.setState({ selectedManu: item, micNames: micNames });
+		this.props.onClickMicroscopeSelection(this.props.microscopes[item][0]);
+	}
+
 	render() {
 		const buttonStyle = {
 			width: "200px",
@@ -92,77 +119,119 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 		let width = 410;
 		let margin = 5;
+
 		let inputData = this.props.microscopes;
+
 		let dropzoneStyle = {
 			borderStyle: "dashed",
 			borderWidth: "thin",
 			width: `${width}px`
 		};
 
-		let isDropzoneActive = this.props.isDropzoneActive;
+		let loadingMode = this.props.loadingMode;
 		let fileLoading = this.state.fileLoading;
 		let fileLoaded = this.state.fileLoaded;
 
-		if (!isDropzoneActive) {
-			dropzoneStyle = Object.assign(dropzoneStyle, { display: "none" });
+		let selectedManu = this.state.selectedManu;
+
+		let isDropzoneActive = false;
+		if (loadingMode === 1) isDropzoneActive = true;
+
+		let list = [];
+		list.push(
+			<DropdownMenu
+				key={"dropdown-loadingOption"}
+				title={""}
+				handleMenuItemClick={this.props.onClickLoadingOptionSelection}
+				inputData={this.props.loadingOptions}
+				width={width}
+				margin={margin}
+			/>
+		);
+		if (loadingMode === 1) {
+			list.push(
+				<Dropzone
+					key={"dropzone"}
+					onFileDialogCancel={this.dropzoneDialogCancel}
+					onDrop={this.dropzoneDrop}
+					onDropAccepted={this.dropzoneDropAccepted}
+					onDropRejected={this.dropzoneDropRejected}
+					accept={".json"}
+					multiple={false}
+				>
+					{({ getRootProps, getInputProps }) => (
+						<section style={dropzoneStyle}>
+							<div {...getRootProps()}>
+								<input
+									{...getInputProps({ onClick: this.dropzoneDialogOpen })}
+								/>
+								<p>Drag 'n' drop some files here, or click to select files</p>
+							</div>
+						</section>
+					)}
+				</Dropzone>
+			);
 		}
 
-		return (
-			<div style={windowExternalContainer}>
-				<div style={windowInternalContainer}>
+		if (loadingMode === 2) {
+			list.push(
+				<DropdownMenu
+					key={"dropdown-manufacturers"}
+					title={""}
+					handleMenuItemClick={this.onClickManufacturerSelection}
+					inputData={Object.keys(inputData)}
+					width={width}
+					margin={margin}
+				/>
+			);
+
+			if (selectedManu !== null && selectedManu !== undefined) {
+				console.log(this.state.micNames);
+				// console.log("selectedManu");
+				// console.log(selectedManu);
+				//let names = inputData[selectedManu];
+				// console.log("names");
+				// console.log(names);
+				list.push(
 					<DropdownMenu
+						key={"dropdown-names"}
 						title={""}
 						handleMenuItemClick={this.props.onClickMicroscopeSelection}
-						inputData={inputData}
+						inputData={this.state.micNames}
 						width={width}
 						margin={margin}
 					/>
-					<Dropzone
-						onFileDialogCancel={this.dropzoneDialogCancel}
-						onDrop={this.dropzoneDrop}
-						onDropAccepted={this.dropzoneDropAccepted}
-						onDropRejected={this.dropzoneDropRejected}
-						accept={".json"}
-						multiple={false}
-					>
-						{({ getRootProps, getInputProps }) => (
-							<section style={dropzoneStyle}>
-								<div {...getRootProps()}>
-									<input
-										{...getInputProps({ onClick: this.dropzoneDialogOpen })}
-									/>
-									<p>Drag 'n' drop some files here, or click to select files</p>
-								</div>
-							</section>
-						)}
-					</Dropzone>
-					<div>
-						<Button
-							onClick={
-								(isDropzoneActive && fileLoaded && !fileLoading) ||
-								!isDropzoneActive
-									? this.props.onClickCreateNewMicroscope
-									: null
-							}
-							style={buttonStyle}
-							size="lg"
-							disabled={isDropzoneActive && (!fileLoaded || fileLoading)}
-						>
-							{isDropzoneActive && !fileLoaded && !fileLoading
-								? "Waiting for file"
-								: isDropzoneActive && fileLoading
-									? "Loading file"
-									: "Confirm"}
-						</Button>
-						<Button
-							onClick={this.props.onClickBack}
-							style={buttonStyle}
-							size="lg"
-						>
-							Back
-						</Button>
-					</div>
-				</div>
+				);
+			}
+		}
+		list.push(
+			<div key="buttons">
+				<Button
+					onClick={
+						(isDropzoneActive && fileLoaded && !fileLoading) ||
+						!isDropzoneActive
+							? this.props.onClickCreateNewMicroscope
+							: null
+					}
+					style={buttonStyle}
+					size="lg"
+					disabled={isDropzoneActive && (!fileLoaded || fileLoading)}
+				>
+					{isDropzoneActive && !fileLoaded && !fileLoading
+						? "Waiting for file"
+						: isDropzoneActive && fileLoading
+							? "Loading file"
+							: "Confirm"}
+				</Button>
+				<Button onClick={this.props.onClickBack} style={buttonStyle} size="lg">
+					Back
+				</Button>
+			</div>
+		);
+
+		return (
+			<div style={windowExternalContainer}>
+				<div style={windowInternalContainer}>{list}</div>
 			</div>
 		);
 	}

@@ -18,6 +18,7 @@ const uuidv4 = require("uuid/v4");
 
 const createFromScratch = "Create from scratch";
 const createFromFile = "Create from file";
+const loadFromRepository = "Load from repository";
 
 export default class MicroscopyMetadataTool extends React.PureComponent {
 	constructor(props) {
@@ -33,9 +34,10 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			activeTier: 1,
 			validationTier: 1,
 			isCreatingNewMicroscope: null,
+			loadingOption: null,
 			micName: null,
 			elementData: null,
-			isDropzoneActive: false,
+			loadingMode: 0,
 			isMicroscopeValidated: false,
 			areComponentsValidated: false
 		};
@@ -71,7 +73,13 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.uploadMicroscopeFromDropzone = this.uploadMicroscopeFromDropzone.bind(
 			this
 		);
-		this.handleMicroscopeSelection = this.handleMicroscopeSelection.bind(this);
+		this.handleLoadingOptionSelection = this.handleLoadingOptionSelection.bind(
+			this
+		);
+		this.selectMicroscopeFromRepository = this.selectMicroscopeFromRepository.bind(
+			this
+		);
+
 		this.createNewMicroscope = this.createNewMicroscope.bind(this);
 		this.createNewMicroscopeFromScratch = this.createNewMicroscopeFromScratch.bind(
 			this
@@ -153,7 +161,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	setCreateNewMicroscope() {
 		this.setState({
 			isCreatingNewMicroscope: true,
-			micName: createFromScratch
+			loadingOption: createFromScratch
 		});
 	}
 
@@ -161,12 +169,17 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.setState({ isCreatingNewMicroscope: false });
 	}
 
-	handleMicroscopeSelection(item) {
-		let isDropzoneActive = false;
+	handleLoadingOptionSelection(item) {
+		let loadingMode = 0;
 		if (item === createFromFile) {
-			isDropzoneActive = true;
-		}
-		this.setState({ micName: item, isDropzoneActive: isDropzoneActive });
+			loadingMode = 1;
+		} else if (item === loadFromRepository) loadingMode = 2;
+		this.setState({ loadingOption: item, loadingMode: loadingMode });
+	}
+
+	selectMicroscopeFromRepository(item) {
+		console.log("selected : " + item);
+		this.setState({ micName: item });
 	}
 
 	uploadMicroscopeFromDropzone(microscope) {
@@ -352,6 +365,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 	createNewMicroscopeFromSelectedFile() {
 		let microscope = this.state.microscopes[this.state.micName];
+		console.log("micName: " + this.state.micName);
 		let modifiedMic = microscope;
 		let activeTier = this.state.activeTier;
 		if (activeTier !== microscope.Tier) {
@@ -390,9 +404,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	createNewMicroscope() {
-		if (this.state.micName === createFromScratch) {
+		if (this.state.loadingOption === createFromScratch) {
 			this.createNewMicroscopeFromScratch();
-		} else if (this.state.micName === createFromFile) {
+		} else if (this.state.loadingOption === createFromFile) {
 			this.createNewMicroscopeFromDroppedFile();
 		} else {
 			this.createNewMicroscopeFromSelectedFile();
@@ -405,9 +419,10 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			validationTier: 1,
 			microscope: null,
 			isCreatingNewMicroscope: null,
+			loadingOption: null,
 			micName: null,
 			elementData: null,
-			isDropzoneActive: false
+			loadingMode: 0
 		});
 	}
 
@@ -617,14 +632,30 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			this.state.isCreatingNewMicroscope &&
 			(microscope === null || elementData === null)
 		) {
-			let defaultArray = [createFromScratch, createFromFile];
-			let microscopeNames = [];
+			let loadingOptions = [createFromScratch, createFromFile];
+			let microscopeNames = {};
 			if (microscopes) {
 				Object.keys(microscopes).forEach(key => {
-					microscopeNames.push(key);
+					let mic = microscopes[key];
+					if (mic.Manufacturer !== null && mic.Manufacturer !== undefined) {
+						let catNames = microscopeNames[mic.Manufacturer];
+						if (catNames !== null && catNames !== undefined) catNames.push(key);
+						else catNames = [key];
+						microscopeNames[mic.Manufacturer] = catNames;
+					} else {
+						let catNames = microscopeNames["Others"];
+						if (catNames !== null && catNames !== undefined) catNames.push(key);
+						else catNames = [key];
+						microscopeNames["Others"] = catNames;
+					}
 				});
 			}
-			microscopeNames = defaultArray.concat(microscopeNames);
+			if (
+				microscopeNames !== null &&
+				microscopeNames !== undefined &&
+				Object.keys(microscopeNames).length > 0
+			)
+				loadingOptions.push(loadFromRepository);
 			return (
 				<MicroscopyMetadataToolContainer
 					width={width}
@@ -632,10 +663,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
+						loadingOptions={loadingOptions}
 						microscopes={microscopeNames}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
-						isDropzoneActive={this.state.isDropzoneActive}
-						onClickMicroscopeSelection={this.handleMicroscopeSelection}
+						loadingMode={this.state.loadingMode}
+						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
+						onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
 						onClickCreateNewMicroscope={this.createNewMicroscope}
 						onClickBack={this.onClickBack}
 					/>
@@ -657,9 +690,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					<MicroscopeLoader
 						microscopes={microscopes}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
-						onClickMicroscopeSelection={this.handleMicroscopeSelection}
+						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
 						onClickCreateNewMicroscope={this.createNewMicroscope}
-						onClickBacnk={this.onClickBack}
+						onClickBack={this.onClickBack}
 					/>
 				</MicroscopyMetadataToolContainer>
 			);
@@ -705,6 +738,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				<Header dimensions={headerFooterDims} />
 				<div style={style}>
 					<Canvas
+						microscope={microscope}
 						activeTier={this.state.activeTier}
 						ref={this.canvasRef}
 						imagesPath={imagesPath}

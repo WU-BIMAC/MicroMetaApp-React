@@ -510,6 +510,11 @@ export default class Canvas extends React.PureComponent {
 			width: "auto",
 			height: "100%"
 		};
+		let infoStyle = {
+			position: "absolute",
+			left: 0,
+			top: 0
+		};
 		// if (height > width) {
 		// 	imageStyle = {
 		// 		width: "100%",
@@ -523,6 +528,28 @@ export default class Canvas extends React.PureComponent {
 		// }
 		// let image = `url(${this.props.backgroundImage})`;
 		// console.log(image);
+		let micInfo = [];
+		if (this.props.microscope !== null && this.props.microscope !== undefined) {
+			if (this.props.microscope.Name) {
+				micInfo.push(`Name: ${this.props.microscope.Name}`);
+				micInfo.push(<br key={"newline-1"} />);
+			}
+			if (
+				this.props.microscope.Manufacturer !== null &&
+				this.props.microscope.Manufacturer !== undefined
+			) {
+				micInfo.push(`Manufacturer: ${this.props.microscope.Manufacturer}`);
+				micInfo.push(<br key={"newline-2"} />);
+			}
+			if (
+				this.props.microscope.Model !== null &&
+				this.props.microscope.Model !== undefined
+			) {
+				micInfo.push(`Model: ${this.props.microscope.Model}`);
+				micInfo.push(<br key={"newline-3"} />);
+			}
+		}
+
 		return (
 			//TODO i could use the img container with absolute position and put stuff on top of it
 			//<img src={imageFilePath} alt={imageFilePath} style={style.image} />
@@ -541,6 +568,9 @@ export default class Canvas extends React.PureComponent {
 							style={imageStyle}
 							onLoad={this.onImgLoad}
 						/>
+						<div style={infoStyle}>
+							<p>{micInfo}</p>
+						</div>
 						{this.createList()}
 					</div>
 				</DropTarget>

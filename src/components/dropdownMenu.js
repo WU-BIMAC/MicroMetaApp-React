@@ -16,6 +16,24 @@ export default class DropdownMenu extends React.PureComponent {
 		this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
 	}
 
+	static getDerivedStateFromProps(props, state) {
+		let oldInputData = state.inputData;
+		let newInputData = props.inputData;
+		if (newInputData !== null && newInputData !== undefined) {
+			if (
+				oldInputData === null ||
+				oldInputData === undefined ||
+				oldInputData !== newInputData
+			) {
+				let newCurrent = `${props.title} ${
+					newInputData[props.defaultValue || 0]
+				}`;
+				return { inputData: newInputData, currentTitle: newCurrent };
+			}
+		}
+		return null;
+	}
+
 	handleMenuItemClick(e) {
 		let item = e.target.id;
 		let currentTitle = `${this.state.title} ${item}`;

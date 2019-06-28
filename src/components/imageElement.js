@@ -15,8 +15,8 @@ export default class ImageElement extends React.PureComponent {
 		let oldHeight = this.state.height;
 		let oldWidth = this.state.width;
 		if (oldWidth !== null && oldHeight !== null) return;
-		let newHeight = img.height / 5;
-		let newWidth = img.width / 5;
+		let newHeight = img.height; // / 5;
+		let newWidth = img.width; // / 5;
 		this.setState({
 			height: newHeight,
 			width: newWidth
