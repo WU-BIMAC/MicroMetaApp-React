@@ -533,14 +533,14 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			letterRendering: 1,
 			useCORS: true
 		}).then(canvas => {
-			var myImage = canvas.toDataURL("image/png");
-			window.open(myImage);
-			document.body.appendChild(canvas);
+			//var myImage = canvas.toDataURL("image/png");
+			//window.open(myImage);
+			//document.body.appendChild(canvas);
 			if (item.startsWith("Save microscope")) {
 				this.props.onSaveMicroscope(
 					microscope,
-					this.handleCompleteSaveMicroscope,
-					canvas
+					this.handleCompleteSaveMicroscope
+					//canvas
 				);
 
 				// this.toDataUrl(
@@ -561,7 +561,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				// 	microscope
 				// );
 			}
-			document.body.removeChild(canvas);
+			//document.body.removeChild(canvas);
 		});
 	}
 
