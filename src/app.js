@@ -162,17 +162,19 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	setCreateNewMicroscope() {
 		this.setState({
 			isCreatingNewMicroscope: true,
-			loadingOption: createFromScratch
+			loadingOption: createFromScratch,
+			loadingMode: 0
 		});
-		this.handleLoadingOptionSelection(createFromScratch);
+		//this.handleLoadingOptionSelection(createFromScratch);
 	}
 
 	setLoadMicroscope() {
 		this.setState({
 			isCreatingNewMicroscope: false,
-			loadingOption: createFromFile
+			loadingOption: createFromFile,
+			loadingMode: 1
 		});
-		this.handleLoadingOptionSelection(createFromFile);
+		//this.handleLoadingOptionSelection(createFromFile);
 	}
 
 	handleLoadingOptionSelection(item) {
@@ -703,6 +705,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						loadingOptions={loadingOptions}
 						microscopes={microscopeNames}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
+						loadingOption={this.state.loadingOption}
 						loadingMode={this.state.loadingMode}
 						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
 						onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
@@ -751,6 +754,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						loadingOptions={loadingOptions}
 						microscopes={microscopeNames}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
+						loadingOption={this.state.loadingOption}
 						loadingMode={this.state.loadingMode}
 						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
 						onClickMicroscopeSelection={this.selectMicroscopeFromRepository}

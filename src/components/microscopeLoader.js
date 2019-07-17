@@ -142,6 +142,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 				key={"dropdown-loadingOption"}
 				title={""}
 				handleMenuItemClick={this.props.onClickLoadingOptionSelection}
+				defaultValue={this.props.loadingOptions.indexOf(
+					this.props.loadingOption
+				)}
 				inputData={this.props.loadingOptions}
 				width={width}
 				margin={margin}
