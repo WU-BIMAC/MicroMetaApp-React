@@ -87,7 +87,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	onClickManufacturerSelection(item) {
-		console.log("im here");
 		let micNames = this.props.microscopes[item];
 		this.setState({ selectedManu: item, micNames: micNames });
 		this.props.onClickMicroscopeSelection(this.props.microscopes[item][0]);
@@ -210,7 +209,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					onClick={
 						(isDropzoneActive && fileLoaded && !fileLoading) ||
 						!isDropzoneActive
-							? this.props.onClickCreateNewMicroscope
+							? this.props.onClickConfirm
 							: null
 					}
 					style={buttonStyle}

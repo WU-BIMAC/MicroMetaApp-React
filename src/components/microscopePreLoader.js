@@ -58,7 +58,6 @@ export default class MicroscopePreLoader extends React.PureComponent {
 							onClick={this.props.onClickLoadMicroscope}
 							style={buttonStyle}
 							size="lg"
-							disabled
 						>
 							Use microscope
 						</Button>
