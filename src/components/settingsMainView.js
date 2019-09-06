@@ -121,7 +121,7 @@ export default class SettingMainView extends React.PureComponent {
 			this
 		);
 
-		//this.props.updateElementData(this.state.elementList, true);
+		this.props.updateElementData(this.state.elementData, true);
 	}
 
 	static getDerivedStateFromProps(props, state) {
