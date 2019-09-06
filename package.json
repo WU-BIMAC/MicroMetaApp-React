@@ -1,6 +1,6 @@
 {
 	"name": "4dn-microscopy-metadata-tool",
-	"version": "0.0.9",
+	"version": "0.0.15",
 	"main": "./dist/MicroscopyMetadataTool.min.js",
 	"unpkg": "./dist/MicroscopyMetadataTool.min.js",
 	"module": "./dist/MicroscopyMetadataTool.dev.js",
