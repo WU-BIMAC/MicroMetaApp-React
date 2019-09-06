@@ -68,7 +68,8 @@ export default class Canvas extends React.PureComponent {
 
 		this.onImgLoad = this.onImgLoad.bind(this);
 
-		this.props.updateElementData(this.state.elementList, true);
+		console.log("update element data in constructor");
+		this.props.updateElementData(this.state.elementData, true);
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -180,6 +181,7 @@ export default class Canvas extends React.PureComponent {
 		obj.Height = height;
 
 		let validated = this.areAllElementsValidated();
+		console.log("update element data in updatedDimensions");
 		this.props.updateElementData(newElementDataList, validated);
 	}
 
@@ -219,6 +221,7 @@ export default class Canvas extends React.PureComponent {
 		this.setState({ elementData: currentElementData });
 
 		let validated = this.areAllElementsValidated();
+		console.log("update element data in onCanvasElementDataSave");
 		this.props.updateElementData(currentElementData, validated);
 	}
 
@@ -324,6 +327,7 @@ export default class Canvas extends React.PureComponent {
 		});
 
 		let validated = this.areAllElementsValidated();
+		console.log("update element data in dropped");
 		this.props.updateElementData(newElementDataList, validated);
 	}
 
@@ -347,6 +351,7 @@ export default class Canvas extends React.PureComponent {
 		});
 
 		let validated = this.areAllElementsValidated();
+		console.log("update element data in onDelete");
 		this.props.updateElementData(elementData, validated);
 	}
 

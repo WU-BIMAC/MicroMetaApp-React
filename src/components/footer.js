@@ -53,7 +53,7 @@ export default class Footer extends React.PureComponent {
 		if (this.state.editing) {
 			return (
 				<MultiTabFormWithHeader
-					schema={this.props.microscopeSchema}
+					schema={this.props.schema}
 					inputData={this.props.inputData}
 					id={this.props.id}
 					onConfirm={this.onFormConfirm}
@@ -84,7 +84,7 @@ export default class Footer extends React.PureComponent {
 		};
 		let styleEditButton = Object.assign({}, styleButton);
 		let play = false;
-		if (!this.props.isMicroscopeValidated) {
+		if (!this.props.isSchemaValidated) {
 			styleEditButton = Object.assign(styleEditButton, {
 				border: "5px ridge red"
 			});
@@ -125,7 +125,7 @@ export default class Footer extends React.PureComponent {
 					style={styleEditButton}
 					size="lg"
 				>
-					Edit microscope
+					{`Edit ${this.props.element}`}
 				</Button>
 			</AnimateKeyframes>
 		);
@@ -149,10 +149,10 @@ export default class Footer extends React.PureComponent {
 		);
 		let saveOptions = [];
 		if (this.props.hasSaveOption) {
-			saveOptions.push("Save microscope");
+			saveOptions.push("Save " + this.props.element);
 		}
-		saveOptions.push("Export image");
-		saveOptions.push("Export microscope");
+		saveOptions.push("Export " + this.props.element + " image");
+		saveOptions.push("Export " + this.props.element);
 		//Rethink this, maybe drop down split button with multi actions?
 		buttons[2] = (
 			<DropdownMenu

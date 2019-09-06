@@ -5,6 +5,8 @@ import Button from "react-bootstrap/Button";
 
 import DropdownMenu from "./DropdownMenu";
 
+const isSettingsActive = false;
+
 export default class MicroscopePreLoader extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -58,6 +60,7 @@ export default class MicroscopePreLoader extends React.PureComponent {
 							onClick={this.props.onClickLoadMicroscope}
 							style={buttonStyle}
 							size="lg"
+							disabled={!this.isSettingsActive}
 						>
 							Use microscope
 						</Button>

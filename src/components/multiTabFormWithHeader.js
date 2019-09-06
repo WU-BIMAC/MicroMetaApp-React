@@ -1,11 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import Form from "react-jsonschema-form";
 import Tabs, { TabPane } from "rc-tabs";
 import TabContent from "rc-tabs/lib/TabContent";
 import ScrollableTabBar from "rc-tabs/lib/TabBar";
 import "rc-tabs/assets/index.css";
 import Button from "react-bootstrap/Button";
+
+import ModalWindow from "./modalWindow";
 
 const add_components_warning =
 	"If you modify the number of sub-components, the information not saved are going to be lost!";
@@ -225,7 +226,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 					);
 				}
 			} else if (inputData[key] instanceof Object) {
-				if (index === - 1) {
+				if (index === -1) {
 					value = MultiTabFormWithHeader.findInputPropKeyValue(
 						index,
 						propKey,
@@ -235,8 +236,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 					continue;
 				} else if (inputData[key][propKey] !== undefined) {
 					return inputData[key][propKey];
-				}
-				else {
+				} else {
 					value = MultiTabFormWithHeader.findInputPropKeyValue(
 						index,
 						propKey,
@@ -286,14 +286,23 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		Object.keys(schema.properties).forEach(function(key) {
 			let property = schema.properties[key];
 			if (property.type === "object") {
-				let localPartialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(
-					currentChildrenComponents,
-					property,
-					elementByType,
-					-1,
-					"object"
-				);
-				partialSchema = Object.assign(partialSchema, localPartialSchema);
+				let count = 0;
+				for (let inputKey in currentChildrenComponents) {
+					if (key.includes(inputKey)) {
+						count = currentChildrenComponents[inputKey];
+						break;
+					}
+				}
+				for (let i = 0; i < count; i++) {
+					let localPartialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(
+						currentChildrenComponents,
+						property,
+						elementByType,
+						-1,
+						"object"
+					);
+					partialSchema = Object.assign(partialSchema, localPartialSchema);
+				}
 				return;
 			} else if (property.type === "array") {
 				let count = 0;
@@ -365,6 +374,8 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			}
 			if (required.length !== 0) partialSchema[key].required = required;
 		});
+
+		console.log(partialSchema);
 		return partialSchema;
 	}
 
@@ -698,38 +709,3 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 /**
  * @todo Own file.
  */
-export class ModalWindow extends React.PureComponent {
-	render() {
-		return ReactDOM.createPortal(
-			<div
-				style={{
-					position: "absolute",
-					left: 0,
-					top: 0,
-					bottom: 0,
-					right: 0,
-					backgroundColor: "rgba(0,0,0,0.33)",
-					display: "flex",
-					alignItems: "center"
-				}}
-			>
-				<div
-					style={{
-						width: "80%",
-						marginLeft: "auto",
-						marginRight: "auto",
-						backgroundColor: "#fff",
-						height: "80%",
-						padding: 10,
-						borderRadius: 5,
-						boxShadow: "0 1px 6px -2px #000",
-						overflow: "auto"
-					}}
-				>
-					{this.props.children}
-				</div>
-			</div>,
-			this.props.overlaysContainer
-		);
-	}
-}
