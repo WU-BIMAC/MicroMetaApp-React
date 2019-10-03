@@ -31,8 +31,6 @@ var _TabContent = _interopRequireDefault(require("rc-tabs/lib/TabContent"));
 
 var _TabBar = _interopRequireDefault(require("rc-tabs/lib/TabBar"));
 
-require("rc-tabs/assets/index.css");
-
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));

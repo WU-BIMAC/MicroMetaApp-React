@@ -23,8 +23,6 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-require("rc-tabs/assets/index.css");
-
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _ListGroup = _interopRequireDefault(require("react-bootstrap/ListGroup"));

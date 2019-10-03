@@ -3,7 +3,7 @@ import Form from "react-jsonschema-form";
 import Tabs, { TabPane } from "rc-tabs";
 import TabContent from "rc-tabs/lib/TabContent";
 import ScrollableTabBar from "rc-tabs/lib/TabBar";
-import "rc-tabs/assets/index.css";
+//import "rc-tabs/assets/index.css";
 import Button from "react-bootstrap/Button";
 
 import ModalWindow from "./modalWindow";

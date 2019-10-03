@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "rc-tabs/assets/index.css";
+//import "rc-tabs/assets/index.css";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 
