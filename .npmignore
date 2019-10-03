@@ -5,7 +5,6 @@ webpack.production.config.js
 .gitignore
 gulpfile*
 serviceWorker.js
-/public/assets
 /public/index.html
 /.vscode
 /schemas

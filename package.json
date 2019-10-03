@@ -3,8 +3,14 @@
 	"version": "0.0.15",
 	"main": "./dist/MicroscopyMetadataTool.min.js",
 	"unpkg": "./dist/MicroscopyMetadataTool.min.js",
-	"module": "./dist/MicroscopyMetadataTool.dev.js",
+	"module": "./es/app.js",
 	"private": true,
+	"scripts": {
+		"test": "node scripts/test.js",
+		"prod": "gulp build",
+		"dev": "gulp dev",
+		"build": "gulp build"
+	},
 	"publishConfig": {
 		"access": "restricted"
 	},
@@ -30,12 +36,6 @@
 		"url-loader": "1.1.2",
 		"uuid": "^3.3.2"
 	},
-	"scripts": {
-		"test": "node scripts/test.js",
-		"prod": "gulp build",
-		"dev": "gulp dev",
-		"build": "gulp build-dev && gulp build"
-	},
 	"eslintConfig": {
 		"extends": "react-app"
 	},
@@ -46,6 +46,7 @@
 		"not op_mini all"
 	],
 	"devDependencies": {
+		"@babel/cli": "^7.6.2",
 		"@babel/core": "^7.5.4",
 		"@babel/preset-env": "^7.5.4",
 		"@babel/preset-react": "^7.0.0",

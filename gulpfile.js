@@ -2,6 +2,8 @@ let gulp = require("gulp");
 let PluginError = require("plugin-error");
 let log = require("fancy-log");
 let webpack = require("webpack");
+const { spawn } = require("child_process");
+const path = require("path");
 
 let setProduction = done => {
 	process.env.NODE_ENV = "production";
@@ -13,6 +15,7 @@ let setDev = done => {
 	done();
 };
 
+/** For inclusion in web pages */
 function webpackOnBuild(done) {
 	let start = Date.now();
 	return function (err, stats) {
@@ -33,6 +36,40 @@ function webpackOnBuild(done) {
 	};
 }
 
+/** For external/built projects to import via NPM */
+function doBuildESModules(done){
+	const subP = spawn("npx", [
+		"babel",
+		path.join(__dirname, "src"),
+		"--out-dir",
+		path.join(__dirname, "es"),
+		"--env-name",
+		"esm",
+		"--verbose"
+	], { stdio: "inherit" });
+
+	subP.on("close", (code)=>{
+		done();
+	});
+}
+
+function doWatchESModules(done){
+	const subP = spawn("npx", [
+		"babel",
+		path.join(__dirname, "src"),
+		"--out-dir",
+		path.join(__dirname, "es"),
+		"--env-name",
+		"esm",
+		"--watch",
+		"--skip-initial-build"
+	], { stdio: "inherit" });
+
+	subP.on("close", (code)=>{
+		done();
+	});
+}
+
 let doWebpack = cb => {
 	let webpackConfig = require("./webpack.config.js");
 	webpack(webpackConfig).run(webpackOnBuild(cb));
@@ -43,10 +80,34 @@ let watch = () => {
 	webpack(webpackConfig).watch(300, webpackOnBuild());
 };
 
-const devSlow = gulp.series(setDev, doWebpack, watch);
-const build = gulp.series(setProduction, doWebpack);
-const buildDev = gulp.series(setDev, doWebpack);
+gulp.task(
+	"dev",
+	gulp.series(
+		setDev,
+		doBuildESModules,
+		doWebpack,
+		gulp.parallel(
+			doWatchESModules,
+			watch
+		)
+	)
+);
 
-gulp.task("dev", devSlow);
-gulp.task("build", build);
-gulp.task("build-dev", buildDev);
+gulp.task(
+	"build",
+	gulp.series(
+		setDev,
+		doBuildESModules,
+		doWebpack,
+		setProduction,
+		doWebpack, // We can optimize this later maybe to import the ES modules instd of raw JS for speed, idk.
+	)
+);
+
+gulp.task(
+	"build-dev",
+	gulp.series(
+		setDev,
+		doWebpack
+	)
+);
