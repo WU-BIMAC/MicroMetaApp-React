@@ -1,25 +1,25 @@
 "use strict";
 
-var _interopRequireDefault = require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireDefault");
+var _interopRequireDefault = require("/Users/kontost1/CODE/DivisionByZeroProjects/git/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireDefault");
 
-var _interopRequireWildcard = require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireWildcard");
+var _interopRequireWildcard = require("/Users/kontost1/CODE/DivisionByZeroProjects/git/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireWildcard");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _classCallCheck2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck"));
+var _classCallCheck2 = _interopRequireDefault(require("/Users/kontost1/CODE/DivisionByZeroProjects/git/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck"));
 
-var _createClass2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass"));
+var _createClass2 = _interopRequireDefault(require("/Users/kontost1/CODE/DivisionByZeroProjects/git/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass"));
 
-var _possibleConstructorReturn2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn"));
+var _possibleConstructorReturn2 = _interopRequireDefault(require("/Users/kontost1/CODE/DivisionByZeroProjects/git/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn"));
 
-var _getPrototypeOf2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf"));
+var _getPrototypeOf2 = _interopRequireDefault(require("/Users/kontost1/CODE/DivisionByZeroProjects/git/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf"));
 
-var _assertThisInitialized2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized"));
+var _assertThisInitialized2 = _interopRequireDefault(require("/Users/kontost1/CODE/DivisionByZeroProjects/git/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized"));
 
-var _inherits2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits"));
+var _inherits2 = _interopRequireDefault(require("/Users/kontost1/CODE/DivisionByZeroProjects/git/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits"));
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -29,7 +29,9 @@ var _canvasElement = _interopRequireWildcard(require("./canvasElement"));
 
 var _url = require("url");
 
-var _jsxFileName = "/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/src/components/canvas.js";
+require("../../public/styleOverrides.css");
+
+var _jsxFileName = "/Users/kontost1/CODE/DivisionByZeroProjects/git/4DNMicroscopyMetadataToolReact/src/components/canvas.js";
 
 var path = require("path");
 
@@ -389,7 +391,7 @@ var Canvas = function (_React$PureComponent) {
           key: "draggableWrapper" + index,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 435
+            lineNumber: 438
           },
           __self: this
         }, _react.default.createElement(_reactDragDropContainer.DragDropContainer, {
@@ -404,14 +406,14 @@ var Canvas = function (_React$PureComponent) {
           dragHandleClassName: "grabber",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 436
+            lineNumber: 439
           },
           __self: this
         }, _react.default.createElement("div", {
           style: styleContainer,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 444
+            lineNumber: 447
           },
           __self: this
         }, _react.default.createElement("div", {
@@ -419,7 +421,7 @@ var Canvas = function (_React$PureComponent) {
           style: styleGrabber,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 445
+            lineNumber: 448
           },
           __self: this
         }, "\u2237"), _react.default.createElement(_canvasElement.CanvasElementDeleteButton, {
@@ -428,7 +430,7 @@ var Canvas = function (_React$PureComponent) {
           myStyle: styleCloser,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 448
+            lineNumber: 451
           },
           __self: this
         })), _react.default.createElement(_canvasElement.default, {
@@ -450,14 +452,17 @@ var Canvas = function (_React$PureComponent) {
           elementByType: elementByType,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 454
+            lineNumber: 457
           },
           __self: this
         }), _react.default.createElement("div", {
-          style: styleName,
+          className: "styleName",
+          style: {
+            width: stylesImages[item.ID].width
+          },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 473
+            lineNumber: 476
           },
           __self: this
         }, item.name))));
@@ -513,7 +518,7 @@ var Canvas = function (_React$PureComponent) {
             key: "newline-1",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 540
+              lineNumber: 543
             },
             __self: this
           }));
@@ -525,7 +530,7 @@ var Canvas = function (_React$PureComponent) {
             key: "newline-2",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 547
+              lineNumber: 550
             },
             __self: this
           }));
@@ -537,7 +542,7 @@ var Canvas = function (_React$PureComponent) {
             key: "newline-3",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 554
+              lineNumber: 557
             },
             __self: this
           }));
@@ -548,7 +553,7 @@ var Canvas = function (_React$PureComponent) {
         style: styleContainer,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 563
+          lineNumber: 566
         },
         __self: this
       }, _react.default.createElement(_reactDragDropContainer.DropTarget, {
@@ -557,14 +562,14 @@ var Canvas = function (_React$PureComponent) {
         targetKey: "canvas",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 564
+          lineNumber: 567
         },
         __self: this
       }, _react.default.createElement("div", {
         style: canvasInnerContainerStyle,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 569
+          lineNumber: 572
         },
         __self: this
       }, _react.default.createElement("img", {
@@ -574,20 +579,20 @@ var Canvas = function (_React$PureComponent) {
         onLoad: this.onImgLoad,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 570
+          lineNumber: 573
         },
         __self: this
       }), _react.default.createElement("div", {
         style: infoStyle,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 576
+          lineNumber: 579
         },
         __self: this
       }, _react.default.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 577
+          lineNumber: 580
         },
         __self: this
       }, micInfo)), this.createList())));

@@ -5,3 +5,8 @@
 
 #microscopy-app-container button.common-btn {
 }
+
+.react-resizable-handle {
+    right: -7px !important;
+    bottom: -7px !important;
+}

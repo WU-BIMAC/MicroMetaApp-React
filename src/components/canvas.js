@@ -6,6 +6,9 @@ import CanvasElement from "./canvasElement";
 import { CanvasElementDeleteButton } from "./canvasElement";
 import { pathToFileURL } from "url";
 
+import "../../public/styleOverrides.css";
+
+
 const path = require("path");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
@@ -470,7 +473,7 @@ export default class Canvas extends React.PureComponent {
 							maxChildrenComponentIdentifier={maxNumberOf_identifier}
 							elementByType={elementByType}
 						/>
-						<div style={styleName}>{item.name}</div>
+						<div className="styleName" style={{width: stylesImages[item.ID].width}} >{item.name}</div>
 					</DragDropContainer>
 				</div>
 			);
