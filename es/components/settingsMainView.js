@@ -1,23 +1,9 @@
 "use strict";
 
-var _interopRequireDefault = require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _classCallCheck2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass"));
-
-var _possibleConstructorReturn2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn"));
-
-var _getPrototypeOf2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits"));
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -27,7 +13,25 @@ var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWith
 
 var _planeView = _interopRequireDefault(require("./planeView"));
 
-var _jsxFileName = "/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/src/components/settingsMainView.js";
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var validate = require("jsonschema").validate;
 
@@ -38,14 +42,17 @@ var minNumberOf_identifier = "Min_Number_Of_";
 var maxNumberOf_identifier = "Max_Number_Of_";
 var schemasOrder = ["Experiment.json", "Plane.json", "Channel.json", "TIRFSettings.json", "ImagingEnvironment.json", "MicroscopeSettings.json", "ObjectiveSettings.json"];
 
-var SettingMainView = function (_React$PureComponent) {
-  (0, _inherits2.default)(SettingMainView, _React$PureComponent);
+var SettingMainView =
+/*#__PURE__*/
+function (_React$PureComponent) {
+  _inherits(SettingMainView, _React$PureComponent);
 
   function SettingMainView(props) {
     var _this;
 
-    (0, _classCallCheck2.default)(this, SettingMainView);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(SettingMainView).call(this, props));
+    _classCallCheck(this, SettingMainView);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SettingMainView).call(this, props));
     _this.state = {
       elementList: [],
       elementData: Object.assign({}, _this.props.inputData),
@@ -54,7 +61,8 @@ var SettingMainView = function (_React$PureComponent) {
     };
     Object.keys(props.componentSchemas).forEach(function (schemaIndex) {
       var schema = props.componentSchemas[schemaIndex];
-      var schema_id = schema.ID;
+      var schema_id = schema.ID; //console.log("schema_id: " + schema_id);
+
       var index = schemasOrder.indexOf(schema_id);
       Object.keys(props.inputData).forEach(function (objIndex) {
         var object = props.inputData[objIndex];
@@ -123,24 +131,24 @@ var SettingMainView = function (_React$PureComponent) {
 
       _this.state.componentsSchema[schema_id] = schema;
     });
-    _this.onElementDataSave = _this.onElementDataSave.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onElementDataCancel = _this.onElementDataCancel.bind((0, _assertThisInitialized2.default)(_this));
-    _this.getElementData = _this.getElementData.bind((0, _assertThisInitialized2.default)(_this));
-    _this.areAllElementsValidated = _this.areAllElementsValidated.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickEditExperiment = _this.onClickEditExperiment.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickEditPlanes = _this.onClickEditPlanes.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickEditChannels = _this.onClickEditChannels.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickEditTIRFSettings = _this.onClickEditTIRFSettings.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickEditImagingEnvironment = _this.onClickEditImagingEnvironment.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickEditMicroscopeSettings = _this.onClickEditMicroscopeSettings.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickEditObjectiveSettings = _this.onClickEditObjectiveSettings.bind((0, _assertThisInitialized2.default)(_this));
+    _this.onElementDataSave = _this.onElementDataSave.bind(_assertThisInitialized(_this));
+    _this.onElementDataCancel = _this.onElementDataCancel.bind(_assertThisInitialized(_this));
+    _this.getElementData = _this.getElementData.bind(_assertThisInitialized(_this));
+    _this.areAllElementsValidated = _this.areAllElementsValidated.bind(_assertThisInitialized(_this));
+    _this.onClickEditExperiment = _this.onClickEditExperiment.bind(_assertThisInitialized(_this));
+    _this.onClickEditPlanes = _this.onClickEditPlanes.bind(_assertThisInitialized(_this));
+    _this.onClickEditChannels = _this.onClickEditChannels.bind(_assertThisInitialized(_this));
+    _this.onClickEditTIRFSettings = _this.onClickEditTIRFSettings.bind(_assertThisInitialized(_this));
+    _this.onClickEditImagingEnvironment = _this.onClickEditImagingEnvironment.bind(_assertThisInitialized(_this));
+    _this.onClickEditMicroscopeSettings = _this.onClickEditMicroscopeSettings.bind(_assertThisInitialized(_this));
+    _this.onClickEditObjectiveSettings = _this.onClickEditObjectiveSettings.bind(_assertThisInitialized(_this));
 
     _this.props.updateElementData(_this.state.elementData, true);
 
     return _this;
   }
 
-  (0, _createClass2.default)(SettingMainView, [{
+  _createClass(SettingMainView, [{
     key: "areAllElementsValidated",
     value: function areAllElementsValidated() {
       var elementList = this.state.elementList;
@@ -289,12 +297,7 @@ var SettingMainView = function (_React$PureComponent) {
             id: element.ID,
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
-            overlaysContainer: this.props.overlaysContainer,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 260
-            },
-            __self: this
+            overlaysContainer: this.props.overlaysContainer
           });
         } else if (this.state.editingElement == 2) {
           return null;
@@ -309,15 +312,14 @@ var SettingMainView = function (_React$PureComponent) {
             currentChildrenComponentIdentifier: currentNumberOf_identifier,
             minChildrenComponentIdentifier: minNumberOf_identifier,
             maxChildrenComponentIdentifier: maxNumberOf_identifier,
-            elementByType: elementByType,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 273
-            },
-            __self: this
+            elementByType: elementByType
           });
         }
       } else {
+        //TODO i could use the img container with absolute position and put stuff on top of it
+        //<img src={imageFilePath} alt={imageFilePath} style={style.image} />
+        //TODO this should be in a scrollable pane
+        //<div ref={this.ref} style={styleFullWindow}>
         var styleMainContainer = {
           width: width,
           height: height,
@@ -328,7 +330,18 @@ var SettingMainView = function (_React$PureComponent) {
           justifyContent: "center",
           alignItems: "center",
           padding: "5px"
-        };
+        }; // const styleButtonContainer = {
+        // 	width: width,
+        // 	height: 300,
+        // 	boxSizing: "border-box",
+        // 	display: "flex",
+        // 	flexDirection: "row",
+        // 	flexWap: "wrap",
+        // 	justifyContent: "center",
+        // 	alignItems: "center",
+        // 	padding: "5px"
+        // };
+
         var styleButton = {
           width: "250px",
           minWidth: "250px",
@@ -340,91 +353,69 @@ var SettingMainView = function (_React$PureComponent) {
         var styleEditButton = Object.assign(styleButton, {
           border: "5px ridge red"
         });
-        var buttons1 = [];
+        var buttons1 = []; // let buttons2 = [];
+        // let buttons3 = [];
+
         buttons1[0] = _react.default.createElement(_Button.default, {
           key: "Button-0",
           onClick: this.onClickEditExperiment,
           style: styleEditButton,
-          size: "lg",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 329
-          },
-          __self: this
+          size: "lg"
         }, "Edit Experiment");
         buttons1[1] = _react.default.createElement(_Button.default, {
           key: "Button-1",
           onClick: this.onClickEditPlanes,
           style: styleEditButton,
-          size: "lg",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 339
-          },
-          __self: this
+          size: "lg"
         }, "Edit Planes");
         buttons1[2] = _react.default.createElement(_Button.default, {
           key: "Button-2",
           onClick: this.onClickEditChannels,
           style: styleEditButton,
-          size: "lg",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 349
-          },
-          __self: this
+          size: "lg"
         }, "Edit Channels");
         buttons1[3] = _react.default.createElement(_Button.default, {
           key: "Button-3",
           onClick: this.onClickEditTIRFSettings,
           style: styleEditButton,
-          size: "lg",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 359
-          },
-          __self: this
+          size: "lg"
         }, "Edit TIRF Settings");
         buttons1[4] = _react.default.createElement(_Button.default, {
           key: "Button-4",
           onClick: this.onClickEditImagingEnvironment,
           style: styleEditButton,
-          size: "lg",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 369
-          },
-          __self: this
+          size: "lg"
         }, "Edit Imaging Environment");
         buttons1[5] = _react.default.createElement(_Button.default, {
           key: "Button-5",
           onClick: this.onClickEditMicroscopeSettings,
           style: styleEditButton,
-          size: "lg",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 379
-          },
-          __self: this
+          size: "lg"
         }, "Edit Microscope Settings");
         buttons1[6] = _react.default.createElement(_Button.default, {
           key: "Button-6",
           onClick: this.onClickEditObjectiveSettings,
           style: styleEditButton,
-          size: "lg",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 389
-          },
-          __self: this
-        }, "Edit Objective Settings");
+          size: "lg"
+        }, "Edit Objective Settings"); // let buttonsContainer = [];
+        // buttonsContainer[0] = (
+        // 	<div style={styleButtonContainer} key="buttonContainer-1">
+        // 		{buttons1}
+        // 	</div>
+        // );
+        // buttonsContainer[1] = (
+        // 	<div style={styleButtonContainer} key="buttonContainer-2">
+        // 		{buttons2}
+        // 	</div>
+        // );
+        // buttonsContainer[2] = (
+        // 	<div style={styleButtonContainer} key="buttonContainer-3">
+        // 		{buttons3}
+        // 	</div>
+        // );
+
         return _react.default.createElement("div", {
-          style: styleMainContainer,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 414
-          },
-          __self: this
+          style: styleMainContainer
         }, buttons1);
       }
     }
@@ -456,6 +447,7 @@ var SettingMainView = function (_React$PureComponent) {
       }
     }
   }]);
+
   return SettingMainView;
 }(_react.default.PureComponent);
 

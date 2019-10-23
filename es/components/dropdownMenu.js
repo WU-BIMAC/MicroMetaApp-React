@@ -1,48 +1,55 @@
 "use strict";
 
-var _interopRequireDefault = require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-var _classCallCheck2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass"));
-
-var _possibleConstructorReturn2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn"));
-
-var _getPrototypeOf2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits"));
-
 var _react = _interopRequireDefault(require("react"));
 
 var _Dropdown = _interopRequireDefault(require("react-bootstrap/Dropdown"));
 
-var _jsxFileName = "/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/src/components/dropdownMenu.js";
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var DropdownMenu = function (_React$PureComponent) {
-  (0, _inherits2.default)(DropdownMenu, _React$PureComponent);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var DropdownMenu =
+/*#__PURE__*/
+function (_React$PureComponent) {
+  _inherits(DropdownMenu, _React$PureComponent);
 
   function DropdownMenu(props) {
     var _this;
 
-    (0, _classCallCheck2.default)(this, DropdownMenu);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(DropdownMenu).call(this, props));
+    _classCallCheck(this, DropdownMenu);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(DropdownMenu).call(this, props));
     _this.state = {
       inputData: props.inputData,
       title: props.title,
       currentTitle: "".concat(props.title, " ").concat(props.inputData[_this.props.defaultValue || 0])
     };
-    _this.handleMenuItemClick = _this.handleMenuItemClick.bind((0, _assertThisInitialized2.default)(_this));
+    _this.handleMenuItemClick = _this.handleMenuItemClick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  (0, _createClass2.default)(DropdownMenu, [{
+  _createClass(DropdownMenu, [{
     key: "handleMenuItemClick",
     value: function handleMenuItemClick(e) {
       var item = e.target.id;
@@ -65,12 +72,7 @@ var DropdownMenu = function (_React$PureComponent) {
         return _react.default.createElement(_Dropdown.default.Item, {
           key: item,
           onClick: _this2.handleMenuItemClick,
-          id: item,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 50
-          },
-          __self: this
+          id: item
         }, item);
       });
       var dropdownStyle = {
@@ -84,29 +86,13 @@ var DropdownMenu = function (_React$PureComponent) {
         maxWidth: "".concat(width, "px"),
         width: "".concat(width, "px")
       };
-      return _react.default.createElement(_Dropdown.default, {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 66
-        },
-        __self: this
-      }, _react.default.createElement(_Dropdown.default.Toggle, {
+      return _react.default.createElement(_Dropdown.default, null, _react.default.createElement(_Dropdown.default.Toggle, {
         id: "dropdown-basic-button",
         style: dropdownStyle,
         size: "lg",
-        drop: direction,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 67
-        },
-        __self: this
+        drop: direction
       }, this.state.currentTitle), _react.default.createElement(_Dropdown.default.Menu, {
-        style: dropdownMenuStyle,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 75
-        },
-        __self: this
+        style: dropdownMenuStyle
       }, dropdownItems));
     }
   }], [{
@@ -128,6 +114,7 @@ var DropdownMenu = function (_React$PureComponent) {
       return null;
     }
   }]);
+
   return DropdownMenu;
 }(_react.default.PureComponent);
 

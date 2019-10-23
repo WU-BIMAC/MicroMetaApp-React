@@ -1,23 +1,9 @@
 "use strict";
 
-var _interopRequireDefault = require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _classCallCheck2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass"));
-
-var _possibleConstructorReturn2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn"));
-
-var _getPrototypeOf2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits"));
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -29,18 +15,39 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _imageElement = _interopRequireDefault(require("./imageElement"));
 
-var _jsxFileName = "/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/src/components/toolbar.js";
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var path = require("path");
 
-var Toolbar = function (_React$PureComponent) {
-  (0, _inherits2.default)(Toolbar, _React$PureComponent);
+var Toolbar =
+/*#__PURE__*/
+function (_React$PureComponent) {
+  _inherits(Toolbar, _React$PureComponent);
 
   function Toolbar(props) {
     var _this;
 
-    (0, _classCallCheck2.default)(this, Toolbar);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Toolbar).call(this, props));
+    _classCallCheck(this, Toolbar);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Toolbar).call(this, props));
     _this.state = {
       elementList: {},
       imagesDimension: {}
@@ -62,11 +69,31 @@ var Toolbar = function (_React$PureComponent) {
       _this.state.elementList[category].push(element);
     }
 
-    _this.updatedDimensions = _this.updatedDimensions.bind((0, _assertThisInitialized2.default)(_this));
+    _this.updatedDimensions = _this.updatedDimensions.bind(_assertThisInitialized(_this));
     return _this;
-  }
+  } // static getDerivedStateFromProps(props, state) {
+  // 	if (props.componentSchemas !== null) {
+  // 		let elementList = [];
+  // 		for (let i = 0; i < props.componentSchemas.length; i++) {
+  // 			let obj = props.componentSchemas[i];
+  // 			if (props.activeTier < obj.tier) return;
+  // 			let category = obj.category;
+  // 			let element = {
+  // 				id: `${obj.title}-${i}`,
+  // 				schema: obj
+  // 			};
+  // 			if (elementList[category] === undefined) {
+  // 				elementList[category] = [];
+  // 			}
+  // 			elementList[category].push(element);
+  // 		}
+  // 		return { elementList: elementList };
+  // 	}
+  // 	return null;
+  // }
 
-  (0, _createClass2.default)(Toolbar, [{
+
+  _createClass(Toolbar, [{
     key: "updatedDimensions",
     value: function updatedDimensions(id, width, height) {
       var newImagesDimension = Object.assign({}, this.state.imagesDimension);
@@ -81,7 +108,7 @@ var Toolbar = function (_React$PureComponent) {
       };
       this.setState({
         imagesDimension: newImagesDimension
-      });
+      }); //this.imagesDimension = newImagesDimension;
     }
   }, {
     key: "createCategoryItems",
@@ -109,28 +136,19 @@ var Toolbar = function (_React$PureComponent) {
       elementList[key].map(function (item) {
         return imageElements.push(_react.default.createElement(_imageElement.default, {
           key: "ImageElement-".concat(item.ID),
-          id: item.ID,
+          id: item.ID //image={`${this.props.imagesPath}${item.schema.image}`}
+          ,
           image: path.join(_this2.props.imagesPath, item.schema.image),
           name: item.schema.title,
           updateDimensions: _this2.updatedDimensions,
-          style: stylesImages[item.ID],
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 96
-          },
-          __self: this
+          style: stylesImages[item.ID]
         }));
       });
       var categoryItems = [];
       elementList[key].map(function (item, index) {
         return categoryItems.push(_react.default.createElement("div", {
           key: "div" + item.ID,
-          style: stylesContainer[item.ID],
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 110
-          },
-          __self: this
+          style: stylesContainer[item.ID]
         }, _react.default.createElement(_reactDragDropContainer.DragDropContainer, {
           targetKey: "canvas",
           key: "draggable" + item.ID,
@@ -139,12 +157,7 @@ var Toolbar = function (_React$PureComponent) {
             source: "toolbar",
             ID: item.ID,
             schema_ID: item.schema.ID
-          },
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 111
-          },
-          __self: this
+          }
         }, imageElements[index])));
       });
       var styleContainer = {
@@ -155,14 +168,12 @@ var Toolbar = function (_React$PureComponent) {
         margin: "5px"
       };
       return _react.default.createElement("div", {
-        style: styleContainer,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 133
-        },
-        __self: this
+        style: styleContainer
       }, categoryItems);
-    }
+    } // 	<Button className="collapse-btn" key={`Trigger${key}`} size="lg">
+    // 	{key}
+    // </Button>
+
   }, {
     key: "createCategories",
     value: function createCategories() {
@@ -202,54 +213,17 @@ var Toolbar = function (_React$PureComponent) {
             trigger: _react.default.createElement(_Button.default, {
               key: "Trigger".concat(key),
               size: "lg",
-              style: style,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 175
-              },
-              __self: this
-            }, _react.default.createElement("div", {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 176
-              },
-              __self: this
-            }, simpleKey), _react.default.createElement("div", {
-              style: styleTransitionClose,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 177
-              },
-              __self: this
+              style: style
+            }, _react.default.createElement("div", null, simpleKey), _react.default.createElement("div", {
+              style: styleTransitionClose
             }, "\u25C1")),
             triggerWhenOpen: _react.default.createElement(_Button.default, {
               key: "Trigger".concat(key),
               size: "lg",
-              style: style,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 181
-              },
-              __self: this
-            }, _react.default.createElement("div", {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 182
-              },
-              __self: this
-            }, simpleKey), _react.default.createElement("div", {
-              style: styleTransitionOpen,
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 183
-              },
-              __self: this
-            }, "\u25C1")),
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 172
-            },
-            __self: this
+              style: style
+            }, _react.default.createElement("div", null, simpleKey), _react.default.createElement("div", {
+              style: styleTransitionOpen
+            }, "\u25C1"))
           }, _this3.createCategoryItems(key)));
         });
       });
@@ -262,7 +236,8 @@ var Toolbar = function (_React$PureComponent) {
       var elementList = this.state.elementList;
       if (imagesDimension.length !== 0 && imagesDimension.length !== elementList.length) return;
       var width = this.props.dimensions.width;
-      var height = this.props.dimensions.height;
+      var height = this.props.dimensions.height; //console.log("t w: " + width + " h: " + height);
+
       var style = {
         boxSizing: "border-box",
         backgroundColor: "LightGray",
@@ -271,20 +246,17 @@ var Toolbar = function (_React$PureComponent) {
         width: "".concat(width, "px"),
         height: "".concat(height, "px"),
         overflow: "auto",
+        //			OverflowEvent: "hidden",
         textAlign: "center",
         verticalAlign: "middle"
       };
       var toolbar = this.createCategories();
       return _react.default.createElement("div", {
-        style: style,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 219
-        },
-        __self: this
+        style: style
       }, toolbar);
     }
   }]);
+
   return Toolbar;
 }(_react.default.PureComponent);
 

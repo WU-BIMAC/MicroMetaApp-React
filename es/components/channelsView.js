@@ -1,23 +1,9 @@
 "use strict";
 
-var _interopRequireDefault = require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _classCallCheck2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass"));
-
-var _possibleConstructorReturn2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn"));
-
-var _getPrototypeOf2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits"));
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -31,7 +17,25 @@ var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWith
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
-var _jsxFileName = "/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/src/components/channelsView.js";
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var validate = require("jsonschema").validate;
 
@@ -41,31 +45,34 @@ var currentNumberOf_identifier = "Number_Of_";
 var minNumberOf_identifier = "Min_Number_Of_";
 var maxNumberOf_identifier = "Max_Number_Of_";
 
-var ChannelView = function (_React$PureComponent) {
-  (0, _inherits2.default)(ChannelView, _React$PureComponent);
+var ChannelView =
+/*#__PURE__*/
+function (_React$PureComponent) {
+  _inherits(ChannelView, _React$PureComponent);
 
   function ChannelView(props) {
     var _this;
 
-    (0, _classCallCheck2.default)(this, ChannelView);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ChannelView).call(this, props));
+    _classCallCheck(this, ChannelView);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ChannelView).call(this, props));
     _this.state = {
       channels: _this.props.inputData.channels !== undefined ? _this.props.inputData.channels : [],
       editing: false,
       selectedIndex: -1
     };
-    _this.onAddElement = _this.onAddElement.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onEditElement = _this.onEditElement.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onRemoveElement = _this.onRemoveElement.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onSelectElement = _this.onSelectElement.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onElementDataCancel = _this.onElementDataCancel.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onElementDataSave = _this.onElementDataSave.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onConfirm = _this.onConfirm.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onCancel = _this.onCancel.bind((0, _assertThisInitialized2.default)(_this));
+    _this.onAddElement = _this.onAddElement.bind(_assertThisInitialized(_this));
+    _this.onEditElement = _this.onEditElement.bind(_assertThisInitialized(_this));
+    _this.onRemoveElement = _this.onRemoveElement.bind(_assertThisInitialized(_this));
+    _this.onSelectElement = _this.onSelectElement.bind(_assertThisInitialized(_this));
+    _this.onElementDataCancel = _this.onElementDataCancel.bind(_assertThisInitialized(_this));
+    _this.onElementDataSave = _this.onElementDataSave.bind(_assertThisInitialized(_this));
+    _this.onConfirm = _this.onConfirm.bind(_assertThisInitialized(_this));
+    _this.onCancel = _this.onCancel.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  (0, _createClass2.default)(ChannelView, [{
+  _createClass(ChannelView, [{
     key: "onAddElement",
     value: function onAddElement() {
       var uuid = uuidv4();
@@ -155,6 +162,7 @@ var ChannelView = function (_React$PureComponent) {
       }
 
       if (!found) {
+        //todo should never happen
         console.log("issue with " + id);
       }
 
@@ -187,7 +195,7 @@ var ChannelView = function (_React$PureComponent) {
       };
       var outputData = Object.assign(this.props.inputData, output);
       var id = this.props.schema.title + "_" + this.props.inputData.ID;
-      console.log(outputData);
+      console.log(outputData); //this.props.onConfirm(id, outputData);
     }
   }, {
     key: "onCancel",
@@ -198,7 +206,10 @@ var ChannelView = function (_React$PureComponent) {
     key: "render",
     value: function render() {
       var index = this.state.selectedIndex;
-      var channels = this.state.channels;
+      var channels = this.state.channels; // console.log("planes length " + planes.length);
+      // console.log("planes");
+      // console.log(planes);
+      // console.log("index " + index);
 
       if (this.state.editing) {
         var schema = this.props.schema;
@@ -213,12 +224,7 @@ var ChannelView = function (_React$PureComponent) {
           currentChildrenComponentIdentifier: currentNumberOf_identifier,
           minChildrenComponentIdentifier: minNumberOf_identifier,
           maxChildrenComponentIdentifier: maxNumberOf_identifier,
-          elementByType: this.props.elementByType,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 152
-          },
-          __self: this
+          elementByType: this.props.elementByType
         });
       } else {
         var buttonContainerRow = {
@@ -254,103 +260,40 @@ var ChannelView = function (_React$PureComponent) {
             variant: variant,
             onClick: this.onSelectElement,
             key: "Channel-" + i,
-            "data-id": i,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 192
-            },
-            __self: this
+            "data-id": i
           }, channel.Name));
         }
 
         return _react.default.createElement(_modalWindow.default, {
-          overlaysContainer: this.props.overlaysContainer,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 204
-          },
-          __self: this
-        }, _react.default.createElement("div", {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 205
-          },
-          __self: this
-        }, _react.default.createElement("h3", {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 206
-          },
-          __self: this
-        }, this.props.schema.title + "s")), _react.default.createElement("div", {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 208
-          },
-          __self: this
-        }, _react.default.createElement(_ListGroup.default, {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 209
-          },
-          __self: this
-        }, list)), _react.default.createElement("div", {
-          style: buttonContainerRow,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 211
-          },
-          __self: this
+          overlaysContainer: this.props.overlaysContainer
+        }, _react.default.createElement("div", null, _react.default.createElement("h3", null, this.props.schema.title + "s")), _react.default.createElement("div", null, _react.default.createElement(_ListGroup.default, null, list)), _react.default.createElement("div", {
+          style: buttonContainerRow
         }, _react.default.createElement(_Button.default, {
           style: button1,
           size: "lg",
-          onClick: this.onAddElement,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 212
-          },
-          __self: this
+          onClick: this.onAddElement
         }, "+"), _react.default.createElement(_Button.default, {
           style: button2,
           size: "lg",
           onClick: this.onEditElement,
-          disabled: index === -1,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 215
-          },
-          __self: this
+          disabled: index === -1
         }, "Edit selected"), _react.default.createElement(_Button.default, {
           style: button1,
           size: "lg",
-          onClick: this.onRemoveElement,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 223
-          },
-          __self: this
+          onClick: this.onRemoveElement
         }, "-"), _react.default.createElement(_Button.default, {
           style: button2,
           size: "lg",
-          onClick: this.onConfirm,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 226
-          },
-          __self: this
+          onClick: this.onConfirm
         }, "Confirm"), _react.default.createElement(_Button.default, {
           style: button2,
           size: "lg",
-          onClick: this.onCancel,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 229
-          },
-          __self: this
+          onClick: this.onCancel
         }, "Cancel")));
       }
     }
   }]);
+
   return ChannelView;
 }(_react.default.PureComponent);
 

@@ -1,23 +1,9 @@
 "use strict";
 
-var _interopRequireDefault = require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _classCallCheck2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass"));
-
-var _possibleConstructorReturn2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn"));
-
-var _getPrototypeOf2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits"));
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -33,28 +19,52 @@ var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWith
 
 var _DropdownMenu = _interopRequireDefault(require("./DropdownMenu"));
 
-var _jsxFileName = "/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/src/components/footer.js";
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 var validationTier = "Validate @ tier: ";
 
-var Footer = function (_React$PureComponent) {
-  (0, _inherits2.default)(Footer, _React$PureComponent);
+var Footer =
+/*#__PURE__*/
+function (_React$PureComponent) {
+  _inherits(Footer, _React$PureComponent);
 
   function Footer(props) {
     var _this;
 
-    (0, _classCallCheck2.default)(this, Footer);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Footer).call(this, props));
+    _classCallCheck(this, Footer);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Footer).call(this, props));
     _this.state = {
-      editing: false
-    };
-    _this.onClickEdit = _this.onClickEdit.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onFormConfirm = _this.onFormConfirm.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onFormCancel = _this.onFormCancel.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickChangeValidation = _this.onClickChangeValidation.bind((0, _assertThisInitialized2.default)(_this));
+      editing: false //	isMicroscopeValidated: false
+
+    }; //this.isMicroscopeValidated = false;
+
+    _this.onClickEdit = _this.onClickEdit.bind(_assertThisInitialized(_this));
+    _this.onFormConfirm = _this.onFormConfirm.bind(_assertThisInitialized(_this));
+    _this.onFormCancel = _this.onFormCancel.bind(_assertThisInitialized(_this));
+    _this.onClickChangeValidation = _this.onClickChangeValidation.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  (0, _createClass2.default)(Footer, [{
+  _createClass(Footer, [{
     key: "onClickEdit",
     value: function onClickEdit() {
       this.setState({
@@ -66,7 +76,9 @@ var Footer = function (_React$PureComponent) {
     value: function onFormConfirm(id, data) {
       this.setState({
         editing: false
-      });
+      }); //, isMicroscopeValidated: true
+      //this.isMicroscopeValidated = true;
+
       this.props.onFormConfirm(id, data);
     }
   }, {
@@ -95,12 +107,7 @@ var Footer = function (_React$PureComponent) {
           id: this.props.id,
           onConfirm: this.onFormConfirm,
           onCancel: this.onFormCancel,
-          overlaysContainer: this.props.overlaysContainer,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 55
-          },
-          __self: this
+          overlaysContainer: this.props.overlaysContainer
         });
       }
 
@@ -138,23 +145,16 @@ var Footer = function (_React$PureComponent) {
         key: "Animation-0",
         play: play,
         durationSeconds: 1,
-        keyframes: ["opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1"],
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 96
-        },
-        __self: this
+        keyframes: ["opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1"] // keyframes is an array of styles, and each style
+        // will be distributed over 100% of the duration
+
       }, _react.default.createElement(_Button.default, {
         key: "Button-0",
         onClick: this.onClickEdit,
         style: styleEditButton,
-        size: "lg",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 122
-        },
-        __self: this
-      }, "Edit ".concat(this.props.element)));
+        size: "lg"
+      }, "Edit ".concat(this.props.element))); //this could be moved to derived state from props
+
       var inputData = [];
 
       for (var i = 1; i <= this.props.activeTier; i++) {
@@ -170,12 +170,7 @@ var Footer = function (_React$PureComponent) {
         width: 250,
         margin: 5,
         defaultValue: defaultValidationTier,
-        direction: "up",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 139
-        },
-        __self: this
+        direction: "up"
       });
       var saveOptions = [];
 
@@ -184,7 +179,8 @@ var Footer = function (_React$PureComponent) {
       }
 
       saveOptions.push("Export " + this.props.element + " image");
-      saveOptions.push("Export " + this.props.element);
+      saveOptions.push("Export " + this.props.element); //Rethink this, maybe drop down split button with multi actions?
+
       buttons[2] = _react.default.createElement(_DropdownMenu.default, {
         key: "Button-2",
         title: "",
@@ -192,34 +188,37 @@ var Footer = function (_React$PureComponent) {
         inputData: saveOptions,
         width: 250,
         margin: 5,
-        direction: "up",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 158
-        },
-        __self: this
-      });
+        direction: "up"
+      }); // let styleSaveButton = {
+      // 	width: "250px",
+      // 	minWidth: "250px",
+      // 	height: "50px",
+      // 	marginLeft: "5px",
+      // 	marginRight: "5px"
+      // };
+      // buttons[2] = (
+      // 	<Button
+      // 		key={"Button-2"}
+      // 		onClick={this.props.onClickExport}
+      // 		style={styleSaveButton}
+      // 		size="lg"
+      // 	>
+      // 		Export microscope
+      // 		</Button>
+      // );
+
       buttons[3] = _react.default.createElement(_Button.default, {
         key: "Button-3",
         onClick: this.props.onClickBack,
         style: styleButton,
-        size: "lg",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 186
-        },
-        __self: this
+        size: "lg"
       }, "Back");
       return _react.default.createElement("div", {
-        style: style,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 195
-        },
-        __self: this
+        style: style
       }, buttons);
     }
   }]);
+
   return Footer;
 }(_react.default.PureComponent);
 

@@ -1,23 +1,9 @@
 "use strict";
 
-var _interopRequireDefault = require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _classCallCheck2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass"));
-
-var _possibleConstructorReturn2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn"));
-
-var _getPrototypeOf2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits"));
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -27,30 +13,51 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _reactDropzone = _interopRequireDefault(require("react-dropzone"));
 
-var _jsxFileName = "/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/src/components/dataLoader.js";
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var DataLoader = function (_React$PureComponent) {
-  (0, _inherits2.default)(DataLoader, _React$PureComponent);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var DataLoader =
+/*#__PURE__*/
+function (_React$PureComponent) {
+  _inherits(DataLoader, _React$PureComponent);
 
   function DataLoader(props) {
     var _this;
 
-    (0, _classCallCheck2.default)(this, DataLoader);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(DataLoader).call(this, props));
+    _classCallCheck(this, DataLoader);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(DataLoader).call(this, props));
     _this.state = {
       isLoadingSchema: false,
       isLoadingMicroscopes: false,
       isSchemaLoaded: false,
       isMicroscopesLoaded: false
     };
-    _this.simulateClickLoadSchema = _this.simulateClickLoadSchema.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickLoadSchema = _this.onClickLoadSchema.bind((0, _assertThisInitialized2.default)(_this));
-    _this.simulateClickLoadMicroscopes = _this.simulateClickLoadMicroscopes.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickLoadMicroscopes = _this.onClickLoadMicroscopes.bind((0, _assertThisInitialized2.default)(_this));
+    _this.simulateClickLoadSchema = _this.simulateClickLoadSchema.bind(_assertThisInitialized(_this));
+    _this.onClickLoadSchema = _this.onClickLoadSchema.bind(_assertThisInitialized(_this));
+    _this.simulateClickLoadMicroscopes = _this.simulateClickLoadMicroscopes.bind(_assertThisInitialized(_this));
+    _this.onClickLoadMicroscopes = _this.onClickLoadMicroscopes.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  (0, _createClass2.default)(DataLoader, [{
+  _createClass(DataLoader, [{
     key: "onClickLoadSchema",
     value: function onClickLoadSchema() {
       var _this2 = this;
@@ -124,44 +131,25 @@ var DataLoader = function (_React$PureComponent) {
       var isSchemaLoaded = this.state.isSchemaLoaded;
       var isMicroscopesLoaded = this.state.isMicroscopesLoaded;
       return _react.default.createElement("div", {
-        style: windowExternalContainer,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 82
-        },
-        __self: this
+        style: windowExternalContainer
       }, _react.default.createElement("div", {
-        style: windowInternalContainer,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 83
-        },
-        __self: this
+        style: windowInternalContainer
       }, _react.default.createElement(_Button.default, {
         ref: this.simulateClickLoadSchema,
         disabled: isLoadingSchema || isSchemaLoaded,
         onClick: !isLoadingSchema && !isSchemaLoaded ? this.onClickLoadSchema : null,
         style: buttonStyle,
-        size: "lg",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 84
-        },
-        __self: this
+        size: "lg"
       }, isLoadingSchema ? "Loading schema" : isSchemaLoaded ? "Schema loaded" : "Load schema"), _react.default.createElement(_Button.default, {
         ref: this.simulateClickLoadMicroscopes,
         disabled: isLoadingMicroscopes || isMicroscopesLoaded,
         onClick: !isLoadingMicroscopes && !isMicroscopesLoaded ? this.onClickLoadMicroscopes : null,
         style: buttonStyle,
-        size: "lg",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 101
-        },
-        __self: this
+        size: "lg"
       }, isLoadingMicroscopes ? "Loading microscopes" : isMicroscopesLoaded ? "Microscopes loaded" : "Load microscopes")));
     }
   }]);
+
   return DataLoader;
 }(_react.default.PureComponent);
 

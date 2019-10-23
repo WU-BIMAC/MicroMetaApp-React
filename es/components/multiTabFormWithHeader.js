@@ -1,25 +1,9 @@
 "use strict";
 
-var _interopRequireDefault = require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireDefault");
-
-var _interopRequireWildcard = require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireWildcard");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _classCallCheck2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass"));
-
-var _possibleConstructorReturn2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn"));
-
-var _getPrototypeOf2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits"));
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -35,17 +19,43 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
-var _jsxFileName = "/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/src/components/multiTabFormWithHeader.js";
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 var add_components_warning = "If you modify the number of sub-components, the information not saved are going to be lost!";
 
-var MultiTabFormWithHeader = function (_React$PureComponent) {
-  (0, _inherits2.default)(MultiTabFormWithHeader, _React$PureComponent);
+var MultiTabFormWithHeader =
+/*#__PURE__*/
+function (_React$PureComponent) {
+  _inherits(MultiTabFormWithHeader, _React$PureComponent);
 
   function MultiTabFormWithHeader(props) {
     var _this;
 
-    (0, _classCallCheck2.default)(this, MultiTabFormWithHeader);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(MultiTabFormWithHeader).call(this, props));
+    _classCallCheck(this, MultiTabFormWithHeader);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MultiTabFormWithHeader).call(this, props));
     _this.state = {
       showForm: true,
       currentChildrenComponents: {},
@@ -79,30 +89,30 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
     _this.formRefs = [];
     _this.data = [];
     _this.errors = [];
-    _this.onChange = _this.onChange.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onSubmit = _this.onSubmit.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onError = _this.onError.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onTabChange = _this.onTabChange.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onConfirm = _this.onConfirm.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onCancel = _this.onCancel.bind((0, _assertThisInitialized2.default)(_this));
-    _this.createForm = _this.createForm.bind((0, _assertThisInitialized2.default)(_this));
-    _this.createForms = _this.createForms.bind((0, _assertThisInitialized2.default)(_this));
-    _this.processData = _this.processData.bind((0, _assertThisInitialized2.default)(_this));
-    _this.processErrors = _this.processErrors.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onEditComponents = _this.onEditComponents.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onEditComponentsConfirm = _this.onEditComponentsConfirm.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onEditComponentsCancel = _this.onEditComponentsCancel.bind((0, _assertThisInitialized2.default)(_this));
-    _this.createChildrenComponentsButton = _this.createChildrenComponentsButton.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickAddChildComponent = _this.onClickAddChildComponent.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickRemoveChildComponent = _this.onClickRemoveChildComponent.bind((0, _assertThisInitialized2.default)(_this));
-    _this.initializeForms = _this.initializeForms.bind((0, _assertThisInitialized2.default)(_this));
+    _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.onError = _this.onError.bind(_assertThisInitialized(_this));
+    _this.onTabChange = _this.onTabChange.bind(_assertThisInitialized(_this));
+    _this.onConfirm = _this.onConfirm.bind(_assertThisInitialized(_this));
+    _this.onCancel = _this.onCancel.bind(_assertThisInitialized(_this));
+    _this.createForm = _this.createForm.bind(_assertThisInitialized(_this));
+    _this.createForms = _this.createForms.bind(_assertThisInitialized(_this));
+    _this.processData = _this.processData.bind(_assertThisInitialized(_this));
+    _this.processErrors = _this.processErrors.bind(_assertThisInitialized(_this));
+    _this.onEditComponents = _this.onEditComponents.bind(_assertThisInitialized(_this));
+    _this.onEditComponentsConfirm = _this.onEditComponentsConfirm.bind(_assertThisInitialized(_this));
+    _this.onEditComponentsCancel = _this.onEditComponentsCancel.bind(_assertThisInitialized(_this));
+    _this.createChildrenComponentsButton = _this.createChildrenComponentsButton.bind(_assertThisInitialized(_this));
+    _this.onClickAddChildComponent = _this.onClickAddChildComponent.bind(_assertThisInitialized(_this));
+    _this.onClickRemoveChildComponent = _this.onClickRemoveChildComponent.bind(_assertThisInitialized(_this));
+    _this.initializeForms = _this.initializeForms.bind(_assertThisInitialized(_this));
 
     _this.initializeForms();
 
     return _this;
   }
 
-  (0, _createClass2.default)(MultiTabFormWithHeader, [{
+  _createClass(MultiTabFormWithHeader, [{
     key: "initializeForms",
     value: function initializeForms() {
       var currentChildrenComponents = this.state.currentChildrenComponents;
@@ -257,7 +267,11 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
             partialUISchema[key][propKey] = Object.assign(uiProperties, {
               "ui:readonly": true
             });
-          }
+          } // if (partialSchema[key].properties[propKey].type === "string")
+          // 	partialUISchema[key][propKey] = Object.assign(uiProperties, {
+          // 		"ui:emptyValue": ""
+          // 	});
+
         });
       });
       return partialUISchema;
@@ -282,12 +296,7 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
         },
         style: {
           overflow: "hidden"
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 431
-        },
-        __self: this
+        }
       }, _react.default.createElement("button", {
         ref: function ref(btn) {
           if (index != -1) {
@@ -298,12 +307,7 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
         },
         style: {
           display: "none"
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 448
-        },
-        __self: this
+        }
       }));
     }
   }, {
@@ -311,22 +315,27 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
     value: function createForms(subCategoriesOrder, partialSchema, partialInputData) {
       var _this2 = this;
 
+      // Maybe ModalWindow could wrap entire <SchemaForm> (in CanvasElement render method)
+      // instead of being rendered by <SchemaForm> if SchemaForm could be later used in other places.
       var currentButtonsRefs = [];
       var currentFormNames = [];
       var currentFormRefs = [];
       var partialUISchema = this.createUISchema(partialSchema);
-      var currentForms = [];
+      var currentForms = []; //let keys = Object.keys(subCategoriesOrder);
+
       Object.keys(subCategoriesOrder).forEach(function (key, index) {
+        //for (let i = 0; i < subCategoriesOrder.length; i++) {
         var description = subCategoriesOrder[key];
         if (partialSchema[key] === undefined) return;
         partialSchema[key] = Object.assign(partialSchema[key], {
           description: description
-        });
+        }); //console.log(partialSchema[key]);
+
         currentFormNames.splice(index, 0, key);
 
         var form = _this2.createForm(partialSchema[key], partialUISchema[key], partialInputData[key], index, currentFormRefs, currentButtonsRefs);
 
-        currentForms.push(form);
+        currentForms.push(form); //}
       });
       var schemaKeys = Object.keys(partialSchema);
 
@@ -342,7 +351,8 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
         if (description === null) description = "";
         partialSchema[key] = Object.assign(partialSchema[key], {
           description: description
-        });
+        }); //console.log(partialSchema[key]);
+
         currentFormNames.push(key);
 
         var form = _this2.createForm(partialSchema[key], partialUISchema[key], partialInputData[key], -1, currentFormRefs, currentButtonsRefs);
@@ -367,7 +377,10 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
       this.setState({
         activeKey: key
       });
-    }
+    } //Around tabs
+    //<div style={{ overflow: "scroll", height: "90%" }} />
+    //<div />
+
   }, {
     key: "onClickAddChildComponent",
     value: function onClickAddChildComponent(key) {
@@ -416,12 +429,7 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
         var isMinDisabled = minChildren === currentChildren;
         var isMaxDisabled = maxChildren === currentChildren;
         buttons.push(_react.default.createElement("div", {
-          key: key,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 574
-          },
-          __self: this
+          key: key
         }, _react.default.createElement(_Button.default, {
           style: sideButtonLeftMargin,
           variant: isMinDisabled ? "secondary" : "danger",
@@ -429,22 +437,12 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
             return _this3.onClickRemoveChildComponent(key);
           },
           disabled: isMinDisabled,
-          value: key,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 575
-          },
-          __self: this
+          value: key
         }, "-"), _react.default.createElement(_Button.default, {
           style: buttonNoMargin,
           size: "lg",
           variant: "secondary",
-          disabled: true,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 586
-          },
-          __self: this
+          disabled: true
         }, key, " : ", currentChildren), _react.default.createElement(_Button.default, {
           style: sideButtonRightMargin,
           variant: isMaxDisabled ? "secondary" : "success",
@@ -452,12 +450,7 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
             return _this3.onClickAddChildComponent(key);
           },
           disabled: isMaxDisabled,
-          value: key,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 589
-          },
-          __self: this
+          value: key
         }, "+")));
       });
       return buttons;
@@ -498,51 +491,21 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
 
       if (!showForm) {
         return _react.default.createElement(_modalWindow.default, {
-          overlaysContainer: this.props.overlaysContainer,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 639
-          },
-          __self: this
+          overlaysContainer: this.props.overlaysContainer
         }, _react.default.createElement("div", {
-          style: buttonContainerColumnExternal,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 640
-          },
-          __self: this
+          style: buttonContainerColumnExternal
         }, _react.default.createElement("div", {
-          style: buttonContainerColumn,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 641
-          },
-          __self: this
+          style: buttonContainerColumn
         }, childrenButtons), _react.default.createElement("div", {
-          style: buttonContainerRow,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 642
-          },
-          __self: this
+          style: buttonContainerRow
         }, _react.default.createElement(_Button.default, {
           style: button,
           size: "lg",
-          onClick: this.onEditComponentsConfirm,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 643
-          },
-          __self: this
+          onClick: this.onEditComponentsConfirm
         }, "Confirm"), _react.default.createElement(_Button.default, {
           style: button,
           size: "lg",
-          onClick: this.onEditComponentsCancel,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 650
-          },
-          __self: this
+          onClick: this.onEditComponentsCancel
         }, "Cancel"))));
       }
 
@@ -552,103 +515,40 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
         return _react.default.createElement(_rcTabs.TabPane, {
           tab: names[index],
           key: index,
-          forceRender: true,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 666
-          },
-          __self: this
+          forceRender: true
         }, item);
       });
-      var hasChildren = Object.keys(currentChildrenComponents).length > 0;
+      var hasChildren = Object.keys(currentChildrenComponents).length > 0; //<div>{this.props.schema.description}</div>
+
       return _react.default.createElement(_modalWindow.default, {
-        overlaysContainer: this.props.overlaysContainer,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 674
-        },
-        __self: this
-      }, _react.default.createElement("div", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 675
-        },
-        __self: this
-      }, _react.default.createElement("h3", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 676
-        },
-        __self: this
-      }, this.props.schema.title), _react.default.createElement("p", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 677
-        },
-        __self: this
-      }, hasChildren ? add_components_warning : ""), _react.default.createElement(_rcTabs.default, {
+        overlaysContainer: this.props.overlaysContainer
+      }, _react.default.createElement("div", null, _react.default.createElement("h3", null, this.props.schema.title), _react.default.createElement("p", null, hasChildren ? add_components_warning : ""), _react.default.createElement(_rcTabs.default, {
         onChange: this.onTabChange,
         renderTabBar: function renderTabBar() {
-          return _react.default.createElement(_TabBar.default, {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 680
-            },
-            __self: this
-          });
+          return _react.default.createElement(_TabBar.default, null);
         },
         renderTabContent: function renderTabContent() {
           return _react.default.createElement(_TabContent.default, {
-            animatedWithMargin: true,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 681
-            },
-            __self: this
+            animatedWithMargin: true
           });
         },
-        activeKey: this.state.activeKey,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 678
-        },
-        __self: this
+        activeKey: this.state.activeKey
       }, tabs), _react.default.createElement("div", {
-        style: buttonContainerRow,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 686
-        },
-        __self: this
+        style: buttonContainerRow
       }, _react.default.createElement(_Button.default, {
         style: button,
         size: "lg",
         variant: !hasChildren ? "secondary" : "primary",
         onClick: !hasChildren ? null : this.onEditComponents,
-        disabled: !hasChildren,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 687
-        },
-        __self: this
+        disabled: !hasChildren
       }, "Edit components"), _react.default.createElement(_Button.default, {
         style: button,
         size: "lg",
-        onClick: this.onConfirm,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 696
-        },
-        __self: this
+        onClick: this.onConfirm
       }, "Confirm"), _react.default.createElement(_Button.default, {
         style: button,
         size: "lg",
-        onClick: this.onCancel,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 699
-        },
-        __self: this
+        onClick: this.onCancel
       }, "Cancel"))));
     }
   }], [{
@@ -664,8 +564,15 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
       var value = null;
 
       for (var key in inputData) {
+        //Object.keys(inputData).forEach(function (key) {
         if (inputData[key] instanceof Array) {
+          // console.log("FindInput");
+          // console.log("key " + key);
+          // console.log("data");
+          // console.log(inputData[key]);
           if (inputData[key][propKey] !== undefined) {
+            //if (index !== -1) return inputData[key][index][propKey];
+            //else
             return inputData[key][propKey];
           } else {
             value = MultiTabFormWithHeader.findInputPropKeyValue(index, propKey, inputData[key]);
@@ -688,7 +595,8 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
   }, {
     key: "transformInputData",
     value: function transformInputData(inputData, partialSchema) {
-      var partialInputData = [];
+      var partialInputData = []; //TODO find data inside objects and arrays
+
       Object.keys(partialSchema).forEach(function (key) {
         if (partialInputData[key] === undefined) partialInputData[key] = {};
         Object.keys(partialSchema[key].properties).forEach(function (propKey) {
@@ -763,7 +671,8 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
             counter: counter,
             properties: {}
           };
-        }
+        } //keysForCategory.properties[key] = property;
+
 
         var newProperty = Object.assign({}, property);
 
@@ -806,7 +715,12 @@ var MultiTabFormWithHeader = function (_React$PureComponent) {
       return partialSchema;
     }
   }]);
+
   return MultiTabFormWithHeader;
 }(_react.default.PureComponent);
+/**
+ * @todo Own file.
+ */
+
 
 exports.default = MultiTabFormWithHeader;

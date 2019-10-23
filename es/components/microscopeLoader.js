@@ -1,23 +1,9 @@
 "use strict";
 
-var _interopRequireDefault = require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _classCallCheck2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass"));
-
-var _possibleConstructorReturn2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn"));
-
-var _getPrototypeOf2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits"));
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -29,35 +15,56 @@ var _reactDropzone = _interopRequireDefault(require("react-dropzone"));
 
 var _DropdownMenu = _interopRequireDefault(require("./DropdownMenu"));
 
-var _jsxFileName = "/Users/alex/ext-projects/4DNMicroscopyMetadataToolReact/src/components/microscopeLoader.js";
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var MicroscopeLoader = function (_React$PureComponent) {
-  (0, _inherits2.default)(MicroscopeLoader, _React$PureComponent);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var MicroscopeLoader =
+/*#__PURE__*/
+function (_React$PureComponent) {
+  _inherits(MicroscopeLoader, _React$PureComponent);
 
   function MicroscopeLoader(props) {
     var _this;
 
-    (0, _classCallCheck2.default)(this, MicroscopeLoader);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(MicroscopeLoader).call(this, props));
+    _classCallCheck(this, MicroscopeLoader);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MicroscopeLoader).call(this, props));
     _this.state = {
       fileLoaded: false,
       fileLoading: false,
       selectedManu: null,
       micNames: null
     };
-    _this.dropzoneDropAccepted = _this.dropzoneDropAccepted.bind((0, _assertThisInitialized2.default)(_this));
-    _this.dropzoneDropRejected = _this.dropzoneDropRejected.bind((0, _assertThisInitialized2.default)(_this));
-    _this.dropzoneDrop = _this.dropzoneDrop.bind((0, _assertThisInitialized2.default)(_this));
-    _this.dropzoneDialogOpen = _this.dropzoneDialogOpen.bind((0, _assertThisInitialized2.default)(_this));
-    _this.dropzoneDialogCancel = _this.dropzoneDialogCancel.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onFileReaderAbort = _this.onFileReaderAbort.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onFileReaderError = _this.onFileReaderError.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onFileReaderLoad = _this.onFileReaderLoad.bind((0, _assertThisInitialized2.default)(_this));
-    _this.onClickManufacturerSelection = _this.onClickManufacturerSelection.bind((0, _assertThisInitialized2.default)(_this));
+    _this.dropzoneDropAccepted = _this.dropzoneDropAccepted.bind(_assertThisInitialized(_this));
+    _this.dropzoneDropRejected = _this.dropzoneDropRejected.bind(_assertThisInitialized(_this));
+    _this.dropzoneDrop = _this.dropzoneDrop.bind(_assertThisInitialized(_this));
+    _this.dropzoneDialogOpen = _this.dropzoneDialogOpen.bind(_assertThisInitialized(_this));
+    _this.dropzoneDialogCancel = _this.dropzoneDialogCancel.bind(_assertThisInitialized(_this));
+    _this.onFileReaderAbort = _this.onFileReaderAbort.bind(_assertThisInitialized(_this));
+    _this.onFileReaderError = _this.onFileReaderError.bind(_assertThisInitialized(_this));
+    _this.onFileReaderLoad = _this.onFileReaderLoad.bind(_assertThisInitialized(_this));
+    _this.onClickManufacturerSelection = _this.onClickManufacturerSelection.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  (0, _createClass2.default)(MicroscopeLoader, [{
+  _createClass(MicroscopeLoader, [{
     key: "onFileReaderAbort",
     value: function onFileReaderAbort(e) {
       this.setState({
@@ -186,12 +193,7 @@ var MicroscopeLoader = function (_React$PureComponent) {
         defaultValue: this.props.loadingOptions.indexOf(this.props.loadingOption),
         inputData: this.props.loadingOptions,
         width: width,
-        margin: margin,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 141
-        },
-        __self: this
+        margin: margin
       }));
 
       if (loadingMode === 1) {
@@ -202,43 +204,15 @@ var MicroscopeLoader = function (_React$PureComponent) {
           onDropAccepted: this.dropzoneDropAccepted,
           onDropRejected: this.dropzoneDropRejected,
           accept: ".json",
-          multiple: false,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 155
-          },
-          __self: this
+          multiple: false
         }, function (_ref) {
           var getRootProps = _ref.getRootProps,
               getInputProps = _ref.getInputProps;
           return _react.default.createElement("section", {
-            style: dropzoneStyle,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 165
-            },
-            __self: this
-          }, _react.default.createElement("div", Object.assign({}, getRootProps(), {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 166
-            },
-            __self: this
-          }), _react.default.createElement("input", Object.assign({}, getInputProps({
+            style: dropzoneStyle
+          }, _react.default.createElement("div", getRootProps(), _react.default.createElement("input", getInputProps({
             onClick: _this2.dropzoneDialogOpen
-          }), {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 167
-            },
-            __self: this
-          })), _react.default.createElement("p", {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 170
-            },
-            __self: this
-          }, "Drag 'n' drop some files here, or click to select files")));
+          })), _react.default.createElement("p", null, "Drag 'n' drop some files here, or click to select files")));
         }));
       }
 
@@ -249,73 +223,43 @@ var MicroscopeLoader = function (_React$PureComponent) {
           handleMenuItemClick: this.onClickManufacturerSelection,
           inputData: Object.keys(inputData),
           width: width,
-          margin: margin,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 180
-          },
-          __self: this
+          margin: margin
         }));
 
         if (selectedManu !== null && selectedManu !== undefined) {
-          console.log(this.state.micNames);
+          console.log(this.state.micNames); // console.log("selectedManu");
+          // console.log(selectedManu);
+          //let names = inputData[selectedManu];
+          // console.log("names");
+          // console.log(names);
+
           list.push(_react.default.createElement(_DropdownMenu.default, {
             key: "dropdown-names",
             title: "",
             handleMenuItemClick: this.props.onClickMicroscopeSelection,
             inputData: this.state.micNames,
             width: width,
-            margin: margin,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 198
-            },
-            __self: this
+            margin: margin
           }));
         }
       }
 
       list.push(_react.default.createElement("div", {
-        key: "buttons",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 210
-        },
-        __self: this
+        key: "buttons"
       }, _react.default.createElement(_Button.default, {
         onClick: isDropzoneActive && fileLoaded && !fileLoading || !isDropzoneActive ? this.props.onClickConfirm : null,
         style: buttonStyle,
         size: "lg",
-        disabled: isDropzoneActive && (!fileLoaded || fileLoading),
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 211
-        },
-        __self: this
+        disabled: isDropzoneActive && (!fileLoaded || fileLoading)
       }, isDropzoneActive && !fileLoaded && !fileLoading ? "Waiting for file" : isDropzoneActive && fileLoading ? "Loading file" : "Confirm"), _react.default.createElement(_Button.default, {
         onClick: this.props.onClickBack,
         style: buttonStyle,
-        size: "lg",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 228
-        },
-        __self: this
+        size: "lg"
       }, "Back")));
       return _react.default.createElement("div", {
-        style: windowExternalContainer,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 235
-        },
-        __self: this
+        style: windowExternalContainer
       }, _react.default.createElement("div", {
-        style: windowInternalContainer,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 236
-        },
-        __self: this
+        style: windowInternalContainer
       }, list));
     }
   }], [{
@@ -338,6 +282,7 @@ var MicroscopeLoader = function (_React$PureComponent) {
       return null;
     }
   }]);
+
   return MicroscopeLoader;
 }(_react.default.PureComponent);
 
