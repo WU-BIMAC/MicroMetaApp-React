@@ -73,50 +73,50 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.dimensions !== null) {
-			let height = props.dimensions.height - 4;
-			let width = props.dimensions.width - 2;
-			let imgHeight = state.imgHeight;
-			let imgWidth = state.imgWidth;
-			if (imgHeight === null || imgWidth === null) return null;
-			//console.log("####");
-			//console.log("h: " + height + " w: " + width);
-			//console.log("ih: " + imgHeight + " iw: " + imgWidth);
-			let yOrientation = true;
-			if (height > width) {
-				yOrientation = false;
-			}
-			let yOrientationImg = true;
-			if (imgHeight > imgWidth) {
-				yOrientationImg = false;
-			}
-			if (
-				(yOrientation && yOrientationImg) ||
-				(!yOrientation && !yOrientationImg)
-			) {
-				//console.log("case 1");
-				let backgroundScale = (height * 100) / (imgHeight * 100);
-				let currentWidth = backgroundScale * imgWidth;
-				let offsetX = (width - currentWidth) / 2;
-				// console.log(
-				// 	"scale: " + backgroundScale + " Off: " + offsetX + " w: " + width
-				// );
-				let offsetXPercent = (offsetX * 100) / width;
-				if (offsetXPercent !== state.offsetX)
-					return { offsetX: offsetXPercent, backgroundScale: backgroundScale };
-			} else {
-				//console.log("case 2");
-				let backgroundScale = (width * 100) / (imgWidth * 100);
-				let currentHeight = backgroundScale * imgHeight;
-				let offsetY = (height - currentHeight) / 2;
-				// console.log(
-				// 	"scale: " + backgroundScale + " Off: " + offsetY + " h: " + height
-				// );
-				let offsetYPercent = (offsetY * 100) / height;
-				if (offsetYPercent != state.offsetY)
-					return { offsetY: offsetYPercent, backgroundScale: backgroundScale };
-			}
-		}
+		// //if (props.dimensions !== null) {
+		// 	let height = props.dimensions.height - 4;
+		// 	let width = props.dimensions.width - 2;
+		// 	let imgHeight = state.imgHeight;
+		// 	let imgWidth = state.imgWidth;
+		// 	if (imgHeight === null || imgWidth === null) return null;
+		// 	console.log("####");
+		// 	console.log("h: " + height + " w: " + width);
+		// 	console.log("ih: " + imgHeight + " iw: " + imgWidth);
+		// 	let yOrientation = true;
+		// 	if (height > width) {
+		// 		yOrientation = false;
+		// 	}
+		// 	let yOrientationImg = true;
+		// 	if (imgHeight > imgWidth) {
+		// 		yOrientationImg = false;
+		// 	}
+		// 	if (
+		// 		(yOrientation && yOrientationImg) ||
+		// 		(!yOrientation && !yOrientationImg)
+		// 	) {
+		// 		//console.log("case 1");
+		// 		let backgroundScale = (height * 100) / (imgHeight * 100);
+		// 		let currentWidth = backgroundScale * imgWidth;
+		// 		let offsetX = (width - currentWidth) / 2;
+		// 		// console.log(
+		// 		// 	"scale: " + backgroundScale + " Off: " + offsetX + " w: " + width
+		// 		// );
+		// 		let offsetXPercent = (offsetX * 100) / width;
+		// 		if (offsetXPercent !== state.offsetX)
+		// 			return { offsetX: offsetXPercent, backgroundScale: backgroundScale };
+		// 	} else {
+		// 		//console.log("case 2");
+		// 		let backgroundScale = (width * 100) / (imgWidth * 100);
+		// 		let currentHeight = backgroundScale * imgHeight;
+		// 		let offsetY = (height - currentHeight) / 2;
+		// 		// console.log(
+		// 		// 	"scale: " + backgroundScale + " Off: " + offsetY + " h: " + height
+		// 		// );
+		// 		let offsetYPercent = (offsetY * 100) / height;
+		// 		if (offsetYPercent != state.offsetY)
+		// 			return { offsetY: offsetYPercent, backgroundScale: backgroundScale };
+		// 	}
+		// //}
 
 		if (props.componentsSchema !== null) {
 			let componentsSchema = {};
@@ -140,19 +140,19 @@ export default class Canvas extends React.PureComponent {
 			};
 		}
 
-		let scale = 1;
-		if (
-			(state.scale === null && state.backgroundScale !== null) ||
-			(state.scale !== null &&
-				state.backgroundScale !== null &&
-				state.scale !== state.backgroundScale)
-		) {
-			scale = state.backgroundScale;
-		}
-		if (props.scale !== null) {
-			scale *= props.scale;
-		}
-		if (scale !== state.scale) return { scale: scale };
+		// let scale = 1;
+		// if (
+		// 	(state.scale === null && state.backgroundScale !== null) ||
+		// 	(state.scale !== null &&
+		// 		state.backgroundScale !== null &&
+		// 		state.scale !== state.backgroundScale)
+		// ) {
+		// 	scale = state.backgroundScale;
+		// }
+		// if (props.scale !== null) {
+		// 	scale *= props.scale;
+		// }
+		// if (scale !== state.scale) return { scale: scale };
 
 		return null;
 	}
@@ -244,14 +244,15 @@ export default class Canvas extends React.PureComponent {
 		let newElement = null;
 		let x = e.x;
 		let y = e.y - 60;
+		console.log("X:" + x + " || " + "Y:" + y);
 		if (sourceElement.source !== "toolbar") {
 			x -= 7;
 			y -= 7;
 		}
-		let width = this.props.dimensions.width;
-		let height = this.props.dimensions.height;
-		let percentX = (100 * x) / width - this.state.offsetX;
-		let percentY = (100 * y) / height - this.state.offsetY;
+		//let width = this.props.dimensions.width;
+		//let height = this.props.dimensions.height;
+		//let percentX = (100 * x) / width - this.state.offsetX;
+		//let percentY = (100 * y) / height - this.state.offsetY;
 
 		let componentsSchema = this.state.componentsSchema;
 
@@ -267,8 +268,10 @@ export default class Canvas extends React.PureComponent {
 				schema_ID: schema.ID,
 				validated: false,
 				dragged: false,
-				x: percentX,
-				y: percentY,
+				//x: percentX,
+				x: x,
+				//y: percentY,
+				y: y,
 				width: 100,
 				height: 100
 			};
@@ -279,8 +282,10 @@ export default class Canvas extends React.PureComponent {
 				Tier: schema.tier,
 				Schema_ID: schema.ID,
 				Version: schema.version,
-				PositionX: percentX,
-				PositionY: percentY,
+				//PositionX: percentX,
+				PositionX: x,
+				//PositionY: percentY,
+				PositionY: y,
 				Width: 100,
 				Height: 100
 			};
@@ -314,11 +319,15 @@ export default class Canvas extends React.PureComponent {
 			newElementDataList[newElement.ID] = newElementData;
 		} else {
 			let item = this.state.elementList[sourceElement.index];
-			newElementList[sourceElement.index].x = percentX;
-			newElementList[sourceElement.index].y = percentY;
+			// newElementList[sourceElement.index].x = percentX;
+			newElementList[sourceElement.index].x = x;
+			// newElementList[sourceElement.index].y = percentY;
+			newElementList[sourceElement.index].y = y;
 			newElementList[sourceElement.index].dragged = false;
-			newElementDataList[item.ID].PositionX = percentX;
-			newElementDataList[item.ID].PositionY = percentY;
+			//newElementDataList[item.ID].PositionX = percentX;
+			newElementDataList[item.ID].PositionX = x;
+			//newElementDataList[item.ID].PositionY = percentY;
+			newElementDataList[item.ID].PositionY = y;
 		}
 
 		this.setState({
@@ -360,6 +369,7 @@ export default class Canvas extends React.PureComponent {
 		let elementData = this.state.elementData;
 		let offsetX = this.state.offsetX;
 		let offsetY = this.state.offsetY;
+		
 
 		const styleGrabber = {
 			paddingLeft: "8px",
@@ -395,8 +405,10 @@ export default class Canvas extends React.PureComponent {
 			//console.log("new x: " + x + " y: " + y);
 			let style = {
 				position: "absolute",
-				left: `${x}%`,
-				top: `${y}%`
+				//left: `${x}%`,
+				left: x,
+				//top: `${y}%`
+				top: y
 			};
 			let containerWidth = item.width;
 			let containerHeight = item.height;

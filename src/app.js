@@ -793,9 +793,29 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let settings = this.state.settings;
 		let settingData = this.state.settingData;
 
+
+		//let canvasWidth = Math.ceil(width * 0.75);
+		let canvasWidth = 800;
+		//let canvasHeight = height - 60 - 60;
+		let canvasHeight = 600;
+
+		//let toolbarWidth = Math.floor(width * 0.25);
+		let toolbarWidth = 300;
+		//let toolbarHeight = height - 60 - 60;
+		let toolbarHeight = canvasHeight;
+
+		let settingsWidth = canvasWidth + toolbarWidth;
+
+		//let footerWidth = width;
+		let headerFooterWidth = canvasWidth + toolbarWidth;
+		let headerFooterHeight = 60;
+
 		// Alex: Idea for scaling
-		width = Math.max(600, width);
-		height = Math.max(600, height);
+		//width = Math.max(600, width);
+		//height = Math.max(600, height);
+
+		width = canvasWidth + toolbarWidth;
+		height = canvasHeight + (headerFooterHeight * 2);
 
 		//TODO with this strategy i can create multiple views
 		//1st view: selection tier / new mic / use mic (+ import mic here maybe?)
@@ -943,28 +963,24 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		//TODO should be passing these to canvas and toolbar instead of
 		// using percentage size inside the component
-		let canvasWidth = Math.ceil(width * 0.75);
-		let canvasHeight = height - 60 - 60;
 		let canvasDims = {
 			width: canvasWidth,
 			height: canvasHeight
 		};
 
 		let settingsMainViewDims = {
-			width: width,
+			width: settingsWidth,
 			height: canvasHeight
 		};
 
-		let toolbarWidth = Math.floor(width * 0.25);
-		let toolbarHeight = height - 60 - 60;
 		let toolbarDims = {
 			width: toolbarWidth,
 			height: toolbarHeight
 		};
 
 		let headerFooterDims = {
-			width: width,
-			height: 60
+			width: headerFooterWidth,
+			height: headerFooterHeight
 		};
 
 		let microscopeSchema = this.state.adaptedMicroscopeSchema;
