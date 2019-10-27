@@ -37,7 +37,15 @@ function webpackOnBuild(done) {
 }
 
 /** For external/built projects to import via NPM */
-function doBuildESModules(done){
+function doBuildESModules(done) {
+	var isWin = process.platform === "win32";
+	//Dirty fix for the moment to avoid commenting out the ES processes
+	
+	if (isWin) {
+		console.log("doBuildESModules skipping because it doesnt seem to work under Windows:");
+		done();
+		return;
+	}
 	const subP = spawn("npx", [
 		"babel",
 		path.join(__dirname, "src"),
@@ -46,14 +54,21 @@ function doBuildESModules(done){
 		"--env-name",
 		"esm",
 		"--verbose"
-	], { stdio: "inherit" });
+	], { stdio: "inherit", windowsVerbatimArguments: true });
 
 	subP.on("close", (code)=>{
 		done();
 	});
 }
 
-function doWatchESModules(done){
+function doWatchESModules(done) {
+	var isWin = process.platform === "win32";
+	//Dirty fix for the moment to avoid commenting out the ES processes
+	if (isWin) {
+		console.log("doWatchESModules skipping because it doesnt seem to work under Windows:");
+		done();
+		return;
+	}
 	const subP = spawn("npx", [
 		"babel",
 		path.join(__dirname, "src"),
@@ -63,7 +78,7 @@ function doWatchESModules(done){
 		"esm",
 		"--watch",
 		"--skip-initial-build"
-	], { stdio: "inherit" });
+	], { stdio: "inherit", windowsVerbatimArguments: true});
 
 	subP.on("close", (code)=>{
 		done();

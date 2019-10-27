@@ -1,4 +1,3 @@
-
 /* We should tell ppl to import this themselves */
 /*@import url("https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css");*/
 
@@ -8,8 +7,6 @@
 /* We should tell ppl to import this themselves */
 /* @import url("../node_modules/rc-tabs/assets/index.css"); */
 
-
-
 /*** For now we could just make a plain CSS files (not SCSS) for things. ***/
 /***
     Or we could use node-sass library and create `npm run build-scss` & `npm run watch-scss` commands
@@ -17,12 +14,11 @@
     then tell people / document to fetch this (or compiled) stylesheet from unpkg CDN.
 ***/
 
-
 /** Base button styling **/
 #microscopy-app-container button.common-btn {
-    text-align: center;
-    padding: 5px 8px;
-    font-weight: 500;
-    border-radius: 3px;
-    border: 1px solid transparent;
+	text-align: center;
+	padding: 5px 8px;
+	font-weight: 500;
+	border-radius: 3px;
+	border: 1px solid transparent;
 }
