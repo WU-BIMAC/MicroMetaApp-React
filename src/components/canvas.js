@@ -242,9 +242,17 @@ export default class Canvas extends React.PureComponent {
 		let newElementList = this.state.elementList.slice();
 		let newElementDataList = Object.assign({}, this.state.elementData);
 		let newElement = null;
+		let width = this.props.dimensions.width;
 		let x = e.x;
 		let y = e.y - 60;
-		console.log("X:" + x + " || " + "Y:" + y);
+		if (e.y - 60 < 0)
+			y = 60;
+		else
+			y = e.y - 60;
+		if (x < 0)
+			x = 0;
+		else if (x > width)
+			x = width;
 		if (sourceElement.source !== "toolbar") {
 			x -= 7;
 			y -= 7;
