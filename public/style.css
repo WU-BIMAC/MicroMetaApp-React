@@ -22,3 +22,8 @@
 	border-radius: 3px;
 	border: 1px solid transparent;
 }
+
+.react-resizable-handle {
+	right: -7px !important;
+	bottom: -7px !important;
+}

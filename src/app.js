@@ -793,7 +793,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let settings = this.state.settings;
 		let settingData = this.state.settingData;
 
-
 		//let canvasWidth = Math.ceil(width * 0.75);
 		let canvasWidth = 800;
 		//let canvasHeight = height - 60 - 60;
@@ -815,7 +814,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		//height = Math.max(600, height);
 
 		width = canvasWidth + toolbarWidth;
-		height = canvasHeight + (headerFooterHeight * 2);
+		height = canvasHeight + headerFooterHeight * 2;
 
 		//TODO with this strategy i can create multiple views
 		//1st view: selection tier / new mic / use mic (+ import mic here maybe?)

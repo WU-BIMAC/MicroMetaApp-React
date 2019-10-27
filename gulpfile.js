@@ -18,7 +18,7 @@ let setDev = done => {
 /** For inclusion in web pages */
 function webpackOnBuild(done) {
 	let start = Date.now();
-	return function (err, stats) {
+	return function(err, stats) {
 		if (err) {
 			throw new PluginError("webpack", err);
 		}
@@ -40,23 +40,29 @@ function webpackOnBuild(done) {
 function doBuildESModules(done) {
 	var isWin = process.platform === "win32";
 	//Dirty fix for the moment to avoid commenting out the ES processes
-	
+
 	if (isWin) {
-		console.log("doBuildESModules skipping because it doesnt seem to work under Windows:");
+		console.log(
+			"doBuildESModules skipping because it doesnt seem to work under Windows:"
+		);
 		done();
 		return;
 	}
-	const subP = spawn("npx", [
-		"babel",
-		path.join(__dirname, "src"),
-		"--out-dir",
-		path.join(__dirname, "es"),
-		"--env-name",
-		"esm",
-		"--verbose"
-	], { stdio: "inherit", windowsVerbatimArguments: true });
+	const subP = spawn(
+		"npx",
+		[
+			"babel",
+			path.join(__dirname, "src"),
+			"--out-dir",
+			path.join(__dirname, "es"),
+			"--env-name",
+			"esm",
+			"--verbose"
+		],
+		{ stdio: "inherit", windowsVerbatimArguments: true }
+	);
 
-	subP.on("close", (code)=>{
+	subP.on("close", code => {
 		done();
 	});
 }
@@ -65,22 +71,28 @@ function doWatchESModules(done) {
 	var isWin = process.platform === "win32";
 	//Dirty fix for the moment to avoid commenting out the ES processes
 	if (isWin) {
-		console.log("doWatchESModules skipping because it doesnt seem to work under Windows:");
+		console.log(
+			"doWatchESModules skipping because it doesnt seem to work under Windows:"
+		);
 		done();
 		return;
 	}
-	const subP = spawn("npx", [
-		"babel",
-		path.join(__dirname, "src"),
-		"--out-dir",
-		path.join(__dirname, "es"),
-		"--env-name",
-		"esm",
-		"--watch",
-		"--skip-initial-build"
-	], { stdio: "inherit", windowsVerbatimArguments: true});
+	const subP = spawn(
+		"npx",
+		[
+			"babel",
+			path.join(__dirname, "src"),
+			"--out-dir",
+			path.join(__dirname, "es"),
+			"--env-name",
+			"esm",
+			"--watch",
+			"--skip-initial-build"
+		],
+		{ stdio: "inherit", windowsVerbatimArguments: true }
+	);
 
-	subP.on("close", (code)=>{
+	subP.on("close", code => {
 		done();
 	});
 }
@@ -101,10 +113,7 @@ gulp.task(
 		setDev,
 		doBuildESModules,
 		doWebpack,
-		gulp.parallel(
-			doWatchESModules,
-			watch
-		)
+		gulp.parallel(doWatchESModules, watch)
 	)
 );
 
@@ -115,14 +124,8 @@ gulp.task(
 		doBuildESModules,
 		doWebpack,
 		setProduction,
-		doWebpack, // We can optimize this later maybe to import the ES modules instd of raw JS for speed, idk.
+		doWebpack // We can optimize this later maybe to import the ES modules instd of raw JS for speed, idk.
 	)
 );
 
-gulp.task(
-	"build-dev",
-	gulp.series(
-		setDev,
-		doWebpack
-	)
-);
+gulp.task("build-dev", gulp.series(setDev, doWebpack));

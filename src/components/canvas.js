@@ -6,6 +6,8 @@ import CanvasElement from "./canvasElement";
 import { CanvasElementDeleteButton } from "./canvasElement";
 import { pathToFileURL } from "url";
 
+import "../../public/styleOverrides.css";
+
 const path = require("path");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
@@ -64,60 +66,16 @@ export default class Canvas extends React.PureComponent {
 		this.getElementData = this.getElementData.bind(this);
 		this.updatedDimensions = this.updatedDimensions.bind(this);
 
+		this.handleScroll = this.handleScroll.bind(this);
+
 		this.areAllElementsValidated = this.areAllElementsValidated.bind(this);
 
 		this.onImgLoad = this.onImgLoad.bind(this);
 
-		console.log("update element data in constructor");
 		this.props.updateElementData(this.state.elementData, true);
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		// //if (props.dimensions !== null) {
-		// 	let height = props.dimensions.height - 4;
-		// 	let width = props.dimensions.width - 2;
-		// 	let imgHeight = state.imgHeight;
-		// 	let imgWidth = state.imgWidth;
-		// 	if (imgHeight === null || imgWidth === null) return null;
-		// 	console.log("####");
-		// 	console.log("h: " + height + " w: " + width);
-		// 	console.log("ih: " + imgHeight + " iw: " + imgWidth);
-		// 	let yOrientation = true;
-		// 	if (height > width) {
-		// 		yOrientation = false;
-		// 	}
-		// 	let yOrientationImg = true;
-		// 	if (imgHeight > imgWidth) {
-		// 		yOrientationImg = false;
-		// 	}
-		// 	if (
-		// 		(yOrientation && yOrientationImg) ||
-		// 		(!yOrientation && !yOrientationImg)
-		// 	) {
-		// 		//console.log("case 1");
-		// 		let backgroundScale = (height * 100) / (imgHeight * 100);
-		// 		let currentWidth = backgroundScale * imgWidth;
-		// 		let offsetX = (width - currentWidth) / 2;
-		// 		// console.log(
-		// 		// 	"scale: " + backgroundScale + " Off: " + offsetX + " w: " + width
-		// 		// );
-		// 		let offsetXPercent = (offsetX * 100) / width;
-		// 		if (offsetXPercent !== state.offsetX)
-		// 			return { offsetX: offsetXPercent, backgroundScale: backgroundScale };
-		// 	} else {
-		// 		//console.log("case 2");
-		// 		let backgroundScale = (width * 100) / (imgWidth * 100);
-		// 		let currentHeight = backgroundScale * imgHeight;
-		// 		let offsetY = (height - currentHeight) / 2;
-		// 		// console.log(
-		// 		// 	"scale: " + backgroundScale + " Off: " + offsetY + " h: " + height
-		// 		// );
-		// 		let offsetYPercent = (offsetY * 100) / height;
-		// 		if (offsetYPercent != state.offsetY)
-		// 			return { offsetY: offsetYPercent, backgroundScale: backgroundScale };
-		// 	}
-		// //}
-
 		if (props.componentsSchema !== null) {
 			let componentsSchema = {};
 			Object.keys(props.componentSchemas).forEach(schemaIndex => {
@@ -140,20 +98,6 @@ export default class Canvas extends React.PureComponent {
 			};
 		}
 
-		// let scale = 1;
-		// if (
-		// 	(state.scale === null && state.backgroundScale !== null) ||
-		// 	(state.scale !== null &&
-		// 		state.backgroundScale !== null &&
-		// 		state.scale !== state.backgroundScale)
-		// ) {
-		// 	scale = state.backgroundScale;
-		// }
-		// if (props.scale !== null) {
-		// 	scale *= props.scale;
-		// }
-		// if (scale !== state.scale) return { scale: scale };
-
 		return null;
 	}
 
@@ -165,7 +109,6 @@ export default class Canvas extends React.PureComponent {
 		let newElementDataList = Object.assign({}, this.state.elementData);
 		let obj = newElementDataList[id];
 
-		console.log("updatedDimensions");
 		if (element === null || obj === undefined) return;
 
 		if (!isResize) {
@@ -173,15 +116,12 @@ export default class Canvas extends React.PureComponent {
 				return;
 			}
 		}
-
-		console.log("set new size " + width + " x " + height);
 		element.width = width;
 		element.height = height;
 		obj.Width = width;
 		obj.Height = height;
 
 		let validated = this.areAllElementsValidated();
-		console.log("update element data in updatedDimensions");
 		this.props.updateElementData(newElementDataList, validated);
 	}
 
@@ -221,7 +161,6 @@ export default class Canvas extends React.PureComponent {
 		this.setState({ elementData: currentElementData });
 
 		let validated = this.areAllElementsValidated();
-		console.log("update element data in onCanvasElementDataSave");
 		this.props.updateElementData(currentElementData, validated);
 	}
 
@@ -245,22 +184,18 @@ export default class Canvas extends React.PureComponent {
 		let width = this.props.dimensions.width;
 		let x = e.x;
 		let y = e.y - 60;
-		if (e.y - 60 < 0)
-			y = 60;
-		else
-			y = e.y - 60;
-		if (x < 0)
-			x = 0;
-		else if (x > width)
-			x = width;
+
+		let offsetX = this.state.offsetX;
+		let offsetY = this.state.offsetY;
+
+		if (e.y - 60 < 0) y = 60;
+		else y = e.y - 60;
+		if (x < 0) x = 0;
+		else if (x > width) x = width;
 		if (sourceElement.source !== "toolbar") {
 			x -= 7;
 			y -= 7;
 		}
-		//let width = this.props.dimensions.width;
-		//let height = this.props.dimensions.height;
-		//let percentX = (100 * x) / width - this.state.offsetX;
-		//let percentY = (100 * y) / height - this.state.offsetY;
 
 		let componentsSchema = this.state.componentsSchema;
 
@@ -281,7 +216,9 @@ export default class Canvas extends React.PureComponent {
 				//y: percentY,
 				y: y,
 				width: 100,
-				height: 100
+				height: 100,
+				offsetX: offsetX,
+				offsetY: offsetY
 			};
 			newElementList.push(newElement);
 			let newElementData = {
@@ -295,7 +232,9 @@ export default class Canvas extends React.PureComponent {
 				//PositionY: percentY,
 				PositionY: y,
 				Width: 100,
-				Height: 100
+				Height: 100,
+				OffsetX: offsetX,
+				OffsetY: offsetY
 			};
 			newElement.name = newElementData.Name;
 			Object.keys(schema.properties).forEach(key => {
@@ -344,7 +283,6 @@ export default class Canvas extends React.PureComponent {
 		});
 
 		let validated = this.areAllElementsValidated();
-		console.log("update element data in dropped");
 		this.props.updateElementData(newElementDataList, validated);
 	}
 
@@ -368,7 +306,6 @@ export default class Canvas extends React.PureComponent {
 		});
 
 		let validated = this.areAllElementsValidated();
-		console.log("update element data in onDelete");
 		this.props.updateElementData(elementData, validated);
 	}
 
@@ -377,7 +314,6 @@ export default class Canvas extends React.PureComponent {
 		let elementData = this.state.elementData;
 		let offsetX = this.state.offsetX;
 		let offsetY = this.state.offsetY;
-		
 
 		const styleGrabber = {
 			paddingLeft: "8px",
@@ -406,11 +342,13 @@ export default class Canvas extends React.PureComponent {
 		let stylesContainer = {};
 		let stylesImages = {};
 		elementList.map(item => {
+			//let localOffsetX = -offsetX + item.offsetX;
+			//let localOffsetY = -offsetY + item.offsetY;
+			let x = item.x; //+ localOffsetX;
+			let y = item.y; // + localOffsetY;
 			//console.log("####");
-			//console.log("old x: " + item.x + " y: " + item.y);
-			let x = item.x + offsetX;
-			let y = item.y + offsetY;
-			//console.log("new x: " + x + " y: " + y);
+			//console.log("new ioX: " + item.offsetX + " ioY: " + item.offsetY);
+			//console.log("new loX: " + localOffsetX + " loY: " + localOffsetY);
 			let style = {
 				position: "absolute",
 				//left: `${x}%`,
@@ -420,6 +358,7 @@ export default class Canvas extends React.PureComponent {
 			};
 			let containerWidth = item.width;
 			let containerHeight = item.height;
+
 			if (!item.validated) {
 				containerWidth += 10;
 				containerHeight += 10;
@@ -490,7 +429,12 @@ export default class Canvas extends React.PureComponent {
 							maxChildrenComponentIdentifier={maxNumberOf_identifier}
 							elementByType={elementByType}
 						/>
-						<div style={styleName}>{item.name}</div>
+						<div
+							className="styleName"
+							style={{ width: stylesImages[item.ID].width }}
+						>
+							{item.name}
+						</div>
 					</DragDropContainer>
 				</div>
 			);
@@ -540,19 +484,6 @@ export default class Canvas extends React.PureComponent {
 			left: 0,
 			top: 0
 		};
-		// if (height > width) {
-		// 	imageStyle = {
-		// 		width: "100%",
-		// 		height: "auto"
-		// 	};
-		// } else {
-		// 	imageStyle = {
-		// 		width: "auto",
-		// 		height: "100%"
-		// 	};
-		// }
-		// let image = `url(${this.props.backgroundImage})`;
-		// console.log(image);
 		let micInfo = [];
 		if (this.props.microscope !== null && this.props.microscope !== undefined) {
 			if (this.props.microscope.Name) {
@@ -580,7 +511,7 @@ export default class Canvas extends React.PureComponent {
 			//<img src={imageFilePath} alt={imageFilePath} style={style.image} />
 			//TODO this should be in a scrollable pane
 			//<div ref={this.ref} style={styleFullWindow}>
-			<div style={styleContainer}>
+			<div style={styleContainer} onScroll={this.handleScroll}>
 				<DropTarget
 					style={dropTargetStyle}
 					onHit={this.dropped}

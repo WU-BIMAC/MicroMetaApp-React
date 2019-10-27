@@ -33,6 +33,8 @@ export default class ImageElement extends React.PureComponent {
 		};
 		const style = Object.assign(
 			{
+				display: "flex",
+				justifyContent: "center",
 				backgroundColor: "transparent"
 			},
 			this.props.style
@@ -46,5 +48,6 @@ export default class ImageElement extends React.PureComponent {
 			/>
 		);
 		return <div style={style}>{img}</div>;
+		//return img;
 	}
 }

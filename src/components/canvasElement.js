@@ -92,30 +92,32 @@ export default class CanvasElement extends React.PureComponent {
 			color: "inherit",
 			cursor: "pointer"
 		};
+		let resizableStyle = {};
 		let play = false;
 		if (!this.props.validated) {
-			style = Object.assign(style, { border: "5px ridge red" });
+			resizableStyle = Object.assign(resizableStyle, {
+				border: "5px ridge red"
+			});
 			if (!this.props.dragged) {
 				play = true;
 			}
 		} else {
-			style = Object.assign(style, { border: "none" });
+			resizableStyle = Object.assign(resizableStyle, { border: "none" });
 		}
 		let width = this.props.width;
 		let height = this.props.height;
+
 		let styleImage = {
 			width: width,
 			height: height
 		};
+
 		if (this.counter < 6) {
 			this.startWidth = width;
 			this.startHeight = height;
 			this.counter++;
 		}
-		if (!this.props.validated) {
-			width += 10;
-			height += 10;
-		}
+
 		let minWidth = this.startWidth / 2;
 		let minHeight = this.startHeight / 2;
 		let maxWidth = this.startWidth * 2;
@@ -131,6 +133,7 @@ export default class CanvasElement extends React.PureComponent {
 				onResizeStart={this.onResizeStart}
 				onResize={this.onResize}
 				onResizeStop={this.onResizeStop}
+				style={resizableStyle}
 			>
 				<AnimateKeyframes
 					key={"Animation-0"}

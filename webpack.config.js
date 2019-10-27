@@ -47,12 +47,16 @@ module.exports = {
 				use: {
 					loader: "babel-loader"
 				}
+			},
+			{
+				test: /\.css$/,
+				use: ["style-loader", "css-loader"]
 			}
 		]
 	},
 	resolve: {
 		alias: {
-			"assets" : path.resolve(__dirname, "assets")
+			assets: path.resolve(__dirname, "assets")
 		}
 	},
 	externals: {
@@ -72,12 +76,12 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.DefinePlugin({
-			VERSION: JSON.stringify(packageJson.version),
+			VERSION: JSON.stringify(packageJson.version)
 		}),
 		new webpack.DefinePlugin({
 			"process.env": {
 				NODE_ENV: JSON.stringify(mode)
 			}
-		}),
+		})
 	]
 };
