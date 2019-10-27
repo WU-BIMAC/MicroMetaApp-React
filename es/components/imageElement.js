@@ -73,6 +73,8 @@ function (_React$PureComponent) {
         padding: "5px"
       };
       var style = Object.assign({
+        display: "flex",
+        justifyContent: "center",
         backgroundColor: "transparent"
       }, this.props.style);
 
@@ -85,7 +87,7 @@ function (_React$PureComponent) {
 
       return _react.default.createElement("div", {
         style: style
-      }, img);
+      }, img); //return img;
     }
   }]);
 

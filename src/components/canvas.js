@@ -6,8 +6,6 @@ import CanvasElement from "./canvasElement";
 import { CanvasElementDeleteButton } from "./canvasElement";
 import { pathToFileURL } from "url";
 
-import "../../public/styleOverrides.css";
-
 const path = require("path");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
@@ -66,7 +64,7 @@ export default class Canvas extends React.PureComponent {
 		this.getElementData = this.getElementData.bind(this);
 		this.updatedDimensions = this.updatedDimensions.bind(this);
 
-		this.handleScroll = this.handleScroll.bind(this);
+		//this.handleScroll = this.handleScroll.bind(this);
 
 		this.areAllElementsValidated = this.areAllElementsValidated.bind(this);
 

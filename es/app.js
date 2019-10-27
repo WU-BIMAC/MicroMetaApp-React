@@ -860,10 +860,24 @@ function (_React$PureComponent) {
       var elementData = this.state.elementData;
       var setting = this.state.setting;
       var settings = this.state.settings;
-      var settingData = this.state.settingData; // Alex: Idea for scaling
+      var settingData = this.state.settingData; //let canvasWidth = Math.ceil(width * 0.75);
 
-      width = Math.max(600, width);
-      height = Math.max(600, height); //TODO with this strategy i can create multiple views
+      var canvasWidth = 800; //let canvasHeight = height - 60 - 60;
+
+      var canvasHeight = 600; //let toolbarWidth = Math.floor(width * 0.25);
+
+      var toolbarWidth = 300; //let toolbarHeight = height - 60 - 60;
+
+      var toolbarHeight = canvasHeight;
+      var settingsWidth = canvasWidth + toolbarWidth; //let footerWidth = width;
+
+      var headerFooterWidth = canvasWidth + toolbarWidth;
+      var headerFooterHeight = 60; // Alex: Idea for scaling
+      //width = Math.max(600, width);
+      //height = Math.max(600, height);
+
+      width = canvasWidth + toolbarWidth;
+      height = canvasHeight + headerFooterHeight * 2; //TODO with this strategy i can create multiple views
       //1st view: selection tier / new mic / use mic (+ import mic here maybe?)
       //2nd view: canvas with toolbar (+ possibile schema replacement?
       //	or the scheme selection can be done in the previous view)
@@ -978,25 +992,21 @@ function (_React$PureComponent) {
       }; //TODO should be passing these to canvas and toolbar instead of
       // using percentage size inside the component
 
-      var canvasWidth = Math.ceil(width * 0.75);
-      var canvasHeight = height - 60 - 60;
       var canvasDims = {
         width: canvasWidth,
         height: canvasHeight
       };
       var settingsMainViewDims = {
-        width: width,
+        width: settingsWidth,
         height: canvasHeight
       };
-      var toolbarWidth = Math.floor(width * 0.25);
-      var toolbarHeight = height - 60 - 60;
       var toolbarDims = {
         width: toolbarWidth,
         height: toolbarHeight
       };
       var headerFooterDims = {
-        width: width,
-        height: 60
+        width: headerFooterWidth,
+        height: headerFooterHeight
       };
       var microscopeSchema = this.state.adaptedMicroscopeSchema;
       var componentsSchema = this.state.adaptedComponentsSchema;

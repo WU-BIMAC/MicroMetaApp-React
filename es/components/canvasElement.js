@@ -131,10 +131,11 @@ function (_React$PureComponent) {
         color: "inherit",
         cursor: "pointer"
       };
+      var resizableStyle = {};
       var play = false;
 
       if (!this.props.validated) {
-        style = Object.assign(style, {
+        resizableStyle = Object.assign(resizableStyle, {
           border: "5px ridge red"
         });
 
@@ -142,7 +143,7 @@ function (_React$PureComponent) {
           play = true;
         }
       } else {
-        style = Object.assign(style, {
+        resizableStyle = Object.assign(resizableStyle, {
           border: "none"
         });
       }
@@ -160,11 +161,6 @@ function (_React$PureComponent) {
         this.counter++;
       }
 
-      if (!this.props.validated) {
-        width += 10;
-        height += 10;
-      }
-
       var minWidth = this.startWidth / 2;
       var minHeight = this.startHeight / 2;
       var maxWidth = this.startWidth * 2;
@@ -177,7 +173,8 @@ function (_React$PureComponent) {
         lockAspectRatio: true,
         onResizeStart: this.onResizeStart,
         onResize: this.onResize,
-        onResizeStop: this.onResizeStop
+        onResizeStop: this.onResizeStop,
+        style: resizableStyle
       }, _react.default.createElement(_reactSimpleAnimate.AnimateKeyframes, {
         key: "Animation-0",
         play: play,

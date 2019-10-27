@@ -37,8 +37,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-require("../../public/styleOverrides.css");
-
 var path = require("path");
 
 var validate = require("jsonschema").validate;
@@ -103,10 +101,10 @@ function (_React$PureComponent) {
     _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
     _this.onCanvasElementDataSave = _this.onCanvasElementDataSave.bind(_assertThisInitialized(_this));
     _this.getElementData = _this.getElementData.bind(_assertThisInitialized(_this));
-    _this.updatedDimensions = _this.updatedDimensions.bind(_assertThisInitialized(_this));
+    _this.updatedDimensions = _this.updatedDimensions.bind(_assertThisInitialized(_this)); //this.handleScroll = this.handleScroll.bind(this);
+
     _this.areAllElementsValidated = _this.areAllElementsValidated.bind(_assertThisInitialized(_this));
     _this.onImgLoad = _this.onImgLoad.bind(_assertThisInitialized(_this));
-    console.log("update element data in constructor");
 
     _this.props.updateElementData(_this.state.elementData, true);
 
@@ -122,7 +120,6 @@ function (_React$PureComponent) {
       });
       var newElementDataList = Object.assign({}, this.state.elementData);
       var obj = newElementDataList[id];
-      console.log("updatedDimensions");
       if (element === null || obj === undefined) return;
 
       if (!isResize) {
@@ -131,13 +128,11 @@ function (_React$PureComponent) {
         }
       }
 
-      console.log("set new size " + width + " x " + height);
       element.width = width;
       element.height = height;
       obj.Width = width;
       obj.Height = height;
       var validated = this.areAllElementsValidated();
-      console.log("update element data in updatedDimensions");
       this.props.updateElementData(newElementDataList, validated);
     }
   }, {
@@ -186,7 +181,6 @@ function (_React$PureComponent) {
         elementData: currentElementData
       });
       var validated = this.areAllElementsValidated();
-      console.log("update element data in onCanvasElementDataSave");
       this.props.updateElementData(currentElementData, validated);
     }
   }, {
@@ -210,18 +204,19 @@ function (_React$PureComponent) {
       var newElementList = this.state.elementList.slice();
       var newElementDataList = Object.assign({}, this.state.elementData);
       var newElement = null;
+      var width = this.props.dimensions.width;
       var x = e.x;
       var y = e.y - 60;
+      var offsetX = this.state.offsetX;
+      var offsetY = this.state.offsetY;
+      if (e.y - 60 < 0) y = 60;else y = e.y - 60;
+      if (x < 0) x = 0;else if (x > width) x = width;
 
       if (sourceElement.source !== "toolbar") {
         x -= 7;
         y -= 7;
       }
 
-      var width = this.props.dimensions.width;
-      var height = this.props.dimensions.height;
-      var percentX = 100 * x / width - this.state.offsetX;
-      var percentY = 100 * y / height - this.state.offsetY;
       var componentsSchema = this.state.componentsSchema;
 
       if (sourceElement.source === "toolbar") {
@@ -236,10 +231,14 @@ function (_React$PureComponent) {
           schema_ID: schema.ID,
           validated: false,
           dragged: false,
-          x: percentX,
-          y: percentY,
+          //x: percentX,
+          x: x,
+          //y: percentY,
+          y: y,
           width: 100,
-          height: 100
+          height: 100,
+          offsetX: offsetX,
+          offsetY: offsetY
         };
         newElementList.push(newElement);
         var newElementData = {
@@ -248,10 +247,14 @@ function (_React$PureComponent) {
           Tier: schema.tier,
           Schema_ID: schema.ID,
           Version: schema.version,
-          PositionX: percentX,
-          PositionY: percentY,
+          //PositionX: percentX,
+          PositionX: x,
+          //PositionY: percentY,
+          PositionY: y,
           Width: 100,
-          Height: 100
+          Height: 100,
+          OffsetX: offsetX,
+          OffsetY: offsetY
         };
         newElement.name = newElementData.Name;
         Object.keys(schema.properties).forEach(function (key) {
@@ -286,12 +289,16 @@ function (_React$PureComponent) {
         newElement.obj = newElementData;
         newElementDataList[newElement.ID] = newElementData;
       } else {
-        var item = this.state.elementList[sourceElement.index];
-        newElementList[sourceElement.index].x = percentX;
-        newElementList[sourceElement.index].y = percentY;
-        newElementList[sourceElement.index].dragged = false;
-        newElementDataList[item.ID].PositionX = percentX;
-        newElementDataList[item.ID].PositionY = percentY;
+        var item = this.state.elementList[sourceElement.index]; // newElementList[sourceElement.index].x = percentX;
+
+        newElementList[sourceElement.index].x = x; // newElementList[sourceElement.index].y = percentY;
+
+        newElementList[sourceElement.index].y = y;
+        newElementList[sourceElement.index].dragged = false; //newElementDataList[item.ID].PositionX = percentX;
+
+        newElementDataList[item.ID].PositionX = x; //newElementDataList[item.ID].PositionY = percentY;
+
+        newElementDataList[item.ID].PositionY = y;
       }
 
       this.setState({
@@ -299,7 +306,6 @@ function (_React$PureComponent) {
         elementData: newElementDataList
       });
       var validated = this.areAllElementsValidated();
-      console.log("update element data in dropped");
       this.props.updateElementData(newElementDataList, validated);
     }
   }, {
@@ -321,7 +327,6 @@ function (_React$PureComponent) {
         elementData: elementData
       });
       var validated = this.areAllElementsValidated();
-      console.log("update element data in onDelete");
       this.props.updateElementData(elementData, validated);
     }
   }, {
@@ -360,15 +365,21 @@ function (_React$PureComponent) {
       var stylesContainer = {};
       var stylesImages = {};
       elementList.map(function (item) {
+        //let localOffsetX = -offsetX + item.offsetX;
+        //let localOffsetY = -offsetY + item.offsetY;
+        var x = item.x; //+ localOffsetX;
+
+        var y = item.y; // + localOffsetY;
         //console.log("####");
-        //console.log("old x: " + item.x + " y: " + item.y);
-        var x = item.x + offsetX;
-        var y = item.y + offsetY; //console.log("new x: " + x + " y: " + y);
+        //console.log("new ioX: " + item.offsetX + " ioY: " + item.offsetY);
+        //console.log("new loX: " + localOffsetX + " loY: " + localOffsetY);
 
         var style = {
           position: "absolute",
-          left: "".concat(x, "%"),
-          top: "".concat(y, "%")
+          //left: `${x}%`,
+          left: x,
+          //top: `${y}%`
+          top: y
         };
         var containerWidth = item.width;
         var containerHeight = item.height;
@@ -444,7 +455,10 @@ function (_React$PureComponent) {
           maxChildrenComponentIdentifier: maxNumberOf_identifier,
           elementByType: elementByType
         }), _react.default.createElement("div", {
-          style: styleName
+          className: "styleName",
+          style: {
+            width: stylesImages[item.ID].width
+          }
         }, item.name))));
       });
       return droppableElement;
@@ -492,20 +506,7 @@ function (_React$PureComponent) {
         position: "absolute",
         left: 0,
         top: 0
-      }; // if (height > width) {
-      // 	imageStyle = {
-      // 		width: "100%",
-      // 		height: "auto"
-      // 	};
-      // } else {
-      // 	imageStyle = {
-      // 		width: "auto",
-      // 		height: "100%"
-      // 	};
-      // }
-      // let image = `url(${this.props.backgroundImage})`;
-      // console.log(image);
-
+      };
       var micInfo = [];
 
       if (this.props.microscope !== null && this.props.microscope !== undefined) {
@@ -536,7 +537,8 @@ function (_React$PureComponent) {
         //TODO this should be in a scrollable pane
         //<div ref={this.ref} style={styleFullWindow}>
         _react.default.createElement("div", {
-          style: styleContainer
+          style: styleContainer,
+          onScroll: this.handleScroll
         }, _react.default.createElement(_reactDragDropContainer.DropTarget, {
           style: dropTargetStyle,
           onHit: this.dropped,
@@ -556,57 +558,6 @@ function (_React$PureComponent) {
   }], [{
     key: "getDerivedStateFromProps",
     value: function getDerivedStateFromProps(props, state) {
-      if (props.dimensions !== null) {
-        var height = props.dimensions.height - 4;
-        var width = props.dimensions.width - 2;
-        var imgHeight = state.imgHeight;
-        var imgWidth = state.imgWidth;
-        if (imgHeight === null || imgWidth === null) return null; //console.log("####");
-        //console.log("h: " + height + " w: " + width);
-        //console.log("ih: " + imgHeight + " iw: " + imgWidth);
-
-        var yOrientation = true;
-
-        if (height > width) {
-          yOrientation = false;
-        }
-
-        var yOrientationImg = true;
-
-        if (imgHeight > imgWidth) {
-          yOrientationImg = false;
-        }
-
-        if (yOrientation && yOrientationImg || !yOrientation && !yOrientationImg) {
-          //console.log("case 1");
-          var backgroundScale = height * 100 / (imgHeight * 100);
-          var currentWidth = backgroundScale * imgWidth;
-          var offsetX = (width - currentWidth) / 2; // console.log(
-          // 	"scale: " + backgroundScale + " Off: " + offsetX + " w: " + width
-          // );
-
-          var offsetXPercent = offsetX * 100 / width;
-          if (offsetXPercent !== state.offsetX) return {
-            offsetX: offsetXPercent,
-            backgroundScale: backgroundScale
-          };
-        } else {
-          //console.log("case 2");
-          var _backgroundScale = width * 100 / (imgWidth * 100);
-
-          var currentHeight = _backgroundScale * imgHeight;
-          var offsetY = (height - currentHeight) / 2; // console.log(
-          // 	"scale: " + backgroundScale + " Off: " + offsetY + " h: " + height
-          // );
-
-          var offsetYPercent = offsetY * 100 / height;
-          if (offsetYPercent != state.offsetY) return {
-            offsetY: offsetYPercent,
-            backgroundScale: _backgroundScale
-          };
-        }
-      }
-
       if (props.componentsSchema !== null) {
         var componentsSchema = {};
         Object.keys(props.componentSchemas).forEach(function (schemaIndex) {
@@ -631,19 +582,6 @@ function (_React$PureComponent) {
         };
       }
 
-      var scale = 1;
-
-      if (state.scale === null && state.backgroundScale !== null || state.scale !== null && state.backgroundScale !== null && state.scale !== state.backgroundScale) {
-        scale = state.backgroundScale;
-      }
-
-      if (props.scale !== null) {
-        scale *= props.scale;
-      }
-
-      if (scale !== state.scale) return {
-        scale: scale
-      };
       return null;
     }
   }]);
