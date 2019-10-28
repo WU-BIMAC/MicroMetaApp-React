@@ -6,6 +6,8 @@ import CanvasElement from "./canvasElement";
 import { CanvasElementDeleteButton } from "./canvasElement";
 import { pathToFileURL } from "url";
 
+import "../../public/styleOverrides.css";
+
 const path = require("path");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
@@ -519,6 +521,8 @@ export default class Canvas extends React.PureComponent {
 						<img
 							src={this.props.backgroundImage}
 							alt={this.props.backgroundImage}
+							width={innerWidth * 2}
+							height={innerHeight * 2}
 							style={imageStyle}
 							onLoad={this.onImgLoad}
 						/>
