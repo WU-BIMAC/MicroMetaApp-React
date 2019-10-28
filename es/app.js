@@ -11,6 +11,8 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _react = _interopRequireDefault(require("react"));
 
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
 var _header = _interopRequireDefault(require("./components/header"));
 
 var _footer = _interopRequireDefault(require("./components/footer"));
@@ -94,8 +96,11 @@ function (_React$PureComponent) {
       isMicroscopeValidated: false,
       isSettingValidated: false,
       areComponentsValidated: false,
-      areSettingComponentsValidated: false
-    }; //this.isMicroscopeValidated = false;
+      areSettingComponentsValidated: false,
+      isViewOnly: props.isViewOnly || false,
+      isPreset: false
+    };
+    if (_this.state.microscope !== null && _this.state.microscope !== undefined) _this.state.isPreset = true; //this.isMicroscopeValidated = false;
 
     _this.toolbarRef = _react.default.createRef();
     _this.canvasRef = _react.default.createRef();
@@ -141,7 +146,8 @@ function (_React$PureComponent) {
     _this.handleSaveMicroscope = _this.handleSaveMicroscope.bind(_assertThisInitialized(_this));
     _this.handleSaveSetting = _this.handleSaveSetting.bind(_assertThisInitialized(_this));
     _this.handleCompleteSaveMicroscope = _this.handleCompleteSaveMicroscope.bind(_assertThisInitialized(_this));
-    _this.handleCompleteSaveSetting = _this.handleCompleteSaveSetting.bind(_assertThisInitialized(_this)); //this.toDataUrl = this.toDataUrl.bind(this);
+    _this.handleCompleteSaveSetting = _this.handleCompleteSaveSetting.bind(_assertThisInitialized(_this));
+    _this.handleMicroscopePreset = _this.handleMicroscopePreset.bind(_assertThisInitialized(_this)); //this.toDataUrl = this.toDataUrl.bind(this);
 
     return _this;
   }
@@ -204,8 +210,36 @@ function (_React$PureComponent) {
   }, {
     key: "handleCompleteLoadSchema",
     value: function handleCompleteLoadSchema(newSchema) {
+      var _this5 = this;
+
+      if (this.state.isPreset) {
+        this.setState({
+          schema: newSchema
+        }, function () {
+          _this5.handleMicroscopePreset();
+        });
+      } else {
+        this.setState({
+          schema: newSchema
+        });
+      }
+    }
+  }, {
+    key: "handleMicroscopePreset",
+    value: function handleMicroscopePreset() {
+      var _this6 = this;
+
+      var microscope = this.state.microscope;
+      var tier = microscope.Tier;
+      var vTier = microscope.ValidationTier;
       this.setState({
-        schema: newSchema
+        activeTier: tier,
+        validationTier: vTier,
+        isCreatingNewMicroscope: true,
+        loadingOption: createFromFile,
+        loadingMode: 1
+      }, function () {
+        _this6.createOrUseMicroscopeFromDroppedFile();
       });
     }
   }, {
@@ -272,7 +306,7 @@ function (_React$PureComponent) {
   }, {
     key: "createAdaptedSchema",
     value: function createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier) {
-      var _this5 = this;
+      var _this7 = this;
 
       var singleSchema = Object.assign({}, singleSchemaOriginal);
       singleSchema.properties = Object.assign({}, singleSchemaOriginal.properties);
@@ -301,7 +335,7 @@ function (_React$PureComponent) {
         var property = properties[propKey];
 
         if (property.type === "object" || property.type === "array" && property.items.properties !== null && property.items.properties !== undefined) {
-          properties[propKey] = _this5.createAdaptedSchema(property, activeTier, validationTier);
+          properties[propKey] = _this7.createAdaptedSchema(property, activeTier, validationTier);
         }
 
         if (property.tier > activeTier) {
@@ -339,7 +373,7 @@ function (_React$PureComponent) {
   }, {
     key: "createAdaptedSchemas",
     value: function createAdaptedSchemas(validationTier) {
-      var _this6 = this;
+      var _this8 = this;
 
       var activeTier = this.state.activeTier;
       var schema = this.state.schema;
@@ -358,7 +392,7 @@ function (_React$PureComponent) {
       Object.keys(schema).forEach(function (schemaIndex) {
         var singleSchemaOriginal = schema[schemaIndex];
 
-        var singleSchema = _this6.createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier);
+        var singleSchema = _this8.createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier);
 
         if (singleSchema.title === "Microscope") {
           microscopeSchema = Object.assign(microscopeSchema, singleSchema);
@@ -468,6 +502,7 @@ function (_React$PureComponent) {
       var validated = validation.valid;
 
       if (this.state.isCreatingNewMicroscope) {
+        console.log("creating mic");
         this.setState({
           microscope: modifiedMic,
           setting: null,
@@ -580,14 +615,22 @@ function (_React$PureComponent) {
   }, {
     key: "onClickBack",
     value: function onClickBack() {
+      var presetMicroscope = null;
+
+      if (this.state.isPreset) {
+        presetMicroscope = this.state.microscope;
+      }
+
       this.setState({
         activeTier: 1,
         validationTier: 1,
-        microscope: null,
+        microscope: presetMicroscope,
+        microscopes: null,
         setting: null,
         isCreatingNewMicroscope: null,
         loadingOption: null,
         micName: null,
+        schema: null,
         elementData: null,
         settingData: null,
         loadingMode: 0
@@ -596,7 +639,7 @@ function (_React$PureComponent) {
   }, {
     key: "updateElementData",
     value: function updateElementData(elementData, areComponentsValidated) {
-      console.log("updateElementData");
+      //console.log("updateElementData");
       console.log(elementData);
       this.setState({
         elementData: elementData,
@@ -689,7 +732,7 @@ function (_React$PureComponent) {
   }, {
     key: "handleSaveMicroscope",
     value: function handleSaveMicroscope(item) {
-      var _this7 = this;
+      var _this9 = this;
 
       var validated = true;
 
@@ -738,7 +781,7 @@ function (_React$PureComponent) {
         if (item.startsWith("Save microscope")) {
           console.log(microscope);
 
-          _this7.props.onSaveMicroscope(microscope, _this7.handleCompleteSaveMicroscope //canvas
+          _this9.props.onSaveMicroscope(microscope, _this9.handleCompleteSaveMicroscope //canvas
           ); // this.toDataUrl(
           // 	canvas,
           // 	this.props.onSaveMicroscope,
@@ -748,9 +791,9 @@ function (_React$PureComponent) {
           // );
 
         } else if (item.startsWith("Export microscope")) {
-          _this7.handleExportMicroscope(microscope);
+          _this9.handleExportMicroscope(microscope);
         } else if (item.startsWith("Export image")) {
-          _this7.handleExportMicroscopeImage(microscope, canvas); // this.toDataUrl(
+          _this9.handleExportMicroscopeImage(microscope, canvas); // this.toDataUrl(
           // 	canvas,
           // 	this.handleExportMicroscopeImage,
           // 	"image/png",
@@ -764,7 +807,7 @@ function (_React$PureComponent) {
   }, {
     key: "handleSaveSetting",
     value: function handleSaveSetting(item) {
-      var _this8 = this;
+      var _this10 = this;
 
       var validated = true;
 
@@ -806,9 +849,9 @@ function (_React$PureComponent) {
         useCORS: true
       }).then(function (canvas) {
         if (item.startsWith("Save setting")) {
-          _this8.props.onSaveSetting(setting, _this8.handleCompleteSaveSetting);
+          _this10.props.onSaveSetting(setting, _this10.handleCompleteSaveSetting);
         } else if (item.startsWith("Export setting")) {
-          _this8.handleExportSetting(setting);
+          _this10.handleExportSetting(setting);
         } else if (item.startsWith("Export image")) {//TODO
         }
       });
@@ -860,7 +903,9 @@ function (_React$PureComponent) {
       var elementData = this.state.elementData;
       var setting = this.state.setting;
       var settings = this.state.settings;
-      var settingData = this.state.settingData; //let canvasWidth = Math.ceil(width * 0.75);
+      var settingData = this.state.settingData; //console.log("RENDER");
+      //console.log(microscope);
+      //let canvasWidth = Math.ceil(width * 0.75);
 
       var canvasWidth = 800; //let canvasHeight = height - 60 - 60;
 
@@ -885,16 +930,18 @@ function (_React$PureComponent) {
       //3rd view: settings (+ export settings on file for the moment)
       //onClickLoadSettings={this.handleLoadSettings}
 
-      if (schema === null && microscopes === null && microscope === null) {
-        return _react.default.createElement(MicroscopyMetadataToolContainer, {
-          width: width,
-          height: height,
-          forwardedRef: this.overlaysContainerRef
-        }, _react.default.createElement(_dataLoader.default, {
-          onClickLoadSchema: this.handleLoadSchema,
-          onClickLoadMicroscopes: this.handleLoadMicroscopes
-        }));
-      }
+      if (schema === null && microscopes === null
+      /*&& microscope === null*/
+      ) {
+          return _react.default.createElement(MicroscopyMetadataToolContainer, {
+            width: width,
+            height: height,
+            forwardedRef: this.overlaysContainerRef
+          }, _react.default.createElement(_dataLoader.default, {
+            onClickLoadSchema: this.handleLoadSchema,
+            onClickLoadMicroscopes: this.handleLoadMicroscopes
+          }));
+        }
 
       if (microscope === null && this.state.isCreatingNewMicroscope === null) {
         return _react.default.createElement(MicroscopyMetadataToolContainer, {
@@ -907,6 +954,43 @@ function (_React$PureComponent) {
           onClickCreateNewMicroscope: this.setCreateNewMicroscope,
           onClickLoadMicroscope: this.setLoadMicroscope
         }));
+      }
+
+      if ((this.state.isCreatingNewMicroscope || this.state.isCreatingNewMicroscope === null) && microscope !== null && elementData === null) {
+        var buttonStyle = {
+          width: "400px",
+          height: "50px",
+          padding: "5px",
+          margin: "5px"
+        };
+        var windowExternalContainer = {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "100%",
+          height: "100%",
+          alignItems: "center"
+        };
+        var windowInternalContainer = {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "100%",
+          height: "100%",
+          alignItems: "center"
+        };
+        return _react.default.createElement(MicroscopyMetadataToolContainer, {
+          width: width,
+          height: height,
+          forwardedRef: this.overlaysContainerRef
+        }, _react.default.createElement("div", {
+          style: windowExternalContainer
+        }, _react.default.createElement("div", {
+          style: windowInternalContainer
+        }, _react.default.createElement(_Button.default, {
+          style: buttonStyle,
+          size: "lg"
+        }, "Loading " + microscope.Name))));
       }
 
       if (this.state.isCreatingNewMicroscope && (microscope === null || elementData === null)) {
@@ -945,9 +1029,11 @@ function (_React$PureComponent) {
           onClickConfirm: this.createOrUseMicroscope,
           onClickBack: this.onClickBack
         }));
-      }
+      } //should be settingData instead of elementData
 
-      if (!this.state.isCreatingNewMicroscope && (microscope === null || elementData === null)) {
+
+      if (!this.state.isCreatingNewMicroscope && (setting === null || settingData === null)) {
+        console.log("SETTINGS LOADER");
         var _loadingOptions = [createFromFile];
         var _microscopeNames = {};
 
@@ -1055,49 +1141,81 @@ function (_React$PureComponent) {
           element: "setting"
         }));
       } else {
-        return _react.default.createElement(MicroscopyMetadataToolContainer, {
-          width: width,
-          height: height,
-          forwardedRef: this.overlaysContainerRef
-        }, _react.default.createElement(_header.default, {
-          dimensions: headerFooterDims
-        }), _react.default.createElement("div", {
-          style: style
-        }, _react.default.createElement(_canvas.default, {
-          microscope: microscope,
-          activeTier: this.state.activeTier,
-          ref: this.canvasRef,
-          imagesPath: imagesPath,
-          componentSchemas: componentsSchema,
-          inputData: elementData //backgroundImage={`${imagesPath}${microscopeSchema.image}`}
-          ,
-          backgroundImage: path.join(imagesPath, microscopeSchema.image),
-          updateElementData: this.updateElementData,
-          overlaysContainer: this.overlaysContainerRef.current,
-          areComponentsValidated: this.state.areComponentsValidated,
-          dimensions: canvasDims,
-          setScale: this.setMicroscopeScale
-        }), _react.default.createElement(_toolbar.default, {
-          activeTier: this.state.activeTier,
-          ref: this.toolbarRef,
-          imagesPath: imagesPath,
-          componentSchemas: componentsSchema,
-          dimensions: toolbarDims
-        })), _react.default.createElement(_footer.default, {
-          activeTier: this.state.activeTier,
-          validationTier: this.state.validationTier,
-          schema: microscopeSchema,
-          onFormConfirm: this.onMicroscopeDataSave,
-          onClickSave: this.handleSaveMicroscope,
-          onClickBack: this.onClickBack,
-          hasSaveOption: this.props.onSaveMicroscope ? true : false,
-          onClickChangeValidation: this.createAdaptedSchemas,
-          overlaysContainer: this.overlaysContainerRef.current,
-          inputData: microscope,
-          isSchemaValidated: this.state.isMicroscopeValidated,
-          dimensions: headerFooterDims,
-          element: "microscope"
-        }));
+        if (this.state.isViewOnly) {
+          console.log("view only");
+          canvasDims = {
+            width: width,
+            height: canvasHeight + headerFooterHeight
+          };
+          return _react.default.createElement(MicroscopyMetadataToolContainer, {
+            width: width,
+            height: height,
+            forwardedRef: this.overlaysContainerRef
+          }, _react.default.createElement(_header.default, {
+            dimensions: headerFooterDims
+          }), _react.default.createElement("div", {
+            style: style
+          }, _react.default.createElement(_canvas.default, {
+            microscope: microscope,
+            activeTier: this.state.activeTier,
+            ref: this.canvasRef,
+            imagesPath: imagesPath,
+            componentSchemas: componentsSchema,
+            inputData: elementData //backgroundImage={`${imagesPath}${microscopeSchema.image}`}
+            ,
+            backgroundImage: path.join(imagesPath, microscopeSchema.image),
+            updateElementData: this.updateElementData,
+            overlaysContainer: this.overlaysContainerRef.current,
+            areComponentsValidated: this.state.areComponentsValidated,
+            dimensions: canvasDims,
+            setScale: this.setMicroscopeScale,
+            isViewOnly: this.state.isViewOnly
+          })));
+        } else {
+          return _react.default.createElement(MicroscopyMetadataToolContainer, {
+            width: width,
+            height: height,
+            forwardedRef: this.overlaysContainerRef
+          }, _react.default.createElement(_header.default, {
+            dimensions: headerFooterDims
+          }), _react.default.createElement("div", {
+            style: style
+          }, _react.default.createElement(_canvas.default, {
+            microscope: microscope,
+            activeTier: this.state.activeTier,
+            ref: this.canvasRef,
+            imagesPath: imagesPath,
+            componentSchemas: componentsSchema,
+            inputData: elementData //backgroundImage={`${imagesPath}${microscopeSchema.image}`}
+            ,
+            backgroundImage: path.join(imagesPath, microscopeSchema.image),
+            updateElementData: this.updateElementData,
+            overlaysContainer: this.overlaysContainerRef.current,
+            areComponentsValidated: this.state.areComponentsValidated,
+            dimensions: canvasDims,
+            setScale: this.setMicroscopeScale
+          }), _react.default.createElement(_toolbar.default, {
+            activeTier: this.state.activeTier,
+            ref: this.toolbarRef,
+            imagesPath: imagesPath,
+            componentSchemas: componentsSchema,
+            dimensions: toolbarDims
+          })), _react.default.createElement(_footer.default, {
+            activeTier: this.state.activeTier,
+            validationTier: this.state.validationTier,
+            schema: microscopeSchema,
+            onFormConfirm: this.onMicroscopeDataSave,
+            onClickSave: this.handleSaveMicroscope,
+            onClickBack: this.onClickBack,
+            hasSaveOption: this.props.onSaveMicroscope ? true : false,
+            onClickChangeValidation: this.createAdaptedSchemas,
+            overlaysContainer: this.overlaysContainerRef.current,
+            inputData: microscope,
+            isSchemaValidated: this.state.isMicroscopeValidated,
+            dimensions: headerFooterDims,
+            element: "microscope"
+          }));
+        }
       }
     }
   }], [{
@@ -1185,7 +1303,8 @@ MicroscopyMetadataTool.propTypes = {
   height: _propTypes.default.number,
   width: _propTypes.default.number,
   schema: _propTypes.default.arrayOf(_propTypes.default.object),
-  microscope: _propTypes.default.arrayOf(_propTypes.default.object)
+  microscopes: _propTypes.default.object,
+  microscope: _propTypes.default.object
 };
 MicroscopyMetadataTool.defaultProps = {
   height: 600,

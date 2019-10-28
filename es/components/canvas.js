@@ -13,6 +13,8 @@ var _canvasElement = _interopRequireWildcard(require("./canvasElement"));
 
 var _url = require("url");
 
+require("../../public/styleOverrides.css");
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -101,8 +103,7 @@ function (_React$PureComponent) {
     _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
     _this.onCanvasElementDataSave = _this.onCanvasElementDataSave.bind(_assertThisInitialized(_this));
     _this.getElementData = _this.getElementData.bind(_assertThisInitialized(_this));
-    _this.updatedDimensions = _this.updatedDimensions.bind(_assertThisInitialized(_this)); //this.handleScroll = this.handleScroll.bind(this);
-
+    _this.updatedDimensions = _this.updatedDimensions.bind(_assertThisInitialized(_this));
     _this.areAllElementsValidated = _this.areAllElementsValidated.bind(_assertThisInitialized(_this));
     _this.onImgLoad = _this.onImgLoad.bind(_assertThisInitialized(_this));
 
@@ -435,7 +436,8 @@ function (_React$PureComponent) {
         }, "\u2237"), _react.default.createElement(_canvasElement.CanvasElementDeleteButton, {
           index: index,
           onDelete: _this2.onDelete,
-          myStyle: styleCloser
+          myStyle: styleCloser,
+          isViewOnly: _this2.props.isViewOnly
         })), _react.default.createElement(_canvasElement.default, {
           activeTier: _this2.props.activeTier,
           id: item.ID //image={`${this.props.imagesPath}${schema.image}`}
@@ -453,7 +455,8 @@ function (_React$PureComponent) {
           currentChildrenComponentIdentifier: currentNumberOf_identifier,
           minChildrenComponentIdentifier: minNumberOf_identifier,
           maxChildrenComponentIdentifier: maxNumberOf_identifier,
-          elementByType: elementByType
+          elementByType: elementByType,
+          isViewOnly: _this2.props.isViewOnly
         }), _react.default.createElement("div", {
           className: "styleName",
           style: {
@@ -537,8 +540,7 @@ function (_React$PureComponent) {
         //TODO this should be in a scrollable pane
         //<div ref={this.ref} style={styleFullWindow}>
         _react.default.createElement("div", {
-          style: styleContainer,
-          onScroll: this.handleScroll
+          style: styleContainer
         }, _react.default.createElement(_reactDragDropContainer.DropTarget, {
           style: dropTargetStyle,
           onHit: this.dropped,
@@ -548,6 +550,8 @@ function (_React$PureComponent) {
         }, _react.default.createElement("img", {
           src: this.props.backgroundImage,
           alt: this.props.backgroundImage,
+          width: innerWidth * 2,
+          height: innerHeight * 2,
           style: imageStyle,
           onLoad: this.onImgLoad
         }), _react.default.createElement("div", {

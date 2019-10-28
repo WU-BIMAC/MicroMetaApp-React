@@ -64,7 +64,7 @@ function (_React$PureComponent) {
   _createClass(CanvasElement, [{
     key: "onClick",
     value: function onClick() {
-      this.setState({
+      if (!this.props.isViewOnly) this.setState({
         editing: true
       });
     }
@@ -226,7 +226,7 @@ function (_React$PureComponent2) {
   _createClass(CanvasElementDeleteButton, [{
     key: "onClick",
     value: function onClick() {
-      this.props.onDelete(this.props.index);
+      if (!this.props.isViewOnly) this.props.onDelete(this.props.index);
     }
   }, {
     key: "render",
