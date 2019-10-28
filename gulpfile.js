@@ -111,9 +111,8 @@ gulp.task(
 	"dev",
 	gulp.series(
 		setDev,
-		doBuildESModules,
 		doWebpack,
-		gulp.parallel(doWatchESModules, watch)
+		watch
 	)
 );
 
@@ -121,7 +120,6 @@ gulp.task(
 	"build",
 	gulp.series(
 		setDev,
-		doBuildESModules,
 		doWebpack,
 		setProduction,
 		doWebpack // We can optimize this later maybe to import the ES modules instd of raw JS for speed, idk.

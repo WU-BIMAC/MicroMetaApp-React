@@ -9,7 +9,9 @@
 		"test": "node scripts/test.js",
 		"prod": "gulp build",
 		"dev": "gulp dev",
-		"build": "gulp build && gulp dev"
+		"build": "npm run build-es && gulp build",
+		"build-es" : "npx babel ./src --out-dir ./es --env-name esm --verbose",
+		"watch-es" : "npx babel ./src --out-dir ./es --env-name esm --verbose --watch"
 	},
 	"publishConfig": {
 		"access": "restricted"
