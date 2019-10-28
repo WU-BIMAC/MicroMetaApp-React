@@ -79,6 +79,91 @@
 							height: dims.height,
 							width: dims.width,
 							key: "my-app",
+							microscope: {
+								Name: "Test Microscope 1",
+								ValidationTier: 2,
+								Schema_ID: "Microscope.json",
+								Version: "1.06.5",
+								components: [
+									{
+										PositionX: 339,
+										PositionY: 38,
+										Name: "Test Filament lamp",
+										Height: 127,
+										Width: 132,
+										Schema_ID: "Transmitted_LightSource_Filament.json",
+										Version: "1.06.5",
+										Tier: 1,
+										Manufacturer: "Test Manufacturer",
+										ID: "da19009f-e521-465e-bfa1-246de8752a65",
+										Description: "This is our Filament lamp"
+									},
+									{
+										PositionX: 318,
+										PositionY: 241,
+										Name: "Test Laser",
+										WavelengthUnit: "nm",
+										Height: 125,
+										Width: 188,
+										Schema_ID: "Fluorescence_LightSource_Laser.json",
+										Version: "1.06.5",
+										Tier: 1,
+										Wavelength: 488,
+										Manufacturer: "Test Manufacturer",
+										ID: "c1ce0b6d-03f3-438e-9bee-caccbd2e57dc",
+										Description: "This is our laser"
+									},
+									{
+										PositionX: 528,
+										PositionY: 467,
+										Name: "Test Optovar",
+										Magnification: 1,
+										Height: 27,
+										Width: 107,
+										Schema_ID: "Optovar.json",
+										Version: "1.06.5",
+										Tier: 1,
+										Manufacturer: "Test Manufacturer",
+										ID: "6ff2c411-f1b8-4c9c-aeeb-c058f0fc8a05",
+										Description: "This is our Optovar"
+									},
+									{
+										PositionX: 546,
+										PositionY: 43,
+										Name: "Test CCD",
+										Height: 156,
+										Width: 192,
+										Schema_ID: "CCD.json",
+										Version: "1.06.5",
+										Tier: 2,
+										Manufacturer: "Test Manufacturer",
+										ID: "85bdebe9-acf0-4709-bd9d-1971a1263299",
+										Description: "This is our CCD camera"
+									},
+									{
+										PositionX: 549,
+										PositionY: 279,
+										Name: "Test Objective",
+										LensNA: 1.4,
+										Correction: "PlanApo",
+										CoverslipTickness: 1,
+										Height: 100,
+										Width: 100,
+										Schema_ID: "Objective.json",
+										Version: "1.06.5",
+										NominalImmersionMedium: "Oil",
+										NominalMagnification: 100,
+										Tier: 1,
+										Manufacturer: "Test Manufacturer",
+										ID: "c02cc0f6-61ba-4f60-873b-98a3f9ed239a",
+										Description: "This is our Objective"
+									}
+								],
+								Tier: 2,
+								Type: "Upright",
+								ID: "edac7665-fe33-4ee6-a688-d3459e03a7a2",
+								Manufacturer: "Test Manufacturer"
+							},
 							onLoadSchema: function(complete) {
 								// Maybe some UI to select something...
 								// Not all browsers have `window.fetch`, used for demoing purposes.

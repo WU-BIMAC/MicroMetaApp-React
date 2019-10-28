@@ -30,7 +30,7 @@ export default class CanvasElement extends React.PureComponent {
 	}
 
 	onClick() {
-		this.setState({ editing: true });
+		if (!this.props.isViewOnly) this.setState({ editing: true });
 	}
 
 	onConfirm(id, data) {
@@ -192,7 +192,7 @@ export class CanvasElementDeleteButton extends React.PureComponent {
 	}
 
 	onClick() {
-		this.props.onDelete(this.props.index);
+		if (!this.props.isViewOnly) this.props.onDelete(this.props.index);
 	}
 
 	render() {

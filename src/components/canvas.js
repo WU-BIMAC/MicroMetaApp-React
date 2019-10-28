@@ -66,8 +66,6 @@ export default class Canvas extends React.PureComponent {
 		this.getElementData = this.getElementData.bind(this);
 		this.updatedDimensions = this.updatedDimensions.bind(this);
 
-		this.handleScroll = this.handleScroll.bind(this);
-
 		this.areAllElementsValidated = this.areAllElementsValidated.bind(this);
 
 		this.onImgLoad = this.onImgLoad.bind(this);
@@ -408,6 +406,7 @@ export default class Canvas extends React.PureComponent {
 								index={index}
 								onDelete={this.onDelete}
 								myStyle={styleCloser}
+								isViewOnly={this.props.isViewOnly}
 							/>
 						</div>
 						<CanvasElement
@@ -428,6 +427,7 @@ export default class Canvas extends React.PureComponent {
 							minChildrenComponentIdentifier={minNumberOf_identifier}
 							maxChildrenComponentIdentifier={maxNumberOf_identifier}
 							elementByType={elementByType}
+							isViewOnly={this.props.isViewOnly}
 						/>
 						<div
 							className="styleName"
@@ -511,7 +511,7 @@ export default class Canvas extends React.PureComponent {
 			//<img src={imageFilePath} alt={imageFilePath} style={style.image} />
 			//TODO this should be in a scrollable pane
 			//<div ref={this.ref} style={styleFullWindow}>
-			<div style={styleContainer} onScroll={this.handleScroll}>
+			<div style={styleContainer}>
 				<DropTarget
 					style={dropTargetStyle}
 					onHit={this.dropped}
