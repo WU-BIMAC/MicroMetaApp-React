@@ -179,8 +179,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 		if (loadingMode === 2) {
 			let defaultManu =
 				selectedManu !== null && selectedManu !== undefined
-					? selectedManu
-					: inputData[0];
+					? inputData.indexOf(selectedManu)
+					: 0;
 			let manufacturers = Object.keys(inputData);
 			console.log(manufacturers);
 			list.push(
@@ -199,8 +199,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 				let selectedMic = this.state.selectedMic;
 				let defaultMic =
 					selectedMic !== null && selectedMic !== undefined
-						? selectedMic
-						: inputData[selectedManu][0];
+						? inputData[selectedManu].indexOf(selectedMic)
+						: 0;
 				console.log(this.state.micNames);
 				// console.log("selectedManu");
 				// console.log(selectedManu);
