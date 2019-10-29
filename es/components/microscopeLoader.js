@@ -218,9 +218,8 @@ function (_React$PureComponent) {
       }
 
       if (loadingMode === 2) {
-        var defaultManu = selectedManu !== null && selectedManu !== undefined ? inputData.indexOf(selectedManu) : 0;
         var manufacturers = Object.keys(inputData);
-        console.log(manufacturers);
+        var defaultManu = selectedManu !== null && selectedManu !== undefined ? manufacturers.indexOf(selectedManu) : 0;
         list.push(_react.default.createElement(_DropdownMenu.default, {
           key: "dropdown-manufacturers",
           title: "",

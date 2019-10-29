@@ -177,12 +177,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 		}
 
 		if (loadingMode === 2) {
+			let manufacturers = Object.keys(inputData);
 			let defaultManu =
 				selectedManu !== null && selectedManu !== undefined
-					? inputData.indexOf(selectedManu)
+					? manufacturers.indexOf(selectedManu)
 					: 0;
-			let manufacturers = Object.keys(inputData);
-			console.log(manufacturers);
 			list.push(
 				<DropdownMenu
 					key={"dropdown-manufacturers"}
