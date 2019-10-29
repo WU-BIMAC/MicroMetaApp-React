@@ -106,6 +106,7 @@ function (_React$PureComponent) {
     _this.updatedDimensions = _this.updatedDimensions.bind(_assertThisInitialized(_this));
     _this.areAllElementsValidated = _this.areAllElementsValidated.bind(_assertThisInitialized(_this));
     _this.onImgLoad = _this.onImgLoad.bind(_assertThisInitialized(_this));
+    _this.handleScroll = _this.handleScroll.bind(_assertThisInitialized(_this));
 
     _this.props.updateElementData(_this.state.elementData, true);
 
@@ -113,6 +114,18 @@ function (_React$PureComponent) {
   }
 
   _createClass(Canvas, [{
+    key: "handleScroll",
+    value: function handleScroll(e) {
+      console.log(e);
+      var element = e.target;
+      var offsetY = element.scrollTop;
+      var offsetX = element.scrollLeft;
+      this.setState({
+        offsetX: offsetX,
+        offsetY: offsetY
+      });
+    }
+  }, {
     key: "updatedDimensions",
     value: function updatedDimensions(id, width, height, isResize) {
       var element = null;
@@ -210,8 +223,12 @@ function (_React$PureComponent) {
       var y = e.y - 60;
       var offsetX = this.state.offsetX;
       var offsetY = this.state.offsetY;
-      if (e.y - 60 < 0) y = 60;else y = e.y - 60;
-      if (x < 0) x = 0;else if (x > width) x = width;
+      console.log("DROP: " + x + " - " + y);
+      x += offsetX;
+      y += offsetY; // if (e.y - 60 < 0) y = 60;
+      // else y = e.y - 60;
+      // if (x < 0) x = 0;
+      // else if (x > width) x = width;
 
       if (sourceElement.source !== "toolbar") {
         x -= 7;
@@ -352,12 +369,12 @@ function (_React$PureComponent) {
         backgroundColor: "transparent",
         cursor: "pointer"
       }; //fontSizeAdjust: 0.58,
+      // const styleName = {
+      // 	textAlign: "center",
+      // 	fontSize: "75%",
+      // 	backgroundColor: "transparent"
+      // };
 
-      var styleName = {
-        textAlign: "center",
-        fontSize: "75%",
-        backgroundColor: "transparent"
-      };
       var styleContainer = {
         display: "flex",
         justifyContent: "space-between",
@@ -481,6 +498,7 @@ function (_React$PureComponent) {
         // backgroundRepeat: "no-repeat",
         // backgroundPosition: "50%",
         // backgroundSize: "contain"
+        //overflow: "auto"
 
       };
       var innerWidth = width - 2;
@@ -493,18 +511,13 @@ function (_React$PureComponent) {
         width: "".concat(innerWidth, "px"),
         height: "".concat(innerHeight, "px"),
         position: "relative",
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        alignItems: "middle",
         overflow: "auto"
       };
-      var imageStyle = null;
-      imageStyle = {
-        width: "auto",
-        height: "100%"
-      };
+      var imageStyle = null; // imageStyle = {
+      // 	width: width * 2,
+      // 	height: height * 2
+      // };
+
       var infoStyle = {
         position: "absolute",
         left: 0,
@@ -546,13 +559,12 @@ function (_React$PureComponent) {
           onHit: this.dropped,
           targetKey: "canvas"
         }, _react.default.createElement("div", {
-          style: canvasInnerContainerStyle
+          style: canvasInnerContainerStyle,
+          onScroll: this.handleScroll
         }, _react.default.createElement("img", {
           src: this.props.backgroundImage,
-          alt: this.props.backgroundImage,
-          width: innerWidth * 2,
-          height: innerHeight * 2,
-          style: imageStyle,
+          alt: this.props.backgroundImage //style={imageStyle}
+          ,
           onLoad: this.onImgLoad
         }), _react.default.createElement("div", {
           style: infoStyle
