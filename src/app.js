@@ -832,40 +832,25 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let settings = this.state.settings;
 		let settingData = this.state.settingData;
 
-		//console.log("RENDER");
-		//console.log(microscope);
+		width = Math.max(1100, width);
+		height = Math.max(600, height - 60 * 2);
 
 		//let canvasWidth = Math.ceil(width * 0.75);
-		let canvasWidth = 800;
+		let canvasWidth = width - 300;
 		//let canvasHeight = height - 60 - 60;
-		let canvasHeight = 600;
+		let canvasHeight = height;
 
 		//let toolbarWidth = Math.floor(width * 0.25);
 		let toolbarWidth = 300;
 		//let toolbarHeight = height - 60 - 60;
-		let toolbarHeight = canvasHeight;
+		let toolbarHeight = height;
 
-		let settingsWidth = canvasWidth + toolbarWidth;
+		let settingsWidth = width;
 
 		//let footerWidth = width;
-		let headerFooterWidth = canvasWidth + toolbarWidth;
+		let headerFooterWidth = width;
 		let headerFooterHeight = 60;
 
-		// Alex: Idea for scaling
-		//width = Math.max(600, width);
-		//height = Math.max(600, height);
-
-		width = canvasWidth + toolbarWidth;
-		height = canvasHeight + headerFooterHeight * 2;
-
-		//TODO with this strategy i can create multiple views
-		//1st view: selection tier / new mic / use mic (+ import mic here maybe?)
-		//2nd view: canvas with toolbar (+ possibile schema replacement?
-		//	or the scheme selection can be done in the previous view)
-		//	(+ export mic on file for the moment)
-		//3rd view: settings (+ export settings on file for the moment)
-
-		//onClickLoadSettings={this.handleLoadSettings}
 		if (schema === null && microscopes === null /*&& microscope === null*/) {
 			return (
 				<MicroscopyMetadataToolContainer
@@ -899,8 +884,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		}
 
 		if (
-			(this.state.isCreatingNewMicroscope ||
-				this.state.isCreatingNewMicroscope === null) &&
+			this.state.isCreatingNewMicroscope === null &&
 			(microscope !== null && elementData === null)
 		) {
 			const buttonStyle = {
@@ -1045,7 +1029,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		const style = {
 			display: "flex",
 			flexFlow: "row",
-			height: height - 60 - 60
+			height: height
 		};
 
 		//TODO should be passing these to canvas and toolbar instead of

@@ -222,8 +222,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 					{isDropzoneActive && !fileLoaded && !fileLoading
 						? "Waiting for file"
 						: isDropzoneActive && fileLoading
-							? "Loading file"
-							: "Confirm"}
+						? "Loading file"
+						: "Confirm"}
 				</Button>
 				<Button onClick={this.props.onClickBack} style={buttonStyle} size="lg">
 					Back

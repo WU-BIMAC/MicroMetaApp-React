@@ -70,6 +70,8 @@ export default class Canvas extends React.PureComponent {
 
 		this.onImgLoad = this.onImgLoad.bind(this);
 
+		this.handleScroll = this.handleScroll.bind(this);
+
 		this.props.updateElementData(this.state.elementData, true);
 	}
 
@@ -97,6 +99,15 @@ export default class Canvas extends React.PureComponent {
 		}
 
 		return null;
+	}
+
+	handleScroll(e) {
+		console.log(e);
+		let element = e.target;
+		let offsetY = element.scrollTop;
+		let offsetX = element.scrollLeft;
+
+		this.setState({ offsetX: offsetX, offsetY: offsetY });
 	}
 
 	updatedDimensions(id, width, height, isResize) {
@@ -186,10 +197,15 @@ export default class Canvas extends React.PureComponent {
 		let offsetX = this.state.offsetX;
 		let offsetY = this.state.offsetY;
 
-		if (e.y - 60 < 0) y = 60;
-		else y = e.y - 60;
-		if (x < 0) x = 0;
-		else if (x > width) x = width;
+		console.log("DROP: " + x + " - " + y);
+
+		x += offsetX;
+		y += offsetY;
+
+		// if (e.y - 60 < 0) y = 60;
+		// else y = e.y - 60;
+		// if (x < 0) x = 0;
+		// else if (x > width) x = width;
 		if (sourceElement.source !== "toolbar") {
 			x -= 7;
 			y -= 7;
@@ -327,11 +343,11 @@ export default class Canvas extends React.PureComponent {
 			cursor: "pointer"
 		};
 		//fontSizeAdjust: 0.58,
-		const styleName = {
-			textAlign: "center",
-			fontSize: "75%",
-			backgroundColor: "transparent"
-		};
+		// const styleName = {
+		// 	textAlign: "center",
+		// 	fontSize: "75%",
+		// 	backgroundColor: "transparent"
+		// };
 		const styleContainer = {
 			display: "flex",
 			justifyContent: "space-between",
@@ -456,6 +472,7 @@ export default class Canvas extends React.PureComponent {
 			// backgroundRepeat: "no-repeat",
 			// backgroundPosition: "50%",
 			// backgroundSize: "contain"
+			//overflow: "auto"
 		};
 		let innerWidth = width - 2;
 		let innerHeight = height - 4;
@@ -467,18 +484,13 @@ export default class Canvas extends React.PureComponent {
 			width: `${innerWidth}px`,
 			height: `${innerHeight}px`,
 			position: "relative",
-			display: "flex",
-			flexDirection: "row",
-			flexWrap: "wrap",
-			justifyContent: "center",
-			alignItems: "middle",
 			overflow: "auto"
 		};
 		let imageStyle = null;
-		imageStyle = {
-			width: "auto",
-			height: "100%"
-		};
+		// imageStyle = {
+		// 	width: width * 2,
+		// 	height: height * 2
+		// };
 		let infoStyle = {
 			position: "absolute",
 			left: 0,
@@ -517,13 +529,11 @@ export default class Canvas extends React.PureComponent {
 					onHit={this.dropped}
 					targetKey="canvas"
 				>
-					<div style={canvasInnerContainerStyle}>
+					<div style={canvasInnerContainerStyle} onScroll={this.handleScroll}>
 						<img
 							src={this.props.backgroundImage}
 							alt={this.props.backgroundImage}
-							width={innerWidth * 2}
-							height={innerHeight * 2}
-							style={imageStyle}
+							//style={imageStyle}
 							onLoad={this.onImgLoad}
 						/>
 						<div style={infoStyle}>
