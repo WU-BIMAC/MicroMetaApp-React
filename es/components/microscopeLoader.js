@@ -49,7 +49,8 @@ function (_React$PureComponent) {
     _this.state = {
       fileLoaded: false,
       fileLoading: false,
-      selectedManu: "",
+      selectedManu: null,
+      selectedMic: null,
       micNames: null
     };
     _this.dropzoneDropAccepted = _this.dropzoneDropAccepted.bind(_assertThisInitialized(_this));
@@ -217,16 +218,20 @@ function (_React$PureComponent) {
       }
 
       if (loadingMode === 2) {
+        var defaultManu = selectedManu !== null && selectedManu !== undefined ? selectedManu : inputData[0];
         list.push(_react.default.createElement(_DropdownMenu.default, {
           key: "dropdown-manufacturers",
-          title: this.state.selectedManu,
+          title: "",
           handleMenuItemClick: this.onClickManufacturerSelection,
           inputData: Object.keys(inputData),
+          defaultValue: defaultManu,
           width: width,
           margin: margin
         }));
 
         if (selectedManu !== null && selectedManu !== undefined) {
+          var selectedMic = this.state.selectedMic;
+          var defaultMic = selectedMic !== null && selectedMic !== undefined ? selectedMic : inputData[selectedManu][0];
           console.log(this.state.micNames); // console.log("selectedManu");
           // console.log(selectedManu);
           //let names = inputData[selectedManu];
@@ -238,6 +243,7 @@ function (_React$PureComponent) {
             title: "",
             handleMenuItemClick: this.props.onClickMicroscopeSelection,
             inputData: this.state.micNames,
+            defaultValue: defaultMic,
             width: width,
             margin: margin
           }));

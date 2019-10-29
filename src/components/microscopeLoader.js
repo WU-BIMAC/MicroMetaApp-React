@@ -11,7 +11,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 		this.state = {
 			fileLoaded: false,
 			fileLoading: false,
-			selectedManu: "",
+			selectedManu: null,
+			selectedMic: null,
 			micNames: null
 		};
 
@@ -176,18 +177,28 @@ export default class MicroscopeLoader extends React.PureComponent {
 		}
 
 		if (loadingMode === 2) {
+			let defaultManu =
+				selectedManu !== null && selectedManu !== undefined
+					? selectedManu
+					: inputData[0];
 			list.push(
 				<DropdownMenu
 					key={"dropdown-manufacturers"}
-					title={this.state.selectedManu}
+					title={""}
 					handleMenuItemClick={this.onClickManufacturerSelection}
 					inputData={Object.keys(inputData)}
+					defaultValue={defaultManu}
 					width={width}
 					margin={margin}
 				/>
 			);
 
 			if (selectedManu !== null && selectedManu !== undefined) {
+				let selectedMic = this.state.selectedMic;
+				let defaultMic =
+					selectedMic !== null && selectedMic !== undefined
+						? selectedMic
+						: inputData[selectedManu][0];
 				console.log(this.state.micNames);
 				// console.log("selectedManu");
 				// console.log(selectedManu);
@@ -200,6 +211,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						title={""}
 						handleMenuItemClick={this.props.onClickMicroscopeSelection}
 						inputData={this.state.micNames}
+						defaultValue={defaultMic}
 						width={width}
 						margin={margin}
 					/>
