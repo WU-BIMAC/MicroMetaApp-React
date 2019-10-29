@@ -181,12 +181,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 				selectedManu !== null && selectedManu !== undefined
 					? selectedManu
 					: inputData[0];
+			let manufacturers = Object.keys(inputData);
+			console.log(manufacturers);
 			list.push(
 				<DropdownMenu
 					key={"dropdown-manufacturers"}
 					title={""}
 					handleMenuItemClick={this.onClickManufacturerSelection}
-					inputData={Object.keys(inputData)}
+					inputData={manufacturers}
 					defaultValue={defaultManu}
 					width={width}
 					margin={margin}
