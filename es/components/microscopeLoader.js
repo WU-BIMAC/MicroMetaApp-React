@@ -218,7 +218,7 @@ function (_React$PureComponent) {
       }
 
       if (loadingMode === 2) {
-        var defaultManu = selectedManu !== null && selectedManu !== undefined ? selectedManu : inputData[0];
+        var defaultManu = selectedManu !== null && selectedManu !== undefined ? inputData.indexOf(selectedManu) : 0;
         var manufacturers = Object.keys(inputData);
         console.log(manufacturers);
         list.push(_react.default.createElement(_DropdownMenu.default, {
@@ -233,7 +233,7 @@ function (_React$PureComponent) {
 
         if (selectedManu !== null && selectedManu !== undefined) {
           var selectedMic = this.state.selectedMic;
-          var defaultMic = selectedMic !== null && selectedMic !== undefined ? selectedMic : inputData[selectedManu][0];
+          var defaultMic = selectedMic !== null && selectedMic !== undefined ? inputData[selectedManu].indexOf(selectedMic) : 0;
           console.log(this.state.micNames); // console.log("selectedManu");
           // console.log(selectedManu);
           //let names = inputData[selectedManu];
