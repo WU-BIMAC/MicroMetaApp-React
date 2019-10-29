@@ -49,7 +49,7 @@ function (_React$PureComponent) {
     _this.state = {
       fileLoaded: false,
       fileLoading: false,
-      selectedManu: null,
+      selectedManu: "",
       micNames: null
     };
     _this.dropzoneDropAccepted = _this.dropzoneDropAccepted.bind(_assertThisInitialized(_this));
@@ -219,7 +219,7 @@ function (_React$PureComponent) {
       if (loadingMode === 2) {
         list.push(_react.default.createElement(_DropdownMenu.default, {
           key: "dropdown-manufacturers",
-          title: "",
+          title: this.state.selectedManu,
           handleMenuItemClick: this.onClickManufacturerSelection,
           inputData: Object.keys(inputData),
           width: width,
