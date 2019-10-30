@@ -10,7 +10,7 @@
 		"buildProd": "gulp build-prod",
 		"buildDev": "gulp build-dev",
 		"dev": "gulp dev",
-		"build": "gulp build",
+		"build": "gulp build-prod && gulp build-dev",
 		"build-all": "npm run build-es && gulp build",
 		"build-es": "npx babel ./src --out-dir ./es --env-name esm --verbose",
 		"watch-es": "npx babel ./src --out-dir ./es --env-name esm --verbose --watch"

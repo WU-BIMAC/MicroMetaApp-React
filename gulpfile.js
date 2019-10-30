@@ -110,9 +110,7 @@ let watchWebpack = () => {
 const dev = gulp.series(setDev, buildWebpack, watchWebpack);
 const buildProd = gulp.series(setProduction, buildWebpack);
 const buildDev = gulp.series(setDev, buildWebpack);
-const build = gulp.series(buildProd, buildDev);
 
 gulp.task("dev", dev);
 gulp.task("build-prod", buildProd);
 gulp.task("build-dev", buildDev);
-gulp.task("build", build);
