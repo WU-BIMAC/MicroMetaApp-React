@@ -475,7 +475,11 @@ function (_React$PureComponent) {
         }), _react.default.createElement("div", {
           className: "styleName",
           style: {
-            width: stylesImages[item.ID].width
+            width: stylesImages[item.ID].width,
+            textAlign: "center",
+            fontSize: "75%",
+            paddingLeft: "10px",
+            overflow: "hidden"
           }
         }, item.name))));
       });

@@ -445,7 +445,13 @@ export default class Canvas extends React.PureComponent {
 						/>
 						<div
 							className="styleName"
-							style={{ width: stylesImages[item.ID].width }}
+							style={{
+								width: stylesImages[item.ID].width,
+								textAlign: "center",
+								fontSize: "75%",
+								paddingLeft: "10px",
+								overflow: "hidden"
+							}}
 						>
 							{item.name}
 						</div>
