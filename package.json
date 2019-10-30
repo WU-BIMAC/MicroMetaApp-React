@@ -7,11 +7,13 @@
 	"private": true,
 	"scripts": {
 		"test": "node scripts/test.js",
-		"prod": "gulp build",
+		"buildProd": "gulp build-prod",
+		"buildDev": "gulp build-dev",
 		"dev": "gulp dev",
-		"build": "npm run build-es && gulp build",
-		"build-es" : "npx babel ./src --out-dir ./es --env-name esm --verbose",
-		"watch-es" : "npx babel ./src --out-dir ./es --env-name esm --verbose --watch"
+		"build": "gulp build",
+		"build-all": "npm run build-es && gulp build",
+		"build-es": "npx babel ./src --out-dir ./es --env-name esm --verbose",
+		"watch-es": "npx babel ./src --out-dir ./es --env-name esm --verbose --watch"
 	},
 	"publishConfig": {
 		"access": "restricted"

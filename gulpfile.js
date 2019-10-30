@@ -97,33 +97,22 @@ function doWatchESModules(done) {
 	});
 }
 
-let doWebpack = cb => {
+let buildWebpack = cb => {
 	let webpackConfig = require("./webpack.config.js");
 	webpack(webpackConfig).run(webpackOnBuild(cb));
 };
 
-let watch = () => {
+let watchWebpack = () => {
 	let webpackConfig = require("./webpack.config.js");
 	webpack(webpackConfig).watch(300, webpackOnBuild());
 };
 
-gulp.task(
-	"dev",
-	gulp.series(
-		setDev,
-		doWebpack,
-		watch
-	)
-);
+const dev = gulp.series(setDev, buildWebpack, watchWebpack);
+const buildProd = gulp.series(setProduction, buildWebpack);
+const buildDev = gulp.series(setDev, buildWebpack);
+const build = gulp.series(buildProd, buildDev);
 
-gulp.task(
-	"build",
-	gulp.series(
-		setDev,
-		doWebpack,
-		setProduction,
-		doWebpack // We can optimize this later maybe to import the ES modules instd of raw JS for speed, idk.
-	)
-);
-
-gulp.task("build-dev", gulp.series(setDev, doWebpack));
+gulp.task("dev", dev);
+gulp.task("build-prod", buildProd);
+gulp.task("build-dev", buildDev);
+gulp.task("build", build);
