@@ -255,7 +255,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	selectMicroscopeFromRepository(item) {
-		console.log("selected : " + item);
 		this.setState({ micName: item });
 	}
 
@@ -295,7 +294,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		}
 
 		if (properties === null || properties === undefined) {
-			console.log("schema without properties");
 			console.log(singleSchema);
 			return singleSchema;
 		}
@@ -468,7 +466,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let validation = validate(modifiedMic, microscopeSchema);
 		let validated = validation.valid;
 		if (this.state.isCreatingNewMicroscope) {
-			console.log("creating mic");
 			this.setState({
 				microscope: modifiedMic,
 				setting: null,
@@ -478,7 +475,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				isMicroscopeValidated: validated
 			});
 		} else {
-			console.log("creating setting");
 			let setting = {
 				Name: `New ${imageSchema.title}`,
 				Schema_ID: imageSchema.ID,
@@ -594,8 +590,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	updateElementData(elementData, areComponentsValidated) {
-		//console.log("updateElementData");
-		console.log(elementData);
+		//console.log(elementData);
 		this.setState({
 			elementData: elementData,
 			areComponentsValidated: areComponentsValidated
@@ -705,8 +700,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		}
 		let elementData = this.state.elementData;
 		let components = [];
-		console.log("elementData");
-		console.log(elementData);
 		Object.keys(elementData).forEach((item, index) => {
 			components[index] = elementData[item];
 		});
@@ -1062,14 +1055,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let childrenSchema = this.state.adaptedChildrenSchema;
 
 		if (!this.state.isCreatingNewMicroscope) {
-			console.log("use microscope");
-			console.log(microscope);
-			console.log(settingsSchema);
-
-			console.log("setting");
-			console.log(setting);
-
-			console.log(elementData);
 			return (
 				<MicroscopyMetadataToolContainer
 					width={width}
@@ -1108,7 +1093,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			);
 		} else {
 			if (this.state.isViewOnly) {
-				console.log("view only");
 				canvasDims = {
 					width: width,
 					height: canvasHeight + headerFooterHeight

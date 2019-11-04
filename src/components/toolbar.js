@@ -14,6 +14,8 @@ export default class Toolbar extends React.PureComponent {
 			elementList: {},
 			imagesDimension: {}
 		};
+
+		let counter = 0;
 		for (let i = 0; i < props.componentSchemas.length; i++) {
 			let obj = props.componentSchemas[i];
 			if (props.activeTier < obj.tier) continue;
@@ -26,9 +28,13 @@ export default class Toolbar extends React.PureComponent {
 				this.state.elementList[category] = [];
 			}
 			this.state.elementList[category].push(element);
+			counter++;
 		}
 
-		this.updatedDimensions = this.updatedDimensions.bind(this);
+		this.state.numberOfElement = counter;
+		this.cachedToolbar = null;
+
+		this.updateMinMaxDimensions = this.updateMinMaxDimensions.bind(this);
 	}
 
 	// static getDerivedStateFromProps(props, state) {
@@ -52,17 +58,19 @@ export default class Toolbar extends React.PureComponent {
 	// 	return null;
 	// }
 
-	updatedDimensions(id, width, height) {
+	updateMinMaxDimensions(id, width, height) {
 		let newImagesDimension = Object.assign({}, this.state.imagesDimension);
-		if (newImagesDimension[id] !== undefined) {
-			if (
-				newImagesDimension[id].width >= width ||
-				newImagesDimension[id].height >= height
-			)
-				return;
+		// if (newImagesDimension[id] !== undefined) {
+		// 	if (
+		// 		newImagesDimension[id].width >= width ||
+		// 		newImagesDimension[id].height >= height
+		// 	)
+		// 		return;
+		// }
+		if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
+			newImagesDimension[id] = { width, height };
+			this.setState({ imagesDimension: newImagesDimension });
 		}
-		newImagesDimension[id] = { width, height };
-		this.setState({ imagesDimension: newImagesDimension });
 		//this.imagesDimension = newImagesDimension;
 	}
 
@@ -99,7 +107,7 @@ export default class Toolbar extends React.PureComponent {
 					//image={`${this.props.imagesPath}${item.schema.image}`}
 					image={path.join(this.props.imagesPath, item.schema.image)}
 					name={item.schema.title}
-					updateDimensions={this.updatedDimensions}
+					updateMinMaxDimensions={this.updateMinMaxDimensions}
 					style={stylesImages[item.ID]}
 				/>
 			)
@@ -194,12 +202,13 @@ export default class Toolbar extends React.PureComponent {
 
 	render() {
 		let imagesDimension = this.state.imagesDimension;
-		let elementList = this.state.elementList;
 		if (
-			imagesDimension.length !== 0 &&
-			imagesDimension.length !== elementList.length
-		)
-			return;
+			Object.keys(imagesDimension).length !== 0 &&
+			this.state.numberOfElement !== Object.keys(imagesDimension).length &&
+			this.cachedToolbar !== null
+		) {
+			return this.cachedToolbar;
+		}
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
 		//console.log("t w: " + width + " h: " + height);
@@ -216,6 +225,7 @@ export default class Toolbar extends React.PureComponent {
 			verticalAlign: "middle"
 		};
 		let toolbar = this.createCategories();
+		this.cachedToolbar = toolbar;
 		return <div style={style}>{toolbar}</div>;
 	}
 }

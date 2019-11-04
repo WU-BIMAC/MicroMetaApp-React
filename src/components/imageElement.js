@@ -15,13 +15,16 @@ export default class ImageElement extends React.PureComponent {
 		let oldHeight = this.state.height;
 		let oldWidth = this.state.width;
 		if (oldWidth !== null && oldHeight !== null) return;
-		let newHeight = img.height; // / 5;
-		let newWidth = img.width; // / 5;
-		this.setState({
-			height: newHeight,
-			width: newWidth
-		});
-		this.props.updateDimensions(this.props.id, newWidth, newHeight);
+		let newHeight = img.naturalHeight; // / 5;
+		let newWidth = img.naturalWidth; // / 5;
+		this.setState(
+			{
+				height: newHeight,
+				width: newWidth
+			},
+			() =>
+				this.props.updateMinMaxDimensions(this.props.id, newWidth, newHeight)
+		);
 	}
 
 	render() {

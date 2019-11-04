@@ -100,7 +100,7 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	handleScroll(e) {
-		console.log(e);
+		//console.log(e);
 		let element = e.target;
 		let offsetY = element.scrollTop;
 		let offsetX = element.scrollLeft;
@@ -113,16 +113,26 @@ export default class Canvas extends React.PureComponent {
 		this.state.elementList.forEach(item => {
 			if (item.ID === id) element = item;
 		});
+
 		let newElementDataList = Object.assign({}, this.state.elementData);
 		let obj = newElementDataList[id];
 
 		if (element === null || obj === undefined) return;
 
-		if (!isResize) {
-			if (element.width >= width && element.height >= height) {
-				return;
-			}
+		//console.log("updated element in canvas " + isResize);
+
+		if (element.width !== -1 && element.height !== -1 && !isResize) {
+			return;
 		}
+
+		// if (!isResize) {
+		// 	if (element.width >= width && element.height >= height) {
+		// 		return;
+		// 	}
+		// }
+
+		//console.log("new dimensions " + width + " x " + height);
+
 		element.width = width;
 		element.height = height;
 		obj.Width = width;
@@ -195,8 +205,6 @@ export default class Canvas extends React.PureComponent {
 		let offsetX = this.state.offsetX;
 		let offsetY = this.state.offsetY;
 
-		console.log("DROP: " + x + " - " + y);
-
 		x += offsetX;
 		y += offsetY;
 
@@ -227,8 +235,8 @@ export default class Canvas extends React.PureComponent {
 				x: x,
 				//y: percentY,
 				y: y,
-				width: 100,
-				height: 100,
+				width: -1,
+				height: -1,
 				offsetX: offsetX,
 				offsetY: offsetY
 			};
@@ -243,8 +251,8 @@ export default class Canvas extends React.PureComponent {
 				PositionX: x,
 				//PositionY: percentY,
 				PositionY: y,
-				Width: 100,
-				Height: 100,
+				Width: -1,
+				Height: -1,
 				OffsetX: offsetX,
 				OffsetY: offsetY
 			};
@@ -283,10 +291,14 @@ export default class Canvas extends React.PureComponent {
 			// newElementList[sourceElement.index].y = percentY;
 			newElementList[sourceElement.index].y = y;
 			newElementList[sourceElement.index].dragged = false;
+			newElementList[sourceElement.index].offsetX = offsetX;
+			newElementList[sourceElement.index].offsetY = offsetY;
 			//newElementDataList[item.ID].PositionX = percentX;
 			newElementDataList[item.ID].PositionX = x;
 			//newElementDataList[item.ID].PositionY = percentY;
 			newElementDataList[item.ID].PositionY = y;
+			newElementDataList[item.ID].OffsetX = offsetX;
+			newElementDataList[item.ID].OffsetY = offsetY;
 		}
 
 		this.setState({
@@ -370,6 +382,9 @@ export default class Canvas extends React.PureComponent {
 			};
 			let containerWidth = item.width;
 			let containerHeight = item.height;
+
+			if (containerWidth == -1) containerWidth = 100;
+			if (containerHeight == -1) containerHeight = 100;
 
 			if (!item.validated) {
 				containerWidth += 10;

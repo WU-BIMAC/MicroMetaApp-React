@@ -11,7 +11,13 @@ export default class CanvasElement extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			editing: false
+			editing: false,
+			originalWidth: null,
+			originalHeight: null,
+			minWidth: null,
+			minHeight: null,
+			maxWidth: null,
+			maxHeight: null
 		};
 
 		this.startWidth = null;
@@ -25,6 +31,8 @@ export default class CanvasElement extends React.PureComponent {
 		this.onResizeStart = this.onResizeStart.bind(this);
 		this.onResize = this.onResize.bind(this);
 		this.onResizeStop = this.onResizeStop.bind(this);
+
+		this.updateMinMaxDimensions = this.updateMinMaxDimensions.bind(this);
 
 		this.counter = 0;
 	}
@@ -51,6 +59,28 @@ export default class CanvasElement extends React.PureComponent {
 		let imgHeight = height;
 		let id = this.props.id;
 		this.props.updateDimensions(id, imgWidth, imgHeight, true);
+	}
+
+	updateMinMaxDimensions(id, originalImgWidth, originalImgHeight) {
+		if (
+			this.state.originalWidth == originalImgWidth &&
+			this.state.originalHeight == originalImgHeight
+		)
+			return;
+		//console.log("update min max dimensions canvas");
+		let minWidth = originalImgWidth / 2;
+		let minHeight = originalImgHeight / 2;
+		let maxWidth = originalImgWidth * 2;
+		let maxHeight = originalImgHeight * 2;
+		this.setState({
+			originalWidth: originalImgWidth,
+			originalHeight: originalImgHeight,
+			minWidth: minWidth,
+			minHeight: minHeight,
+			maxWidth: maxWidth,
+			maxHeight: maxHeight
+		});
+		this.props.updateDimensions(id, originalImgWidth, originalImgHeight, false);
 	}
 
 	onResizeStop(e, data) {}
@@ -112,16 +142,16 @@ export default class CanvasElement extends React.PureComponent {
 			height: height
 		};
 
-		if (this.counter < 6) {
-			this.startWidth = width;
-			this.startHeight = height;
-			this.counter++;
-		}
+		// if (this.counter < 6) {
+		// 	this.startWidth = width;
+		// 	this.startHeight = height;
+		// 	this.counter++;
+		// }
 
-		let minWidth = this.startWidth / 2;
-		let minHeight = this.startHeight / 2;
-		let maxWidth = this.startWidth * 2;
-		let maxHeight = this.startHeight * 2;
+		let minWidth = this.state.minWidth;
+		let minHeight = this.state.minHeight;
+		let maxWidth = this.state.maxWidth;
+		let maxHeight = this.state.maxHeight;
 
 		return (
 			<ResizableBox
@@ -161,7 +191,7 @@ export default class CanvasElement extends React.PureComponent {
 				>
 					<button style={style} onClick={this.onClick}>
 						<ImageElement
-							updateDimensions={this.props.updateDimensions}
+							updateMinMaxDimensions={this.updateMinMaxDimensions}
 							id={this.props.id}
 							image={this.props.image}
 							name={this.props.schema.title}
