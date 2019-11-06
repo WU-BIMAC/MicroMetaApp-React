@@ -49,19 +49,22 @@ function (_React$PureComponent) {
   _createClass(ImageElement, [{
     key: "onImgLoad",
     value: function onImgLoad(_ref) {
+      var _this2 = this;
+
       var img = _ref.target;
       var oldHeight = this.state.height;
       var oldWidth = this.state.width;
       if (oldWidth !== null && oldHeight !== null) return;
-      var newHeight = img.height; // / 5;
+      var newHeight = img.naturalHeight; // / 5;
 
-      var newWidth = img.width; // / 5;
+      var newWidth = img.naturalWidth; // / 5;
 
       this.setState({
         height: newHeight,
         width: newWidth
+      }, function () {
+        return _this2.props.updateMinMaxDimensions(_this2.props.id, newWidth, newHeight);
       });
-      this.props.updateDimensions(this.props.id, newWidth, newHeight);
     }
   }, {
     key: "render",

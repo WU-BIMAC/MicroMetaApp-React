@@ -52,6 +52,7 @@ function (_React$PureComponent) {
       elementList: {},
       imagesDimension: {}
     };
+    var counter = 0;
 
     for (var i = 0; i < props.componentSchemas.length; i++) {
       var obj = props.componentSchemas[i];
@@ -67,9 +68,13 @@ function (_React$PureComponent) {
       }
 
       _this.state.elementList[category].push(element);
+
+      counter++;
     }
 
-    _this.updatedDimensions = _this.updatedDimensions.bind(_assertThisInitialized(_this));
+    _this.state.numberOfElement = counter;
+    _this.cachedToolbar = null;
+    _this.updateMinMaxDimensions = _this.updateMinMaxDimensions.bind(_assertThisInitialized(_this));
     return _this;
   } // static getDerivedStateFromProps(props, state) {
   // 	if (props.componentSchemas !== null) {
@@ -94,21 +99,26 @@ function (_React$PureComponent) {
 
 
   _createClass(Toolbar, [{
-    key: "updatedDimensions",
-    value: function updatedDimensions(id, width, height) {
-      var newImagesDimension = Object.assign({}, this.state.imagesDimension);
+    key: "updateMinMaxDimensions",
+    value: function updateMinMaxDimensions(id, width, height) {
+      var newImagesDimension = Object.assign({}, this.state.imagesDimension); // if (newImagesDimension[id] !== undefined) {
+      // 	if (
+      // 		newImagesDimension[id].width >= width ||
+      // 		newImagesDimension[id].height >= height
+      // 	)
+      // 		return;
+      // }
 
-      if (newImagesDimension[id] !== undefined) {
-        if (newImagesDimension[id].width >= width || newImagesDimension[id].height >= height) return;
-      }
+      if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
+        newImagesDimension[id] = {
+          width: width,
+          height: height
+        };
+        this.setState({
+          imagesDimension: newImagesDimension
+        });
+      } //this.imagesDimension = newImagesDimension;
 
-      newImagesDimension[id] = {
-        width: width,
-        height: height
-      };
-      this.setState({
-        imagesDimension: newImagesDimension
-      }); //this.imagesDimension = newImagesDimension;
     }
   }, {
     key: "createCategoryItems",
@@ -140,7 +150,7 @@ function (_React$PureComponent) {
           ,
           image: path.join(_this2.props.imagesPath, item.schema.image),
           name: item.schema.title,
-          updateDimensions: _this2.updatedDimensions,
+          updateMinMaxDimensions: _this2.updateMinMaxDimensions,
           style: stylesImages[item.ID]
         }));
       });
@@ -233,8 +243,11 @@ function (_React$PureComponent) {
     key: "render",
     value: function render() {
       var imagesDimension = this.state.imagesDimension;
-      var elementList = this.state.elementList;
-      if (imagesDimension.length !== 0 && imagesDimension.length !== elementList.length) return;
+
+      if (Object.keys(imagesDimension).length !== 0 && this.state.numberOfElement !== Object.keys(imagesDimension).length && this.cachedToolbar !== null) {
+        return this.cachedToolbar;
+      }
+
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height; //console.log("t w: " + width + " h: " + height);
 
@@ -251,6 +264,7 @@ function (_React$PureComponent) {
         verticalAlign: "middle"
       };
       var toolbar = this.createCategories();
+      this.cachedToolbar = toolbar;
       return _react.default.createElement("div", {
         style: style
       }, toolbar);

@@ -114,7 +114,7 @@ function (_React$PureComponent) {
   _createClass(Canvas, [{
     key: "handleScroll",
     value: function handleScroll(e) {
-      console.log(e);
+      //console.log(e);
       var element = e.target;
       var offsetY = element.scrollTop;
       var offsetX = element.scrollLeft;
@@ -132,13 +132,17 @@ function (_React$PureComponent) {
       });
       var newElementDataList = Object.assign({}, this.state.elementData);
       var obj = newElementDataList[id];
-      if (element === null || obj === undefined) return;
+      if (element === null || obj === undefined) return; //console.log("updated element in canvas " + isResize);
 
-      if (!isResize) {
-        if (element.width >= width && element.height >= height) {
-          return;
-        }
-      }
+      if (element.width !== -1 && element.height !== -1 && !isResize) {
+        return;
+      } // if (!isResize) {
+      // 	if (element.width >= width && element.height >= height) {
+      // 		return;
+      // 	}
+      // }
+      //console.log("new dimensions " + width + " x " + height);
+
 
       element.width = width;
       element.height = height;
@@ -221,7 +225,6 @@ function (_React$PureComponent) {
       var y = e.y - 60;
       var offsetX = this.state.offsetX;
       var offsetY = this.state.offsetY;
-      console.log("DROP: " + x + " - " + y);
       x += offsetX;
       y += offsetY; // if (e.y - 60 < 0) y = 60;
       // else y = e.y - 60;
@@ -251,8 +254,8 @@ function (_React$PureComponent) {
           x: x,
           //y: percentY,
           y: y,
-          width: 100,
-          height: 100,
+          width: -1,
+          height: -1,
           offsetX: offsetX,
           offsetY: offsetY
         };
@@ -267,8 +270,8 @@ function (_React$PureComponent) {
           PositionX: x,
           //PositionY: percentY,
           PositionY: y,
-          Width: 100,
-          Height: 100,
+          Width: -1,
+          Height: -1,
           OffsetX: offsetX,
           OffsetY: offsetY
         };
@@ -310,11 +313,15 @@ function (_React$PureComponent) {
         newElementList[sourceElement.index].x = x; // newElementList[sourceElement.index].y = percentY;
 
         newElementList[sourceElement.index].y = y;
-        newElementList[sourceElement.index].dragged = false; //newElementDataList[item.ID].PositionX = percentX;
+        newElementList[sourceElement.index].dragged = false;
+        newElementList[sourceElement.index].offsetX = offsetX;
+        newElementList[sourceElement.index].offsetY = offsetY; //newElementDataList[item.ID].PositionX = percentX;
 
         newElementDataList[item.ID].PositionX = x; //newElementDataList[item.ID].PositionY = percentY;
 
         newElementDataList[item.ID].PositionY = y;
+        newElementDataList[item.ID].OffsetX = offsetX;
+        newElementDataList[item.ID].OffsetY = offsetY;
       }
 
       this.setState({
@@ -399,6 +406,8 @@ function (_React$PureComponent) {
         };
         var containerWidth = item.width;
         var containerHeight = item.height;
+        if (containerWidth == -1) containerWidth = 100;
+        if (containerHeight == -1) containerHeight = 100;
 
         if (!item.validated) {
           containerWidth += 10;

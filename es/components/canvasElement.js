@@ -47,7 +47,13 @@ function (_React$PureComponent) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CanvasElement).call(this, props));
     _this.state = {
-      editing: false
+      editing: false,
+      originalWidth: null,
+      originalHeight: null,
+      minWidth: null,
+      minHeight: null,
+      maxWidth: null,
+      maxHeight: null
     };
     _this.startWidth = null;
     _this.startHeight = null;
@@ -57,6 +63,7 @@ function (_React$PureComponent) {
     _this.onResizeStart = _this.onResizeStart.bind(_assertThisInitialized(_this));
     _this.onResize = _this.onResize.bind(_assertThisInitialized(_this));
     _this.onResizeStop = _this.onResizeStop.bind(_assertThisInitialized(_this));
+    _this.updateMinMaxDimensions = _this.updateMinMaxDimensions.bind(_assertThisInitialized(_this));
     _this.counter = 0;
     return _this;
   }
@@ -95,6 +102,25 @@ function (_React$PureComponent) {
       var imgHeight = height;
       var id = this.props.id;
       this.props.updateDimensions(id, imgWidth, imgHeight, true);
+    }
+  }, {
+    key: "updateMinMaxDimensions",
+    value: function updateMinMaxDimensions(id, originalImgWidth, originalImgHeight) {
+      if (this.state.originalWidth == originalImgWidth && this.state.originalHeight == originalImgHeight) return; //console.log("update min max dimensions canvas");
+
+      var minWidth = originalImgWidth / 2;
+      var minHeight = originalImgHeight / 2;
+      var maxWidth = originalImgWidth * 2;
+      var maxHeight = originalImgHeight * 2;
+      this.setState({
+        originalWidth: originalImgWidth,
+        originalHeight: originalImgHeight,
+        minWidth: minWidth,
+        minHeight: minHeight,
+        maxWidth: maxWidth,
+        maxHeight: maxHeight
+      });
+      this.props.updateDimensions(id, originalImgWidth, originalImgHeight, false);
     }
   }, {
     key: "onResizeStop",
@@ -153,18 +179,16 @@ function (_React$PureComponent) {
       var styleImage = {
         width: width,
         height: height
-      };
+      }; // if (this.counter < 6) {
+      // 	this.startWidth = width;
+      // 	this.startHeight = height;
+      // 	this.counter++;
+      // }
 
-      if (this.counter < 6) {
-        this.startWidth = width;
-        this.startHeight = height;
-        this.counter++;
-      }
-
-      var minWidth = this.startWidth / 2;
-      var minHeight = this.startHeight / 2;
-      var maxWidth = this.startWidth * 2;
-      var maxHeight = this.startHeight * 2;
+      var minWidth = this.state.minWidth;
+      var minHeight = this.state.minHeight;
+      var maxWidth = this.state.maxWidth;
+      var maxHeight = this.state.maxHeight;
       return _react.default.createElement(_reactResizable.ResizableBox, {
         width: width,
         height: height,
@@ -184,7 +208,7 @@ function (_React$PureComponent) {
         style: style,
         onClick: this.onClick
       }, _react.default.createElement(_imageElement.default, {
-        updateDimensions: this.props.updateDimensions,
+        updateMinMaxDimensions: this.updateMinMaxDimensions,
         id: this.props.id,
         image: this.props.image,
         name: this.props.schema.title,

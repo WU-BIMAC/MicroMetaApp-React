@@ -286,7 +286,6 @@ function (_React$PureComponent) {
   }, {
     key: "selectMicroscopeFromRepository",
     value: function selectMicroscopeFromRepository(item) {
-      console.log("selected : " + item);
       this.setState({
         micName: item
       });
@@ -326,7 +325,6 @@ function (_React$PureComponent) {
       }
 
       if (properties === null || properties === undefined) {
-        console.log("schema without properties");
         console.log(singleSchema);
         return singleSchema;
       }
@@ -502,7 +500,6 @@ function (_React$PureComponent) {
       var validated = validation.valid;
 
       if (this.state.isCreatingNewMicroscope) {
-        console.log("creating mic");
         this.setState({
           microscope: modifiedMic,
           setting: null,
@@ -512,7 +509,6 @@ function (_React$PureComponent) {
           isMicroscopeValidated: validated
         });
       } else {
-        console.log("creating setting");
         var setting = {
           Name: "New ".concat(imageSchema.title),
           Schema_ID: imageSchema.ID,
@@ -639,8 +635,7 @@ function (_React$PureComponent) {
   }, {
     key: "updateElementData",
     value: function updateElementData(elementData, areComponentsValidated) {
-      //console.log("updateElementData");
-      console.log(elementData);
+      //console.log(elementData);
       this.setState({
         elementData: elementData,
         areComponentsValidated: areComponentsValidated
@@ -756,8 +751,6 @@ function (_React$PureComponent) {
 
       var elementData = this.state.elementData;
       var components = [];
-      console.log("elementData");
-      console.log(elementData);
       Object.keys(elementData).forEach(function (item, index) {
         components[index] = elementData[item];
       });
@@ -1091,12 +1084,6 @@ function (_React$PureComponent) {
       var childrenSchema = this.state.adaptedChildrenSchema;
 
       if (!this.state.isCreatingNewMicroscope) {
-        console.log("use microscope");
-        console.log(microscope);
-        console.log(settingsSchema);
-        console.log("setting");
-        console.log(setting);
-        console.log(elementData);
         return _react.default.createElement(MicroscopyMetadataToolContainer, {
           width: width,
           height: height,
@@ -1131,7 +1118,6 @@ function (_React$PureComponent) {
         }));
       } else {
         if (this.state.isViewOnly) {
-          console.log("view only");
           canvasDims = {
             width: width,
             height: canvasHeight + headerFooterHeight
