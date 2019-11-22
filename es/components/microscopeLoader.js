@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -15,9 +15,9 @@ var _reactDropzone = _interopRequireDefault(require("react-dropzone"));
 
 var _DropdownMenu = _interopRequireDefault(require("./DropdownMenu"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27,13 +27,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var MicroscopeLoader =
 /*#__PURE__*/
@@ -67,14 +67,14 @@ function (_React$PureComponent) {
 
   _createClass(MicroscopeLoader, [{
     key: "onFileReaderAbort",
-    value: function onFileReaderAbort(e) {
+    value: function onFileReaderAbort() {
       this.setState({
         fileLoaded: false
       });
     }
   }, {
     key: "onFileReaderError",
-    value: function onFileReaderError(e) {
+    value: function onFileReaderError() {
       this.setState({
         fileLoaded: false
       });
@@ -156,22 +156,6 @@ function (_React$PureComponent) {
         padding: "5px",
         margin: "5px"
       };
-      var windowExternalContainer = {
-        display: "flex",
-        justifyContent: "center",
-        flexFlow: "column",
-        width: "100%",
-        height: "100%",
-        alignItems: "center"
-      };
-      var windowInternalContainer = {
-        display: "flex",
-        justifyContent: "center",
-        flexFlow: "column",
-        width: "100%",
-        height: "100%",
-        alignItems: "center"
-      };
       var width = 410;
       var margin = 5;
       var inputData = this.props.microscopes;
@@ -187,7 +171,7 @@ function (_React$PureComponent) {
       var isDropzoneActive = false;
       if (loadingMode === 1) isDropzoneActive = true;
       var list = [];
-      list.push(_react.default.createElement(_DropdownMenu.default, {
+      list.push(_react["default"].createElement(_DropdownMenu["default"], {
         key: "dropdown-loadingOption",
         title: "",
         handleMenuItemClick: this.props.onClickLoadingOptionSelection,
@@ -198,7 +182,7 @@ function (_React$PureComponent) {
       }));
 
       if (loadingMode === 1) {
-        list.push(_react.default.createElement(_reactDropzone.default, {
+        list.push(_react["default"].createElement(_reactDropzone["default"], {
           key: "dropzone",
           onFileDialogCancel: this.dropzoneDialogCancel,
           onDrop: this.dropzoneDrop,
@@ -209,18 +193,18 @@ function (_React$PureComponent) {
         }, function (_ref) {
           var getRootProps = _ref.getRootProps,
               getInputProps = _ref.getInputProps;
-          return _react.default.createElement("section", {
+          return _react["default"].createElement("section", {
             style: dropzoneStyle
-          }, _react.default.createElement("div", getRootProps(), _react.default.createElement("input", getInputProps({
+          }, _react["default"].createElement("div", getRootProps(), _react["default"].createElement("input", getInputProps({
             onClick: _this2.dropzoneDialogOpen
-          })), _react.default.createElement("p", null, "Drag 'n' drop some files here, or click to select files")));
+          })), _react["default"].createElement("p", null, "Drag 'n' drop some files here, or click to select files")));
         }));
       }
 
       if (loadingMode === 2) {
         var manufacturers = Object.keys(inputData);
         var defaultManu = selectedManu !== null && selectedManu !== undefined ? manufacturers.indexOf(selectedManu) : 0;
-        list.push(_react.default.createElement(_DropdownMenu.default, {
+        list.push(_react["default"].createElement(_DropdownMenu["default"], {
           key: "dropdown-manufacturers",
           title: "",
           handleMenuItemClick: this.onClickManufacturerSelection,
@@ -239,7 +223,7 @@ function (_React$PureComponent) {
           // console.log("names");
           // console.log(names);
 
-          list.push(_react.default.createElement(_DropdownMenu.default, {
+          list.push(_react["default"].createElement(_DropdownMenu["default"], {
             key: "dropdown-names",
             title: "",
             handleMenuItemClick: this.props.onClickMicroscopeSelection,
@@ -251,22 +235,36 @@ function (_React$PureComponent) {
         }
       }
 
-      list.push(_react.default.createElement("div", {
+      list.push(_react["default"].createElement("div", {
         key: "buttons"
-      }, _react.default.createElement(_Button.default, {
+      }, _react["default"].createElement(_Button["default"], {
         onClick: isDropzoneActive && fileLoaded && !fileLoading || !isDropzoneActive ? this.props.onClickConfirm : null,
         style: buttonStyle,
         size: "lg",
         disabled: isDropzoneActive && (!fileLoaded || fileLoading)
-      }, isDropzoneActive && !fileLoaded && !fileLoading ? "Waiting for file" : isDropzoneActive && fileLoading ? "Loading file" : "Confirm"), _react.default.createElement(_Button.default, {
+      }, isDropzoneActive && !fileLoaded && !fileLoading ? "Waiting for file" : isDropzoneActive && fileLoading ? "Loading file" : "Confirm"), _react["default"].createElement(_Button["default"], {
         onClick: this.props.onClickBack,
         style: buttonStyle,
         size: "lg"
       }, "Back")));
-      return _react.default.createElement("div", {
-        style: windowExternalContainer
-      }, _react.default.createElement("div", {
-        style: windowInternalContainer
+      return _react["default"].createElement("div", {
+        style: {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "100%",
+          height: "100%",
+          alignItems: "center"
+        }
+      }, _react["default"].createElement("div", {
+        style: {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "100%",
+          height: "100%",
+          alignItems: "center"
+        }
       }, list));
     }
   }], [{
@@ -291,6 +289,6 @@ function (_React$PureComponent) {
   }]);
 
   return MicroscopeLoader;
-}(_react.default.PureComponent);
+}(_react["default"].PureComponent);
 
-exports.default = MicroscopeLoader;
+exports["default"] = MicroscopeLoader;

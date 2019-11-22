@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -15,9 +15,9 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _imageElement = _interopRequireDefault(require("./imageElement"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27,13 +27,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var path = require("path");
 
@@ -144,7 +144,7 @@ function (_React$PureComponent) {
         };
       });
       elementList[key].map(function (item) {
-        return imageElements.push(_react.default.createElement(_imageElement.default, {
+        return imageElements.push(_react["default"].createElement(_imageElement["default"], {
           key: "ImageElement-".concat(item.ID),
           id: item.ID //image={`${this.props.imagesPath}${item.schema.image}`}
           ,
@@ -156,10 +156,10 @@ function (_React$PureComponent) {
       });
       var categoryItems = [];
       elementList[key].map(function (item, index) {
-        return categoryItems.push(_react.default.createElement("div", {
+        return categoryItems.push(_react["default"].createElement("div", {
           key: "div" + item.ID,
           style: stylesContainer[item.ID]
-        }, _react.default.createElement(_reactDragDropContainer.DragDropContainer, {
+        }, _react["default"].createElement(_reactDragDropContainer.DragDropContainer, {
           targetKey: "canvas",
           key: "draggable" + item.ID,
           dragClone: true,
@@ -170,15 +170,14 @@ function (_React$PureComponent) {
           }
         }, imageElements[index])));
       });
-      var styleContainer = {
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignItems: "center",
-        margin: "5px"
-      };
-      return _react.default.createElement("div", {
-        style: styleContainer
+      return _react["default"].createElement("div", {
+        style: {
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "center",
+          margin: "5px"
+        }
       }, categoryItems);
     } // 	<Button className="collapse-btn" key={`Trigger${key}`} size="lg">
     // 	{key}
@@ -218,20 +217,20 @@ function (_React$PureComponent) {
           var simpleKey;
           if (index !== -1) simpleKey = key.substring(index + 1);else simpleKey = key;
           if (simpleKey !== name) return;
-          toolbar.push(_react.default.createElement(_reactCollapsible.default, {
+          toolbar.push(_react["default"].createElement(_reactCollapsible["default"], {
             key: "Collapsible-".concat(key),
-            trigger: _react.default.createElement(_Button.default, {
+            trigger: _react["default"].createElement(_Button["default"], {
               key: "Trigger".concat(key),
               size: "lg",
               style: style
-            }, _react.default.createElement("div", null, simpleKey), _react.default.createElement("div", {
+            }, _react["default"].createElement("div", null, simpleKey), _react["default"].createElement("div", {
               style: styleTransitionClose
             }, "\u25C1")),
-            triggerWhenOpen: _react.default.createElement(_Button.default, {
+            triggerWhenOpen: _react["default"].createElement(_Button["default"], {
               key: "Trigger".concat(key),
               size: "lg",
               style: style
-            }, _react.default.createElement("div", null, simpleKey), _react.default.createElement("div", {
+            }, _react["default"].createElement("div", null, simpleKey), _react["default"].createElement("div", {
               style: styleTransitionOpen
             }, "\u25C1"))
           }, _this3.createCategoryItems(key)));
@@ -265,13 +264,13 @@ function (_React$PureComponent) {
       };
       var toolbar = this.createCategories();
       this.cachedToolbar = toolbar;
-      return _react.default.createElement("div", {
+      return _react["default"].createElement("div", {
         style: style
       }, toolbar);
     }
   }]);
 
   return Toolbar;
-}(_react.default.PureComponent);
+}(_react["default"].PureComponent);
 
-exports.default = Toolbar;
+exports["default"] = Toolbar;

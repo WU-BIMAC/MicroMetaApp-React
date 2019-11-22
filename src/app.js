@@ -133,6 +133,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		this.handleMicroscopePreset = this.handleMicroscopePreset.bind(this);
 		//this.toDataUrl = this.toDataUrl.bind(this);
+
+		console.log("xxxx uğurum buradayım");
 	}
 
 	static getDerivedStateFromProps(props, state) {

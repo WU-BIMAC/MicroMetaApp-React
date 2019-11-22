@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -15,11 +15,11 @@ var _url = require("url");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -29,13 +29,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var path = require("path");
 
@@ -220,7 +220,7 @@ function (_React$PureComponent) {
       var newElementList = this.state.elementList.slice();
       var newElementDataList = Object.assign({}, this.state.elementData);
       var newElement = null;
-      var width = this.props.dimensions.width;
+      this.props.dimensions.width;
       var x = e.x;
       var y = e.y - 60;
       var offsetX = this.state.offsetX;
@@ -292,16 +292,10 @@ function (_React$PureComponent) {
               newElementData[maxNumber] = -1;
             }
           } else if (schema.properties[key].type === "object") {
-            var _currentNumber = currentNumberOf_identifier + key;
-
-            var _minNumber = minNumberOf_identifier + key;
-
-            var _maxNumber = maxNumberOf_identifier + key;
-
             if (schema.required.indexOf(key) === -1) {
-              newElementData[_currentNumber] = 0;
-              newElementData[_minNumber] = 0;
-              newElementData[_maxNumber] = 1;
+              newElementData[currentNumberOf_identifier + key] = 0;
+              newElementData[minNumberOf_identifier + key] = 0;
+              newElementData[maxNumberOf_identifier + key] = 1;
             }
           }
         });
@@ -359,8 +353,8 @@ function (_React$PureComponent) {
 
       var elementList = this.state.elementList;
       var elementData = this.state.elementData;
-      var offsetX = this.state.offsetX;
-      var offsetY = this.state.offsetY;
+      this.state.offsetX;
+      this.state.offsetY;
       var styleGrabber = {
         paddingLeft: "8px",
         fontSize: "14px",
@@ -397,13 +391,6 @@ function (_React$PureComponent) {
         //console.log("new ioX: " + item.offsetX + " ioY: " + item.offsetY);
         //console.log("new loX: " + localOffsetX + " loY: " + localOffsetY);
 
-        var style = {
-          position: "absolute",
-          //left: `${x}%`,
-          left: x,
-          //top: `${y}%`
-          top: y
-        };
         var containerWidth = item.width;
         var containerHeight = item.height;
         if (containerWidth == -1) containerWidth = 100;
@@ -417,7 +404,13 @@ function (_React$PureComponent) {
         stylesContainer[item.ID] = Object.assign({
           width: "".concat(containerWidth, "px"),
           height: "".concat(containerHeight + 30, "px")
-        }, style);
+        }, {
+          position: "absolute",
+          //left: `${x}%`,
+          left: x,
+          //top: `${y}%`
+          top: y
+        });
         stylesImages[item.ID] = {
           width: item.width,
           height: item.height
@@ -439,10 +432,10 @@ function (_React$PureComponent) {
       elementList.map(function (item, index) {
         var schema_id = item.schema_ID;
         var schema = componentsSchema[schema_id];
-        droppableElement.push(_react.default.createElement("div", {
+        droppableElement.push(_react["default"].createElement("div", {
           style: stylesContainer[item.ID],
           key: "draggableWrapper" + index
-        }, _react.default.createElement(_reactDragDropContainer.DragDropContainer, {
+        }, _react["default"].createElement(_reactDragDropContainer.DragDropContainer, {
           targetKey: "canvas",
           key: "draggable" + index,
           dragClone: false,
@@ -452,17 +445,17 @@ function (_React$PureComponent) {
           },
           onDragStart: _this2.dragged,
           dragHandleClassName: "grabber"
-        }, _react.default.createElement("div", {
+        }, _react["default"].createElement("div", {
           style: styleContainer
-        }, _react.default.createElement("div", {
+        }, _react["default"].createElement("div", {
           className: "grabber",
           style: styleGrabber
-        }, "\u2237"), _react.default.createElement(_canvasElement.CanvasElementDeleteButton, {
+        }, "\u2237"), _react["default"].createElement(_canvasElement.CanvasElementDeleteButton, {
           index: index,
           onDelete: _this2.onDelete,
           myStyle: styleCloser,
           isViewOnly: _this2.props.isViewOnly
-        })), _react.default.createElement(_canvasElement.default, {
+        })), _react["default"].createElement(_canvasElement["default"], {
           activeTier: _this2.props.activeTier,
           id: item.ID //image={`${this.props.imagesPath}${schema.image}`}
           ,
@@ -481,7 +474,7 @@ function (_React$PureComponent) {
           maxChildrenComponentIdentifier: maxNumberOf_identifier,
           elementByType: elementByType,
           isViewOnly: _this2.props.isViewOnly
-        }), _react.default.createElement("div", {
+        }), _react["default"].createElement("div", {
           className: "styleName",
           style: {
             width: stylesImages[item.ID].width,
@@ -524,36 +517,26 @@ function (_React$PureComponent) {
         position: "relative",
         overflow: "auto"
       };
-      var imageStyle = null; // imageStyle = {
-      // 	width: width * 2,
-      // 	height: height * 2
-      // };
-
-      var infoStyle = {
-        position: "absolute",
-        left: 0,
-        top: 0
-      };
       var micInfo = [];
 
       if (this.props.microscope !== null && this.props.microscope !== undefined) {
         if (this.props.microscope.Name) {
           micInfo.push("Name: ".concat(this.props.microscope.Name));
-          micInfo.push(_react.default.createElement("br", {
+          micInfo.push(_react["default"].createElement("br", {
             key: "newline-1"
           }));
         }
 
         if (this.props.microscope.Manufacturer !== null && this.props.microscope.Manufacturer !== undefined) {
           micInfo.push("Manufacturer: ".concat(this.props.microscope.Manufacturer));
-          micInfo.push(_react.default.createElement("br", {
+          micInfo.push(_react["default"].createElement("br", {
             key: "newline-2"
           }));
         }
 
         if (this.props.microscope.Model !== null && this.props.microscope.Model !== undefined) {
           micInfo.push("Model: ".concat(this.props.microscope.Model));
-          micInfo.push(_react.default.createElement("br", {
+          micInfo.push(_react["default"].createElement("br", {
             key: "newline-3"
           }));
         }
@@ -563,23 +546,27 @@ function (_React$PureComponent) {
         //<img src={imageFilePath} alt={imageFilePath} style={style.image} />
         //TODO this should be in a scrollable pane
         //<div ref={this.ref} style={styleFullWindow}>
-        _react.default.createElement("div", {
+        _react["default"].createElement("div", {
           style: styleContainer
-        }, _react.default.createElement(_reactDragDropContainer.DropTarget, {
+        }, _react["default"].createElement(_reactDragDropContainer.DropTarget, {
           style: dropTargetStyle,
           onHit: this.dropped,
           targetKey: "canvas"
-        }, _react.default.createElement("div", {
+        }, _react["default"].createElement("div", {
           style: canvasInnerContainerStyle,
           onScroll: this.handleScroll
-        }, _react.default.createElement("img", {
+        }, _react["default"].createElement("img", {
           src: this.props.backgroundImage,
           alt: this.props.backgroundImage //style={imageStyle}
           ,
           onLoad: this.onImgLoad
-        }), _react.default.createElement("div", {
-          style: infoStyle
-        }, _react.default.createElement("p", null, micInfo)), this.createList())))
+        }), _react["default"].createElement("div", {
+          style: {
+            position: "absolute",
+            left: 0,
+            top: 0
+          }
+        }, _react["default"].createElement("p", null, micInfo)), this.createList())))
       );
     }
   }], [{
@@ -614,6 +601,6 @@ function (_React$PureComponent) {
   }]);
 
   return Canvas;
-}(_react.default.PureComponent);
+}(_react["default"].PureComponent);
 
-exports.default = Canvas;
+exports["default"] = Canvas;

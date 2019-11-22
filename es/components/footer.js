@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -19,9 +19,9 @@ var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWith
 
 var _DropdownMenu = _interopRequireDefault(require("./DropdownMenu"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -31,13 +31,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var validationTier = "Validate @ tier: ";
 
@@ -101,7 +101,7 @@ function (_React$PureComponent) {
       var height = this.props.dimensions.height;
 
       if (this.state.editing) {
-        return _react.default.createElement(_multiTabFormWithHeader.default, {
+        return _react["default"].createElement(_multiTabFormWithHeader["default"], {
           schema: this.props.schema,
           inputData: this.props.inputData,
           id: this.props.id,
@@ -111,18 +111,6 @@ function (_React$PureComponent) {
         });
       }
 
-      var style = {
-        backgroundColor: "LightGray",
-        width: width,
-        height: height,
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "row",
-        flexWap: "wrap",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "5px"
-      };
       var styleButton = {
         width: "250px",
         minWidth: "250px",
@@ -141,14 +129,14 @@ function (_React$PureComponent) {
       }
 
       var buttons = [];
-      buttons[0] = _react.default.createElement(_reactSimpleAnimate.AnimateKeyframes, {
+      buttons[0] = _react["default"].createElement(_reactSimpleAnimate.AnimateKeyframes, {
         key: "Animation-0",
         play: play,
         durationSeconds: 1,
         keyframes: ["opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1"] // keyframes is an array of styles, and each style
         // will be distributed over 100% of the duration
 
-      }, _react.default.createElement(_Button.default, {
+      }, _react["default"].createElement(_Button["default"], {
         key: "Button-0",
         onClick: this.onClickEdit,
         style: styleEditButton,
@@ -162,7 +150,7 @@ function (_React$PureComponent) {
       }
 
       var defaultValidationTier = this.props.validationTier - 1;
-      buttons[1] = _react.default.createElement(_DropdownMenu.default, {
+      buttons[1] = _react["default"].createElement(_DropdownMenu["default"], {
         key: "Button-1",
         title: validationTier,
         handleMenuItemClick: this.onClickChangeValidation,
@@ -181,7 +169,7 @@ function (_React$PureComponent) {
       saveOptions.push("Export " + this.props.element + " image");
       saveOptions.push("Export " + this.props.element); //Rethink this, maybe drop down split button with multi actions?
 
-      buttons[2] = _react.default.createElement(_DropdownMenu.default, {
+      buttons[2] = _react["default"].createElement(_DropdownMenu["default"], {
         key: "Button-2",
         title: "",
         handleMenuItemClick: this.props.onClickSave,
@@ -207,19 +195,30 @@ function (_React$PureComponent) {
       // 		</Button>
       // );
 
-      buttons[3] = _react.default.createElement(_Button.default, {
+      buttons[3] = _react["default"].createElement(_Button["default"], {
         key: "Button-3",
         onClick: this.props.onClickBack,
         style: styleButton,
         size: "lg"
       }, "Back");
-      return _react.default.createElement("div", {
-        style: style
+      return _react["default"].createElement("div", {
+        style: {
+          backgroundColor: "LightGray",
+          width: width,
+          height: height,
+          boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "row",
+          flexWap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "5px"
+        }
       }, buttons);
     }
   }]);
 
   return Footer;
-}(_react.default.PureComponent);
+}(_react["default"].PureComponent);
 
-exports.default = Footer;
+exports["default"] = Footer;
