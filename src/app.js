@@ -134,7 +134,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.handleMicroscopePreset = this.handleMicroscopePreset.bind(this);
 		//this.toDataUrl = this.toDataUrl.bind(this);
 
-		console.log("xxxx uğurum buradayım");
+		// Set up API
+		const {
+			public: api/*, destroy: apiDestroy, publish: apiPublish*/
+		} = createApi(this);
+		this.api = api;
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -1183,7 +1187,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 class MicroscopyMetadataToolContainer extends React.PureComponent {
 	render() {
 		var { height, width, forwardedRef } = this.props;
-		var style = { height, width, boxSizing: "border-box" };
+		var style = { height: 800, width, boxSizing: "border-box" };
 		// border-box allows element to account for padding and border
 		// when calculating/using `height` and `width` style properties.
 		return (
@@ -1234,3 +1238,15 @@ MicroscopyMetadataTool.defaultProps = {
 		});
 	}
 };
+
+const createApi = function api(context) {
+	const self = context;
+
+	return {
+		public: {
+			saveMicroscope(){
+				self.handleSaveMicroscope("Save microscope");
+			} 
+		}
+	};
+}

@@ -148,8 +148,12 @@ function (_React$PureComponent) {
     _this.handleCompleteSaveMicroscope = _this.handleCompleteSaveMicroscope.bind(_assertThisInitialized(_this));
     _this.handleCompleteSaveSetting = _this.handleCompleteSaveSetting.bind(_assertThisInitialized(_this));
     _this.handleMicroscopePreset = _this.handleMicroscopePreset.bind(_assertThisInitialized(_this)); //this.toDataUrl = this.toDataUrl.bind(this);
+    // Set up API
 
-    console.log("xxxx uğurum buradayım");
+    var _createApi = createApi(_assertThisInitialized(_this)),
+        api = _createApi["public"];
+
+    _this.api = api;
     return _this;
   }
 
@@ -1249,7 +1253,7 @@ function (_React$PureComponent2) {
       return _react["default"].createElement("div", {
         id: "microscopy-app-container",
         style: {
-          height: height,
+          height: 800,
           width: width,
           boxSizing: "border-box"
         }
@@ -1300,4 +1304,14 @@ MicroscopyMetadataTool.defaultProps = {
       complete(microscope.Name);
     });
   }
+};
+
+var createApi = function (context) {
+  return {
+    "public": {
+      saveMicroscope: function saveMicroscope() {
+        context.handleSaveMicroscope("Save microscope");
+      }
+    }
+  };
 };
