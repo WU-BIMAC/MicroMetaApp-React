@@ -1244,9 +1244,20 @@ const createApi = function api(context) {
 
 	return {
 		public: {
-			saveMicroscope(){
-				self.handleSaveMicroscope("Save microscope");
-			} 
+			// saveMicroscope(){
+			// 	self.handleSaveMicroscope("Save microscope");
+			// },
+			exportMicroscopeConfString(){
+				let elementData = self.state.elementData;
+				let components = [];
+				Object.keys(elementData).forEach((item, index) => {
+					components[index] = elementData[item];
+				});
+				let comps = { components };
+				let microscope = Object.assign(self.state.microscope, comps);
+
+				return JSON.stringify(microscope, null, 2);
+			}
 		}
 	};
 }

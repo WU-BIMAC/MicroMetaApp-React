@@ -1307,10 +1307,22 @@ MicroscopyMetadataTool.defaultProps = {
 };
 
 var createApi = function (context) {
+  var self = context;
   return {
     "public": {
-      saveMicroscope: function saveMicroscope() {
-        context.handleSaveMicroscope("Save microscope");
+      // saveMicroscope(){
+      // 	self.handleSaveMicroscope("Save microscope");
+      // },
+      exportMicroscopeConfString: function exportMicroscopeConfString() {
+        var elementData = self.state.elementData;
+        var components = [];
+        Object.keys(elementData).forEach(function (item, index) {
+          components[index] = elementData[item];
+        });
+        var microscope = Object.assign(self.state.microscope, {
+          components: components
+        });
+        return JSON.stringify(microscope, null, 2);
       }
     }
   };
