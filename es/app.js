@@ -92,6 +92,7 @@ function (_React$PureComponent) {
       micName: null,
       elementData: null,
       settingData: null,
+      linkedFields: null,
       loadingMode: 0,
       isMicroscopeValidated: false,
       isSettingValidated: false,
@@ -123,6 +124,7 @@ function (_React$PureComponent) {
     _this.handleCompleteLoadMicroscopes = _this.handleCompleteLoadMicroscopes.bind(_assertThisInitialized(_this));
     _this.handleCompleteLoadSettings = _this.handleCompleteLoadSettings.bind(_assertThisInitialized(_this));
     _this.updateElementData = _this.updateElementData.bind(_assertThisInitialized(_this));
+    _this.updateLinkedFields = _this.updateLinkedFields.bind(_assertThisInitialized(_this));
     _this.updateSettingData = _this.updateSettingData.bind(_assertThisInitialized(_this));
     _this.onMicroscopeDataSave = _this.onMicroscopeDataSave.bind(_assertThisInitialized(_this));
     _this.onSettingDataSave = _this.onSettingDataSave.bind(_assertThisInitialized(_this));
@@ -333,7 +335,9 @@ function (_React$PureComponent) {
         var property = properties[propKey];
 
         if (property.type === "object" || property.type === "array" && property.items.properties !== null && property.items.properties !== undefined) {
-          properties[propKey] = _this7.createAdaptedSchema(property, activeTier, validationTier);
+          var newProp = _this7.createAdaptedSchema(property, activeTier, validationTier);
+
+          properties[propKey] = newProp;
         }
 
         if (property.tier > activeTier) {
@@ -496,6 +500,7 @@ function (_React$PureComponent) {
         });
       }
 
+      var linkedFields = Object.assign({}, this.state.microscope.linkedFields);
       var validation = validate(modifiedMic, microscopeSchema);
       var validated = validation.valid;
 
@@ -505,6 +510,7 @@ function (_React$PureComponent) {
           setting: null,
           elementData: newElementData,
           settingData: null,
+          linkedFields: linkedFields,
           validationTier: modifiedMic.ValidationTier,
           isMicroscopeValidated: validated
         });
@@ -564,6 +570,7 @@ function (_React$PureComponent) {
         });
       }
 
+      var linkedFields = Object.assign({}, this.state.microscope.linkedFields);
       var validation = validate(modifiedMic, microscopeSchema);
       var validated = validation.valid;
 
@@ -573,6 +580,7 @@ function (_React$PureComponent) {
           setting: null,
           elementData: newElementData,
           settingData: null,
+          linkedFields: linkedFields,
           validationTier: modifiedMic.ValidationTier,
           isMicroscopeValidated: validated
         });
@@ -639,6 +647,13 @@ function (_React$PureComponent) {
       this.setState({
         elementData: elementData,
         areComponentsValidated: areComponentsValidated
+      });
+    }
+  }, {
+    key: "updateLinkedFields",
+    value: function updateLinkedFields(linkedFields) {
+      this.setState({
+        linkedFields: linkedFields
       });
     }
   }, {
@@ -758,6 +773,7 @@ function (_React$PureComponent) {
         components: components
       };
       var microscope = Object.assign(this.state.microscope, comps);
+      microscope.linkedFields = this.state.linkedFields;
 
       var node = _reactDom.default.findDOMNode(this.canvasRef.current);
 
@@ -887,7 +903,8 @@ function (_React$PureComponent) {
     key: "render",
     value: function render() {
       var _this$props = this.props,
-          imagesPath = _this$props.imagesPath,
+          imagesPathPNG = _this$props.imagesPathPNG,
+          imagesPathSVG = _this$props.imagesPathSVG,
           width = _this$props.width,
           height = _this$props.height;
       var schema = this.state.schema;
@@ -897,6 +914,7 @@ function (_React$PureComponent) {
       var setting = this.state.setting;
       var settings = this.state.settings;
       var settingData = this.state.settingData;
+      var linkedFields = this.state.linkedFields;
       width = Math.max(1100, width);
       height = Math.max(600, height - 60 * 2); //let canvasWidth = Math.ceil(width * 0.75);
 
@@ -1134,12 +1152,14 @@ function (_React$PureComponent) {
             microscope: microscope,
             activeTier: this.state.activeTier,
             ref: this.canvasRef,
-            imagesPath: imagesPath,
+            imagesPath: imagesPathSVG,
             componentSchemas: componentsSchema,
-            inputData: elementData //backgroundImage={`${imagesPath}${microscopeSchema.image}`}
+            inputData: elementData,
+            linkedFields: linkedFields //backgroundImage={`${imagesPath}${microscopeSchema.image}`}
             ,
-            backgroundImage: path.join(imagesPath, microscopeSchema.image),
+            backgroundImage: path.join(imagesPathSVG, microscopeSchema.image),
             updateElementData: this.updateElementData,
+            updateLinkedFields: this.updateLinkedFields,
             overlaysContainer: this.overlaysContainerRef.current,
             areComponentsValidated: this.state.areComponentsValidated,
             dimensions: canvasDims,
@@ -1159,12 +1179,14 @@ function (_React$PureComponent) {
             microscope: microscope,
             activeTier: this.state.activeTier,
             ref: this.canvasRef,
-            imagesPath: imagesPath,
+            imagesPath: imagesPathSVG,
             componentSchemas: componentsSchema,
-            inputData: elementData //backgroundImage={`${imagesPath}${microscopeSchema.image}`}
+            inputData: elementData,
+            linkedFields: linkedFields //backgroundImage={`${imagesPath}${microscopeSchema.image}`}
             ,
-            backgroundImage: path.join(imagesPath, microscopeSchema.image),
+            backgroundImage: path.join(imagesPathSVG, microscopeSchema.image),
             updateElementData: this.updateElementData,
+            updateLinkedFields: this.updateLinkedFields,
             overlaysContainer: this.overlaysContainerRef.current,
             areComponentsValidated: this.state.areComponentsValidated,
             dimensions: canvasDims,
@@ -1172,7 +1194,7 @@ function (_React$PureComponent) {
           }), _react.default.createElement(_toolbar.default, {
             activeTier: this.state.activeTier,
             ref: this.toolbarRef,
-            imagesPath: imagesPath,
+            imagesPath: imagesPathSVG,
             componentSchemas: componentsSchema,
             dimensions: toolbarDims
           })), _react.default.createElement(_footer.default, {
@@ -1289,7 +1311,8 @@ MicroscopyMetadataTool.defaultProps = {
   setting: null,
   microscopes: null,
   settings: null,
-  imagesPath: "./assets/",
+  imagesPathPNG: "./assets/png/",
+  imagesPathSVG: "./assets/svg/",
   tiers: ["1", "2", "3", "4", "5"],
   onLoadSchema: function onLoadSchema(complete) {
     // Do some stuff... show pane for people to browse/select schema.. etc.
@@ -1306,7 +1329,6 @@ MicroscopyMetadataTool.defaultProps = {
   onSaveMicroscope: function onSaveMicroscope(microscope, complete) {
     // Do some stuff... show pane for people to browse/select schema.. etc.
     setTimeout(function () {
-      console.log(microscope);
       complete(microscope.Name);
     });
   }

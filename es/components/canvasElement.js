@@ -71,21 +71,26 @@ function (_React$PureComponent) {
   _createClass(CanvasElement, [{
     key: "onClick",
     value: function onClick() {
-      if (!this.props.isViewOnly) this.setState({
-        editing: true
-      });
+      if (!this.props.isViewOnly) {
+        this.props.setEditingOnCanvas(true);
+        this.setState({
+          editing: true
+        });
+      }
     }
   }, {
     key: "onConfirm",
-    value: function onConfirm(id, data) {
+    value: function onConfirm(id, data, linkedFields) {
       this.setState({
         editing: false
       });
-      this.props.onConfirm(id, data);
+      this.props.setEditingOnCanvas(false);
+      this.props.onConfirm(id, data, linkedFields);
     }
   }, {
     key: "onCancel",
     value: function onCancel() {
+      this.props.setEditingOnCanvas(false);
       this.setState({
         editing: false
       });

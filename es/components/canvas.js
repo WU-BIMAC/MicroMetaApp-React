@@ -62,12 +62,14 @@ function (_React$PureComponent) {
       elementList: [],
       elementData: Object.assign({}, _this.props.inputData),
       componentsSchema: {},
+      linkedFields: props.linkedFields || {},
       imgHeight: null,
       imgWidth: null,
       backgroundScale: null,
       offsetY: 0,
       offsetX: 0,
-      scale: null
+      scale: null,
+      isEditing: false
     };
     Object.keys(props.componentSchemas).forEach(function (schemaIndex) {
       var schema = props.componentSchemas[schemaIndex];
@@ -77,8 +79,10 @@ function (_React$PureComponent) {
         var object = props.inputData[objIndex];
         if (props.activeTier < object.tier) return;
         if (schema_id !== object.Schema_ID) return;
-        var validation = validate(object, schema);
+        var validation = validate(object, schema); //if (schema_id === "CCD.json") console.log(validation);
+
         var validated = validation.valid;
+        var positionZ = object.PositionZ === undefined ? 0 : object.PositionZ;
         var newElement = {
           ID: schema.title + "_" + object.ID,
           schema_ID: schema_id,
@@ -88,6 +92,7 @@ function (_React$PureComponent) {
           obj: object,
           x: object.PositionX,
           y: object.PositionY,
+          z: positionZ,
           width: object.Width,
           height: object.Height
         };
@@ -96,6 +101,8 @@ function (_React$PureComponent) {
       });
       _this.state.componentsSchema[schema_id] = schema;
     });
+    _this.setEditingOnCanvas = _this.setEditingOnCanvas.bind(_assertThisInitialized(_this));
+    _this.addComponentsIndexesIfMissing = _this.addComponentsIndexesIfMissing.bind(_assertThisInitialized(_this));
     _this.dragged = _this.dragged.bind(_assertThisInitialized(_this));
     _this.dropped = _this.dropped.bind(_assertThisInitialized(_this));
     _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
@@ -112,9 +119,19 @@ function (_React$PureComponent) {
   }
 
   _createClass(Canvas, [{
+    key: "setEditingOnCanvas",
+    value: function setEditingOnCanvas(isEditing) {
+      this.setState({
+        isEditing: isEditing
+      });
+    }
+  }, {
     key: "handleScroll",
     value: function handleScroll(e) {
-      //console.log(e);
+      if (this.state.isEditing) {
+        return;
+      }
+
       var element = e.target;
       var offsetY = element.scrollTop;
       var offsetX = element.scrollLeft;
@@ -180,7 +197,14 @@ function (_React$PureComponent) {
     }
   }, {
     key: "onCanvasElementDataSave",
-    value: function onCanvasElementDataSave(id, data) {
+    value: function onCanvasElementDataSave(id, data, dataLinkedFields) {
+      var linkedFields = this.state.linkedFields;
+
+      if (dataLinkedFields !== undefined && Object.keys(dataLinkedFields).length > 0) {
+        //console.log(dataLinkedFields);
+        linkedFields[id] = dataLinkedFields;
+      }
+
       var elementList = this.state.elementList;
 
       for (var i = 0; i < elementList.length; i++) {
@@ -194,10 +218,12 @@ function (_React$PureComponent) {
       var currentElementData = Object.assign({}, this.state.elementData);
       currentElementData[id] = Object.assign(currentElementData[id], data);
       this.setState({
-        elementData: currentElementData
+        elementData: currentElementData,
+        linkedFields: linkedFields
       });
       var validated = this.areAllElementsValidated();
       this.props.updateElementData(currentElementData, validated);
+      this.props.updateLinkedFields(linkedFields);
     }
   }, {
     key: "getElementData",
@@ -209,6 +235,46 @@ function (_React$PureComponent) {
     value: function dragged(e) {
       var newElementList = this.state.elementList.slice();
       newElementList[e.index].dragged = true;
+      var draggedItem = newElementList[e.index];
+      var newZ = 0; //this rectangle
+
+      var ID = draggedItem.ID;
+      var x = draggedItem.x;
+      var y = draggedItem.y;
+      var l1_x = x;
+      var l1_y = y;
+      var r1_x = x + draggedItem.width;
+      var r1_y = y + draggedItem.height;
+      var oldZ = draggedItem.z;
+
+      for (var k = 0; k < this.state.elementList.length; k++) {
+        //rectangles to test against
+        var item = this.state.elementList[k];
+        if (ID === item.ID) continue;
+        var l2_x = item.x;
+        var l2_y = item.y;
+        var r2_x = l2_x + item.width;
+        var r2_y = l2_y + item.height; //console.log("L1 " + l1_x + "-" + l1_y + " R1 " + r1_x + "-" + r1_y);
+        //console.log("L2 " + l2_x + "-" + l2_y + " R2 " + r2_x + "-" + r2_y);
+
+        if (l1_x > r2_x || r1_x < l2_x) {
+          //console.log("Rect1 is right or left of Rect2");
+          continue;
+        }
+
+        if (l1_y > r2_y || r1_y < l2_y) {
+          //console.log("Rect1 is below or above of Rect2");
+          continue;
+        }
+
+        if (item.z > oldZ) {
+          item.z = item.z - 1;
+        } // console.log(
+        // 	"DRAGGING ID: " + ID + " COMP ID : " + item.ID + " newZ " + item.z
+        // );
+
+      }
+
       this.setState({
         elementList: newElementList
       });
@@ -220,11 +286,11 @@ function (_React$PureComponent) {
       var newElementList = this.state.elementList.slice();
       var newElementDataList = Object.assign({}, this.state.elementData);
       var newElement = null;
-      var width = this.props.dimensions.width;
       var x = e.x;
       var y = e.y - 60;
       var offsetX = this.state.offsetX;
-      var offsetY = this.state.offsetY;
+      var offsetY = this.state.offsetY; //console.log("SCROLL OFFSETS " + offsetX + "-" + offsetY);
+
       x += offsetX;
       y += offsetY; // if (e.y - 60 < 0) y = 60;
       // else y = e.y - 60;
@@ -236,7 +302,11 @@ function (_React$PureComponent) {
         y -= 7;
       }
 
+      var width = 100;
+      var height = 100;
       var componentsSchema = this.state.componentsSchema;
+      var index = null;
+      var ID = null;
 
       if (sourceElement.source === "toolbar") {
         var uuid = uuidv4();
@@ -254,6 +324,7 @@ function (_React$PureComponent) {
           x: x,
           //y: percentY,
           y: y,
+          z: 0,
           width: -1,
           height: -1,
           offsetX: offsetX,
@@ -270,45 +341,22 @@ function (_React$PureComponent) {
           PositionX: x,
           //PositionY: percentY,
           PositionY: y,
+          PositionZ: 0,
           Width: -1,
           Height: -1,
           OffsetX: offsetX,
           OffsetY: offsetY
         };
         newElement.name = newElementData.Name;
-        Object.keys(schema.properties).forEach(function (key) {
-          if (schema.properties[key].type === "array") {
-            var currentNumber = currentNumberOf_identifier + key;
-            var minNumber = minNumberOf_identifier + key;
-            var maxNumber = maxNumberOf_identifier + key;
-
-            if (schema.required.indexOf(key) != -1) {
-              newElementData[currentNumber] = 1;
-              newElementData[minNumber] = 1;
-              newElementData[maxNumber] = -1;
-            } else {
-              newElementData[currentNumber] = 0;
-              newElementData[minNumber] = 0;
-              newElementData[maxNumber] = -1;
-            }
-          } else if (schema.properties[key].type === "object") {
-            var _currentNumber = currentNumberOf_identifier + key;
-
-            var _minNumber = minNumberOf_identifier + key;
-
-            var _maxNumber = maxNumberOf_identifier + key;
-
-            if (schema.required.indexOf(key) === -1) {
-              newElementData[_currentNumber] = 0;
-              newElementData[_minNumber] = 0;
-              newElementData[_maxNumber] = 1;
-            }
-          }
-        });
+        this.addComponentsIndexesIfMissing(schema, newElementData);
         newElement.obj = newElementData;
         newElementDataList[newElement.ID] = newElementData;
+        index = newElementList.length - 1;
+        ID = newElement.ID;
       } else {
-        var item = this.state.elementList[sourceElement.index]; // newElementList[sourceElement.index].x = percentX;
+        var item = this.state.elementList[sourceElement.index];
+        var _schema_ID = newElementList[sourceElement.index].schema_ID;
+        var _schema = componentsSchema[_schema_ID]; // newElementList[sourceElement.index].x = percentX;
 
         newElementList[sourceElement.index].x = x; // newElementList[sourceElement.index].y = percentY;
 
@@ -322,14 +370,87 @@ function (_React$PureComponent) {
         newElementDataList[item.ID].PositionY = y;
         newElementDataList[item.ID].OffsetX = offsetX;
         newElementDataList[item.ID].OffsetY = offsetY;
+        this.addComponentsIndexesIfMissing(_schema, newElementDataList[item.ID]);
+        width = item.width;
+        height = item.height;
+        index = sourceElement.index;
+        ID = item.ID;
       }
 
+      var newZ = 0; //this rectangle
+
+      var l1_x = x;
+      var l1_y = y;
+      var r1_x = x + width;
+      var r1_y = y + height;
+
+      for (var k = 0; k < this.state.elementList.length; k++) {
+        //rectangles to test against
+        var _item = this.state.elementList[k];
+        if (ID === _item.ID) continue;
+        var l2_x = _item.x;
+        var l2_y = _item.y;
+        var r2_x = l2_x + _item.width;
+        var r2_y = l2_y + _item.height; //console.log("L1 " + l1_x + "-" + l1_y + " R1 " + r1_x + "-" + r1_y);
+        //console.log("L2 " + l2_x + "-" + l2_y + " R2 " + r2_x + "-" + r2_y);
+
+        if (l1_x > r2_x || r1_x < l2_x) {
+          //console.log("Rect1 is right or left of Rect2");
+          continue;
+        }
+
+        if (l1_y > r2_y || r1_y < l2_y) {
+          //console.log("Rect1 is below or above of Rect2");
+          continue;
+        }
+
+        if (_item.z + 1 > newZ) newZ = _item.z + 1;
+      } //console.log("NEW Z : " + newZ);
+
+
+      newElementList[index].z = newZ;
+      newElementDataList[ID].PositionZ = newZ;
       this.setState({
         elementList: newElementList,
         elementData: newElementDataList
       });
       var validated = this.areAllElementsValidated();
       this.props.updateElementData(newElementDataList, validated);
+    }
+  }, {
+    key: "addComponentsIndexesIfMissing",
+    value: function addComponentsIndexesIfMissing(schema, newElementData) {
+      Object.keys(schema.properties).forEach(function (key) {
+        var currentNumber = currentNumberOf_identifier + key;
+        var minNumber = minNumberOf_identifier + key;
+        var maxNumber = maxNumberOf_identifier + key;
+
+        if (newElementData[currentNumber] !== undefined) {
+          return;
+        }
+
+        if (schema.properties[key].type === "array") {
+          if (schema.required.indexOf(key) != -1) {
+            newElementData[currentNumber] = 1;
+            newElementData[minNumber] = 1;
+            newElementData[maxNumber] = -1;
+          } else {
+            newElementData[currentNumber] = 0;
+            newElementData[minNumber] = 0;
+            newElementData[maxNumber] = -1;
+          }
+        } else if (schema.properties[key].type === "object") {
+          if (schema.required.indexOf(key) === -1) {
+            newElementData[currentNumber] = 0;
+            newElementData[minNumber] = 0;
+            newElementData[maxNumber] = 1;
+          } else {
+            newElementData[currentNumber] = 1;
+            newElementData[minNumber] = 1;
+            newElementData[maxNumber] = 1;
+          }
+        }
+      });
     }
   }, {
     key: "onDelete",
@@ -339,6 +460,42 @@ function (_React$PureComponent) {
       if (elementList.length === 0) return;
       if (elementData.length === 0) return;
       var id = elementList[index].ID;
+      var name = elementList[index].name;
+      var schemaID = elementList[index].schema_ID;
+      var deletedSchema = schemaID.replace(".json", "");
+      var deletedID = id.replace(deletedSchema, "");
+      deletedID = deletedID.replace("_", "");
+      var linkedFields = this.state.linkedFields;
+
+      for (var key in linkedFields) {
+        var links = linkedFields[key];
+        var done = false;
+        var fieldToDelete = null;
+
+        for (var field in links) {
+          var link = links[field];
+
+          if (link.value === deletedID) {
+            //console.log("should modify: " + key + " field: " + field);
+            if (elementData[key] !== undefined) {
+              elementData[key][field] = "Not assigned";
+            }
+
+            fieldToDelete = field;
+            done = true;
+            break;
+          }
+        }
+
+        delete linkedFields[key][fieldToDelete];
+
+        if (Object.keys(linkedFields[key]).length === 0) {
+          delete linkedFields[key];
+        }
+
+        if (done) break;
+      }
+
       elementList.splice(index, 1);
 
       if (elementData[id] !== undefined) {
@@ -359,8 +516,15 @@ function (_React$PureComponent) {
 
       var elementList = this.state.elementList;
       var elementData = this.state.elementData;
-      var offsetX = this.state.offsetX;
-      var offsetY = this.state.offsetY;
+      var highestZ = 0;
+
+      for (var k = 0; k < this.state.elementList.length; k++) {
+        var item = elementList[k];
+        var z = item.z;
+        if (z > highestZ) highestZ = z;
+      } //console.log("HighestZ: " + highestZ);
+
+
       var styleGrabber = {
         paddingLeft: "8px",
         fontSize: "14px",
@@ -373,13 +537,7 @@ function (_React$PureComponent) {
         fontWeight: "bold",
         backgroundColor: "transparent",
         cursor: "pointer"
-      }; //fontSizeAdjust: 0.58,
-      // const styleName = {
-      // 	textAlign: "center",
-      // 	fontSize: "75%",
-      // 	backgroundColor: "transparent"
-      // };
-
+      };
       var styleContainer = {
         display: "flex",
         justifyContent: "space-between",
@@ -388,20 +546,11 @@ function (_React$PureComponent) {
       var stylesContainer = {};
       var stylesImages = {};
       elementList.map(function (item) {
-        //let localOffsetX = -offsetX + item.offsetX;
-        //let localOffsetY = -offsetY + item.offsetY;
-        var x = item.x; //+ localOffsetX;
-
-        var y = item.y; // + localOffsetY;
-        //console.log("####");
-        //console.log("new ioX: " + item.offsetX + " ioY: " + item.offsetY);
-        //console.log("new loX: " + localOffsetX + " loY: " + localOffsetY);
-
+        var x = item.x;
+        var y = item.y;
         var style = {
           position: "absolute",
-          //left: `${x}%`,
           left: x,
-          //top: `${y}%`
           top: y
         };
         var containerWidth = item.width;
@@ -436,67 +585,79 @@ function (_React$PureComponent) {
 
         elementByType[schemaID][element.Name] = element.ID;
       });
-      elementList.map(function (item, index) {
-        var schema_id = item.schema_ID;
-        var schema = componentsSchema[schema_id];
-        droppableElement.push(_react.default.createElement("div", {
-          style: stylesContainer[item.ID],
-          key: "draggableWrapper" + index
-        }, _react.default.createElement(_reactDragDropContainer.DragDropContainer, {
-          targetKey: "canvas",
-          key: "draggable" + index,
-          dragClone: false,
-          dragData: {
-            source: "canvas",
-            index: index
-          },
-          onDragStart: _this2.dragged,
-          dragHandleClassName: "grabber"
-        }, _react.default.createElement("div", {
-          style: styleContainer
-        }, _react.default.createElement("div", {
-          className: "grabber",
-          style: styleGrabber
-        }, "\u2237"), _react.default.createElement(_canvasElement.CanvasElementDeleteButton, {
-          index: index,
-          onDelete: _this2.onDelete,
-          myStyle: styleCloser,
-          isViewOnly: _this2.props.isViewOnly
-        })), _react.default.createElement(_canvasElement.default, {
-          activeTier: _this2.props.activeTier,
-          id: item.ID //image={`${this.props.imagesPath}${schema.image}`}
-          ,
-          image: path.join(_this2.props.imagesPath, schema.image),
-          schema: schema,
-          onConfirm: _this2.onCanvasElementDataSave,
-          updateDimensions: _this2.updatedDimensions,
-          overlaysContainer: _this2.props.overlaysContainer,
-          inputData: elementData[item.ID],
-          width: stylesImages[item.ID].width,
-          height: stylesImages[item.ID].height,
-          validated: item.validated,
-          dragged: item.dragged,
-          currentChildrenComponentIdentifier: currentNumberOf_identifier,
-          minChildrenComponentIdentifier: minNumberOf_identifier,
-          maxChildrenComponentIdentifier: maxNumberOf_identifier,
-          elementByType: elementByType,
-          isViewOnly: _this2.props.isViewOnly
-        }), _react.default.createElement("div", {
-          className: "styleName",
-          style: {
+
+      var _loop = function _loop(_k) {
+        elementList.map(function (item, index) {
+          if (item.z != _k) return;
+          var schema_id = item.schema_ID;
+          var schema = componentsSchema[schema_id];
+          droppableElement.push(_react.default.createElement("div", {
+            style: stylesContainer[item.ID],
+            key: "draggableWrapper" + index
+          }, _react.default.createElement(_reactDragDropContainer.DragDropContainer, {
+            targetKey: "canvas",
+            key: "draggable" + index,
+            dragClone: false,
+            dragData: {
+              source: "canvas",
+              index: index
+            },
+            onDragStart: _this2.dragged,
+            dragHandleClassName: "grabber"
+          }, _react.default.createElement("div", {
+            style: styleContainer
+          }, _react.default.createElement("div", {
+            className: "grabber",
+            style: styleGrabber
+          }, "\u2237"), _react.default.createElement(_canvasElement.CanvasElementDeleteButton, {
+            index: index,
+            onDelete: _this2.onDelete,
+            myStyle: styleCloser,
+            isViewOnly: _this2.props.isViewOnly
+          })), _react.default.createElement(_canvasElement.default, {
+            activeTier: _this2.props.activeTier,
+            id: item.ID //image={`${this.props.imagesPath}${schema.image}`}
+            ,
+            image: path.join(_this2.props.imagesPath, schema.image),
+            schema: schema,
+            onConfirm: _this2.onCanvasElementDataSave,
+            updateDimensions: _this2.updatedDimensions,
+            overlaysContainer: _this2.props.overlaysContainer,
+            inputData: elementData[item.ID],
             width: stylesImages[item.ID].width,
-            textAlign: "center",
-            fontSize: "75%",
-            paddingLeft: "10px",
-            overflow: "hidden"
-          }
-        }, item.name))));
-      });
+            height: stylesImages[item.ID].height,
+            validated: item.validated,
+            dragged: item.dragged,
+            currentChildrenComponentIdentifier: currentNumberOf_identifier,
+            minChildrenComponentIdentifier: minNumberOf_identifier,
+            maxChildrenComponentIdentifier: maxNumberOf_identifier,
+            elementByType: elementByType,
+            isViewOnly: _this2.props.isViewOnly,
+            setEditingOnCanvas: _this2.setEditingOnCanvas
+          }), _react.default.createElement("div", {
+            className: "styleName",
+            style: {
+              width: stylesImages[item.ID].width,
+              textAlign: "center",
+              fontSize: "75%",
+              paddingLeft: "10px",
+              overflow: "hidden"
+            }
+          }, item.name))));
+        });
+      };
+
+      for (var _k = 0; _k <= highestZ; _k++) {
+        _loop(_k);
+      }
+
       return droppableElement;
     }
   }, {
     key: "render",
     value: function render() {
+      console.log("LinkedFields");
+      console.log(this.state.linkedFields);
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height;
       var styleContainer = {
@@ -505,12 +666,7 @@ function (_React$PureComponent) {
         borderRight: "2px solid",
         color: "black",
         width: "".concat(width, "px"),
-        height: "".concat(height, "px") // backgroundImage: `url(${this.props.backgroundImage})`,
-        // backgroundRepeat: "no-repeat",
-        // backgroundPosition: "50%",
-        // backgroundSize: "contain"
-        //overflow: "auto"
-
+        height: "".concat(height, "px")
       };
       var innerWidth = width - 2;
       var innerHeight = height - 4;
@@ -518,17 +674,25 @@ function (_React$PureComponent) {
         width: "".concat(innerWidth, "px"),
         height: "".concat(innerHeight, "px")
       };
-      var canvasInnerContainerStyle = {
-        width: "".concat(innerWidth, "px"),
-        height: "".concat(innerHeight, "px"),
+      var canvasContainerStyle = {
+        width: "100%",
+        height: "100%",
         position: "relative",
         overflow: "auto"
       };
-      var imageStyle = null; // imageStyle = {
-      // 	width: width * 2,
-      // 	height: height * 2
-      // };
-
+      var canvasInnerContainerStyle = {
+        width: "2377px",
+        height: "969px",
+        position: "absolute",
+        left: 0,
+        top: 0
+      };
+      var imageStyle = null;
+      imageStyle = {
+        width: "100%",
+        height: "100%",
+        margin: "auto"
+      };
       var infoStyle = {
         position: "absolute",
         left: 0,
@@ -570,14 +734,16 @@ function (_React$PureComponent) {
           onHit: this.dropped,
           targetKey: "canvas"
         }, _react.default.createElement("div", {
-          style: canvasInnerContainerStyle,
+          style: canvasContainerStyle,
           onScroll: this.handleScroll
+        }, _react.default.createElement("div", {
+          style: canvasInnerContainerStyle
         }, _react.default.createElement("img", {
           src: this.props.backgroundImage,
-          alt: this.props.backgroundImage //style={imageStyle}
-          ,
+          alt: this.props.backgroundImage,
+          style: imageStyle,
           onLoad: this.onImgLoad
-        }), _react.default.createElement("div", {
+        })), _react.default.createElement("div", {
           style: infoStyle
         }, _react.default.createElement("p", null, micInfo)), this.createList())))
       );
