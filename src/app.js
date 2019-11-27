@@ -467,7 +467,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				});
 			});
 		}
-		let linkedFields = Object.assign({}, this.state.microscope.linkedFields);
+		let linkedFields = Object.assign({}, modifiedMic.linkedFields);
 		let validation = validate(modifiedMic, microscopeSchema);
 		let validated = validation.valid;
 		if (this.state.isCreatingNewMicroscope) {
@@ -531,7 +531,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				});
 			});
 		}
-		let linkedFields = Object.assign({}, this.state.microscope.linkedFields);
+		let linkedFields = Object.assign({}, modifiedMic.linkedFields);
 		let validation = validate(modifiedMic, microscopeSchema);
 		let validated = validation.valid;
 		if (this.state.isCreatingNewMicroscope) {
