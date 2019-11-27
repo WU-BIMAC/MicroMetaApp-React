@@ -16,6 +16,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		super(props);
 		this.state = {
 			showForm: true,
+			linkedFields: {},
 			currentChildrenComponents: {},
 			minChildrenComponents: {},
 			maxChildrenComponents: {},
@@ -50,7 +51,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		this.data = [];
 		this.errors = [];
 
-		this.onChange = this.onChange.bind(this);
+		// this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onError = this.onError.bind(this);
 		this.onTabChange = this.onTabChange.bind(this);
@@ -61,8 +62,8 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		this.createForm = this.createForm.bind(this);
 		this.createForms = this.createForms.bind(this);
 
-		this.processData = this.processData.bind(this);
-		this.processErrors = this.processErrors.bind(this);
+		// this.processData = this.processData.bind(this);
+		// this.processErrors = this.processErrors.bind(this);
 
 		this.onEditComponents = this.onEditComponents.bind(this);
 		this.onEditComponentsConfirm = this.onEditComponentsConfirm.bind(this);
@@ -80,12 +81,16 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 	}
 
 	initializeForms() {
+		let linkedFields = this.state.linkedFields;
 		let currentChildrenComponents = this.state.currentChildrenComponents;
+
 		this.partialSchema = MultiTabFormWithHeader.transformSchema(
 			currentChildrenComponents,
 			this.props.schema,
-			this.props.elementByType
+			this.props.elementByType,
+			linkedFields
 		);
+
 		let partialInputData = [];
 		if (this.props.inputData !== undefined) {
 			partialInputData = MultiTabFormWithHeader.transformInputData(
@@ -105,23 +110,57 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		return { state };
 	}
 
-	onChange() {}
+	//onChange() {}
 
 	onSubmit(data) {
+		let localForms = this.formRefs;
+		let index = -1;
+		for (let i = 0; i < localForms.length; i++) {
+			let ref = localForms[i];
+			if (ref.state.formData === data.formData) {
+				// console.log("onSubmit");
+				// console.log(ref);
+				index = i;
+				break;
+			}
+		}
+
+		let linkedFields = this.state.linkedFields;
+		for (let key in data.formData) {
+			if (linkedFields[key] !== undefined) {
+				let value = data.formData[key];
+				let index = value.indexOf("/");
+				let newValue = value.substring(index + 1);
+				linkedFields[key].value = newValue;
+			}
+		}
+		this.setState({ linkedFields: linkedFields });
+
 		let currentData = this.data.slice();
 		let currentErrors = this.errors.slice();
-		currentData.push(data);
-		currentErrors.push(null);
+		currentData.splice(index, 0, data);
+		currentErrors.splice(index, 0, null);
 		this.data = currentData;
 		this.errors = currentErrors;
 		this.processData();
 	}
 
 	onError(errors) {
+		let localForms = this.formRefs;
+		let index = -1;
+		for (let i = 0; i < localForms.length; i++) {
+			let ref = localForms[i];
+			if (ref.state.errors === errors) {
+				// console.log("onError");
+				// console.log(ref);
+				index = i;
+				break;
+			}
+		}
 		let currentData = this.data.slice();
 		let currentErrors = this.errors.slice();
-		currentData.push(null);
-		currentErrors.push(errors);
+		currentData.splice(index, 0, null);
+		currentErrors.splice(index, 0, errors);
 		this.data = currentData;
 		this.errors = currentErrors;
 		this.processErrors();
@@ -138,7 +177,9 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			let attr = attrName + key;
 			consolidatedData[attr] = currentChildrenComponents[key];
 		});
-		this.props.onConfirm(this.props.id, consolidatedData);
+
+		let linkedFields = Object.assign({}, this.state.linkedFields);
+		this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
 	}
 
 	processErrors() {
@@ -205,52 +246,61 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		return consolidatedData;
 	}
 
-	static findInputPropKeyValue(index, propKey, inputData) {
+	static findInputPropKeyValue(groupKey, index, propKey, inputData) {
 		let value = null;
+		//console.log("INPUT");
 		for (let key in inputData) {
 			//Object.keys(inputData).forEach(function (key) {
 			if (inputData[key] instanceof Array) {
-				// console.log("FindInput");
-				// console.log("key " + key);
-				// console.log("data");
-				// console.log(inputData[key]);
+				if (key !== groupKey) continue;
 				if (inputData[key][propKey] !== undefined) {
 					//if (index !== -1) return inputData[key][index][propKey];
 					//else
 					return inputData[key][propKey];
 				} else {
 					value = MultiTabFormWithHeader.findInputPropKeyValue(
+						groupKey,
 						index,
 						propKey,
 						inputData[key]
 					);
+					if (value !== undefined) return value;
 				}
 			} else if (inputData[key] instanceof Object) {
 				if (index === -1) {
-					value = MultiTabFormWithHeader.findInputPropKeyValue(
-						index,
-						propKey,
-						inputData[key]
-					);
+					if (inputData[key][propKey] !== undefined) {
+						value = inputData[key][propKey];
+					} else {
+						value = MultiTabFormWithHeader.findInputPropKeyValue(
+							groupKey,
+							index,
+							propKey,
+							inputData[key]
+						);
+					}
 				} else if (key !== index) {
 					continue;
 				} else if (inputData[key][propKey] !== undefined) {
 					return inputData[key][propKey];
 				} else {
 					value = MultiTabFormWithHeader.findInputPropKeyValue(
+						groupKey,
 						index,
 						propKey,
 						inputData[key]
 					);
 				}
+				if (value !== undefined) return value;
 			}
 		}
-		return value;
+		return null;
 	}
 
 	static transformInputData(inputData, partialSchema) {
+		//console.log(inputData);
 		let partialInputData = [];
 		//TODO find data inside objects and arrays
+		//console.log("transformInputData");
 		Object.keys(partialSchema).forEach(function(key) {
 			if (partialInputData[key] === undefined) partialInputData[key] = {};
 			Object.keys(partialSchema[key].properties).forEach(function(propKey) {
@@ -259,9 +309,12 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 				else {
 					let stringIndex = key.lastIndexOf("_");
 					let index = -1;
+					//console.log(key);
 					if (stringIndex != -1) index = key.substr(stringIndex + 1, 1);
-					console.log("key " + key + " - index " + index);
+					let stringKey = key.replace("_", "");
+					stringKey = stringKey.replace(index, "");
 					let val = MultiTabFormWithHeader.findInputPropKeyValue(
+						stringKey,
 						index,
 						propKey,
 						inputData
@@ -272,6 +325,9 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 				}
 			});
 		});
+		//console.log("PARTIAL INPUT DATA");
+		//console.log(partialInputData);
+
 		return partialInputData;
 	}
 
@@ -280,7 +336,8 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		schema,
 		elementByType,
 		counter,
-		subType
+		subType,
+		linkedFields
 	) {
 		let partialSchema = {};
 		Object.keys(schema.properties).forEach(function(key) {
@@ -299,7 +356,8 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 						property,
 						elementByType,
 						-1,
-						"object"
+						"object",
+						linkedFields
 					);
 					partialSchema = Object.assign(partialSchema, localPartialSchema);
 				}
@@ -318,7 +376,8 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 						property.items,
 						elementByType,
 						i,
-						"array"
+						"array",
+						linkedFields
 					);
 					partialSchema = Object.assign(partialSchema, localPartialSchema);
 				}
@@ -350,6 +409,14 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 				newProperty["enumNames"] = ["Not assigned"];
 				if (elementByType[property.linkTo] !== undefined) {
 					let propElementByType = elementByType[property.linkTo];
+
+					if (linkedFields[key] === undefined) {
+						linkedFields[key] = {
+							schemaType: property.linkTo,
+							value: "Not assigned"
+						};
+					}
+
 					Object.keys(propElementByType).forEach(function(
 						propElementByTypeName
 					) {
@@ -375,17 +442,23 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			if (required.length !== 0) partialSchema[key].required = required;
 		});
 
-		console.log(partialSchema);
+		//console.log(partialSchema);
 		return partialSchema;
 	}
 
-	static transformSchema(currentChildrenComponents, schema, elementByType) {
+	static transformSchema(
+		currentChildrenComponents,
+		schema,
+		elementByType,
+		linkedFields
+	) {
 		let partialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(
 			currentChildrenComponents,
 			schema,
 			elementByType,
 			-1,
-			"default"
+			"default",
+			linkedFields
 		);
 
 		return partialSchema;
@@ -431,7 +504,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			<Form
 				schema={schema}
 				uiSchema={uiSchema}
-				onChange={this.onChange}
+				// onChange={this.onChange}
 				onSubmit={this.onSubmit}
 				onError={this.onError}
 				formData={input}
@@ -462,6 +535,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 	createForms(subCategoriesOrder, partialSchema, partialInputData) {
 		// Maybe ModalWindow could wrap entire <SchemaForm> (in CanvasElement render method)
 		// instead of being rendered by <SchemaForm> if SchemaForm could be later used in other places.
+
 		let currentButtonsRefs = [];
 		let currentFormNames = [];
 		let currentFormRefs = [];
@@ -632,6 +706,8 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			justifyContent: "center"
 		};
 		let currentChildrenComponents = this.state.currentChildrenComponents;
+		let minChildrenComponents = this.state.minChildrenComponents;
+		let maxChildrenComponents = this.state.maxChildrenComponents;
 		let showForm = this.state.showForm;
 		let childrenButtons = this.createChildrenComponentsButton();
 		if (!showForm) {
@@ -668,13 +744,24 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 				</TabPane>
 			);
 		});
-		let hasChildren = Object.keys(currentChildrenComponents).length > 0;
+		let hasEditableChildren = false;
+		if (Object.keys(currentChildrenComponents).length > 0) {
+			for (let key in currentChildrenComponents) {
+				let current = currentChildrenComponents[key];
+				let min = minChildrenComponents[key];
+				let max = maxChildrenComponents[key];
+				if (current !== min || current !== max) {
+					hasEditableChildren = true;
+					break;
+				}
+			}
+		}
 		//<div>{this.props.schema.description}</div>
 		return (
 			<ModalWindow overlaysContainer={this.props.overlaysContainer}>
 				<div>
 					<h3>{this.props.schema.title}</h3>
-					<p>{hasChildren ? add_components_warning : ""}</p>
+					<p>{hasEditableChildren ? add_components_warning : ""}</p>
 					<Tabs
 						onChange={this.onTabChange}
 						renderTabBar={() => <ScrollableTabBar />}
@@ -687,11 +774,11 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 						<Button
 							style={button}
 							size="lg"
-							variant={!hasChildren ? "secondary" : "primary"}
-							onClick={!hasChildren ? null : this.onEditComponents}
-							disabled={!hasChildren}
+							variant={!hasEditableChildren ? "secondary" : "primary"}
+							onClick={!hasEditableChildren ? null : this.onEditComponents}
+							disabled={!hasEditableChildren}
 						>
-							Edit components
+							Add/Remove band-pass
 						</Button>
 						<Button style={button} size="lg" onClick={this.onConfirm}>
 							Confirm

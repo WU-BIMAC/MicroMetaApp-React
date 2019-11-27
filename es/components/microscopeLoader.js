@@ -113,7 +113,7 @@ function (_React$PureComponent) {
       reader.onerror = this.onFileReaderError;
       reader.onload = this.onFileReaderLoad;
       acceptedFiles.forEach(function (file) {
-        return reader.readAsBinaryString(file);
+        return reader.readAsText(file);
       });
       this.setState({
         fileLoading: false

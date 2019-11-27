@@ -38,15 +38,20 @@ export default class CanvasElement extends React.PureComponent {
 	}
 
 	onClick() {
-		if (!this.props.isViewOnly) this.setState({ editing: true });
+		if (!this.props.isViewOnly) {
+			this.props.setEditingOnCanvas(true);
+			this.setState({ editing: true });
+		}
 	}
 
-	onConfirm(id, data) {
+	onConfirm(id, data, linkedFields) {
 		this.setState({ editing: false });
-		this.props.onConfirm(id, data);
+		this.props.setEditingOnCanvas(false);
+		this.props.onConfirm(id, data, linkedFields);
 	}
 
 	onCancel() {
+		this.props.setEditingOnCanvas(false);
 		this.setState({ editing: false });
 	}
 

@@ -31,6 +31,8 @@ export default class SettingMainView extends React.PureComponent {
 			editingElement: -1
 		};
 
+		console.log(props.componentSchemas);
+
 		Object.keys(props.componentSchemas).forEach(schemaIndex => {
 			let schema = props.componentSchemas[schemaIndex];
 			let schema_id = schema.ID;
@@ -235,6 +237,7 @@ export default class SettingMainView extends React.PureComponent {
 			console.log("editing element " + this.state.editingElement);
 			console.log("element " + element);
 			let element = this.state.elementList[this.state.editingElement];
+			console.log(element);
 			let schema_id = element.schema_ID;
 			let obj = element.obj;
 			let schema = this.state.componentsSchema[schema_id];

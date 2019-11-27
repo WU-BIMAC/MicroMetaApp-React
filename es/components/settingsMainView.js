@@ -59,6 +59,7 @@ function (_React$PureComponent) {
       componentsSchema: {},
       editingElement: -1
     };
+    console.log(props.componentSchemas);
     Object.keys(props.componentSchemas).forEach(function (schemaIndex) {
       var schema = props.componentSchemas[schemaIndex];
       var schema_id = schema.ID; //console.log("schema_id: " + schema_id);
@@ -258,6 +259,7 @@ function (_React$PureComponent) {
         console.log("editing element " + this.state.editingElement);
         console.log("element " + element);
         var element = this.state.elementList[this.state.editingElement];
+        console.log(element);
         var schema_id = element.schema_ID;
         var obj = element.obj;
         var schema = this.state.componentsSchema[schema_id];

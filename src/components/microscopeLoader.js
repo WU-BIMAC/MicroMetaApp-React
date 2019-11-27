@@ -74,7 +74,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		reader.onerror = this.onFileReaderError;
 		reader.onload = this.onFileReaderLoad;
 
-		acceptedFiles.forEach(file => reader.readAsBinaryString(file));
+		acceptedFiles.forEach(file => reader.readAsText(file));
 
 		this.setState({ fileLoading: false });
 	}

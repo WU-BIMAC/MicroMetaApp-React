@@ -88,7 +88,7 @@ function (_React$PureComponent) {
         onClick: this.props.onClickLoadMicroscope,
         style: buttonStyle,
         size: "lg",
-        disabled: !this.isSettingsActive
+        disabled: !isSettingsActive
       }, "Use microscope"))));
     }
   }]);

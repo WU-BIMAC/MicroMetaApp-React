@@ -69,6 +69,7 @@ function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
+      //padding: "5px"
       var style = Object.assign({
         display: "flex",
         justifyContent: "center",
@@ -80,10 +81,9 @@ function (_React$PureComponent) {
         src: this.props.image,
         alt: this.props.name,
         style: {
-          maxHeight: "100%",
-          maxWidth: "100%",
-          margin: "auto",
-          padding: "5px"
+          height: "100%",
+          width: "100%",
+          margin: "auto"
         }
       });
 
