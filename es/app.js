@@ -500,7 +500,7 @@ function (_React$PureComponent) {
         });
       }
 
-      var linkedFields = Object.assign({}, this.state.microscope.linkedFields);
+      var linkedFields = Object.assign({}, modifiedMic.linkedFields);
       var validation = validate(modifiedMic, microscopeSchema);
       var validated = validation.valid;
 
@@ -570,7 +570,7 @@ function (_React$PureComponent) {
         });
       }
 
-      var linkedFields = Object.assign({}, this.state.microscope.linkedFields);
+      var linkedFields = Object.assign({}, modifiedMic.linkedFields);
       var validation = validate(modifiedMic, microscopeSchema);
       var validated = validation.valid;
 
