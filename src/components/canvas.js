@@ -726,7 +726,7 @@ export default class Canvas extends React.PureComponent {
 					<div style={canvasContainerStyle} onScroll={this.handleScroll}>
 						<div style={canvasInnerContainerStyle}>
 							<img
-								src={this.props.backgroundImage}
+								src={this.props.backgroundImage + (this.props.backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "")}
 								alt={this.props.backgroundImage}
 								style={imageStyle}
 								onLoad={this.onImgLoad}

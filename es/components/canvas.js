@@ -726,7 +726,7 @@ function (_React$PureComponent) {
             top: 0
           }
         }, _react["default"].createElement("img", {
-          src: this.props.backgroundImage,
+          src: this.props.backgroundImage + (this.props.backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
           alt: this.props.backgroundImage,
           style: imageStyle,
           onLoad: this.onImgLoad

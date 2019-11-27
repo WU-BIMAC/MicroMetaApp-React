@@ -45,7 +45,7 @@ export default class ImageElement extends React.PureComponent {
 		let img = (
 			<img
 				onLoad={this.onImgLoad}
-				src={this.props.image}
+				src={this.props.image + (this.props.image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "")}
 				alt={this.props.name}
 				style={imageStyle}
 			/>

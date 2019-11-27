@@ -78,7 +78,7 @@ function (_React$PureComponent) {
 
       var img = _react["default"].createElement("img", {
         onLoad: this.onImgLoad,
-        src: this.props.image,
+        src: this.props.image + (this.props.image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
         alt: this.props.name,
         style: {
           height: "100%",
