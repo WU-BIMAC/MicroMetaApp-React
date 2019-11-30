@@ -938,6 +938,7 @@ function (_React$PureComponent) {
             height: height,
             forwardedRef: this.overlaysContainerRef
           }, _react.default.createElement(_dataLoader.default, {
+            logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
             onClickLoadSchema: this.handleLoadSchema,
             onClickLoadMicroscopes: this.handleLoadMicroscopes
           }));
@@ -949,6 +950,7 @@ function (_React$PureComponent) {
           height: height,
           forwardedRef: this.overlaysContainerRef
         }, _react.default.createElement(_microscopePreLoader.default, {
+          logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
           tiers: this.props.tiers,
           onClickTierSelection: this.handleActiveTierSelection,
           onClickCreateNewMicroscope: this.setCreateNewMicroscope,
@@ -985,7 +987,7 @@ function (_React$PureComponent) {
           forwardedRef: this.overlaysContainerRef
         }, _react.default.createElement("div", {
           style: windowExternalContainer
-        }, _react.default.createElement("div", {
+        }, _react.default.createElement("div", null, "logoImg=", path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")), _react.default.createElement("div", {
           style: windowInternalContainer
         }, _react.default.createElement(_Button.default, {
           style: buttonStyle,
@@ -1019,6 +1021,7 @@ function (_React$PureComponent) {
           height: height,
           forwardedRef: this.overlaysContainerRef
         }, _react.default.createElement(_microscopeLoader.default, {
+          logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
           loadingOptions: loadingOptions,
           microscopes: microscopeNames,
           onFileDrop: this.uploadMicroscopeFromDropzone,
@@ -1059,6 +1062,7 @@ function (_React$PureComponent) {
           height: height,
           forwardedRef: this.overlaysContainerRef
         }, _react.default.createElement(_microscopeLoader.default, {
+          logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
           loadingOptions: _loadingOptions,
           microscopes: _microscopeNames,
           onFileDrop: this.uploadMicroscopeFromDropzone,
@@ -1107,7 +1111,8 @@ function (_React$PureComponent) {
           height: height,
           forwardedRef: this.overlaysContainerRef
         }, _react.default.createElement(_header.default, {
-          dimensions: headerFooterDims
+          dimensions: headerFooterDims,
+          logoImg: path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")
         }), _react.default.createElement(_settingsMainView.default, {
           microscope: microscope,
           microscopeComponents: elementData,
@@ -1145,7 +1150,8 @@ function (_React$PureComponent) {
             height: height,
             forwardedRef: this.overlaysContainerRef
           }, _react.default.createElement(_header.default, {
-            dimensions: headerFooterDims
+            dimensions: headerFooterDims,
+            logoImg: path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")
           }), _react.default.createElement("div", {
             style: style
           }, _react.default.createElement(_canvas.default, {
@@ -1172,7 +1178,8 @@ function (_React$PureComponent) {
             height: height,
             forwardedRef: this.overlaysContainerRef
           }, _react.default.createElement(_header.default, {
-            dimensions: headerFooterDims
+            dimensions: headerFooterDims,
+            logoImg: path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")
           }), _react.default.createElement("div", {
             style: style
           }, _react.default.createElement(_canvas.default, {

@@ -17,6 +17,8 @@ var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWith
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
+var _constants = require("../constants");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -40,10 +42,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 var validate = require("jsonschema").validate;
 
 var uuidv4 = require("uuid/v4");
-
-var currentNumberOf_identifier = "Number_Of_";
-var minNumberOf_identifier = "Min_Number_Of_";
-var maxNumberOf_identifier = "Max_Number_Of_";
 
 var ChannelView =
 /*#__PURE__*/
@@ -157,9 +155,9 @@ function (_React$PureComponent) {
           onConfirm: this.onElementDataSave,
           onCancel: this.onElementDataCancel,
           overlaysContainer: this.props.overlaysContainer,
-          currentChildrenComponentIdentifier: currentNumberOf_identifier,
-          minChildrenComponentIdentifier: minNumberOf_identifier,
-          maxChildrenComponentIdentifier: maxNumberOf_identifier,
+          currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
+          minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
+          maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
           elementByType: this.props.elementByType
         });
       } else {

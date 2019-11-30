@@ -55,10 +55,8 @@ function (_React$PureComponent) {
       var oldHeight = this.state.height;
       var oldWidth = this.state.width;
       if (oldWidth !== null && oldHeight !== null) return;
-      var newHeight = img.naturalHeight; // / 5;
-
-      var newWidth = img.naturalWidth; // / 5;
-
+      var newHeight = img.naturalHeight;
+      var newWidth = img.naturalWidth;
       this.setState({
         height: newHeight,
         width: newWidth
@@ -73,8 +71,7 @@ function (_React$PureComponent) {
         height: "100%",
         width: "100%",
         margin: "auto"
-      }; //padding: "5px"
-
+      };
       var style = Object.assign({
         display: "flex",
         justifyContent: "center",
@@ -90,7 +87,7 @@ function (_React$PureComponent) {
 
       return _react.default.createElement("div", {
         style: style
-      }, img); //return img;
+      }, img);
     }
   }]);
 

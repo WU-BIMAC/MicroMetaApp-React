@@ -126,6 +126,15 @@ function (_React$PureComponent) {
         height: "100%",
         alignItems: "center"
       };
+      var styleImageContainer = {
+        width: "400px",
+        height: "140px"
+      };
+      var styleImage = {
+        width: "100%",
+        height: "100%",
+        margin: "auto"
+      };
       var isLoadingSchema = this.state.isLoadingSchema;
       var isLoadingMicroscopes = this.state.isLoadingMicroscopes;
       var isSchemaLoaded = this.state.isSchemaLoaded;
@@ -134,7 +143,14 @@ function (_React$PureComponent) {
         style: windowExternalContainer
       }, _react.default.createElement("div", {
         style: windowInternalContainer
-      }, _react.default.createElement(_Button.default, {
+      }, _react.default.createElement("div", {
+        style: styleImageContainer
+      }, _react.default.createElement("img", {
+        src: this.props.logoImg,
+        alt: this.props.logoImg,
+        style: styleImage,
+        onLoad: this.onImgLoad
+      })), _react.default.createElement(_Button.default, {
         ref: this.simulateClickLoadSchema,
         disabled: isLoadingSchema || isSchemaLoaded,
         onClick: !isLoadingSchema && !isSchemaLoaded ? this.onClickLoadSchema : null,

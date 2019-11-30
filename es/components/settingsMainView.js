@@ -13,6 +13,8 @@ var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWith
 
 var _planeView = _interopRequireDefault(require("./planeView"));
 
+var _constants = require("../constants");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -37,9 +39,6 @@ var validate = require("jsonschema").validate;
 
 var uuidv4 = require("uuid/v4");
 
-var currentNumberOf_identifier = "Number_Of_";
-var minNumberOf_identifier = "Min_Number_Of_";
-var maxNumberOf_identifier = "Max_Number_Of_";
 var schemasOrder = ["Experiment.json", "Plane.json", "Channel.json", "TIRFSettings.json", "ImagingEnvironment.json", "MicroscopeSettings.json", "ObjectiveSettings.json"];
 
 var SettingMainView =
@@ -92,10 +91,10 @@ function (_React$PureComponent) {
           Version: schema.version
         };
         Object.keys(schema.properties).forEach(function (key) {
-          if (schema.properties[key].type === "array") {
-            var currentNumber = currentNumberOf_identifier + key;
-            var minNumber = minNumberOf_identifier + key;
-            var maxNumber = maxNumberOf_identifier + key;
+          if (schema.properties[key].type === _constants.string_array) {
+            var currentNumber = _constants.string_currentNumberOf_identifier + key;
+            var minNumber = _constants.string_minNumberOf_identifier + key;
+            var maxNumber = _constants.string_maxNumberOf_identifier + key;
 
             if (schema.required.indexOf(key) != -1) {
               newElementData[currentNumber] = 1;
@@ -106,12 +105,12 @@ function (_React$PureComponent) {
               newElementData[minNumber] = 0;
               newElementData[maxNumber] = -1;
             }
-          } else if (schema.properties[key].type === "object") {
-            var _currentNumber = currentNumberOf_identifier + key;
+          } else if (schema.properties[key].type === _constants.string_object) {
+            var _currentNumber = _constants.string_currentNumberOf_identifier + key;
 
-            var _minNumber = minNumberOf_identifier + key;
+            var _minNumber = _constants.string_minNumberOf_identifier + key;
 
-            var _maxNumber = maxNumberOf_identifier + key;
+            var _maxNumber = _constants.string_maxNumberOf_identifier + key;
 
             if (schema.required.indexOf(key) === -1) {
               newElementData[_currentNumber] = 0;
@@ -261,10 +260,13 @@ function (_React$PureComponent) {
       var height = this.props.dimensions.height;
 
       if (this.state.editingElement != -1) {
-        console.log("list");
-        console.log(this.state.elementList);
-        console.log("editing element " + this.state.editingElement);
-        console.log("element " + element);
+        if (_constants.bool_isDebug) {
+          console.log("list");
+          console.log(this.state.elementList);
+          console.log("editing element " + this.state.editingElement);
+          console.log("element " + element);
+        }
+
         var element = this.state.elementList[this.state.editingElement];
         console.log(element);
         var schema_id = element.schema_ID;
@@ -273,7 +275,7 @@ function (_React$PureComponent) {
         var elementByType = {};
         Object.keys(this.state.elementData).forEach(function (key) {
           var element = this.state.elementData[key];
-          var schemaID = element.Schema_ID.replace(".json", "");
+          var schemaID = element.Schema_ID.replace(_constants.string_json_ext, "");
 
           if (elementByType[schemaID] === undefined) {
             elementByType[schemaID] = {};
@@ -283,7 +285,7 @@ function (_React$PureComponent) {
         });
         Object.keys(this.props.microscopeComponents).forEach(function (key) {
           var element = _this2.props.microscopeComponents[key];
-          var schemaID = element.Schema_ID.replace(".json", "");
+          var schemaID = element.Schema_ID.replace(_constants.string_json_ext, "");
 
           if (elementByType[schemaID] === undefined) {
             elementByType[schemaID] = {};
@@ -311,17 +313,13 @@ function (_React$PureComponent) {
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
             overlaysContainer: this.props.overlaysContainer,
-            currentChildrenComponentIdentifier: currentNumberOf_identifier,
-            minChildrenComponentIdentifier: minNumberOf_identifier,
-            maxChildrenComponentIdentifier: maxNumberOf_identifier,
+            currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
+            minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
+            maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
             elementByType: elementByType
           });
         }
       } else {
-        //TODO i could use the img container with absolute position and put stuff on top of it
-        //<img src={imageFilePath} alt={imageFilePath} style={style.image} />
-        //TODO this should be in a scrollable pane
-        //<div ref={this.ref} style={styleFullWindow}>
         var styleMainContainer = {
           width: width,
           height: height,
@@ -332,18 +330,7 @@ function (_React$PureComponent) {
           justifyContent: "center",
           alignItems: "center",
           padding: "5px"
-        }; // const styleButtonContainer = {
-        // 	width: width,
-        // 	height: 300,
-        // 	boxSizing: "border-box",
-        // 	display: "flex",
-        // 	flexDirection: "row",
-        // 	flexWap: "wrap",
-        // 	justifyContent: "center",
-        // 	alignItems: "center",
-        // 	padding: "5px"
-        // };
-
+        };
         var styleButton = {
           width: "250px",
           minWidth: "250px",
@@ -355,9 +342,7 @@ function (_React$PureComponent) {
         var styleEditButton = Object.assign(styleButton, {
           border: "5px ridge red"
         });
-        var buttons1 = []; // let buttons2 = [];
-        // let buttons3 = [];
-
+        var buttons1 = [];
         buttons1[0] = _react.default.createElement(_Button.default, {
           key: "Button-0",
           onClick: this.onClickEditExperiment,
@@ -399,23 +384,7 @@ function (_React$PureComponent) {
           onClick: this.onClickEditObjectiveSettings,
           style: styleEditButton,
           size: "lg"
-        }, "Edit Objective Settings"); // let buttonsContainer = [];
-        // buttonsContainer[0] = (
-        // 	<div style={styleButtonContainer} key="buttonContainer-1">
-        // 		{buttons1}
-        // 	</div>
-        // );
-        // buttonsContainer[1] = (
-        // 	<div style={styleButtonContainer} key="buttonContainer-2">
-        // 		{buttons2}
-        // 	</div>
-        // );
-        // buttonsContainer[2] = (
-        // 	<div style={styleButtonContainer} key="buttonContainer-3">
-        // 		{buttons3}
-        // 	</div>
-        // );
-
+        }, "Edit Objective Settings");
         return _react.default.createElement("div", {
           style: styleMainContainer
         }, buttons1);
