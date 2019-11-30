@@ -7,9 +7,15 @@ import PlaneView from "./planeView";
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
-const currentNumberOf_identifier = "Number_Of_";
-const minNumberOf_identifier = "Min_Number_Of_";
-const maxNumberOf_identifier = "Max_Number_Of_";
+import {
+	bool_isDebug,
+	string_object,
+	string_array,
+	string_json_ext,
+	string_currentNumberOf_identifier,
+	string_minNumberOf_identifier,
+	string_maxNumberOf_identifier
+} from "../constants";
 const schemasOrder = [
 	"Experiment.json",
 	"Plane.json",
@@ -67,10 +73,10 @@ export default class SettingMainView extends React.PureComponent {
 					Version: schema.version
 				};
 				Object.keys(schema.properties).forEach(key => {
-					if (schema.properties[key].type === "array") {
-						let currentNumber = currentNumberOf_identifier + key;
-						let minNumber = minNumberOf_identifier + key;
-						let maxNumber = maxNumberOf_identifier + key;
+					if (schema.properties[key].type === string_array) {
+						let currentNumber = string_currentNumberOf_identifier + key;
+						let minNumber = string_minNumberOf_identifier + key;
+						let maxNumber = string_maxNumberOf_identifier + key;
 						if (schema.required.indexOf(key) != -1) {
 							newElementData[currentNumber] = 1;
 							newElementData[minNumber] = 1;
@@ -80,10 +86,10 @@ export default class SettingMainView extends React.PureComponent {
 							newElementData[minNumber] = 0;
 							newElementData[maxNumber] = -1;
 						}
-					} else if (schema.properties[key].type === "object") {
-						let currentNumber = currentNumberOf_identifier + key;
-						let minNumber = minNumberOf_identifier + key;
-						let maxNumber = maxNumberOf_identifier + key;
+					} else if (schema.properties[key].type === string_object) {
+						let currentNumber = string_currentNumberOf_identifier + key;
+						let minNumber = string_minNumberOf_identifier + key;
+						let maxNumber = string_maxNumberOf_identifier + key;
 						if (schema.required.indexOf(key) === -1) {
 							newElementData[currentNumber] = 0;
 							newElementData[minNumber] = 0;
@@ -232,10 +238,12 @@ export default class SettingMainView extends React.PureComponent {
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
 		if (this.state.editingElement != -1) {
-			console.log("list");
-			console.log(this.state.elementList);
-			console.log("editing element " + this.state.editingElement);
-			console.log("element " + element);
+			if (bool_isDebug) {
+				console.log("list");
+				console.log(this.state.elementList);
+				console.log("editing element " + this.state.editingElement);
+				console.log("element " + element);
+			}
 			let element = this.state.elementList[this.state.editingElement];
 			console.log(element);
 			let schema_id = element.schema_ID;
@@ -244,7 +252,7 @@ export default class SettingMainView extends React.PureComponent {
 			let elementByType = {};
 			Object.keys(this.state.elementData).forEach(function(key) {
 				let element = this.state.elementData[key];
-				let schemaID = element.Schema_ID.replace(".json", "");
+				let schemaID = element.Schema_ID.replace(string_json_ext, "");
 				if (elementByType[schemaID] === undefined) {
 					elementByType[schemaID] = {};
 				}
@@ -252,7 +260,7 @@ export default class SettingMainView extends React.PureComponent {
 			});
 			Object.keys(this.props.microscopeComponents).forEach(key => {
 				let element = this.props.microscopeComponents[key];
-				let schemaID = element.Schema_ID.replace(".json", "");
+				let schemaID = element.Schema_ID.replace(string_json_ext, "");
 				if (elementByType[schemaID] === undefined) {
 					elementByType[schemaID] = {};
 				}
@@ -280,18 +288,16 @@ export default class SettingMainView extends React.PureComponent {
 						onConfirm={this.onElementDataSave}
 						onCancel={this.onElementDataCancel}
 						overlaysContainer={this.props.overlaysContainer}
-						currentChildrenComponentIdentifier={currentNumberOf_identifier}
-						minChildrenComponentIdentifier={minNumberOf_identifier}
-						maxChildrenComponentIdentifier={maxNumberOf_identifier}
+						currentChildrenComponentIdentifier={
+							string_currentNumberOf_identifier
+						}
+						minChildrenComponentIdentifier={string_minNumberOf_identifier}
+						maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 						elementByType={elementByType}
 					/>
 				);
 			}
 		} else {
-			//TODO i could use the img container with absolute position and put stuff on top of it
-			//<img src={imageFilePath} alt={imageFilePath} style={style.image} />
-			//TODO this should be in a scrollable pane
-			//<div ref={this.ref} style={styleFullWindow}>
 			const styleMainContainer = {
 				width: width,
 				height: height,
@@ -303,17 +309,6 @@ export default class SettingMainView extends React.PureComponent {
 				alignItems: "center",
 				padding: "5px"
 			};
-			// const styleButtonContainer = {
-			// 	width: width,
-			// 	height: 300,
-			// 	boxSizing: "border-box",
-			// 	display: "flex",
-			// 	flexDirection: "row",
-			// 	flexWap: "wrap",
-			// 	justifyContent: "center",
-			// 	alignItems: "center",
-			// 	padding: "5px"
-			// };
 			let styleButton = {
 				width: "250px",
 				minWidth: "250px",
@@ -326,8 +321,6 @@ export default class SettingMainView extends React.PureComponent {
 				border: "5px ridge red"
 			});
 			let buttons1 = [];
-			// let buttons2 = [];
-			// let buttons3 = [];
 			buttons1[0] = (
 				<Button
 					key={"Button-0"}
@@ -398,22 +391,6 @@ export default class SettingMainView extends React.PureComponent {
 					{"Edit Objective Settings"}
 				</Button>
 			);
-			// let buttonsContainer = [];
-			// buttonsContainer[0] = (
-			// 	<div style={styleButtonContainer} key="buttonContainer-1">
-			// 		{buttons1}
-			// 	</div>
-			// );
-			// buttonsContainer[1] = (
-			// 	<div style={styleButtonContainer} key="buttonContainer-2">
-			// 		{buttons2}
-			// 	</div>
-			// );
-			// buttonsContainer[2] = (
-			// 	<div style={styleButtonContainer} key="buttonContainer-3">
-			// 		{buttons3}
-			// 	</div>
-			// );
 			return <div style={styleMainContainer}>{buttons1}</div>;
 		}
 	}

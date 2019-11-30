@@ -23,41 +23,41 @@ export default class CanvasElement extends React.PureComponent {
 		this.startWidth = null;
 		this.startHeight = null;
 
-		this.onClick = this.onClick.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 
-		this.onConfirm = this.onConfirm.bind(this);
-		this.onCancel = this.onCancel.bind(this);
+		this.handleConfirm = this.handleConfirm.bind(this);
+		this.handleCancel = this.handleCancel.bind(this);
 
-		this.onResizeStart = this.onResizeStart.bind(this);
-		this.onResize = this.onResize.bind(this);
-		this.onResizeStop = this.onResizeStop.bind(this);
+		this.handleResizeStart = this.handleResizeStart.bind(this);
+		this.handleResize = this.handleResize.bind(this);
+		this.handleResizeStop = this.handleResizeStop.bind(this);
 
 		this.updateMinMaxDimensions = this.updateMinMaxDimensions.bind(this);
 
 		this.counter = 0;
 	}
 
-	onClick() {
+	handleClick() {
 		if (!this.props.isViewOnly) {
 			this.props.setEditingOnCanvas(true);
 			this.setState({ editing: true });
 		}
 	}
 
-	onConfirm(id, data, linkedFields) {
+	handleConfirm(id, data, linkedFields) {
 		this.setState({ editing: false });
 		this.props.setEditingOnCanvas(false);
-		this.props.onConfirm(id, data, linkedFields);
+		this.props.handleConfirm(id, data, linkedFields);
 	}
 
-	onCancel() {
+	handleCancel() {
 		this.props.setEditingOnCanvas(false);
 		this.setState({ editing: false });
 	}
 
-	onResizeStart(e, data) {}
+	handleResizeStart(e, data) {}
 
-	onResize(e, data) {
+	handleResize(e, data) {
 		let width = data.size.width;
 		let height = data.size.height;
 		let imgWidth = width;
@@ -72,7 +72,6 @@ export default class CanvasElement extends React.PureComponent {
 			this.state.originalHeight == originalImgHeight
 		)
 			return;
-		//console.log("update min max dimensions canvas");
 		let minWidth = originalImgWidth / 2;
 		let minHeight = originalImgHeight / 2;
 		let maxWidth = originalImgWidth * 2;
@@ -88,7 +87,7 @@ export default class CanvasElement extends React.PureComponent {
 		this.props.updateDimensions(id, originalImgWidth, originalImgHeight, false);
 	}
 
-	onResizeStop(e, data) {}
+	handleResizeStop(e, data) {}
 
 	render() {
 		if (this.state.editing) {
@@ -97,8 +96,8 @@ export default class CanvasElement extends React.PureComponent {
 					schema={this.props.schema}
 					inputData={this.props.inputData}
 					id={this.props.id}
-					onConfirm={this.onConfirm}
-					onCancel={this.onCancel}
+					onConfirm={this.handleConfirm}
+					onCancel={this.handleCancel}
 					overlaysContainer={this.props.overlaysContainer}
 					currentChildrenComponentIdentifier={
 						this.props.currentChildrenComponentIdentifier
@@ -118,11 +117,12 @@ export default class CanvasElement extends React.PureComponent {
 			textAlign: "center",
 			height: "100%",
 			width: "100%",
-			display: "flex", // NEW, Spec - Opera 12.1, Firefox 20+
+			display: "flex",
 			justifyContent: "center",
 			backgroundColor: "transparent",
 			padding: "0px",
 			margin: "0px",
+			border: "0px",
 			font: "14px",
 			color: "inherit",
 			cursor: "pointer"
@@ -147,12 +147,6 @@ export default class CanvasElement extends React.PureComponent {
 			height: height
 		};
 
-		// if (this.counter < 6) {
-		// 	this.startWidth = width;
-		// 	this.startHeight = height;
-		// 	this.counter++;
-		// }
-
 		let minWidth = this.state.minWidth;
 		let minHeight = this.state.minHeight;
 		let maxWidth = this.state.maxWidth;
@@ -165,9 +159,9 @@ export default class CanvasElement extends React.PureComponent {
 				minConstraints={[minWidth, minHeight]}
 				maxConstraints={[maxWidth, maxHeight]}
 				lockAspectRatio={true}
-				onResizeStart={this.onResizeStart}
-				onResize={this.onResize}
-				onResizeStop={this.onResizeStop}
+				onResizeStart={this.handleResizeStart}
+				onResize={this.handleResize}
+				onResizeStop={this.handleResizeStop}
 				style={resizableStyle}
 			>
 				<AnimateKeyframes
@@ -194,7 +188,7 @@ export default class CanvasElement extends React.PureComponent {
 						"opacity: 1"
 					]}
 				>
-					<button style={style} onClick={this.onClick}>
+					<button style={style} onClick={this.handleClick}>
 						<ImageElement
 							updateMinMaxDimensions={this.updateMinMaxDimensions}
 							id={this.props.id}
@@ -209,13 +203,11 @@ export default class CanvasElement extends React.PureComponent {
 	}
 }
 
-//TODO verify if this is necessary
 CanvasElement.defaultProps = {
 	maxWidth: 200,
 	maxHeight: 200,
 	text: "Something",
-	onClick: function(e) {
-		// eslint-disable-next-line no-console
+	handleClick: function(e) {
 		console.log("Clicked!", e.clientX, e.clientY);
 	}
 };
@@ -223,16 +215,20 @@ CanvasElement.defaultProps = {
 export class CanvasElementDeleteButton extends React.PureComponent {
 	constructor(props) {
 		super(props);
-		this.onClick = this.onClick.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 	}
 
-	onClick() {
-		if (!this.props.isViewOnly) this.props.onDelete(this.props.index);
+	handleClick() {
+		if (!this.props.isViewOnly) this.props.handleDelete(this.props.index);
 	}
 
 	render() {
 		return (
-			<button type="button" onClick={this.onClick} style={this.props.myStyle}>
+			<button
+				type="button"
+				onClick={this.handleClick}
+				style={this.props.myStyle}
+			>
 				x
 			</button>
 		);

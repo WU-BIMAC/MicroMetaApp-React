@@ -10,9 +10,14 @@ import ModalWindow from "./modalWindow";
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
-const currentNumberOf_identifier = "Number_Of_";
-const minNumberOf_identifier = "Min_Number_Of_";
-const maxNumberOf_identifier = "Max_Number_Of_";
+import {
+	bool_isDebug,
+	string_object,
+	string_array,
+	string_currentNumberOf_identifier,
+	string_minNumberOf_identifier,
+	string_maxNumberOf_identifier
+} from "../constants";
 
 export default class ChannelView extends React.PureComponent {
 	constructor(props) {
@@ -50,10 +55,10 @@ export default class ChannelView extends React.PureComponent {
 			Version: schema.version
 		};
 		Object.keys(schema.properties).forEach(key => {
-			if (schema.properties[key].type === "array") {
-				let currentNumber = currentNumberOf_identifier + key;
-				let minNumber = minNumberOf_identifier + key;
-				let maxNumber = maxNumberOf_identifier + key;
+			if (schema.properties[key].type === string_array) {
+				let currentNumber = string_currentNumberOf_identifier + key;
+				let minNumber = string_minNumberOf_identifier + key;
+				let maxNumber = string_maxNumberOf_identifier + key;
 				if (schema.required.indexOf(key) != -1) {
 					newElementData[currentNumber] = 1;
 					newElementData[minNumber] = 1;
@@ -63,10 +68,10 @@ export default class ChannelView extends React.PureComponent {
 					newElementData[minNumber] = 0;
 					newElementData[maxNumber] = -1;
 				}
-			} else if (schema.properties[key].type === "object") {
-				let currentNumber = currentNumberOf_identifier + key;
-				let minNumber = minNumberOf_identifier + key;
-				let maxNumber = maxNumberOf_identifier + key;
+			} else if (schema.properties[key].type === string_object) {
+				let currentNumber = string_currentNumberOf_identifier + key;
+				let minNumber = string_minNumberOf_identifier + key;
+				let maxNumber = string_maxNumberOf_identifier + key;
 				if (schema.required.indexOf(key) === -1) {
 					newElementData[currentNumber] = 0;
 					newElementData[minNumber] = 0;
@@ -77,7 +82,7 @@ export default class ChannelView extends React.PureComponent {
 
 		channels.push(newElementData);
 		this.setState({ channels: channels });
-		console.log("added plane");
+		if (bool_isDebug) console.log("added plane");
 	}
 
 	onRemoveElement() {
@@ -89,12 +94,12 @@ export default class ChannelView extends React.PureComponent {
 			let removed = channels.pop();
 		}
 		this.setState({ channels: channels });
-		console.log("removed plane");
+		if (bool_isDebug) console.log("removed plane");
 	}
 
 	onEditElement() {
 		this.setState({ editing: true });
-		console.log("edit plane");
+		if (bool_isDebug) console.log("edit plane");
 	}
 
 	onElementDataSave(id, data) {
@@ -113,8 +118,7 @@ export default class ChannelView extends React.PureComponent {
 			console.log("issue with " + id);
 		}
 		this.setState({ channels: channels, editing: false });
-
-		console.log("saved plane");
+		if (bool_isDebug) console.log("saved plane");
 	}
 
 	onElementDataCancel() {
@@ -131,7 +135,6 @@ export default class ChannelView extends React.PureComponent {
 		let outputData = Object.assign(this.props.inputData, output);
 		let id = this.props.schema.title + "_" + this.props.inputData.ID;
 		console.log(outputData);
-		//this.props.onConfirm(id, outputData);
 	}
 
 	onCancel() {
@@ -141,10 +144,6 @@ export default class ChannelView extends React.PureComponent {
 	render() {
 		let index = this.state.selectedIndex;
 		let channels = this.state.channels;
-		// console.log("planes length " + planes.length);
-		// console.log("planes");
-		// console.log(planes);
-		// console.log("index " + index);
 		if (this.state.editing) {
 			let schema = this.props.schema;
 			let obj = channels[index];

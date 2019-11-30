@@ -870,6 +870,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<DataLoader
+						logoImg={path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")}
 						onClickLoadSchema={this.handleLoadSchema}
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
 					/>
@@ -885,6 +886,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopePreLoader
+						logoImg={path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")}
 						tiers={this.props.tiers}
 						onClickTierSelection={this.handleActiveTierSelection}
 						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
@@ -928,6 +930,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<div style={windowExternalContainer}>
+						<div>
+							logoImg={path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")}
+						</div>
 						<div style={windowInternalContainer}>
 							<Button style={buttonStyle} size="lg">
 								{"Loading " + microscope.Name}
@@ -973,6 +978,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
+						logoImg={path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")}
 						loadingOptions={loadingOptions}
 						microscopes={microscopeNames}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
@@ -1024,6 +1030,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
+						logoImg={path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")}
 						loadingOptions={loadingOptions}
 						microscopes={microscopeNames}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
@@ -1080,7 +1087,10 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
-					<Header dimensions={headerFooterDims} />
+					<Header
+						dimensions={headerFooterDims}
+						logoImg={path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")}
+					/>
 					<SettingsMainView
 						microscope={microscope}
 						microscopeComponents={elementData}
@@ -1122,7 +1132,10 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						height={height}
 						forwardedRef={this.overlaysContainerRef}
 					>
-						<Header dimensions={headerFooterDims} />
+						<Header
+							dimensions={headerFooterDims}
+							logoImg={path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")}
+						/>
 						<div style={style}>
 							<Canvas
 								microscope={microscope}
@@ -1155,7 +1168,10 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						height={height}
 						forwardedRef={this.overlaysContainerRef}
 					>
-						<Header dimensions={headerFooterDims} />
+						<Header
+							dimensions={headerFooterDims}
+							logoImg={path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")}
+						/>
 						<div style={style}>
 							<Canvas
 								microscope={microscope}

@@ -5,6 +5,8 @@ import Dropzone from "react-dropzone";
 
 import DropdownMenu from "./DropdownMenu";
 
+import { string_json_ext } from "../constants";
+
 export default class MicroscopeLoader extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -127,7 +129,15 @@ export default class MicroscopeLoader extends React.PureComponent {
 			borderWidth: "thin",
 			width: `${width}px`
 		};
-
+		let styleImageContainer = {
+			width: "400px",
+			height: "140px"
+		};
+		let styleImage = {
+			width: "100%",
+			height: "100%",
+			margin: "auto"
+		};
 		let loadingMode = this.props.loadingMode;
 		let fileLoading = this.state.fileLoading;
 		let fileLoaded = this.state.fileLoaded;
@@ -159,7 +169,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					onDrop={this.dropzoneDrop}
 					onDropAccepted={this.dropzoneDropAccepted}
 					onDropRejected={this.dropzoneDropRejected}
-					accept={".json"}
+					accept={string_json_ext}
 					multiple={false}
 				>
 					{({ getRootProps, getInputProps }) => (
@@ -201,11 +211,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 						? inputData[selectedManu].indexOf(selectedMic)
 						: 0;
 				console.log(this.state.micNames);
-				// console.log("selectedManu");
-				// console.log(selectedManu);
-				//let names = inputData[selectedManu];
-				// console.log("names");
-				// console.log(names);
 				list.push(
 					<DropdownMenu
 						key={"dropdown-names"}
@@ -246,7 +251,17 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 		return (
 			<div style={windowExternalContainer}>
-				<div style={windowInternalContainer}>{list}</div>
+				<div style={windowInternalContainer}>
+					<div style={styleImageContainer}>
+						<img
+							src={this.props.logoImg}
+							alt={this.props.logoImg}
+							style={styleImage}
+							onLoad={this.onImgLoad}
+						/>
+					</div>
+					{list}
+				</div>
 			</div>
 		);
 	}
