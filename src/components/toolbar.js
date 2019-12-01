@@ -7,6 +7,8 @@ import ImageElement from "./imageElement";
 
 const path = require("path");
 
+import { string_toolbar, string_canvas } from "../constants";
+
 export default class Toolbar extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -37,41 +39,12 @@ export default class Toolbar extends React.PureComponent {
 		this.updateMinMaxDimensions = this.updateMinMaxDimensions.bind(this);
 	}
 
-	// static getDerivedStateFromProps(props, state) {
-	// 	if (props.componentSchemas !== null) {
-	// 		let elementList = [];
-	// 		for (let i = 0; i < props.componentSchemas.length; i++) {
-	// 			let obj = props.componentSchemas[i];
-	// 			if (props.activeTier < obj.tier) return;
-	// 			let category = obj.category;
-	// 			let element = {
-	// 				id: `${obj.title}-${i}`,
-	// 				schema: obj
-	// 			};
-	// 			if (elementList[category] === undefined) {
-	// 				elementList[category] = [];
-	// 			}
-	// 			elementList[category].push(element);
-	// 		}
-	// 		return { elementList: elementList };
-	// 	}
-	// 	return null;
-	// }
-
 	updateMinMaxDimensions(id, width, height) {
 		let newImagesDimension = Object.assign({}, this.state.imagesDimension);
-		// if (newImagesDimension[id] !== undefined) {
-		// 	if (
-		// 		newImagesDimension[id].width >= width ||
-		// 		newImagesDimension[id].height >= height
-		// 	)
-		// 		return;
-		// }
 		if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
 			newImagesDimension[id] = { width, height };
 			this.setState({ imagesDimension: newImagesDimension });
 		}
-		//this.imagesDimension = newImagesDimension;
 	}
 
 	createCategoryItems(key) {
@@ -104,7 +77,6 @@ export default class Toolbar extends React.PureComponent {
 				<ImageElement
 					key={`ImageElement-${item.ID}`}
 					id={item.ID}
-					//image={`${this.props.imagesPath}${item.schema.image}`}
 					image={path.join(this.props.imagesPath, item.schema.image)}
 					name={item.schema.title}
 					updateMinMaxDimensions={this.updateMinMaxDimensions}
@@ -117,11 +89,11 @@ export default class Toolbar extends React.PureComponent {
 			categoryItems.push(
 				<div key={"div" + item.ID} style={stylesContainer[item.ID]}>
 					<DragDropContainer
-						targetKey="canvas"
+						targetKey={string_canvas}
 						key={"draggable" + item.ID}
 						dragClone={true}
 						dragData={{
-							source: "toolbar",
+							source: string_toolbar,
 							ID: item.ID,
 							schema_ID: item.schema.ID
 						}}
@@ -220,7 +192,6 @@ export default class Toolbar extends React.PureComponent {
 			width: `${width}px`,
 			height: `${height}px`,
 			overflow: "auto",
-			//			OverflowEvent: "hidden",
 			textAlign: "center",
 			verticalAlign: "middle"
 		};

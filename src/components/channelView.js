@@ -10,9 +10,11 @@ import ModalWindow from "./modalWindow";
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
-const currentNumberOf_identifier = "Number_Of_";
-const minNumberOf_identifier = "Min_Number_Of_";
-const maxNumberOf_identifier = "Max_Number_Of_";
+import {
+	string_currentNumberOf_identifier,
+	string_minNumberOf_identifier,
+	string_maxNumberOf_identifier
+} from "../constants";
 
 export default class ChannelView extends React.PureComponent {
 	constructor(props) {
@@ -101,9 +103,9 @@ export default class ChannelView extends React.PureComponent {
 					onConfirm={this.onElementDataSave}
 					onCancel={this.onElementDataCancel}
 					overlaysContainer={this.props.overlaysContainer}
-					currentChildrenComponentIdentifier={currentNumberOf_identifier}
-					minChildrenComponentIdentifier={minNumberOf_identifier}
-					maxChildrenComponentIdentifier={maxNumberOf_identifier}
+					currentChildrenComponentIdentifier={string_currentNumberOf_identifier}
+					minChildrenComponentIdentifier={string_minNumberOf_identifier}
+					maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 					elementByType={this.props.elementByType}
 				/>
 			);

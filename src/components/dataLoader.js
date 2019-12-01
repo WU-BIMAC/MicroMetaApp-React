@@ -74,6 +74,15 @@ export default class DataLoader extends React.PureComponent {
 			height: "100%",
 			alignItems: "center"
 		};
+		let styleImageContainer = {
+			width: "400px",
+			height: "140px"
+		};
+		let styleImage = {
+			width: "100%",
+			height: "100%",
+			margin: "auto"
+		};
 		let isLoadingSchema = this.state.isLoadingSchema;
 		let isLoadingMicroscopes = this.state.isLoadingMicroscopes;
 		let isSchemaLoaded = this.state.isSchemaLoaded;
@@ -81,6 +90,14 @@ export default class DataLoader extends React.PureComponent {
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowInternalContainer}>
+					<div style={styleImageContainer}>
+						<img
+							src={this.props.logoImg}
+							alt={this.props.logoImg}
+							style={styleImage}
+							onLoad={this.onImgLoad}
+						/>
+					</div>
 					<Button
 						ref={this.simulateClickLoadSchema}
 						disabled={isLoadingSchema || isSchemaLoaded}
@@ -95,8 +112,8 @@ export default class DataLoader extends React.PureComponent {
 						{isLoadingSchema
 							? "Loading schema"
 							: isSchemaLoaded
-								? "Schema loaded"
-								: "Load schema"}
+							? "Schema loaded"
+							: "Load schema"}
 					</Button>
 					<Button
 						ref={this.simulateClickLoadMicroscopes}
@@ -112,8 +129,8 @@ export default class DataLoader extends React.PureComponent {
 						{isLoadingMicroscopes
 							? "Loading microscopes"
 							: isMicroscopesLoaded
-								? "Microscopes loaded"
-								: "Load microscopes"}
+							? "Microscopes loaded"
+							: "Load microscopes"}
 					</Button>
 				</div>
 			</div>

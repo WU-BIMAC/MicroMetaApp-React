@@ -14,10 +14,7 @@ export default class Footer extends React.PureComponent {
 		super(props);
 		this.state = {
 			editing: false
-			//	isMicroscopeValidated: false
 		};
-
-		//this.isMicroscopeValidated = false;
 
 		this.onClickEdit = this.onClickEdit.bind(this);
 		this.onFormConfirm = this.onFormConfirm.bind(this);
@@ -32,8 +29,6 @@ export default class Footer extends React.PureComponent {
 
 	onFormConfirm(id, data) {
 		this.setState({ editing: false });
-		//, isMicroscopeValidated: true
-		//this.isMicroscopeValidated = true;
 		this.props.onFormConfirm(id, data);
 	}
 
@@ -116,8 +111,6 @@ export default class Footer extends React.PureComponent {
 					"opacity: 0.8",
 					"opacity: 1"
 				]}
-				// keyframes is an array of styles, and each style
-				// will be distributed over 100% of the duration
 			>
 				<Button
 					key={"Button-0"}
@@ -129,7 +122,6 @@ export default class Footer extends React.PureComponent {
 				</Button>
 			</AnimateKeyframes>
 		);
-		//this could be moved to derived state from props
 		let inputData = [];
 		for (let i = 1; i <= this.props.activeTier; i++) {
 			inputData.push(i);
@@ -151,7 +143,7 @@ export default class Footer extends React.PureComponent {
 		if (this.props.hasSaveOption) {
 			saveOptions.push("Save " + this.props.element);
 		}
-		saveOptions.push("Export " + this.props.element + " image");
+		//saveOptions.push("Export " + this.props.element + " image");
 		saveOptions.push("Export " + this.props.element);
 		//Rethink this, maybe drop down split button with multi actions?
 		buttons[2] = (
@@ -165,23 +157,6 @@ export default class Footer extends React.PureComponent {
 				direction={"up"}
 			/>
 		);
-		// let styleSaveButton = {
-		// 	width: "250px",
-		// 	minWidth: "250px",
-		// 	height: "50px",
-		// 	marginLeft: "5px",
-		// 	marginRight: "5px"
-		// };
-		// buttons[2] = (
-		// 	<Button
-		// 		key={"Button-2"}
-		// 		onClick={this.props.onClickExport}
-		// 		style={styleSaveButton}
-		// 		size="lg"
-		// 	>
-		// 		Export microscope
-		// 		</Button>
-		// );
 		buttons[3] = (
 			<Button
 				key={"Button-3"}

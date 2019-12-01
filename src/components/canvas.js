@@ -10,9 +10,19 @@ const path = require("path");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
-const currentNumberOf_identifier = "Number_Of_";
-const minNumberOf_identifier = "Min_Number_Of_";
-const maxNumberOf_identifier = "Max_Number_Of_";
+import {
+	bool_isDebug,
+	string_na,
+	string_object,
+	string_array,
+	string_toolbar,
+	string_canvas,
+	string_json_ext,
+	string_currentNumberOf_identifier,
+	string_minNumberOf_identifier,
+	string_maxNumberOf_identifier
+} from "../constants";
+import { bool } from "prop-types";
 
 export default class Canvas extends React.PureComponent {
 	constructor(props) {
@@ -29,7 +39,8 @@ export default class Canvas extends React.PureComponent {
 			offsetY: 0,
 			offsetX: 0,
 			scale: null,
-			isEditing: false
+			isEditing: false,
+			hover: null
 		};
 
 		Object.keys(props.componentSchemas).forEach(schemaIndex => {
@@ -70,6 +81,10 @@ export default class Canvas extends React.PureComponent {
 		this.dragged = this.dragged.bind(this);
 		this.dropped = this.dropped.bind(this);
 		this.onDelete = this.onDelete.bind(this);
+
+		this.handleMouseIn = this.handleMouseIn.bind(this);
+		this.handleMouseOut = this.handleMouseOut.bind(this);
+
 		this.onCanvasElementDataSave = this.onCanvasElementDataSave.bind(this);
 		this.getElementData = this.getElementData.bind(this);
 		this.updatedDimensions = this.updatedDimensions.bind(this);
@@ -113,6 +128,20 @@ export default class Canvas extends React.PureComponent {
 		this.setState({ isEditing: isEditing });
 	}
 
+	handleMouseIn(itemID) {
+		if (bool_isDebug) {
+			console.log("MouseIn ItemID " + itemID);
+		}
+		this.setState({ hover: itemID });
+	}
+
+	handleMouseOut() {
+		if (bool_isDebug) {
+			console.log("MouseOut");
+		}
+		this.setState({ hover: null });
+	}
+
 	handleScroll(e) {
 		if (this.state.isEditing) {
 			return;
@@ -131,24 +160,18 @@ export default class Canvas extends React.PureComponent {
 			if (item.ID === id) element = item;
 		});
 
+		if (bool_isDebug) {
+			console.log("UpdatedDimensions for " + id);
+		}
+
 		let newElementDataList = Object.assign({}, this.state.elementData);
 		let obj = newElementDataList[id];
 
 		if (element === null || obj === undefined) return;
 
-		//console.log("updated element in canvas " + isResize);
-
 		if (element.width !== -1 && element.height !== -1 && !isResize) {
 			return;
 		}
-
-		// if (!isResize) {
-		// 	if (element.width >= width && element.height >= height) {
-		// 		return;
-		// 	}
-		// }
-
-		//console.log("new dimensions " + width + " x " + height);
 
 		element.width = width;
 		element.height = height;
@@ -187,7 +210,6 @@ export default class Canvas extends React.PureComponent {
 			dataLinkedFields !== undefined &&
 			Object.keys(dataLinkedFields).length > 0
 		) {
-			//console.log(dataLinkedFields);
 			linkedFields[id] = dataLinkedFields;
 		}
 
@@ -220,8 +242,6 @@ export default class Canvas extends React.PureComponent {
 		newElementList[e.index].dragged = true;
 		let draggedItem = newElementList[e.index];
 
-		let newZ = 0;
-		//this rectangle
 		let ID = draggedItem.ID;
 		let x = draggedItem.x;
 		let y = draggedItem.y;
@@ -233,7 +253,6 @@ export default class Canvas extends React.PureComponent {
 		let oldZ = draggedItem.z;
 
 		for (let k = 0; k < this.state.elementList.length; k++) {
-			//rectangles to test against
 			let item = this.state.elementList[k];
 			if (ID === item.ID) continue;
 			let l2_x = item.x;
@@ -241,24 +260,16 @@ export default class Canvas extends React.PureComponent {
 			let r2_x = l2_x + item.width;
 			let r2_y = l2_y + item.height;
 
-			//console.log("L1 " + l1_x + "-" + l1_y + " R1 " + r1_x + "-" + r1_y);
-			//console.log("L2 " + l2_x + "-" + l2_y + " R2 " + r2_x + "-" + r2_y);
-
 			if (l1_x > r2_x || r1_x < l2_x) {
-				//console.log("Rect1 is right or left of Rect2");
 				continue;
 			}
 			if (l1_y > r2_y || r1_y < l2_y) {
-				//console.log("Rect1 is below or above of Rect2");
 				continue;
 			}
 
 			if (item.z > oldZ) {
 				item.z = item.z - 1;
 			}
-			// console.log(
-			// 	"DRAGGING ID: " + ID + " COMP ID : " + item.ID + " newZ " + item.z
-			// );
 		}
 
 		this.setState({
@@ -277,18 +288,12 @@ export default class Canvas extends React.PureComponent {
 		let offsetX = this.state.offsetX;
 		let offsetY = this.state.offsetY;
 
-		//console.log("SCROLL OFFSETS " + offsetX + "-" + offsetY);
-
 		x += offsetX;
 		y += offsetY;
 
-		// if (e.y - 60 < 0) y = 60;
-		// else y = e.y - 60;
-		// if (x < 0) x = 0;
-		// else if (x > width) x = width;
-		if (sourceElement.source !== "toolbar") {
-			x -= 7;
-			y -= 7;
+		if (sourceElement.source !== string_toolbar) {
+			x -= 5;
+			y -= 15;
 		}
 
 		let width = 100;
@@ -299,7 +304,7 @@ export default class Canvas extends React.PureComponent {
 		let index = null;
 		let ID = null;
 
-		if (sourceElement.source === "toolbar") {
+		if (sourceElement.source === string_toolbar) {
 			let uuid = uuidv4();
 			let schema_ID = sourceElement.schema_ID;
 			let schema = componentsSchema[schema_ID];
@@ -311,9 +316,7 @@ export default class Canvas extends React.PureComponent {
 				schema_ID: schema.ID,
 				validated: false,
 				dragged: false,
-				//x: percentX,
 				x: x,
-				//y: percentY,
 				y: y,
 				z: 0,
 				width: -1,
@@ -328,9 +331,7 @@ export default class Canvas extends React.PureComponent {
 				Tier: schema.tier,
 				Schema_ID: schema.ID,
 				Version: schema.version,
-				//PositionX: percentX,
 				PositionX: x,
-				//PositionY: percentY,
 				PositionY: y,
 				PositionZ: 0,
 				Width: -1,
@@ -349,16 +350,12 @@ export default class Canvas extends React.PureComponent {
 			let schema_ID = newElementList[sourceElement.index].schema_ID;
 			let schema = componentsSchema[schema_ID];
 
-			// newElementList[sourceElement.index].x = percentX;
 			newElementList[sourceElement.index].x = x;
-			// newElementList[sourceElement.index].y = percentY;
 			newElementList[sourceElement.index].y = y;
 			newElementList[sourceElement.index].dragged = false;
 			newElementList[sourceElement.index].offsetX = offsetX;
 			newElementList[sourceElement.index].offsetY = offsetY;
-			//newElementDataList[item.ID].PositionX = percentX;
 			newElementDataList[item.ID].PositionX = x;
-			//newElementDataList[item.ID].PositionY = percentY;
 			newElementDataList[item.ID].PositionY = y;
 			newElementDataList[item.ID].OffsetX = offsetX;
 			newElementDataList[item.ID].OffsetY = offsetY;
@@ -372,37 +369,26 @@ export default class Canvas extends React.PureComponent {
 		}
 
 		let newZ = 0;
-		//this rectangle
 		let l1_x = x;
 		let l1_y = y;
 		let r1_x = x + width;
 		let r1_y = y + height;
 
 		for (let k = 0; k < this.state.elementList.length; k++) {
-			//rectangles to test against
 			let item = this.state.elementList[k];
 			if (ID === item.ID) continue;
 			let l2_x = item.x;
 			let l2_y = item.y;
 			let r2_x = l2_x + item.width;
 			let r2_y = l2_y + item.height;
-
-			//console.log("L1 " + l1_x + "-" + l1_y + " R1 " + r1_x + "-" + r1_y);
-			//console.log("L2 " + l2_x + "-" + l2_y + " R2 " + r2_x + "-" + r2_y);
-
 			if (l1_x > r2_x || r1_x < l2_x) {
-				//console.log("Rect1 is right or left of Rect2");
 				continue;
 			}
 			if (l1_y > r2_y || r1_y < l2_y) {
-				//console.log("Rect1 is below or above of Rect2");
 				continue;
 			}
-
 			if (item.z + 1 > newZ) newZ = item.z + 1;
 		}
-
-		//console.log("NEW Z : " + newZ);
 
 		newElementList[index].z = newZ;
 		newElementDataList[ID].PositionZ = newZ;
@@ -418,13 +404,13 @@ export default class Canvas extends React.PureComponent {
 
 	addComponentsIndexesIfMissing(schema, newElementData) {
 		Object.keys(schema.properties).forEach(key => {
-			let currentNumber = currentNumberOf_identifier + key;
-			let minNumber = minNumberOf_identifier + key;
-			let maxNumber = maxNumberOf_identifier + key;
+			let currentNumber = string_currentNumberOf_identifier + key;
+			let minNumber = string_minNumberOf_identifier + key;
+			let maxNumber = string_maxNumberOf_identifier + key;
 			if (newElementData[currentNumber] !== undefined) {
 				return;
 			}
-			if (schema.properties[key].type === "array") {
+			if (schema.properties[key].type === string_array) {
 				if (schema.required.indexOf(key) != -1) {
 					newElementData[currentNumber] = 1;
 					newElementData[minNumber] = 1;
@@ -434,7 +420,7 @@ export default class Canvas extends React.PureComponent {
 					newElementData[minNumber] = 0;
 					newElementData[maxNumber] = -1;
 				}
-			} else if (schema.properties[key].type === "object") {
+			} else if (schema.properties[key].type === string_object) {
 				if (schema.required.indexOf(key) === -1) {
 					newElementData[currentNumber] = 0;
 					newElementData[minNumber] = 0;
@@ -459,7 +445,7 @@ export default class Canvas extends React.PureComponent {
 		let name = elementList[index].name;
 		let schemaID = elementList[index].schema_ID;
 
-		let deletedSchema = schemaID.replace(".json", "");
+		let deletedSchema = schemaID.replace(string_json_ext, "");
 		let deletedID = id.replace(deletedSchema, "");
 		deletedID = deletedID.replace("_", "");
 
@@ -471,9 +457,8 @@ export default class Canvas extends React.PureComponent {
 			for (let field in links) {
 				let link = links[field];
 				if (link.value === deletedID) {
-					//console.log("should modify: " + key + " field: " + field);
 					if (elementData[key] !== undefined) {
-						elementData[key][field] = "Not assigned";
+						elementData[key][field] = string_na;
 					}
 					fieldToDelete = field;
 					done = true;
@@ -503,6 +488,7 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	createList() {
+		let hover = this.state.hover;
 		let elementList = this.state.elementList;
 		let elementData = this.state.elementData;
 
@@ -512,26 +498,54 @@ export default class Canvas extends React.PureComponent {
 			let z = item.z;
 			if (z > highestZ) highestZ = z;
 		}
-		//console.log("HighestZ: " + highestZ);
 
 		const styleGrabber = {
-			paddingLeft: "8px",
-			fontSize: "14px",
-			fontWeight: "bold"
+			lineHeight: "12px",
+			fontSize: "12px",
+			fontWeight: "bold",
+			color: "grey",
+			textAlign: "left",
+			verticalAlign: "top"
 		};
 		const styleCloser = {
-			paddingRight: "8px",
+			lineHeight: "12px",
+			padding: "0px",
 			border: "none",
-			font: "14px",
-			fontWeight: "bold",
+			font: "12px",
 			backgroundColor: "transparent",
-			cursor: "pointer"
+			cursor: "pointer",
+			color: "grey",
+			textAlign: "center",
+			verticalAlign: "top"
 		};
-		const styleContainer = {
+		//justifyContent: "space-between"
+		const styleActionContainer = {
 			display: "flex",
-			justifyContent: "space-between",
-			height: "20px"
+			flexDirection: "column",
+			width: "10px"
 		};
+
+		let styleActionElementNameContainer = {
+			display: "flex",
+			flexDirection: "row"
+		};
+
+		let styleElementNameContainer = {
+			display: "flex",
+			flexDirection: "column"
+		};
+		//paddingLeft: "5px",
+		let styleNameHover = {
+			overflow: "unset",
+			fontSize: "80%",
+			textAlign: "center",
+			lineHeight: "125%",
+			color: "gray"
+		};
+		let styleNameRegular = {
+			display: "none"
+		};
+
 		let stylesContainer = {};
 		let stylesImages = {};
 		elementList.map(item => {
@@ -554,8 +568,8 @@ export default class Canvas extends React.PureComponent {
 			}
 			stylesContainer[item.ID] = Object.assign(
 				{
-					width: `${containerWidth}px`,
-					height: `${containerHeight + 30}px`
+					width: `${containerWidth + 10}px`,
+					height: `${containerHeight}px`
 				},
 				style
 			);
@@ -569,7 +583,7 @@ export default class Canvas extends React.PureComponent {
 		let elementByType = {};
 		Object.keys(elementData).forEach(function(key) {
 			let element = elementData[key];
-			let schemaID = element.Schema_ID.replace(".json", "");
+			let schemaID = element.Schema_ID.replace(string_json_ext, "");
 			if (elementByType[schemaID] === undefined) {
 				elementByType[schemaID] = {};
 			}
@@ -581,62 +595,70 @@ export default class Canvas extends React.PureComponent {
 				if (item.z != k) return;
 				let schema_id = item.schema_ID;
 				let schema = componentsSchema[schema_id];
+				let styleName = null;
+				if (item.ID === hover) {
+					styleName = Object.assign(styleNameHover, {
+						width: `${stylesImages[item.ID].width}px`
+					});
+				} else {
+					styleName = styleNameRegular;
+				}
 				droppableElement.push(
 					<div
 						style={stylesContainer[item.ID]}
 						key={"draggableWrapper" + index}
+						onMouseEnter={() => this.handleMouseIn(item.ID)}
+						onMouseLeave={this.handleMouseOut}
 					>
 						<DragDropContainer
-							targetKey="canvas"
+							targetKey={string_canvas}
 							key={"draggable" + index}
 							dragClone={false}
-							dragData={{ source: "canvas", index: index }}
+							dragData={{ source: string_canvas, index: index }}
 							onDragStart={this.dragged}
 							dragHandleClassName="grabber"
 						>
-							<div style={styleContainer}>
-								<div className="grabber" style={styleGrabber}>
-									&#8759;
+							<div style={styleActionElementNameContainer}>
+								<div style={styleActionContainer}>
+									<div className="grabber" style={styleGrabber}>
+										&#8759;
+									</div>
+									<CanvasElementDeleteButton
+										index={index}
+										handleDelete={this.onDelete}
+										myStyle={styleCloser}
+										isViewOnly={this.props.isViewOnly}
+									/>
 								</div>
-								<CanvasElementDeleteButton
-									index={index}
-									onDelete={this.onDelete}
-									myStyle={styleCloser}
-									isViewOnly={this.props.isViewOnly}
-								/>
-							</div>
-							<CanvasElement
-								activeTier={this.props.activeTier}
-								id={item.ID}
-								//image={`${this.props.imagesPath}${schema.image}`}
-								image={path.join(this.props.imagesPath, schema.image)}
-								schema={schema}
-								onConfirm={this.onCanvasElementDataSave}
-								updateDimensions={this.updatedDimensions}
-								overlaysContainer={this.props.overlaysContainer}
-								inputData={elementData[item.ID]}
-								width={stylesImages[item.ID].width}
-								height={stylesImages[item.ID].height}
-								validated={item.validated}
-								dragged={item.dragged}
-								currentChildrenComponentIdentifier={currentNumberOf_identifier}
-								minChildrenComponentIdentifier={minNumberOf_identifier}
-								maxChildrenComponentIdentifier={maxNumberOf_identifier}
-								elementByType={elementByType}
-								isViewOnly={this.props.isViewOnly}
-								setEditingOnCanvas={this.setEditingOnCanvas}
-							/>
-							<div
-								className="styleName"
-								style={{
-									width: stylesImages[item.ID].width,
-									textAlign: "center",
-									fontSize: "75%",
-									paddingLeft: "10px",
-									overflow: "hidden"
-								}}
-							>
-								{item.name}
+								<div style={styleElementNameContainer}>
+									<CanvasElement
+										activeTier={this.props.activeTier}
+										id={item.ID}
+										image={path.join(this.props.imagesPath, schema.image)}
+										schema={schema}
+										handleConfirm={this.onCanvasElementDataSave}
+										updateDimensions={this.updatedDimensions}
+										overlaysContainer={this.props.overlaysContainer}
+										inputData={elementData[item.ID]}
+										width={stylesImages[item.ID].width}
+										height={stylesImages[item.ID].height}
+										validated={item.validated}
+										dragged={item.dragged}
+										currentChildrenComponentIdentifier={
+											string_currentNumberOf_identifier
+										}
+										minChildrenComponentIdentifier={
+											string_minNumberOf_identifier
+										}
+										maxChildrenComponentIdentifier={
+											string_maxNumberOf_identifier
+										}
+										elementByType={elementByType}
+										isViewOnly={this.props.isViewOnly}
+										setEditingOnCanvas={this.setEditingOnCanvas}
+									/>
+									<div style={styleName}>{item.name}</div>
+								</div>
 							</div>
 						</DragDropContainer>
 					</div>
@@ -647,8 +669,10 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	render() {
-		console.log("LinkedFields");
-		console.log(this.state.linkedFields);
+		if (bool_isDebug) {
+			console.log("LinkedFields");
+			console.log(this.state.linkedFields);
+		}
 
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
@@ -679,8 +703,7 @@ export default class Canvas extends React.PureComponent {
 			left: 0,
 			top: 0
 		};
-		let imageStyle = null;
-		imageStyle = {
+		let imageStyle = {
 			width: "100%",
 			height: "100%",
 			margin: "auto"
@@ -713,15 +736,11 @@ export default class Canvas extends React.PureComponent {
 		}
 
 		return (
-			//TODO i could use the img container with absolute position and put stuff on top of it
-			//<img src={imageFilePath} alt={imageFilePath} style={style.image} />
-			//TODO this should be in a scrollable pane
-			//<div ref={this.ref} style={styleFullWindow}>
 			<div style={styleContainer}>
 				<DropTarget
 					style={dropTargetStyle}
 					onHit={this.dropped}
-					targetKey="canvas"
+					targetKey={string_canvas}
 				>
 					<div style={canvasContainerStyle} onScroll={this.handleScroll}>
 						<div style={canvasInnerContainerStyle}>

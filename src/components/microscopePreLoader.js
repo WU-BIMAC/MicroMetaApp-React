@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 
 import DropdownMenu from "./DropdownMenu";
 
-const isSettingsActive = false;
+import { bool_isSettings } from "../constants";
 
 export default class MicroscopePreLoader extends React.PureComponent {
 	constructor(props) {
@@ -37,10 +37,27 @@ export default class MicroscopePreLoader extends React.PureComponent {
 			height: "100%",
 			alignItems: "center"
 		};
+		let styleImageContainer = {
+			width: "400px",
+			height: "140px"
+		};
+		let styleImage = {
+			width: "100%",
+			height: "100%",
+			margin: "auto"
+		};
 		let tierInputData = this.props.tiers;
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowInternalContainer}>
+					<div style={styleImageContainer}>
+						<img
+							src={this.props.logoImg}
+							alt={this.props.logoImg}
+							style={styleImage}
+							onLoad={this.onImgLoad}
+						/>
+					</div>
 					<DropdownMenu
 						title={"Tier"}
 						handleMenuItemClick={this.props.onClickTierSelection}
@@ -60,7 +77,7 @@ export default class MicroscopePreLoader extends React.PureComponent {
 							onClick={this.props.onClickLoadMicroscope}
 							style={buttonStyle}
 							size="lg"
-							disabled={!isSettingsActive}
+							disabled={!bool_isSettings}
 						>
 							Use microscope
 						</Button>

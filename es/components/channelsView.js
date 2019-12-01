@@ -17,7 +17,9 @@ var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWith
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _constants = require("../constants");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -40,10 +42,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 var validate = require("jsonschema").validate;
 
 var uuidv4 = require("uuid/v4");
-
-var currentNumberOf_identifier = "Number_Of_";
-var minNumberOf_identifier = "Min_Number_Of_";
-var maxNumberOf_identifier = "Max_Number_Of_";
 
 var ChannelView =
 /*#__PURE__*/
@@ -86,10 +84,10 @@ function (_React$PureComponent) {
         Version: schema.version
       };
       Object.keys(schema.properties).forEach(function (key) {
-        if (schema.properties[key].type === "array") {
-          var currentNumber = currentNumberOf_identifier + key;
-          var minNumber = minNumberOf_identifier + key;
-          var maxNumber = maxNumberOf_identifier + key;
+        if (schema.properties[key].type === _constants.string_array) {
+          var currentNumber = _constants.string_currentNumberOf_identifier + key;
+          var minNumber = _constants.string_minNumberOf_identifier + key;
+          var maxNumber = _constants.string_maxNumberOf_identifier + key;
 
           if (schema.required.indexOf(key) != -1) {
             newElementData[currentNumber] = 1;
@@ -100,7 +98,13 @@ function (_React$PureComponent) {
             newElementData[minNumber] = 0;
             newElementData[maxNumber] = -1;
           }
-        } else if (schema.properties[key].type === "object") {
+        } else if (schema.properties[key].type === _constants.string_object) {
+          var _currentNumber = _constants.string_currentNumberOf_identifier + key;
+
+          var _minNumber = _constants.string_minNumberOf_identifier + key;
+
+          var _maxNumber = _constants.string_maxNumberOf_identifier + key;
+
           if (schema.required.indexOf(key) === -1) {
             newElementData[currentNumberOf_identifier + key] = 0;
             newElementData[minNumberOf_identifier + key] = 0;
@@ -112,7 +116,7 @@ function (_React$PureComponent) {
       this.setState({
         channels: channels
       });
-      console.log("added plane");
+      if (_constants.bool_isDebug) console.log("added plane");
     }
   }, {
     key: "onRemoveElement",
@@ -129,7 +133,7 @@ function (_React$PureComponent) {
       this.setState({
         channels: channels
       });
-      console.log("removed plane");
+      if (_constants.bool_isDebug) console.log("removed plane");
     }
   }, {
     key: "onEditElement",
@@ -137,7 +141,7 @@ function (_React$PureComponent) {
       this.setState({
         editing: true
       });
-      console.log("edit plane");
+      if (_constants.bool_isDebug) console.log("edit plane");
     }
   }, {
     key: "onElementDataSave",
@@ -164,7 +168,7 @@ function (_React$PureComponent) {
         channels: channels,
         editing: false
       });
-      console.log("saved plane");
+      if (_constants.bool_isDebug) console.log("saved plane");
     }
   }, {
     key: "onElementDataCancel",
@@ -188,8 +192,8 @@ function (_React$PureComponent) {
         channels: this.state.channels
       };
       var outputData = Object.assign(this.props.inputData, output);
-      this.props.schema.title + "_" + this.props.inputData.ID;
-      console.log(outputData); //this.props.onConfirm(id, outputData);
+      var id = this.props.schema.title + "_" + this.props.inputData.ID;
+      console.log(outputData);
     }
   }, {
     key: "onCancel",
@@ -200,10 +204,7 @@ function (_React$PureComponent) {
     key: "render",
     value: function render() {
       var index = this.state.selectedIndex;
-      var channels = this.state.channels; // console.log("planes length " + planes.length);
-      // console.log("planes");
-      // console.log(planes);
-      // console.log("index " + index);
+      var channels = this.state.channels;
 
       if (this.state.editing) {
         var schema = this.props.schema;

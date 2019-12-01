@@ -13,7 +13,9 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _DropdownMenu = _interopRequireDefault(require("./DropdownMenu"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _constants = require("../constants");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -32,8 +34,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var isSettingsActive = false;
 
 var MicroscopePreLoader =
 /*#__PURE__*/
@@ -55,26 +55,44 @@ function (_React$PureComponent) {
         padding: "5px",
         margin: "5px"
       };
+      var windowExternalContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
+        width: "100%",
+        height: "100%",
+        alignItems: "center"
+      };
+      var windowInternalContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
+        width: "100%",
+        height: "100%",
+        alignItems: "center"
+      };
+      var styleImageContainer = {
+        width: "400px",
+        height: "140px"
+      };
+      var styleImage = {
+        width: "100%",
+        height: "100%",
+        margin: "auto"
+      };
       var tierInputData = this.props.tiers;
-      return _react["default"].createElement("div", {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          flexFlow: "column",
-          width: "100%",
-          height: "100%",
-          alignItems: "center"
-        }
-      }, _react["default"].createElement("div", {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          flexFlow: "column",
-          width: "100%",
-          height: "100%",
-          alignItems: "center"
-        }
-      }, _react["default"].createElement(_DropdownMenu["default"], {
+      return _react.default.createElement("div", {
+        style: windowExternalContainer
+      }, _react.default.createElement("div", {
+        style: windowInternalContainer
+      }, _react.default.createElement("div", {
+        style: styleImageContainer
+      }, _react.default.createElement("img", {
+        src: this.props.logoImg,
+        alt: this.props.logoImg,
+        style: styleImage,
+        onLoad: this.onImgLoad
+      })), _react.default.createElement(_DropdownMenu.default, {
         title: "Tier",
         handleMenuItemClick: this.props.onClickTierSelection,
         inputData: tierInputData,
@@ -88,7 +106,7 @@ function (_React$PureComponent) {
         onClick: this.props.onClickLoadMicroscope,
         style: buttonStyle,
         size: "lg",
-        disabled: !isSettingsActive
+        disabled: !_constants.bool_isSettings
       }, "Use microscope"))));
     }
   }]);

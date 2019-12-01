@@ -43,16 +43,43 @@ function (_React$PureComponent) {
     value: function render() {
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height;
-      return _react["default"].createElement("div", {
-        style: {
-          backgroundColor: "LightGray",
-          width: width,
-          height: height,
-          boxSizing: "border-box",
-          textAlign: "center",
-          verticalAlign: "middle"
-        }
-      }, " HEADER ");
+      var style = {
+        backgroundColor: "LightGray",
+        width: width,
+        height: height,
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "row"
+      };
+      var styleTitle = {
+        backgroundColor: "LightGray",
+        textAlign: "left",
+        verticalAlign: "middle",
+        paddingLeft: "10px",
+        marginTop: "auto",
+        marginBottom: "auto"
+      };
+      var styleImageContainer = {
+        width: "170px",
+        height: "60px"
+      };
+      var styleImage = {
+        width: "100%",
+        height: "100%",
+        margin: "auto"
+      };
+      return _react.default.createElement("div", {
+        style: style
+      }, _react.default.createElement("div", {
+        style: styleImageContainer
+      }, _react.default.createElement("img", {
+        src: this.props.logoImg,
+        alt: this.props.logoImg,
+        style: styleImage,
+        onLoad: this.onImgLoad
+      })), _react.default.createElement("div", {
+        style: styleTitle
+      }, "Microscopy Metadata For The Real World"));
     }
   }]);
 

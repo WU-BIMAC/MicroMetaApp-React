@@ -19,6 +19,8 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
+var _constants = require("../constants");
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -42,8 +44,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var add_components_warning = "If you modify the number of sub-components, the information not saved are going to be lost!";
 
 var MultiTabFormWithHeader =
 /*#__PURE__*/
@@ -89,17 +89,14 @@ function (_React$PureComponent) {
     _this.forms = [];
     _this.formRefs = [];
     _this.data = [];
-    _this.errors = []; // this.onChange = this.onChange.bind(this);
-
+    _this.errors = [];
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.onError = _this.onError.bind(_assertThisInitialized(_this));
     _this.onTabChange = _this.onTabChange.bind(_assertThisInitialized(_this));
     _this.onConfirm = _this.onConfirm.bind(_assertThisInitialized(_this));
     _this.onCancel = _this.onCancel.bind(_assertThisInitialized(_this));
     _this.createForm = _this.createForm.bind(_assertThisInitialized(_this));
-    _this.createForms = _this.createForms.bind(_assertThisInitialized(_this)); // this.processData = this.processData.bind(this);
-    // this.processErrors = this.processErrors.bind(this);
-
+    _this.createForms = _this.createForms.bind(_assertThisInitialized(_this));
     _this.onEditComponents = _this.onEditComponents.bind(_assertThisInitialized(_this));
     _this.onEditComponentsConfirm = _this.onEditComponentsConfirm.bind(_assertThisInitialized(_this));
     _this.onEditComponentsCancel = _this.onEditComponentsCancel.bind(_assertThisInitialized(_this));
@@ -130,7 +127,6 @@ function (_React$PureComponent) {
     }
   }, {
     key: "onSubmit",
-    //onChange() {}
     value: function onSubmit(data) {
       var localForms = this.formRefs;
       var index = -1;
@@ -139,8 +135,6 @@ function (_React$PureComponent) {
         var ref = localForms[i];
 
         if (ref.state.formData === data.formData) {
-          // console.log("onSubmit");
-          // console.log(ref);
           index = i;
           break;
         }
@@ -180,8 +174,6 @@ function (_React$PureComponent) {
         var ref = localForms[i];
 
         if (ref.state.errors === errors) {
-          // console.log("onError");
-          // console.log(ref);
           index = i;
           break;
         }
@@ -311,11 +303,7 @@ function (_React$PureComponent) {
             partialUISchema[key][propKey] = Object.assign(uiProperties, {
               "ui:readonly": true
             });
-          } // if (partialSchema[key].properties[propKey].type === "string")
-          // 	partialUISchema[key][propKey] = Object.assign(uiProperties, {
-          // 		"ui:emptyValue": ""
-          // 	});
-
+          }
         });
       });
       return partialUISchema;
@@ -325,8 +313,7 @@ function (_React$PureComponent) {
     value: function createForm(schema, uiSchema, input, index, currentFormRefs, currentButtonsRefs) {
       return _react["default"].createElement(_reactJsonschemaForm["default"], {
         schema: schema,
-        uiSchema: uiSchema // onChange={this.onChange}
-        ,
+        uiSchema: uiSchema,
         onSubmit: this.onSubmit,
         onError: this.onError,
         formData: input,
@@ -359,22 +346,17 @@ function (_React$PureComponent) {
     value: function createForms(subCategoriesOrder, partialSchema, partialInputData) {
       var _this2 = this;
 
-      // Maybe ModalWindow could wrap entire <SchemaForm> (in CanvasElement render method)
-      // instead of being rendered by <SchemaForm> if SchemaForm could be later used in other places.
       var currentButtonsRefs = [];
       var currentFormNames = [];
       var currentFormRefs = [];
       var partialUISchema = this.createUISchema(partialSchema);
-      var currentForms = []; //let keys = Object.keys(subCategoriesOrder);
-
+      var currentForms = [];
       Object.keys(subCategoriesOrder).forEach(function (key, index) {
-        //for (let i = 0; i < subCategoriesOrder.length; i++) {
         var description = subCategoriesOrder[key];
         if (partialSchema[key] === undefined) return;
         partialSchema[key] = Object.assign(partialSchema[key], {
           description: description
-        }); //console.log(partialSchema[key]);
-
+        });
         currentFormNames.splice(index, 0, key);
 
         var form = _this2.createForm(partialSchema[key], partialUISchema[key], partialInputData[key], index, currentFormRefs, currentButtonsRefs);
@@ -395,8 +377,7 @@ function (_React$PureComponent) {
         if (description === null) description = "";
         partialSchema[key] = Object.assign(partialSchema[key], {
           description: description
-        }); //console.log(partialSchema[key]);
-
+        });
         currentFormNames.push(key);
 
         var form = _this2.createForm(partialSchema[key], partialUISchema[key], partialInputData[key], -1, currentFormRefs, currentButtonsRefs);
@@ -421,10 +402,7 @@ function (_React$PureComponent) {
       this.setState({
         activeKey: key
       });
-    } //Around tabs
-    //<div style={{ overflow: "scroll", height: "90%" }} />
-    //<div />
-
+    }
   }, {
     key: "onClickAddChildComponent",
     value: function onClickAddChildComponent(key) {
@@ -580,7 +558,7 @@ function (_React$PureComponent) {
 
       return _react["default"].createElement(_modalWindow["default"], {
         overlaysContainer: this.props.overlaysContainer
-      }, _react["default"].createElement("div", null, _react["default"].createElement("h3", null, this.props.schema.title), _react["default"].createElement("p", null, hasEditableChildren ? add_components_warning : ""), _react["default"].createElement(_rcTabs["default"], {
+      }, _react.default.createElement("div", null, _react.default.createElement("h3", null, this.props.schema.title), _react.default.createElement("p", null, hasEditableChildren ? _constants.string_bandpass_warning : ""), _react.default.createElement(_rcTabs.default, {
         onChange: this.onTabChange,
         renderTabBar: function renderTabBar() {
           return _react["default"].createElement(_TabBar["default"], null);
@@ -619,16 +597,13 @@ function (_React$PureComponent) {
   }, {
     key: "findInputPropKeyValue",
     value: function findInputPropKeyValue(groupKey, index, propKey, inputData) {
-      var value = null; //console.log("INPUT");
+      var value = null;
 
       for (var key in inputData) {
-        //Object.keys(inputData).forEach(function (key) {
         if (inputData[key] instanceof Array) {
           if (key !== groupKey) continue;
 
           if (inputData[key][propKey] !== undefined) {
-            //if (index !== -1) return inputData[key][index][propKey];
-            //else
             return inputData[key][propKey];
           } else {
             value = MultiTabFormWithHeader.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
@@ -658,17 +633,13 @@ function (_React$PureComponent) {
   }, {
     key: "transformInputData",
     value: function transformInputData(inputData, partialSchema) {
-      //console.log(inputData);
-      var partialInputData = []; //TODO find data inside objects and arrays
-      //console.log("transformInputData");
-
+      var partialInputData = [];
       Object.keys(partialSchema).forEach(function (key) {
         if (partialInputData[key] === undefined) partialInputData[key] = {};
         Object.keys(partialSchema[key].properties).forEach(function (propKey) {
           if (inputData[propKey] !== undefined) partialInputData[key][propKey] = inputData[propKey];else {
             var stringIndex = key.lastIndexOf("_");
-            var index = -1; //console.log(key);
-
+            var index = -1;
             if (stringIndex != -1) index = key.substr(stringIndex + 1, 1);
             var stringKey = key.replace("_", "");
             stringKey = stringKey.replace(index, "");
@@ -679,9 +650,7 @@ function (_React$PureComponent) {
             }
           }
         });
-      }); //console.log("PARTIAL INPUT DATA");
-      //console.log(partialInputData);
-
+      });
       return partialInputData;
     }
   }, {
@@ -691,7 +660,7 @@ function (_React$PureComponent) {
       Object.keys(schema.properties).forEach(function (key) {
         var property = schema.properties[key];
 
-        if (property.type === "object") {
+        if (property.type === _constants.string_object) {
           var count = 0;
 
           for (var inputKey in currentChildrenComponents) {
@@ -702,12 +671,12 @@ function (_React$PureComponent) {
           }
 
           for (var i = 0; i < count; i++) {
-            var localPartialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, "object", linkedFields);
+            var localPartialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, _constants.string_object, linkedFields);
             partialSchema = Object.assign(partialSchema, localPartialSchema);
           }
 
           return;
-        } else if (property.type === "array") {
+        } else if (property.type === _constants.string_array) {
           var _count = 0;
 
           for (var _inputKey in currentChildrenComponents) {
@@ -718,7 +687,7 @@ function (_React$PureComponent) {
           }
 
           for (var _i = 0; _i < _count; _i++) {
-            var _localPartialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, _i, "array", linkedFields);
+            var _localPartialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, _i, _constants.string_array, linkedFields);
 
             partialSchema = Object.assign(partialSchema, _localPartialSchema);
           }
@@ -734,21 +703,20 @@ function (_React$PureComponent) {
         if (keysForCategory === undefined || keysForCategory === null) {
           keysForCategory = {
             title: newCategory,
-            type: "object",
+            type: _constants.string_object,
             subType: subType,
             container: category,
             counter: counter,
             properties: {}
           };
-        } //keysForCategory.properties[key] = property;
-
+        }
 
         var newProperty = Object.assign({}, property);
 
         if (property.linkTo !== undefined) {
-          newProperty["default"] = "na";
-          newProperty["enum"] = ["na"];
-          newProperty["enumNames"] = ["Not assigned"];
+          newProperty[_constants.string_default] = _constants.string_na;
+          newProperty[_constants.string_enum] = [_constants.string_na];
+          newProperty[_constants.string_enumNames] = [_constants.string_not_assigned];
 
           if (elementByType[property.linkTo] !== undefined) {
             var propElementByType = elementByType[property.linkTo];
@@ -756,14 +724,16 @@ function (_React$PureComponent) {
             if (linkedFields[key] === undefined) {
               linkedFields[key] = {
                 schemaType: property.linkTo,
-                value: "Not assigned"
+                value: _constants.string_not_assigned
               };
             }
 
             Object.keys(propElementByType).forEach(function (propElementByTypeName) {
               var propElementByTypeID = propElementByType[propElementByTypeName];
-              newProperty["enum"].push(property.linkTo + "/" + propElementByTypeID);
-              newProperty["enumNames"].push(propElementByTypeName);
+
+              newProperty[_constants.string_enum].push(property.linkTo + "/" + propElementByTypeID);
+
+              newProperty[_constants.string_enumNames].push(propElementByTypeName);
             });
           }
         }
@@ -781,14 +751,13 @@ function (_React$PureComponent) {
         }
 
         if (required.length !== 0) partialSchema[key].required = required;
-      }); //console.log(partialSchema);
-
+      });
       return partialSchema;
     }
   }, {
     key: "transformSchema",
     value: function transformSchema(currentChildrenComponents, schema, elementByType, linkedFields) {
-      var partialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, "default", linkedFields);
+      var partialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, _constants.string_default, linkedFields);
       return partialSchema;
     }
   }]);

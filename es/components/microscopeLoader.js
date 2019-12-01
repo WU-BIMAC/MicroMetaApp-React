@@ -15,7 +15,9 @@ var _reactDropzone = _interopRequireDefault(require("react-dropzone"));
 
 var _DropdownMenu = _interopRequireDefault(require("./DropdownMenu"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _constants = require("../constants");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -164,6 +166,15 @@ function (_React$PureComponent) {
         borderWidth: "thin",
         width: "".concat(width, "px")
       };
+      var styleImageContainer = {
+        width: "400px",
+        height: "140px"
+      };
+      var styleImage = {
+        width: "100%",
+        height: "100%",
+        margin: "auto"
+      };
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
       var fileLoaded = this.state.fileLoaded;
@@ -188,7 +199,7 @@ function (_React$PureComponent) {
           onDrop: this.dropzoneDrop,
           onDropAccepted: this.dropzoneDropAccepted,
           onDropRejected: this.dropzoneDropRejected,
-          accept: ".json",
+          accept: _constants.string_json_ext,
           multiple: false
         }, function (_ref) {
           var getRootProps = _ref.getRootProps,
@@ -217,13 +228,8 @@ function (_React$PureComponent) {
         if (selectedManu !== null && selectedManu !== undefined) {
           var selectedMic = this.state.selectedMic;
           var defaultMic = selectedMic !== null && selectedMic !== undefined ? inputData[selectedManu].indexOf(selectedMic) : 0;
-          console.log(this.state.micNames); // console.log("selectedManu");
-          // console.log(selectedManu);
-          //let names = inputData[selectedManu];
-          // console.log("names");
-          // console.log(names);
-
-          list.push(_react["default"].createElement(_DropdownMenu["default"], {
+          console.log(this.state.micNames);
+          list.push(_react.default.createElement(_DropdownMenu.default, {
             key: "dropdown-names",
             title: "",
             handleMenuItemClick: this.props.onClickMicroscopeSelection,
@@ -247,25 +253,18 @@ function (_React$PureComponent) {
         style: buttonStyle,
         size: "lg"
       }, "Back")));
-      return _react["default"].createElement("div", {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          flexFlow: "column",
-          width: "100%",
-          height: "100%",
-          alignItems: "center"
-        }
-      }, _react["default"].createElement("div", {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          flexFlow: "column",
-          width: "100%",
-          height: "100%",
-          alignItems: "center"
-        }
-      }, list));
+      return _react.default.createElement("div", {
+        style: windowExternalContainer
+      }, _react.default.createElement("div", {
+        style: windowInternalContainer
+      }, _react.default.createElement("div", {
+        style: styleImageContainer
+      }, _react.default.createElement("img", {
+        src: this.props.logoImg,
+        alt: this.props.logoImg,
+        style: styleImage,
+        onLoad: this.onImgLoad
+      })), list));
     }
   }], [{
     key: "getDerivedStateFromProps",

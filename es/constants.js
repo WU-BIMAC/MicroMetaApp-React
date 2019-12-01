@@ -1,0 +1,40 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.string_bandpass_warning = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.bool_isSettings = exports.bool_isDebug = exports.string_na = void 0;
+var string_na = "na";
+exports.string_na = string_na;
+var bool_isDebug = true;
+exports.bool_isDebug = bool_isDebug;
+var bool_isSettings = false;
+exports.bool_isSettings = bool_isSettings;
+var string_not_assigned = "Not assigned";
+exports.string_not_assigned = string_not_assigned;
+var string_default = "default";
+exports.string_default = string_default;
+var string_enum = "enum";
+exports.string_enum = string_enum;
+var string_enumNames = "enumNames";
+exports.string_enumNames = string_enumNames;
+var string_object = "object";
+exports.string_object = string_object;
+var string_array = "array";
+exports.string_array = string_array;
+var string_canvas = "canvas";
+exports.string_canvas = string_canvas;
+var string_toolbar = "toolbar";
+exports.string_toolbar = string_toolbar;
+var string_linkedFields = "LinkedFields";
+exports.string_linkedFields = string_linkedFields;
+var string_currentNumberOf_identifier = "Number_Of_";
+exports.string_currentNumberOf_identifier = string_currentNumberOf_identifier;
+var string_minNumberOf_identifier = "Min_Number_Of_";
+exports.string_minNumberOf_identifier = string_minNumberOf_identifier;
+var string_maxNumberOf_identifier = "Max_Number_Of_";
+exports.string_maxNumberOf_identifier = string_maxNumberOf_identifier;
+var string_json_ext = ".json";
+exports.string_json_ext = string_json_ext;
+var string_bandpass_warning = "If you modify the number of band-pass, the information not saved are going to be lost!";
+exports.string_bandpass_warning = string_bandpass_warning;

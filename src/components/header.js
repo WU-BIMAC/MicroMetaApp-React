@@ -9,9 +9,38 @@ export default class Header extends React.PureComponent {
 			width: width,
 			height: height,
 			boxSizing: "border-box",
-			textAlign: "center",
-			verticalAlign: "middle"
+			display: "flex",
+			flexDirection: "row"
 		};
-		return <div style={style}> HEADER </div>;
+		const styleTitle = {
+			backgroundColor: "LightGray",
+			textAlign: "left",
+			verticalAlign: "middle",
+			paddingLeft: "10px",
+			marginTop: "auto",
+			marginBottom: "auto"
+		};
+		let styleImageContainer = {
+			width: "170px",
+			height: "60px"
+		};
+		let styleImage = {
+			width: "100%",
+			height: "100%",
+			margin: "auto"
+		};
+		return (
+			<div style={style}>
+				<div style={styleImageContainer}>
+					<img
+						src={this.props.logoImg}
+						alt={this.props.logoImg}
+						style={styleImage}
+						onLoad={this.onImgLoad}
+					/>
+				</div>
+				<div style={styleTitle}>Microscopy Metadata For The Real World</div>
+			</div>
+		);
 	}
 }

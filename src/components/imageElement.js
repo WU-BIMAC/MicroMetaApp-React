@@ -15,8 +15,8 @@ export default class ImageElement extends React.PureComponent {
 		let oldHeight = this.state.height;
 		let oldWidth = this.state.width;
 		if (oldWidth !== null && oldHeight !== null) return;
-		let newHeight = img.naturalHeight; // / 5;
-		let newWidth = img.naturalWidth; // / 5;
+		let newHeight = img.naturalHeight;
+		let newWidth = img.naturalWidth;
 		this.setState(
 			{
 				height: newHeight,
@@ -33,7 +33,6 @@ export default class ImageElement extends React.PureComponent {
 			width: "100%",
 			margin: "auto"
 		};
-		//padding: "5px"
 		const style = Object.assign(
 			{
 				display: "flex",
@@ -51,6 +50,5 @@ export default class ImageElement extends React.PureComponent {
 			/>
 		);
 		return <div style={style}>{img}</div>;
-		//return img;
 	}
 }

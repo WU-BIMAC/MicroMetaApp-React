@@ -15,7 +15,9 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _imageElement = _interopRequireDefault(require("./imageElement"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _constants = require("../constants");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -76,38 +78,12 @@ function (_React$PureComponent) {
     _this.cachedToolbar = null;
     _this.updateMinMaxDimensions = _this.updateMinMaxDimensions.bind(_assertThisInitialized(_this));
     return _this;
-  } // static getDerivedStateFromProps(props, state) {
-  // 	if (props.componentSchemas !== null) {
-  // 		let elementList = [];
-  // 		for (let i = 0; i < props.componentSchemas.length; i++) {
-  // 			let obj = props.componentSchemas[i];
-  // 			if (props.activeTier < obj.tier) return;
-  // 			let category = obj.category;
-  // 			let element = {
-  // 				id: `${obj.title}-${i}`,
-  // 				schema: obj
-  // 			};
-  // 			if (elementList[category] === undefined) {
-  // 				elementList[category] = [];
-  // 			}
-  // 			elementList[category].push(element);
-  // 		}
-  // 		return { elementList: elementList };
-  // 	}
-  // 	return null;
-  // }
-
+  }
 
   _createClass(Toolbar, [{
     key: "updateMinMaxDimensions",
     value: function updateMinMaxDimensions(id, width, height) {
-      var newImagesDimension = Object.assign({}, this.state.imagesDimension); // if (newImagesDimension[id] !== undefined) {
-      // 	if (
-      // 		newImagesDimension[id].width >= width ||
-      // 		newImagesDimension[id].height >= height
-      // 	)
-      // 		return;
-      // }
+      var newImagesDimension = Object.assign({}, this.state.imagesDimension);
 
       if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
         newImagesDimension[id] = {
@@ -117,8 +93,7 @@ function (_React$PureComponent) {
         this.setState({
           imagesDimension: newImagesDimension
         });
-      } //this.imagesDimension = newImagesDimension;
-
+      }
     }
   }, {
     key: "createCategoryItems",
@@ -146,8 +121,7 @@ function (_React$PureComponent) {
       elementList[key].map(function (item) {
         return imageElements.push(_react["default"].createElement(_imageElement["default"], {
           key: "ImageElement-".concat(item.ID),
-          id: item.ID //image={`${this.props.imagesPath}${item.schema.image}`}
-          ,
+          id: item.ID,
           image: path.join(_this2.props.imagesPath, item.schema.image),
           name: item.schema.title,
           updateMinMaxDimensions: _this2.updateMinMaxDimensions,
@@ -159,12 +133,12 @@ function (_React$PureComponent) {
         return categoryItems.push(_react["default"].createElement("div", {
           key: "div" + item.ID,
           style: stylesContainer[item.ID]
-        }, _react["default"].createElement(_reactDragDropContainer.DragDropContainer, {
-          targetKey: "canvas",
+        }, _react.default.createElement(_reactDragDropContainer.DragDropContainer, {
+          targetKey: _constants.string_canvas,
           key: "draggable" + item.ID,
           dragClone: true,
           dragData: {
-            source: "toolbar",
+            source: _constants.string_toolbar,
             ID: item.ID,
             schema_ID: item.schema.ID
           }
@@ -258,7 +232,6 @@ function (_React$PureComponent) {
         width: "".concat(width, "px"),
         height: "".concat(height, "px"),
         overflow: "auto",
-        //			OverflowEvent: "hidden",
         textAlign: "center",
         verticalAlign: "middle"
       };

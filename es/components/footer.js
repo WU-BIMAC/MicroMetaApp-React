@@ -53,10 +53,8 @@ function (_React$PureComponent) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Footer).call(this, props));
     _this.state = {
-      editing: false //	isMicroscopeValidated: false
-
-    }; //this.isMicroscopeValidated = false;
-
+      editing: false
+    };
     _this.onClickEdit = _this.onClickEdit.bind(_assertThisInitialized(_this));
     _this.onFormConfirm = _this.onFormConfirm.bind(_assertThisInitialized(_this));
     _this.onFormCancel = _this.onFormCancel.bind(_assertThisInitialized(_this));
@@ -76,9 +74,7 @@ function (_React$PureComponent) {
     value: function onFormConfirm(id, data) {
       this.setState({
         editing: false
-      }); //, isMicroscopeValidated: true
-      //this.isMicroscopeValidated = true;
-
+      });
       this.props.onFormConfirm(id, data);
     }
   }, {
@@ -133,16 +129,13 @@ function (_React$PureComponent) {
         key: "Animation-0",
         play: play,
         durationSeconds: 1,
-        keyframes: ["opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1"] // keyframes is an array of styles, and each style
-        // will be distributed over 100% of the duration
-
-      }, _react["default"].createElement(_Button["default"], {
+        keyframes: ["opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1"]
+      }, _react.default.createElement(_Button.default, {
         key: "Button-0",
         onClick: this.onClickEdit,
         style: styleEditButton,
         size: "lg"
-      }, "Edit ".concat(this.props.element))); //this could be moved to derived state from props
-
+      }, "Edit ".concat(this.props.element)));
       var inputData = [];
 
       for (var i = 1; i <= this.props.activeTier; i++) {
@@ -164,9 +157,9 @@ function (_React$PureComponent) {
 
       if (this.props.hasSaveOption) {
         saveOptions.push("Save " + this.props.element);
-      }
+      } //saveOptions.push("Export " + this.props.element + " image");
 
-      saveOptions.push("Export " + this.props.element + " image");
+
       saveOptions.push("Export " + this.props.element); //Rethink this, maybe drop down split button with multi actions?
 
       buttons[2] = _react["default"].createElement(_DropdownMenu["default"], {
@@ -177,25 +170,8 @@ function (_React$PureComponent) {
         width: 250,
         margin: 5,
         direction: "up"
-      }); // let styleSaveButton = {
-      // 	width: "250px",
-      // 	minWidth: "250px",
-      // 	height: "50px",
-      // 	marginLeft: "5px",
-      // 	marginRight: "5px"
-      // };
-      // buttons[2] = (
-      // 	<Button
-      // 		key={"Button-2"}
-      // 		onClick={this.props.onClickExport}
-      // 		style={styleSaveButton}
-      // 		size="lg"
-      // 	>
-      // 		Export microscope
-      // 		</Button>
-      // );
-
-      buttons[3] = _react["default"].createElement(_Button["default"], {
+      });
+      buttons[3] = _react.default.createElement(_Button.default, {
         key: "Button-3",
         onClick: this.props.onClickBack,
         style: styleButton,
