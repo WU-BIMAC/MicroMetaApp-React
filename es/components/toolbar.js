@@ -17,7 +17,7 @@ var _imageElement = _interopRequireDefault(require("./imageElement"));
 
 var _constants = require("../constants");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -133,7 +133,7 @@ function (_React$PureComponent) {
         return categoryItems.push(_react["default"].createElement("div", {
           key: "div" + item.ID,
           style: stylesContainer[item.ID]
-        }, _react.default.createElement(_reactDragDropContainer.DragDropContainer, {
+        }, _react["default"].createElement(_reactDragDropContainer.DragDropContainer, {
           targetKey: _constants.string_canvas,
           key: "draggable" + item.ID,
           dragClone: true,

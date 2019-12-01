@@ -937,7 +937,7 @@ function (_React$PureComponent) {
             width: width,
             height: height,
             forwardedRef: this.overlaysContainerRef
-          }, _react.default.createElement(_dataLoader.default, {
+          }, _react["default"].createElement(_dataLoader["default"], {
             logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
             onClickLoadSchema: this.handleLoadSchema,
             onClickLoadMicroscopes: this.handleLoadMicroscopes
@@ -949,7 +949,7 @@ function (_React$PureComponent) {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
-        }, _react.default.createElement(_microscopePreLoader.default, {
+        }, _react["default"].createElement(_microscopePreLoader["default"], {
           logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
           tiers: this.props.tiers,
           onClickTierSelection: this.handleActiveTierSelection,
@@ -963,12 +963,31 @@ function (_React$PureComponent) {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
-        }, _react.default.createElement("div", {
-          style: windowExternalContainer
-        }, _react.default.createElement("div", null, "logoImg=", path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")), _react.default.createElement("div", {
-          style: windowInternalContainer
-        }, _react.default.createElement(_Button.default, {
-          style: buttonStyle,
+        }, _react["default"].createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            flexFlow: "column",
+            width: "100%",
+            height: "100%",
+            alignItems: "center"
+          }
+        }, _react["default"].createElement("div", null, "logoImg=", path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")), _react["default"].createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            flexFlow: "column",
+            width: "100%",
+            height: "100%",
+            alignItems: "center"
+          }
+        }, _react["default"].createElement(_Button["default"], {
+          style: {
+            width: "400px",
+            height: "50px",
+            padding: "5px",
+            margin: "5px"
+          },
           size: "lg"
         }, "Loading " + microscope.Name))));
       }
@@ -998,7 +1017,7 @@ function (_React$PureComponent) {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
-        }, _react.default.createElement(_microscopeLoader.default, {
+        }, _react["default"].createElement(_microscopeLoader["default"], {
           logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
           loadingOptions: loadingOptions,
           microscopes: microscopeNames,
@@ -1039,7 +1058,7 @@ function (_React$PureComponent) {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
-        }, _react.default.createElement(_microscopeLoader.default, {
+        }, _react["default"].createElement(_microscopeLoader["default"], {
           logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
           loadingOptions: _loadingOptions,
           microscopes: _microscopeNames,
@@ -1080,10 +1099,10 @@ function (_React$PureComponent) {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
-        }, _react.default.createElement(_header.default, {
+        }, _react["default"].createElement(_header["default"], {
           dimensions: headerFooterDims,
           logoImg: path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")
-        }), _react.default.createElement(_settingsMainView.default, {
+        }), _react["default"].createElement(_settingsMainView["default"], {
           microscope: microscope,
           microscopeComponents: elementData,
           activeTier: this.state.activeTier,
@@ -1122,10 +1141,10 @@ function (_React$PureComponent) {
             width: width,
             height: height,
             forwardedRef: this.overlaysContainerRef
-          }, _react.default.createElement(_header.default, {
+          }, _react["default"].createElement(_header["default"], {
             dimensions: headerFooterDims,
             logoImg: path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")
-          }), _react.default.createElement("div", {
+          }), _react["default"].createElement("div", {
             style: style
           }, _react["default"].createElement(_canvas["default"], {
             microscope: microscope,
@@ -1150,10 +1169,10 @@ function (_React$PureComponent) {
             width: width,
             height: height,
             forwardedRef: this.overlaysContainerRef
-          }, _react.default.createElement(_header.default, {
+          }, _react["default"].createElement(_header["default"], {
             dimensions: headerFooterDims,
             logoImg: path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")
-          }), _react.default.createElement("div", {
+          }), _react["default"].createElement("div", {
             style: style
           }, _react["default"].createElement(_canvas["default"], {
             microscope: microscope,

@@ -67,11 +67,6 @@ function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
-      var imageStyle = {
-        height: "100%",
-        width: "100%",
-        margin: "auto"
-      };
       var style = Object.assign({
         display: "flex",
         justifyContent: "center",

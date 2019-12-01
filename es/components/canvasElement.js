@@ -97,7 +97,7 @@ function (_React$PureComponent) {
     }
   }, {
     key: "handleResizeStart",
-    value: function handleResizeStart(e, data) {}
+    value: function handleResizeStart() {}
   }, {
     key: "handleResize",
     value: function handleResize(e, data) {
@@ -110,10 +110,6 @@ function (_React$PureComponent) {
     key: "updateMinMaxDimensions",
     value: function updateMinMaxDimensions(id, originalImgWidth, originalImgHeight) {
       if (this.state.originalWidth == originalImgWidth && this.state.originalHeight == originalImgHeight) return;
-      var minWidth = originalImgWidth / 2;
-      var minHeight = originalImgHeight / 2;
-      var maxWidth = originalImgWidth * 2;
-      var maxHeight = originalImgHeight * 2;
       this.setState({
         originalWidth: originalImgWidth,
         originalHeight: originalImgHeight,
@@ -126,7 +122,7 @@ function (_React$PureComponent) {
     }
   }, {
     key: "handleResizeStop",
-    value: function handleResizeStop(e, data) {}
+    value: function handleResizeStop() {}
   }, {
     key: "render",
     value: function render() {
@@ -145,20 +141,6 @@ function (_React$PureComponent) {
         });
       }
 
-      var style = {
-        textAlign: "center",
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        backgroundColor: "transparent",
-        padding: "0px",
-        margin: "0px",
-        border: "0px",
-        font: "14px",
-        color: "inherit",
-        cursor: "pointer"
-      };
       var resizableStyle = {};
       var play = false;
 
@@ -178,10 +160,6 @@ function (_React$PureComponent) {
 
       var width = this.props.width;
       var height = this.props.height;
-      var styleImage = {
-        width: width,
-        height: height
-      };
       var minWidth = this.state.minWidth;
       var minHeight = this.state.minHeight;
       var maxWidth = this.state.maxWidth;
@@ -201,10 +179,23 @@ function (_React$PureComponent) {
         play: play,
         durationSeconds: 1,
         keyframes: ["opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1"]
-      }, _react.default.createElement("button", {
-        style: style,
+      }, _react["default"].createElement("button", {
+        style: {
+          textAlign: "center",
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          backgroundColor: "transparent",
+          padding: "0px",
+          margin: "0px",
+          border: "0px",
+          font: "14px",
+          color: "inherit",
+          cursor: "pointer"
+        },
         onClick: this.handleClick
-      }, _react.default.createElement(_imageElement.default, {
+      }, _react["default"].createElement(_imageElement["default"], {
         updateMinMaxDimensions: this.updateMinMaxDimensions,
         id: this.props.id,
         image: this.props.image,
@@ -218,7 +209,7 @@ function (_React$PureComponent) {
   }]);
 
   return CanvasElement;
-}(_react.default.PureComponent);
+}(_react["default"].PureComponent);
 
 exports["default"] = CanvasElement;
 CanvasElement.defaultProps = {

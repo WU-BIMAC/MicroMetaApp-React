@@ -558,7 +558,7 @@ function (_React$PureComponent) {
 
       return _react["default"].createElement(_modalWindow["default"], {
         overlaysContainer: this.props.overlaysContainer
-      }, _react.default.createElement("div", null, _react.default.createElement("h3", null, this.props.schema.title), _react.default.createElement("p", null, hasEditableChildren ? _constants.string_bandpass_warning : ""), _react.default.createElement(_rcTabs.default, {
+      }, _react["default"].createElement("div", null, _react["default"].createElement("h3", null, this.props.schema.title), _react["default"].createElement("p", null, hasEditableChildren ? _constants.string_bandpass_warning : ""), _react["default"].createElement(_rcTabs["default"], {
         onChange: this.onTabChange,
         renderTabBar: function renderTabBar() {
           return _react["default"].createElement(_TabBar["default"], null);

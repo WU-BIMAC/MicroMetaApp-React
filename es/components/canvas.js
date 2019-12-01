@@ -274,11 +274,11 @@ function (_React$PureComponent) {
         var r2_x = l2_x + item.width;
         var r2_y = l2_y + item.height;
 
-        if (l1_x > r2_x || r1_x < l2_x) {
+        if (x > r2_x || r1_x < l2_x) {
           continue;
         }
 
-        if (l1_y > r2_y || r1_y < l2_y) {
+        if (y > r2_y || r1_y < l2_y) {
           continue;
         }
 
@@ -580,7 +580,11 @@ function (_React$PureComponent) {
         stylesContainer[item.ID] = Object.assign({
           width: "".concat(containerWidth + 10, "px"),
           height: "".concat(containerHeight, "px")
-        }, style);
+        }, {
+          position: "absolute",
+          left: x,
+          top: y
+        });
         stylesImages[item.ID] = {
           width: item.width,
           height: item.height
@@ -615,14 +619,14 @@ function (_React$PureComponent) {
             styleName = styleNameRegular;
           }
 
-          droppableElement.push(_react.default.createElement("div", {
+          droppableElement.push(_react["default"].createElement("div", {
             style: stylesContainer[item.ID],
             key: "draggableWrapper" + index,
             onMouseEnter: function onMouseEnter() {
               return _this2.handleMouseIn(item.ID);
             },
             onMouseLeave: _this2.handleMouseOut
-          }, _react.default.createElement(_reactDragDropContainer.DragDropContainer, {
+          }, _react["default"].createElement(_reactDragDropContainer.DragDropContainer, {
             targetKey: _constants.string_canvas,
             key: "draggable" + index,
             dragClone: false,
@@ -632,11 +636,11 @@ function (_React$PureComponent) {
             },
             onDragStart: _this2.dragged,
             dragHandleClassName: "grabber"
-          }, _react.default.createElement("div", {
+          }, _react["default"].createElement("div", {
             style: styleActionElementNameContainer
-          }, _react.default.createElement("div", {
+          }, _react["default"].createElement("div", {
             style: styleActionContainer
-          }, _react.default.createElement("div", {
+          }, _react["default"].createElement("div", {
             className: "grabber",
             style: styleGrabber
           }, "\u2237"), _react["default"].createElement(_canvasElement.CanvasElementDeleteButton, {
@@ -644,9 +648,9 @@ function (_React$PureComponent) {
             handleDelete: _this2.onDelete,
             myStyle: styleCloser,
             isViewOnly: _this2.props.isViewOnly
-          })), _react.default.createElement("div", {
+          })), _react["default"].createElement("div", {
             style: styleElementNameContainer
-          }, _react.default.createElement(_canvasElement.default, {
+          }, _react["default"].createElement(_canvasElement["default"], {
             activeTier: _this2.props.activeTier,
             id: item.ID,
             image: path.join(_this2.props.imagesPath, schema.image),
@@ -665,7 +669,7 @@ function (_React$PureComponent) {
             elementByType: elementByType,
             isViewOnly: _this2.props.isViewOnly,
             setEditingOnCanvas: _this2.setEditingOnCanvas
-          }), _react.default.createElement("div", {
+          }), _react["default"].createElement("div", {
             style: styleName
           }, item.name))))));
         });
@@ -699,11 +703,6 @@ function (_React$PureComponent) {
         width: "".concat(width - 2, "px"),
         height: "".concat(height - 4, "px")
       };
-      var imageStyle = {
-        width: "100%",
-        height: "100%",
-        margin: "auto"
-      };
       var micInfo = [];
 
       if (this.props.microscope !== null && this.props.microscope !== undefined) {
@@ -729,25 +728,44 @@ function (_React$PureComponent) {
         }
       }
 
-      return _react.default.createElement("div", {
+      return _react["default"].createElement("div", {
         style: styleContainer
-      }, _react.default.createElement(_reactDragDropContainer.DropTarget, {
+      }, _react["default"].createElement(_reactDragDropContainer.DropTarget, {
         style: dropTargetStyle,
         onHit: this.dropped,
         targetKey: _constants.string_canvas
-      }, _react.default.createElement("div", {
-        style: canvasContainerStyle,
+      }, _react["default"].createElement("div", {
+        style: {
+          width: "100%",
+          height: "100%",
+          position: "relative",
+          overflow: "auto"
+        },
         onScroll: this.handleScroll
-      }, _react.default.createElement("div", {
-        style: canvasInnerContainerStyle
-      }, _react.default.createElement("img", {
-        src: this.props.backgroundImage,
+      }, _react["default"].createElement("div", {
+        style: {
+          width: "2377px",
+          height: "969px",
+          position: "absolute",
+          left: 0,
+          top: 0
+        }
+      }, _react["default"].createElement("img", {
+        src: this.props.backgroundImage + (this.props.backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
         alt: this.props.backgroundImage,
-        style: imageStyle,
+        style: {
+          width: "100%",
+          height: "100%",
+          margin: "auto"
+        },
         onLoad: this.onImgLoad
-      })), _react.default.createElement("div", {
-        style: infoStyle
-      }, _react.default.createElement("p", null, micInfo)), this.createList())));
+      })), _react["default"].createElement("div", {
+        style: {
+          position: "absolute",
+          left: 0,
+          top: 0
+        }
+      }, _react["default"].createElement("p", null, micInfo)), this.createList())));
     }
   }], [{
     key: "getDerivedStateFromProps",

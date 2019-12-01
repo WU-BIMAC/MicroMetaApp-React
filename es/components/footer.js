@@ -130,7 +130,7 @@ function (_React$PureComponent) {
         play: play,
         durationSeconds: 1,
         keyframes: ["opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1"]
-      }, _react.default.createElement(_Button.default, {
+      }, _react["default"].createElement(_Button["default"], {
         key: "Button-0",
         onClick: this.onClickEdit,
         style: styleEditButton,
@@ -171,7 +171,7 @@ function (_React$PureComponent) {
         margin: 5,
         direction: "up"
       });
-      buttons[3] = _react.default.createElement(_Button.default, {
+      buttons[3] = _react["default"].createElement(_Button["default"], {
         key: "Button-3",
         onClick: this.props.onClickBack,
         style: styleButton,

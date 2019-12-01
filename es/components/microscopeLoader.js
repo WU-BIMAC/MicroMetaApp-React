@@ -17,7 +17,7 @@ var _DropdownMenu = _interopRequireDefault(require("./DropdownMenu"));
 
 var _constants = require("../constants");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -166,15 +166,6 @@ function (_React$PureComponent) {
         borderWidth: "thin",
         width: "".concat(width, "px")
       };
-      var styleImageContainer = {
-        width: "400px",
-        height: "140px"
-      };
-      var styleImage = {
-        width: "100%",
-        height: "100%",
-        margin: "auto"
-      };
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
       var fileLoaded = this.state.fileLoaded;
@@ -229,7 +220,7 @@ function (_React$PureComponent) {
           var selectedMic = this.state.selectedMic;
           var defaultMic = selectedMic !== null && selectedMic !== undefined ? inputData[selectedManu].indexOf(selectedMic) : 0;
           console.log(this.state.micNames);
-          list.push(_react.default.createElement(_DropdownMenu.default, {
+          list.push(_react["default"].createElement(_DropdownMenu["default"], {
             key: "dropdown-names",
             title: "",
             handleMenuItemClick: this.props.onClickMicroscopeSelection,
@@ -253,16 +244,37 @@ function (_React$PureComponent) {
         style: buttonStyle,
         size: "lg"
       }, "Back")));
-      return _react.default.createElement("div", {
-        style: windowExternalContainer
-      }, _react.default.createElement("div", {
-        style: windowInternalContainer
-      }, _react.default.createElement("div", {
-        style: styleImageContainer
-      }, _react.default.createElement("img", {
+      return _react["default"].createElement("div", {
+        style: {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "100%",
+          height: "100%",
+          alignItems: "center"
+        }
+      }, _react["default"].createElement("div", {
+        style: {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "100%",
+          height: "100%",
+          alignItems: "center"
+        }
+      }, _react["default"].createElement("div", {
+        style: {
+          width: "400px",
+          height: "140px"
+        }
+      }, _react["default"].createElement("img", {
         src: this.props.logoImg,
         alt: this.props.logoImg,
-        style: styleImage,
+        style: {
+          width: "100%",
+          height: "100%",
+          margin: "auto"
+        },
         onLoad: this.onImgLoad
       })), list));
     }

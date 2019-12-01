@@ -15,7 +15,7 @@ var _DropdownMenu = _interopRequireDefault(require("./DropdownMenu"));
 
 var _constants = require("../constants");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -55,44 +55,40 @@ function (_React$PureComponent) {
         padding: "5px",
         margin: "5px"
       };
-      var windowExternalContainer = {
-        display: "flex",
-        justifyContent: "center",
-        flexFlow: "column",
-        width: "100%",
-        height: "100%",
-        alignItems: "center"
-      };
-      var windowInternalContainer = {
-        display: "flex",
-        justifyContent: "center",
-        flexFlow: "column",
-        width: "100%",
-        height: "100%",
-        alignItems: "center"
-      };
-      var styleImageContainer = {
-        width: "400px",
-        height: "140px"
-      };
-      var styleImage = {
-        width: "100%",
-        height: "100%",
-        margin: "auto"
-      };
       var tierInputData = this.props.tiers;
-      return _react.default.createElement("div", {
-        style: windowExternalContainer
-      }, _react.default.createElement("div", {
-        style: windowInternalContainer
-      }, _react.default.createElement("div", {
-        style: styleImageContainer
-      }, _react.default.createElement("img", {
+      return _react["default"].createElement("div", {
+        style: {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "100%",
+          height: "100%",
+          alignItems: "center"
+        }
+      }, _react["default"].createElement("div", {
+        style: {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "100%",
+          height: "100%",
+          alignItems: "center"
+        }
+      }, _react["default"].createElement("div", {
+        style: {
+          width: "400px",
+          height: "140px"
+        }
+      }, _react["default"].createElement("img", {
         src: this.props.logoImg,
         alt: this.props.logoImg,
-        style: styleImage,
+        style: {
+          width: "100%",
+          height: "100%",
+          margin: "auto"
+        },
         onLoad: this.onImgLoad
-      })), _react.default.createElement(_DropdownMenu.default, {
+      })), _react["default"].createElement(_DropdownMenu["default"], {
         title: "Tier",
         handleMenuItemClick: this.props.onClickTierSelection,
         inputData: tierInputData,

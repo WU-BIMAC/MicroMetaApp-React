@@ -19,7 +19,7 @@ var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
 var _constants = require("../constants");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -99,16 +99,10 @@ function (_React$PureComponent) {
             newElementData[maxNumber] = -1;
           }
         } else if (schema.properties[key].type === _constants.string_object) {
-          var _currentNumber = _constants.string_currentNumberOf_identifier + key;
-
-          var _minNumber = _constants.string_minNumberOf_identifier + key;
-
-          var _maxNumber = _constants.string_maxNumberOf_identifier + key;
-
           if (schema.required.indexOf(key) === -1) {
-            newElementData[currentNumberOf_identifier + key] = 0;
-            newElementData[minNumberOf_identifier + key] = 0;
-            newElementData[maxNumberOf_identifier + key] = 1;
+            newElementData[_constants.string_currentNumberOf_identifier + key] = 0;
+            newElementData[_constants.string_minNumberOf_identifier + key] = 0;
+            newElementData[_constants.string_maxNumberOf_identifier + key] = 1;
           }
         }
       });
@@ -192,7 +186,7 @@ function (_React$PureComponent) {
         channels: this.state.channels
       };
       var outputData = Object.assign(this.props.inputData, output);
-      var id = this.props.schema.title + "_" + this.props.inputData.ID;
+      this.props.schema.title + "_" + this.props.inputData.ID;
       console.log(outputData);
     }
   }, {
