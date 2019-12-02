@@ -20,7 +20,9 @@ import {
 	string_json_ext,
 	string_currentNumberOf_identifier,
 	string_minNumberOf_identifier,
-	string_maxNumberOf_identifier
+	string_maxNumberOf_identifier,
+	number_canvas_width,
+	number_canvas_height
 } from "../constants";
 import { bool } from "prop-types";
 
@@ -38,7 +40,10 @@ export default class Canvas extends React.PureComponent {
 			backgroundScale: null,
 			offsetY: 0,
 			offsetX: 0,
-			scale: null,
+			scalingFactor: props.scalingFactor || 1,
+			containerOffsetTop: props.containerOffsetTop || 0,
+			containerOffsetLeft: props.containerOffsetLeft || 0,
+			headerOffset: props.headerOffset || 0,
 			isEditing: false,
 			hover: null
 		};
@@ -283,13 +288,29 @@ export default class Canvas extends React.PureComponent {
 		let newElementDataList = Object.assign({}, this.state.elementData);
 		let newElement = null;
 		let x = e.x;
-		let y = e.y - 60;
+		let y = e.y - this.state.headerOffset;
 
 		let offsetX = this.state.offsetX;
 		let offsetY = this.state.offsetY;
+		let containerOffsetX = this.state.containerOffsetLeft;
+		let containerOffsetY = this.state.containerOffsetTop;
 
-		x += offsetX;
-		y += offsetY;
+		if (bool_isDebug) {
+			if (bool_isDebug) {
+				console.log(
+					"ContainerOffset: " + containerOffsetX + " - " + containerOffsetY
+				);
+			}
+		}
+
+		x += offsetX - containerOffsetX;
+		y += offsetY - containerOffsetY;
+
+		if (bool_isDebug) {
+			if (bool_isDebug) {
+				console.log("XY: " + x + " - " + y);
+			}
+		}
 
 		if (sourceElement.source !== string_toolbar) {
 			x -= 5;
@@ -488,6 +509,7 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	createList() {
+		let scalingFactor = this.state.scalingFactor;
 		let hover = this.state.hover;
 		let elementList = this.state.elementList;
 		let elementData = this.state.elementData;
@@ -538,7 +560,7 @@ export default class Canvas extends React.PureComponent {
 		let styleNameHover = {
 			overflow: "unset",
 			fontSize: "80%",
-			textAlign: "center",
+			textAlign: "left",
 			lineHeight: "125%",
 			color: "gray"
 		};
@@ -548,6 +570,7 @@ export default class Canvas extends React.PureComponent {
 
 		let stylesContainer = {};
 		let stylesImages = {};
+
 		elementList.map(item => {
 			let x = item.x;
 			let y = item.y;
@@ -562,14 +585,17 @@ export default class Canvas extends React.PureComponent {
 			if (containerWidth == -1) containerWidth = 100;
 			if (containerHeight == -1) containerHeight = 100;
 
+			let scaledContainerWidth = containerWidth * scalingFactor;
+			let scaledContainerHeight = containerHeight * scalingFactor;
+
 			if (!item.validated) {
-				containerWidth += 10;
-				containerHeight += 10;
+				scaledContainerWidth += 10;
+				scaledContainerHeight += 10;
 			}
 			stylesContainer[item.ID] = Object.assign(
 				{
-					width: `${containerWidth + 10}px`,
-					height: `${containerHeight}px`
+					width: `${scaledContainerWidth + 10}px`,
+					height: `${scaledContainerHeight + 7}px`
 				},
 				style
 			);
@@ -656,6 +682,7 @@ export default class Canvas extends React.PureComponent {
 										elementByType={elementByType}
 										isViewOnly={this.props.isViewOnly}
 										setEditingOnCanvas={this.setEditingOnCanvas}
+										scalingFactor={scalingFactor}
 									/>
 									<div style={styleName}>{item.name}</div>
 								</div>
@@ -674,6 +701,7 @@ export default class Canvas extends React.PureComponent {
 			console.log(this.state.linkedFields);
 		}
 
+		let scalingFactor = this.state.scalingFactor;
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
 		const styleContainer = {
@@ -696,9 +724,13 @@ export default class Canvas extends React.PureComponent {
 			position: "relative",
 			overflow: "auto"
 		};
+
+		let scaledCanvasWidth = number_canvas_width * scalingFactor;
+		let scaledCanvasHeight = number_canvas_height * scalingFactor;
+
 		let canvasInnerContainerStyle = {
-			width: "2377px",
-			height: "969px",
+			width: `${scaledCanvasWidth}px`,
+			height: `${scaledCanvasHeight}px`,
 			position: "absolute",
 			left: 0,
 			top: 0

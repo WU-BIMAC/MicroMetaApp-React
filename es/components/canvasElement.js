@@ -53,7 +53,8 @@ function (_React$PureComponent) {
       minWidth: null,
       minHeight: null,
       maxWidth: null,
-      maxHeight: null
+      maxHeight: null,
+      scalingFactor: props.scalingFactor || 1
     };
     _this.startWidth = null;
     _this.startHeight = null;
@@ -112,19 +113,22 @@ function (_React$PureComponent) {
     key: "updateMinMaxDimensions",
     value: function updateMinMaxDimensions(id, originalImgWidth, originalImgHeight) {
       if (this.state.originalWidth == originalImgWidth && this.state.originalHeight == originalImgHeight) return;
-      var minWidth = originalImgWidth / 2;
-      var minHeight = originalImgHeight / 2;
-      var maxWidth = originalImgWidth * 2;
-      var maxHeight = originalImgHeight * 2;
+      var scalingFactor = this.state.scalingFactor;
+      var scaledOriginalImgWidth = originalImgWidth * scalingFactor;
+      var scaledOriginalImgHeight = originalImgHeight * scalingFactor;
+      var minWidth = scaledOriginalImgWidth / 2;
+      var minHeight = scaledOriginalImgHeight / 2;
+      var maxWidth = scaledOriginalImgWidth * 2;
+      var maxHeight = scaledOriginalImgHeight * 2;
       this.setState({
-        originalWidth: originalImgWidth,
-        originalHeight: originalImgHeight,
+        originalWidth: scaledOriginalImgWidth,
+        originalHeight: scaledOriginalImgHeight,
         minWidth: minWidth,
         minHeight: minHeight,
         maxWidth: maxWidth,
         maxHeight: maxHeight
       });
-      this.props.updateDimensions(id, originalImgWidth, originalImgHeight, false);
+      this.props.updateDimensions(id, scaledOriginalImgWidth, scaledOriginalImgHeight, false);
     }
   }, {
     key: "handleResizeStop",

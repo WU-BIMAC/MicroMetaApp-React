@@ -17,7 +17,8 @@ export default class CanvasElement extends React.PureComponent {
 			minWidth: null,
 			minHeight: null,
 			maxWidth: null,
-			maxHeight: null
+			maxHeight: null,
+			scalingFactor: props.scalingFactor || 1
 		};
 
 		this.startWidth = null;
@@ -72,19 +73,27 @@ export default class CanvasElement extends React.PureComponent {
 			this.state.originalHeight == originalImgHeight
 		)
 			return;
-		let minWidth = originalImgWidth / 2;
-		let minHeight = originalImgHeight / 2;
-		let maxWidth = originalImgWidth * 2;
-		let maxHeight = originalImgHeight * 2;
+		let scalingFactor = this.state.scalingFactor;
+		let scaledOriginalImgWidth = originalImgWidth * scalingFactor;
+		let scaledOriginalImgHeight = originalImgHeight * scalingFactor;
+		let minWidth = scaledOriginalImgWidth / 2;
+		let minHeight = scaledOriginalImgHeight / 2;
+		let maxWidth = scaledOriginalImgWidth * 2;
+		let maxHeight = scaledOriginalImgHeight * 2;
 		this.setState({
-			originalWidth: originalImgWidth,
-			originalHeight: originalImgHeight,
+			originalWidth: scaledOriginalImgWidth,
+			originalHeight: scaledOriginalImgHeight,
 			minWidth: minWidth,
 			minHeight: minHeight,
 			maxWidth: maxWidth,
 			maxHeight: maxHeight
 		});
-		this.props.updateDimensions(id, originalImgWidth, originalImgHeight, false);
+		this.props.updateDimensions(
+			id,
+			scaledOriginalImgWidth,
+			scaledOriginalImgHeight,
+			false
+		);
 	}
 
 	handleResizeStop(e, data) {}

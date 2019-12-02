@@ -31,5 +31,8 @@ export const string_loadFromRepository = "Load from repository";
 export const number_logo_width = 800;
 export const number_logo_height = 280;
 
+export const number_canvas_width = 2377;
+export const number_canvas_height = 969;
+
 export const string_bandpass_warning =
 	"If you modify the number of band-pass, the information not saved are going to be lost!";

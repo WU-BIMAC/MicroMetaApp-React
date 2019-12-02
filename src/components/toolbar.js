@@ -7,14 +7,15 @@ import ImageElement from "./imageElement";
 
 const path = require("path");
 
-import { string_toolbar, string_canvas } from "../constants";
+import { bool_isDebug, string_toolbar, string_canvas } from "../constants";
 
 export default class Toolbar extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
 			elementList: {},
-			imagesDimension: {}
+			imagesDimension: {},
+			scalingFactor: props.scalingFactor || 1
 		};
 
 		let counter = 0;
@@ -42,7 +43,10 @@ export default class Toolbar extends React.PureComponent {
 	updateMinMaxDimensions(id, width, height) {
 		let newImagesDimension = Object.assign({}, this.state.imagesDimension);
 		if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
-			newImagesDimension[id] = { width, height };
+			let scalingFactor = this.state.scalingFactor;
+			let scaledWidth = width * scalingFactor;
+			let scaledHeight = height * scalingFactor;
+			newImagesDimension[id] = { width: scaledWidth, height: scaledHeight };
 			this.setState({ imagesDimension: newImagesDimension });
 		}
 	}
@@ -180,6 +184,10 @@ export default class Toolbar extends React.PureComponent {
 			this.cachedToolbar !== null
 		) {
 			return this.cachedToolbar;
+		}
+		if (bool_isDebug) {
+			console.log("NOT CACHED");
+			console.log(imagesDimension);
 		}
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.string_bandpass_warning = exports.number_logo_height = exports.number_logo_width = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_isSettings = exports.bool_isDebug = void 0;
+exports.string_bandpass_warning = exports.number_canvas_height = exports.number_canvas_width = exports.number_logo_height = exports.number_logo_width = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_isSettings = exports.bool_isDebug = void 0;
 var bool_isDebug = false;
 exports.bool_isDebug = bool_isDebug;
 var bool_isSettings = false;
@@ -52,5 +52,9 @@ var number_logo_width = 800;
 exports.number_logo_width = number_logo_width;
 var number_logo_height = 280;
 exports.number_logo_height = number_logo_height;
+var number_canvas_width = 2377;
+exports.number_canvas_width = number_canvas_width;
+var number_canvas_height = 969;
+exports.number_canvas_height = number_canvas_height;
 var string_bandpass_warning = "If you modify the number of band-pass, the information not saved are going to be lost!";
 exports.string_bandpass_warning = string_bandpass_warning;
