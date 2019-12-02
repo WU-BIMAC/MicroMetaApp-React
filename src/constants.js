@@ -1,4 +1,4 @@
-export const bool_isDebug = true;
+export const bool_isDebug = false;
 export const bool_isSettings = false;
 
 export const string_na = "na";

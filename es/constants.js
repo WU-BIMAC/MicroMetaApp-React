@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.string_bandpass_warning = exports.number_logo_height = exports.number_logo_width = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_isSettings = exports.bool_isDebug = void 0;
-var bool_isDebug = true;
+var bool_isDebug = false;
 exports.bool_isDebug = bool_isDebug;
 var bool_isSettings = false;
 exports.bool_isSettings = bool_isSettings;
