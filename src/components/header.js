@@ -21,7 +21,7 @@ export default class Header extends React.PureComponent {
 			marginBottom: "auto"
 		};
 		let styleImageContainer = {
-			width: "170px",
+			width: "430px",
 			height: "60px"
 		};
 		let styleImage = {
@@ -29,6 +29,7 @@ export default class Header extends React.PureComponent {
 			height: "100%",
 			margin: "auto"
 		};
+		//<div style={styleTitle}>Microscopy Metadata For The Real World</div>
 		return (
 			<div style={style}>
 				<div style={styleImageContainer}>
@@ -39,7 +40,6 @@ export default class Header extends React.PureComponent {
 						onLoad={this.onImgLoad}
 					/>
 				</div>
-				<div style={styleTitle}>Microscopy Metadata For The Real World</div>
 			</div>
 		);
 	}

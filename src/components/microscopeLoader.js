@@ -5,7 +5,11 @@ import Dropzone from "react-dropzone";
 
 import DropdownMenu from "./DropdownMenu";
 
-import { string_json_ext } from "../constants";
+import {
+	string_json_ext,
+	number_logo_width,
+	number_logo_height
+} from "../constants";
 
 export default class MicroscopeLoader extends React.PureComponent {
 	constructor(props) {
@@ -130,8 +134,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 			width: `${width}px`
 		};
 		let styleImageContainer = {
-			width: "400px",
-			height: "140px"
+			width: `${number_logo_width}px`,
+			height: `${number_logo_height}px`
 		};
 		let styleImage = {
 			width: "100%",

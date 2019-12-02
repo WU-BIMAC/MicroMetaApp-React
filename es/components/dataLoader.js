@@ -13,6 +13,8 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _reactDropzone = _interopRequireDefault(require("react-dropzone"));
 
+var _constants = require("../constants");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -110,6 +112,10 @@ function (_React$PureComponent) {
         padding: "5px",
         margin: "5px"
       };
+      var styleImageContainer = {
+        width: "".concat(_constants.number_logo_width, "px"),
+        height: "".concat(_constants.number_logo_height, "px")
+      };
       var isLoadingSchema = this.state.isLoadingSchema;
       var isLoadingMicroscopes = this.state.isLoadingMicroscopes;
       var isSchemaLoaded = this.state.isSchemaLoaded;
@@ -133,10 +139,7 @@ function (_React$PureComponent) {
           alignItems: "center"
         }
       }, _react["default"].createElement("div", {
-        style: {
-          width: "400px",
-          height: "140px"
-        }
+        style: styleImageContainer
       }, _react["default"].createElement("img", {
         src: this.props.logoImg,
         alt: this.props.logoImg,

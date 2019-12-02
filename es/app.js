@@ -31,6 +31,8 @@ var _microscopeLoader = _interopRequireDefault(require("./components/microscopeL
 
 var _html2canvas = _interopRequireDefault(require("html2canvas"));
 
+var _constants = require("./constants");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -56,10 +58,6 @@ var path = require("path");
 var validate = require("jsonschema").validate;
 
 var uuidv4 = require("uuid/v4");
-
-var createFromScratch = "Create from scratch";
-var createFromFile = "Load from file";
-var loadFromRepository = "Load from repository";
 
 var MicroscopyMetadataTool =
 /*#__PURE__*/
@@ -243,7 +241,7 @@ function (_React$PureComponent) {
         activeTier: tier,
         validationTier: vTier,
         isCreatingNewMicroscope: true,
-        loadingOption: createFromFile,
+        loadingOption: _constants.string_createFromFile,
         loadingMode: 1
       }, function () {
         _this6.createOrUseMicroscopeFromDroppedFile();
@@ -263,7 +261,7 @@ function (_React$PureComponent) {
     value: function setCreateNewMicroscope() {
       this.setState({
         isCreatingNewMicroscope: true,
-        loadingOption: createFromScratch,
+        loadingOption: _constants.string_createFromScratch,
         loadingMode: 0
       }); //this.handleLoadingOptionSelection(createFromScratch);
     }
@@ -272,7 +270,7 @@ function (_React$PureComponent) {
     value: function setLoadMicroscope() {
       this.setState({
         isCreatingNewMicroscope: false,
-        loadingOption: createFromFile,
+        loadingOption: _constants.string_createFromFile,
         loadingMode: 1
       }); //this.handleLoadingOptionSelection(createFromFile);
     }
@@ -281,9 +279,9 @@ function (_React$PureComponent) {
     value: function handleLoadingOptionSelection(item) {
       var loadingMode = 0;
 
-      if (item === createFromFile) {
+      if (item === _constants.string_createFromFile) {
         loadingMode = 1;
-      } else if (item === loadFromRepository) loadingMode = 2;
+      } else if (item === _constants.string_loadFromRepository) loadingMode = 2;
 
       this.setState({
         loadingOption: item,
@@ -316,7 +314,7 @@ function (_React$PureComponent) {
 
       var singleSchema = Object.assign({}, singleSchemaOriginal);
       singleSchema.properties = Object.assign({}, singleSchemaOriginal.properties);
-      if (singleSchema.required !== undefined) if (singleSchemaOriginal.type === "array") {
+      if (singleSchema.required !== undefined) if (singleSchemaOriginal.type === _constants.string_array) {
         singleSchema.items.required = singleSchemaOriginal.items.required.slice(0);
       } else {
         singleSchema.required = singleSchemaOriginal.required.slice(0);
@@ -326,7 +324,7 @@ function (_React$PureComponent) {
       var required = singleSchema.required;
       var properties = singleSchema.properties;
 
-      if (singleSchemaOriginal.type === "array") {
+      if (singleSchemaOriginal.type === _constants.string_array) {
         required = singleSchema.items.required;
         properties = singleSchema.items.properties;
       }
@@ -339,7 +337,7 @@ function (_React$PureComponent) {
       Object.keys(properties).forEach(function (propKey) {
         var property = properties[propKey];
 
-        if (property.type === "object" || property.type === "array" && property.items.properties !== null && property.items.properties !== undefined) {
+        if (property.type === _constants.string_object || property.type === _constants.string_array && property.items.properties !== null && property.items.properties !== undefined) {
           var newProp = _this7.createAdaptedSchema(property, activeTier, validationTier);
 
           properties[propKey] = newProp;
@@ -613,9 +611,9 @@ function (_React$PureComponent) {
   }, {
     key: "createOrUseMicroscope",
     value: function createOrUseMicroscope() {
-      if (this.state.loadingOption === createFromScratch) {
+      if (this.state.loadingOption === _constants.string_createFromScratch) {
         this.createNewMicroscopeFromScratch();
-      } else if (this.state.loadingOption === createFromFile) {
+      } else if (this.state.loadingOption === _constants.string_createFromFile) {
         this.createOrUseMicroscopeFromDroppedFile();
       } else {
         this.createOrUseMicroscopeFromSelectedFile();
@@ -938,7 +936,7 @@ function (_React$PureComponent) {
             height: height,
             forwardedRef: this.overlaysContainerRef
           }, _react["default"].createElement(_dataLoader["default"], {
-            logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
+            logoImg: path.join(imagesPathPNG, _constants.string_logo_img_micro_bk),
             onClickLoadSchema: this.handleLoadSchema,
             onClickLoadMicroscopes: this.handleLoadMicroscopes
           }));
@@ -950,7 +948,7 @@ function (_React$PureComponent) {
           height: height,
           forwardedRef: this.overlaysContainerRef
         }, _react["default"].createElement(_microscopePreLoader["default"], {
-          logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
+          logoImg: path.join(imagesPathPNG, _constants.string_logo_img_micro_bk),
           tiers: this.props.tiers,
           onClickTierSelection: this.handleActiveTierSelection,
           onClickCreateNewMicroscope: this.setCreateNewMicroscope,
@@ -972,7 +970,7 @@ function (_React$PureComponent) {
             height: "100%",
             alignItems: "center"
           }
-        }, _react["default"].createElement("div", null, "logoImg=", path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")), _react["default"].createElement("div", {
+        }, _react["default"].createElement("div", null, "logoImg=", path.join(imagesPathPNG, _constants.string_logo_img_micro_bk)), _react["default"].createElement("div", {
           style: {
             display: "flex",
             justifyContent: "center",
@@ -993,7 +991,7 @@ function (_React$PureComponent) {
       }
 
       if (this.state.isCreatingNewMicroscope && (microscope === null || elementData === null)) {
-        var loadingOptions = [createFromScratch, createFromFile];
+        var loadingOptions = [_constants.string_createFromScratch, _constants.string_createFromFile];
         var microscopeNames = {};
 
         if (microscopes) {
@@ -1012,13 +1010,13 @@ function (_React$PureComponent) {
           });
         }
 
-        if (microscopeNames !== null && microscopeNames !== undefined && Object.keys(microscopeNames).length > 0) loadingOptions.push(loadFromRepository);
+        if (microscopeNames !== null && microscopeNames !== undefined && Object.keys(microscopeNames).length > 0) loadingOptions.push(_constants.string_loadFromRepository);
         return _react["default"].createElement(MicroscopyMetadataToolContainer, {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
         }, _react["default"].createElement(_microscopeLoader["default"], {
-          logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
+          logoImg: path.join(imagesPathPNG, _constants.string_logo_img_micro_bk),
           loadingOptions: loadingOptions,
           microscopes: microscopeNames,
           onFileDrop: this.uploadMicroscopeFromDropzone,
@@ -1034,7 +1032,7 @@ function (_React$PureComponent) {
 
       if (!this.state.isCreatingNewMicroscope && (setting === null || settingData === null)) {
         console.log("SETTINGS LOADER");
-        var _loadingOptions = [createFromFile];
+        var _loadingOptions = [_constants.string_createFromFile];
         var _microscopeNames = {};
 
         if (microscopes) {
@@ -1053,13 +1051,13 @@ function (_React$PureComponent) {
           });
         }
 
-        if (_microscopeNames !== null && _microscopeNames !== undefined && Object.keys(_microscopeNames).length > 0) _loadingOptions.push(loadFromRepository);
+        if (_microscopeNames !== null && _microscopeNames !== undefined && Object.keys(_microscopeNames).length > 0) _loadingOptions.push(_constants.string_loadFromRepository);
         return _react["default"].createElement(MicroscopyMetadataToolContainer, {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
         }, _react["default"].createElement(_microscopeLoader["default"], {
-          logoImg: path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png"),
+          logoImg: path.join(imagesPathPNG, _constants.string_logo_img_micro_bk),
           loadingOptions: _loadingOptions,
           microscopes: _microscopeNames,
           onFileDrop: this.uploadMicroscopeFromDropzone,
@@ -1101,7 +1099,7 @@ function (_React$PureComponent) {
           forwardedRef: this.overlaysContainerRef
         }, _react["default"].createElement(_header["default"], {
           dimensions: headerFooterDims,
-          logoImg: path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")
+          logoImg: path.join(imagesPathPNG, _constants.string_logo_img_no_bk)
         }), _react["default"].createElement(_settingsMainView["default"], {
           microscope: microscope,
           microscopeComponents: elementData,
@@ -1143,7 +1141,7 @@ function (_React$PureComponent) {
             forwardedRef: this.overlaysContainerRef
           }, _react["default"].createElement(_header["default"], {
             dimensions: headerFooterDims,
-            logoImg: path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")
+            logoImg: path.join(imagesPathPNG, _constants.string_logo_img_no_bk)
           }), _react["default"].createElement("div", {
             style: style
           }, _react["default"].createElement(_canvas["default"], {
@@ -1171,7 +1169,7 @@ function (_React$PureComponent) {
             forwardedRef: this.overlaysContainerRef
           }, _react["default"].createElement(_header["default"], {
             dimensions: headerFooterDims,
-            logoImg: path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")
+            logoImg: path.join(imagesPathPNG, _constants.string_logo_img_no_bk)
           }), _react["default"].createElement("div", {
             style: style
           }, _react["default"].createElement(_canvas["default"], {

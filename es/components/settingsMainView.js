@@ -251,6 +251,17 @@ function (_React$PureComponent) {
 
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height;
+      var styleMainContainer = {
+        width: width,
+        height: height,
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        flexWap: "wrap",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "5px"
+      };
 
       if (this.state.editingElement != -1) {
         if (_constants.bool_isDebug) {
@@ -288,18 +299,22 @@ function (_React$PureComponent) {
         });
 
         if (this.state.editingElement == 1) {
-          return _react["default"].createElement(_planeView["default"], {
+          return _react["default"].createElement("div", {
+            style: styleMainContainer
+          }, _react["default"].createElement(_planeView["default"], {
             schema: schema,
             inputData: obj,
             id: element.ID,
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
             overlaysContainer: this.props.overlaysContainer
-          });
+          }));
         } else if (this.state.editingElement == 2) {
           return null;
         } else {
-          return _react["default"].createElement(_multiTabFormWithHeader["default"], {
+          return _react["default"].createElement("div", {
+            style: styleMainContainer
+          }, _react["default"].createElement(_multiTabFormWithHeader["default"], {
             schema: schema,
             inputData: obj,
             id: element.ID,
@@ -310,7 +325,7 @@ function (_React$PureComponent) {
             minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
             maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
             elementByType: elementByType
-          });
+          }));
         }
       } else {
         var styleEditButton = Object.assign({
@@ -367,17 +382,7 @@ function (_React$PureComponent) {
           size: "lg"
         }, "Edit Objective Settings");
         return _react["default"].createElement("div", {
-          style: {
-            width: width,
-            height: height,
-            boxSizing: "border-box",
-            display: "flex",
-            flexDirection: "column",
-            flexWap: "wrap",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "5px"
-          }
+          style: styleMainContainer
         }, buttons1);
       }
     }

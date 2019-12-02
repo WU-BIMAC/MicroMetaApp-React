@@ -43,6 +43,7 @@ function (_React$PureComponent) {
     value: function render() {
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height;
+      //<div style={styleTitle}>Microscopy Metadata For The Real World</div>
       return _react["default"].createElement("div", {
         style: {
           backgroundColor: "LightGray",
@@ -54,7 +55,7 @@ function (_React$PureComponent) {
         }
       }, _react["default"].createElement("div", {
         style: {
-          width: "170px",
+          width: "430px",
           height: "60px"
         }
       }, _react["default"].createElement("img", {
@@ -66,16 +67,7 @@ function (_React$PureComponent) {
           margin: "auto"
         },
         onLoad: this.onImgLoad
-      })), _react["default"].createElement("div", {
-        style: {
-          backgroundColor: "LightGray",
-          textAlign: "left",
-          verticalAlign: "middle",
-          paddingLeft: "10px",
-          marginTop: "auto",
-          marginBottom: "auto"
-        }
-      }, "Microscopy Metadata For The Real World"));
+      })));
     }
   }]);
 

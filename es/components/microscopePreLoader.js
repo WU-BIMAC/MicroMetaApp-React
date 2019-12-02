@@ -55,6 +55,10 @@ function (_React$PureComponent) {
         padding: "5px",
         margin: "5px"
       };
+      var styleImageContainer = {
+        width: "".concat(_constants.number_logo_width, "px"),
+        height: "".concat(_constants.number_logo_height, "px")
+      };
       var tierInputData = this.props.tiers;
       return _react["default"].createElement("div", {
         style: {
@@ -75,10 +79,7 @@ function (_React$PureComponent) {
           alignItems: "center"
         }
       }, _react["default"].createElement("div", {
-        style: {
-          width: "400px",
-          height: "140px"
-        }
+        style: styleImageContainer
       }, _react["default"].createElement("img", {
         src: this.props.logoImg,
         alt: this.props.logoImg,

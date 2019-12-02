@@ -166,6 +166,10 @@ function (_React$PureComponent) {
         borderWidth: "thin",
         width: "".concat(width, "px")
       };
+      var styleImageContainer = {
+        width: "".concat(_constants.number_logo_width, "px"),
+        height: "".concat(_constants.number_logo_height, "px")
+      };
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
       var fileLoaded = this.state.fileLoaded;
@@ -263,10 +267,7 @@ function (_React$PureComponent) {
           alignItems: "center"
         }
       }, _react["default"].createElement("div", {
-        style: {
-          width: "400px",
-          height: "140px"
-        }
+        style: styleImageContainer
       }, _react["default"].createElement("img", {
         src: this.props.logoImg,
         alt: this.props.logoImg,
