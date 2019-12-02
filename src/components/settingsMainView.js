@@ -237,6 +237,17 @@ export default class SettingMainView extends React.PureComponent {
 	render() {
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
+		const styleMainContainer = {
+			width: width,
+			height: height,
+			boxSizing: "border-box",
+			display: "flex",
+			flexDirection: "column",
+			flexWap: "wrap",
+			justifyContent: "center",
+			alignItems: "center",
+			padding: "5px"
+		};
 		if (this.state.editingElement != -1) {
 			if (bool_isDebug) {
 				console.log("list");
@@ -268,47 +279,40 @@ export default class SettingMainView extends React.PureComponent {
 			});
 			if (this.state.editingElement == 1) {
 				return (
-					<PlaneView
-						schema={schema}
-						inputData={obj}
-						id={element.ID}
-						onConfirm={this.onElementDataSave}
-						onCancel={this.onElementDataCancel}
-						overlaysContainer={this.props.overlaysContainer}
-					/>
+					<div style={styleMainContainer}>
+						<PlaneView
+							schema={schema}
+							inputData={obj}
+							id={element.ID}
+							onConfirm={this.onElementDataSave}
+							onCancel={this.onElementDataCancel}
+							overlaysContainer={this.props.overlaysContainer}
+						/>
+					</div>
 				);
 			} else if (this.state.editingElement == 2) {
 				return null;
 			} else {
 				return (
-					<MultiTabFormWithHeader
-						schema={schema}
-						inputData={obj}
-						id={element.ID}
-						onConfirm={this.onElementDataSave}
-						onCancel={this.onElementDataCancel}
-						overlaysContainer={this.props.overlaysContainer}
-						currentChildrenComponentIdentifier={
-							string_currentNumberOf_identifier
-						}
-						minChildrenComponentIdentifier={string_minNumberOf_identifier}
-						maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
-						elementByType={elementByType}
-					/>
+					<div style={styleMainContainer}>
+						<MultiTabFormWithHeader
+							schema={schema}
+							inputData={obj}
+							id={element.ID}
+							onConfirm={this.onElementDataSave}
+							onCancel={this.onElementDataCancel}
+							overlaysContainer={this.props.overlaysContainer}
+							currentChildrenComponentIdentifier={
+								string_currentNumberOf_identifier
+							}
+							minChildrenComponentIdentifier={string_minNumberOf_identifier}
+							maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
+							elementByType={elementByType}
+						/>
+					</div>
 				);
 			}
 		} else {
-			const styleMainContainer = {
-				width: width,
-				height: height,
-				boxSizing: "border-box",
-				display: "flex",
-				flexDirection: "column",
-				flexWap: "wrap",
-				justifyContent: "center",
-				alignItems: "center",
-				padding: "5px"
-			};
 			let styleButton = {
 				width: "250px",
 				minWidth: "250px",

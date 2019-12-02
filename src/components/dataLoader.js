@@ -3,6 +3,8 @@ import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Button from "react-bootstrap/Button";
 import Dropzone from "react-dropzone";
 
+import { number_logo_width, number_logo_height } from "../constants";
+
 export default class DataLoader extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -75,8 +77,8 @@ export default class DataLoader extends React.PureComponent {
 			alignItems: "center"
 		};
 		let styleImageContainer = {
-			width: "400px",
-			height: "140px"
+			width: `${number_logo_width}px`,
+			height: `${number_logo_height}px`
 		};
 		let styleImage = {
 			width: "100%",

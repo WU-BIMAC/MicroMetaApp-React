@@ -74,8 +74,8 @@ function (_React$PureComponent) {
         alignItems: "center"
       };
       var styleImageContainer = {
-        width: "400px",
-        height: "140px"
+        width: "".concat(_constants.number_logo_width, "px"),
+        height: "".concat(_constants.number_logo_height, "px")
       };
       var styleImage = {
         width: "100%",

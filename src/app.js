@@ -18,9 +18,17 @@ const path = require("path");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
-const createFromScratch = "Create from scratch";
-const createFromFile = "Load from file";
-const loadFromRepository = "Load from repository";
+import {
+	bool_isDebug,
+	string_object,
+	string_array,
+	string_logo_img_no_bk,
+	string_logo_img_cell_bk,
+	string_logo_img_micro_bk,
+	string_createFromScratch,
+	string_createFromFile,
+	string_loadFromRepository
+} from "./constants";
 
 export default class MicroscopyMetadataTool extends React.PureComponent {
 	constructor(props) {
@@ -217,7 +225,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				activeTier: tier,
 				validationTier: vTier,
 				isCreatingNewMicroscope: true,
-				loadingOption: createFromFile,
+				loadingOption: string_createFromFile,
 				loadingMode: 1
 			},
 			() => {
@@ -234,7 +242,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	setCreateNewMicroscope() {
 		this.setState({
 			isCreatingNewMicroscope: true,
-			loadingOption: createFromScratch,
+			loadingOption: string_createFromScratch,
 			loadingMode: 0
 		});
 		//this.handleLoadingOptionSelection(createFromScratch);
@@ -243,7 +251,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	setLoadMicroscope() {
 		this.setState({
 			isCreatingNewMicroscope: false,
-			loadingOption: createFromFile,
+			loadingOption: string_createFromFile,
 			loadingMode: 1
 		});
 		//this.handleLoadingOptionSelection(createFromFile);
@@ -251,9 +259,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 	handleLoadingOptionSelection(item) {
 		let loadingMode = 0;
-		if (item === createFromFile) {
+		if (item === string_createFromFile) {
 			loadingMode = 1;
-		} else if (item === loadFromRepository) loadingMode = 2;
+		} else if (item === string_loadFromRepository) loadingMode = 2;
 		this.setState({ loadingOption: item, loadingMode: loadingMode });
 	}
 
@@ -277,7 +285,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		);
 
 		if (singleSchema.required !== undefined)
-			if (singleSchemaOriginal.type === "array") {
+			if (singleSchemaOriginal.type === string_array) {
 				singleSchema.items.required = singleSchemaOriginal.items.required.slice(
 					0
 				);
@@ -291,7 +299,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let required = singleSchema.required;
 		let properties = singleSchema.properties;
 
-		if (singleSchemaOriginal.type === "array") {
+		if (singleSchemaOriginal.type === string_array) {
 			required = singleSchema.items.required;
 			properties = singleSchema.items.properties;
 		}
@@ -304,8 +312,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		Object.keys(properties).forEach(propKey => {
 			let property = properties[propKey];
 			if (
-				property.type === "object" ||
-				(property.type === "array" &&
+				property.type === string_object ||
+				(property.type === string_array &&
 					property.items.properties !== null &&
 					property.items.properties !== undefined)
 			) {
@@ -567,9 +575,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	createOrUseMicroscope() {
-		if (this.state.loadingOption === createFromScratch) {
+		if (this.state.loadingOption === string_createFromScratch) {
 			this.createNewMicroscopeFromScratch();
-		} else if (this.state.loadingOption === createFromFile) {
+		} else if (this.state.loadingOption === string_createFromFile) {
 			this.createOrUseMicroscopeFromDroppedFile();
 		} else {
 			this.createOrUseMicroscopeFromSelectedFile();
@@ -870,7 +878,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<DataLoader
-						logoImg={path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")}
+						logoImg={path.join(imagesPathPNG, string_logo_img_micro_bk)}
 						onClickLoadSchema={this.handleLoadSchema}
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
 					/>
@@ -886,7 +894,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopePreLoader
-						logoImg={path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")}
+						logoImg={path.join(imagesPathPNG, string_logo_img_micro_bk)}
 						tiers={this.props.tiers}
 						onClickTierSelection={this.handleActiveTierSelection}
 						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
@@ -931,7 +939,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				>
 					<div style={windowExternalContainer}>
 						<div>
-							logoImg={path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")}
+							logoImg={path.join(imagesPathPNG, string_logo_img_micro_bk)}
 						</div>
 						<div style={windowInternalContainer}>
 							<Button style={buttonStyle} size="lg">
@@ -947,7 +955,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			this.state.isCreatingNewMicroscope &&
 			(microscope === null || elementData === null)
 		) {
-			let loadingOptions = [createFromScratch, createFromFile];
+			let loadingOptions = [string_createFromScratch, string_createFromFile];
 			let microscopeNames = {};
 			if (microscopes) {
 				Object.keys(microscopes).forEach(key => {
@@ -970,7 +978,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				microscopeNames !== undefined &&
 				Object.keys(microscopeNames).length > 0
 			)
-				loadingOptions.push(loadFromRepository);
+				loadingOptions.push(string_loadFromRepository);
 			return (
 				<MicroscopyMetadataToolContainer
 					width={width}
@@ -978,7 +986,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
-						logoImg={path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")}
+						logoImg={path.join(imagesPathPNG, string_logo_img_micro_bk)}
 						loadingOptions={loadingOptions}
 						microscopes={microscopeNames}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
@@ -999,7 +1007,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			(setting === null || settingData === null)
 		) {
 			console.log("SETTINGS LOADER");
-			let loadingOptions = [createFromFile];
+			let loadingOptions = [string_createFromFile];
 			let microscopeNames = {};
 			if (microscopes) {
 				Object.keys(microscopes).forEach(key => {
@@ -1022,7 +1030,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				microscopeNames !== undefined &&
 				Object.keys(microscopeNames).length > 0
 			)
-				loadingOptions.push(loadFromRepository);
+				loadingOptions.push(string_loadFromRepository);
 			return (
 				<MicroscopyMetadataToolContainer
 					width={width}
@@ -1030,7 +1038,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
-						logoImg={path.join(imagesPathPNG, "MicroMetaApp_cellBkg.png")}
+						logoImg={path.join(imagesPathPNG, string_logo_img_micro_bk)}
 						loadingOptions={loadingOptions}
 						microscopes={microscopeNames}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
@@ -1089,7 +1097,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				>
 					<Header
 						dimensions={headerFooterDims}
-						logoImg={path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")}
+						logoImg={path.join(imagesPathPNG, string_logo_img_no_bk)}
 					/>
 					<SettingsMainView
 						microscope={microscope}
@@ -1134,7 +1142,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					>
 						<Header
 							dimensions={headerFooterDims}
-							logoImg={path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")}
+							logoImg={path.join(imagesPathPNG, string_logo_img_no_bk)}
 						/>
 						<div style={style}>
 							<Canvas
@@ -1170,7 +1178,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					>
 						<Header
 							dimensions={headerFooterDims}
-							logoImg={path.join(imagesPathPNG, "MicroMetaApp_noBkg.png")}
+							logoImg={path.join(imagesPathPNG, string_logo_img_no_bk)}
 						/>
 						<div style={style}>
 							<Canvas

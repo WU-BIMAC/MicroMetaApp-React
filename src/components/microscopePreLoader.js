@@ -5,7 +5,11 @@ import Button from "react-bootstrap/Button";
 
 import DropdownMenu from "./DropdownMenu";
 
-import { bool_isSettings } from "../constants";
+import {
+	bool_isSettings,
+	number_logo_width,
+	number_logo_height
+} from "../constants";
 
 export default class MicroscopePreLoader extends React.PureComponent {
 	constructor(props) {
@@ -38,8 +42,8 @@ export default class MicroscopePreLoader extends React.PureComponent {
 			alignItems: "center"
 		};
 		let styleImageContainer = {
-			width: "400px",
-			height: "140px"
+			width: `${number_logo_width}px`,
+			height: `${number_logo_height}px`
 		};
 		let styleImage = {
 			width: "100%",

@@ -60,14 +60,15 @@ function (_React$PureComponent) {
         marginBottom: "auto"
       };
       var styleImageContainer = {
-        width: "170px",
+        width: "430px",
         height: "60px"
       };
       var styleImage = {
         width: "100%",
         height: "100%",
         margin: "auto"
-      };
+      }; //<div style={styleTitle}>Microscopy Metadata For The Real World</div>
+
       return _react.default.createElement("div", {
         style: style
       }, _react.default.createElement("div", {
@@ -77,9 +78,7 @@ function (_React$PureComponent) {
         alt: this.props.logoImg,
         style: styleImage,
         onLoad: this.onImgLoad
-      })), _react.default.createElement("div", {
-        style: styleTitle
-      }, "Microscopy Metadata For The Real World"));
+      })));
     }
   }]);
 

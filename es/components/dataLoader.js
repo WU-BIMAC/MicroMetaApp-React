@@ -13,6 +13,8 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _reactDropzone = _interopRequireDefault(require("react-dropzone"));
 
+var _constants = require("../constants");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -127,8 +129,8 @@ function (_React$PureComponent) {
         alignItems: "center"
       };
       var styleImageContainer = {
-        width: "400px",
-        height: "140px"
+        width: "".concat(_constants.number_logo_width, "px"),
+        height: "".concat(_constants.number_logo_height, "px")
       };
       var styleImage = {
         width: "100%",
