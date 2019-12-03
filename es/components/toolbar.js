@@ -52,8 +52,7 @@ function (_React$PureComponent) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Toolbar).call(this, props));
     _this.state = {
       elementList: {},
-      imagesDimension: {},
-      scalingFactor: props.scalingFactor || 1
+      imagesDimension: {}
     };
     var counter = 0;
 
@@ -87,7 +86,7 @@ function (_React$PureComponent) {
       var newImagesDimension = Object.assign({}, this.state.imagesDimension);
 
       if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
-        var scalingFactor = this.state.scalingFactor;
+        var scalingFactor = this.props.scalingFactor;
         var scaledWidth = width * scalingFactor;
         var scaledHeight = height * scalingFactor;
         newImagesDimension[id] = {

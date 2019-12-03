@@ -68,9 +68,6 @@ function (_React$PureComponent) {
       backgroundScale: null,
       offsetY: 0,
       offsetX: 0,
-      scalingFactor: props.scalingFactor || 1,
-      containerOffsetTop: props.containerOffsetTop || 0,
-      containerOffsetLeft: props.containerOffsetLeft || 0,
       headerOffset: props.headerOffset || 0,
       isEditing: false,
       hover: null
@@ -307,23 +304,10 @@ function (_React$PureComponent) {
       var y = e.y - this.state.headerOffset;
       var offsetX = this.state.offsetX;
       var offsetY = this.state.offsetY;
-      var containerOffsetX = this.state.containerOffsetLeft;
-      var containerOffsetY = this.state.containerOffsetTop;
-
-      if (_constants.bool_isDebug) {
-        if (_constants.bool_isDebug) {
-          console.log("ContainerOffset: " + containerOffsetX + " - " + containerOffsetY);
-        }
-      }
-
+      var containerOffsetX = this.props.containerOffsetLeft;
+      var containerOffsetY = this.props.containerOffsetTop;
       x += offsetX - containerOffsetX;
       y += offsetY - containerOffsetY;
-
-      if (_constants.bool_isDebug) {
-        if (_constants.bool_isDebug) {
-          console.log("XY: " + x + " - " + y);
-        }
-      }
 
       if (sourceElement.source !== _constants.string_toolbar) {
         x -= 5;
@@ -527,7 +511,7 @@ function (_React$PureComponent) {
     value: function createList() {
       var _this2 = this;
 
-      var scalingFactor = this.state.scalingFactor;
+      var scalingFactor = this.props.scalingFactor;
       var hover = this.state.hover;
       var elementList = this.state.elementList;
       var elementData = this.state.elementData;
@@ -714,7 +698,7 @@ function (_React$PureComponent) {
         console.log(this.state.linkedFields);
       }
 
-      var scalingFactor = this.state.scalingFactor;
+      var scalingFactor = this.props.scalingFactor;
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height;
       var styleContainer = {
