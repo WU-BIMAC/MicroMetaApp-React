@@ -1092,8 +1092,8 @@ function (_React$PureComponent) {
       var componentsSchema = this.state.adaptedComponentsSchema;
       var imageSchema = this.state.adaptedImageSchema;
       var settingsSchema = this.state.adaptedSettingsSchema;
-      var experimentalSchema = this.state.adaptedExperimentalSchema;
-      var childrenSchema = this.state.adaptedChildrenSchema;
+      this.state.adaptedExperimentalSchema;
+      this.state.adaptedChildrenSchema;
       var containerOffsetLeft = this.state.containerOffsetLeft;
       var containerOffsetTop = this.state.containerOffsetTop;
 
@@ -1201,14 +1201,17 @@ function (_React$PureComponent) {
             containerOffsetLeft: containerOffsetLeft,
             headerOffset: headerOffset //setScale={this.setMicroscopeScale}
 
-          }), _react.default.createElement(_toolbar.default, {
+          }), _react["default"].createElement(_toolbar["default"], {
             activeTier: this.state.activeTier,
             ref: this.toolbarRef,
             imagesPath: imagesPathSVG,
             componentSchemas: componentsSchema,
-            dimensions: toolbarDims,
+            dimensions: {
+              width: 300,
+              height: toolbarHeight
+            },
             scalingFactor: scalingFactor
-          })), _react.default.createElement(_footer.default, {
+          })), _react["default"].createElement(_footer["default"], {
             activeTier: this.state.activeTier,
             validationTier: this.state.validationTier,
             schema: microscopeSchema,

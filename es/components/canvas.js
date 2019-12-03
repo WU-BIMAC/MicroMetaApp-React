@@ -601,7 +601,11 @@ function (_React$PureComponent) {
         stylesContainer[item.ID] = Object.assign({
           width: "".concat(scaledContainerWidth + 10, "px"),
           height: "".concat(scaledContainerHeight + 7, "px")
-        }, style);
+        }, {
+          position: "absolute",
+          left: x,
+          top: y
+        });
         stylesImages[item.ID] = {
           width: item.width,
           height: item.height
@@ -687,7 +691,7 @@ function (_React$PureComponent) {
             isViewOnly: _this2.props.isViewOnly,
             setEditingOnCanvas: _this2.setEditingOnCanvas,
             scalingFactor: scalingFactor
-          }), _react.default.createElement("div", {
+          }), _react["default"].createElement("div", {
             style: styleName
           }, item.name))))));
         });
@@ -719,30 +723,12 @@ function (_React$PureComponent) {
         height: "".concat(height, "px")
       };
       var dropTargetStyle = {
-        width: "".concat(innerWidth, "px"),
-        height: "".concat(innerHeight, "px")
+        width: "".concat(width - 2, "px"),
+        height: "".concat(height - 4, "px")
       };
-      var canvasContainerStyle = {
-        width: "100%",
-        height: "100%",
-        position: "relative",
-        overflow: "auto"
-      };
-      var scaledCanvasWidth = _constants.number_canvas_width * scalingFactor;
-      var scaledCanvasHeight = _constants.number_canvas_height * scalingFactor;
       var canvasInnerContainerStyle = {
-        width: "".concat(scaledCanvasWidth, "px"),
-        height: "".concat(scaledCanvasHeight, "px"),
-        position: "absolute",
-        left: 0,
-        top: 0
-      };
-      var imageStyle = {
-        width: "100%",
-        height: "100%",
-        margin: "auto"
-      };
-      var infoStyle = {
+        width: "".concat(_constants.number_canvas_width * scalingFactor, "px"),
+        height: "".concat(_constants.number_canvas_height * scalingFactor, "px"),
         position: "absolute",
         left: 0,
         top: 0
@@ -787,13 +773,7 @@ function (_React$PureComponent) {
         },
         onScroll: this.handleScroll
       }, _react["default"].createElement("div", {
-        style: {
-          width: "2377px",
-          height: "969px",
-          position: "absolute",
-          left: 0,
-          top: 0
-        }
+        style: canvasInnerContainerStyle
       }, _react["default"].createElement("img", {
         src: this.props.backgroundImage + (this.props.backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
         alt: this.props.backgroundImage,

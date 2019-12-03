@@ -114,17 +114,13 @@ function (_React$PureComponent) {
       var scalingFactor = this.state.scalingFactor;
       var scaledOriginalImgWidth = originalImgWidth * scalingFactor;
       var scaledOriginalImgHeight = originalImgHeight * scalingFactor;
-      var minWidth = scaledOriginalImgWidth / 2;
-      var minHeight = scaledOriginalImgHeight / 2;
-      var maxWidth = scaledOriginalImgWidth * 2;
-      var maxHeight = scaledOriginalImgHeight * 2;
       this.setState({
         originalWidth: scaledOriginalImgWidth,
         originalHeight: scaledOriginalImgHeight,
-        minWidth: minWidth,
-        minHeight: minHeight,
-        maxWidth: maxWidth,
-        maxHeight: maxHeight
+        minWidth: scaledOriginalImgWidth / 2,
+        minHeight: scaledOriginalImgHeight / 2,
+        maxWidth: scaledOriginalImgWidth * 2,
+        maxHeight: scaledOriginalImgHeight * 2
       });
       this.props.updateDimensions(id, scaledOriginalImgWidth, scaledOriginalImgHeight, false);
     }

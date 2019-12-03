@@ -88,11 +88,9 @@ function (_React$PureComponent) {
 
       if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
         var scalingFactor = this.state.scalingFactor;
-        var scaledWidth = width * scalingFactor;
-        var scaledHeight = height * scalingFactor;
         newImagesDimension[id] = {
-          width: scaledWidth,
-          height: scaledHeight
+          width: width * scalingFactor,
+          height: height * scalingFactor
         };
         this.setState({
           imagesDimension: newImagesDimension
