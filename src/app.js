@@ -61,7 +61,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			areSettingComponentsValidated: false,
 			isViewOnly: props.isViewOnly || false,
 			isPreset: false,
-			scalingFactor: props.scalingFactor || 0.5,
+			scalingFactor: props.scalingFactor || 1,
 			containerOffsetTop: props.containerOffsetTop || 0,
 			containerOffsetLeft: props.containerOffsetLeft || 0
 		};
