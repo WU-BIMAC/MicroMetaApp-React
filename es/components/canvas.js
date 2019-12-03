@@ -693,14 +693,23 @@ function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
+      var _this$props = this.props,
+          backgroundImage = _this$props.backgroundImage,
+          _this$props$dimension = _this$props.dimensions;
+      _this$props$dimension = _this$props$dimension === void 0 ? {} : _this$props$dimension;
+      var width = _this$props$dimension.width,
+          height = _this$props$dimension.height,
+          _this$props$microscop = _this$props.microscope,
+          microscope = _this$props$microscop === void 0 ? null : _this$props$microscop,
+          _this$props$scalingFa = _this$props.scalingFactor,
+          scalingFactor = _this$props$scalingFa === void 0 ? 1 : _this$props$scalingFa;
+      var linkedFields = this.state.linkedFields;
+
       if (_constants.bool_isDebug) {
         console.log("LinkedFields");
-        console.log(this.state.linkedFields);
+        console.log(linkedFields);
       }
 
-      var scalingFactor = this.props.scalingFactor;
-      var width = this.props.dimensions.width;
-      var height = this.props.dimensions.height;
       var styleContainer = {
         borderBottom: "2px solid",
         borderTop: "2px solid",
@@ -742,23 +751,23 @@ function (_React$PureComponent) {
       };
       var micInfo = [];
 
-      if (this.props.microscope !== null && this.props.microscope !== undefined) {
-        if (this.props.microscope.Name) {
-          micInfo.push("Name: ".concat(this.props.microscope.Name));
+      if (microscope !== null && microscope !== undefined) {
+        if (microscope.Name) {
+          micInfo.push("Name: ".concat(microscope.Name));
           micInfo.push(_react.default.createElement("br", {
             key: "newline-1"
           }));
         }
 
-        if (this.props.microscope.Manufacturer !== null && this.props.microscope.Manufacturer !== undefined) {
-          micInfo.push("Manufacturer: ".concat(this.props.microscope.Manufacturer));
+        if (microscope.Manufacturer !== null && microscope.Manufacturer !== undefined) {
+          micInfo.push("Manufacturer: ".concat(microscope.Manufacturer));
           micInfo.push(_react.default.createElement("br", {
             key: "newline-2"
           }));
         }
 
-        if (this.props.microscope.Model !== null && this.props.microscope.Model !== undefined) {
-          micInfo.push("Model: ".concat(this.props.microscope.Model));
+        if (microscope.Model !== null && microscope.Model !== undefined) {
+          micInfo.push("Model: ".concat(microscope.Model));
           micInfo.push(_react.default.createElement("br", {
             key: "newline-3"
           }));
@@ -777,8 +786,8 @@ function (_React$PureComponent) {
       }, _react.default.createElement("div", {
         style: canvasInnerContainerStyle
       }, _react.default.createElement("img", {
-        src: this.props.backgroundImage,
-        alt: this.props.backgroundImage,
+        src: backgroundImage + (backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
+        alt: backgroundImage,
         style: imageStyle,
         onLoad: this.onImgLoad
       })), _react.default.createElement("div", {
