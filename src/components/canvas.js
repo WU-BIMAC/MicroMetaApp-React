@@ -40,9 +40,6 @@ export default class Canvas extends React.PureComponent {
 			backgroundScale: null,
 			offsetY: 0,
 			offsetX: 0,
-			scalingFactor: props.scalingFactor || 1,
-			containerOffsetTop: props.containerOffsetTop || 0,
-			containerOffsetLeft: props.containerOffsetLeft || 0,
 			headerOffset: props.headerOffset || 0,
 			isEditing: false,
 			hover: null
@@ -292,25 +289,11 @@ export default class Canvas extends React.PureComponent {
 
 		let offsetX = this.state.offsetX;
 		let offsetY = this.state.offsetY;
-		let containerOffsetX = this.state.containerOffsetLeft;
-		let containerOffsetY = this.state.containerOffsetTop;
-
-		if (bool_isDebug) {
-			if (bool_isDebug) {
-				console.log(
-					"ContainerOffset: " + containerOffsetX + " - " + containerOffsetY
-				);
-			}
-		}
+		let containerOffsetX = this.props.containerOffsetLeft;
+		let containerOffsetY = this.props.containerOffsetTop;
 
 		x += offsetX - containerOffsetX;
 		y += offsetY - containerOffsetY;
-
-		if (bool_isDebug) {
-			if (bool_isDebug) {
-				console.log("XY: " + x + " - " + y);
-			}
-		}
 
 		if (sourceElement.source !== string_toolbar) {
 			x -= 5;
@@ -509,7 +492,7 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	createList() {
-		let scalingFactor = this.state.scalingFactor;
+		let scalingFactor = this.props.scalingFactor;
 		let hover = this.state.hover;
 		let elementList = this.state.elementList;
 		let elementData = this.state.elementData;
@@ -701,7 +684,7 @@ export default class Canvas extends React.PureComponent {
 			console.log(this.state.linkedFields);
 		}
 
-		let scalingFactor = this.state.scalingFactor;
+		let scalingFactor = this.props.scalingFactor;
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
 		const styleContainer = {
