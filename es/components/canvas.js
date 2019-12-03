@@ -68,7 +68,10 @@ function (_React$PureComponent) {
       backgroundScale: null,
       offsetY: 0,
       offsetX: 0,
-      scale: null,
+      scalingFactor: props.scalingFactor || 1,
+      containerOffsetTop: props.containerOffsetTop || 0,
+      containerOffsetLeft: props.containerOffsetLeft || 0,
+      headerOffset: props.headerOffset || 0,
       isEditing: false,
       hover: null
     };
@@ -299,11 +302,26 @@ function (_React$PureComponent) {
       var newElementDataList = Object.assign({}, this.state.elementData);
       var newElement = null;
       var x = e.x;
-      var y = e.y - 60;
+      var y = e.y - this.state.headerOffset;
       var offsetX = this.state.offsetX;
       var offsetY = this.state.offsetY;
-      x += offsetX;
-      y += offsetY;
+      var containerOffsetX = this.state.containerOffsetLeft;
+      var containerOffsetY = this.state.containerOffsetTop;
+
+      if (_constants.bool_isDebug) {
+        if (_constants.bool_isDebug) {
+          console.log("ContainerOffset: " + containerOffsetX + " - " + containerOffsetY);
+        }
+      }
+
+      x += offsetX - containerOffsetX;
+      y += offsetY - containerOffsetY;
+
+      if (_constants.bool_isDebug) {
+        if (_constants.bool_isDebug) {
+          console.log("XY: " + x + " - " + y);
+        }
+      }
 
       if (sourceElement.source !== _constants.string_toolbar) {
         x -= 5;
@@ -507,6 +525,7 @@ function (_React$PureComponent) {
     value: function createList() {
       var _this2 = this;
 
+      var scalingFactor = this.state.scalingFactor;
       var hover = this.state.hover;
       var elementList = this.state.elementList;
       var elementData = this.state.elementData;
@@ -555,7 +574,7 @@ function (_React$PureComponent) {
       var styleNameHover = {
         overflow: "unset",
         fontSize: "80%",
-        textAlign: "center",
+        textAlign: "left",
         lineHeight: "125%",
         color: "gray"
       };
@@ -571,20 +590,18 @@ function (_React$PureComponent) {
         var containerHeight = item.height;
         if (containerWidth == -1) containerWidth = 100;
         if (containerHeight == -1) containerHeight = 100;
+        var scaledContainerWidth = containerWidth * scalingFactor;
+        var scaledContainerHeight = containerHeight * scalingFactor;
 
         if (!item.validated) {
-          containerWidth += 10;
-          containerHeight += 10;
+          scaledContainerWidth += 10;
+          scaledContainerHeight += 10;
         }
 
         stylesContainer[item.ID] = Object.assign({
-          width: "".concat(containerWidth + 10, "px"),
-          height: "".concat(containerHeight, "px")
-        }, {
-          position: "absolute",
-          left: x,
-          top: y
-        });
+          width: "".concat(scaledContainerWidth + 10, "px"),
+          height: "".concat(scaledContainerHeight + 7, "px")
+        }, style);
         stylesImages[item.ID] = {
           width: item.width,
           height: item.height
@@ -668,8 +685,9 @@ function (_React$PureComponent) {
             maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
             elementByType: elementByType,
             isViewOnly: _this2.props.isViewOnly,
-            setEditingOnCanvas: _this2.setEditingOnCanvas
-          }), _react["default"].createElement("div", {
+            setEditingOnCanvas: _this2.setEditingOnCanvas,
+            scalingFactor: scalingFactor
+          }), _react.default.createElement("div", {
             style: styleName
           }, item.name))))));
         });
@@ -689,6 +707,7 @@ function (_React$PureComponent) {
         console.log(this.state.linkedFields);
       }
 
+      var scalingFactor = this.state.scalingFactor;
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height;
       var styleContainer = {
@@ -700,8 +719,33 @@ function (_React$PureComponent) {
         height: "".concat(height, "px")
       };
       var dropTargetStyle = {
-        width: "".concat(width - 2, "px"),
-        height: "".concat(height - 4, "px")
+        width: "".concat(innerWidth, "px"),
+        height: "".concat(innerHeight, "px")
+      };
+      var canvasContainerStyle = {
+        width: "100%",
+        height: "100%",
+        position: "relative",
+        overflow: "auto"
+      };
+      var scaledCanvasWidth = _constants.number_canvas_width * scalingFactor;
+      var scaledCanvasHeight = _constants.number_canvas_height * scalingFactor;
+      var canvasInnerContainerStyle = {
+        width: "".concat(scaledCanvasWidth, "px"),
+        height: "".concat(scaledCanvasHeight, "px"),
+        position: "absolute",
+        left: 0,
+        top: 0
+      };
+      var imageStyle = {
+        width: "100%",
+        height: "100%",
+        margin: "auto"
+      };
+      var infoStyle = {
+        position: "absolute",
+        left: 0,
+        top: 0
       };
       var micInfo = [];
 

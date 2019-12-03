@@ -97,7 +97,10 @@ function (_React$PureComponent) {
       areComponentsValidated: false,
       areSettingComponentsValidated: false,
       isViewOnly: props.isViewOnly || false,
-      isPreset: false
+      isPreset: false,
+      scalingFactor: props.scalingFactor || 1,
+      containerOffsetTop: props.containerOffsetTop || 0,
+      containerOffsetLeft: props.containerOffsetLeft || 0
     };
     if (_this.state.microscope !== null && _this.state.microscope !== undefined) _this.state.isPreset = true; //this.isMicroscopeValidated = false;
 
@@ -135,8 +138,8 @@ function (_React$PureComponent) {
     _this.createOrUseMicroscope = _this.createOrUseMicroscope.bind(_assertThisInitialized(_this));
     _this.createNewMicroscopeFromScratch = _this.createNewMicroscopeFromScratch.bind(_assertThisInitialized(_this));
     _this.createOrUseMicroscopeFromDroppedFile = _this.createOrUseMicroscopeFromDroppedFile.bind(_assertThisInitialized(_this));
-    _this.createOrUseMicroscopeFromSelectedFile = _this.createOrUseMicroscopeFromSelectedFile.bind(_assertThisInitialized(_this));
-    _this.setMicroscopeScale = _this.setMicroscopeScale.bind(_assertThisInitialized(_this));
+    _this.createOrUseMicroscopeFromSelectedFile = _this.createOrUseMicroscopeFromSelectedFile.bind(_assertThisInitialized(_this)); //this.setMicroscopeScale = this.setMicroscopeScale.bind(this);
+
     _this.onClickBack = _this.onClickBack.bind(_assertThisInitialized(_this));
     _this.createAdaptedSchemas = _this.createAdaptedSchemas.bind(_assertThisInitialized(_this));
     _this.createAdaptedSchema = _this.createAdaptedSchema.bind(_assertThisInitialized(_this));
@@ -301,12 +304,10 @@ function (_React$PureComponent) {
       this.setState({
         microscope: microscope
       });
-    }
-  }, {
-    key: "setMicroscopeScale",
-    value: function setMicroscopeScale(scale) {
-      this.state.microscope.scale = scale;
-    }
+    } // setMicroscopeScale(scale) {
+    // 	this.state.microscope.scale = scale;
+    // }
+
   }, {
     key: "createAdaptedSchema",
     value: function createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier) {
@@ -914,6 +915,7 @@ function (_React$PureComponent) {
       this.state.settings;
       var settingData = this.state.settingData;
       var linkedFields = this.state.linkedFields;
+      var scalingFactor = this.state.scalingFactor;
       width = Math.max(1100, width);
       height = Math.max(600, height - 60 * 2); //let canvasWidth = Math.ceil(width * 0.75);
 
@@ -1085,12 +1087,15 @@ function (_React$PureComponent) {
         width: headerFooterWidth,
         height: headerFooterHeight
       };
+      var headerOffset = headerFooterHeight;
       var microscopeSchema = this.state.adaptedMicroscopeSchema;
       var componentsSchema = this.state.adaptedComponentsSchema;
       var imageSchema = this.state.adaptedImageSchema;
       var settingsSchema = this.state.adaptedSettingsSchema;
-      this.state.adaptedExperimentalSchema;
-      this.state.adaptedChildrenSchema;
+      var experimentalSchema = this.state.adaptedExperimentalSchema;
+      var childrenSchema = this.state.adaptedChildrenSchema;
+      var containerOffsetLeft = this.state.containerOffsetLeft;
+      var containerOffsetTop = this.state.containerOffsetTop;
 
       if (!this.state.isCreatingNewMicroscope) {
         return _react["default"].createElement(MicroscopyMetadataToolContainer, {
@@ -1159,7 +1164,11 @@ function (_React$PureComponent) {
             overlaysContainer: this.overlaysContainerRef.current,
             areComponentsValidated: this.state.areComponentsValidated,
             dimensions: canvasDims,
-            setScale: this.setMicroscopeScale,
+            scalingFactor: scalingFactor,
+            containerOffsetTop: containerOffsetTop,
+            containerOffsetLeft: containerOffsetLeft,
+            headerOffset: headerOffset //setScale={this.setMicroscopeScale}
+            ,
             isViewOnly: this.state.isViewOnly
           })));
         } else {
@@ -1187,17 +1196,19 @@ function (_React$PureComponent) {
             overlaysContainer: this.overlaysContainerRef.current,
             areComponentsValidated: this.state.areComponentsValidated,
             dimensions: canvasDims,
-            setScale: this.setMicroscopeScale
-          }), _react["default"].createElement(_toolbar["default"], {
+            scalingFactor: scalingFactor,
+            containerOffsetTop: containerOffsetTop,
+            containerOffsetLeft: containerOffsetLeft,
+            headerOffset: headerOffset //setScale={this.setMicroscopeScale}
+
+          }), _react.default.createElement(_toolbar.default, {
             activeTier: this.state.activeTier,
             ref: this.toolbarRef,
             imagesPath: imagesPathSVG,
             componentSchemas: componentsSchema,
-            dimensions: {
-              width: 300,
-              height: toolbarHeight
-            }
-          })), _react["default"].createElement(_footer["default"], {
+            dimensions: toolbarDims,
+            scalingFactor: scalingFactor
+          })), _react.default.createElement(_footer.default, {
             activeTier: this.state.activeTier,
             validationTier: this.state.validationTier,
             schema: microscopeSchema,

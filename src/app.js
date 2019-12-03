@@ -60,7 +60,10 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			areComponentsValidated: false,
 			areSettingComponentsValidated: false,
 			isViewOnly: props.isViewOnly || false,
-			isPreset: false
+			isPreset: false,
+			scalingFactor: props.scalingFactor || 1,
+			containerOffsetTop: props.containerOffsetTop || 0,
+			containerOffsetLeft: props.containerOffsetLeft || 0
 		};
 
 		if (this.state.microscope !== null && this.state.microscope !== undefined)
@@ -123,7 +126,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.createOrUseMicroscopeFromSelectedFile = this.createOrUseMicroscopeFromSelectedFile.bind(
 			this
 		);
-		this.setMicroscopeScale = this.setMicroscopeScale.bind(this);
+		//this.setMicroscopeScale = this.setMicroscopeScale.bind(this);
 
 		this.onClickBack = this.onClickBack.bind(this);
 
@@ -279,9 +282,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.setState({ microscope: microscope });
 	}
 
-	setMicroscopeScale(scale) {
-		this.state.microscope.scale = scale;
-	}
+	// setMicroscopeScale(scale) {
+	// 	this.state.microscope.scale = scale;
+	// }
 
 	createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier) {
 		let singleSchema = Object.assign({}, singleSchemaOriginal);
@@ -857,6 +860,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let settingData = this.state.settingData;
 		let linkedFields = this.state.linkedFields;
 
+		let scalingFactor = this.state.scalingFactor;
+
 		width = Math.max(1100, width);
 		height = Math.max(600, height - 60 * 2);
 
@@ -1087,12 +1092,17 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			height: headerFooterHeight
 		};
 
+		let headerOffset = headerFooterHeight;
+
 		let microscopeSchema = this.state.adaptedMicroscopeSchema;
 		let componentsSchema = this.state.adaptedComponentsSchema;
 		let imageSchema = this.state.adaptedImageSchema;
 		let settingsSchema = this.state.adaptedSettingsSchema;
 		let experimentalSchema = this.state.adaptedExperimentalSchema;
 		let childrenSchema = this.state.adaptedChildrenSchema;
+
+		let containerOffsetLeft = this.state.containerOffsetLeft;
+		let containerOffsetTop = this.state.containerOffsetTop;
 
 		if (!this.state.isCreatingNewMicroscope) {
 			return (
@@ -1169,7 +1179,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 								overlaysContainer={this.overlaysContainerRef.current}
 								areComponentsValidated={this.state.areComponentsValidated}
 								dimensions={canvasDims}
-								setScale={this.setMicroscopeScale}
+								scalingFactor={scalingFactor}
+								containerOffsetTop={containerOffsetTop}
+								containerOffsetLeft={containerOffsetLeft}
+								headerOffset={headerOffset}
+								//setScale={this.setMicroscopeScale}
 								isViewOnly={this.state.isViewOnly}
 							/>
 						</div>
@@ -1205,7 +1219,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 								overlaysContainer={this.overlaysContainerRef.current}
 								areComponentsValidated={this.state.areComponentsValidated}
 								dimensions={canvasDims}
-								setScale={this.setMicroscopeScale}
+								scalingFactor={scalingFactor}
+								containerOffsetTop={containerOffsetTop}
+								containerOffsetLeft={containerOffsetLeft}
+								headerOffset={headerOffset}
+								//setScale={this.setMicroscopeScale}
 							/>
 							<Toolbar
 								activeTier={this.state.activeTier}
@@ -1213,6 +1231,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 								imagesPath={imagesPathSVG}
 								componentSchemas={componentsSchema}
 								dimensions={toolbarDims}
+								scalingFactor={scalingFactor}
 							/>
 						</div>
 						<Footer

@@ -52,7 +52,8 @@ function (_React$PureComponent) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Toolbar).call(this, props));
     _this.state = {
       elementList: {},
-      imagesDimension: {}
+      imagesDimension: {},
+      scalingFactor: props.scalingFactor || 1
     };
     var counter = 0;
 
@@ -86,9 +87,12 @@ function (_React$PureComponent) {
       var newImagesDimension = Object.assign({}, this.state.imagesDimension);
 
       if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
+        var scalingFactor = this.state.scalingFactor;
+        var scaledWidth = width * scalingFactor;
+        var scaledHeight = height * scalingFactor;
         newImagesDimension[id] = {
-          width: width,
-          height: height
+          width: scaledWidth,
+          height: scaledHeight
         };
         this.setState({
           imagesDimension: newImagesDimension
@@ -219,6 +223,11 @@ function (_React$PureComponent) {
 
       if (Object.keys(imagesDimension).length !== 0 && this.state.numberOfElement !== Object.keys(imagesDimension).length && this.cachedToolbar !== null) {
         return this.cachedToolbar;
+      }
+
+      if (_constants.bool_isDebug) {
+        console.log("NOT CACHED");
+        console.log(imagesDimension);
       }
 
       var width = this.props.dimensions.width;
