@@ -61,9 +61,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			areSettingComponentsValidated: false,
 			isViewOnly: props.isViewOnly || false,
 			isPreset: false,
-			scalingFactor: props.scalingFactor || 1,
-			containerOffsetTop: props.containerOffsetTop || 0,
-			containerOffsetLeft: props.containerOffsetLeft || 0
 		};
 
 		if (this.state.microscope !== null && this.state.microscope !== undefined)
@@ -860,7 +857,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let settingData = this.state.settingData;
 		let linkedFields = this.state.linkedFields;
 
-		let scalingFactor = this.state.scalingFactor;
+		let scalingFactor = this.props.scalingFactor;
 
 		width = Math.max(1100, width);
 		height = Math.max(600, height - 60 * 2);
@@ -1101,9 +1098,6 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let experimentalSchema = this.state.adaptedExperimentalSchema;
 		let childrenSchema = this.state.adaptedChildrenSchema;
 
-		let containerOffsetLeft = this.state.containerOffsetLeft;
-		let containerOffsetTop = this.state.containerOffsetTop;
-
 		if (!this.state.isCreatingNewMicroscope) {
 			return (
 				<MicroscopyMetadataToolContainer
@@ -1180,8 +1174,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 								areComponentsValidated={this.state.areComponentsValidated}
 								dimensions={canvasDims}
 								scalingFactor={scalingFactor}
-								containerOffsetTop={containerOffsetTop}
-								containerOffsetLeft={containerOffsetLeft}
+								containerOffsetTop={this.props.containerOffsetTop}
+								containerOffsetLeft={this.props.containerOffsetLeft}
 								headerOffset={headerOffset}
 								//setScale={this.setMicroscopeScale}
 								isViewOnly={this.state.isViewOnly}
@@ -1220,8 +1214,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 								areComponentsValidated={this.state.areComponentsValidated}
 								dimensions={canvasDims}
 								scalingFactor={scalingFactor}
-								containerOffsetTop={containerOffsetTop}
-								containerOffsetLeft={containerOffsetLeft}
+								containerOffsetTop={this.props.containerOffsetTop}
+								containerOffsetLeft={this.props.containerOffsetLeft}
 								headerOffset={headerOffset}
 								//setScale={this.setMicroscopeScale}
 							/>
@@ -1291,6 +1285,9 @@ MicroscopyMetadataTool.defaultProps = {
 	imagesPathPNG: "./assets/png/",
 	imagesPathSVG: "./assets/svg/",
 	tiers: ["1", "2", "3", "4", "5"],
+	containerOffsetTop: 0,
+	containerOffsetLeft: 0,
+	scalingFactor: 1,
 	onLoadSchema: function(complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function() {

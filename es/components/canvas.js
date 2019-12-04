@@ -68,9 +68,6 @@ function (_React$PureComponent) {
       backgroundScale: null,
       offsetY: 0,
       offsetX: 0,
-      scalingFactor: props.scalingFactor || 1,
-      containerOffsetTop: props.containerOffsetTop || 0,
-      containerOffsetLeft: props.containerOffsetLeft || 0,
       headerOffset: props.headerOffset || 0,
       isEditing: false,
       hover: null
@@ -305,23 +302,10 @@ function (_React$PureComponent) {
       var y = e.y - this.state.headerOffset;
       var offsetX = this.state.offsetX;
       var offsetY = this.state.offsetY;
-      var containerOffsetX = this.state.containerOffsetLeft;
-      var containerOffsetY = this.state.containerOffsetTop;
-
-      if (_constants.bool_isDebug) {
-        if (_constants.bool_isDebug) {
-          console.log("ContainerOffset: " + containerOffsetX + " - " + containerOffsetY);
-        }
-      }
-
+      var containerOffsetX = this.props.containerOffsetLeft;
+      var containerOffsetY = this.props.containerOffsetTop;
       x += offsetX - containerOffsetX;
       y += offsetY - containerOffsetY;
-
-      if (_constants.bool_isDebug) {
-        if (_constants.bool_isDebug) {
-          console.log("XY: " + x + " - " + y);
-        }
-      }
 
       if (sourceElement.source !== _constants.string_toolbar) {
         x -= 5;
@@ -525,7 +509,7 @@ function (_React$PureComponent) {
     value: function createList() {
       var _this2 = this;
 
-      var scalingFactor = this.state.scalingFactor;
+      var scalingFactor = this.props.scalingFactor;
       var hover = this.state.hover;
       var elementList = this.state.elementList;
       var elementData = this.state.elementData;
@@ -706,14 +690,23 @@ function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
+      var _this$props = this.props,
+          backgroundImage = _this$props.backgroundImage,
+          _this$props$dimension = _this$props.dimensions;
+      _this$props$dimension = _this$props$dimension === void 0 ? {} : _this$props$dimension;
+      var width = _this$props$dimension.width,
+          height = _this$props$dimension.height,
+          _this$props$microscop = _this$props.microscope,
+          microscope = _this$props$microscop === void 0 ? null : _this$props$microscop,
+          _this$props$scalingFa = _this$props.scalingFactor,
+          scalingFactor = _this$props$scalingFa === void 0 ? 1 : _this$props$scalingFa;
+      var linkedFields = this.state.linkedFields;
+
       if (_constants.bool_isDebug) {
         console.log("LinkedFields");
-        console.log(this.state.linkedFields);
+        console.log(linkedFields);
       }
 
-      var scalingFactor = this.state.scalingFactor;
-      var width = this.props.dimensions.width;
-      var height = this.props.dimensions.height;
       var styleContainer = {
         borderBottom: "2px solid",
         borderTop: "2px solid",
@@ -735,24 +728,24 @@ function (_React$PureComponent) {
       };
       var micInfo = [];
 
-      if (this.props.microscope !== null && this.props.microscope !== undefined) {
-        if (this.props.microscope.Name) {
-          micInfo.push("Name: ".concat(this.props.microscope.Name));
-          micInfo.push(_react["default"].createElement("br", {
+      if (microscope !== null && microscope !== undefined) {
+        if (microscope.Name) {
+          micInfo.push("Name: ".concat(microscope.Name));
+          micInfo.push(_react.default.createElement("br", {
             key: "newline-1"
           }));
         }
 
-        if (this.props.microscope.Manufacturer !== null && this.props.microscope.Manufacturer !== undefined) {
-          micInfo.push("Manufacturer: ".concat(this.props.microscope.Manufacturer));
-          micInfo.push(_react["default"].createElement("br", {
+        if (microscope.Manufacturer !== null && microscope.Manufacturer !== undefined) {
+          micInfo.push("Manufacturer: ".concat(microscope.Manufacturer));
+          micInfo.push(_react.default.createElement("br", {
             key: "newline-2"
           }));
         }
 
-        if (this.props.microscope.Model !== null && this.props.microscope.Model !== undefined) {
-          micInfo.push("Model: ".concat(this.props.microscope.Model));
-          micInfo.push(_react["default"].createElement("br", {
+        if (microscope.Model !== null && microscope.Model !== undefined) {
+          micInfo.push("Model: ".concat(microscope.Model));
+          micInfo.push(_react.default.createElement("br", {
             key: "newline-3"
           }));
         }
@@ -774,14 +767,10 @@ function (_React$PureComponent) {
         onScroll: this.handleScroll
       }, _react["default"].createElement("div", {
         style: canvasInnerContainerStyle
-      }, _react["default"].createElement("img", {
-        src: this.props.backgroundImage + (this.props.backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: this.props.backgroundImage,
-        style: {
-          width: "100%",
-          height: "100%",
-          margin: "auto"
-        },
+      }, _react.default.createElement("img", {
+        src: backgroundImage + (backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
+        alt: backgroundImage,
+        style: imageStyle,
         onLoad: this.onImgLoad
       })), _react["default"].createElement("div", {
         style: {

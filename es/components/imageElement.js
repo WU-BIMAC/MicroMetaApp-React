@@ -67,21 +67,26 @@ function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
+      var _this$props = this.props,
+          name = _this$props.name,
+          image = _this$props.image,
+          propStyle = _this$props.style;
+      var imageStyle = {
+        height: "100%",
+        width: "100%",
+        margin: "auto"
+      };
       var style = Object.assign({
         display: "flex",
         justifyContent: "center",
         backgroundColor: "transparent"
-      }, this.props.style);
+      }, propStyle);
 
       var img = _react["default"].createElement("img", {
         onLoad: this.onImgLoad,
-        src: this.props.image + (this.props.image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: this.props.name,
-        style: {
-          height: "100%",
-          width: "100%",
-          margin: "auto"
-        }
+        src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
+        alt: name,
+        style: imageStyle
       });
 
       return _react["default"].createElement("div", {

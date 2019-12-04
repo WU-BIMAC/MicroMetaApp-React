@@ -14,8 +14,7 @@ export default class Toolbar extends React.PureComponent {
 		super(props);
 		this.state = {
 			elementList: {},
-			imagesDimension: {},
-			scalingFactor: props.scalingFactor || 1
+			imagesDimension: {}
 		};
 
 		let counter = 0;
@@ -43,7 +42,7 @@ export default class Toolbar extends React.PureComponent {
 	updateMinMaxDimensions(id, width, height) {
 		let newImagesDimension = Object.assign({}, this.state.imagesDimension);
 		if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
-			let scalingFactor = this.state.scalingFactor;
+			let scalingFactor = this.props.scalingFactor;
 			let scaledWidth = width * scalingFactor;
 			let scaledHeight = height * scalingFactor;
 			newImagesDimension[id] = { width: scaledWidth, height: scaledHeight };
