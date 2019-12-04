@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CanvasElementDeleteButton = exports["default"] = void 0;
+exports.CanvasElementDeleteButton = exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -15,9 +15,9 @@ var _imageElement = _interopRequireDefault(require("./imageElement"));
 
 var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWithHeader"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27,13 +27,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var CanvasElement =
 /*#__PURE__*/
@@ -98,14 +98,16 @@ function (_React$PureComponent) {
     }
   }, {
     key: "handleResizeStart",
-    value: function handleResizeStart() {}
+    value: function handleResizeStart(e, data) {}
   }, {
     key: "handleResize",
     value: function handleResize(e, data) {
       var width = data.size.width;
       var height = data.size.height;
+      var imgWidth = width;
+      var imgHeight = height;
       var id = this.props.id;
-      this.props.updateDimensions(id, width, height, true);
+      this.props.updateDimensions(id, imgWidth, imgHeight, true);
     }
   }, {
     key: "updateMinMaxDimensions",
@@ -114,24 +116,28 @@ function (_React$PureComponent) {
       var scalingFactor = this.state.scalingFactor;
       var scaledOriginalImgWidth = originalImgWidth * scalingFactor;
       var scaledOriginalImgHeight = originalImgHeight * scalingFactor;
+      var minWidth = scaledOriginalImgWidth / 2;
+      var minHeight = scaledOriginalImgHeight / 2;
+      var maxWidth = scaledOriginalImgWidth * 2;
+      var maxHeight = scaledOriginalImgHeight * 2;
       this.setState({
         originalWidth: scaledOriginalImgWidth,
         originalHeight: scaledOriginalImgHeight,
-        minWidth: scaledOriginalImgWidth / 2,
-        minHeight: scaledOriginalImgHeight / 2,
-        maxWidth: scaledOriginalImgWidth * 2,
-        maxHeight: scaledOriginalImgHeight * 2
+        minWidth: minWidth,
+        minHeight: minHeight,
+        maxWidth: maxWidth,
+        maxHeight: maxHeight
       });
       this.props.updateDimensions(id, scaledOriginalImgWidth, scaledOriginalImgHeight, false);
     }
   }, {
     key: "handleResizeStop",
-    value: function handleResizeStop() {}
+    value: function handleResizeStop(e, data) {}
   }, {
     key: "render",
     value: function render() {
       if (this.state.editing) {
-        return _react["default"].createElement(_multiTabFormWithHeader["default"], {
+        return _react.default.createElement(_multiTabFormWithHeader.default, {
           schema: this.props.schema,
           inputData: this.props.inputData,
           id: this.props.id,
@@ -145,6 +151,20 @@ function (_React$PureComponent) {
         });
       }
 
+      var style = {
+        textAlign: "center",
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        backgroundColor: "transparent",
+        padding: "0px",
+        margin: "0px",
+        border: "0px",
+        font: "14px",
+        color: "inherit",
+        cursor: "pointer"
+      };
       var resizableStyle = {};
       var play = false;
 
@@ -164,11 +184,15 @@ function (_React$PureComponent) {
 
       var width = this.props.width;
       var height = this.props.height;
+      var styleImage = {
+        width: width,
+        height: height
+      };
       var minWidth = this.state.minWidth;
       var minHeight = this.state.minHeight;
       var maxWidth = this.state.maxWidth;
       var maxHeight = this.state.maxHeight;
-      return _react["default"].createElement(_reactResizable.ResizableBox, {
+      return _react.default.createElement(_reactResizable.ResizableBox, {
         width: width,
         height: height,
         minConstraints: [minWidth, minHeight],
@@ -178,44 +202,28 @@ function (_React$PureComponent) {
         onResize: this.handleResize,
         onResizeStop: this.handleResizeStop,
         style: resizableStyle
-      }, _react["default"].createElement(_reactSimpleAnimate.AnimateKeyframes, {
+      }, _react.default.createElement(_reactSimpleAnimate.AnimateKeyframes, {
         key: "Animation-0",
         play: play,
         durationSeconds: 1,
         keyframes: ["opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1"]
-      }, _react["default"].createElement("button", {
-        style: {
-          textAlign: "center",
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          backgroundColor: "transparent",
-          padding: "0px",
-          margin: "0px",
-          border: "0px",
-          font: "14px",
-          color: "inherit",
-          cursor: "pointer"
-        },
+      }, _react.default.createElement("button", {
+        style: style,
         onClick: this.handleClick
-      }, _react["default"].createElement(_imageElement["default"], {
+      }, _react.default.createElement(_imageElement.default, {
         updateMinMaxDimensions: this.updateMinMaxDimensions,
         id: this.props.id,
         image: this.props.image,
         name: this.props.schema.title,
-        style: {
-          width: width,
-          height: height
-        }
+        style: styleImage
       }))));
     }
   }]);
 
   return CanvasElement;
-}(_react["default"].PureComponent);
+}(_react.default.PureComponent);
 
-exports["default"] = CanvasElement;
+exports.default = CanvasElement;
 CanvasElement.defaultProps = {
   maxWidth: 200,
   maxHeight: 200,
@@ -248,7 +256,7 @@ function (_React$PureComponent2) {
   }, {
     key: "render",
     value: function render() {
-      return _react["default"].createElement("button", {
+      return _react.default.createElement("button", {
         type: "button",
         onClick: this.handleClick,
         style: this.props.myStyle
@@ -257,6 +265,6 @@ function (_React$PureComponent2) {
   }]);
 
   return CanvasElementDeleteButton;
-}(_react["default"].PureComponent);
+}(_react.default.PureComponent);
 
 exports.CanvasElementDeleteButton = CanvasElementDeleteButton;

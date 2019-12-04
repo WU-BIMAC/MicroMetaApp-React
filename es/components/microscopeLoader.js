@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -17,9 +17,9 @@ var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
 
 var _constants = require("../constants");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -29,13 +29,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var MicroscopeLoader =
 /*#__PURE__*/
@@ -69,14 +69,14 @@ function (_React$PureComponent) {
 
   _createClass(MicroscopeLoader, [{
     key: "onFileReaderAbort",
-    value: function onFileReaderAbort() {
+    value: function onFileReaderAbort(e) {
       this.setState({
         fileLoaded: false
       });
     }
   }, {
     key: "onFileReaderError",
-    value: function onFileReaderError() {
+    value: function onFileReaderError(e) {
       this.setState({
         fileLoaded: false
       });
@@ -158,6 +158,22 @@ function (_React$PureComponent) {
         padding: "5px",
         margin: "5px"
       };
+      var windowExternalContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
+        width: "100%",
+        height: "100%",
+        alignItems: "center"
+      };
+      var windowInternalContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
+        width: "100%",
+        height: "100%",
+        alignItems: "center"
+      };
       var width = 410;
       var margin = 5;
       var inputData = this.props.microscopes;
@@ -169,6 +185,11 @@ function (_React$PureComponent) {
       var styleImageContainer = {
         width: "".concat(_constants.number_logo_width, "px"),
         height: "".concat(_constants.number_logo_height, "px")
+      };
+      var styleImage = {
+        width: "100%",
+        height: "100%",
+        margin: "auto"
       };
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
@@ -188,7 +209,7 @@ function (_React$PureComponent) {
       }));
 
       if (loadingMode === 1) {
-        list.push(_react["default"].createElement(_reactDropzone["default"], {
+        list.push(_react.default.createElement(_reactDropzone.default, {
           key: "dropzone",
           onFileDialogCancel: this.dropzoneDialogCancel,
           onDrop: this.dropzoneDrop,
@@ -199,11 +220,11 @@ function (_React$PureComponent) {
         }, function (_ref) {
           var getRootProps = _ref.getRootProps,
               getInputProps = _ref.getInputProps;
-          return _react["default"].createElement("section", {
+          return _react.default.createElement("section", {
             style: dropzoneStyle
-          }, _react["default"].createElement("div", getRootProps(), _react["default"].createElement("input", getInputProps({
+          }, _react.default.createElement("div", getRootProps(), _react.default.createElement("input", getInputProps({
             onClick: _this2.dropzoneDialogOpen
-          })), _react["default"].createElement("p", null, "Drag 'n' drop some files here, or click to select files")));
+          })), _react.default.createElement("p", null, "Drag 'n' drop some files here, or click to select files")));
         }));
       }
 
@@ -236,46 +257,28 @@ function (_React$PureComponent) {
         }
       }
 
-      list.push(_react["default"].createElement("div", {
+      list.push(_react.default.createElement("div", {
         key: "buttons"
-      }, _react["default"].createElement(_Button["default"], {
+      }, _react.default.createElement(_Button.default, {
         onClick: isDropzoneActive && fileLoaded && !fileLoading || !isDropzoneActive ? this.props.onClickConfirm : null,
         style: buttonStyle,
         size: "lg",
         disabled: isDropzoneActive && (!fileLoaded || fileLoading)
-      }, isDropzoneActive && !fileLoaded && !fileLoading ? "Waiting for file" : isDropzoneActive && fileLoading ? "Loading file" : "Confirm"), _react["default"].createElement(_Button["default"], {
+      }, isDropzoneActive && !fileLoaded && !fileLoading ? "Waiting for file" : isDropzoneActive && fileLoading ? "Loading file" : "Confirm"), _react.default.createElement(_Button.default, {
         onClick: this.props.onClickBack,
         style: buttonStyle,
         size: "lg"
       }, "Back")));
-      return _react["default"].createElement("div", {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          flexFlow: "column",
-          width: "100%",
-          height: "100%",
-          alignItems: "center"
-        }
-      }, _react["default"].createElement("div", {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          flexFlow: "column",
-          width: "100%",
-          height: "100%",
-          alignItems: "center"
-        }
-      }, _react["default"].createElement("div", {
+      return _react.default.createElement("div", {
+        style: windowExternalContainer
+      }, _react.default.createElement("div", {
+        style: windowInternalContainer
+      }, _react.default.createElement("div", {
         style: styleImageContainer
-      }, _react["default"].createElement("img", {
+      }, _react.default.createElement("img", {
         src: this.props.logoImg,
         alt: this.props.logoImg,
-        style: {
-          width: "100%",
-          height: "100%",
-          margin: "auto"
-        },
+        style: styleImage,
         onLoad: this.onImgLoad
       })), list));
     }
@@ -301,6 +304,6 @@ function (_React$PureComponent) {
   }]);
 
   return MicroscopeLoader;
-}(_react["default"].PureComponent);
+}(_react.default.PureComponent);
 
-exports["default"] = MicroscopeLoader;
+exports.default = MicroscopeLoader;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -19,9 +19,9 @@ var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
 var _constants = require("../constants");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -31,13 +31,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var validate = require("jsonschema").validate;
 
@@ -99,10 +99,16 @@ function (_React$PureComponent) {
             newElementData[maxNumber] = -1;
           }
         } else if (schema.properties[key].type === _constants.string_object) {
+          var _currentNumber = _constants.string_currentNumberOf_identifier + key;
+
+          var _minNumber = _constants.string_minNumberOf_identifier + key;
+
+          var _maxNumber = _constants.string_maxNumberOf_identifier + key;
+
           if (schema.required.indexOf(key) === -1) {
-            newElementData[_constants.string_currentNumberOf_identifier + key] = 0;
-            newElementData[_constants.string_minNumberOf_identifier + key] = 0;
-            newElementData[_constants.string_maxNumberOf_identifier + key] = 1;
+            newElementData[_currentNumber] = 0;
+            newElementData[_minNumber] = 0;
+            newElementData[_maxNumber] = 1;
           }
         }
       });
@@ -119,9 +125,9 @@ function (_React$PureComponent) {
       var planes = this.state.planes.slice();
 
       if (index !== -1) {
-        planes.splice(index, 1);
+        var removed = planes.splice(index, 1);
       } else {
-        planes.pop();
+        var _removed = planes.pop();
       }
 
       this.setState({
@@ -186,7 +192,7 @@ function (_React$PureComponent) {
         planes: this.state.planes
       };
       var outputData = Object.assign(this.props.inputData, output);
-      this.props.schema.title + "_" + this.props.inputData.ID;
+      var id = this.props.schema.title + "_" + this.props.inputData.ID;
       console.log(outputData);
     }
   }, {
@@ -203,7 +209,7 @@ function (_React$PureComponent) {
       if (this.state.editing) {
         var schema = this.props.schema;
         var obj = planes[index];
-        return _react["default"].createElement(_multiTabFormWithHeader["default"], {
+        return _react.default.createElement(_multiTabFormWithHeader.default, {
           schema: schema,
           inputData: obj,
           id: schema.title + "_" + obj.ID,
@@ -216,6 +222,12 @@ function (_React$PureComponent) {
           elementByType: this.props.elementByType
         });
       } else {
+        var buttonContainerRow = {
+          display: "flex",
+          flexDirection: "row",
+          flexWap: "wrap",
+          justifyContent: "center"
+        };
         var button1 = {
           width: "50px",
           height: "50px",
@@ -238,7 +250,7 @@ function (_React$PureComponent) {
             variant = "light";
           }
 
-          list.push(_react["default"].createElement(_ListGroup["default"].Item, {
+          list.push(_react.default.createElement(_ListGroup.default.Item, {
             action: true,
             variant: variant,
             onClick: this.onSelectElement,
@@ -247,33 +259,28 @@ function (_React$PureComponent) {
           }, channel.Name));
         }
 
-        return _react["default"].createElement(_modalWindow["default"], {
+        return _react.default.createElement(_modalWindow.default, {
           overlaysContainer: this.props.overlaysContainer
-        }, _react["default"].createElement("div", null, _react["default"].createElement("h3", null, this.props.schema.title + "s")), _react["default"].createElement("div", null, _react["default"].createElement(_ListGroup["default"], null, list)), _react["default"].createElement("div", {
-          style: {
-            display: "flex",
-            flexDirection: "row",
-            flexWap: "wrap",
-            justifyContent: "center"
-          }
-        }, _react["default"].createElement(_Button["default"], {
+        }, _react.default.createElement("div", null, _react.default.createElement("h3", null, this.props.schema.title + "s")), _react.default.createElement("div", null, _react.default.createElement(_ListGroup.default, null, list)), _react.default.createElement("div", {
+          style: buttonContainerRow
+        }, _react.default.createElement(_Button.default, {
           style: button1,
           size: "lg",
           onClick: this.onAddElement
-        }, "+"), _react["default"].createElement(_Button["default"], {
+        }, "+"), _react.default.createElement(_Button.default, {
           style: button2,
           size: "lg",
           onClick: this.onEditElement,
           disabled: index === -1
-        }, "Edit selected"), _react["default"].createElement(_Button["default"], {
+        }, "Edit selected"), _react.default.createElement(_Button.default, {
           style: button1,
           size: "lg",
           onClick: this.onRemoveElement
-        }, "-"), _react["default"].createElement(_Button["default"], {
+        }, "-"), _react.default.createElement(_Button.default, {
           style: button2,
           size: "lg",
           onClick: this.onConfirm
-        }, "Confirm"), _react["default"].createElement(_Button["default"], {
+        }, "Confirm"), _react.default.createElement(_Button.default, {
           style: button2,
           size: "lg",
           onClick: this.onCancel
@@ -283,6 +290,6 @@ function (_React$PureComponent) {
   }]);
 
   return PlaneView;
-}(_react["default"].PureComponent);
+}(_react.default.PureComponent);
 
-exports["default"] = PlaneView;
+exports.default = PlaneView;
