@@ -155,7 +155,11 @@ function (_React$PureComponent) {
       }
 
       var defaultValidationTier = this.props.validationTier - 1;
+<<<<<<< HEAD
       buttons[1] = _react.default.createElement(_dropdownMenu.default, {
+=======
+      buttons[1] = _react["default"].createElement(_dropdownMenu["default"], {
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
         key: "Button-1",
         title: validationTier,
         handleMenuItemClick: this.onClickChangeValidation,
@@ -174,7 +178,11 @@ function (_React$PureComponent) {
 
       saveOptions.push("Export " + this.props.element); //Rethink this, maybe drop down split button with multi actions?
 
+<<<<<<< HEAD
       buttons[2] = _react.default.createElement(_dropdownMenu.default, {
+=======
+      buttons[2] = _react["default"].createElement(_dropdownMenu["default"], {
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
         key: "Button-2",
         title: "",
         handleMenuItemClick: this.props.onClickSave,

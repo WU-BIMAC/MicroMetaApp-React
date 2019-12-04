@@ -1253,7 +1253,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 class MicroscopyMetadataToolContainer extends React.PureComponent {
 	render() {
 		var { height, width, forwardedRef } = this.props;
-		var style = { height: 800, width, boxSizing: "border-box" };
+		var style = { height, width, boxSizing: "border-box" };
 		// border-box allows element to account for padding and border
 		// when calculating/using `height` and `width` style properties.
 		return (

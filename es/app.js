@@ -1105,8 +1105,8 @@ function (_React$PureComponent) {
       var componentsSchema = this.state.adaptedComponentsSchema;
       var imageSchema = this.state.adaptedImageSchema;
       var settingsSchema = this.state.adaptedSettingsSchema;
-      var experimentalSchema = this.state.adaptedExperimentalSchema;
-      var childrenSchema = this.state.adaptedChildrenSchema;
+      this.state.adaptedExperimentalSchema;
+      this.state.adaptedChildrenSchema;
 
       if (!this.state.isCreatingNewMicroscope) {
         return _react.default.createElement(MicroscopyMetadataToolContainer, {
@@ -1303,8 +1303,12 @@ function (_React$PureComponent2) {
 
       return _react.default.createElement("div", {
         id: "microscopy-app-container",
-        style: style
-      }, this.props.children, _react.default.createElement("div", {
+        style: {
+          height: height,
+          width: width,
+          boxSizing: "border-box"
+        }
+      }, this.props.children, _react["default"].createElement("div", {
         id: "microscopy-app-overlays-container",
         ref: forwardedRef
       }));

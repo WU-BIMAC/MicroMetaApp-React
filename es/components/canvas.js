@@ -754,21 +754,33 @@ function (_React$PureComponent) {
       if (microscope !== null && microscope !== undefined) {
         if (microscope.Name) {
           micInfo.push("Name: ".concat(microscope.Name));
+<<<<<<< HEAD
           micInfo.push(_react.default.createElement("br", {
+=======
+          micInfo.push(_react["default"].createElement("br", {
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
             key: "newline-1"
           }));
         }
 
         if (microscope.Manufacturer !== null && microscope.Manufacturer !== undefined) {
           micInfo.push("Manufacturer: ".concat(microscope.Manufacturer));
+<<<<<<< HEAD
           micInfo.push(_react.default.createElement("br", {
+=======
+          micInfo.push(_react["default"].createElement("br", {
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
             key: "newline-2"
           }));
         }
 
         if (microscope.Model !== null && microscope.Model !== undefined) {
           micInfo.push("Model: ".concat(microscope.Model));
+<<<<<<< HEAD
           micInfo.push(_react.default.createElement("br", {
+=======
+          micInfo.push(_react["default"].createElement("br", {
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
             key: "newline-3"
           }));
         }
@@ -785,10 +797,21 @@ function (_React$PureComponent) {
         onScroll: this.handleScroll
       }, _react.default.createElement("div", {
         style: canvasInnerContainerStyle
+<<<<<<< HEAD
       }, _react.default.createElement("img", {
         src: backgroundImage + (backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
         alt: backgroundImage,
         style: imageStyle,
+=======
+      }, _react["default"].createElement("img", {
+        src: backgroundImage + (backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
+        alt: backgroundImage,
+        style: {
+          width: "100%",
+          height: "100%",
+          margin: "auto"
+        },
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
         onLoad: this.onImgLoad
       })), _react.default.createElement("div", {
         style: infoStyle

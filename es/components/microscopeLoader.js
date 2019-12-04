@@ -198,7 +198,11 @@ function (_React$PureComponent) {
       var isDropzoneActive = false;
       if (loadingMode === 1) isDropzoneActive = true;
       var list = [];
+<<<<<<< HEAD
       list.push(_react.default.createElement(_dropdownMenu.default, {
+=======
+      list.push(_react["default"].createElement(_dropdownMenu["default"], {
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
         key: "dropdown-loadingOption",
         title: "",
         handleMenuItemClick: this.props.onClickLoadingOptionSelection,
@@ -231,7 +235,11 @@ function (_React$PureComponent) {
       if (loadingMode === 2) {
         var manufacturers = Object.keys(inputData);
         var defaultManu = selectedManu !== null && selectedManu !== undefined ? manufacturers.indexOf(selectedManu) : 0;
+<<<<<<< HEAD
         list.push(_react.default.createElement(_dropdownMenu.default, {
+=======
+        list.push(_react["default"].createElement(_dropdownMenu["default"], {
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
           key: "dropdown-manufacturers",
           title: "",
           handleMenuItemClick: this.onClickManufacturerSelection,
@@ -245,7 +253,11 @@ function (_React$PureComponent) {
           var selectedMic = this.state.selectedMic;
           var defaultMic = selectedMic !== null && selectedMic !== undefined ? inputData[selectedManu].indexOf(selectedMic) : 0;
           console.log(this.state.micNames);
+<<<<<<< HEAD
           list.push(_react.default.createElement(_dropdownMenu.default, {
+=======
+          list.push(_react["default"].createElement(_dropdownMenu["default"], {
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
             key: "dropdown-names",
             title: "",
             handleMenuItemClick: this.props.onClickMicroscopeSelection,

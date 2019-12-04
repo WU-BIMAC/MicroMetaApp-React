@@ -94,7 +94,11 @@ function (_React$PureComponent) {
         alt: this.props.logoImg,
         style: styleImage,
         onLoad: this.onImgLoad
+<<<<<<< HEAD
       })), _react.default.createElement(_dropdownMenu.default, {
+=======
+      })), _react["default"].createElement(_dropdownMenu["default"], {
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
         title: "Tier",
         handleMenuItemClick: this.props.onClickTierSelection,
         inputData: tierInputData,

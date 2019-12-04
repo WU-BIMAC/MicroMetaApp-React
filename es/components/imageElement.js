@@ -71,11 +71,14 @@ function (_React$PureComponent) {
           name = _this$props.name,
           image = _this$props.image,
           propStyle = _this$props.style;
+<<<<<<< HEAD
       var imageStyle = {
         height: "100%",
         width: "100%",
         margin: "auto"
       };
+=======
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
       var style = Object.assign({
         display: "flex",
         justifyContent: "center",
@@ -86,7 +89,15 @@ function (_React$PureComponent) {
         onLoad: this.onImgLoad,
         src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
         alt: name,
+<<<<<<< HEAD
         style: imageStyle
+=======
+        style: {
+          height: "100%",
+          width: "100%",
+          margin: "auto"
+        }
+>>>>>>> 4a4904f93e8068df42226f872907114af8249259
       });
 
       return _react.default.createElement("div", {
