@@ -671,7 +671,8 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			display: "flex",
 			flexDirection: "row",
 			flexWap: "wrap",
-			justifyContent: "center"
+			justifyContent: "center",
+			marginTop: "10px"
 		};
 		let currentChildrenComponents = this.state.currentChildrenComponents;
 		let minChildrenComponents = this.state.minChildrenComponents;

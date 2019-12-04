@@ -489,7 +489,8 @@ function (_React$PureComponent) {
         display: "flex",
         flexDirection: "row",
         flexWap: "wrap",
-        justifyContent: "center"
+        justifyContent: "center",
+        marginTop: "10px"
       };
       var currentChildrenComponents = this.state.currentChildrenComponents;
       var minChildrenComponents = this.state.minChildrenComponents;

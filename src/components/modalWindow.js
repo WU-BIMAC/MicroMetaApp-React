@@ -22,7 +22,7 @@ export default class ModalWindow extends React.PureComponent {
 						marginLeft: "auto",
 						marginRight: "auto",
 						backgroundColor: "#fff",
-						height: "80%",
+						height: "85%",
 						padding: 10,
 						borderRadius: 5,
 						boxShadow: "0 1px 6px -2px #000",
