@@ -13,7 +13,7 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _reactDropzone = _interopRequireDefault(require("react-dropzone"));
 
-var _DropdownMenu = _interopRequireDefault(require("./DropdownMenu"));
+var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
 
 var _constants = require("../constants");
 
@@ -198,7 +198,7 @@ function (_React$PureComponent) {
       var isDropzoneActive = false;
       if (loadingMode === 1) isDropzoneActive = true;
       var list = [];
-      list.push(_react.default.createElement(_DropdownMenu.default, {
+      list.push(_react.default.createElement(_dropdownMenu.default, {
         key: "dropdown-loadingOption",
         title: "",
         handleMenuItemClick: this.props.onClickLoadingOptionSelection,
@@ -231,7 +231,7 @@ function (_React$PureComponent) {
       if (loadingMode === 2) {
         var manufacturers = Object.keys(inputData);
         var defaultManu = selectedManu !== null && selectedManu !== undefined ? manufacturers.indexOf(selectedManu) : 0;
-        list.push(_react.default.createElement(_DropdownMenu.default, {
+        list.push(_react.default.createElement(_dropdownMenu.default, {
           key: "dropdown-manufacturers",
           title: "",
           handleMenuItemClick: this.onClickManufacturerSelection,
@@ -245,7 +245,7 @@ function (_React$PureComponent) {
           var selectedMic = this.state.selectedMic;
           var defaultMic = selectedMic !== null && selectedMic !== undefined ? inputData[selectedManu].indexOf(selectedMic) : 0;
           console.log(this.state.micNames);
-          list.push(_react.default.createElement(_DropdownMenu.default, {
+          list.push(_react.default.createElement(_dropdownMenu.default, {
             key: "dropdown-names",
             title: "",
             handleMenuItemClick: this.props.onClickMicroscopeSelection,
