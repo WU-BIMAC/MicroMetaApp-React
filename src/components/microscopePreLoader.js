@@ -3,7 +3,7 @@ import React from "react";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Button from "react-bootstrap/Button";
 
-import DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "./dropdownMenu";
 
 import {
 	bool_isSettings,

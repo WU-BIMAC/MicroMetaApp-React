@@ -5,7 +5,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { AnimateKeyframes } from "react-simple-animate";
 
 import MultiTabFormWithHeader from "./multiTabFormWithHeader";
-import DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "./dropdownMenu";
 
 const validationTier = "Validate @ tier: ";
 

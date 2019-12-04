@@ -3,7 +3,7 @@ import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Button from "react-bootstrap/Button";
 import Dropzone from "react-dropzone";
 
-import DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "./dropdownMenu";
 
 import {
 	string_json_ext,
@@ -244,8 +244,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 					{isDropzoneActive && !fileLoaded && !fileLoading
 						? "Waiting for file"
 						: isDropzoneActive && fileLoading
-						? "Loading file"
-						: "Confirm"}
+							? "Loading file"
+							: "Confirm"}
 				</Button>
 				<Button onClick={this.props.onClickBack} style={buttonStyle} size="lg">
 					Back
