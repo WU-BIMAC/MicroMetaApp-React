@@ -185,10 +185,6 @@ export default class Toolbar extends React.PureComponent {
 		) {
 			return this.cachedToolbar;
 		}
-		if (bool_isDebug) {
-			console.log("NOT CACHED");
-			console.log(imagesDimension);
-		}
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
 		//console.log("t w: " + width + " h: " + height);

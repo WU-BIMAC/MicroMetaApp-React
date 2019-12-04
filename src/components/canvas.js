@@ -134,16 +134,10 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	handleMouseIn(itemID) {
-		if (bool_isDebug) {
-			console.log("MouseIn ItemID " + itemID);
-		}
 		this.setState({ hover: itemID });
 	}
 
 	handleMouseOut() {
-		if (bool_isDebug) {
-			console.log("MouseOut");
-		}
 		this.setState({ hover: null });
 	}
 
@@ -164,10 +158,6 @@ export default class Canvas extends React.PureComponent {
 		this.state.elementList.forEach(item => {
 			if (item.ID === id) element = item;
 		});
-
-		if (bool_isDebug) {
-			console.log("UpdatedDimensions for " + id);
-		}
 
 		let newElementDataList = Object.assign({}, this.state.elementData);
 		let obj = newElementDataList[id];
@@ -290,25 +280,26 @@ export default class Canvas extends React.PureComponent {
 		let x = e.x;
 		let y = e.y - this.state.headerOffset;
 
+		if (bool_isDebug) {
+			if (bool_isDebug) {
+				console.log("Coord preoffset: " + x + " - " + y);
+			}
+		}
+
 		let offsetX = this.state.offsetX;
 		let offsetY = this.state.offsetY;
 		let containerOffsetX = this.state.containerOffsetLeft;
 		let containerOffsetY = this.state.containerOffsetTop;
-
-		if (bool_isDebug) {
-			if (bool_isDebug) {
-				console.log(
-					"ContainerOffset: " + containerOffsetX + " - " + containerOffsetY
-				);
-			}
-		}
-
 		x += offsetX - containerOffsetX;
 		y += offsetY - containerOffsetY;
 
 		if (bool_isDebug) {
 			if (bool_isDebug) {
-				console.log("XY: " + x + " - " + y);
+				console.log("ScrollX: " + offsetX);
+				console.log("ScrollY: " + offsetY);
+				console.log("FromLeft : " + containerOffsetX);
+				console.log("FromTop: " + containerOffsetY);
+				console.log("Coord: " + x + " - " + y);
 			}
 		}
 
@@ -696,11 +687,6 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	render() {
-		if (bool_isDebug) {
-			console.log("LinkedFields");
-			console.log(this.state.linkedFields);
-		}
-
 		let scalingFactor = this.state.scalingFactor;
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
