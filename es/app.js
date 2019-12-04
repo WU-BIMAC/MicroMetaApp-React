@@ -1289,7 +1289,7 @@ function (_React$PureComponent2) {
       return _react["default"].createElement("div", {
         id: "microscopy-app-container",
         style: {
-          height: 800,
+          height: height,
           width: width,
           boxSizing: "border-box"
         }
