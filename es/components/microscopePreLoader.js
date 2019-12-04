@@ -89,7 +89,7 @@ function (_React$PureComponent) {
           margin: "auto"
         },
         onLoad: this.onImgLoad
-      })), _react.default.createElement(_dropdownMenu.default, {
+      })), _react["default"].createElement(_dropdownMenu["default"], {
         title: "Tier",
         handleMenuItemClick: this.props.onClickTierSelection,
         inputData: tierInputData,

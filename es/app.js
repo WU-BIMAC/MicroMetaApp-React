@@ -1091,10 +1091,6 @@ function (_React$PureComponent) {
       var settingsSchema = this.state.adaptedSettingsSchema;
       this.state.adaptedExperimentalSchema;
       this.state.adaptedChildrenSchema;
-      var containerOffsetLeft = this.state.containerOffsetLeft;
-      var containerOffsetTop = this.state.containerOffsetTop;
-      var experimentalSchema = this.state.adaptedExperimentalSchema;
-      var childrenSchema = this.state.adaptedChildrenSchema;
 
       if (!this.state.isCreatingNewMicroscope) {
         return _react["default"].createElement(MicroscopyMetadataToolContainer, {

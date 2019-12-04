@@ -71,11 +71,6 @@ function (_React$PureComponent) {
           name = _this$props.name,
           image = _this$props.image,
           propStyle = _this$props.style;
-      var imageStyle = {
-        height: "100%",
-        width: "100%",
-        margin: "auto"
-      };
       var style = Object.assign({
         display: "flex",
         justifyContent: "center",
@@ -86,7 +81,11 @@ function (_React$PureComponent) {
         onLoad: this.onImgLoad,
         src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
         alt: name,
-        style: imageStyle
+        style: {
+          height: "100%",
+          width: "100%",
+          margin: "auto"
+        }
       });
 
       return _react["default"].createElement("div", {
