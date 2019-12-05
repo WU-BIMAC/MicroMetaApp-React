@@ -40,9 +40,6 @@ export default class Canvas extends React.PureComponent {
 			backgroundScale: null,
 			offsetY: 0,
 			offsetX: 0,
-			scalingFactor: props.scalingFactor || 1,
-			containerOffsetTop: props.containerOffsetTop || 0,
-			containerOffsetLeft: props.containerOffsetLeft || 0,
 			headerOffset: props.headerOffset || 0,
 			isEditing: false,
 			hover: null
@@ -280,28 +277,13 @@ export default class Canvas extends React.PureComponent {
 		let x = e.x;
 		let y = e.y - this.state.headerOffset;
 
-		if (bool_isDebug) {
-			if (bool_isDebug) {
-				console.log("Coord preoffset: " + x + " - " + y);
-			}
-		}
-
 		let offsetX = this.state.offsetX;
 		let offsetY = this.state.offsetY;
-		let containerOffsetX = this.state.containerOffsetLeft;
-		let containerOffsetY = this.state.containerOffsetTop;
+		let containerOffsetX = this.props.containerOffsetLeft;
+		let containerOffsetY = this.props.containerOffsetTop;
+
 		x += offsetX - containerOffsetX;
 		y += offsetY - containerOffsetY;
-
-		if (bool_isDebug) {
-			if (bool_isDebug) {
-				console.log("ScrollX: " + offsetX);
-				console.log("ScrollY: " + offsetY);
-				console.log("FromLeft : " + containerOffsetX);
-				console.log("FromTop: " + containerOffsetY);
-				console.log("Coord: " + x + " - " + y);
-			}
-		}
 
 		if (sourceElement.source !== string_toolbar) {
 			x -= 5;
@@ -500,7 +482,7 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	createList() {
-		let scalingFactor = this.state.scalingFactor;
+		let scalingFactor = this.props.scalingFactor;
 		let hover = this.state.hover;
 		let elementList = this.state.elementList;
 		let elementData = this.state.elementData;
@@ -687,9 +669,19 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	render() {
-		let scalingFactor = this.state.scalingFactor;
-		let width = this.props.dimensions.width;
-		let height = this.props.dimensions.height;
+		const {
+			backgroundImage,
+			dimensions: { width, height } = {},
+			microscope = null,
+			scalingFactor = 1
+		} = this.props;
+		const { linkedFields } = this.state;
+
+		if (bool_isDebug) {
+			console.log("LinkedFields");
+			console.log(linkedFields);
+		}
+
 		const styleContainer = {
 			borderBottom: "2px solid",
 			borderTop: "2px solid",
@@ -698,57 +690,55 @@ export default class Canvas extends React.PureComponent {
 			width: `${width}px`,
 			height: `${height}px`
 		};
-		let innerWidth = width - 2;
-		let innerHeight = height - 4;
+
+		const innerWidth = width - 2;
+		const innerHeight = height - 4;
 		const dropTargetStyle = {
 			width: `${innerWidth}px`,
 			height: `${innerHeight}px`
 		};
-		let canvasContainerStyle = {
+		const canvasContainerStyle = {
 			width: "100%",
 			height: "100%",
 			position: "relative",
 			overflow: "auto"
 		};
 
-		let scaledCanvasWidth = number_canvas_width * scalingFactor;
-		let scaledCanvasHeight = number_canvas_height * scalingFactor;
+		const scaledCanvasWidth = number_canvas_width * scalingFactor;
+		const scaledCanvasHeight = number_canvas_height * scalingFactor;
 
-		let canvasInnerContainerStyle = {
+		const canvasInnerContainerStyle = {
 			width: `${scaledCanvasWidth}px`,
 			height: `${scaledCanvasHeight}px`,
 			position: "absolute",
 			left: 0,
 			top: 0
 		};
-		let imageStyle = {
+		const imageStyle = {
 			width: "100%",
 			height: "100%",
 			margin: "auto"
 		};
-		let infoStyle = {
+		const infoStyle = {
 			position: "absolute",
 			left: 0,
 			top: 0
 		};
-		let micInfo = [];
-		if (this.props.microscope !== null && this.props.microscope !== undefined) {
-			if (this.props.microscope.Name) {
-				micInfo.push(`Name: ${this.props.microscope.Name}`);
+		const micInfo = [];
+		if (microscope !== null && microscope !== undefined) {
+			if (microscope.Name) {
+				micInfo.push(`Name: ${microscope.Name}`);
 				micInfo.push(<br key={"newline-1"} />);
 			}
 			if (
-				this.props.microscope.Manufacturer !== null &&
-				this.props.microscope.Manufacturer !== undefined
+				microscope.Manufacturer !== null &&
+				microscope.Manufacturer !== undefined
 			) {
-				micInfo.push(`Manufacturer: ${this.props.microscope.Manufacturer}`);
+				micInfo.push(`Manufacturer: ${microscope.Manufacturer}`);
 				micInfo.push(<br key={"newline-2"} />);
 			}
-			if (
-				this.props.microscope.Model !== null &&
-				this.props.microscope.Model !== undefined
-			) {
-				micInfo.push(`Model: ${this.props.microscope.Model}`);
+			if (microscope.Model !== null && microscope.Model !== undefined) {
+				micInfo.push(`Model: ${microscope.Model}`);
 				micInfo.push(<br key={"newline-3"} />);
 			}
 		}
@@ -763,8 +753,13 @@ export default class Canvas extends React.PureComponent {
 					<div style={canvasContainerStyle} onScroll={this.handleScroll}>
 						<div style={canvasInnerContainerStyle}>
 							<img
-								src={this.props.backgroundImage}
-								alt={this.props.backgroundImage}
+								src={
+									backgroundImage +
+									(backgroundImage.indexOf("githubusercontent.com") > -1
+										? "?sanitize=true"
+										: "")
+								}
+								alt={backgroundImage}
 								style={imageStyle}
 								onLoad={this.onImgLoad}
 							/>

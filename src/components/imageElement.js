@@ -28,6 +28,7 @@ export default class ImageElement extends React.PureComponent {
 	}
 
 	render() {
+		const { name, image, style: propStyle } = this.props;
 		const imageStyle = {
 			height: "100%",
 			width: "100%",
@@ -39,13 +40,13 @@ export default class ImageElement extends React.PureComponent {
 				justifyContent: "center",
 				backgroundColor: "transparent"
 			},
-			this.props.style
+			propStyle
 		);
 		let img = (
 			<img
 				onLoad={this.onImgLoad}
-				src={this.props.image}
-				alt={this.props.name}
+				src={image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "")}
+				alt={name}
 				style={imageStyle}
 			/>
 		);

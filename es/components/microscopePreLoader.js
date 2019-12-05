@@ -11,7 +11,7 @@ var _ButtonToolbar = _interopRequireDefault(require("react-bootstrap/ButtonToolb
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
-var _DropdownMenu = _interopRequireDefault(require("./DropdownMenu"));
+var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
 
 var _constants = require("../constants");
 
@@ -94,7 +94,7 @@ function (_React$PureComponent) {
         alt: this.props.logoImg,
         style: styleImage,
         onLoad: this.onImgLoad
-      })), _react.default.createElement(_DropdownMenu.default, {
+      })), _react.default.createElement(_dropdownMenu.default, {
         title: "Tier",
         handleMenuItemClick: this.props.onClickTierSelection,
         inputData: tierInputData,
