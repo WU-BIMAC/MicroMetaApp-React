@@ -677,10 +677,10 @@ export default class Canvas extends React.PureComponent {
 		} = this.props;
 		const { linkedFields } = this.state;
 
-		if (bool_isDebug) {
-			console.log("LinkedFields");
-			console.log(linkedFields);
-		}
+		// if (bool_isDebug) {
+		// 	console.log("LinkedFields");
+		// 	console.log(linkedFields);
+		// }
 
 		const styleContainer = {
 			borderBottom: "2px solid",
