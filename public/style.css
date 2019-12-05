@@ -10,21 +10,3 @@
 	right: -7px !important;
 	bottom: -7px !important;
 }
-
-/* We should tell ppl to import this themselves */
-/*@import url("https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css");*/
-
-/* We should tell ppl to import this themselves - I THINK */
-/* @import url("../node_modules/react-resizable/css/styles.css"); */
-
-/* We should tell ppl to import this themselves */
-/* @import url("../node_modules/rc-tabs/assets/index.css"); */
-
-/*** For now we could just make a plain CSS files (not SCSS) for things. ***/
-/***
-    Or we could use node-sass library and create `npm run build-scss` & `npm run watch-scss` commands
-    (and/or bundle into `npm run dev`) as well as parent app `npm run dev`
-    then tell people / document to fetch this (or compiled) stylesheet from unpkg CDN.
-***/
-
-/** Base button styling **/
