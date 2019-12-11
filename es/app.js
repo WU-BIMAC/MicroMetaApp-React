@@ -53,7 +53,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var path = require("path");
+var url = require("url");
 
 var validate = require("jsonschema").validate;
 
@@ -501,6 +501,7 @@ function (_React$PureComponent) {
       var validated = validation.valid;
 
       if (this.state.isCreatingNewMicroscope) {
+        MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(modifiedMic, newElementData, this.props.scalingFactor);
         this.setState({
           microscope: modifiedMic,
           setting: null,
@@ -571,6 +572,7 @@ function (_React$PureComponent) {
       var validated = validation.valid;
 
       if (this.state.isCreatingNewMicroscope) {
+        MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(modifiedMic, newElementData, this.props.scalingFactor);
         this.setState({
           microscope: modifiedMic,
           setting: null,
@@ -935,7 +937,7 @@ function (_React$PureComponent) {
             height: height,
             forwardedRef: this.overlaysContainerRef
           }, _react.default.createElement(_dataLoader.default, {
-            logoImg: path.join(imagesPathPNG, _constants.string_logo_img_micro_bk),
+            logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_micro_bk),
             onClickLoadSchema: this.handleLoadSchema,
             onClickLoadMicroscopes: this.handleLoadMicroscopes
           }));
@@ -947,7 +949,7 @@ function (_React$PureComponent) {
           height: height,
           forwardedRef: this.overlaysContainerRef
         }, _react.default.createElement(_microscopePreLoader.default, {
-          logoImg: path.join(imagesPathPNG, _constants.string_logo_img_micro_bk),
+          logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_micro_bk),
           tiers: this.props.tiers,
           onClickTierSelection: this.handleActiveTierSelection,
           onClickCreateNewMicroscope: this.setCreateNewMicroscope,
@@ -984,7 +986,7 @@ function (_React$PureComponent) {
           forwardedRef: this.overlaysContainerRef
         }, _react.default.createElement("div", {
           style: windowExternalContainer
-        }, _react.default.createElement("div", null, "logoImg=", path.join(imagesPathPNG, _constants.string_logo_img_micro_bk)), _react.default.createElement("div", {
+        }, _react.default.createElement("div", null, "logoImg=", url.resolve(imagesPathPNG, _constants.string_logo_img_micro_bk)), _react.default.createElement("div", {
           style: windowInternalContainer
         }, _react.default.createElement(_Button.default, {
           style: buttonStyle,
@@ -1018,7 +1020,7 @@ function (_React$PureComponent) {
           height: height,
           forwardedRef: this.overlaysContainerRef
         }, _react.default.createElement(_microscopeLoader.default, {
-          logoImg: path.join(imagesPathPNG, _constants.string_logo_img_micro_bk),
+          logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_micro_bk),
           loadingOptions: loadingOptions,
           microscopes: microscopeNames,
           onFileDrop: this.uploadMicroscopeFromDropzone,
@@ -1059,7 +1061,7 @@ function (_React$PureComponent) {
           height: height,
           forwardedRef: this.overlaysContainerRef
         }, _react.default.createElement(_microscopeLoader.default, {
-          logoImg: path.join(imagesPathPNG, _constants.string_logo_img_micro_bk),
+          logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_micro_bk),
           loadingOptions: _loadingOptions,
           microscopes: _microscopeNames,
           onFileDrop: this.uploadMicroscopeFromDropzone,
@@ -1110,7 +1112,7 @@ function (_React$PureComponent) {
           forwardedRef: this.overlaysContainerRef
         }, _react.default.createElement(_header.default, {
           dimensions: headerFooterDims,
-          logoImg: path.join(imagesPathPNG, _constants.string_logo_img_no_bk)
+          logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_no_bk)
         }), _react.default.createElement(_settingsMainView.default, {
           microscope: microscope,
           microscopeComponents: elementData,
@@ -1149,7 +1151,7 @@ function (_React$PureComponent) {
             forwardedRef: this.overlaysContainerRef
           }, _react.default.createElement(_header.default, {
             dimensions: headerFooterDims,
-            logoImg: path.join(imagesPathPNG, _constants.string_logo_img_no_bk)
+            logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_no_bk)
           }), _react.default.createElement("div", {
             style: style
           }, _react.default.createElement(_canvas.default, {
@@ -1161,7 +1163,7 @@ function (_React$PureComponent) {
             inputData: elementData,
             linkedFields: linkedFields //backgroundImage={`${imagesPath}${microscopeSchema.image}`}
             ,
-            backgroundImage: path.join(imagesPathSVG, microscopeSchema.image),
+            backgroundImage: url.resolve(imagesPathSVG, microscopeSchema.image),
             updateElementData: this.updateElementData,
             updateLinkedFields: this.updateLinkedFields,
             overlaysContainer: this.overlaysContainerRef.current,
@@ -1181,7 +1183,7 @@ function (_React$PureComponent) {
             forwardedRef: this.overlaysContainerRef
           }, _react.default.createElement(_header.default, {
             dimensions: headerFooterDims,
-            logoImg: path.join(imagesPathPNG, _constants.string_logo_img_no_bk)
+            logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_no_bk)
           }), _react.default.createElement("div", {
             style: style
           }, _react.default.createElement(_canvas.default, {
@@ -1193,7 +1195,7 @@ function (_React$PureComponent) {
             inputData: elementData,
             linkedFields: linkedFields //backgroundImage={`${imagesPath}${microscopeSchema.image}`}
             ,
-            backgroundImage: path.join(imagesPathSVG, microscopeSchema.image),
+            backgroundImage: url.resolve(imagesPathSVG, microscopeSchema.image),
             updateElementData: this.updateElementData,
             updateLinkedFields: this.updateLinkedFields,
             overlaysContainer: this.overlaysContainerRef.current,
@@ -1264,6 +1266,28 @@ function (_React$PureComponent) {
 
       return null;
     }
+  }, {
+    key: "checkScalingFactorAndRescaleIfNeeded",
+    value: function checkScalingFactorAndRescaleIfNeeded(modifiedMic, elementData, scalingFactor) {
+      var micScalingFactor = 1;
+      if (modifiedMic.ScalingFactor !== undefined) micScalingFactor = modifiedMic.ScalingFactor;
+      if (micScalingFactor === scalingFactor) return;
+      var reverseScale = 1 / micScalingFactor;
+      var newScalingFactor = reverseScale * scalingFactor;
+      modifiedMic.ScalingFactor = scalingFactor;
+      console.log("SC: " + newScalingFactor);
+
+      for (var key in elementData) {
+        var element = elementData[key];
+        console.log("ID: " + key);
+        console.log(" W: " + element.Width + " H: " + element.Height + " X: " + element.PositionX + " Y: " + element.PositionY);
+        element.Width *= newScalingFactor;
+        element.Height *= newScalingFactor;
+        element.PositionX *= newScalingFactor;
+        element.PositionY *= newScalingFactor;
+        console.log(" W: " + element.Width + " H: " + element.Height + " X: " + element.PositionX + " Y: " + element.PositionY);
+      }
+    }
   }]);
 
   return MicroscopyMetadataTool;
@@ -1325,6 +1349,7 @@ MicroscopyMetadataTool.defaultProps = {
   setting: null,
   microscopes: null,
   settings: null,
+  //REMEMBER last / is needed for url.resolve to properly handle paths
   imagesPathPNG: "./assets/png/",
   imagesPathSVG: "./assets/svg/",
   tiers: ["1", "2", "3", "4", "5"],
