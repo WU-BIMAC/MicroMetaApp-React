@@ -6,7 +6,7 @@ import CanvasElement from "./canvasElement";
 import { CanvasElementDeleteButton } from "./canvasElement";
 import { pathToFileURL } from "url";
 
-const path = require("path");
+const url = require("url");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
@@ -633,7 +633,7 @@ export default class Canvas extends React.PureComponent {
 									<CanvasElement
 										activeTier={this.props.activeTier}
 										id={item.ID}
-										image={path.join(this.props.imagesPath, schema.image)}
+										image={url.resolve(this.props.imagesPath, schema.image)}
 										schema={schema}
 										handleConfirm={this.onCanvasElementDataSave}
 										updateDimensions={this.updatedDimensions}
