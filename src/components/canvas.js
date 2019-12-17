@@ -6,7 +6,7 @@ import CanvasElement from "./canvasElement";
 import { CanvasElementDeleteButton } from "./canvasElement";
 import { pathToFileURL } from "url";
 
-const path = require("path");
+const url = require("url");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
@@ -131,16 +131,10 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	handleMouseIn(itemID) {
-		if (bool_isDebug) {
-			console.log("MouseIn ItemID " + itemID);
-		}
 		this.setState({ hover: itemID });
 	}
 
 	handleMouseOut() {
-		if (bool_isDebug) {
-			console.log("MouseOut");
-		}
 		this.setState({ hover: null });
 	}
 
@@ -161,10 +155,6 @@ export default class Canvas extends React.PureComponent {
 		this.state.elementList.forEach(item => {
 			if (item.ID === id) element = item;
 		});
-
-		if (bool_isDebug) {
-			console.log("UpdatedDimensions for " + id);
-		}
 
 		let newElementDataList = Object.assign({}, this.state.elementData);
 		let obj = newElementDataList[id];
@@ -643,7 +633,7 @@ export default class Canvas extends React.PureComponent {
 									<CanvasElement
 										activeTier={this.props.activeTier}
 										id={item.ID}
-										image={path.join(this.props.imagesPath, schema.image)}
+										image={url.resolve(this.props.imagesPath, schema.image)}
 										schema={schema}
 										handleConfirm={this.onCanvasElementDataSave}
 										updateDimensions={this.updatedDimensions}
@@ -681,16 +671,16 @@ export default class Canvas extends React.PureComponent {
 	render() {
 		const {
 			backgroundImage,
-			dimensions : { width, height } = {},
+			dimensions: { width, height } = {},
 			microscope = null,
 			scalingFactor = 1
 		} = this.props;
 		const { linkedFields } = this.state;
 
-		if (bool_isDebug) {
-			console.log("LinkedFields");
-			console.log(linkedFields);
-		}
+		// if (bool_isDebug) {
+		// 	console.log("LinkedFields");
+		// 	console.log(linkedFields);
+		// }
 
 		const styleContainer = {
 			borderBottom: "2px solid",
@@ -747,10 +737,7 @@ export default class Canvas extends React.PureComponent {
 				micInfo.push(`Manufacturer: ${microscope.Manufacturer}`);
 				micInfo.push(<br key={"newline-2"} />);
 			}
-			if (
-				microscope.Model !== null &&
-				microscope.Model !== undefined
-			) {
+			if (microscope.Model !== null && microscope.Model !== undefined) {
 				micInfo.push(`Model: ${microscope.Model}`);
 				micInfo.push(<br key={"newline-3"} />);
 			}
@@ -766,7 +753,12 @@ export default class Canvas extends React.PureComponent {
 					<div style={canvasContainerStyle} onScroll={this.handleScroll}>
 						<div style={canvasInnerContainerStyle}>
 							<img
-								src={backgroundImage + (backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "")}
+								src={
+									backgroundImage +
+									(backgroundImage.indexOf("githubusercontent.com") > -1
+										? "?sanitize=true"
+										: "")
+								}
 								alt={backgroundImage}
 								style={imageStyle}
 								onLoad={this.onImgLoad}

@@ -14,7 +14,7 @@ import MicroscopeLoader from "./components/microscopeLoader";
 
 import html2canvas from "html2canvas";
 
-const path = require("path");
+const url = require("url");
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
@@ -27,7 +27,9 @@ import {
 	string_logo_img_micro_bk,
 	string_createFromScratch,
 	string_createFromFile,
-	string_loadFromRepository
+	string_loadFromRepository,
+	number_canvas_width,
+	number_canvas_height
 } from "./constants";
 
 export default class MicroscopyMetadataTool extends React.PureComponent {
@@ -60,7 +62,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			areComponentsValidated: false,
 			areSettingComponentsValidated: false,
 			isViewOnly: props.isViewOnly || false,
-			isPreset: false,
+			isPreset: false
 		};
 
 		if (this.state.microscope !== null && this.state.microscope !== undefined)
@@ -434,6 +436,51 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		];
 	}
 
+	static checkScalingFactorAndRescaleIfNeeded(
+		modifiedMic,
+		elementData,
+		scalingFactor
+	) {
+		let micScalingFactor = 1;
+		if (modifiedMic.ScalingFactor !== undefined)
+			micScalingFactor = modifiedMic.ScalingFactor;
+		if (micScalingFactor === scalingFactor) return;
+
+		let reverseScale = 1 / micScalingFactor;
+		let newScalingFactor = reverseScale * scalingFactor;
+
+		modifiedMic.ScalingFactor = scalingFactor;
+		console.log("SC: " + newScalingFactor);
+		for (let key in elementData) {
+			let element = elementData[key];
+			console.log("ID: " + key);
+			console.log(
+				" W: " +
+					element.Width +
+					" H: " +
+					element.Height +
+					" X: " +
+					element.PositionX +
+					" Y: " +
+					element.PositionY
+			);
+			element.Width *= newScalingFactor;
+			element.Height *= newScalingFactor;
+			element.PositionX *= newScalingFactor;
+			element.PositionY *= newScalingFactor;
+			console.log(
+				" W: " +
+					element.Width +
+					" H: " +
+					element.Height +
+					" X: " +
+					element.PositionX +
+					" Y: " +
+					element.PositionY
+			);
+		}
+	}
+
 	createNewMicroscopeFromScratch() {
 		let uuid = uuidv4();
 		let activeTier = this.state.activeTier;
@@ -485,6 +532,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let validation = validate(modifiedMic, microscopeSchema);
 		let validated = validation.valid;
 		if (this.state.isCreatingNewMicroscope) {
+			MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(
+				modifiedMic,
+				newElementData,
+				this.props.scalingFactor
+			);
 			this.setState({
 				microscope: modifiedMic,
 				setting: null,
@@ -549,6 +601,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let validation = validate(modifiedMic, microscopeSchema);
 		let validated = validation.valid;
 		if (this.state.isCreatingNewMicroscope) {
+			MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(
+				modifiedMic,
+				newElementData,
+				this.props.scalingFactor
+			);
 			this.setState({
 				microscope: modifiedMic,
 				setting: null,
@@ -886,7 +943,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<DataLoader
-						logoImg={path.join(imagesPathPNG, string_logo_img_micro_bk)}
+						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
 						onClickLoadSchema={this.handleLoadSchema}
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
 					/>
@@ -902,7 +959,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopePreLoader
-						logoImg={path.join(imagesPathPNG, string_logo_img_micro_bk)}
+						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
 						tiers={this.props.tiers}
 						onClickTierSelection={this.handleActiveTierSelection}
 						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
@@ -947,7 +1004,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				>
 					<div style={windowExternalContainer}>
 						<div>
-							logoImg={path.join(imagesPathPNG, string_logo_img_micro_bk)}
+							logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
 						</div>
 						<div style={windowInternalContainer}>
 							<Button style={buttonStyle} size="lg">
@@ -994,7 +1051,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
-						logoImg={path.join(imagesPathPNG, string_logo_img_micro_bk)}
+						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
 						loadingOptions={loadingOptions}
 						microscopes={microscopeNames}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
@@ -1046,7 +1103,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoader
-						logoImg={path.join(imagesPathPNG, string_logo_img_micro_bk)}
+						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
 						loadingOptions={loadingOptions}
 						microscopes={microscopeNames}
 						onFileDrop={this.uploadMicroscopeFromDropzone}
@@ -1107,7 +1164,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				>
 					<Header
 						dimensions={headerFooterDims}
-						logoImg={path.join(imagesPathPNG, string_logo_img_no_bk)}
+						logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
 					/>
 					<SettingsMainView
 						microscope={microscope}
@@ -1152,7 +1209,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					>
 						<Header
 							dimensions={headerFooterDims}
-							logoImg={path.join(imagesPathPNG, string_logo_img_no_bk)}
+							logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
 						/>
 						<div style={style}>
 							<Canvas
@@ -1164,7 +1221,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 								inputData={elementData}
 								linkedFields={linkedFields}
 								//backgroundImage={`${imagesPath}${microscopeSchema.image}`}
-								backgroundImage={path.join(
+								backgroundImage={url.resolve(
 									imagesPathSVG,
 									microscopeSchema.image
 								)}
@@ -1192,7 +1249,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					>
 						<Header
 							dimensions={headerFooterDims}
-							logoImg={path.join(imagesPathPNG, string_logo_img_no_bk)}
+							logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
 						/>
 						<div style={style}>
 							<Canvas
@@ -1204,7 +1261,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 								inputData={elementData}
 								linkedFields={linkedFields}
 								//backgroundImage={`${imagesPath}${microscopeSchema.image}`}
-								backgroundImage={path.join(
+								backgroundImage={url.resolve(
 									imagesPathSVG,
 									microscopeSchema.image
 								)}
@@ -1282,6 +1339,7 @@ MicroscopyMetadataTool.defaultProps = {
 	setting: null,
 	microscopes: null,
 	settings: null,
+	//REMEMBER last / is needed for url.resolve to properly handle paths
 	imagesPathPNG: "./assets/png/",
 	imagesPathSVG: "./assets/svg/",
 	tiers: ["1", "2", "3", "4", "5"],

@@ -225,11 +225,6 @@ function (_React$PureComponent) {
         return this.cachedToolbar;
       }
 
-      if (_constants.bool_isDebug) {
-        console.log("NOT CACHED");
-        console.log(imagesDimension);
-      }
-
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height; //console.log("t w: " + width + " h: " + height);
 

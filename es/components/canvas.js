@@ -41,7 +41,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var path = require("path");
+var url = require("url");
 
 var validate = require("jsonschema").validate;
 
@@ -131,10 +131,6 @@ function (_React$PureComponent) {
   }, {
     key: "handleMouseIn",
     value: function handleMouseIn(itemID) {
-      if (_constants.bool_isDebug) {
-        console.log("MouseIn ItemID " + itemID);
-      }
-
       this.setState({
         hover: itemID
       });
@@ -142,10 +138,6 @@ function (_React$PureComponent) {
   }, {
     key: "handleMouseOut",
     value: function handleMouseOut() {
-      if (_constants.bool_isDebug) {
-        console.log("MouseOut");
-      }
-
       this.setState({
         hover: null
       });
@@ -172,11 +164,6 @@ function (_React$PureComponent) {
       this.state.elementList.forEach(function (item) {
         if (item.ID === id) element = item;
       });
-
-      if (_constants.bool_isDebug) {
-        console.log("UpdatedDimensions for " + id);
-      }
-
       var newElementDataList = Object.assign({}, this.state.elementData);
       var obj = newElementDataList[id];
       if (element === null || obj === undefined) return;
@@ -661,7 +648,7 @@ function (_React$PureComponent) {
           }, _react.default.createElement(_canvasElement.default, {
             activeTier: _this2.props.activeTier,
             id: item.ID,
-            image: path.join(_this2.props.imagesPath, schema.image),
+            image: url.resolve(_this2.props.imagesPath, schema.image),
             schema: schema,
             handleConfirm: _this2.onCanvasElementDataSave,
             updateDimensions: _this2.updatedDimensions,
@@ -703,12 +690,10 @@ function (_React$PureComponent) {
           microscope = _this$props$microscop === void 0 ? null : _this$props$microscop,
           _this$props$scalingFa = _this$props.scalingFactor,
           scalingFactor = _this$props$scalingFa === void 0 ? 1 : _this$props$scalingFa;
-      var linkedFields = this.state.linkedFields;
-
-      if (_constants.bool_isDebug) {
-        console.log("LinkedFields");
-        console.log(linkedFields);
-      }
+      var linkedFields = this.state.linkedFields; // if (bool_isDebug) {
+      // 	console.log("LinkedFields");
+      // 	console.log(linkedFields);
+      // }
 
       var styleContainer = {
         borderBottom: "2px solid",
