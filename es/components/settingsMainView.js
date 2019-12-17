@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -15,9 +15,9 @@ var _planeView = _interopRequireDefault(require("./planeView"));
 
 var _constants = require("../constants");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27,13 +27,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var validate = require("jsonschema").validate;
 
@@ -82,8 +82,7 @@ function (_React$PureComponent) {
 
       if (_this.state.elementList[index] === null || _this.state.elementList[index] == undefined) {
         var uuid = uuidv4();
-        var newElementData;
-        newElementData = {
+        var newElementData = {
           Name: "New ".concat(schema.title),
           ID: uuid,
           Tier: schema.tier,
@@ -106,16 +105,10 @@ function (_React$PureComponent) {
               newElementData[maxNumber] = -1;
             }
           } else if (schema.properties[key].type === _constants.string_object) {
-            var _currentNumber = _constants.string_currentNumberOf_identifier + key;
-
-            var _minNumber = _constants.string_minNumberOf_identifier + key;
-
-            var _maxNumber = _constants.string_maxNumberOf_identifier + key;
-
             if (schema.required.indexOf(key) === -1) {
-              newElementData[_currentNumber] = 0;
-              newElementData[_minNumber] = 0;
-              newElementData[_maxNumber] = 1;
+              newElementData[_constants.string_currentNumberOf_identifier + key] = 0;
+              newElementData[_constants.string_minNumberOf_identifier + key] = 0;
+              newElementData[_constants.string_maxNumberOf_identifier + key] = 1;
             }
           }
         });
@@ -306,9 +299,9 @@ function (_React$PureComponent) {
         });
 
         if (this.state.editingElement == 1) {
-          return _react.default.createElement("div", {
+          return _react["default"].createElement("div", {
             style: styleMainContainer
-          }, _react.default.createElement(_planeView.default, {
+          }, _react["default"].createElement(_planeView["default"], {
             schema: schema,
             inputData: obj,
             id: element.ID,
@@ -319,9 +312,9 @@ function (_React$PureComponent) {
         } else if (this.state.editingElement == 2) {
           return null;
         } else {
-          return _react.default.createElement("div", {
+          return _react["default"].createElement("div", {
             style: styleMainContainer
-          }, _react.default.createElement(_multiTabFormWithHeader.default, {
+          }, _react["default"].createElement(_multiTabFormWithHeader["default"], {
             schema: schema,
             inputData: obj,
             id: element.ID,
@@ -335,61 +328,60 @@ function (_React$PureComponent) {
           }));
         }
       } else {
-        var styleButton = {
+        var styleEditButton = Object.assign({
           width: "250px",
           minWidth: "250px",
           height: "50px",
           minHeight: "50px",
           marginLeft: "5px",
           marginRight: "5px"
-        };
-        var styleEditButton = Object.assign(styleButton, {
+        }, {
           border: "5px ridge red"
         });
         var buttons1 = [];
-        buttons1[0] = _react.default.createElement(_Button.default, {
+        buttons1[0] = _react["default"].createElement(_Button["default"], {
           key: "Button-0",
           onClick: this.onClickEditExperiment,
           style: styleEditButton,
           size: "lg"
         }, "Edit Experiment");
-        buttons1[1] = _react.default.createElement(_Button.default, {
+        buttons1[1] = _react["default"].createElement(_Button["default"], {
           key: "Button-1",
           onClick: this.onClickEditPlanes,
           style: styleEditButton,
           size: "lg"
         }, "Edit Planes");
-        buttons1[2] = _react.default.createElement(_Button.default, {
+        buttons1[2] = _react["default"].createElement(_Button["default"], {
           key: "Button-2",
           onClick: this.onClickEditChannels,
           style: styleEditButton,
           size: "lg"
         }, "Edit Channels");
-        buttons1[3] = _react.default.createElement(_Button.default, {
+        buttons1[3] = _react["default"].createElement(_Button["default"], {
           key: "Button-3",
           onClick: this.onClickEditTIRFSettings,
           style: styleEditButton,
           size: "lg"
         }, "Edit TIRF Settings");
-        buttons1[4] = _react.default.createElement(_Button.default, {
+        buttons1[4] = _react["default"].createElement(_Button["default"], {
           key: "Button-4",
           onClick: this.onClickEditImagingEnvironment,
           style: styleEditButton,
           size: "lg"
         }, "Edit Imaging Environment");
-        buttons1[5] = _react.default.createElement(_Button.default, {
+        buttons1[5] = _react["default"].createElement(_Button["default"], {
           key: "Button-5",
           onClick: this.onClickEditMicroscopeSettings,
           style: styleEditButton,
           size: "lg"
         }, "Edit Microscope Settings");
-        buttons1[6] = _react.default.createElement(_Button.default, {
+        buttons1[6] = _react["default"].createElement(_Button["default"], {
           key: "Button-6",
           onClick: this.onClickEditObjectiveSettings,
           style: styleEditButton,
           size: "lg"
         }, "Edit Objective Settings");
-        return _react.default.createElement("div", {
+        return _react["default"].createElement("div", {
           style: styleMainContainer
         }, buttons1);
       }
@@ -424,6 +416,6 @@ function (_React$PureComponent) {
   }]);
 
   return SettingMainView;
-}(_react.default.PureComponent);
+}(_react["default"].PureComponent);
 
-exports.default = SettingMainView;
+exports["default"] = SettingMainView;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -23,11 +23,11 @@ var _constants = require("../constants");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -37,13 +37,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var MultiTabFormWithHeader =
 /*#__PURE__*/
@@ -197,8 +197,7 @@ function (_React$PureComponent) {
       var currentChildrenComponents = this.state.currentChildrenComponents;
       var attrName = this.props.currentChildrenComponentIdentifier;
       Object.keys(currentChildrenComponents).forEach(function (key) {
-        var attr = attrName + key;
-        consolidatedData[attr] = currentChildrenComponents[key];
+        consolidatedData[attrName + key] = currentChildrenComponents[key];
       });
       var linkedFields = Object.assign({}, this.state.linkedFields);
       this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
@@ -312,7 +311,7 @@ function (_React$PureComponent) {
   }, {
     key: "createForm",
     value: function createForm(schema, uiSchema, input, index, currentFormRefs, currentButtonsRefs) {
-      return _react.default.createElement(_reactJsonschemaForm.default, {
+      return _react["default"].createElement(_reactJsonschemaForm["default"], {
         schema: schema,
         uiSchema: uiSchema,
         onSubmit: this.onSubmit,
@@ -329,7 +328,7 @@ function (_React$PureComponent) {
         style: {
           overflow: "hidden"
         }
-      }, _react.default.createElement("button", {
+      }, _react["default"].createElement("button", {
         ref: function ref(btn) {
           if (index != -1) {
             currentButtonsRefs.splice(index, 0, btn);
@@ -366,11 +365,11 @@ function (_React$PureComponent) {
       });
       var schemaKeys = Object.keys(partialSchema);
 
-      var _loop = function _loop(i) {
+      var _loop = function (i) {
         var key = schemaKeys[i];
         if (Object.keys(subCategoriesOrder).includes(key)) return "continue";
         var description = null;
-        Object.keys(subCategoriesOrder).forEach(function (subKey, index) {
+        Object.keys(subCategoriesOrder).forEach(function (subKey) {
           if (key.startsWith(subKey)) {
             description = subCategoriesOrder[subKey];
           }
@@ -451,9 +450,9 @@ function (_React$PureComponent) {
         var maxChildren = maxChildrenComponents[key];
         var isMinDisabled = minChildren === currentChildren;
         var isMaxDisabled = maxChildren === currentChildren;
-        buttons.push(_react.default.createElement("div", {
+        buttons.push(_react["default"].createElement("div", {
           key: key
-        }, _react.default.createElement(_Button.default, {
+        }, _react["default"].createElement(_Button["default"], {
           style: sideButtonLeftMargin,
           variant: isMinDisabled ? "secondary" : "danger",
           onClick: isMinDisabled ? null : function () {
@@ -461,12 +460,12 @@ function (_React$PureComponent) {
           },
           disabled: isMinDisabled,
           value: key
-        }, "-"), _react.default.createElement(_Button.default, {
+        }, "-"), _react["default"].createElement(_Button["default"], {
           style: buttonNoMargin,
           size: "lg",
           variant: "secondary",
           disabled: true
-        }, key, " : ", currentChildren), _react.default.createElement(_Button.default, {
+        }, key, " : ", currentChildren), _react["default"].createElement(_Button["default"], {
           style: sideButtonRightMargin,
           variant: isMaxDisabled ? "secondary" : "success",
           onClick: isMaxDisabled ? null : function () {
@@ -486,22 +485,6 @@ function (_React$PureComponent) {
         marginLeft: "5px",
         marginRight: "5px"
       };
-      var buttonContainerColumnExternal = {
-        display: "flex",
-        flexDirection: "column",
-        flexWap: "wrap",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100%"
-      };
-      var buttonContainerColumn = {
-        display: "flex",
-        flexDirection: "column",
-        flexWap: "wrap",
-        justifyContent: "center",
-        alignItems: "center"
-      };
       var buttonContainerRow = {
         display: "flex",
         flexDirection: "row",
@@ -516,19 +499,33 @@ function (_React$PureComponent) {
       var childrenButtons = this.createChildrenComponentsButton();
 
       if (!showForm) {
-        return _react.default.createElement(_modalWindow.default, {
+        return _react["default"].createElement(_modalWindow["default"], {
           overlaysContainer: this.props.overlaysContainer
-        }, _react.default.createElement("div", {
-          style: buttonContainerColumnExternal
-        }, _react.default.createElement("div", {
-          style: buttonContainerColumn
-        }, childrenButtons), _react.default.createElement("div", {
+        }, _react["default"].createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            flexWap: "wrap",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%"
+          }
+        }, _react["default"].createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            flexWap: "wrap",
+            justifyContent: "center",
+            alignItems: "center"
+          }
+        }, childrenButtons), _react["default"].createElement("div", {
           style: buttonContainerRow
-        }, _react.default.createElement(_Button.default, {
+        }, _react["default"].createElement(_Button["default"], {
           style: button,
           size: "lg",
           onClick: this.onEditComponentsConfirm
-        }, "Confirm"), _react.default.createElement(_Button.default, {
+        }, "Confirm"), _react["default"].createElement(_Button["default"], {
           style: button,
           size: "lg",
           onClick: this.onEditComponentsCancel
@@ -538,7 +535,7 @@ function (_React$PureComponent) {
       var names = this.formNames;
       var forms = this.forms;
       var tabs = forms.map(function (item, index) {
-        return _react.default.createElement(_rcTabs.TabPane, {
+        return _react["default"].createElement(_rcTabs.TabPane, {
           tab: names[index],
           key: index,
           forceRender: true
@@ -560,32 +557,32 @@ function (_React$PureComponent) {
       } //<div>{this.props.schema.description}</div>
 
 
-      return _react.default.createElement(_modalWindow.default, {
+      return _react["default"].createElement(_modalWindow["default"], {
         overlaysContainer: this.props.overlaysContainer
-      }, _react.default.createElement("div", null, _react.default.createElement("h3", null, this.props.schema.title), _react.default.createElement("p", null, hasEditableChildren ? _constants.string_bandpass_warning : ""), _react.default.createElement(_rcTabs.default, {
+      }, _react["default"].createElement("div", null, _react["default"].createElement("h3", null, this.props.schema.title), _react["default"].createElement("p", null, hasEditableChildren ? _constants.string_bandpass_warning : ""), _react["default"].createElement(_rcTabs["default"], {
         onChange: this.onTabChange,
         renderTabBar: function renderTabBar() {
-          return _react.default.createElement(_TabBar.default, null);
+          return _react["default"].createElement(_TabBar["default"], null);
         },
         renderTabContent: function renderTabContent() {
-          return _react.default.createElement(_TabContent.default, {
+          return _react["default"].createElement(_TabContent["default"], {
             animatedWithMargin: true
           });
         },
         activeKey: this.state.activeKey
-      }, tabs), _react.default.createElement("div", {
+      }, tabs), _react["default"].createElement("div", {
         style: buttonContainerRow
-      }, _react.default.createElement(_Button.default, {
+      }, _react["default"].createElement(_Button["default"], {
         style: button,
         size: "lg",
         variant: !hasEditableChildren ? "secondary" : "primary",
         onClick: !hasEditableChildren ? null : this.onEditComponents,
         disabled: !hasEditableChildren
-      }, "Add/Remove band-pass"), _react.default.createElement(_Button.default, {
+      }, "Add/Remove band-pass"), _react["default"].createElement(_Button["default"], {
         style: button,
         size: "lg",
         onClick: this.onConfirm
-      }, "Confirm"), _react.default.createElement(_Button.default, {
+      }, "Confirm"), _react["default"].createElement(_Button["default"], {
         style: button,
         size: "lg",
         onClick: this.onCancel
@@ -767,10 +764,10 @@ function (_React$PureComponent) {
   }]);
 
   return MultiTabFormWithHeader;
-}(_react.default.PureComponent);
+}(_react["default"].PureComponent);
 /**
  * @todo Own file.
  */
 
 
-exports.default = MultiTabFormWithHeader;
+exports["default"] = MultiTabFormWithHeader;
