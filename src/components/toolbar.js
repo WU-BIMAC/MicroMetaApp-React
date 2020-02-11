@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 
 import ImageElement from "./imageElement";
 
-const path = require("path");
+const url = require("url");
 
 import { bool_isDebug, string_toolbar, string_canvas } from "../constants";
 
@@ -80,7 +80,7 @@ export default class Toolbar extends React.PureComponent {
 				<ImageElement
 					key={`ImageElement-${item.ID}`}
 					id={item.ID}
-					image={path.join(this.props.imagesPath, item.schema.image)}
+					image={url.resolve(this.props.imagesPath, item.schema.image)}
 					name={item.schema.title}
 					updateMinMaxDimensions={this.updateMinMaxDimensions}
 					style={stylesImages[item.ID]}
