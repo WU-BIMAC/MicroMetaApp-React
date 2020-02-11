@@ -3,15 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
 var _Dropdown = _interopRequireDefault(require("react-bootstrap/Dropdown"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -21,13 +21,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var DropdownMenu =
 /*#__PURE__*/
@@ -67,9 +67,9 @@ function (_React$PureComponent) {
       var inputData = this.state.inputData;
       var width = this.props.width || 250;
       var margin = this.props.margin || 0;
-      var direction = "down" || this.props.direction;
+      var direction = this.props.direction || "down";
       var dropdownItems = inputData.map(function (item) {
-        return _react.default.createElement(_Dropdown.default.Item, {
+        return _react["default"].createElement(_Dropdown["default"].Item, {
           key: item,
           onClick: _this2.handleMenuItemClick,
           id: item
@@ -86,12 +86,13 @@ function (_React$PureComponent) {
         maxWidth: "".concat(width, "px"),
         width: "".concat(width, "px")
       };
-      return _react.default.createElement(_Dropdown.default, null, _react.default.createElement(_Dropdown.default.Toggle, {
+      return _react["default"].createElement(_Dropdown["default"], {
+        drop: direction
+      }, _react["default"].createElement(_Dropdown["default"].Toggle, {
         id: "dropdown-basic-button",
         style: dropdownStyle,
-        size: "lg",
-        drop: direction
-      }, this.state.currentTitle), _react.default.createElement(_Dropdown.default.Menu, {
+        size: "lg"
+      }, this.state.currentTitle), _react["default"].createElement(_Dropdown["default"].Menu, {
         style: dropdownMenuStyle
       }, dropdownItems));
     }
@@ -116,9 +117,9 @@ function (_React$PureComponent) {
   }]);
 
   return DropdownMenu;
-}(_react.default.PureComponent);
+}(_react["default"].PureComponent);
 
-exports.default = DropdownMenu;
+exports["default"] = DropdownMenu;
 DropdownMenu.defaultProps = {
   inputData: ["1"],
   title: "Dropdown Menu"
