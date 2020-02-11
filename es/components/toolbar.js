@@ -37,7 +37,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var path = require("path");
+var url = require("url");
 
 var Toolbar =
 /*#__PURE__*/
@@ -123,7 +123,7 @@ function (_React$PureComponent) {
         return imageElements.push(_react["default"].createElement(_imageElement["default"], {
           key: "ImageElement-".concat(item.ID),
           id: item.ID,
-          image: path.join(_this2.props.imagesPath, item.schema.image),
+          image: url.resolve(_this2.props.imagesPath, item.schema.image),
           name: item.schema.title,
           updateMinMaxDimensions: _this2.updateMinMaxDimensions,
           style: stylesImages[item.ID]
