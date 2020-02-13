@@ -67,7 +67,7 @@ function (_React$PureComponent) {
       var inputData = this.state.inputData;
       var width = this.props.width || 250;
       var margin = this.props.margin || 0;
-      var direction = "down" || this.props.direction;
+      var direction = this.props.direction || "down";
       var dropdownItems = inputData.map(function (item) {
         return _react["default"].createElement(_Dropdown["default"].Item, {
           key: item,
@@ -86,11 +86,12 @@ function (_React$PureComponent) {
         maxWidth: "".concat(width, "px"),
         width: "".concat(width, "px")
       };
-      return _react["default"].createElement(_Dropdown["default"], null, _react["default"].createElement(_Dropdown["default"].Toggle, {
+      return _react["default"].createElement(_Dropdown["default"], {
+        drop: direction
+      }, _react["default"].createElement(_Dropdown["default"].Toggle, {
         id: "dropdown-basic-button",
         style: dropdownStyle,
-        size: "lg",
-        drop: direction
+        size: "lg"
       }, this.state.currentTitle), _react["default"].createElement(_Dropdown["default"].Menu, {
         style: dropdownMenuStyle
       }, dropdownItems));
