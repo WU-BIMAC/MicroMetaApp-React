@@ -3,10 +3,13 @@
 ## Summary
 Micro-Meta App is an interactive tool that was developed by Alex Rigano in the Strambio De Castillia's lab at UMMS to facilitate the documentation of fluorescence microscopy experiments. 
 It is designed around an interactive graphical interface that intuitively guides bench scientists through the often laborious process of collecting and reporting the minimal microscopy and image acquisition metadata defined by the 4DN microscopy metadata tiered system of guidelines. 
+
 This repository contains a web app version of the tool implemented in Javascript [React](https://reactjs.org/).
-Other available implementations include:
-- A Javascript [Electron stand-alone implementation of Micro-Meta App](https://github.com/WU-BIMAC/4DNMicroscopyMetadataToolReactElectron) is also available 
-- A prototype [OMERO plugin version of Micro-Meta App](https://github.com/WU-BIMAC/4DNMicroscopyMetadataToolOmero)
+
+Other available implementations of Micro-Meta App include:
+
+- A Javascript [Electron](https://www.electronjs.org/) [stand-alone implementation](https://github.com/WU-BIMAC/4DNMicroscopyMetadataToolReactElectron) of Micro-Meta App 
+- A prototype [OMERO plugin version](https://github.com/WU-BIMAC/4DNMicroscopyMetadataToolOmero)
 
 ![Micro-Meta App: Create Microscope GUI](http://big.umassmed.edu/omegaweb/wp-content/uploads/2020/05/06_Build-a-Microscope_2.png)
 Micro-Meta App is designed to aid in the collection of both Microscope Hardware Specifications and Image Acquisition Settings metadata. In this example, a previously saved Microscope file was selected from an available repository and opened for further editing. In order to add the metadata associated with a newly purchased objective to a Microscope file the “Magnification” drop-down menu is opened [1] and an additional “Objective” [2] is dragged onto the workspace.
