@@ -1,6 +1,6 @@
 # 4DN Micro-Meta App React implementation
 
-![Micro-Meta App description](link-to-image)
+![Micro-Meta App](link-to-image)
 
 ## Summary
 The 4DN Micro-Meta App is an interactive tool that was developed by Alex Rigano in the Strambio De Castillia's lab at UMMS to facilitate the documentation of fluorescence microscopy experiments. 
