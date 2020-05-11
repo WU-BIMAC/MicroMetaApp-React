@@ -9,7 +9,7 @@ This repository contains a web app version of the tool implemented in Javascript
 Other available implementations of Micro-Meta App include:
 
 - A [stand-alone version](https://github.com/WU-BIMAC/4DNMicroscopyMetadataToolReactElectron) implemented in Javascript [Electron](https://www.electronjs.org/) 
-- A prototype [OMERO.web plugin version](https://github.com/WU-BIMAC/4DNMicroscopyMetadataToolOmero)
+- A prototype [plugin version](https://github.com/WU-BIMAC/4DNMicroscopyMetadataToolOmero) to be integrated into the [OMERO](https://www.openmicroscopy.org/omero/scientists/).web browser
 
 ![Micro-Meta App: Create Microscope GUI](http://big.umassmed.edu/omegaweb/wp-content/uploads/2020/05/06_Build-a-Microscope_2.png)
 Micro-Meta App is designed to aid in the collection of both Microscope Hardware Specifications and Image Acquisition Settings metadata. In this example, a previously saved Microscope file was selected from an available repository and opened for further editing. In order to add the metadata associated with a newly purchased objective to a Microscope file the “Magnification” drop-down menu is opened [1] and an additional “Objective” [2] is dragged onto the workspace.
