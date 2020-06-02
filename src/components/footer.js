@@ -4,7 +4,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { AnimateKeyframes } from "react-simple-animate";
 
-import MultiTabFormWithHeader from "./multiTabFormWithHeader";
+//import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeaderV2";
+import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeader";
 import DropdownMenu from "./dropdownMenu";
 
 const validationTier = "Validate @ tier: ";
@@ -13,7 +14,7 @@ export default class Footer extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			editing: false
+			editing: false,
 		};
 
 		this.onClickEdit = this.onClickEdit.bind(this);
@@ -44,10 +45,11 @@ export default class Footer extends React.PureComponent {
 	render() {
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
-
+		//<MultiTabFormWithHeaderV2
 		if (this.state.editing) {
 			return (
 				<MultiTabFormWithHeader
+					schemas={this.props.componentSchemas}
 					schema={this.props.schema}
 					inputData={this.props.inputData}
 					id={this.props.id}
@@ -68,20 +70,20 @@ export default class Footer extends React.PureComponent {
 			flexWap: "wrap",
 			justifyContent: "center",
 			alignItems: "center",
-			padding: "5px"
+			padding: "5px",
 		};
 		let styleButton = {
 			width: "250px",
 			minWidth: "250px",
 			height: "50px",
 			marginLeft: "5px",
-			marginRight: "5px"
+			marginRight: "5px",
 		};
 		let styleEditButton = Object.assign({}, styleButton);
 		let play = false;
 		if (!this.props.isSchemaValidated) {
 			styleEditButton = Object.assign(styleEditButton, {
-				border: "5px ridge red"
+				border: "5px ridge red",
 			});
 			play = true;
 		}
@@ -109,7 +111,7 @@ export default class Footer extends React.PureComponent {
 					"opacity: 0.4",
 					"opacity: 0.6",
 					"opacity: 0.8",
-					"opacity: 1"
+					"opacity: 1",
 				]}
 			>
 				<Button

@@ -1175,6 +1175,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					<Footer
 						activeTier={this.state.activeTier}
 						validationTier={this.state.validationTier}
+						componentSchemas={settingsSchema}
 						schema={imageSchema}
 						onFormConfirm={this.onSettingDataSave}
 						onClickSave={this.handleSaveSetting}
@@ -1282,6 +1283,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						<Footer
 							activeTier={this.state.activeTier}
 							validationTier={this.state.validationTier}
+							componentSchemas={componentsSchema}
 							schema={microscopeSchema}
 							onFormConfirm={this.onMicroscopeDataSave}
 							onClickSave={this.handleSaveMicroscope}

@@ -4,31 +4,39 @@ import ReactDOM from "react-dom";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 
-import MultiTabFormWithHeader from "./multiTabFormWithHeader";
+import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeaderV2";
 import ModalWindow from "./modalWindow";
 
 const validate = require("jsonschema").validate;
 const uuidv4 = require("uuid/v4");
 
 import {
+	bool_isDebug,
+	string_object,
+	string_array,
 	string_currentNumberOf_identifier,
 	string_minNumberOf_identifier,
-	string_maxNumberOf_identifier
+	string_maxNumberOf_identifier,
 } from "../constants";
 
 export default class ChannelView extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			orderedList: [],
+			channels:
+				this.props.inputData.channels !== undefined
+					? this.props.inputData.channels
+					: [],
 			editing: false,
-			selectedIndex: -1
+			selectedIndex: -1,
 		};
 
 		this.onAddElement = this.onAddElement.bind(this);
+		this.onEditElement = this.onEditElement.bind(this);
 		this.onRemoveElement = this.onRemoveElement.bind(this);
+		this.onSelectElement = this.onSelectElement.bind(this);
 
-		this.onMoveElement = this.onMoveElement.bind(this);
+		//this.onMoveElement = this.onMoveElement.bind(this);
 
 		this.onElementDataCancel = this.onElementDataCancel.bind(this);
 		this.onElementDataSave = this.onElementDataSave.bind(this);
@@ -37,9 +45,64 @@ export default class ChannelView extends React.PureComponent {
 		this.onCancel = this.onCancel.bind(this);
 	}
 
-	onAddElement() {}
+	onAddElement() {
+		let uuid = uuidv4();
+		let schema = this.props.schema;
+		let channels = this.state.channels.slice();
+		let newElementData = {
+			Name: `${schema.title} ${channels.length}`,
+			ID: uuid,
+			Tier: schema.tier,
+			Schema_ID: schema.ID,
+			Version: schema.version,
+		};
+		Object.keys(schema.properties).forEach((key) => {
+			if (schema.properties[key].type === string_array) {
+				let currentNumber = string_currentNumberOf_identifier + key;
+				let minNumber = string_minNumberOf_identifier + key;
+				let maxNumber = string_maxNumberOf_identifier + key;
+				if (schema.required.indexOf(key) != -1) {
+					newElementData[currentNumber] = 1;
+					newElementData[minNumber] = 1;
+					newElementData[maxNumber] = -1;
+				} else {
+					newElementData[currentNumber] = 0;
+					newElementData[minNumber] = 0;
+					newElementData[maxNumber] = -1;
+				}
+			} else if (schema.properties[key].type === string_object) {
+				let currentNumber = string_currentNumberOf_identifier + key;
+				let minNumber = string_minNumberOf_identifier + key;
+				let maxNumber = string_maxNumberOf_identifier + key;
+				if (schema.required.indexOf(key) === -1) {
+					newElementData[currentNumber] = 0;
+					newElementData[minNumber] = 0;
+					newElementData[maxNumber] = 1;
+				}
+			}
+		});
 
-	onRemoveElement() {}
+		channels.push(newElementData);
+		this.setState({ channels: channels });
+		if (bool_isDebug) console.log("added channel");
+	}
+
+	onRemoveElement() {
+		let index = this.state.selectedIndex;
+		let channels = this.state.channels.slice();
+		if (index !== -1) {
+			let removed = channels.splice(index, 1);
+		} else {
+			let removed = channels.pop();
+		}
+		this.setState({ channels: channels });
+		if (bool_isDebug) console.log("removed channel");
+	}
+
+	onEditElement() {
+		this.setState({ editing: true });
+		if (bool_isDebug) console.log("edit channel");
+	}
 
 	onMoveElement() {}
 
@@ -61,7 +124,7 @@ export default class ChannelView extends React.PureComponent {
 		}
 		this.setState({ channels: channels, editing: false });
 
-		console.log("saved plane");
+		console.log("saved channel");
 	}
 
 	onElementDataCancel() {
@@ -78,6 +141,7 @@ export default class ChannelView extends React.PureComponent {
 		let outputData = Object.assign(this.props.inputData, output);
 		let id = this.props.schema.title + "_" + this.props.inputData.ID;
 		console.log(outputData);
+		this.setState({ editing: false });
 		//this.props.onConfirm(id, outputData);
 	}
 
@@ -96,10 +160,11 @@ export default class ChannelView extends React.PureComponent {
 			let schema = this.props.schema;
 			let obj = channels[index];
 			return (
-				<MultiTabFormWithHeader
+				<MultiTabFormWithHeaderV2
+					schemas={this.props.schemas}
 					schema={schema}
 					inputData={obj}
-					id={schema.title + "_" + obj.ID}
+					id={this.props.id}
 					onConfirm={this.onElementDataSave}
 					onCancel={this.onElementDataCancel}
 					overlaysContainer={this.props.overlaysContainer}
@@ -114,19 +179,19 @@ export default class ChannelView extends React.PureComponent {
 				display: "flex",
 				flexDirection: "row",
 				flexWap: "wrap",
-				justifyContent: "center"
+				justifyContent: "center",
 			};
 			const button1 = {
 				width: "50px",
 				height: "50px",
 				marginLeft: "5px",
-				marginRight: "5px"
+				marginRight: "5px",
 			};
 			const button2 = {
 				width: "250px",
 				height: "50px",
 				marginLeft: "5px",
-				marginRight: "5px"
+				marginRight: "5px",
 			};
 			let list = [];
 			for (let i = 0; i < channels.length; i++) {
@@ -153,30 +218,33 @@ export default class ChannelView extends React.PureComponent {
 						<h3>{this.props.schema.title + "s"}</h3>
 					</div>
 					<div>
-						<ListGroup>{list}</ListGroup>
+						<div>
+							<ListGroup>{list}</ListGroup>
+						</div>
+						<div style={buttonContainerRow}>
+							<Button style={button1} size="lg" onClick={this.onAddElement}>
+								+
+							</Button>
+							<Button
+								style={button2}
+								size="lg"
+								onClick={this.onEditElement}
+								disabled={index === -1}
+							>
+								Edit selected
+							</Button>
+							<Button style={button1} size="lg" onClick={this.onRemoveElement}>
+								-
+							</Button>
+							<Button style={button2} size="lg" onClick={this.onConfirm}>
+								Confirm
+							</Button>
+							<Button style={button2} size="lg" onClick={this.onCancel}>
+								Cancel
+							</Button>
+						</div>
 					</div>
-					<div style={buttonContainerRow}>
-						<Button style={button1} size="lg" onClick={this.onAddElement}>
-							+
-						</Button>
-						<Button
-							style={button2}
-							size="lg"
-							onClick={this.onEditElement}
-							disabled={index === -1}
-						>
-							Edit selected
-						</Button>
-						<Button style={button1} size="lg" onClick={this.onRemoveElement}>
-							-
-						</Button>
-						<Button style={button2} size="lg" onClick={this.onConfirm}>
-							Confirm
-						</Button>
-						<Button style={button2} size="lg" onClick={this.onCancel}>
-							Cancel
-						</Button>
-					</div>
+					<div></div>
 				</ModalWindow>
 			);
 		}

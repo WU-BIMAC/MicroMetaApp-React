@@ -16,10 +16,10 @@ import {
 	string_array,
 	string_currentNumberOf_identifier,
 	string_minNumberOf_identifier,
-	string_maxNumberOf_identifier
+	string_maxNumberOf_identifier,
 } from "../constants";
 
-export default class ChannelView extends React.PureComponent {
+export default class ChannelsView extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -28,7 +28,7 @@ export default class ChannelView extends React.PureComponent {
 					? this.props.inputData.channels
 					: [],
 			editing: false,
-			selectedIndex: -1
+			selectedIndex: -1,
 		};
 
 		this.onAddElement = this.onAddElement.bind(this);
@@ -52,9 +52,9 @@ export default class ChannelView extends React.PureComponent {
 			ID: uuid,
 			Tier: schema.tier,
 			Schema_ID: schema.ID,
-			Version: schema.version
+			Version: schema.version,
 		};
-		Object.keys(schema.properties).forEach(key => {
+		Object.keys(schema.properties).forEach((key) => {
 			if (schema.properties[key].type === string_array) {
 				let currentNumber = string_currentNumberOf_identifier + key;
 				let minNumber = string_minNumberOf_identifier + key;
@@ -166,19 +166,19 @@ export default class ChannelView extends React.PureComponent {
 				display: "flex",
 				flexDirection: "row",
 				flexWap: "wrap",
-				justifyContent: "center"
+				justifyContent: "center",
 			};
 			const button1 = {
 				width: "50px",
 				height: "50px",
 				marginLeft: "5px",
-				marginRight: "5px"
+				marginRight: "5px",
 			};
 			const button2 = {
 				width: "250px",
 				height: "50px",
 				marginLeft: "5px",
-				marginRight: "5px"
+				marginRight: "5px",
 			};
 			let list = [];
 			for (let i = 0; i < channels.length; i++) {
