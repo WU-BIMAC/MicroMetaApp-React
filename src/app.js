@@ -503,6 +503,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		// let file = MicroscopyMetadataTool.readTextFile(
 		// 	url.resolve(this.props.dimensionsPath, "Microscope_Inverted.json")
 		// );
+		console.log("file:");
 		console.log(file);
 		let uuid = uuidv4();
 		let activeTier = this.state.activeTier;
