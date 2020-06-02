@@ -12,7 +12,7 @@ export default class DataLoader extends React.PureComponent {
 			isLoadingSchema: false,
 			isLoadingMicroscopes: false,
 			isSchemaLoaded: false,
-			isMicroscopesLoaded: false
+			isMicroscopesLoaded: false,
 		};
 
 		this.simulateClickLoadSchema = this.simulateClickLoadSchema.bind(this);
@@ -37,7 +37,7 @@ export default class DataLoader extends React.PureComponent {
 			this.props.onClickLoadMicroscopes().then(() => {
 				this.setState({
 					isLoadingMicroscopes: false,
-					isMicroscopesLoaded: true
+					isMicroscopesLoaded: true,
 				});
 			});
 		});
@@ -58,7 +58,7 @@ export default class DataLoader extends React.PureComponent {
 			width: "200px",
 			height: "50px",
 			padding: "5px",
-			margin: "5px"
+			margin: "5px",
 		};
 		const windowExternalContainer = {
 			display: "flex",
@@ -66,7 +66,7 @@ export default class DataLoader extends React.PureComponent {
 			flexFlow: "column",
 			width: "100%",
 			height: "100%",
-			alignItems: "center"
+			alignItems: "center",
 		};
 		const windowInternalContainer = {
 			display: "flex",
@@ -74,16 +74,16 @@ export default class DataLoader extends React.PureComponent {
 			flexFlow: "column",
 			width: "100%",
 			height: "100%",
-			alignItems: "center"
+			alignItems: "center",
 		};
 		let styleImageContainer = {
 			width: `${number_logo_width}px`,
-			height: `${number_logo_height}px`
+			height: `${number_logo_height}px`,
 		};
 		let styleImage = {
 			width: "100%",
 			height: "100%",
-			margin: "auto"
+			margin: "auto",
 		};
 		let isLoadingSchema = this.state.isLoadingSchema;
 		let isLoadingMicroscopes = this.state.isLoadingMicroscopes;
