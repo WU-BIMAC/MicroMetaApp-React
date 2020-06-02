@@ -25,7 +25,7 @@
 		"identity-obj-proxy": "3.0.0",
 		"imagemin": "^6.1.0",
 		"img-loader": "^3.0.1",
-		"jquery": "^3.4.1",
+		"jquery": "^3.5.0",
 		"jsonschema": "^1.2.5",
 		"popper.js": "^1.16.1",
 		"rc-tabs": "^9.7.0",
