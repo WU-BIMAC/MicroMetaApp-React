@@ -67,7 +67,7 @@ class Footer extends _react.default.PureComponent {
     let height = this.props.dimensions.height; //<MultiTabFormWithHeaderV2
 
     if (this.state.editing) {
-      return /*#__PURE__*/_react.default.createElement(MultiTabFormWithHeader, {
+      return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeader.default, {
         schemas: this.props.componentSchemas,
         schema: this.props.schema,
         inputData: this.props.inputData,

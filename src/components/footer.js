@@ -5,7 +5,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { AnimateKeyframes } from "react-simple-animate";
 
 //import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeaderV2";
-import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeader";
+import MultiTabFormWithHeader from "./multiTabFormWithHeader";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
