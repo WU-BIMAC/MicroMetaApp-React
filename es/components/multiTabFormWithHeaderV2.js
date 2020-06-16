@@ -17,6 +17,10 @@ var _TabBar = _interopRequireDefault(require("rc-tabs/lib/TabBar"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
+var _reactSimpleTreeMenu = _interopRequireDefault(require("react-simple-tree-menu"));
+
+var _reactstrap = require("reactstrap");
+
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
 var _constants = require("../constants");
@@ -27,8 +31,59 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import "rc-tabs/assets/index.css";
-class MultiTabFormWithHeader extends _react.default.PureComponent {
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+const DEFAULT_PADDING = 16;
+const ICON_SIZE = 8;
+const LEVEL_SPACE = 16;
+
+const ToggleIcon = ({
+  on
+}) => /*#__PURE__*/_react.default.createElement("span", {
+  style: {
+    marginRight: 8
+  }
+}, on ? "-" : "+");
+
+const ListItem = (_ref) => {
+  let _ref$level = _ref.level,
+      level = _ref$level === void 0 ? 0 : _ref$level,
+      hasNodes = _ref.hasNodes,
+      isOpen = _ref.isOpen,
+      label = _ref.label,
+      searchTerm = _ref.searchTerm,
+      openNodes = _ref.openNodes,
+      toggleNode = _ref.toggleNode,
+      matchSearch = _ref.matchSearch,
+      focused = _ref.focused,
+      props = _objectWithoutProperties(_ref, ["level", "hasNodes", "isOpen", "label", "searchTerm", "openNodes", "toggleNode", "matchSearch", "focused"]);
+
+  return /*#__PURE__*/_react.default.createElement(_reactstrap.ListGroupItem, _extends({}, props, {
+    style: {
+      paddingLeft: DEFAULT_PADDING + ICON_SIZE + level * LEVEL_SPACE,
+      cursor: "pointer",
+      boxShadow: focused ? "0px 0px 5px 0px #222" : "none",
+      zIndex: focused ? 999 : "unset",
+      position: "relative"
+    }
+  }), hasNodes && /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      display: "inline-block"
+    },
+    onClick: e => {
+      hasNodes && toggleNode && toggleNode();
+      e.stopPropagation();
+    }
+  }, /*#__PURE__*/_react.default.createElement(ToggleIcon, {
+    on: isOpen
+  })), label);
+};
+
+class MultiTabFormWithHeaderV2 extends _react.default.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,10 +93,12 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
       minChildrenComponents: {},
       maxChildrenComponents: {},
       tmpData: {},
-      activeKey: "0"
+      activeKey: "0",
+      activeFormKey: ""
     };
 
     if (props.inputData !== null && props.childrenComponentIdentifier !== null && props.minChildrenComponentIdentifier !== null && props.maxChildrenComponentIdentifier !== null) {
+      //FIXME I may have to change this to iterate inside the various data
       Object.keys(props.inputData).forEach(key => {
         if (key.includes(props.minChildrenComponentIdentifier)) {
           let name = key.replace(props.minChildrenComponentIdentifier, "");
@@ -56,16 +113,19 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
       });
     }
 
-    this.formDescs = [];
-    this.buttonsRefs = [];
-    this.formNames = [];
-    this.forms = [];
-    this.formRefs = [];
+    this.paths = [];
+    this.partialSchema = {};
+    this.formDescs = {};
+    this.buttonsRefs = {};
+    this.formNames = {};
+    this.forms = {};
+    this.formRefs = {};
     this.data = [];
     this.errors = [];
     this.onSubmit = this.onSubmit.bind(this);
     this.onError = this.onError.bind(this);
     this.onTabChange = this.onTabChange.bind(this);
+    this.onItemChange = this.onItemChange.bind(this);
     this.onConfirm = this.onConfirm.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.createForm = this.createForm.bind(this);
@@ -76,23 +136,120 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
     this.createChildrenComponentsButton = this.createChildrenComponentsButton.bind(this);
     this.onClickAddChildComponent = this.onClickAddChildComponent.bind(this);
     this.onClickRemoveChildComponent = this.onClickRemoveChildComponent.bind(this);
+    this.createDataTree = this.createDataTree.bind(this);
+    this.createDataTreeNodes = this.createDataTreeNodes.bind(this);
     this.initializeForms = this.initializeForms.bind(this);
+    this.initializeNodeForms = this.initializeNodeForms.bind(this);
+    this.dataTree = this.createDataTree(props.schemas, props.schema);
     this.initializeForms();
   }
 
-  initializeForms() {
-    let linkedFields = this.state.linkedFields;
-    let currentChildrenComponents = this.state.currentChildrenComponents; //TODO I should collect sub components here
+  createDataTreeNodes(path, schemas, schema, counter, subType) {
+    console.log("IM HERE - createDataTreeNodes - " + path);
+    let nodes = {};
+    let visualCounter = 0;
+    Object.keys(schema.properties).forEach(key => {
+      let property = schema.properties[key];
 
-    this.partialSchema = MultiTabFormWithHeader.transformSchema(currentChildrenComponents, this.props.schema, this.props.elementByType, linkedFields);
+      if (property.contains !== undefined) {
+        let contained = property.contains;
+        let foundSchema = null;
+        Object.keys(schemas).forEach(schemaIndex => {
+          let localSchema = schemas[schemaIndex];
+
+          if (localSchema.title === contained) {
+            foundSchema = localSchema;
+          }
+        }); //let categorizedSchemaElements = null;
+        // if (categorizedElements[schema.title] !== undefined) {
+        // 	categorizedSchemaElements = categorizedElements[schema.title];
+        // } else {
+        // 	categorizedSchemaElements = {};
+        // }
+
+        if (foundSchema !== null) {
+          //categorizedSchemaElements[foundSchema.title] = foundSchema;
+          let newPath = path + "/" + foundSchema.title;
+          let subNodes = this.createDataTreeNodes(newPath, schemas, foundSchema, counter, subType);
+          nodes[foundSchema.title] = {
+            label: foundSchema.title,
+            index: visualCounter,
+            path: newPath,
+            schema: foundSchema,
+            nodes: subNodes
+          }; //categorizedElements[schema.title] = categorizedSchemaElements;
+
+          this.paths.push(newPath);
+          visualCounter++;
+        }
+      }
+    });
+    return nodes;
+  }
+
+  createDataTree(schemas, schema) {
+    console.log("IM HERE - createDataTree");
+    let key = schema.title;
+    let nodes = this.createDataTreeNodes(key, schemas, schema, -1, _constants.string_default);
+    let dataTree = {};
+    dataTree[key] = {
+      label: key,
+      index: 0,
+      path: key,
+      schema: schema,
+      nodes: nodes
+    };
+
+    if (this.state.activeFormKey === "") {
+      this.state.activeFormKey = key;
+    }
+
+    this.paths.push(key);
+    console.log(dataTree);
+    return dataTree;
+  }
+
+  initializeNodeForms(nodes) {
+    let linkedFields = this.state.linkedFields;
+    let currentChildrenComponents = this.state.currentChildrenComponents;
+    console.log("IM HERE - initializeNodeForms");
+    console.log(nodes);
+    Object.keys(nodes).forEach(key => {
+      let node = nodes[key];
+      let path = node.path;
+      this.partialSchema[path] = MultiTabFormWithHeaderV2.transformSchema(currentChildrenComponents, node.schema, this.props.elementByType, linkedFields);
+      let partialInputData = [];
+
+      if (this.props.inputData !== undefined) {
+        partialInputData = MultiTabFormWithHeaderV2.transformInputData(this.props.inputData, this.partialSchema[path]);
+      }
+
+      let subCategoriesOrder = this.props.schema.subCategoriesOrder;
+      let subElementForms = this.createForms(path, subCategoriesOrder, this.partialSchema[path], partialInputData);
+      this.forms[path] = subElementForms;
+      this.initializeNodeForms(node.nodes);
+    });
+  }
+
+  initializeForms() {
+    console.log("IM HERE - initializeForms");
+    let linkedFields = this.state.linkedFields;
+    let currentChildrenComponents = this.state.currentChildrenComponents;
+    let dataTree = this.dataTree;
+    let key = Object.keys(dataTree)[0]; // let rootNode = dataTree[key];
+    // let path = rootNode.path;
+
+    this.partialSchema[key] = MultiTabFormWithHeaderV2.transformSchema(currentChildrenComponents, this.props.schema, this.props.elementByType, linkedFields);
     let partialInputData = [];
 
     if (this.props.inputData !== undefined) {
-      partialInputData = MultiTabFormWithHeader.transformInputData(this.props.inputData, this.partialSchema);
+      partialInputData = MultiTabFormWithHeaderV2.transformInputData(this.props.inputData, this.partialSchema[key]);
     }
 
     let subCategoriesOrder = this.props.schema.subCategoriesOrder;
-    this.forms = this.createForms(subCategoriesOrder, this.partialSchema, partialInputData);
+    let subElementForms = this.createForms(key, subCategoriesOrder, this.partialSchema[key], partialInputData);
+    this.forms[key] = subElementForms;
+    this.initializeNodeForms(dataTree[key].nodes);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -255,7 +412,7 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
         if (inputData[key][propKey] !== undefined) {
           return inputData[key][propKey];
         } else {
-          value = MultiTabFormWithHeader.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
+          value = MultiTabFormWithHeaderV2.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
           if (value !== undefined) return value;
         }
       } else if (inputData[key] instanceof Object) {
@@ -263,14 +420,14 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
           if (inputData[key][propKey] !== undefined) {
             value = inputData[key][propKey];
           } else {
-            value = MultiTabFormWithHeader.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
+            value = MultiTabFormWithHeaderV2.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
           }
         } else if (key !== index) {
           continue;
         } else if (inputData[key][propKey] !== undefined) {
           return inputData[key][propKey];
         } else {
-          value = MultiTabFormWithHeader.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
+          value = MultiTabFormWithHeaderV2.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
         }
 
         if (value !== undefined) return value;
@@ -291,7 +448,7 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
           if (stringIndex != -1) index = key.substr(stringIndex + 1, 1);
           let stringKey = key.replace("_", "");
           stringKey = stringKey.replace(index, "");
-          let val = MultiTabFormWithHeader.findInputPropKeyValue(stringKey, index, propKey, inputData);
+          let val = MultiTabFormWithHeaderV2.findInputPropKeyValue(stringKey, index, propKey, inputData);
 
           if (val !== null) {
             partialInputData[key][propKey] = val;
@@ -318,7 +475,7 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
         }
 
         for (let i = 0; i < count; i++) {
-          let localPartialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, _constants.string_object, linkedFields);
+          let localPartialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, _constants.string_object, linkedFields);
           partialSchema = Object.assign(partialSchema, localPartialSchema);
         }
 
@@ -334,7 +491,7 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
         }
 
         for (let i = 0; i < count; i++) {
-          let localPartialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, i, _constants.string_array, linkedFields);
+          let localPartialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, i, _constants.string_array, linkedFields);
           partialSchema = Object.assign(partialSchema, localPartialSchema);
         }
 
@@ -402,7 +559,7 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
   }
 
   static transformSchema(currentChildrenComponents, schema, elementByType, linkedFields) {
-    let partialSchema = MultiTabFormWithHeader.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, _constants.string_default, linkedFields);
+    let partialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, _constants.string_default, linkedFields);
     return partialSchema;
   }
 
@@ -465,7 +622,7 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
     }));
   }
 
-  createForms(subCategoriesOrder, partialSchema, partialInputData) {
+  createForms(formsKey, subCategoriesOrder, partialSchema, partialInputData) {
     let currentButtonsRefs = [];
     let currentFormNames = [];
     let currentFormRefs = [];
@@ -501,15 +658,22 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
       currentForms.push(form);
     }
 
-    this.buttonsRefs = currentButtonsRefs;
-    this.formNames = currentFormNames;
-    this.formRefs = currentFormRefs;
+    this.buttonsRefs[formsKey] = currentButtonsRefs;
+    this.formNames[formsKey] = currentFormNames;
+    this.formRefs[formsKey] = currentFormRefs;
     return currentForms;
   }
 
   onTabChange(key) {
     this.setState({
       activeKey: key
+    });
+  }
+
+  onItemChange(key) {
+    this.setState({
+      activeFormKey: key,
+      activeKey: "0"
     });
   }
 
@@ -630,10 +794,15 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
         size: "lg",
         onClick: this.onEditComponentsCancel
       }, "Cancel"))));
-    }
+    } //FIXME Add the tree here and tree logic
 
-    let names = this.formNames;
-    let forms = this.forms;
+
+    let activeFormKey = this.state.activeFormKey;
+    let paths = this.paths;
+    console.log("IM HERE - RENDER  - " + activeFormKey);
+    let names = this.formNames[activeFormKey];
+    let forms = this.forms[activeFormKey];
+    console.log(forms);
     let tabs = forms.map(function (item, index) {
       return /*#__PURE__*/_react.default.createElement(_rcTabs.TabPane, {
         tab: names[index],
@@ -654,19 +823,54 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
           break;
         }
       }
-    } //<div>{this.props.schema.description}</div>
+    }
 
+    const style = {
+      display: "flex",
+      flexFlow: "row"
+    };
+    const tabsStyle = {
+      overflow: "auto"
+    };
+    const treeStyle = {
+      marginRight: "10px"
+    }; //<div>{this.props.schema.description}</div>
 
     return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
       overlaysContainer: this.props.overlaysContainer
-    }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title), /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement(_rcTabs.default, {
+    }, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title), /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement("div", {
+      style: style
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: treeStyle
+    }, /*#__PURE__*/_react.default.createElement(_reactSimpleTreeMenu.default, {
+      data: this.dataTree,
+      onClickItem: (_ref2) => {
+        let key = _ref2.key,
+            label = _ref2.label,
+            props = _objectWithoutProperties(_ref2, ["key", "label"]);
+
+        console.log(props);
+        this.onItemChange(key); //this.navigate(props.url); // user defined prop
+      },
+      openNodes: paths,
+      initialActiveKey: activeFormKey,
+      debounceTime: 125,
+      disableKeyboard: false,
+      hasSearch: false,
+      resetOpenNodesOnDataUpdate: false
+    }, ({
+      search,
+      items
+    }) => /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactstrap.ListGroup, null, items.map(props => /*#__PURE__*/_react.default.createElement(ListItem, props)))))), /*#__PURE__*/_react.default.createElement("div", {
+      style: tabsStyle
+    }, /*#__PURE__*/_react.default.createElement(_rcTabs.default, {
       onChange: this.onTabChange,
       renderTabBar: () => /*#__PURE__*/_react.default.createElement(_TabBar.default, null),
       renderTabContent: () => /*#__PURE__*/_react.default.createElement(_TabContent.default, {
         animatedWithMargin: true
       }),
       activeKey: this.state.activeKey
-    }, tabs), /*#__PURE__*/_react.default.createElement("div", {
+    }, tabs))), /*#__PURE__*/_react.default.createElement("div", {
       style: buttonContainerRow
     }, /*#__PURE__*/_react.default.createElement(_Button.default, {
       style: button,
@@ -682,7 +886,7 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
       style: button,
       size: "lg",
       onClick: this.onCancel
-    }, "Cancel"))));
+    }, "Cancel")));
   }
 
 }
@@ -691,4 +895,4 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
  */
 
 
-exports.default = MultiTabFormWithHeader;
+exports.default = MultiTabFormWithHeaderV2;

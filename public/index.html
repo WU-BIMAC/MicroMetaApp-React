@@ -55,18 +55,8 @@
 	<body>
 		<noscript>You need to enable JavaScript to run this app.</noscript>
 		<div id="root"></div>
-		<!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add web fonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-		-->
 		<script>
-			(function() {
+			(function () {
 				// Parent app could be required to handle detecting window resize
 				var MicroscopyMetadataToolApp = window.MicroscopyMetadataTool.default;
 
@@ -75,14 +65,14 @@
 				function render() {
 					let dims = {
 						width: window.innerWidth,
-						height: window.innerHeight
+						height: window.innerHeight,
 					};
 					ReactDOM.render(
 						React.createElement(MicroscopyMetadataToolApp, {
 							height: dims.height,
 							width: dims.width,
 							key: "my-app",
-							onLoadSchema: function(complete) {
+							onLoadSchema: function (complete) {
 								// Maybe some UI to select something...
 								// Not all browsers have `window.fetch`, used for demoing purposes.
 								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
@@ -90,19 +80,36 @@
 									.fetch(
 										"https://raw.githubusercontent.com/WU-BIMAC/4DNMetadataSchemaXSD2JSONConverter/master/fullSchemaV4.json"
 									)
-									.then(function(resp) {
+									.then(function (resp) {
 										console.log(resp);
 										return resp.text();
 									})
-									.then(function(respText) {
+									.then(function (respText) {
 										var schema = JSON.parse(respText);
 										complete(schema);
 									});
 							},
-							onLoadMicroscopes: function(complete) {
+							onLoadDimensions: function (complete) {
+								// Maybe some UI to select something...
+								// Not all browsers have `window.fetch`, used for demoing purposes.
+								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
+								window
+									.fetch(
+										"https://raw.githubusercontent.com/WU-BIMAC/4DNMetadataSchemaXSD2JSONConverter/master/dimensions/MicroscopeDimensions.json"
+									)
+									.then(function (resp) {
+										console.log(resp);
+										return resp.text();
+									})
+									.then(function (respText) {
+										var dimensions = JSON.parse(respText);
+										complete(dimensions);
+									});
+							},
+							onLoadMicroscopes: function (complete) {
 								let microscopesDB = {};
 								complete(microscopesDB);
-							}
+							},
 						}),
 						document.getElementById("root")
 					);

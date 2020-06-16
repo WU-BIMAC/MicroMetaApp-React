@@ -28,11 +28,142 @@ export const string_createFromScratch = "Create from scratch";
 export const string_createFromFile = "Load from file";
 export const string_loadFromRepository = "Load from repository";
 
+export const string_validationTier = "Validate @ tier: ";
+
 export const number_logo_width = 800;
 export const number_logo_height = 280;
 
-export const number_canvas_width = 2377;
+export const number_canvas_width = 3201;
 export const number_canvas_height = 969;
 
 export const string_bandpass_warning =
 	"If you modify the number of band-pass, the information not saved are going to be lost!";
+
+export const tier_selector_tooltip = {
+	title: "Tier Selector",
+	content: (
+		<p>
+			Choose the Tier level you want to utilize to document Instrument Hardware
+			Specifications and the Image Acquisition Settings. For more details about
+			Tier definition please refer to the following{" "}
+			<a href="https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf">link</a>.
+		</p>
+	),
+	position: "top",
+};
+
+export const manage_instrument_tooltip = {
+	title: "Manage Instrument Hardware",
+	content: (
+		<p>
+			Click this button to create, load from a template, or edit a Microscope
+			file describing the hardware components of the Instrument you want to
+			document
+		</p>
+	),
+	position: "left",
+};
+
+export const manage_settings_tooltip = {
+	title: "Manage Acquisition Settings",
+	content: (
+		<p>
+			Click this button to select an existing Microscope file and enter, load
+			from file, or edit the acquisition settings associated with the specific
+			Image dataset you want to document
+		</p>
+	),
+	position: "right",
+};
+
+export const create_mode_selector_tooltip = {
+	title: "Create mode selector",
+	content: (
+		<p>
+			Choose the modality you want to use for Instrument hardware management.
+			'Create from scratch' allows you to create a brand new Microscope file
+			from scratch.'Load from file' allows you to import into Micro- Meta App a
+			previously available Microscope file (i.e., an example file, a template
+			file, or an existing Microscope file shared by a colleague) to edit.'Load
+			from repository' allows you to load a previously available file from the
+			active Micro-Meta App repository.
+		</p>
+	),
+	position: "top",
+};
+
+export const create_from_file_tooltip = {
+	title: "Create from file",
+	content: <p>Select a file.</p>,
+	position: "top",
+};
+
+export const create_from_repo_manufacturer_tooltip = {
+	title: "Create from repository",
+	content: <p>Select a manufacturer.</p>,
+	position: "top",
+};
+
+export const create_from_repo_names_tooltip = {
+	title: "Create from repository",
+	content: <p>Select a microscope.</p>,
+	position: "top",
+};
+
+export const create_mode_continue_tooltip = {
+	title: "Create mode continue",
+	content: <p>Create a microscope using the mode selected above.</p>,
+	position: "left",
+};
+
+export const back_tooltip = {
+	title: "Back",
+	content: <p>Return to the initial window.</p>,
+	position: "right",
+};
+
+export const edit_microscope_tooltip = {
+	title: "Edit microscope",
+	content: (
+		<p>Click this button to enter general information about this Instrument.</p>
+	),
+	position: "top",
+};
+
+export const validation_tooltip = {
+	title: "Validation tier selector",
+	content: (
+		<p>
+			Choose the Tier level you want to use to validate this Microscope file.
+			For more details about Tier definition please refer to the following{" "}
+			<a href="https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf">link</a>.
+		</p>
+	),
+	position: "top",
+};
+
+export const save_microscope_tooltip = {
+	title: "Save microscope",
+	content: (
+		<p>
+			Choose whether you want to save this Microscope file to the active
+			Micro-Meta App repository or if you want to export it to your local file
+			system.
+		</p>
+	),
+	position: "top",
+};
+
+export const hardware_explorer_tooltip = {
+	title: "Hardware component selection",
+	content: (
+		<p>
+			Use this menu to select hardware components to include in this Microscope
+			file. Please follow these steps: 1 - Open an individual menu. 2 -
+			Drag-and-drop the desired element into the main canvas. 3 - Click on the
+			desired element to enter the information you want to document. 4 - Click
+			on Confirm to save the information you have entered.
+		</p>
+	),
+	position: "bottom",
+};

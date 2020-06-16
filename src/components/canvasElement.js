@@ -18,7 +18,7 @@ export default class CanvasElement extends React.PureComponent {
 			minHeight: null,
 			maxWidth: null,
 			maxHeight: null,
-			scalingFactor: props.scalingFactor || 1
+			scalingFactor: props.scalingFactor || 1,
 		};
 
 		this.startWidth = null;
@@ -86,7 +86,7 @@ export default class CanvasElement extends React.PureComponent {
 			minWidth: minWidth,
 			minHeight: minHeight,
 			maxWidth: maxWidth,
-			maxHeight: maxHeight
+			maxHeight: maxHeight,
 		});
 		this.props.updateDimensions(
 			id,
@@ -134,26 +134,26 @@ export default class CanvasElement extends React.PureComponent {
 			border: "0px",
 			font: "14px",
 			color: "inherit",
-			cursor: "pointer"
+			cursor: "pointer",
 		};
-		let resizableStyle = {};
+		let resizableStyle = { border: "none" };
 		let play = false;
-		if (!this.props.validated) {
-			resizableStyle = Object.assign(resizableStyle, {
-				border: "5px ridge red"
-			});
-			if (!this.props.dragged) {
-				play = true;
-			}
-		} else {
-			resizableStyle = Object.assign(resizableStyle, { border: "none" });
-		}
+		// if (!this.props.validated) {
+		// 	resizableStyle = Object.assign(resizableStyle, {
+		// 		border: "5px ridge red"
+		// 	});
+		// 	if (!this.props.dragged) {
+		// 		play = true;
+		// 	}
+		// } else {
+		// 	resizableStyle = Object.assign(resizableStyle, { border: "none" });
+		// }
 		let width = this.props.width;
 		let height = this.props.height;
 
 		let styleImage = {
 			width: width,
-			height: height
+			height: height,
 		};
 
 		let minWidth = this.state.minWidth;
@@ -194,7 +194,7 @@ export default class CanvasElement extends React.PureComponent {
 						"opacity: 0.4",
 						"opacity: 0.6",
 						"opacity: 0.8",
-						"opacity: 1"
+						"opacity: 1",
 					]}
 				>
 					<button style={style} onClick={this.handleClick}>
@@ -216,9 +216,9 @@ CanvasElement.defaultProps = {
 	maxWidth: 200,
 	maxHeight: 200,
 	text: "Something",
-	handleClick: function(e) {
+	handleClick: function (e) {
 		console.log("Clicked!", e.clientX, e.clientY);
-	}
+	},
 };
 
 export class CanvasElementDeleteButton extends React.PureComponent {

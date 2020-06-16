@@ -29,7 +29,7 @@ const validate = require("jsonschema").validate;
 
 const uuidv4 = require("uuid/v4");
 
-class Canvas extends _react.default.PureComponent {
+class ChannelsCanvas extends _react.default.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,9 +44,7 @@ class Canvas extends _react.default.PureComponent {
       offsetX: 0,
       headerOffset: props.headerOffset || 0,
       isEditing: false,
-      hover: null,
-      draggingID: null,
-      showcasedSpot: null
+      hover: null
     };
     Object.keys(props.componentSchemas).forEach(schemaIndex => {
       let schema = props.componentSchemas[schemaIndex];
@@ -81,8 +79,6 @@ class Canvas extends _react.default.PureComponent {
     this.addComponentsIndexesIfMissing = this.addComponentsIndexesIfMissing.bind(this);
     this.dragged = this.dragged.bind(this);
     this.dropped = this.dropped.bind(this);
-    this.isDragging = this.isDragging.bind(this);
-    this.isNotDragging = this.isNotDragging.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.handleMouseIn = this.handleMouseIn.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
@@ -234,66 +230,6 @@ class Canvas extends _react.default.PureComponent {
     return Object.assign({}, this.state.elementData);
   }
 
-  isDragging(e) {
-    let elementDimensions = this.props.canvasElementsDimensions;
-    let componentsSchema = this.state.componentsSchema;
-    let newElementList = this.state.elementList;
-    let sourceElement = e.dragData;
-    let schema_ID = null;
-
-    if (sourceElement.source === _constants.string_toolbar) {
-      schema_ID = sourceElement.schema_ID;
-    } else {
-      schema_ID = newElementList[sourceElement.index].schema_ID;
-    }
-
-    let x = e.x;
-    let y = e.y - this.state.headerOffset;
-    let schema = componentsSchema[schema_ID];
-    let spots = null;
-    let ns_ID = null;
-
-    if (elementDimensions[schema.category] !== undefined && elementDimensions[schema.category] !== null) {
-      ns_ID = schema.category;
-      spots = elementDimensions[ns_ID];
-      console.log("Found category NSID: " + ns_ID);
-      console.log(spots);
-    } else {
-      ns_ID = schema.category + "_" + schema_ID.replace(".json", "");
-      spots = elementDimensions[ns_ID];
-      console.log("Found full name NSID: " + ns_ID);
-      console.log(spots);
-    }
-
-    let showcasedSpot = null; //console.log("X: " + x + "||" + "Y: " + y);
-    // for (let i = 0; i < spots.length; i++) {
-    // 	let spot = spots[i];
-    // 	let x1 = spot.x - spot.w / 2;
-    // 	let x2 = spot.x + spot.w / 2;
-    // 	let y1 = spot.y - spot.h / 2;
-    // 	let y2 = spot.y + spot.h / 2;
-    // 	console.log("X1: " + x1 + "||" + "Y1: " + y1);
-    // 	console.log("X2: " + x2 + "||" + "Y2: " + y2);
-    // 	if (x > x1 && x < x2 && y > y1 && y < y2) {
-    // 		console.log("IMHERE");
-    // 		showcasedSpot = spot;
-    // 		break;
-    // 	}
-    // }
-
-    this.setState({
-      draggingID: ns_ID,
-      showcasedSpot: showcasedSpot
-    });
-  }
-
-  isNotDragging(e) {
-    this.setState({
-      draggingID: null,
-      showcasedSpot: null
-    });
-  }
-
   dragged(e) {
     let newElementList = this.state.elementList.slice();
     newElementList[e.index].dragged = true;
@@ -334,82 +270,34 @@ class Canvas extends _react.default.PureComponent {
   }
 
   dropped(e) {
-    let componentsSchema = this.state.componentsSchema;
-    let elementDimensions = this.props.canvasElementsDimensions;
     let sourceElement = e.dragData;
     let newElementList = this.state.elementList.slice();
     let newElementDataList = Object.assign({}, this.state.elementData);
     let newElement = null;
     let x = e.x;
     let y = e.y - this.state.headerOffset;
-    let schema_ID = null;
-
-    if (sourceElement.source === _constants.string_toolbar) {
-      schema_ID = sourceElement.schema_ID;
-    } else {
-      schema_ID = newElementList[sourceElement.index].schema_ID;
-    }
-
-    let schema = componentsSchema[schema_ID];
-    let spots = null;
-
-    if (elementDimensions[schema.category] !== undefined && elementDimensions[schema.category] !== null) {
-      spots = elementDimensions[schema.category];
-    } else {
-      let ns_ID = schema.category + "_" + schema_ID.replace(".json", "");
-      spots = elementDimensions[ns_ID];
-    }
-
     let offsetX = this.state.offsetX;
     let offsetY = this.state.offsetY;
     let containerOffsetX = this.props.containerOffsetLeft;
     let containerOffsetY = this.props.containerOffsetTop;
     x += offsetX - containerOffsetX;
     y += offsetY - containerOffsetY;
-    if (spots !== undefined && spots !== null) if (Array.isArray(spots)) {
-      for (let i = 0; i < spots.length; i++) {
-        let spot = spots[i];
-        let xOff = spot.x + (offsetX - containerOffsetX);
-        let yOff = spot.y + (offsetY - containerOffsetY);
-        let x1 = xOff - spot.w / 2;
-        let x2 = xOff + spot.w / 2;
-        let y1 = yOff - spot.h / 2;
-        let y2 = yOff + spot.h / 2;
 
-        if (x > x1 && x < x2 && y > y1 && y < y2) {
-          console.log("IMHERE " + i);
-          x = x1;
-          y = y1;
-          break;
-        }
-      }
-    } else {
-      let spot = spots;
-      let xOff = spot.x + (offsetX - containerOffsetX);
-      let yOff = spot.y + (offsetY - containerOffsetY);
-      let x1 = xOff - spot.w / 2;
-      let x2 = xOff + spot.w / 2;
-      let y1 = yOff - spot.h / 2;
-      let y2 = yOff + spot.h / 2;
+    if (sourceElement.source !== _constants.string_toolbar) {
+      x -= 5;
+      y -= 15;
+    }
 
-      if (x > x1 && x < x2 && y > y1 && y < y2) {
-        console.log("IMHERE");
-        x = x1;
-        y = y1;
-      }
-    } // if (sourceElement.source !== string_toolbar) {
-    // 	x -= 5;
-    // 	y -= 15;
-    // }
-
-    y -= 19;
     let width = 100;
     let height = 100;
+    let componentsSchema = this.state.componentsSchema;
     let index = null;
     let ID = null;
 
     if (sourceElement.source === _constants.string_toolbar) {
       let uuid = uuidv4();
+      let schema_ID = sourceElement.schema_ID;
+      let schema = componentsSchema[schema_ID];
       newElement = {
         //Schema is old version needs to be updated constantly
         //AKA needs to put schemas in canvas and retrieve them
@@ -449,6 +337,8 @@ class Canvas extends _react.default.PureComponent {
       ID = newElement.ID;
     } else {
       let item = this.state.elementList[sourceElement.index];
+      let schema_ID = newElementList[sourceElement.index].schema_ID;
+      let schema = componentsSchema[schema_ID];
       newElementList[sourceElement.index].x = x;
       newElementList[sourceElement.index].y = y;
       newElementList[sourceElement.index].dragged = false;
@@ -494,9 +384,7 @@ class Canvas extends _react.default.PureComponent {
     newElementDataList[ID].PositionZ = newZ;
     this.setState({
       elementList: newElementList,
-      elementData: newElementDataList,
-      draggingID: null,
-      showcasedSpot: null
+      elementData: newElementDataList
     });
     let validated = this.areAllElementsValidated();
     this.props.updateElementData(newElementDataList, validated);
@@ -604,42 +492,34 @@ class Canvas extends _react.default.PureComponent {
       if (z > highestZ) highestZ = z;
     }
 
-    const imageValidation = {
-      display: "block",
-      height: "16px",
-      width: "16px",
-      margin: "auto",
-      verticalAlign: "middle"
-    };
     const styleGrabber = {
       lineHeight: "12px",
-      fontSize: "14px",
+      fontSize: "12px",
       fontWeight: "bold",
       color: "grey",
-      textAlign: "center",
-      verticalAlign: "middle"
+      textAlign: "left",
+      verticalAlign: "top"
     };
     const styleCloser = {
       lineHeight: "12px",
       padding: "0px",
       border: "none",
-      fontSize: "14px",
+      font: "12px",
       backgroundColor: "transparent",
       cursor: "pointer",
       color: "grey",
       textAlign: "center",
-      verticalAlign: "middle"
+      verticalAlign: "top"
     }; //justifyContent: "space-between"
 
     const styleActionContainer = {
       display: "flex",
-      flexDirection: "row",
-      width: "36px",
-      height: "12px"
+      flexDirection: "column",
+      width: "10px"
     };
     let styleActionElementNameContainer = {
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "row"
     };
     let styleElementNameContainer = {
       display: "flex",
@@ -716,24 +596,6 @@ class Canvas extends _react.default.PureComponent {
           styleName = styleNameRegular;
         }
 
-        let validated;
-
-        if (item.validated) {
-          let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
-          validated = /*#__PURE__*/_react.default.createElement("img", {
-            src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-            alt: "validated",
-            style: imageValidation
-          });
-        } else {
-          let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
-          validated = /*#__PURE__*/_react.default.createElement("img", {
-            src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-            alt: "not validated",
-            style: imageValidation
-          });
-        }
-
         droppableElement.push( /*#__PURE__*/_react.default.createElement("div", {
           style: stylesContainer[item.ID],
           key: "draggableWrapper" + index,
@@ -756,7 +618,7 @@ class Canvas extends _react.default.PureComponent {
         }, /*#__PURE__*/_react.default.createElement("div", {
           className: "grabber",
           style: styleGrabber
-        }, "\u2237"), validated, /*#__PURE__*/_react.default.createElement(_canvasElement.CanvasElementDeleteButton, {
+        }, "\u2237"), /*#__PURE__*/_react.default.createElement(_canvasElement.CanvasElementDeleteButton, {
           index: index,
           handleDelete: this.onDelete,
           myStyle: styleCloser,
@@ -773,8 +635,8 @@ class Canvas extends _react.default.PureComponent {
           overlaysContainer: this.props.overlaysContainer,
           inputData: elementData[item.ID],
           width: stylesImages[item.ID].width,
-          height: stylesImages[item.ID].height //validated={item.validated}
-          ,
+          height: stylesImages[item.ID].height,
+          validated: item.validated,
           dragged: item.dragged,
           currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
           minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
@@ -845,8 +707,8 @@ class Canvas extends _react.default.PureComponent {
     };
     const infoStyle = {
       position: "absolute",
-      left: "10px",
-      top: "10px"
+      left: 0,
+      top: 0
     };
     const micInfo = [];
 
@@ -873,82 +735,11 @@ class Canvas extends _react.default.PureComponent {
       }
     }
 
-    const showcasedSpots = [];
-
-    if (this.state.draggingID != null) {
-      let elementDimensions = this.props.canvasElementsDimensions;
-      let markedSpots = elementDimensions[this.state.draggingID];
-      let offsetX = this.state.offsetX;
-      let offsetY = this.state.offsetY;
-      let containerOffsetX = this.props.containerOffsetLeft;
-      let containerOffsetY = this.props.containerOffsetTop;
-      let x = offsetX - containerOffsetX;
-      let y = offsetY - containerOffsetY;
-      if (markedSpots !== undefined && markedSpots !== null) if (Array.isArray(markedSpots)) {
-        for (let i = 0; i < markedSpots.length; i++) {
-          let spot = markedSpots[i];
-          let xOff = spot.x + (offsetX - containerOffsetX);
-          let yOff = spot.y + (offsetY - containerOffsetY);
-          let x1 = xOff - spot.w / 2;
-          let y1 = yOff - spot.h / 2;
-          let spotStyleTmp = {
-            position: "absolute",
-            left: x1,
-            top: y1,
-            width: spot.w,
-            height: spot.h
-          };
-
-          if (this.state.showcasedSpot === spot) {
-            spotStyleTmp.border = "10px ridge cornflowerBlue";
-          } else {
-            spotStyleTmp.border = "2px ridge cornflowerBlue";
-          }
-
-          const spotStyle = spotStyleTmp; //console.log(spotStyle);
-
-          let spotID = "spot" + i;
-          showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
-            key: spotID,
-            style: spotStyle
-          }));
-        }
-      } else {
-        let spot = markedSpots;
-        let xOff = spot.x + (offsetX - containerOffsetX);
-        let yOff = spot.y + (offsetY - containerOffsetY);
-        let x1 = xOff - spot.w / 2;
-        let y1 = yOff - spot.h / 2;
-        let spotStyleTmp = {
-          position: "absolute",
-          left: x1,
-          top: y1,
-          width: spot.w,
-          height: spot.h
-        };
-
-        if (this.state.showcasedSpot === spot) {
-          spotStyleTmp.border = "10px ridge cornflowerBlue";
-        } else {
-          spotStyleTmp.border = "2px ridge cornflowerBlue";
-        }
-
-        const spotStyle = spotStyleTmp;
-        let spotID = "spot0";
-        showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
-          key: spotID,
-          style: spotStyle
-        }));
-      }
-    }
-
     return /*#__PURE__*/_react.default.createElement("div", {
       style: styleContainer
     }, /*#__PURE__*/_react.default.createElement(_reactDragDropContainer.DropTarget, {
       style: dropTargetStyle,
       onHit: this.dropped,
-      onDragEnter: this.isDragging,
-      onDragLeave: this.isNotDragging,
       targetKey: _constants.string_canvas
     }, /*#__PURE__*/_react.default.createElement("div", {
       style: canvasContainerStyle,
@@ -962,9 +753,9 @@ class Canvas extends _react.default.PureComponent {
       onLoad: this.onImgLoad
     })), /*#__PURE__*/_react.default.createElement("div", {
       style: infoStyle
-    }, /*#__PURE__*/_react.default.createElement("p", null, micInfo)), showcasedSpots, this.createList())));
+    }, /*#__PURE__*/_react.default.createElement("p", null, micInfo)), this.createList())));
   }
 
 }
 
-exports.default = Canvas;
+exports.default = ChannelsCanvas;

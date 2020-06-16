@@ -11,8 +11,10 @@ export default class DataLoader extends React.PureComponent {
 		this.state = {
 			isLoadingSchema: false,
 			isLoadingMicroscopes: false,
+			isLoadingDimensions: false,
 			isSchemaLoaded: false,
 			isMicroscopesLoaded: false,
+			isDimensionsLoaded: false,
 		};
 
 		this.simulateClickLoadSchema = this.simulateClickLoadSchema.bind(this);
@@ -22,6 +24,19 @@ export default class DataLoader extends React.PureComponent {
 			this
 		);
 		this.onClickLoadMicroscopes = this.onClickLoadMicroscopes.bind(this);
+
+		this.simulateClickLoadDimensions = this.simulateClickLoadDimensions.bind(
+			this
+		);
+		this.onClickLoadDimensions = this.onClickLoadDimensions.bind(this);
+	}
+
+	onClickLoadDimensions() {
+		this.setState({ isLoadingDimensions: true }, () => {
+			this.props.onClickLoadDimensions().then(() => {
+				this.setState({ isLoadingDimensions: false, isDimensionsLoaded: true });
+			});
+		});
 	}
 
 	onClickLoadSchema() {
@@ -41,6 +56,11 @@ export default class DataLoader extends React.PureComponent {
 				});
 			});
 		});
+	}
+
+	simulateClickLoadDimensions(loadDimensionsButtonRef) {
+		if (loadDimensionsButtonRef === null) return;
+		loadDimensionsButtonRef.click();
 	}
 
 	simulateClickLoadSchema(loadSchemaButtonRef) {
@@ -89,6 +109,8 @@ export default class DataLoader extends React.PureComponent {
 		let isLoadingMicroscopes = this.state.isLoadingMicroscopes;
 		let isSchemaLoaded = this.state.isSchemaLoaded;
 		let isMicroscopesLoaded = this.state.isMicroscopesLoaded;
+		let isLoadingDimensions = this.state.isLoadingDimensions;
+		let isDimensionsLoaded = this.state.isDimensionsLoaded;
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowInternalContainer}>
@@ -116,6 +138,23 @@ export default class DataLoader extends React.PureComponent {
 							: isSchemaLoaded
 							? "Schema loaded"
 							: "Load schema"}
+					</Button>
+					<Button
+						ref={this.simulateClickLoadDimensions}
+						disabled={isLoadingDimensions || isDimensionsLoaded}
+						onClick={
+							!isLoadingDimensions && !isDimensionsLoaded
+								? this.onClickLoadDimensions
+								: null
+						}
+						style={buttonStyle}
+						size="lg"
+					>
+						{isLoadingDimensions
+							? "Loading dimensions"
+							: isDimensionsLoaded
+							? "Dimensions loaded"
+							: "Load dimensions"}
 					</Button>
 					<Button
 						ref={this.simulateClickLoadMicroscopes}

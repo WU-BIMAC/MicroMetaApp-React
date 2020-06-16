@@ -86,11 +86,15 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.handleLoadSchema = this.handleLoadSchema.bind(this);
 		this.handleCompleteLoadSchema = this.handleCompleteLoadSchema.bind(this);
 		this.handleLoadMicroscopes = this.handleLoadMicroscopes.bind(this);
-		this.handleLoadSettings = this.handleLoadSettings.bind(this);
 		this.handleCompleteLoadMicroscopes = this.handleCompleteLoadMicroscopes.bind(
 			this
 		);
+		this.handleLoadSettings = this.handleLoadSettings.bind(this);
 		this.handleCompleteLoadSettings = this.handleCompleteLoadSettings.bind(
+			this
+		);
+		this.handleLoadDimensions = this.handleLoadDimensions.bind(this);
+		this.handleCompleteLoadDimensions = this.handleCompleteLoadDimensions.bind(
 			this
 		);
 
@@ -175,6 +179,15 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.setState({ mounted: false });
 	}
 
+	handleLoadDimensions(e) {
+		return new Promise(() =>
+			setTimeout(
+				this.props.onLoadDimensions(this.handleCompleteLoadDimensions),
+				10000
+			)
+		);
+	}
+
 	handleLoadMicroscopes(e) {
 		return new Promise(() =>
 			setTimeout(
@@ -191,6 +204,10 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				10000
 			)
 		);
+	}
+
+	handleCompleteLoadDimensions(newDimensions) {
+		this.setState({ dimensions: newDimensions });
 	}
 
 	handleCompleteLoadMicroscopes(newMicroscopes) {
@@ -491,20 +508,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	// }
 
 	createNewMicroscopeFromScratch() {
-		let file = null;
-		fetch(
-			url.resolve(
-				"https://raw.githubusercontent.com/WU-BIMAC/4DNMicroscopyMetadataToolReact/master/public/assets/dimension/",
-				"Microscope_Inverted.json"
-			)
-		)
-			.then((response) => response.json())
-			.then((data) => (file = data));
-		// let file = MicroscopyMetadataTool.readTextFile(
-		// 	url.resolve(this.props.dimensionsPath, "Microscope_Inverted.json")
-		// );
-		console.log("file:");
-		console.log(file);
+		let typeDimensions = this.state.dimensions.Microscope_Inverted;
 		let uuid = uuidv4();
 		let activeTier = this.state.activeTier;
 		let adaptedSchemas = this.createAdaptedSchemas(activeTier);
@@ -519,7 +523,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			ValidationTier: activeTier,
 			Version: microscopeSchema.version,
 		};
-		this.setState({ microscope, elementData: {} });
+		this.setState({ microscope, elementData: {}, typeDimensions });
 	}
 
 	createOrUseMicroscopeFromDroppedFile() {
@@ -928,6 +932,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 	render() {
 		let { imagesPathPNG, imagesPathSVG, width, height } = this.props;
+		let typeDimensions = this.state.typeDimensions;
 		let schema = this.state.schema;
 		let microscope = this.state.microscope;
 		let microscopes = this.state.microscopes;
@@ -968,6 +973,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					<DataLoader
 						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
 						onClickLoadSchema={this.handleLoadSchema}
+						onClickLoadDimensions={this.handleLoadDimensions}
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
 					/>
 				</MicroscopyMetadataToolContainer>
@@ -1253,6 +1259,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 								updateLinkedFields={this.updateLinkedFields}
 								overlaysContainer={this.overlaysContainerRef.current}
 								areComponentsValidated={this.state.areComponentsValidated}
+								canvasElementsDimensions={typeDimensions}
 								dimensions={canvasDims}
 								scalingFactor={scalingFactor}
 								containerOffsetTop={this.props.containerOffsetTop}
@@ -1293,6 +1300,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 								updateLinkedFields={this.updateLinkedFields}
 								overlaysContainer={this.overlaysContainerRef.current}
 								areComponentsValidated={this.state.areComponentsValidated}
+								canvasElementsDimensions={typeDimensions}
 								dimensions={canvasDims}
 								scalingFactor={scalingFactor}
 								containerOffsetTop={this.props.containerOffsetTop}
@@ -1372,6 +1380,12 @@ MicroscopyMetadataTool.defaultProps = {
 	containerOffsetTop: 0,
 	containerOffsetLeft: 0,
 	scalingFactor: 1,
+	onLoadDimensions: function (complete) {
+		// Do some stuff... show pane for people to browse/select schema.. etc.
+		setTimeout(function () {
+			complete(null);
+		});
+	},
 	onLoadSchema: function (complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {

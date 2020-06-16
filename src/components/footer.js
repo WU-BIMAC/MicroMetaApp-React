@@ -7,8 +7,16 @@ import { AnimateKeyframes } from "react-simple-animate";
 //import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeaderV2";
 import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeader";
 import DropdownMenu from "./dropdownMenu";
+import PopoverTooltip from "./popoverTooltip";
 
-const validationTier = "Validate @ tier: ";
+import {
+	bool_isDebug,
+	string_validationTier,
+	edit_microscope_tooltip,
+	validation_tooltip,
+	save_microscope_tooltip,
+	back_tooltip,
+} from "../constants";
 
 export default class Footer extends React.PureComponent {
 	constructor(props) {
@@ -114,14 +122,21 @@ export default class Footer extends React.PureComponent {
 					"opacity: 1",
 				]}
 			>
-				<Button
-					key={"Button-0"}
-					onClick={this.onClickEdit}
-					style={styleEditButton}
-					size="lg"
-				>
-					{`Edit ${this.props.element}`}
-				</Button>
+				<PopoverTooltip
+					position={edit_microscope_tooltip.position}
+					title={edit_microscope_tooltip.title}
+					content={edit_microscope_tooltip.content}
+					element={
+						<Button
+							key={"Button-0"}
+							onClick={this.onClickEdit}
+							style={styleEditButton}
+							size="lg"
+						>
+							{`Edit ${this.props.element}`}
+						</Button>
+					}
+				/>
 			</AnimateKeyframes>
 		);
 		let inputData = [];
@@ -132,13 +147,14 @@ export default class Footer extends React.PureComponent {
 		buttons[1] = (
 			<DropdownMenu
 				key={"Button-1"}
-				title={validationTier}
+				title={string_validationTier}
 				handleMenuItemClick={this.onClickChangeValidation}
 				inputData={inputData}
 				width={250}
 				margin={5}
 				defaultValue={defaultValidationTier}
 				direction={"up"}
+				tooltip={validation_tooltip}
 			/>
 		);
 		let saveOptions = [];
@@ -157,17 +173,25 @@ export default class Footer extends React.PureComponent {
 				width={250}
 				margin={5}
 				direction={"up"}
+				tooltip={save_microscope_tooltip}
 			/>
 		);
 		buttons[3] = (
-			<Button
-				key={"Button-3"}
-				onClick={this.props.onClickBack}
-				style={styleButton}
-				size="lg"
-			>
-				Back
-			</Button>
+			<PopoverTooltip
+				position={back_tooltip.position}
+				title={back_tooltip.title}
+				content={back_tooltip.content}
+				element={
+					<Button
+						key={"Button-3"}
+						onClick={this.props.onClickBack}
+						style={styleButton}
+						size="lg"
+					>
+						Back
+					</Button>
+				}
+			/>
 		);
 		return <div style={style}>{buttons}</div>;
 	}

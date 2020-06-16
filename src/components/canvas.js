@@ -22,7 +22,7 @@ import {
 	string_minNumberOf_identifier,
 	string_maxNumberOf_identifier,
 	number_canvas_width,
-	number_canvas_height
+	number_canvas_height,
 } from "../constants";
 import { bool } from "prop-types";
 
@@ -42,14 +42,16 @@ export default class Canvas extends React.PureComponent {
 			offsetX: 0,
 			headerOffset: props.headerOffset || 0,
 			isEditing: false,
-			hover: null
+			hover: null,
+			draggingID: null,
+			showcasedSpot: null,
 		};
 
-		Object.keys(props.componentSchemas).forEach(schemaIndex => {
+		Object.keys(props.componentSchemas).forEach((schemaIndex) => {
 			let schema = props.componentSchemas[schemaIndex];
 			let schema_id = schema.ID;
 			//Validate schemas using jsonschema????
-			Object.keys(props.inputData).forEach(objIndex => {
+			Object.keys(props.inputData).forEach((objIndex) => {
 				let object = props.inputData[objIndex];
 				if (props.activeTier < object.tier) return;
 				if (schema_id !== object.Schema_ID) return;
@@ -68,7 +70,7 @@ export default class Canvas extends React.PureComponent {
 					y: object.PositionY,
 					z: positionZ,
 					width: object.Width,
-					height: object.Height
+					height: object.Height,
 				};
 				this.state.elementList.push(newElement);
 			});
@@ -82,6 +84,8 @@ export default class Canvas extends React.PureComponent {
 
 		this.dragged = this.dragged.bind(this);
 		this.dropped = this.dropped.bind(this);
+		this.isDragging = this.isDragging.bind(this);
+		this.isNotDragging = this.isNotDragging.bind(this);
 		this.onDelete = this.onDelete.bind(this);
 
 		this.handleMouseIn = this.handleMouseIn.bind(this);
@@ -103,7 +107,7 @@ export default class Canvas extends React.PureComponent {
 	static getDerivedStateFromProps(props, state) {
 		if (props.componentsSchema !== null) {
 			let componentsSchema = {};
-			Object.keys(props.componentSchemas).forEach(schemaIndex => {
+			Object.keys(props.componentSchemas).forEach((schemaIndex) => {
 				let schema = props.componentSchemas[schemaIndex];
 				let schema_id = schema.ID;
 				componentsSchema[schema_id] = schema;
@@ -119,7 +123,7 @@ export default class Canvas extends React.PureComponent {
 				element.validated = validated;
 			}
 			return {
-				componentsSchema: componentsSchema
+				componentsSchema: componentsSchema,
 			};
 		}
 
@@ -152,7 +156,7 @@ export default class Canvas extends React.PureComponent {
 
 	updatedDimensions(id, width, height, isResize) {
 		let element = null;
-		this.state.elementList.forEach(item => {
+		this.state.elementList.forEach((item) => {
 			if (item.ID === id) element = item;
 		});
 
@@ -182,7 +186,7 @@ export default class Canvas extends React.PureComponent {
 		let newWidth = img.width;
 		this.setState({
 			imgHeight: newHeight,
-			imgWidth: newWidth
+			imgWidth: newWidth,
 		});
 	}
 
@@ -217,7 +221,7 @@ export default class Canvas extends React.PureComponent {
 		currentElementData[id] = Object.assign(currentElementData[id], data);
 		this.setState({
 			elementData: currentElementData,
-			linkedFields: linkedFields
+			linkedFields: linkedFields,
 		});
 
 		let validated = this.areAllElementsValidated();
@@ -227,6 +231,61 @@ export default class Canvas extends React.PureComponent {
 
 	getElementData() {
 		return Object.assign({}, this.state.elementData);
+	}
+
+	isDragging(e) {
+		let elementDimensions = this.props.canvasElementsDimensions;
+		let componentsSchema = this.state.componentsSchema;
+		let newElementList = this.state.elementList;
+		let sourceElement = e.dragData;
+		let schema_ID = null;
+		if (sourceElement.source === string_toolbar) {
+			schema_ID = sourceElement.schema_ID;
+		} else {
+			schema_ID = newElementList[sourceElement.index].schema_ID;
+		}
+		let x = e.x;
+		let y = e.y - this.state.headerOffset;
+		let schema = componentsSchema[schema_ID];
+
+		let spots = null;
+		let ns_ID = null;
+		if (
+			elementDimensions[schema.category] !== undefined &&
+			elementDimensions[schema.category] !== null
+		) {
+			ns_ID = schema.category;
+			spots = elementDimensions[ns_ID];
+			console.log("Found category NSID: " + ns_ID);
+			console.log(spots);
+		} else {
+			ns_ID = schema.category + "_" + schema_ID.replace(".json", "");
+			spots = elementDimensions[ns_ID];
+			console.log("Found full name NSID: " + ns_ID);
+			console.log(spots);
+		}
+		let showcasedSpot = null;
+		
+		//console.log("X: " + x + "||" + "Y: " + y);
+		// for (let i = 0; i < spots.length; i++) {
+		// 	let spot = spots[i];
+		// 	let x1 = spot.x - spot.w / 2;
+		// 	let x2 = spot.x + spot.w / 2;
+		// 	let y1 = spot.y - spot.h / 2;
+		// 	let y2 = spot.y + spot.h / 2;
+		// 	console.log("X1: " + x1 + "||" + "Y1: " + y1);
+		// 	console.log("X2: " + x2 + "||" + "Y2: " + y2);
+		// 	if (x > x1 && x < x2 && y > y1 && y < y2) {
+		// 		console.log("IMHERE");
+		// 		showcasedSpot = spot;
+		// 		break;
+		// 	}
+		// }
+		this.setState({ draggingID: ns_ID, showcasedSpot: showcasedSpot });
+	}
+
+	isNotDragging(e) {
+		this.setState({ draggingID: null, showcasedSpot: null });
 	}
 
 	dragged(e) {
@@ -265,17 +324,37 @@ export default class Canvas extends React.PureComponent {
 		}
 
 		this.setState({
-			elementList: newElementList
+			elementList: newElementList,
 		});
 	}
 
 	dropped(e) {
+		let componentsSchema = this.state.componentsSchema;
+		let elementDimensions = this.props.canvasElementsDimensions;
 		let sourceElement = e.dragData;
 		let newElementList = this.state.elementList.slice();
 		let newElementDataList = Object.assign({}, this.state.elementData);
 		let newElement = null;
 		let x = e.x;
 		let y = e.y - this.state.headerOffset;
+
+		let schema_ID = null;
+		if (sourceElement.source === string_toolbar) {
+			schema_ID = sourceElement.schema_ID;
+		} else {
+			schema_ID = newElementList[sourceElement.index].schema_ID;
+		}
+		let schema = componentsSchema[schema_ID];
+		let spots = null;
+		if (
+			elementDimensions[schema.category] !== undefined &&
+			elementDimensions[schema.category] !== null
+		) {
+			spots = elementDimensions[schema.category];
+		} else {
+			let ns_ID = schema.category + "_" + schema_ID.replace(".json", "");
+			spots = elementDimensions[ns_ID];
+		}
 
 		let offsetX = this.state.offsetX;
 		let offsetY = this.state.offsetY;
@@ -284,24 +363,52 @@ export default class Canvas extends React.PureComponent {
 
 		x += offsetX - containerOffsetX;
 		y += offsetY - containerOffsetY;
+		if (spots !== undefined && spots !== null)
+			if (Array.isArray(spots)) {
+				for (let i = 0; i < spots.length; i++) {
+					let spot = spots[i];
+					let xOff = spot.x + (offsetX - containerOffsetX);
+					let yOff = spot.y + (offsetY - containerOffsetY);
+					let x1 = xOff - spot.w / 2;
+					let x2 = xOff + spot.w / 2;
+					let y1 = yOff - spot.h / 2;
+					let y2 = yOff + spot.h / 2;
+					if (x > x1 && x < x2 && y > y1 && y < y2) {
+						console.log("IMHERE " + i);
+						x = x1;
+						y = y1;
+						break;
+					}
+				}
+			} else {
+				let spot = spots;
+				let xOff = spot.x + (offsetX - containerOffsetX);
+				let yOff = spot.y + (offsetY - containerOffsetY);
+				let x1 = xOff - spot.w / 2;
+				let x2 = xOff + spot.w / 2;
+				let y1 = yOff - spot.h / 2;
+				let y2 = yOff + spot.h / 2;
+				if (x > x1 && x < x2 && y > y1 && y < y2) {
+					console.log("IMHERE");
+					x = x1;
+					y = y1;
+				}
+			}
 
-		if (sourceElement.source !== string_toolbar) {
-			x -= 5;
-			y -= 15;
-		}
+		// if (sourceElement.source !== string_toolbar) {
+		// 	x -= 5;
+		// 	y -= 15;
+		// }
 
+		y -= 19;
 		let width = 100;
 		let height = 100;
-
-		let componentsSchema = this.state.componentsSchema;
 
 		let index = null;
 		let ID = null;
 
 		if (sourceElement.source === string_toolbar) {
 			let uuid = uuidv4();
-			let schema_ID = sourceElement.schema_ID;
-			let schema = componentsSchema[schema_ID];
 			newElement = {
 				//Schema is old version needs to be updated constantly
 				//AKA needs to put schemas in canvas and retrieve them
@@ -316,7 +423,7 @@ export default class Canvas extends React.PureComponent {
 				width: -1,
 				height: -1,
 				offsetX: offsetX,
-				offsetY: offsetY
+				offsetY: offsetY,
 			};
 			newElementList.push(newElement);
 			let newElementData = {
@@ -331,7 +438,7 @@ export default class Canvas extends React.PureComponent {
 				Width: -1,
 				Height: -1,
 				OffsetX: offsetX,
-				OffsetY: offsetY
+				OffsetY: offsetY,
 			};
 			newElement.name = newElementData.Name;
 			this.addComponentsIndexesIfMissing(schema, newElementData);
@@ -341,9 +448,6 @@ export default class Canvas extends React.PureComponent {
 			ID = newElement.ID;
 		} else {
 			let item = this.state.elementList[sourceElement.index];
-			let schema_ID = newElementList[sourceElement.index].schema_ID;
-			let schema = componentsSchema[schema_ID];
-
 			newElementList[sourceElement.index].x = x;
 			newElementList[sourceElement.index].y = y;
 			newElementList[sourceElement.index].dragged = false;
@@ -389,7 +493,9 @@ export default class Canvas extends React.PureComponent {
 
 		this.setState({
 			elementList: newElementList,
-			elementData: newElementDataList
+			elementData: newElementDataList,
+			draggingID: null,
+			showcasedSpot: null,
 		});
 
 		let validated = this.areAllElementsValidated();
@@ -397,7 +503,7 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	addComponentsIndexesIfMissing(schema, newElementData) {
-		Object.keys(schema.properties).forEach(key => {
+		Object.keys(schema.properties).forEach((key) => {
 			let currentNumber = string_currentNumberOf_identifier + key;
 			let minNumber = string_minNumberOf_identifier + key;
 			let maxNumber = string_maxNumberOf_identifier + key;
@@ -474,7 +580,7 @@ export default class Canvas extends React.PureComponent {
 
 		this.setState({
 			elementList: elementList,
-			elementData: elementData
+			elementData: elementData,
 		});
 
 		let validated = this.areAllElementsValidated();
@@ -493,41 +599,48 @@ export default class Canvas extends React.PureComponent {
 			let z = item.z;
 			if (z > highestZ) highestZ = z;
 		}
-
+		const imageValidation = {
+			display: "block",
+			height: "16px",
+			width: "16px",
+			margin: "auto",
+			verticalAlign: "middle",
+		};
 		const styleGrabber = {
 			lineHeight: "12px",
-			fontSize: "12px",
+			fontSize: "14px",
 			fontWeight: "bold",
 			color: "grey",
-			textAlign: "left",
-			verticalAlign: "top"
+			textAlign: "center",
+			verticalAlign: "middle",
 		};
 		const styleCloser = {
 			lineHeight: "12px",
 			padding: "0px",
 			border: "none",
-			font: "12px",
+			fontSize: "14px",
 			backgroundColor: "transparent",
 			cursor: "pointer",
 			color: "grey",
 			textAlign: "center",
-			verticalAlign: "top"
+			verticalAlign: "middle",
 		};
 		//justifyContent: "space-between"
 		const styleActionContainer = {
 			display: "flex",
-			flexDirection: "column",
-			width: "10px"
+			flexDirection: "row",
+			width: "36px",
+			height: "12px",
 		};
 
 		let styleActionElementNameContainer = {
 			display: "flex",
-			flexDirection: "row"
+			flexDirection: "column",
 		};
 
 		let styleElementNameContainer = {
 			display: "flex",
-			flexDirection: "column"
+			flexDirection: "column",
 		};
 		//paddingLeft: "5px",
 		let styleNameHover = {
@@ -535,22 +648,22 @@ export default class Canvas extends React.PureComponent {
 			fontSize: "80%",
 			textAlign: "left",
 			lineHeight: "125%",
-			color: "gray"
+			color: "gray",
 		};
 		let styleNameRegular = {
-			display: "none"
+			display: "none",
 		};
 
 		let stylesContainer = {};
 		let stylesImages = {};
 
-		elementList.map(item => {
+		elementList.map((item) => {
 			let x = item.x;
 			let y = item.y;
 			let style = {
 				position: "absolute",
 				left: x,
-				top: y
+				top: y,
 			};
 			let containerWidth = item.width;
 			let containerHeight = item.height;
@@ -568,19 +681,19 @@ export default class Canvas extends React.PureComponent {
 			stylesContainer[item.ID] = Object.assign(
 				{
 					width: `${scaledContainerWidth + 10}px`,
-					height: `${scaledContainerHeight + 7}px`
+					height: `${scaledContainerHeight + 7}px`,
 				},
 				style
 			);
 			stylesImages[item.ID] = {
 				width: item.width,
-				height: item.height
+				height: item.height,
 			};
 		});
 		let droppableElement = [];
 		let componentsSchema = this.state.componentsSchema;
 		let elementByType = {};
-		Object.keys(elementData).forEach(function(key) {
+		Object.keys(elementData).forEach(function (key) {
 			let element = elementData[key];
 			let schemaID = element.Schema_ID.replace(string_json_ext, "");
 			if (elementByType[schemaID] === undefined) {
@@ -597,10 +710,40 @@ export default class Canvas extends React.PureComponent {
 				let styleName = null;
 				if (item.ID === hover) {
 					styleName = Object.assign(styleNameHover, {
-						width: `${stylesImages[item.ID].width}px`
+						width: `${stylesImages[item.ID].width}px`,
 					});
 				} else {
 					styleName = styleNameRegular;
+				}
+				let validated;
+				if (item.validated) {
+					let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
+					validated = (
+						<img
+							src={
+								image +
+								(image.indexOf("githubusercontent.com") > -1
+									? "?sanitize=true"
+									: "")
+							}
+							alt={"validated"}
+							style={imageValidation}
+						/>
+					);
+				} else {
+					let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
+					validated = (
+						<img
+							src={
+								image +
+								(image.indexOf("githubusercontent.com") > -1
+									? "?sanitize=true"
+									: "")
+							}
+							alt={"not validated"}
+							style={imageValidation}
+						/>
+					);
 				}
 				droppableElement.push(
 					<div
@@ -622,6 +765,7 @@ export default class Canvas extends React.PureComponent {
 									<div className="grabber" style={styleGrabber}>
 										&#8759;
 									</div>
+									{validated}
 									<CanvasElementDeleteButton
 										index={index}
 										handleDelete={this.onDelete}
@@ -641,7 +785,7 @@ export default class Canvas extends React.PureComponent {
 										inputData={elementData[item.ID]}
 										width={stylesImages[item.ID].width}
 										height={stylesImages[item.ID].height}
-										validated={item.validated}
+										//validated={item.validated}
 										dragged={item.dragged}
 										currentChildrenComponentIdentifier={
 											string_currentNumberOf_identifier
@@ -673,7 +817,7 @@ export default class Canvas extends React.PureComponent {
 			backgroundImage,
 			dimensions: { width, height } = {},
 			microscope = null,
-			scalingFactor = 1
+			scalingFactor = 1,
 		} = this.props;
 		const { linkedFields } = this.state;
 
@@ -688,20 +832,20 @@ export default class Canvas extends React.PureComponent {
 			borderRight: "2px solid",
 			color: "black",
 			width: `${width}px`,
-			height: `${height}px`
+			height: `${height}px`,
 		};
 
 		const innerWidth = width - 2;
 		const innerHeight = height - 4;
 		const dropTargetStyle = {
 			width: `${innerWidth}px`,
-			height: `${innerHeight}px`
+			height: `${innerHeight}px`,
 		};
 		const canvasContainerStyle = {
 			width: "100%",
 			height: "100%",
 			position: "relative",
-			overflow: "auto"
+			overflow: "auto",
 		};
 
 		const scaledCanvasWidth = number_canvas_width * scalingFactor;
@@ -712,17 +856,17 @@ export default class Canvas extends React.PureComponent {
 			height: `${scaledCanvasHeight}px`,
 			position: "absolute",
 			left: 0,
-			top: 0
+			top: 0,
 		};
 		const imageStyle = {
 			width: "100%",
 			height: "100%",
-			margin: "auto"
+			margin: "auto",
 		};
 		const infoStyle = {
 			position: "absolute",
-			left: 0,
-			top: 0
+			left: "10px",
+			top: "10px",
 		};
 		const micInfo = [];
 		if (microscope !== null && microscope !== undefined) {
@@ -743,11 +887,77 @@ export default class Canvas extends React.PureComponent {
 			}
 		}
 
+		const showcasedSpots = [];
+		if (this.state.draggingID != null) {
+			let elementDimensions = this.props.canvasElementsDimensions;
+			let markedSpots = elementDimensions[this.state.draggingID];
+
+			let offsetX = this.state.offsetX;
+			let offsetY = this.state.offsetY;
+			let containerOffsetX = this.props.containerOffsetLeft;
+			let containerOffsetY = this.props.containerOffsetTop;
+
+			let x = offsetX - containerOffsetX;
+			let y = offsetY - containerOffsetY;
+			if (markedSpots !== undefined && markedSpots !== null)
+				if (Array.isArray(markedSpots)) {
+					for (let i = 0; i < markedSpots.length; i++) {
+						let spot = markedSpots[i];
+						let xOff = spot.x + (offsetX - containerOffsetX);
+						let yOff = spot.y + (offsetY - containerOffsetY);
+						let x1 = xOff - spot.w / 2;
+						let y1 = yOff - spot.h / 2;
+						let spotStyleTmp = {
+							position: "absolute",
+							left: x1,
+							top: y1,
+							width: spot.w,
+							height: spot.h,
+						};
+						if (this.state.showcasedSpot === spot) {
+							spotStyleTmp.border = "10px ridge cornflowerBlue";
+						} else {
+							spotStyleTmp.border = "2px ridge cornflowerBlue";
+						}
+
+						const spotStyle = spotStyleTmp;
+
+						//console.log(spotStyle);
+						let spotID = "spot" + i;
+						showcasedSpots.push(<div key={spotID} style={spotStyle} />);
+					}
+				} else {
+					let spot = markedSpots;
+					let xOff = spot.x + (offsetX - containerOffsetX);
+					let yOff = spot.y + (offsetY - containerOffsetY);
+					let x1 = xOff - spot.w / 2;
+					let y1 = yOff - spot.h / 2;
+					let spotStyleTmp = {
+						position: "absolute",
+						left: x1,
+						top: y1,
+						width: spot.w,
+						height: spot.h,
+					};
+					if (this.state.showcasedSpot === spot) {
+						spotStyleTmp.border = "10px ridge cornflowerBlue";
+					} else {
+						spotStyleTmp.border = "2px ridge cornflowerBlue";
+					}
+
+					const spotStyle = spotStyleTmp;
+					let spotID = "spot0";
+					showcasedSpots.push(<div key={spotID} style={spotStyle} />);
+				}
+		}
+
 		return (
 			<div style={styleContainer}>
 				<DropTarget
 					style={dropTargetStyle}
 					onHit={this.dropped}
+					onDragEnter={this.isDragging}
+					onDragLeave={this.isNotDragging}
 					targetKey={string_canvas}
 				>
 					<div style={canvasContainerStyle} onScroll={this.handleScroll}>
@@ -767,6 +977,7 @@ export default class Canvas extends React.PureComponent {
 						<div style={infoStyle}>
 							<p>{micInfo}</p>
 						</div>
+						{showcasedSpots}
 						{this.createList()}
 					</div>
 				</DropTarget>
