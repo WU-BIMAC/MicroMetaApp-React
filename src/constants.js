@@ -1,3 +1,5 @@
+import React from "react";
+
 export const bool_isDebug = false;
 export const bool_isSettings = true;
 
