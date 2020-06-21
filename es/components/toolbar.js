@@ -54,21 +54,14 @@ class Toolbar extends _react.default.PureComponent {
     this.updateMinMaxDimensions = this.updateMinMaxDimensions.bind(this);
   }
 
-  updateMinMaxDimensions(id, width, height) {
-    let newImagesDimension = Object.assign({}, this.state.imagesDimension);
-
-    if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
-      let scalingFactor = this.props.scalingFactor;
-      let scaledWidth = width * scalingFactor;
-      let scaledHeight = height * scalingFactor;
-      newImagesDimension[id] = {
-        width: scaledWidth,
-        height: scaledHeight
-      };
-      this.setState({
-        imagesDimension: newImagesDimension
-      });
-    }
+  updateMinMaxDimensions(id, width, height) {// let newImagesDimension = Object.assign({}, this.state.imagesDimension);
+    // if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
+    // 	let scalingFactor = this.props.scalingFactor;
+    // 	let scaledWidth = width * scalingFactor;
+    // 	let scaledHeight = height * scalingFactor;
+    // 	newImagesDimension[id] = { width: scaledWidth, height: scaledHeight };
+    // 	this.setState({ imagesDimension: newImagesDimension });
+    // }
   }
 
   createCategoryItems(key) {
@@ -78,8 +71,17 @@ class Toolbar extends _react.default.PureComponent {
     let stylesContainer = {};
     let stylesImages = {};
     elementList[key].map(item => {
-      let width = imagesDimension[item.ID] === undefined ? 100 : imagesDimension[item.ID].width;
-      let height = imagesDimension[item.ID] === undefined ? 100 : imagesDimension[item.ID].height;
+      let scalingFactor = this.props.scalingFactor;
+      let width = 100 * scalingFactor;
+      let height = 100 * scalingFactor; // let width =
+      // 	imagesDimension[item.ID] === undefined
+      // 		? 100
+      // 		: imagesDimension[item.ID].width;
+      // let height =
+      // 	imagesDimension[item.ID] === undefined
+      // 		? 100
+      // 		: imagesDimension[item.ID].height;
+
       stylesContainer[item.ID] = {
         width: "".concat(width + 20, "px"),
         height: "".concat(height + 20, "px"),
@@ -99,19 +101,25 @@ class Toolbar extends _react.default.PureComponent {
       style: stylesImages[item.ID]
     })));
     let categoryItems = [];
-    elementList[key].map((item, index) => categoryItems.push( /*#__PURE__*/_react.default.createElement("div", {
-      key: "div" + item.ID,
-      style: stylesContainer[item.ID]
-    }, /*#__PURE__*/_react.default.createElement(_reactDragDropContainer.DragDropContainer, {
-      targetKey: _constants.string_canvas,
-      key: "draggable" + item.ID,
-      dragClone: true,
-      dragData: {
-        source: _constants.string_toolbar,
-        ID: item.ID,
-        schema_ID: item.schema.ID
-      }
-    }, imageElements[index]))));
+    elementList[key].map((item, index) => categoryItems.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      key: "TooltipImageElement-".concat(item.ID),
+      position: "bottom",
+      title: item.schema.title,
+      content: /*#__PURE__*/_react.default.createElement("p", null, "Drag this component and drop it in the canvas to add a new", " ", item.schema.title),
+      element: /*#__PURE__*/_react.default.createElement("div", {
+        key: "div" + item.ID,
+        style: stylesContainer[item.ID]
+      }, /*#__PURE__*/_react.default.createElement(_reactDragDropContainer.DragDropContainer, {
+        targetKey: _constants.string_canvas,
+        key: "draggable" + item.ID,
+        dragClone: true,
+        dragData: {
+          source: _constants.string_toolbar,
+          ID: item.ID,
+          schema_ID: item.schema.ID
+        }
+      }, imageElements[index]))
+    })));
     const styleContainer = {
       display: "flex",
       flexDirection: "row",

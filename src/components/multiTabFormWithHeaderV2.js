@@ -1,8 +1,8 @@
 import React from "react";
 import Form from "react-jsonschema-form";
 import Tabs, { TabPane } from "rc-tabs";
-import TabContent from "rc-tabs/lib/TabContent";
-import ScrollableTabBar from "rc-tabs/lib/TabBar";
+// import TabContent from "rc-tabs/lib/TabContent";
+// import ScrollableTabBar from "rc-tabs/lib/TabBar";
 //import "rc-tabs/assets/index.css";
 import Button from "react-bootstrap/Button";
 import TreeMenu from "react-simple-tree-menu";
@@ -955,8 +955,8 @@ export default class MultiTabFormWithHeaderV2 extends React.PureComponent {
 					<div style={tabsStyle}>
 						<Tabs
 							onChange={this.onTabChange}
-							renderTabBar={() => <ScrollableTabBar />}
-							renderTabContent={() => <TabContent animatedWithMargin />}
+							// renderTabBar={() => <ScrollableTabBar />}
+							// renderTabContent={() => <TabContent animatedWithMargin />}
 							activeKey={this.state.activeKey}
 						>
 							{tabs}

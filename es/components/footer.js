@@ -13,8 +13,6 @@ var _Dropdown = _interopRequireDefault(require("react-bootstrap/Dropdown"));
 
 var _ButtonGroup = _interopRequireDefault(require("react-bootstrap/ButtonGroup"));
 
-var _reactSimpleAnimate = require("react-simple-animate");
-
 var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWithHeader"));
 
 var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
@@ -26,6 +24,8 @@ var _constants = require("../constants");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeaderV2";
+const url = require("url");
+
 class Footer extends _react.default.PureComponent {
   constructor(props) {
     super(props);
@@ -97,33 +97,48 @@ class Footer extends _react.default.PureComponent {
       marginLeft: "5px",
       marginRight: "5px"
     };
-    let styleEditButton = Object.assign({}, styleButton);
-    let play = false;
+    const imageValidation = {
+      position: "relative",
+      top: "-10px",
+      left: "-40px",
+      height: "16px",
+      width: "16px",
+      margin: "auto",
+      verticalAlign: "middle"
+    };
+    let validated = null;
 
-    if (!this.props.isSchemaValidated) {
-      styleEditButton = Object.assign(styleEditButton, {
-        border: "5px ridge red"
+    if (this.props.isSchemaValidated) {
+      let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
+      validated = /*#__PURE__*/_react.default.createElement("img", {
+        src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
+        alt: "validated",
+        style: imageValidation
       });
-      play = true;
+    } else {
+      let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
+      validated = /*#__PURE__*/_react.default.createElement("img", {
+        src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
+        alt: "not validated",
+        style: imageValidation
+      }); // styleEditButton = Object.assign(styleEditButton, {
+      // 	border: "5px ridge red",
+      // });
     }
 
     let buttons = [];
-    buttons[0] = /*#__PURE__*/_react.default.createElement(_reactSimpleAnimate.AnimateKeyframes, {
-      key: "Animation-0",
-      play: play,
-      durationSeconds: 1,
-      keyframes: ["opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1"]
-    }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+    buttons[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      key: "TooltipButton-0",
       position: _constants.edit_microscope_tooltip.position,
       title: _constants.edit_microscope_tooltip.title,
       content: _constants.edit_microscope_tooltip.content,
       element: /*#__PURE__*/_react.default.createElement(_Button.default, {
         key: "Button-0",
         onClick: this.onClickEdit,
-        style: styleEditButton,
+        style: styleButton,
         size: "lg"
-      }, "Edit ".concat(this.props.element))
-    }));
+      }, validated, "Edit ".concat(this.props.element))
+    });
     let inputData = [];
 
     for (let i = 1; i <= this.props.activeTier; i++) {
@@ -162,6 +177,7 @@ class Footer extends _react.default.PureComponent {
       tooltip: _constants.save_microscope_tooltip
     });
     buttons[3] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      key: "TooltipButton-3",
       position: _constants.back_tooltip.position,
       title: _constants.back_tooltip.title,
       content: _constants.back_tooltip.content,

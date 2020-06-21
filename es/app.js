@@ -1126,7 +1126,8 @@ class MicroscopyMetadataTool extends _react.default.PureComponent {
         inputData: setting,
         isSchemaValidated: this.state.isSettingsValidated,
         dimensions: headerFooterDims,
-        element: "setting"
+        element: "setting",
+        imagesPath: imagesPathSVG
       }));
     } else {
       if (this.state.isViewOnly) {
@@ -1218,7 +1219,8 @@ class MicroscopyMetadataTool extends _react.default.PureComponent {
           inputData: microscope,
           isSchemaValidated: this.state.isMicroscopeValidated,
           dimensions: headerFooterDims,
-          element: "microscope"
+          element: "microscope",
+          imagesPath: imagesPathSVG
         }));
       }
     }

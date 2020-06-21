@@ -1,5 +1,3 @@
-import React from "react";
-
 export const bool_isDebug = false;
 export const bool_isSettings = true;
 
@@ -96,19 +94,19 @@ export const create_mode_selector_tooltip = {
 
 export const create_from_file_tooltip = {
 	title: "Create from file",
-	content: <p>Select a file.</p>,
+	content: <p>Select an existing Microscope file you want to work on.</p>,
 	position: "top",
 };
 
 export const create_from_repo_manufacturer_tooltip = {
 	title: "Create from repository",
-	content: <p>Select a manufacturer.</p>,
+	content: <p>Select the Manufacturer of the Microscope you want to load.</p>,
 	position: "top",
 };
 
 export const create_from_repo_names_tooltip = {
 	title: "Create from repository",
-	content: <p>Select a microscope.</p>,
+	content: <p>Select the Microscope you want to load.</p>,
 	position: "top",
 };
 

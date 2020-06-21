@@ -2,12 +2,13 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import { AnimateKeyframes } from "react-simple-animate";
 
 //import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeaderV2";
 import MultiTabFormWithHeader from "./multiTabFormWithHeader";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
+
+const url = require("url");
 
 import {
 	bool_isDebug,
@@ -87,57 +88,69 @@ export default class Footer extends React.PureComponent {
 			marginLeft: "5px",
 			marginRight: "5px",
 		};
-		let styleEditButton = Object.assign({}, styleButton);
-		let play = false;
-		if (!this.props.isSchemaValidated) {
-			styleEditButton = Object.assign(styleEditButton, {
-				border: "5px ridge red",
-			});
-			play = true;
+
+		const imageValidation = {
+			position: "relative",
+			top: "-10px",
+			left: "-40px",
+			height: "16px",
+			width: "16px",
+			margin: "auto",
+			verticalAlign: "middle",
+		};
+		let validated = null;
+		if (this.props.isSchemaValidated) {
+			let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
+			validated = (
+				<img
+					src={
+						image +
+						(image.indexOf("githubusercontent.com") > -1
+							? "?sanitize=true"
+							: "")
+					}
+					alt={"validated"}
+					style={imageValidation}
+				/>
+			);
+		} else {
+			let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
+			validated = (
+				<img
+					src={
+						image +
+						(image.indexOf("githubusercontent.com") > -1
+							? "?sanitize=true"
+							: "")
+					}
+					alt={"not validated"}
+					style={imageValidation}
+				/>
+			);
+			// styleEditButton = Object.assign(styleEditButton, {
+			// 	border: "5px ridge red",
+			// });
 		}
 
 		let buttons = [];
 		buttons[0] = (
-			<AnimateKeyframes
-				key={"Animation-0"}
-				play={play}
-				durationSeconds={1}
-				keyframes={[
-					"opacity: 1",
-					"opacity: 0.8",
-					"opacity: 0.6",
-					"opacity: 0.4",
-					"opacity: 0.2",
-					"opacity: 0.4",
-					"opacity: 0.6",
-					"opacity: 0.8",
-					"opacity: 1",
-					"opacity: 0.8",
-					"opacity: 0.6",
-					"opacity: 0.4",
-					"opacity: 0.2",
-					"opacity: 0.4",
-					"opacity: 0.6",
-					"opacity: 0.8",
-					"opacity: 1",
-				]}
-			>
-				<PopoverTooltip
-					position={edit_microscope_tooltip.position}
-					title={edit_microscope_tooltip.title}
-					content={edit_microscope_tooltip.content}
-					element={
-						<Button
-							key={"Button-0"}
-							onClick={this.onClickEdit}
-							style={styleEditButton}
-							size="lg"
-						>
-							{`Edit ${this.props.element}`}
-						</Button>
-					}
-				/>
-			</AnimateKeyframes>
+			<PopoverTooltip
+				key={"TooltipButton-0"}
+				position={edit_microscope_tooltip.position}
+				title={edit_microscope_tooltip.title}
+				content={edit_microscope_tooltip.content}
+				element={
+					<Button
+						key={"Button-0"}
+						onClick={this.onClickEdit}
+						style={styleButton}
+						size="lg"
+					>
+						{validated}
+						{`Edit ${this.props.element}`}
+					</Button>
+				}
+			/>
 		);
 		let inputData = [];
 		for (let i = 1; i <= this.props.activeTier; i++) {
@@ -178,6 +191,7 @@ export default class Footer extends React.PureComponent {
 		);
 		buttons[3] = (
 			<PopoverTooltip
+				key={"TooltipButton-3"}
 				position={back_tooltip.position}
 				title={back_tooltip.title}
 				content={back_tooltip.content}

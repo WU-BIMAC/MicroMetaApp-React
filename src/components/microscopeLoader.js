@@ -197,7 +197,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 											{...getInputProps({ onClick: this.dropzoneDialogOpen })}
 										/>
 										<p>
-											Drag 'n' drop some files here, or click to select files
+											Select an existing Microscope file you want to work on.
 										</p>
 									</div>
 								</section>

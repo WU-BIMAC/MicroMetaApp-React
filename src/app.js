@@ -1222,6 +1222,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						isSchemaValidated={this.state.isSettingsValidated}
 						dimensions={headerFooterDims}
 						element={"setting"}
+						imagesPath={imagesPathSVG}
 					/>
 				</MicroscopyMetadataToolContainer>
 			);
@@ -1332,6 +1333,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 							isSchemaValidated={this.state.isMicroscopeValidated}
 							dimensions={headerFooterDims}
 							element={"microscope"}
+							imagesPath={imagesPathSVG}
 						/>
 					</MicroscopyMetadataToolContainer>
 				);

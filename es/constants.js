@@ -4,11 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.hardware_explorer_tooltip = exports.save_microscope_tooltip = exports.validation_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.create_mode_continue_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.create_from_file_tooltip = exports.create_mode_selector_tooltip = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.number_canvas_height = exports.number_canvas_width = exports.number_logo_height = exports.number_logo_width = exports.string_validationTier = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_isSettings = exports.bool_isDebug = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 const bool_isDebug = false;
 exports.bool_isDebug = bool_isDebug;
 const bool_isSettings = true;
@@ -67,7 +62,7 @@ const string_bandpass_warning = "If you modify the number of band-pass, the info
 exports.string_bandpass_warning = string_bandpass_warning;
 const tier_selector_tooltip = {
   title: "Tier Selector",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the Tier level you want to utilize to document Instrument Hardware Specifications and the Image Acquisition Settings. For more details about Tier definition please refer to the following", " ", /*#__PURE__*/_react.default.createElement("a", {
+  content: /*#__PURE__*/React.createElement("p", null, "Choose the Tier level you want to utilize to document Instrument Hardware Specifications and the Image Acquisition Settings. For more details about Tier definition please refer to the following", " ", /*#__PURE__*/React.createElement("a", {
     href: "https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
   }, "link"), "."),
   position: "top"
@@ -75,61 +70,61 @@ const tier_selector_tooltip = {
 exports.tier_selector_tooltip = tier_selector_tooltip;
 const manage_instrument_tooltip = {
   title: "Manage Instrument Hardware",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to create, load from a template, or edit a Microscope file describing the hardware components of the Instrument you want to document"),
+  content: /*#__PURE__*/React.createElement("p", null, "Click this button to create, load from a template, or edit a Microscope file describing the hardware components of the Instrument you want to document"),
   position: "left"
 };
 exports.manage_instrument_tooltip = manage_instrument_tooltip;
 const manage_settings_tooltip = {
   title: "Manage Acquisition Settings",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select an existing Microscope file and enter, load from file, or edit the acquisition settings associated with the specific Image dataset you want to document"),
+  content: /*#__PURE__*/React.createElement("p", null, "Click this button to select an existing Microscope file and enter, load from file, or edit the acquisition settings associated with the specific Image dataset you want to document"),
   position: "right"
 };
 exports.manage_settings_tooltip = manage_settings_tooltip;
 const create_mode_selector_tooltip = {
   title: "Create mode selector",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the modality you want to use for Instrument hardware management. 'Create from scratch' allows you to create a brand new Microscope file from scratch.'Load from file' allows you to import into Micro- Meta App a previously available Microscope file (i.e., an example file, a template file, or an existing Microscope file shared by a colleague) to edit.'Load from repository' allows you to load a previously available file from the active Micro-Meta App repository."),
+  content: /*#__PURE__*/React.createElement("p", null, "Choose the modality you want to use for Instrument hardware management. 'Create from scratch' allows you to create a brand new Microscope file from scratch.'Load from file' allows you to import into Micro- Meta App a previously available Microscope file (i.e., an example file, a template file, or an existing Microscope file shared by a colleague) to edit.'Load from repository' allows you to load a previously available file from the active Micro-Meta App repository."),
   position: "top"
 };
 exports.create_mode_selector_tooltip = create_mode_selector_tooltip;
 const create_from_file_tooltip = {
   title: "Create from file",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Select a file."),
+  content: /*#__PURE__*/React.createElement("p", null, "Select an existing Microscope file you want to work on."),
   position: "top"
 };
 exports.create_from_file_tooltip = create_from_file_tooltip;
 const create_from_repo_manufacturer_tooltip = {
   title: "Create from repository",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Select a manufacturer."),
+  content: /*#__PURE__*/React.createElement("p", null, "Select the Manufacturer of the Microscope you want to load."),
   position: "top"
 };
 exports.create_from_repo_manufacturer_tooltip = create_from_repo_manufacturer_tooltip;
 const create_from_repo_names_tooltip = {
   title: "Create from repository",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Select a microscope."),
+  content: /*#__PURE__*/React.createElement("p", null, "Select the Microscope you want to load."),
   position: "top"
 };
 exports.create_from_repo_names_tooltip = create_from_repo_names_tooltip;
 const create_mode_continue_tooltip = {
   title: "Create mode continue",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Create a microscope using the mode selected above."),
+  content: /*#__PURE__*/React.createElement("p", null, "Create a microscope using the mode selected above."),
   position: "left"
 };
 exports.create_mode_continue_tooltip = create_mode_continue_tooltip;
 const back_tooltip = {
   title: "Back",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Return to the initial window."),
+  content: /*#__PURE__*/React.createElement("p", null, "Return to the initial window."),
   position: "right"
 };
 exports.back_tooltip = back_tooltip;
 const edit_microscope_tooltip = {
   title: "Edit microscope",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to enter general information about this Instrument."),
+  content: /*#__PURE__*/React.createElement("p", null, "Click this button to enter general information about this Instrument."),
   position: "top"
 };
 exports.edit_microscope_tooltip = edit_microscope_tooltip;
 const validation_tooltip = {
   title: "Validation tier selector",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the Tier level you want to use to validate this Microscope file. For more details about Tier definition please refer to the following", " ", /*#__PURE__*/_react.default.createElement("a", {
+  content: /*#__PURE__*/React.createElement("p", null, "Choose the Tier level you want to use to validate this Microscope file. For more details about Tier definition please refer to the following", " ", /*#__PURE__*/React.createElement("a", {
     href: "https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
   }, "link"), "."),
   position: "top"
@@ -137,13 +132,13 @@ const validation_tooltip = {
 exports.validation_tooltip = validation_tooltip;
 const save_microscope_tooltip = {
   title: "Save microscope",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose whether you want to save this Microscope file to the active Micro-Meta App repository or if you want to export it to your local file system."),
+  content: /*#__PURE__*/React.createElement("p", null, "Choose whether you want to save this Microscope file to the active Micro-Meta App repository or if you want to export it to your local file system."),
   position: "top"
 };
 exports.save_microscope_tooltip = save_microscope_tooltip;
 const hardware_explorer_tooltip = {
   title: "Hardware component selection",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Use this menu to select hardware components to include in this Microscope file. Please follow these steps: 1 - Open an individual menu. 2 - Drag-and-drop the desired element into the main canvas. 3 - Click on the desired element to enter the information you want to document. 4 - Click on Confirm to save the information you have entered."),
+  content: /*#__PURE__*/React.createElement("p", null, "Use this menu to select hardware components to include in this Microscope file. Please follow these steps: 1 - Open an individual menu. 2 - Drag-and-drop the desired element into the main canvas. 3 - Click on the desired element to enter the information you want to document. 4 - Click on Confirm to save the information you have entered."),
   position: "bottom"
 };
 exports.hardware_explorer_tooltip = hardware_explorer_tooltip;

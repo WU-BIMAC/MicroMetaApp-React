@@ -9,8 +9,6 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactResizable = require("react-resizable");
 
-var _reactSimpleAnimate = require("react-simple-animate");
-
 var _imageElement = _interopRequireDefault(require("./imageElement"));
 
 var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWithHeader"));
@@ -21,23 +19,12 @@ class CanvasElement extends _react.default.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      editing: false,
-      originalWidth: null,
-      originalHeight: null,
-      minWidth: null,
-      minHeight: null,
-      maxWidth: null,
-      maxHeight: null,
-      scalingFactor: props.scalingFactor || 1
+      editing: false
     };
-    this.startWidth = null;
-    this.startHeight = null;
     this.handleClick = this.handleClick.bind(this);
     this.handleConfirm = this.handleConfirm.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.handleResizeStart = this.handleResizeStart.bind(this);
     this.handleResize = this.handleResize.bind(this);
-    this.handleResizeStop = this.handleResizeStop.bind(this);
     this.updateMinMaxDimensions = this.updateMinMaxDimensions.bind(this);
     this.counter = 0;
   }
@@ -66,38 +53,40 @@ class CanvasElement extends _react.default.PureComponent {
     });
   }
 
-  handleResizeStart(e, data) {}
-
   handleResize(e, data) {
     let width = data.size.width;
     let height = data.size.height;
-    let imgWidth = width;
-    let imgHeight = height;
     let id = this.props.id;
-    this.props.updateDimensions(id, imgWidth, imgHeight, true);
+    this.props.updateDimensions(id, width, height, true);
   }
 
-  updateMinMaxDimensions(id, originalImgWidth, originalImgHeight) {
-    if (this.state.originalWidth == originalImgWidth && this.state.originalHeight == originalImgHeight) return;
-    let scalingFactor = this.state.scalingFactor;
-    let scaledOriginalImgWidth = originalImgWidth * scalingFactor;
-    let scaledOriginalImgHeight = originalImgHeight * scalingFactor;
-    let minWidth = scaledOriginalImgWidth / 2;
-    let minHeight = scaledOriginalImgHeight / 2;
-    let maxWidth = scaledOriginalImgWidth * 2;
-    let maxHeight = scaledOriginalImgHeight * 2;
-    this.setState({
-      originalWidth: scaledOriginalImgWidth,
-      originalHeight: scaledOriginalImgHeight,
-      minWidth: minWidth,
-      minHeight: minHeight,
-      maxWidth: maxWidth,
-      maxHeight: maxHeight
-    });
-    this.props.updateDimensions(id, scaledOriginalImgWidth, scaledOriginalImgHeight, false);
+  updateMinMaxDimensions(id, originalImgWidth, originalImgHeight) {// if (
+    // 	this.state.originalWidth == originalImgWidth &&
+    // 	this.state.originalHeight == originalImgHeight
+    // )
+    // 	return;
+    // let scalingFactor = this.state.scalingFactor;
+    // let scaledOriginalImgWidth = originalImgWidth * scalingFactor;
+    // let scaledOriginalImgHeight = originalImgHeight * scalingFactor;
+    // let minWidth = scaledOriginalImgWidth / 2;
+    // let minHeight = scaledOriginalImgHeight / 2;
+    // let maxWidth = scaledOriginalImgWidth * 2;
+    // let maxHeight = scaledOriginalImgHeight * 2;
+    // this.setState({
+    // 	originalWidth: scaledOriginalImgWidth,
+    // 	originalHeight: scaledOriginalImgHeight,
+    // 	minWidth: minWidth,
+    // 	minHeight: minHeight,
+    // 	maxWidth: maxWidth,
+    // 	maxHeight: maxHeight,
+    // });
+    // this.props.updateDimensions(
+    // 	id,
+    // 	scaledOriginalImgWidth,
+    // 	scaledOriginalImgHeight,
+    // 	false
+    // );
   }
-
-  handleResizeStop(e, data) {}
 
   render() {
     if (this.state.editing) {
@@ -149,10 +138,10 @@ class CanvasElement extends _react.default.PureComponent {
       width: width,
       height: height
     };
-    let minWidth = this.state.minWidth;
-    let minHeight = this.state.minHeight;
-    let maxWidth = this.state.maxWidth;
-    let maxHeight = this.state.maxHeight;
+    let minWidth = this.props.minWidth;
+    let minHeight = this.props.minHeight;
+    let maxWidth = this.props.maxWidth;
+    let maxHeight = this.props.maxHeight;
     return /*#__PURE__*/_react.default.createElement(_reactResizable.ResizableBox, {
       width: width,
       height: height,
@@ -163,11 +152,6 @@ class CanvasElement extends _react.default.PureComponent {
       onResize: this.handleResize,
       onResizeStop: this.handleResizeStop,
       style: resizableStyle
-    }, /*#__PURE__*/_react.default.createElement(_reactSimpleAnimate.AnimateKeyframes, {
-      key: "Animation-0",
-      play: play,
-      durationSeconds: 1,
-      keyframes: ["opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1", "opacity: 0.8", "opacity: 0.6", "opacity: 0.4", "opacity: 0.2", "opacity: 0.4", "opacity: 0.6", "opacity: 0.8", "opacity: 1"]
     }, /*#__PURE__*/_react.default.createElement("button", {
       style: style,
       onClick: this.handleClick
@@ -177,7 +161,7 @@ class CanvasElement extends _react.default.PureComponent {
       image: this.props.image,
       name: this.props.schema.title,
       style: styleImage
-    }))));
+    })));
   }
 
 }

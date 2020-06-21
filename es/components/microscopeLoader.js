@@ -208,7 +208,7 @@ class MicroscopeLoader extends _react.default.PureComponent {
           style: dropzoneStyle
         }, /*#__PURE__*/_react.default.createElement("div", getRootProps(), /*#__PURE__*/_react.default.createElement("input", getInputProps({
           onClick: this.dropzoneDialogOpen
-        })), /*#__PURE__*/_react.default.createElement("p", null, "Drag 'n' drop some files here, or click to select files"))))
+        })), /*#__PURE__*/_react.default.createElement("p", null, "Select an existing Microscope file you want to work on."))))
       }));
     }
 

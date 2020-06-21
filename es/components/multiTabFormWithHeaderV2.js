@@ -11,10 +11,6 @@ var _reactJsonschemaForm = _interopRequireDefault(require("react-jsonschema-form
 
 var _rcTabs = _interopRequireWildcard(require("rc-tabs"));
 
-var _TabContent = _interopRequireDefault(require("rc-tabs/lib/TabContent"));
-
-var _TabBar = _interopRequireDefault(require("rc-tabs/lib/TabBar"));
-
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _reactSimpleTreeMenu = _interopRequireDefault(require("react-simple-tree-menu"));
@@ -864,11 +860,9 @@ class MultiTabFormWithHeaderV2 extends _react.default.PureComponent {
     }) => /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactstrap.ListGroup, null, items.map(props => /*#__PURE__*/_react.default.createElement(ListItem, props)))))), /*#__PURE__*/_react.default.createElement("div", {
       style: tabsStyle
     }, /*#__PURE__*/_react.default.createElement(_rcTabs.default, {
-      onChange: this.onTabChange,
-      renderTabBar: () => /*#__PURE__*/_react.default.createElement(_TabBar.default, null),
-      renderTabContent: () => /*#__PURE__*/_react.default.createElement(_TabContent.default, {
-        animatedWithMargin: true
-      }),
+      onChange: this.onTabChange // renderTabBar={() => <ScrollableTabBar />}
+      // renderTabContent={() => <TabContent animatedWithMargin />}
+      ,
       activeKey: this.state.activeKey
     }, tabs))), /*#__PURE__*/_react.default.createElement("div", {
       style: buttonContainerRow

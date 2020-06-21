@@ -11,10 +11,6 @@ var _reactJsonschemaForm = _interopRequireDefault(require("react-jsonschema-form
 
 var _rcTabs = _interopRequireWildcard(require("rc-tabs"));
 
-var _TabContent = _interopRequireDefault(require("rc-tabs/lib/TabContent"));
-
-var _TabBar = _interopRequireDefault(require("rc-tabs/lib/TabBar"));
-
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
@@ -27,7 +23,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import "rc-tabs/assets/index.css";
+// import TabContent from "rc-tabs/lib/TabContent";
+// import ScrollableTabBar from "rc-tabs/lib/";
+//import "rc-tabs/assets/index.css"
 class MultiTabFormWithHeader extends _react.default.PureComponent {
   constructor(props) {
     super(props);
@@ -660,11 +658,18 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
     return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
       overlaysContainer: this.props.overlaysContainer
     }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title), /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement(_rcTabs.default, {
+      tabPosition: "top",
+      tabBarStyle: {
+        display: "row",
+        border: "none"
+      },
       onChange: this.onTabChange,
-      renderTabBar: () => /*#__PURE__*/_react.default.createElement(_TabBar.default, null),
-      renderTabContent: () => /*#__PURE__*/_react.default.createElement(_TabContent.default, {
-        animatedWithMargin: true
-      }),
+      animated: true,
+      style: {
+        border: "none"
+      } // renderTabBar={() => <ScrollableTabBar />}
+      // renderTabContent={() => <TabContent animated />}
+      ,
       activeKey: this.state.activeKey
     }, tabs), /*#__PURE__*/_react.default.createElement("div", {
       style: buttonContainerRow
@@ -686,9 +691,5 @@ class MultiTabFormWithHeader extends _react.default.PureComponent {
   }
 
 }
-/**
- * @todo Own file.
- */
-
 
 exports.default = MultiTabFormWithHeader;
