@@ -29,6 +29,7 @@ class PopoverTooltip extends _react.default.PureComponent {
       delay: delay,
       rootClose: true,
       rootCloseEvent: "mousedown",
+      trigger: "hover",
       overlay: /*#__PURE__*/_react.default.createElement(_Popover.default, {
         id: "popover-basic"
       }, /*#__PURE__*/_react.default.createElement(_Popover.default.Title, {

@@ -20,6 +20,7 @@ export default class PopoverTooltip extends React.PureComponent {
 				delay={delay}
 				rootClose={true}
 				rootCloseEvent={"mousedown"}
+				trigger={"hover"}
 				overlay={
 					<Popover id="popover-basic">
 						<Popover.Title as="h3">{this.props.title}</Popover.Title>
