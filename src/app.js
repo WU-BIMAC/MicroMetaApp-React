@@ -527,6 +527,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	createOrUseMicroscopeFromDroppedFile() {
+		let typeDimensions = this.state.dimensions.Microscope_Inverted;
 		let uuid = uuidv4();
 		let modifiedMic = this.state.microscope;
 		let activeTier = this.state.activeTier;
@@ -572,6 +573,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				linkedFields: linkedFields,
 				validationTier: modifiedMic.ValidationTier,
 				isMicroscopeValidated: validated,
+				typeDimensions: typeDimensions,
 			});
 		} else {
 			let setting = {
@@ -589,11 +591,13 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				settingData: {},
 				validationTier: modifiedMic.ValidationTier,
 				isMicroscopeValidated: validated,
+				typeDimensions: typeDimensions,
 			});
 		}
 	}
 
 	createOrUseMicroscopeFromSelectedFile() {
+		let typeDimensions = this.state.dimensions.Microscope_Inverted;
 		let uuid = uuidv4();
 		let microscope = this.state.microscopes[this.state.micName];
 		let modifiedMic = microscope;
@@ -641,6 +645,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				linkedFields: linkedFields,
 				validationTier: modifiedMic.ValidationTier,
 				isMicroscopeValidated: validated,
+				typeDimensions: typeDimensions,
 			});
 		} else {
 			let setting = {
@@ -660,6 +665,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				settingData: {},
 				validationTier: modifiedMic.ValidationTier,
 				isMicroscopeValidated: validated,
+				typeDimensions: typeDimensions,
 			});
 		}
 	}
