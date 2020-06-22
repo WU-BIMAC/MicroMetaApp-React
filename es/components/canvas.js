@@ -76,10 +76,11 @@ class Canvas extends _react.default.PureComponent {
           height: object.Height,
           occupiedSpot: object.OccupiedSpot
         };
+        let occupiedSpot = object.OccupiedSpot;
 
-        if (object.OccupiedSpot !== undefined) {
+        if (occupiedSpot !== undefined) {
           newElement = Object.assign(newElement, {
-            occupiedSpot: object.OccupiedSpot
+            occupiedSpot: occupiedSpot
           });
         } else {
           newElement = Object.assign(newElement, {
@@ -87,7 +88,7 @@ class Canvas extends _react.default.PureComponent {
           });
         }
 
-        this.state.occupiedSpots.push(object.OccupiedSpot);
+        if (occupiedSpot !== undefined && occupiedSpot !== null) this.state.occupiedSpots.push(occupiedSpot);
         this.state.elementList.push(newElement);
       });
       this.state.componentsSchema[schema_id] = schema;

@@ -75,14 +75,16 @@ export default class Canvas extends React.PureComponent {
 					height: object.Height,
 					occupiedSpot: object.OccupiedSpot,
 				};
-				if (object.OccupiedSpot !== undefined) {
+				let occupiedSpot = object.OccupiedSpot;
+				if (occupiedSpot !== undefined) {
 					newElement = Object.assign(newElement, {
-						occupiedSpot: object.OccupiedSpot,
+						occupiedSpot: occupiedSpot,
 					});
 				} else {
 					newElement = Object.assign(newElement, { occupiedSpot: null });
 				}
-				this.state.occupiedSpots.push(object.OccupiedSpot);
+				if (occupiedSpot !== undefined && occupiedSpot !== null)
+					this.state.occupiedSpots.push(occupiedSpot);
 				this.state.elementList.push(newElement);
 			});
 			this.state.componentsSchema[schema_id] = schema;
