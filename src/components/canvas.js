@@ -463,8 +463,9 @@ export default class Canvas extends React.PureComponent {
 						let spot = spots;
 						width = spot.w;
 						height = spot.h;
-						let xOff = item.x + item.width / 2 + spot.x; // + xOff;
-						let yOff = item.y + item.height / 2 + 12 + 6.67 + spot.y;
+						let xOff = item.x + item.width / 2 + spot.x + containerOffsetX;
+						let yOff =
+							item.y + item.height / 2 + 12 + 6.67 + spot.y + containerOffsetY;
 						let x1 = xOff - spot.w / 2;
 						let x2 = xOff + spot.w / 2;
 						let y1 = yOff - spot.h / 2;
@@ -484,8 +485,8 @@ export default class Canvas extends React.PureComponent {
 					width = spot.w;
 					height = spot.h;
 					if (spot.x !== -1 && spot.y !== -1) {
-						let xOff = spot.x; // + (offsetX - containerOffsetX);
-						let yOff = spot.y; // + (offsetY - containerOffsetY);
+						let xOff = spot.x + containerOffsetX; // + (offsetX - containerOffsetX);
+						let yOff = spot.y + containerOffsetY; // + (offsetY - containerOffsetY);
 						let x1 = xOff - spot.w / 2;
 						let x2 = xOff + spot.w / 2;
 						let y1 = yOff - spot.h / 2;
@@ -505,8 +506,8 @@ export default class Canvas extends React.PureComponent {
 					width = spot.w;
 					height = spot.h;
 					if (spot.x !== -1 && spot.y !== -1) {
-						let xOff = spot.x; // + (offsetX - containerOffsetX);
-						let yOff = spot.y; // + (offsetY - containerOffsetY);
+						let xOff = spot.x + containerOffsetX; // + (offsetX - containerOffsetX);
+						let yOff = spot.y + containerOffsetY; // + (offsetY - containerOffsetY);
 						let x1 = xOff - spot.w / 2;
 						let x2 = xOff + spot.w / 2;
 						let y1 = yOff - spot.h / 2;
@@ -1156,8 +1157,14 @@ export default class Canvas extends React.PureComponent {
 							let tmpID = item.id + "_" + draggingID;
 							if (occupiedSpots.includes(tmpID)) return;
 							let spot = markedSpots;
-							let xOff = item.x + item.width / 2 + spot.x; // + xOff;
-							let yOff = item.y + item.height / 2 + 12 + 6.67 + spot.y;
+							let xOff = item.x + item.width / 2 + spot.x + containerOffsetX; // + xOff;
+							let yOff =
+								item.y +
+								item.height / 2 +
+								12 +
+								6.67 +
+								spot.y +
+								containerOffsetY;
 							let x1 = xOff - spot.w / 2;
 							let y1 = yOff - spot.h / 2;
 							let spotStyleTmp = {
@@ -1182,8 +1189,8 @@ export default class Canvas extends React.PureComponent {
 						let tmpID = draggingID + "_" + i;
 						if (occupiedSpots.includes(tmpID)) continue;
 						let spot = markedSpots[i];
-						let xOff = spot.x; // + xOff;
-						let yOff = spot.y; // + yOff;
+						let xOff = spot.x + containerOffsetX; // + xOff;
+						let yOff = spot.y + containerOffsetY; // + yOff;
 						let x1 = xOff - spot.w / 2;
 						let y1 = yOff - spot.h / 2;
 						let spotStyleTmp = {
@@ -1206,8 +1213,8 @@ export default class Canvas extends React.PureComponent {
 					let tmpID = draggingID + "_" + 1;
 					if (!occupiedSpots.includes(tmpID)) {
 						let spot = markedSpots;
-						let xOff = spot.x; // + xOff;
-						let yOff = spot.y; // + yOff;
+						let xOff = spot.x + containerOffsetX; // + xOff;
+						let yOff = spot.y + containerOffsetY; // + yOff;
 						let x1 = xOff - spot.w / 2;
 						let y1 = yOff - spot.h / 2;
 						let spotStyleTmp = {
