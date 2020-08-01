@@ -6,7 +6,7 @@
 2. Create a branch for your work based on the latest or develop branch. Unless you are targeting a specific release, it is best to work against develop.
 3. Make your commits, test your changes locally, and open a PR.
 4. Make sure you include details of the problem you are fixing and how to test your changes.
-5. We may need you to submit some test data. Please contact alessandro.rigano@umassmed.edu and we will get back to you with secure upload details.
+5. We may need you to submit some test data. Please contact alex.rigano@umassmed.edu and we will get back to you with secure upload details.
 
 ## External Contributors
 
