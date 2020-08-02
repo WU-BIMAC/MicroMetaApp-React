@@ -113,7 +113,7 @@ export const create_from_repo_names_tooltip = {
 };
 
 export const create_mode_continue_tooltip = {
-	title: "Create mode continue",
+	title: "Continue",
 	content: <p>Create a microscope using the mode selected above.</p>,
 	position: "left",
 };
