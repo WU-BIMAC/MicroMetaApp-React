@@ -97,31 +97,53 @@ class Footer extends _react.default.PureComponent {
       marginLeft: "5px",
       marginRight: "5px"
     };
-    const imageValidation = {
-      position: "relative",
-      top: "-10px",
-      left: "-40px",
-      height: "16px",
-      width: "16px",
-      margin: "auto",
-      verticalAlign: "middle"
+    const styleValidation = {
+      position: "absolute",
+      verticalAlign: "middle",
+      fontWeight: "bold",
+      textAlign: "center"
     };
     let validated = null;
 
     if (this.props.isSchemaValidated) {
-      let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
-      validated = /*#__PURE__*/_react.default.createElement("img", {
-        src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "validated",
-        style: imageValidation
+      const styleValidated = Object.assign({}, styleValidation, {
+        color: "green"
       });
+      validated = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleValidated
+      }, "\u25CF"); // let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
+      // validated = (
+      // 	<img
+      // 		src={
+      // 			image +
+      // 			(image.indexOf("githubusercontent.com") > -1
+      // 				? "?sanitize=true"
+      // 				: "")
+      // 		}
+      // 		alt={"validated"}
+      // 		style={styleValidation}
+      // 	/>
+      // );
     } else {
-      let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
-      validated = /*#__PURE__*/_react.default.createElement("img", {
-        src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "not validated",
-        style: imageValidation
-      }); // styleEditButton = Object.assign(styleEditButton, {
+      const styleValidated = Object.assign({}, styleValidation, {
+        color: "red"
+      });
+      validated = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleValidated
+      }, "\u25CF"); // let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
+      // validated = (
+      // 	<img
+      // 		src={
+      // 			image +
+      // 			(image.indexOf("githubusercontent.com") > -1
+      // 				? "?sanitize=true"
+      // 				: "")
+      // 		}
+      // 		alt={"not validated"}
+      // 		style={imageValidation}
+      // 	/>
+      // );
+      // styleEditButton = Object.assign(styleEditButton, {
       // 	border: "5px ridge red",
       // });
     }

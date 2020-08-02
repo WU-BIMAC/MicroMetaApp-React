@@ -185,6 +185,7 @@ class MicroscopyMetadataTool extends _react.default.PureComponent {
   }
 
   handleCompleteLoadDimensions(newDimensions) {
+    console.log(newDimensions);
     this.setState({
       dimensions: newDimensions
     });

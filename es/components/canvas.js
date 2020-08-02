@@ -328,6 +328,8 @@ class Canvas extends _react.default.PureComponent {
     // }
 
 
+    console.log("ns_ID");
+    console.log(ns_ID);
     this.setState({
       draggingID: ns_ID,
       showcasedSpot: showcasedSpot,
@@ -450,7 +452,7 @@ class Canvas extends _react.default.PureComponent {
       if (ns_ID === "LightPath_ExcitationFilter" || ns_ID === "LightPath_EmissionFilter" || ns_ID === "LightPath_StandardDichroic") {
         newElementList.map((item, index) => {
           if (item.schema_ID === "FilterSet.json") {
-            let tmpID = item.id + "_" + ns_ID;
+            let tmpID = item.ID + "_" + ns_ID;
             if (occupiedSpots.includes(tmpID)) return;
             let spot = spots;
             width = spot.w;
@@ -958,19 +960,43 @@ class Canvas extends _react.default.PureComponent {
         let validated;
 
         if (item.validated) {
-          let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
-          validated = /*#__PURE__*/_react.default.createElement("img", {
-            src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-            alt: "validated",
-            style: imageValidation
+          const styleValidated = Object.assign({}, styleGrabber, {
+            color: "green"
           });
+          validated = /*#__PURE__*/_react.default.createElement("div", {
+            style: styleValidated
+          }, "\u25CF"); // let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
+          // validated = (
+          // 	<img
+          // 		src={
+          // 			image +
+          // 			(image.indexOf("githubusercontent.com") > -1
+          // 				? "?sanitize=true"
+          // 				: "")
+          // 		}
+          // 		alt={"validated"}
+          // 		style={imageValidation}
+          // 	/>
+          // );
         } else {
-          let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
-          validated = /*#__PURE__*/_react.default.createElement("img", {
-            src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-            alt: "not validated",
-            style: imageValidation
+          const styleNotValidated = Object.assign({}, styleGrabber, {
+            color: "red"
           });
+          validated = /*#__PURE__*/_react.default.createElement("div", {
+            style: styleNotValidated
+          }, "\u25CF"); // let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
+          // validated = (
+          // 	<img
+          // 		src={
+          // 			image +
+          // 			(image.indexOf("githubusercontent.com") > -1
+          // 				? "?sanitize=true"
+          // 				: "")
+          // 		}
+          // 		alt={"not validated"}
+          // 		style={imageValidation}
+          // 	/>
+          // );
         }
 
         droppableElement.push( /*#__PURE__*/_react.default.createElement("div", {
@@ -1129,12 +1155,14 @@ class Canvas extends _react.default.PureComponent {
       let containerOffsetY = this.props.containerOffsetTop;
       let xOff = offsetX - containerOffsetX;
       let yOff = offsetY - containerOffsetY;
+      console.log("occupiedSpots");
+      console.log(occupiedSpots);
 
       if (markedSpots !== undefined && markedSpots !== null) {
         if (draggingID === "LightPath_ExcitationFilter" || draggingID === "LightPath_EmissionFilter" || draggingID === "LightPath_StandardDichroic") {
           elementList.map((item, index) => {
             if (item.schema_ID === "FilterSet.json") {
-              let tmpID = item.id + "_" + draggingID;
+              let tmpID = item.ID + "_" + draggingID;
               if (occupiedSpots.includes(tmpID)) return;
               let spot = markedSpots;
               let xOff = item.x + item.width / 2 + spot.x + containerOffsetX; // + xOff;
