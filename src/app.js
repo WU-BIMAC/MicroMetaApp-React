@@ -325,7 +325,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		}
 
 		if (properties === null || properties === undefined) {
-			console.log(singleSchema);
+			//console.log(singleSchema);
 			return singleSchema;
 		}
 
@@ -462,34 +462,34 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let newScalingFactor = reverseScale * scalingFactor;
 
 		modifiedMic.ScalingFactor = scalingFactor;
-		console.log("SC: " + newScalingFactor);
+		//console.log("SC: " + newScalingFactor);
 		for (let key in elementData) {
 			let element = elementData[key];
-			console.log("ID: " + key);
-			console.log(
-				" W: " +
-					element.Width +
-					" H: " +
-					element.Height +
-					" X: " +
-					element.PositionX +
-					" Y: " +
-					element.PositionY
-			);
+			// console.log("ID: " + key);
+			// console.log(
+			// 	" W: " +
+			// 		element.Width +
+			// 		" H: " +
+			// 		element.Height +
+			// 		" X: " +
+			// 		element.PositionX +
+			// 		" Y: " +
+			// 		element.PositionY
+			// );
 			element.Width *= newScalingFactor;
 			element.Height *= newScalingFactor;
 			element.PositionX *= newScalingFactor;
 			element.PositionY *= newScalingFactor;
-			console.log(
-				" W: " +
-					element.Width +
-					" H: " +
-					element.Height +
-					" X: " +
-					element.PositionX +
-					" Y: " +
-					element.PositionY
-			);
+			// console.log(
+			// 	" W: " +
+			// 		element.Width +
+			// 		" H: " +
+			// 		element.Height +
+			// 		" X: " +
+			// 		element.PositionX +
+			// 		" Y: " +
+			// 		element.PositionY
+			// );
 		}
 	}
 

@@ -326,10 +326,10 @@ class Canvas extends _react.default.PureComponent {
     // 		break;
     // 	}
     // }
+    //console.log("ns_ID");
+    //console.log(ns_ID);
 
 
-    console.log("ns_ID");
-    console.log(ns_ID);
     this.setState({
       draggingID: ns_ID,
       showcasedSpot: showcasedSpot,
@@ -1154,9 +1154,8 @@ class Canvas extends _react.default.PureComponent {
       let containerOffsetX = this.props.containerOffsetLeft;
       let containerOffsetY = this.props.containerOffsetTop;
       let xOff = offsetX - containerOffsetX;
-      let yOff = offsetY - containerOffsetY;
-      console.log("occupiedSpots");
-      console.log(occupiedSpots);
+      let yOff = offsetY - containerOffsetY; //console.log("occupiedSpots");
+      //console.log(occupiedSpots);
 
       if (markedSpots !== undefined && markedSpots !== null) {
         if (draggingID === "LightPath_ExcitationFilter" || draggingID === "LightPath_EmissionFilter" || draggingID === "LightPath_StandardDichroic") {

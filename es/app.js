@@ -307,7 +307,7 @@ class MicroscopyMetadataTool extends _react.default.PureComponent {
     }
 
     if (properties === null || properties === undefined) {
-      console.log(singleSchema);
+      //console.log(singleSchema);
       return singleSchema;
     }
 
@@ -420,18 +420,34 @@ class MicroscopyMetadataTool extends _react.default.PureComponent {
     if (micScalingFactor === scalingFactor) return;
     let reverseScale = 1 / micScalingFactor;
     let newScalingFactor = reverseScale * scalingFactor;
-    modifiedMic.ScalingFactor = scalingFactor;
-    console.log("SC: " + newScalingFactor);
+    modifiedMic.ScalingFactor = scalingFactor; //console.log("SC: " + newScalingFactor);
 
     for (let key in elementData) {
-      let element = elementData[key];
-      console.log("ID: " + key);
-      console.log(" W: " + element.Width + " H: " + element.Height + " X: " + element.PositionX + " Y: " + element.PositionY);
+      let element = elementData[key]; // console.log("ID: " + key);
+      // console.log(
+      // 	" W: " +
+      // 		element.Width +
+      // 		" H: " +
+      // 		element.Height +
+      // 		" X: " +
+      // 		element.PositionX +
+      // 		" Y: " +
+      // 		element.PositionY
+      // );
+
       element.Width *= newScalingFactor;
       element.Height *= newScalingFactor;
       element.PositionX *= newScalingFactor;
-      element.PositionY *= newScalingFactor;
-      console.log(" W: " + element.Width + " H: " + element.Height + " X: " + element.PositionX + " Y: " + element.PositionY);
+      element.PositionY *= newScalingFactor; // console.log(
+      // 	" W: " +
+      // 		element.Width +
+      // 		" H: " +
+      // 		element.Height +
+      // 		" X: " +
+      // 		element.PositionX +
+      // 		" Y: " +
+      // 		element.PositionY
+      // );
     }
   } // static readTextFile(file) {
   // 	let rawFile = new XMLHttpRequest();
