@@ -334,8 +334,8 @@ export default class Canvas extends React.PureComponent {
 		// 		break;
 		// 	}
 		// }
-		console.log("ns_ID");
-		console.log(ns_ID);
+		//console.log("ns_ID");
+		//console.log(ns_ID);
 		this.setState({
 			draggingID: ns_ID,
 			showcasedSpot: showcasedSpot,
@@ -1158,8 +1158,8 @@ export default class Canvas extends React.PureComponent {
 			let xOff = offsetX - containerOffsetX;
 			let yOff = offsetY - containerOffsetY;
 
-			console.log("occupiedSpots");
-			console.log(occupiedSpots);
+			//console.log("occupiedSpots");
+			//console.log(occupiedSpots);
 			if (markedSpots !== undefined && markedSpots !== null) {
 				if (
 					draggingID === "LightPath_ExcitationFilter" ||
