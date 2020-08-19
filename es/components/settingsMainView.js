@@ -15,13 +15,13 @@ var _planeView = _interopRequireDefault(require("./planeView"));
 
 var _channelView = _interopRequireDefault(require("./channelView"));
 
+var _uuid = require("uuid");
+
 var _constants = require("../constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const validate = require("jsonschema").validate;
-
-const uuidv4 = require("uuid/v4");
 
 const schemasOrder = ["Experiment.json", "Plane.json", "Channel.json", "TIRFSettings.json", "ImagingEnvironment.json", "MicroscopeSettings.json", "ObjectiveSettings.json"];
 
@@ -57,7 +57,7 @@ class SettingMainView extends _react.default.PureComponent {
       });
 
       if (this.state.elementList[index] === null || this.state.elementList[index] == undefined) {
-        let uuid = uuidv4();
+        let uuid = (0, _uuid.v4)();
         let newElementData;
         newElementData = {
           Name: "New ".concat(schema.title),

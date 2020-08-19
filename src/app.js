@@ -12,11 +12,12 @@ import DataLoader from "./components/dataLoader";
 import MicroscopePreLoader from "./components/microscopePreLoader";
 import MicroscopeLoader from "./components/microscopeLoader";
 
+import { v4 as uuidv4 } from "uuid";
+
 import html2canvas from "html2canvas";
 
 const url = require("url");
 const validate = require("jsonschema").validate;
-const uuidv4 = require("uuid/v4");
 
 import {
 	bool_isDebug,

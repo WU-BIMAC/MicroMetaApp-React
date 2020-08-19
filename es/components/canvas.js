@@ -13,6 +13,8 @@ var _canvasElement = _interopRequireWildcard(require("./canvasElement"));
 
 var _url = require("url");
 
+var _uuid = require("uuid");
+
 var _constants = require("../constants");
 
 var _propTypes = require("prop-types");
@@ -26,8 +28,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const url = require("url");
 
 const validate = require("jsonschema").validate;
-
-const uuidv4 = require("uuid/v4");
 
 class Canvas extends _react.default.PureComponent {
   constructor(props) {
@@ -558,7 +558,7 @@ class Canvas extends _react.default.PureComponent {
     // console.log(occupiedSpot);
 
     if (sourceElement.source === _constants.string_toolbar) {
-      let uuid = uuidv4();
+      let uuid = (0, _uuid.v4)();
       newElement = {
         //Schema is old version needs to be updated constantly
         //AKA needs to put schemas in canvas and retrieve them

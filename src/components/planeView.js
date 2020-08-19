@@ -7,8 +7,9 @@ import ListGroup from "react-bootstrap/ListGroup";
 import MultiTabFormWithHeader from "./multiTabFormWithHeader";
 import ModalWindow from "./modalWindow";
 
+import { v4 as uuidv4 } from "uuid";
+
 const validate = require("jsonschema").validate;
-const uuidv4 = require("uuid/v4");
 
 import {
 	bool_isDebug,

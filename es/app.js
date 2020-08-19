@@ -29,6 +29,8 @@ var _microscopePreLoader = _interopRequireDefault(require("./components/microsco
 
 var _microscopeLoader = _interopRequireDefault(require("./components/microscopeLoader"));
 
+var _uuid = require("uuid");
+
 var _html2canvas = _interopRequireDefault(require("html2canvas"));
 
 var _constants = require("./constants");
@@ -38,8 +40,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const url = require("url");
 
 const validate = require("jsonschema").validate;
-
-const uuidv4 = require("uuid/v4");
 
 class MicroscopyMetadataTool extends _react.default.PureComponent {
   constructor(props) {
@@ -467,7 +467,7 @@ class MicroscopyMetadataTool extends _react.default.PureComponent {
 
   createNewMicroscopeFromScratch() {
     let typeDimensions = this.state.dimensions.Microscope_Inverted;
-    let uuid = uuidv4();
+    let uuid = (0, _uuid.v4)();
     let activeTier = this.state.activeTier;
     let adaptedSchemas = this.createAdaptedSchemas(activeTier);
     let microscopeSchema = adaptedSchemas[0];
@@ -490,7 +490,7 @@ class MicroscopyMetadataTool extends _react.default.PureComponent {
 
   createOrUseMicroscopeFromDroppedFile() {
     let typeDimensions = this.state.dimensions.Microscope_Inverted;
-    let uuid = uuidv4();
+    let uuid = (0, _uuid.v4)();
     let modifiedMic = this.state.microscope;
     let activeTier = this.state.activeTier;
 
@@ -562,7 +562,7 @@ class MicroscopyMetadataTool extends _react.default.PureComponent {
 
   createOrUseMicroscopeFromSelectedFile() {
     let typeDimensions = this.state.dimensions.Microscope_Inverted;
-    let uuid = uuidv4();
+    let uuid = (0, _uuid.v4)();
     let microscope = this.state.microscopes[this.state.micName];
     let modifiedMic = microscope;
     let activeTier = this.state.activeTier;

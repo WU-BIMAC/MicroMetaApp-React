@@ -5,8 +5,9 @@ import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeaderV2";
 import PlaneView from "./planeView";
 import ChannelView from "./channelView";
 
+import { v4 as uuidv4 } from "uuid";
+
 const validate = require("jsonschema").validate;
-const uuidv4 = require("uuid/v4");
 
 import {
 	bool_isDebug,

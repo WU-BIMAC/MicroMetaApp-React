@@ -17,14 +17,14 @@ var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWith
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
+var _uuid = require("uuid");
+
 var _constants = require("../constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //import "rc-tabs/assets/index.css";
 const validate = require("jsonschema").validate;
-
-const uuidv4 = require("uuid/v4");
 
 class PlaneView extends _react.default.PureComponent {
   constructor(props) {
@@ -45,7 +45,7 @@ class PlaneView extends _react.default.PureComponent {
   }
 
   onAddElement() {
-    let uuid = uuidv4();
+    let uuid = (0, _uuid.v4)();
     let schema = this.props.schema;
     let planes = this.state.planes.slice();
     let newElementData = {
