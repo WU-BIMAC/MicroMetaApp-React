@@ -175,13 +175,19 @@ class Toolbar extends _react.default.PureComponent {
     });
 
     toolbar.push(hardware_explorer);
-    Object.keys(elementList).forEach(key => {
-      let index = key.lastIndexOf(".");
-      let simpleKey;
-      if (index !== -1) simpleKey = key.substring(index + 1);else simpleKey = key;
+
+    _constants.menu_order.forEach(simpleKey => {
       names.push(simpleKey);
-    });
-    names.sort();
+    }); // Object.keys(elementList).forEach((key) => {
+    // 	let index = key.lastIndexOf(".");
+    // 	let simpleKey;
+    // 	if (index !== -1) simpleKey = key.substring(index + 1);
+    // 	else simpleKey = key;
+    //
+    // });
+    //names.sort();
+
+
     names.forEach(name => {
       Object.keys(elementList).forEach(key => {
         let index = key.lastIndexOf(".");

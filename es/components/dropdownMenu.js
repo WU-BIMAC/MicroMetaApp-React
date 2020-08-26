@@ -19,9 +19,11 @@ class DropdownMenu extends _react.default.PureComponent {
     this.state = {
       inputData: props.inputData,
       title: props.title,
-      currentTitle: "".concat(props.title, " ").concat(props.inputData[this.props.defaultValue || 0])
+      currentTitle: "".concat(props.title, " ").concat(props.inputData[this.props.defaultValue || 0]),
+      showTooltip: true
     };
     this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
+    this.handleToggleClick = this.handleToggleClick.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -39,6 +41,12 @@ class DropdownMenu extends _react.default.PureComponent {
     }
 
     return null;
+  }
+
+  handleToggleClick(e) {
+    this.setState({
+      showTooltip: !e
+    });
   }
 
   handleMenuItemClick(e) {
@@ -78,9 +86,10 @@ class DropdownMenu extends _react.default.PureComponent {
       size: "lg"
     }, this.state.currentTitle);
 
+    console.log("SHOWTOOLTIP:" + this.state.showTooltip);
     let dropdownToggleWrapped = null;
 
-    if (this.props.tooltip !== undefined && this.props.tooltip !== null && this.props.tooltip.position !== undefined && this.props.position !== null && this.props.tooltip.title !== undefined && this.props.title !== null && this.props.tooltip.content !== undefined && this.props.content !== null) {
+    if (this.props.tooltip !== undefined && this.props.tooltip !== null && this.props.tooltip.position !== undefined && this.props.position !== null && this.props.tooltip.title !== undefined && this.props.title !== null && this.props.tooltip.content !== undefined && this.props.content !== null && this.state.showTooltip) {
       dropdownToggleWrapped = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         position: this.props.tooltip.position,
         title: this.props.tooltip.title,
@@ -92,7 +101,8 @@ class DropdownMenu extends _react.default.PureComponent {
     }
 
     return /*#__PURE__*/_react.default.createElement(_Dropdown.default, {
-      drop: direction
+      drop: direction,
+      onToggle: this.handleToggleClick
     }, dropdownToggleWrapped, /*#__PURE__*/_react.default.createElement(_Dropdown.default.Menu, {
       style: dropdownMenuStyle
     }, dropdownItems));
