@@ -6,7 +6,7 @@ import CanvasElement from "./canvasElement";
 import { CanvasElementDeleteButton } from "./canvasElement";
 
 import { pathToFileURL } from "url";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const url = require("url");
 const validate = require("jsonschema").validate;
@@ -464,10 +464,10 @@ export default class Canvas extends React.PureComponent {
 				newElementList.map((item, index) => {
 					if (item.schema_ID === "FilterSet.json") {
 						let tmpID = item.ID + "_" + ns_ID;
-						if (occupiedSpots.includes(tmpID)) return;
 						let spot = spots;
 						width = spot.w;
 						height = spot.h;
+						if (occupiedSpots.includes(tmpID)) return;
 						let xOff = item.x + item.width / 2 + spot.x + containerOffsetX;
 						let yOff =
 							item.y + item.height / 2 + 12 + 6.67 + spot.y + containerOffsetY;
@@ -485,10 +485,10 @@ export default class Canvas extends React.PureComponent {
 			} else if (Array.isArray(spots)) {
 				for (let i = 0; i < spots.length; i++) {
 					let tmpID = ns_ID + "_" + i;
-					if (occupiedSpots.includes(tmpID)) continue;
 					let spot = spots[i];
 					width = spot.w;
 					height = spot.h;
+					if (occupiedSpots.includes(tmpID)) continue;
 					if (spot.x !== -1 && spot.y !== -1) {
 						let xOff = spot.x + containerOffsetX; // + (offsetX - containerOffsetX);
 						let yOff = spot.y + containerOffsetY; // + (offsetY - containerOffsetY);
@@ -506,10 +506,10 @@ export default class Canvas extends React.PureComponent {
 				}
 			} else {
 				let tmpID = ns_ID + "_" + 1;
+				let spot = spots;
+				width = spot.w;
+				height = spot.h;
 				if (!occupiedSpots.includes(tmpID)) {
-					let spot = spots;
-					width = spot.w;
-					height = spot.h;
 					if (spot.x !== -1 && spot.y !== -1) {
 						let xOff = spot.x + containerOffsetX; // + (offsetX - containerOffsetX);
 						let yOff = spot.y + containerOffsetY; // + (offsetY - containerOffsetY);
@@ -526,6 +526,8 @@ export default class Canvas extends React.PureComponent {
 				}
 			}
 		}
+
+		console.log("DROPPED: w-" + width + "||h-" + height);
 
 		let adjustedWidth = 0;
 		if (width < 36) {

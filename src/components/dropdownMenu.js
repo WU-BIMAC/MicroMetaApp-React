@@ -13,9 +13,11 @@ export default class DropdownMenu extends React.PureComponent {
 			currentTitle: `${props.title} ${
 				props.inputData[this.props.defaultValue || 0]
 			}`,
+			showTooltip: true,
 		};
 
 		this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
+		this.handleToggleClick = this.handleToggleClick.bind(this);
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -34,6 +36,10 @@ export default class DropdownMenu extends React.PureComponent {
 			}
 		}
 		return null;
+	}
+
+	handleToggleClick(e) {
+		this.setState({ showTooltip: !e });
 	}
 
 	handleMenuItemClick(e) {
@@ -73,6 +79,7 @@ export default class DropdownMenu extends React.PureComponent {
 				{this.state.currentTitle}
 			</Dropdown.Toggle>
 		);
+		console.log("SHOWTOOLTIP:" + this.state.showTooltip);
 		let dropdownToggleWrapped = null;
 		if (
 			this.props.tooltip !== undefined &&
@@ -82,7 +89,8 @@ export default class DropdownMenu extends React.PureComponent {
 			this.props.tooltip.title !== undefined &&
 			this.props.title !== null &&
 			this.props.tooltip.content !== undefined &&
-			this.props.content !== null
+			this.props.content !== null &&
+			this.state.showTooltip
 		) {
 			dropdownToggleWrapped = (
 				<PopoverTooltip
@@ -96,7 +104,7 @@ export default class DropdownMenu extends React.PureComponent {
 			dropdownToggleWrapped = dropdownToggle;
 		}
 		return (
-			<Dropdown drop={direction}>
+			<Dropdown drop={direction} onToggle={this.handleToggleClick}>
 				{dropdownToggleWrapped}
 				<Dropdown.Menu style={dropdownMenuStyle}>{dropdownItems}</Dropdown.Menu>
 			</Dropdown>

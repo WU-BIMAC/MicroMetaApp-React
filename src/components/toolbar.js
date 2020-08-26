@@ -13,6 +13,7 @@ import {
 	string_toolbar,
 	string_canvas,
 	hardware_explorer_tooltip,
+	menu_order,
 } from "../constants";
 
 export default class Toolbar extends React.PureComponent {
@@ -181,14 +182,17 @@ export default class Toolbar extends React.PureComponent {
 			/>
 		);
 		toolbar.push(hardware_explorer);
-		Object.keys(elementList).forEach((key) => {
-			let index = key.lastIndexOf(".");
-			let simpleKey;
-			if (index !== -1) simpleKey = key.substring(index + 1);
-			else simpleKey = key;
+		menu_order.forEach((simpleKey) => {
 			names.push(simpleKey);
 		});
-		names.sort();
+		// Object.keys(elementList).forEach((key) => {
+		// 	let index = key.lastIndexOf(".");
+		// 	let simpleKey;
+		// 	if (index !== -1) simpleKey = key.substring(index + 1);
+		// 	else simpleKey = key;
+		//
+		// });
+		//names.sort();
 		names.forEach((name) => {
 			Object.keys(elementList).forEach((key) => {
 				let index = key.lastIndexOf(".");

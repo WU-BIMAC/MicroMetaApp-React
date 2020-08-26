@@ -38,6 +38,24 @@ export const number_logo_height = 280;
 export const number_canvas_width = 3201;
 export const number_canvas_height = 969;
 
+export const menu_order = [
+	"MicroscopyBasics",
+	"Transmitted_LightSource",
+	"Fluorescence_LightSource",
+	"LightSourceCoupling",
+	"Magnification",
+	"Stage",
+	"Focusing",
+	"FilterHolder", // currently absentee
+	"LightPath", //in the future Excitation - Emission
+	"AdditionalOptics",
+	"Mirror", // in the future MirroringDevice
+	"Detector",
+	"Detector.PointDetector", // currently absentee
+	"Detector.Camera",
+	"Calibration",
+];
+
 export const string_bandpass_warning =
 	"If you modify the number of band-pass, the information not saved are going to be lost!";
 
@@ -46,8 +64,8 @@ export const tier_selector_tooltip = {
 	content: (
 		<p>
 			Choose the Tier level you want to utilize to document Instrument Hardware
-			Specifications and the Image Acquisition Settings. For more details about
-			Tier definition please refer to the following{" "}
+			Specifications and Image Acquisition Settings. For more details about Tier
+			definition please refer to the following{" "}
 			<a href="https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf">link</a>.
 		</p>
 	),
@@ -133,7 +151,7 @@ export const edit_microscope_tooltip = {
 };
 
 export const validation_tooltip = {
-	title: "Validation tier selector",
+	title: "Validation Tier selector",
 	content: (
 		<p>
 			Choose the Tier level you want to use to validate this Microscope file.
