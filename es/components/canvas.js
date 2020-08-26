@@ -450,12 +450,12 @@ class Canvas extends _react.default.PureComponent {
 
     if (spots !== undefined && spots !== null) {
       if (ns_ID === "LightPath_ExcitationFilter" || ns_ID === "LightPath_EmissionFilter" || ns_ID === "LightPath_StandardDichroic") {
+        let spot = spots;
+        width = spot.w;
+        height = spot.h;
         newElementList.map((item, index) => {
           if (item.schema_ID === "FilterSet.json") {
             let tmpID = item.ID + "_" + ns_ID;
-            let spot = spots;
-            width = spot.w;
-            height = spot.h;
             if (occupiedSpots.includes(tmpID)) return;
             let xOff = item.x + item.width / 2 + spot.x + containerOffsetX;
             let yOff = item.y + item.height / 2 + 12 + 6.67 + spot.y + containerOffsetY;
@@ -522,9 +522,9 @@ class Canvas extends _react.default.PureComponent {
           }
         }
       }
-    }
+    } //console.log("DROPPED: w-" + width + "||h-" + height);
 
-    console.log("DROPPED: w-" + width + "||h-" + height);
+
     let adjustedWidth = 0;
 
     if (width < 36) {
@@ -731,11 +731,11 @@ class Canvas extends _react.default.PureComponent {
     let ns_ID = null;
 
     if (elementDimensions[schema.category] !== undefined && elementDimensions[schema.category] !== null) {
-      ns_ID = schema.category; // console.log("Found category NSID: " + ns_ID);
-      // console.log(spots);
+      ns_ID = schema.category; //console.log("Found category NSID: " + ns_ID);
+      //console.log(spots);
     } else {
-      ns_ID = schema.category + "_" + schemaID.replace(".json", ""); // console.log("Found full name NSID: " + ns_ID);
-      // console.log(spots);
+      ns_ID = schema.category + "_" + schemaID.replace(".json", ""); //console.log("Found full name NSID: " + ns_ID);
+      //console.log(spots);
     }
 
     if (occupiedSpot !== undefined && occupiedSpot !== null) {
@@ -764,9 +764,13 @@ class Canvas extends _react.default.PureComponent {
     elementList.map((item, index) => {
       if (occupiedSpotsToClear.includes(item.occupiedSpot)) {
         elementList[index].occupiedSpot = null;
-        elementData[item.ID] = null;
+        elementData[item.ID].OccupiedSpot = null;
       }
-    });
+    }); // console.log("elementList");
+    // console.log(elementList);
+    // console.log("elementData");
+    // console.log(elementData);
+
     let deletedSchema = schemaID.replace(_constants.string_json_ext, "");
     let deletedID = id.replace(deletedSchema, "");
     deletedID = deletedID.replace("_", "");
@@ -913,9 +917,9 @@ class Canvas extends _react.default.PureComponent {
     });
     let droppableElement = [];
     let componentsSchema = this.state.componentsSchema;
-    let elementByType = {}; // console.log("elementData");
-    // console.log(elementData);
-
+    let elementByType = {};
+    console.log("elementData");
+    console.log(elementData);
     Object.keys(elementData).forEach(function (key) {
       let element = elementData[key]; // console.log("element");
       // console.log(element);

@@ -461,12 +461,12 @@ export default class Canvas extends React.PureComponent {
 				ns_ID === "LightPath_EmissionFilter" ||
 				ns_ID === "LightPath_StandardDichroic"
 			) {
+				let spot = spots;
+				width = spot.w;
+				height = spot.h;
 				newElementList.map((item, index) => {
 					if (item.schema_ID === "FilterSet.json") {
 						let tmpID = item.ID + "_" + ns_ID;
-						let spot = spots;
-						width = spot.w;
-						height = spot.h;
 						if (occupiedSpots.includes(tmpID)) return;
 						let xOff = item.x + item.width / 2 + spot.x + containerOffsetX;
 						let yOff =
@@ -527,7 +527,7 @@ export default class Canvas extends React.PureComponent {
 			}
 		}
 
-		console.log("DROPPED: w-" + width + "||h-" + height);
+		//console.log("DROPPED: w-" + width + "||h-" + height);
 
 		let adjustedWidth = 0;
 		if (width < 36) {
@@ -738,12 +738,12 @@ export default class Canvas extends React.PureComponent {
 			elementDimensions[schema.category] !== null
 		) {
 			ns_ID = schema.category;
-			// console.log("Found category NSID: " + ns_ID);
-			// console.log(spots);
+			//console.log("Found category NSID: " + ns_ID);
+			//console.log(spots);
 		} else {
 			ns_ID = schema.category + "_" + schemaID.replace(".json", "");
-			// console.log("Found full name NSID: " + ns_ID);
-			// console.log(spots);
+			//console.log("Found full name NSID: " + ns_ID);
+			//console.log(spots);
 		}
 
 		if (occupiedSpot !== undefined && occupiedSpot !== null) {
@@ -769,15 +769,21 @@ export default class Canvas extends React.PureComponent {
 		elementList.map((item, index) => {
 			if (occupiedSpotsToClear.includes(item.occupiedSpot)) {
 				elementList[index].occupiedSpot = null;
-				elementData[item.ID] = null;
+				elementData[item.ID].OccupiedSpot = null;
 			}
 		});
+
+		// console.log("elementList");
+		// console.log(elementList);
+		// console.log("elementData");
+		// console.log(elementData);
 
 		let deletedSchema = schemaID.replace(string_json_ext, "");
 		let deletedID = id.replace(deletedSchema, "");
 		deletedID = deletedID.replace("_", "");
 
 		let linkedFields = this.state.linkedFields;
+
 		for (let key in linkedFields) {
 			let links = linkedFields[key];
 			let done = false;
@@ -926,8 +932,8 @@ export default class Canvas extends React.PureComponent {
 		let droppableElement = [];
 		let componentsSchema = this.state.componentsSchema;
 		let elementByType = {};
-		// console.log("elementData");
-		// console.log(elementData);
+		console.log("elementData");
+		console.log(elementData);
 		Object.keys(elementData).forEach(function (key) {
 			let element = elementData[key];
 			// console.log("element");
