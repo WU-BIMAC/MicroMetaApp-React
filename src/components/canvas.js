@@ -24,6 +24,7 @@ import {
 	string_maxNumberOf_identifier,
 	number_canvas_width,
 	number_canvas_height,
+	number_min_element_width,
 } from "../constants";
 import { bool } from "prop-types";
 
@@ -530,10 +531,10 @@ export default class Canvas extends React.PureComponent {
 		//console.log("DROPPED: w-" + width + "||h-" + height);
 
 		let adjustedWidth = 0;
-		if (width < 36) {
-			adjustedWidth = (36 - width) / 2;
+		if (width < number_min_element_width) {
+			adjustedWidth = (number_min_element_width - width) / 2;
 			x -= adjustedWidth;
-			width = 36;
+			width = number_min_element_width;
 		}
 
 		if (originalDimensions[schema_ID] === undefined) {
@@ -864,7 +865,7 @@ export default class Canvas extends React.PureComponent {
 		const styleActionContainer = {
 			display: "flex",
 			flexDirection: "row",
-			width: "36px",
+			width: `${number_min_element_width}px`,
 			height: "12px",
 		};
 
@@ -914,7 +915,8 @@ export default class Canvas extends React.PureComponent {
 			// 	scaledContainerHeight += 10;
 			// }
 
-			if (scaledContainerWidth <= 36) scaledContainerWidth = 36;
+			if (scaledContainerWidth <= number_min_element_width)
+				scaledContainerWidth = number_min_element_width;
 			scaledContainerHeight += 12 + 6.67;
 
 			stylesContainer[item.ID] = Object.assign(

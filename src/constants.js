@@ -38,6 +38,8 @@ export const number_logo_height = 280;
 export const number_canvas_width = 3201;
 export const number_canvas_height = 969;
 
+export const number_min_element_width = 25;
+
 export const menu_order = [
 	"MicroscopyBasics",
 	"Transmitted_LightSource",

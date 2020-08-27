@@ -527,10 +527,10 @@ class Canvas extends _react.default.PureComponent {
 
     let adjustedWidth = 0;
 
-    if (width < 36) {
-      adjustedWidth = (36 - width) / 2;
+    if (width < _constants.number_min_element_width) {
+      adjustedWidth = (_constants.number_min_element_width - width) / 2;
       x -= adjustedWidth;
-      width = 36;
+      width = _constants.number_min_element_width;
     }
 
     if (originalDimensions[schema_ID] === undefined) {
@@ -862,7 +862,7 @@ class Canvas extends _react.default.PureComponent {
     const styleActionContainer = {
       display: "flex",
       flexDirection: "row",
-      width: "36px",
+      width: "".concat(_constants.number_min_element_width, "px"),
       height: "12px"
     };
     let styleActionElementNameContainer = {
@@ -904,7 +904,7 @@ class Canvas extends _react.default.PureComponent {
       // 	scaledContainerHeight += 10;
       // }
 
-      if (scaledContainerWidth <= 36) scaledContainerWidth = 36;
+      if (scaledContainerWidth <= _constants.number_min_element_width) scaledContainerWidth = _constants.number_min_element_width;
       scaledContainerHeight += 12 + 6.67;
       stylesContainer[item.ID] = Object.assign({
         width: "".concat(scaledContainerWidth, "px"),

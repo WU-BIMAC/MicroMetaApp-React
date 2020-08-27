@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.hardware_explorer_tooltip = exports.save_microscope_tooltip = exports.validation_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.create_mode_continue_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.create_from_file_tooltip = exports.create_mode_selector_tooltip = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.number_canvas_height = exports.number_canvas_width = exports.number_logo_height = exports.number_logo_width = exports.string_validationTier = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_isSettings = exports.bool_isDebug = void 0;
+exports.hardware_explorer_tooltip = exports.save_microscope_tooltip = exports.validation_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.create_mode_continue_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.create_from_file_tooltip = exports.create_mode_selector_tooltip = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.number_min_element_width = exports.number_canvas_height = exports.number_canvas_width = exports.number_logo_height = exports.number_logo_width = exports.string_validationTier = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_isSettings = exports.bool_isDebug = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -63,6 +63,8 @@ const number_canvas_width = 3201;
 exports.number_canvas_width = number_canvas_width;
 const number_canvas_height = 969;
 exports.number_canvas_height = number_canvas_height;
+const number_min_element_width = 25;
+exports.number_min_element_width = number_min_element_width;
 const menu_order = ["MicroscopyBasics", "Transmitted_LightSource", "Fluorescence_LightSource", "LightSourceCoupling", "Magnification", "Stage", "Focusing", "FilterHolder", // currently absentee
 "LightPath", //in the future Excitation - Emission
 "AdditionalOptics", "Mirror", // in the future MirroringDevice
