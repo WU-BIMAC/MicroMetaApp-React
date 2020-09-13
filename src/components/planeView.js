@@ -7,8 +7,9 @@ import ListGroup from "react-bootstrap/ListGroup";
 import MultiTabFormWithHeader from "./multiTabFormWithHeader";
 import ModalWindow from "./modalWindow";
 
+import { v4 as uuidv4 } from "uuid";
+
 const validate = require("jsonschema").validate;
-const uuidv4 = require("uuid/v4");
 
 import {
 	bool_isDebug,
@@ -16,7 +17,7 @@ import {
 	string_array,
 	string_currentNumberOf_identifier,
 	string_minNumberOf_identifier,
-	string_maxNumberOf_identifier
+	string_maxNumberOf_identifier,
 } from "../constants";
 
 export default class PlaneView extends React.PureComponent {
@@ -28,7 +29,7 @@ export default class PlaneView extends React.PureComponent {
 					? this.props.inputData.planes
 					: [],
 			editing: false,
-			selectedIndex: -1
+			selectedIndex: -1,
 		};
 
 		this.onAddElement = this.onAddElement.bind(this);
@@ -52,9 +53,9 @@ export default class PlaneView extends React.PureComponent {
 			ID: uuid,
 			Tier: schema.tier,
 			Schema_ID: schema.ID,
-			Version: schema.version
+			Version: schema.version,
 		};
-		Object.keys(schema.properties).forEach(key => {
+		Object.keys(schema.properties).forEach((key) => {
 			if (schema.properties[key].type === string_array) {
 				let currentNumber = string_currentNumberOf_identifier + key;
 				let minNumber = string_minNumberOf_identifier + key;
@@ -103,12 +104,13 @@ export default class PlaneView extends React.PureComponent {
 	}
 
 	onElementDataSave(id, data) {
-		let planes = this.state.planes.slice();
+		let channels = this.state.channels.slice();
 		let found = false;
-		for (let i = 0; i < planes.length; i++) {
-			let name_id = this.props.schema.title + "_" + planes[i].ID;
+		for (let i = 0; i < channels.length; i++) {
+			let name_id = this.props.schema.title + "_" + channels[i].ID;
 			if (id === name_id) {
-				planes[i] = data;
+				channels[i] = data;
+				found = true;
 				found = true;
 				break;
 			}
@@ -117,9 +119,9 @@ export default class PlaneView extends React.PureComponent {
 			//todo should never happen
 			console.log("issue with " + id);
 		}
-		this.setState({ planes: planes, editing: false });
+		this.setState({ channels: channels, editing: false });
 
-		if (bool_isDebug) console.log("saved plane");
+		console.log("channel plane");
 	}
 
 	onElementDataCancel() {
@@ -132,10 +134,12 @@ export default class PlaneView extends React.PureComponent {
 	}
 
 	onConfirm() {
-		let output = { planes: this.state.planes };
+		let output = { channels: this.state.channels };
 		let outputData = Object.assign(this.props.inputData, output);
 		let id = this.props.schema.title + "_" + this.props.inputData.ID;
 		console.log(outputData);
+		this.setState({ editing: false });
+		//this.props.onConfirm(id, outputData);
 	}
 
 	onCancel() {
@@ -167,19 +171,19 @@ export default class PlaneView extends React.PureComponent {
 				display: "flex",
 				flexDirection: "row",
 				flexWap: "wrap",
-				justifyContent: "center"
+				justifyContent: "center",
 			};
 			const button1 = {
 				width: "50px",
 				height: "50px",
 				marginLeft: "5px",
-				marginRight: "5px"
+				marginRight: "5px",
 			};
 			const button2 = {
 				width: "250px",
 				height: "50px",
 				marginLeft: "5px",
-				marginRight: "5px"
+				marginRight: "5px",
 			};
 			let list = [];
 			for (let i = 0; i < planes.length; i++) {

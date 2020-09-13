@@ -17,155 +17,149 @@ var _constants = require("../constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var DataLoader =
-/*#__PURE__*/
-function (_React$PureComponent) {
-  _inherits(DataLoader, _React$PureComponent);
-
-  function DataLoader(props) {
-    var _this;
-
-    _classCallCheck(this, DataLoader);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(DataLoader).call(this, props));
-    _this.state = {
+class DataLoader extends _react.default.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
       isLoadingSchema: false,
       isLoadingMicroscopes: false,
+      isLoadingDimensions: false,
       isSchemaLoaded: false,
-      isMicroscopesLoaded: false
+      isMicroscopesLoaded: false,
+      isDimensionsLoaded: false
     };
-    _this.simulateClickLoadSchema = _this.simulateClickLoadSchema.bind(_assertThisInitialized(_this));
-    _this.onClickLoadSchema = _this.onClickLoadSchema.bind(_assertThisInitialized(_this));
-    _this.simulateClickLoadMicroscopes = _this.simulateClickLoadMicroscopes.bind(_assertThisInitialized(_this));
-    _this.onClickLoadMicroscopes = _this.onClickLoadMicroscopes.bind(_assertThisInitialized(_this));
-    return _this;
+    this.simulateClickLoadSchema = this.simulateClickLoadSchema.bind(this);
+    this.onClickLoadSchema = this.onClickLoadSchema.bind(this);
+    this.simulateClickLoadMicroscopes = this.simulateClickLoadMicroscopes.bind(this);
+    this.onClickLoadMicroscopes = this.onClickLoadMicroscopes.bind(this);
+    this.simulateClickLoadDimensions = this.simulateClickLoadDimensions.bind(this);
+    this.onClickLoadDimensions = this.onClickLoadDimensions.bind(this);
   }
 
-  _createClass(DataLoader, [{
-    key: "onClickLoadSchema",
-    value: function onClickLoadSchema() {
-      var _this2 = this;
-
-      this.setState({
-        isLoadingSchema: true
-      }, function () {
-        _this2.props.onClickLoadSchema().then(function () {
-          _this2.setState({
-            isLoadingSchema: false,
-            isSchemaLoaded: true
-          });
+  onClickLoadDimensions() {
+    this.setState({
+      isLoadingDimensions: true
+    }, () => {
+      this.props.onClickLoadDimensions().then(() => {
+        this.setState({
+          isLoadingDimensions: false,
+          isDimensionsLoaded: true
         });
       });
-    }
-  }, {
-    key: "onClickLoadMicroscopes",
-    value: function onClickLoadMicroscopes() {
-      var _this3 = this;
+    });
+  }
 
-      this.setState({
-        isLoadingMicroscopes: true
-      }, function () {
-        _this3.props.onClickLoadMicroscopes().then(function () {
-          _this3.setState({
-            isLoadingMicroscopes: false,
-            isMicroscopesLoaded: true
-          });
+  onClickLoadSchema() {
+    this.setState({
+      isLoadingSchema: true
+    }, () => {
+      this.props.onClickLoadSchema().then(() => {
+        this.setState({
+          isLoadingSchema: false,
+          isSchemaLoaded: true
         });
       });
-    }
-  }, {
-    key: "simulateClickLoadSchema",
-    value: function simulateClickLoadSchema(loadSchemaButtonRef) {
-      if (loadSchemaButtonRef === null) return;
-      loadSchemaButtonRef.click();
-    }
-  }, {
-    key: "simulateClickLoadMicroscopes",
-    value: function simulateClickLoadMicroscopes(loadMicroscopesButtonRef) {
-      if (loadMicroscopesButtonRef === null) return;
-      loadMicroscopesButtonRef.click();
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var buttonStyle = {
-        width: "200px",
-        height: "50px",
-        padding: "5px",
-        margin: "5px"
-      };
-      var styleImageContainer = {
-        width: "".concat(_constants.number_logo_width, "px"),
-        height: "".concat(_constants.number_logo_height, "px")
-      };
-      var isLoadingSchema = this.state.isLoadingSchema;
-      var isLoadingMicroscopes = this.state.isLoadingMicroscopes;
-      var isSchemaLoaded = this.state.isSchemaLoaded;
-      var isMicroscopesLoaded = this.state.isMicroscopesLoaded;
-      return _react["default"].createElement("div", {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          flexFlow: "column",
-          width: "100%",
-          height: "100%",
-          alignItems: "center"
-        }
-      }, _react["default"].createElement("div", {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          flexFlow: "column",
-          width: "100%",
-          height: "100%",
-          alignItems: "center"
-        }
-      }, _react["default"].createElement("div", {
-        style: styleImageContainer
-      }, _react["default"].createElement("img", {
-        src: this.props.logoImg,
-        alt: this.props.logoImg,
-        style: {
-          width: "100%",
-          height: "100%",
-          margin: "auto"
-        },
-        onLoad: this.onImgLoad
-      })), _react["default"].createElement(_Button["default"], {
-        ref: this.simulateClickLoadSchema,
-        disabled: isLoadingSchema || isSchemaLoaded,
-        onClick: !isLoadingSchema && !isSchemaLoaded ? this.onClickLoadSchema : null,
-        style: buttonStyle,
-        size: "lg"
-      }, isLoadingSchema ? "Loading schema" : isSchemaLoaded ? "Schema loaded" : "Load schema"), _react["default"].createElement(_Button["default"], {
-        ref: this.simulateClickLoadMicroscopes,
-        disabled: isLoadingMicroscopes || isMicroscopesLoaded,
-        onClick: !isLoadingMicroscopes && !isMicroscopesLoaded ? this.onClickLoadMicroscopes : null,
-        style: buttonStyle,
-        size: "lg"
-      }, isLoadingMicroscopes ? "Loading microscopes" : isMicroscopesLoaded ? "Microscopes loaded" : "Load microscopes")));
-    }
-  }]);
+    });
+  }
 
-  return DataLoader;
-}(_react["default"].PureComponent);
+  onClickLoadMicroscopes() {
+    this.setState({
+      isLoadingMicroscopes: true
+    }, () => {
+      this.props.onClickLoadMicroscopes().then(() => {
+        this.setState({
+          isLoadingMicroscopes: false,
+          isMicroscopesLoaded: true
+        });
+      });
+    });
+  }
+
+  simulateClickLoadDimensions(loadDimensionsButtonRef) {
+    if (loadDimensionsButtonRef === null) return;
+    loadDimensionsButtonRef.click();
+  }
+
+  simulateClickLoadSchema(loadSchemaButtonRef) {
+    if (loadSchemaButtonRef === null) return;
+    loadSchemaButtonRef.click();
+  }
+
+  simulateClickLoadMicroscopes(loadMicroscopesButtonRef) {
+    if (loadMicroscopesButtonRef === null) return;
+    loadMicroscopesButtonRef.click();
+  }
+
+  render() {
+    const buttonStyle = {
+      width: "200px",
+      height: "50px",
+      padding: "5px",
+      margin: "5px"
+    };
+    const windowExternalContainer = {
+      display: "flex",
+      justifyContent: "center",
+      flexFlow: "column",
+      width: "100%",
+      height: "100%",
+      alignItems: "center"
+    };
+    const windowInternalContainer = {
+      display: "flex",
+      justifyContent: "center",
+      flexFlow: "column",
+      width: "100%",
+      height: "100%",
+      alignItems: "center"
+    };
+    let styleImageContainer = {
+      width: "".concat(_constants.number_logo_width, "px"),
+      height: "".concat(_constants.number_logo_height, "px")
+    };
+    let styleImage = {
+      width: "100%",
+      height: "100%",
+      margin: "auto"
+    };
+    let isLoadingSchema = this.state.isLoadingSchema;
+    let isLoadingMicroscopes = this.state.isLoadingMicroscopes;
+    let isSchemaLoaded = this.state.isSchemaLoaded;
+    let isMicroscopesLoaded = this.state.isMicroscopesLoaded;
+    let isLoadingDimensions = this.state.isLoadingDimensions;
+    let isDimensionsLoaded = this.state.isDimensionsLoaded;
+    return /*#__PURE__*/_react.default.createElement("div", {
+      style: windowExternalContainer
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: windowInternalContainer
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: styleImageContainer
+    }, /*#__PURE__*/_react.default.createElement("img", {
+      src: this.props.logoImg,
+      alt: this.props.logoImg,
+      style: styleImage,
+      onLoad: this.onImgLoad
+    })), /*#__PURE__*/_react.default.createElement(_Button.default, {
+      ref: this.simulateClickLoadSchema,
+      disabled: isLoadingSchema || isSchemaLoaded,
+      onClick: !isLoadingSchema && !isSchemaLoaded ? this.onClickLoadSchema : null,
+      style: buttonStyle,
+      size: "lg"
+    }, isLoadingSchema ? "Loading schema" : isSchemaLoaded ? "Schema loaded" : "Load schema"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+      ref: this.simulateClickLoadDimensions,
+      disabled: isLoadingDimensions || isDimensionsLoaded,
+      onClick: !isLoadingDimensions && !isDimensionsLoaded ? this.onClickLoadDimensions : null,
+      style: buttonStyle,
+      size: "lg"
+    }, isLoadingDimensions ? "Loading dimensions" : isDimensionsLoaded ? "Dimensions loaded" : "Load dimensions"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+      ref: this.simulateClickLoadMicroscopes,
+      disabled: isLoadingMicroscopes || isMicroscopesLoaded,
+      onClick: !isLoadingMicroscopes && !isMicroscopesLoaded ? this.onClickLoadMicroscopes : null,
+      style: buttonStyle,
+      size: "lg"
+    }, isLoadingMicroscopes ? "Loading microscopes" : isMicroscopesLoaded ? "Microscopes loaded" : "Load microscopes")));
+  }
+
+}
 
 exports["default"] = DataLoader;

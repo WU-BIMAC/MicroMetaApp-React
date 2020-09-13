@@ -2,18 +2,28 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import { AnimateKeyframes } from "react-simple-animate";
 
+//import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeaderV2";
 import MultiTabFormWithHeader from "./multiTabFormWithHeader";
 import DropdownMenu from "./dropdownMenu";
+import PopoverTooltip from "./popoverTooltip";
 
-const validationTier = "Validate @ tier: ";
+const url = require("url");
+
+import {
+	bool_isDebug,
+	string_validationTier,
+	edit_microscope_tooltip,
+	validation_tooltip,
+	save_microscope_tooltip,
+	back_tooltip,
+} from "../constants";
 
 export default class Footer extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			editing: false
+			editing: false,
 		};
 
 		this.onClickEdit = this.onClickEdit.bind(this);
@@ -44,10 +54,11 @@ export default class Footer extends React.PureComponent {
 	render() {
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
-
+		//<MultiTabFormWithHeaderV2
 		if (this.state.editing) {
 			return (
 				<MultiTabFormWithHeader
+					schemas={this.props.componentSchemas}
 					schema={this.props.schema}
 					inputData={this.props.inputData}
 					id={this.props.id}
@@ -68,59 +79,83 @@ export default class Footer extends React.PureComponent {
 			flexWap: "wrap",
 			justifyContent: "center",
 			alignItems: "center",
-			padding: "5px"
+			padding: "5px",
 		};
 		let styleButton = {
 			width: "250px",
 			minWidth: "250px",
 			height: "50px",
 			marginLeft: "5px",
-			marginRight: "5px"
+			marginRight: "5px",
 		};
-		let styleEditButton = Object.assign({}, styleButton);
-		let play = false;
-		if (!this.props.isSchemaValidated) {
-			styleEditButton = Object.assign(styleEditButton, {
-				border: "5px ridge red"
+
+		const styleValidation = {
+			position: "absolute",
+			verticalAlign: "middle",
+			fontWeight: "bold",
+			textAlign: "center",
+		};
+		let validated = null;
+		if (this.props.isSchemaValidated) {
+			const styleValidated = Object.assign({}, styleValidation, {
+				color: "green",
 			});
-			play = true;
+			validated = <div style={styleValidated}>&#9679;</div>;
+			// let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
+			// validated = (
+			// 	<img
+			// 		src={
+			// 			image +
+			// 			(image.indexOf("githubusercontent.com") > -1
+			// 				? "?sanitize=true"
+			// 				: "")
+			// 		}
+			// 		alt={"validated"}
+			// 		style={styleValidation}
+			// 	/>
+			// );
+		} else {
+			const styleValidated = Object.assign({}, styleValidation, {
+				color: "red",
+			});
+			validated = <div style={styleValidated}>&#9679;</div>;
+			// let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
+			// validated = (
+			// 	<img
+			// 		src={
+			// 			image +
+			// 			(image.indexOf("githubusercontent.com") > -1
+			// 				? "?sanitize=true"
+			// 				: "")
+			// 		}
+			// 		alt={"not validated"}
+			// 		style={imageValidation}
+			// 	/>
+			// );
+			// styleEditButton = Object.assign(styleEditButton, {
+			// 	border: "5px ridge red",
+			// });
 		}
 
 		let buttons = [];
 		buttons[0] = (
-			<AnimateKeyframes
-				key={"Animation-0"}
-				play={play}
-				durationSeconds={1}
-				keyframes={[
-					"opacity: 1",
-					"opacity: 0.8",
-					"opacity: 0.6",
-					"opacity: 0.4",
-					"opacity: 0.2",
-					"opacity: 0.4",
-					"opacity: 0.6",
-					"opacity: 0.8",
-					"opacity: 1",
-					"opacity: 0.8",
-					"opacity: 0.6",
-					"opacity: 0.4",
-					"opacity: 0.2",
-					"opacity: 0.4",
-					"opacity: 0.6",
-					"opacity: 0.8",
-					"opacity: 1"
-				]}
-			>
-				<Button
-					key={"Button-0"}
-					onClick={this.onClickEdit}
-					style={styleEditButton}
-					size="lg"
-				>
-					{`Edit ${this.props.element}`}
-				</Button>
-			</AnimateKeyframes>
+			<PopoverTooltip
+				key={"TooltipButton-0"}
+				position={edit_microscope_tooltip.position}
+				title={edit_microscope_tooltip.title}
+				content={edit_microscope_tooltip.content}
+				element={
+					<Button
+						key={"Button-0"}
+						onClick={this.onClickEdit}
+						style={styleButton}
+						size="lg"
+					>
+						{validated}
+						{`Edit ${this.props.element}`}
+					</Button>
+				}
+			/>
 		);
 		let inputData = [];
 		for (let i = 1; i <= this.props.activeTier; i++) {
@@ -130,13 +165,14 @@ export default class Footer extends React.PureComponent {
 		buttons[1] = (
 			<DropdownMenu
 				key={"Button-1"}
-				title={validationTier}
+				title={string_validationTier}
 				handleMenuItemClick={this.onClickChangeValidation}
 				inputData={inputData}
 				width={250}
 				margin={5}
 				defaultValue={defaultValidationTier}
 				direction={"up"}
+				tooltip={validation_tooltip}
 			/>
 		);
 		let saveOptions = [];
@@ -155,17 +191,26 @@ export default class Footer extends React.PureComponent {
 				width={250}
 				margin={5}
 				direction={"up"}
+				tooltip={save_microscope_tooltip}
 			/>
 		);
 		buttons[3] = (
-			<Button
-				key={"Button-3"}
-				onClick={this.props.onClickBack}
-				style={styleButton}
-				size="lg"
-			>
-				Back
-			</Button>
+			<PopoverTooltip
+				key={"TooltipButton-3"}
+				position={back_tooltip.position}
+				title={back_tooltip.title}
+				content={back_tooltip.content}
+				element={
+					<Button
+						key={"Button-3"}
+						onClick={this.props.onClickBack}
+						style={styleButton}
+						size="lg"
+					>
+						Back
+					</Button>
+				}
+			/>
 		);
 		return <div style={style}>{buttons}</div>;
 	}

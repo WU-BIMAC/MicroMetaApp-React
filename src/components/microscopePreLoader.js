@@ -4,12 +4,17 @@ import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Button from "react-bootstrap/Button";
 
 import DropdownMenu from "./dropdownMenu";
+import PopoverTooltip from "./popoverTooltip";
 
 import {
 	bool_isSettings,
 	number_logo_width,
-	number_logo_height
+	number_logo_height,
+	tier_selector_tooltip,
+	manage_instrument_tooltip,
+	manage_settings_tooltip,
 } from "../constants";
+import { escapeSelector } from "jquery";
 
 export default class MicroscopePreLoader extends React.PureComponent {
 	constructor(props) {
@@ -23,7 +28,7 @@ export default class MicroscopePreLoader extends React.PureComponent {
 			width: "200px",
 			height: "50px",
 			padding: "5px",
-			margin: "5px"
+			margin: "5px",
 		};
 		const windowExternalContainer = {
 			display: "flex",
@@ -31,7 +36,7 @@ export default class MicroscopePreLoader extends React.PureComponent {
 			flexFlow: "column",
 			width: "100%",
 			height: "100%",
-			alignItems: "center"
+			alignItems: "center",
 		};
 		const windowInternalContainer = {
 			display: "flex",
@@ -39,18 +44,19 @@ export default class MicroscopePreLoader extends React.PureComponent {
 			flexFlow: "column",
 			width: "100%",
 			height: "100%",
-			alignItems: "center"
+			alignItems: "center",
 		};
 		let styleImageContainer = {
 			width: `${number_logo_width}px`,
-			height: `${number_logo_height}px`
+			height: `${number_logo_height}px`,
 		};
 		let styleImage = {
 			width: "100%",
 			height: "100%",
-			margin: "auto"
+			margin: "auto",
 		};
 		let tierInputData = this.props.tiers;
+
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowInternalContainer}>
@@ -68,23 +74,38 @@ export default class MicroscopePreLoader extends React.PureComponent {
 						inputData={tierInputData}
 						width={width}
 						margin={margin}
+						tooltip={tier_selector_tooltip}
 					/>
 					<div>
-						<Button
-							onClick={this.props.onClickCreateNewMicroscope}
-							style={buttonStyle}
-							size="lg"
-						>
-							Create microscope
-						</Button>
-						<Button
-							onClick={this.props.onClickLoadMicroscope}
-							style={buttonStyle}
-							size="lg"
-							disabled={!bool_isSettings}
-						>
-							Use microscope
-						</Button>
+						<PopoverTooltip
+							position={manage_instrument_tooltip.position}
+							title={manage_instrument_tooltip.title}
+							content={manage_instrument_tooltip.content}
+							element={
+								<Button
+									onClick={this.props.onClickCreateNewMicroscope}
+									style={buttonStyle}
+									size="lg"
+								>
+									Manage Instrument
+								</Button>
+							}
+						/>
+						<PopoverTooltip
+							position={manage_settings_tooltip.position}
+							title={manage_settings_tooltip.title}
+							content={manage_settings_tooltip.content}
+							element={
+								<Button
+									onClick={this.props.onClickLoadMicroscope}
+									style={buttonStyle}
+									size="lg"
+									disabled={!bool_isSettings}
+								>
+									Manage Settings
+								</Button>
+							}
+						/>
 					</div>
 				</div>
 			</div>

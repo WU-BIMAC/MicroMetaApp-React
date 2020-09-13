@@ -4,11 +4,18 @@ import Button from "react-bootstrap/Button";
 import Dropzone from "react-dropzone";
 
 import DropdownMenu from "./dropdownMenu";
+import PopoverTooltip from "./popoverTooltip";
 
 import {
 	string_json_ext,
 	number_logo_width,
-	number_logo_height
+	number_logo_height,
+	create_mode_selector_tooltip,
+	create_from_file_tooltip,
+	create_from_repo_manufacturer_tooltip,
+	create_from_repo_names_tooltip,
+	create_mode_continue_tooltip,
+	back_tooltip,
 } from "../constants";
 
 export default class MicroscopeLoader extends React.PureComponent {
@@ -19,7 +26,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			fileLoading: false,
 			selectedManu: null,
 			selectedMic: null,
-			micNames: null
+			micNames: null,
 		};
 
 		this.dropzoneDropAccepted = this.dropzoneDropAccepted.bind(this);
@@ -80,7 +87,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		reader.onerror = this.onFileReaderError;
 		reader.onload = this.onFileReaderLoad;
 
-		acceptedFiles.forEach(file => reader.readAsText(file));
+		acceptedFiles.forEach((file) => reader.readAsText(file));
 
 		this.setState({ fileLoading: false });
 	}
@@ -104,7 +111,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			width: "200px",
 			height: "50px",
 			padding: "5px",
-			margin: "5px"
+			margin: "5px",
 		};
 		const windowExternalContainer = {
 			display: "flex",
@@ -112,7 +119,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			flexFlow: "column",
 			width: "100%",
 			height: "100%",
-			alignItems: "center"
+			alignItems: "center",
 		};
 		const windowInternalContainer = {
 			display: "flex",
@@ -120,7 +127,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			flexFlow: "column",
 			width: "100%",
 			height: "100%",
-			alignItems: "center"
+			alignItems: "center",
 		};
 
 		let width = 410;
@@ -131,16 +138,16 @@ export default class MicroscopeLoader extends React.PureComponent {
 		let dropzoneStyle = {
 			borderStyle: "dashed",
 			borderWidth: "thin",
-			width: `${width}px`
+			width: `${width}px`,
 		};
 		let styleImageContainer = {
 			width: `${number_logo_width}px`,
-			height: `${number_logo_height}px`
+			height: `${number_logo_height}px`,
 		};
 		let styleImage = {
 			width: "100%",
 			height: "100%",
-			margin: "auto"
+			margin: "auto",
 		};
 		let loadingMode = this.props.loadingMode;
 		let fileLoading = this.state.fileLoading;
@@ -163,30 +170,41 @@ export default class MicroscopeLoader extends React.PureComponent {
 				inputData={this.props.loadingOptions}
 				width={width}
 				margin={margin}
+				tooltip={create_mode_selector_tooltip}
 			/>
 		);
 		if (loadingMode === 1) {
 			list.push(
-				<Dropzone
-					key={"dropzone"}
-					onFileDialogCancel={this.dropzoneDialogCancel}
-					onDrop={this.dropzoneDrop}
-					onDropAccepted={this.dropzoneDropAccepted}
-					onDropRejected={this.dropzoneDropRejected}
-					accept={string_json_ext}
-					multiple={false}
-				>
-					{({ getRootProps, getInputProps }) => (
-						<section style={dropzoneStyle}>
-							<div {...getRootProps()}>
-								<input
-									{...getInputProps({ onClick: this.dropzoneDialogOpen })}
-								/>
-								<p>Drag 'n' drop some files here, or click to select files</p>
-							</div>
-						</section>
-					)}
-				</Dropzone>
+				<PopoverTooltip
+					key={"dropzone-tooltip"}
+					position={create_from_file_tooltip.position}
+					title={create_from_file_tooltip.title}
+					content={create_from_file_tooltip.content}
+					element={
+						<Dropzone
+							key={"dropzone"}
+							onFileDialogCancel={this.dropzoneDialogCancel}
+							onDrop={this.dropzoneDrop}
+							onDropAccepted={this.dropzoneDropAccepted}
+							onDropRejected={this.dropzoneDropRejected}
+							accept={string_json_ext}
+							multiple={false}
+						>
+							{({ getRootProps, getInputProps }) => (
+								<section style={dropzoneStyle}>
+									<div {...getRootProps()}>
+										<input
+											{...getInputProps({ onClick: this.dropzoneDialogOpen })}
+										/>
+										<p>
+											Select an existing Microscope file you want to work on.
+										</p>
+									</div>
+								</section>
+							)}
+						</Dropzone>
+					}
+				/>
 			);
 		}
 
@@ -205,6 +223,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					defaultValue={defaultManu}
 					width={width}
 					margin={margin}
+					tooltip={create_from_repo_manufacturer_tooltip}
 				/>
 			);
 
@@ -224,32 +243,51 @@ export default class MicroscopeLoader extends React.PureComponent {
 						defaultValue={defaultMic}
 						width={width}
 						margin={margin}
+						tooltip={create_from_repo_names_tooltip}
 					/>
 				);
 			}
 		}
 		list.push(
 			<div key="buttons">
-				<Button
-					onClick={
-						(isDropzoneActive && fileLoaded && !fileLoading) ||
-						!isDropzoneActive
-							? this.props.onClickConfirm
-							: null
+				<PopoverTooltip
+					position={create_mode_continue_tooltip.position}
+					title={create_mode_continue_tooltip.title}
+					content={create_mode_continue_tooltip.content}
+					element={
+						<Button
+							onClick={
+								(isDropzoneActive && fileLoaded && !fileLoading) ||
+								!isDropzoneActive
+									? this.props.onClickConfirm
+									: null
+							}
+							style={buttonStyle}
+							size="lg"
+							disabled={isDropzoneActive && (!fileLoaded || fileLoading)}
+						>
+							{isDropzoneActive && !fileLoaded && !fileLoading
+								? "Waiting for file"
+								: isDropzoneActive && fileLoading
+								? "Loading file"
+								: "Continue"}
+						</Button>
 					}
-					style={buttonStyle}
-					size="lg"
-					disabled={isDropzoneActive && (!fileLoaded || fileLoading)}
-				>
-					{isDropzoneActive && !fileLoaded && !fileLoading
-						? "Waiting for file"
-						: isDropzoneActive && fileLoading
-							? "Loading file"
-							: "Confirm"}
-				</Button>
-				<Button onClick={this.props.onClickBack} style={buttonStyle} size="lg">
-					Back
-				</Button>
+				/>
+				<PopoverTooltip
+					position={back_tooltip.position}
+					title={back_tooltip.title}
+					content={back_tooltip.content}
+					element={
+						<Button
+							onClick={this.props.onClickBack}
+							style={buttonStyle}
+							size="lg"
+						>
+							Back
+						</Button>
+					}
+				/>
 			</div>
 		);
 

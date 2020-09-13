@@ -11,8 +11,10 @@ export default class DataLoader extends React.PureComponent {
 		this.state = {
 			isLoadingSchema: false,
 			isLoadingMicroscopes: false,
+			isLoadingDimensions: false,
 			isSchemaLoaded: false,
-			isMicroscopesLoaded: false
+			isMicroscopesLoaded: false,
+			isDimensionsLoaded: false,
 		};
 
 		this.simulateClickLoadSchema = this.simulateClickLoadSchema.bind(this);
@@ -22,6 +24,19 @@ export default class DataLoader extends React.PureComponent {
 			this
 		);
 		this.onClickLoadMicroscopes = this.onClickLoadMicroscopes.bind(this);
+
+		this.simulateClickLoadDimensions = this.simulateClickLoadDimensions.bind(
+			this
+		);
+		this.onClickLoadDimensions = this.onClickLoadDimensions.bind(this);
+	}
+
+	onClickLoadDimensions() {
+		this.setState({ isLoadingDimensions: true }, () => {
+			this.props.onClickLoadDimensions().then(() => {
+				this.setState({ isLoadingDimensions: false, isDimensionsLoaded: true });
+			});
+		});
 	}
 
 	onClickLoadSchema() {
@@ -37,10 +52,15 @@ export default class DataLoader extends React.PureComponent {
 			this.props.onClickLoadMicroscopes().then(() => {
 				this.setState({
 					isLoadingMicroscopes: false,
-					isMicroscopesLoaded: true
+					isMicroscopesLoaded: true,
 				});
 			});
 		});
+	}
+
+	simulateClickLoadDimensions(loadDimensionsButtonRef) {
+		if (loadDimensionsButtonRef === null) return;
+		loadDimensionsButtonRef.click();
 	}
 
 	simulateClickLoadSchema(loadSchemaButtonRef) {
@@ -58,7 +78,7 @@ export default class DataLoader extends React.PureComponent {
 			width: "200px",
 			height: "50px",
 			padding: "5px",
-			margin: "5px"
+			margin: "5px",
 		};
 		const windowExternalContainer = {
 			display: "flex",
@@ -66,7 +86,7 @@ export default class DataLoader extends React.PureComponent {
 			flexFlow: "column",
 			width: "100%",
 			height: "100%",
-			alignItems: "center"
+			alignItems: "center",
 		};
 		const windowInternalContainer = {
 			display: "flex",
@@ -74,21 +94,23 @@ export default class DataLoader extends React.PureComponent {
 			flexFlow: "column",
 			width: "100%",
 			height: "100%",
-			alignItems: "center"
+			alignItems: "center",
 		};
 		let styleImageContainer = {
 			width: `${number_logo_width}px`,
-			height: `${number_logo_height}px`
+			height: `${number_logo_height}px`,
 		};
 		let styleImage = {
 			width: "100%",
 			height: "100%",
-			margin: "auto"
+			margin: "auto",
 		};
 		let isLoadingSchema = this.state.isLoadingSchema;
 		let isLoadingMicroscopes = this.state.isLoadingMicroscopes;
 		let isSchemaLoaded = this.state.isSchemaLoaded;
 		let isMicroscopesLoaded = this.state.isMicroscopesLoaded;
+		let isLoadingDimensions = this.state.isLoadingDimensions;
+		let isDimensionsLoaded = this.state.isDimensionsLoaded;
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowInternalContainer}>
@@ -116,6 +138,23 @@ export default class DataLoader extends React.PureComponent {
 							: isSchemaLoaded
 							? "Schema loaded"
 							: "Load schema"}
+					</Button>
+					<Button
+						ref={this.simulateClickLoadDimensions}
+						disabled={isLoadingDimensions || isDimensionsLoaded}
+						onClick={
+							!isLoadingDimensions && !isDimensionsLoaded
+								? this.onClickLoadDimensions
+								: null
+						}
+						style={buttonStyle}
+						size="lg"
+					>
+						{isLoadingDimensions
+							? "Loading dimensions"
+							: isDimensionsLoaded
+							? "Dimensions loaded"
+							: "Load dimensions"}
 					</Button>
 					<Button
 						ref={this.simulateClickLoadMicroscopes}

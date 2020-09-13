@@ -1,11 +1,13 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 
-import MultiTabFormWithHeader from "./multiTabFormWithHeader";
+import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeaderV2";
 import PlaneView from "./planeView";
+import ChannelView from "./channelView";
+
+import { v4 as uuidv4 } from "uuid";
 
 const validate = require("jsonschema").validate;
-const uuidv4 = require("uuid/v4");
 
 import {
 	bool_isDebug,
@@ -14,7 +16,7 @@ import {
 	string_json_ext,
 	string_currentNumberOf_identifier,
 	string_minNumberOf_identifier,
-	string_maxNumberOf_identifier
+	string_maxNumberOf_identifier,
 } from "../constants";
 const schemasOrder = [
 	"Experiment.json",
@@ -23,7 +25,7 @@ const schemasOrder = [
 	"TIRFSettings.json",
 	"ImagingEnvironment.json",
 	"MicroscopeSettings.json",
-	"ObjectiveSettings.json"
+	"ObjectiveSettings.json",
 ];
 
 export default class SettingMainView extends React.PureComponent {
@@ -34,17 +36,17 @@ export default class SettingMainView extends React.PureComponent {
 			elementList: [],
 			elementData: Object.assign({}, this.props.inputData),
 			componentsSchema: {},
-			editingElement: -1
+			editingElement: -1,
 		};
 
 		console.log(props.componentSchemas);
 
-		Object.keys(props.componentSchemas).forEach(schemaIndex => {
+		Object.keys(props.componentSchemas).forEach((schemaIndex) => {
 			let schema = props.componentSchemas[schemaIndex];
 			let schema_id = schema.ID;
 			//console.log("schema_id: " + schema_id);
 			let index = schemasOrder.indexOf(schema_id);
-			Object.keys(props.inputData).forEach(objIndex => {
+			Object.keys(props.inputData).forEach((objIndex) => {
 				let object = props.inputData[objIndex];
 				if (props.activeTier < object.tier) return;
 				if (schema_id !== object.Schema_ID) return;
@@ -55,7 +57,7 @@ export default class SettingMainView extends React.PureComponent {
 					schema_ID: schema_id,
 					name: object.Name,
 					validated: validated,
-					obj: object
+					obj: object,
 				};
 				this.state.elementList[index] = newElement;
 			});
@@ -70,9 +72,9 @@ export default class SettingMainView extends React.PureComponent {
 					ID: uuid,
 					Tier: schema.tier,
 					Schema_ID: schema.ID,
-					Version: schema.version
+					Version: schema.version,
 				};
-				Object.keys(schema.properties).forEach(key => {
+				Object.keys(schema.properties).forEach((key) => {
 					if (schema.properties[key].type === string_array) {
 						let currentNumber = string_currentNumberOf_identifier + key;
 						let minNumber = string_minNumberOf_identifier + key;
@@ -102,7 +104,7 @@ export default class SettingMainView extends React.PureComponent {
 					schema_ID: schema.ID,
 					name: newElementData.Name,
 					validated: false,
-					obj: newElementData
+					obj: newElementData,
 				};
 				this.state.elementList[index] = newElement;
 			}
@@ -135,7 +137,7 @@ export default class SettingMainView extends React.PureComponent {
 	static getDerivedStateFromProps(props, state) {
 		if (props.componentsSchema !== null) {
 			let componentsSchema = {};
-			Object.keys(props.componentSchemas).forEach(schemaIndex => {
+			Object.keys(props.componentSchemas).forEach((schemaIndex) => {
 				let schema = props.componentSchemas[schemaIndex];
 				let schema_id = schema.ID;
 				componentsSchema[schema_id] = schema;
@@ -151,7 +153,7 @@ export default class SettingMainView extends React.PureComponent {
 				element.validated = validated;
 			}
 			return {
-				componentsSchema: componentsSchema
+				componentsSchema: componentsSchema,
 			};
 		}
 	}
@@ -194,43 +196,43 @@ export default class SettingMainView extends React.PureComponent {
 	onClickEditExperiment() {
 		let editingElement = schemasOrder.indexOf("Experiment.json");
 		this.setState({
-			editingElement: editingElement
+			editingElement: editingElement,
 		});
 	}
 	onClickEditPlanes() {
 		let editingElement = schemasOrder.indexOf("Plane.json");
 		this.setState({
-			editingElement: editingElement
+			editingElement: editingElement,
 		});
 	}
 	onClickEditChannels() {
 		let editingElement = schemasOrder.indexOf("Channel.json");
 		this.setState({
-			editingElement: editingElement
+			editingElement: editingElement,
 		});
 	}
 	onClickEditTIRFSettings() {
 		let editingElement = schemasOrder.indexOf("TIRFSettings.json");
 		this.setState({
-			editingElement: editingElement
+			editingElement: editingElement,
 		});
 	}
 	onClickEditImagingEnvironment() {
 		let editingElement = schemasOrder.indexOf("ImagingEnvironment.json");
 		this.setState({
-			editingElement: editingElement
+			editingElement: editingElement,
 		});
 	}
 	onClickEditMicroscopeSettings() {
 		let editingElement = schemasOrder.indexOf("MicroscopeSettings.json");
 		this.setState({
-			editingElement: editingElement
+			editingElement: editingElement,
 		});
 	}
 	onClickEditObjectiveSettings() {
 		let editingElement = schemasOrder.indexOf("ObjectiveSettings.json");
 		this.setState({
-			editingElement: editingElement
+			editingElement: editingElement,
 		});
 	}
 
@@ -246,7 +248,7 @@ export default class SettingMainView extends React.PureComponent {
 			flexWap: "wrap",
 			justifyContent: "center",
 			alignItems: "center",
-			padding: "5px"
+			padding: "5px",
 		};
 		if (this.state.editingElement != -1) {
 			if (bool_isDebug) {
@@ -261,7 +263,7 @@ export default class SettingMainView extends React.PureComponent {
 			let obj = element.obj;
 			let schema = this.state.componentsSchema[schema_id];
 			let elementByType = {};
-			Object.keys(this.state.elementData).forEach(function(key) {
+			Object.keys(this.state.elementData).forEach(function (key) {
 				let element = this.state.elementData[key];
 				let schemaID = element.Schema_ID.replace(string_json_ext, "");
 				if (elementByType[schemaID] === undefined) {
@@ -269,7 +271,7 @@ export default class SettingMainView extends React.PureComponent {
 				}
 				elementByType[schemaID][element.Name] = element.ID;
 			});
-			Object.keys(this.props.microscopeComponents).forEach(key => {
+			Object.keys(this.props.microscopeComponents).forEach((key) => {
 				let element = this.props.microscopeComponents[key];
 				let schemaID = element.Schema_ID.replace(string_json_ext, "");
 				if (elementByType[schemaID] === undefined) {
@@ -291,11 +293,23 @@ export default class SettingMainView extends React.PureComponent {
 					</div>
 				);
 			} else if (this.state.editingElement == 2) {
-				return null;
+				return (
+					<ChannelView
+						schemas={this.props.componentSchemas}
+						schema={schema}
+						inputData={obj}
+						id={element.ID}
+						onConfirm={this.onElementDataSave}
+						onCancel={this.onElementDataCancel}
+						overlaysContainer={this.props.overlaysContainer}
+						elementByType={elementByType}
+					/>
+				);
 			} else {
 				return (
 					<div style={styleMainContainer}>
-						<MultiTabFormWithHeader
+						<MultiTabFormWithHeaderV2
+							schemas={this.props.componentSchemas}
 							schema={schema}
 							inputData={obj}
 							id={element.ID}
@@ -319,10 +333,10 @@ export default class SettingMainView extends React.PureComponent {
 				height: "50px",
 				minHeight: "50px",
 				marginLeft: "5px",
-				marginRight: "5px"
+				marginRight: "5px",
 			};
 			let styleEditButton = Object.assign(styleButton, {
-				border: "5px ridge red"
+				border: "5px ridge red",
 			});
 			let buttons1 = [];
 			buttons1[0] = (
