@@ -11,7 +11,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const bool_isDebug = false;
 exports.bool_isDebug = bool_isDebug;
-const bool_isSettings = true;
+const bool_isSettings = false;
 exports.bool_isSettings = bool_isSettings;
 const string_na = "na";
 exports.string_na = string_na;
