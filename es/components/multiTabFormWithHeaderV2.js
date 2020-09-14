@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -23,9 +23,31 @@ var _constants = require("../constants");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -33,32 +55,33 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-const DEFAULT_PADDING = 16;
-const ICON_SIZE = 8;
-const LEVEL_SPACE = 16;
+var DEFAULT_PADDING = 16;
+var ICON_SIZE = 8;
+var LEVEL_SPACE = 16;
 
-const ToggleIcon = ({
-  on
-}) => /*#__PURE__*/_react.default.createElement("span", {
-  style: {
-    marginRight: 8
-  }
-}, on ? "-" : "+");
+var ToggleIcon = function (_ref) {
+  var on = _ref.on;
+  return /*#__PURE__*/_react["default"].createElement("span", {
+    style: {
+      marginRight: 8
+    }
+  }, on ? "-" : "+");
+};
 
-const ListItem = (_ref) => {
-  let _ref$level = _ref.level,
-      level = _ref$level === void 0 ? 0 : _ref$level,
-      hasNodes = _ref.hasNodes,
-      isOpen = _ref.isOpen,
-      label = _ref.label,
-      searchTerm = _ref.searchTerm,
-      openNodes = _ref.openNodes,
-      toggleNode = _ref.toggleNode,
-      matchSearch = _ref.matchSearch,
-      focused = _ref.focused,
-      props = _objectWithoutProperties(_ref, ["level", "hasNodes", "isOpen", "label", "searchTerm", "openNodes", "toggleNode", "matchSearch", "focused"]);
+var ListItem = function (_ref2) {
+  var _ref2$level = _ref2.level,
+      level = _ref2$level === void 0 ? 0 : _ref2$level,
+      hasNodes = _ref2.hasNodes,
+      isOpen = _ref2.isOpen,
+      label = _ref2.label,
+      searchTerm = _ref2.searchTerm,
+      openNodes = _ref2.openNodes,
+      toggleNode = _ref2.toggleNode,
+      matchSearch = _ref2.matchSearch,
+      focused = _ref2.focused,
+      props = _objectWithoutProperties(_ref2, ["level", "hasNodes", "isOpen", "label", "searchTerm", "openNodes", "toggleNode", "matchSearch", "focused"]);
 
-  return /*#__PURE__*/_react.default.createElement(_reactstrap.ListGroupItem, _extends({}, props, {
+  return /*#__PURE__*/_react["default"].createElement(_reactstrap.ListGroupItem, _extends({}, props, {
     style: {
       paddingLeft: DEFAULT_PADDING + ICON_SIZE + level * LEVEL_SPACE,
       cursor: "pointer",
@@ -66,23 +89,31 @@ const ListItem = (_ref) => {
       zIndex: focused ? 999 : "unset",
       position: "relative"
     }
-  }), hasNodes && /*#__PURE__*/_react.default.createElement("div", {
+  }), hasNodes && /*#__PURE__*/_react["default"].createElement("div", {
     style: {
       display: "inline-block"
     },
-    onClick: e => {
+    onClick: function onClick(e) {
       hasNodes && toggleNode && toggleNode();
       e.stopPropagation();
     }
-  }, /*#__PURE__*/_react.default.createElement(ToggleIcon, {
+  }, /*#__PURE__*/_react["default"].createElement(ToggleIcon, {
     on: isOpen
   })), label);
 };
 
-class MultiTabFormWithHeaderV2 extends _react.default.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
+var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
+  _inherits(MultiTabFormWithHeaderV2, _React$PureComponent);
+
+  var _super = _createSuper(MultiTabFormWithHeaderV2);
+
+  function MultiTabFormWithHeaderV2(props) {
+    var _this;
+
+    _classCallCheck(this, MultiTabFormWithHeaderV2);
+
+    _this = _super.call(this, props);
+    _this.state = {
       showForm: true,
       linkedFields: {},
       currentChildrenComponents: {},
@@ -95,798 +126,866 @@ class MultiTabFormWithHeaderV2 extends _react.default.PureComponent {
 
     if (props.inputData !== null && props.childrenComponentIdentifier !== null && props.minChildrenComponentIdentifier !== null && props.maxChildrenComponentIdentifier !== null) {
       //FIXME I may have to change this to iterate inside the various data
-      Object.keys(props.inputData).forEach(key => {
+      Object.keys(props.inputData).forEach(function (key) {
         if (key.includes(props.minChildrenComponentIdentifier)) {
-          let name = key.replace(props.minChildrenComponentIdentifier, "");
-          this.state.minChildrenComponents[name] = props.inputData[key];
+          var name = key.replace(props.minChildrenComponentIdentifier, "");
+          _this.state.minChildrenComponents[name] = props.inputData[key];
         } else if (key.includes(props.maxChildrenComponentIdentifier)) {
-          let name = key.replace(props.maxChildrenComponentIdentifier, "");
-          this.state.maxChildrenComponents[name] = props.inputData[key];
+          var _name = key.replace(props.maxChildrenComponentIdentifier, "");
+
+          _this.state.maxChildrenComponents[_name] = props.inputData[key];
         } else if (key.includes(props.currentChildrenComponentIdentifier)) {
-          let name = key.replace(props.currentChildrenComponentIdentifier, "");
-          this.state.currentChildrenComponents[name] = props.inputData[key];
+          var _name2 = key.replace(props.currentChildrenComponentIdentifier, "");
+
+          _this.state.currentChildrenComponents[_name2] = props.inputData[key];
         }
       });
     }
 
-    this.paths = [];
-    this.partialSchema = {};
-    this.formDescs = {};
-    this.buttonsRefs = {};
-    this.formNames = {};
-    this.forms = {};
-    this.formRefs = {};
-    this.data = [];
-    this.errors = [];
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onError = this.onError.bind(this);
-    this.onTabChange = this.onTabChange.bind(this);
-    this.onItemChange = this.onItemChange.bind(this);
-    this.onConfirm = this.onConfirm.bind(this);
-    this.onCancel = this.onCancel.bind(this);
-    this.createForm = this.createForm.bind(this);
-    this.createForms = this.createForms.bind(this);
-    this.onEditComponents = this.onEditComponents.bind(this);
-    this.onEditComponentsConfirm = this.onEditComponentsConfirm.bind(this);
-    this.onEditComponentsCancel = this.onEditComponentsCancel.bind(this);
-    this.createChildrenComponentsButton = this.createChildrenComponentsButton.bind(this);
-    this.onClickAddChildComponent = this.onClickAddChildComponent.bind(this);
-    this.onClickRemoveChildComponent = this.onClickRemoveChildComponent.bind(this);
-    this.createDataTree = this.createDataTree.bind(this);
-    this.createDataTreeNodes = this.createDataTreeNodes.bind(this);
-    this.initializeForms = this.initializeForms.bind(this);
-    this.initializeNodeForms = this.initializeNodeForms.bind(this);
-    this.dataTree = this.createDataTree(props.schemas, props.schema);
-    this.initializeForms();
+    _this.paths = [];
+    _this.partialSchema = {};
+    _this.formDescs = {};
+    _this.buttonsRefs = {};
+    _this.formNames = {};
+    _this.forms = {};
+    _this.formRefs = {};
+    _this.data = [];
+    _this.errors = [];
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.onError = _this.onError.bind(_assertThisInitialized(_this));
+    _this.onTabChange = _this.onTabChange.bind(_assertThisInitialized(_this));
+    _this.onItemChange = _this.onItemChange.bind(_assertThisInitialized(_this));
+    _this.onConfirm = _this.onConfirm.bind(_assertThisInitialized(_this));
+    _this.onCancel = _this.onCancel.bind(_assertThisInitialized(_this));
+    _this.createForm = _this.createForm.bind(_assertThisInitialized(_this));
+    _this.createForms = _this.createForms.bind(_assertThisInitialized(_this));
+    _this.onEditComponents = _this.onEditComponents.bind(_assertThisInitialized(_this));
+    _this.onEditComponentsConfirm = _this.onEditComponentsConfirm.bind(_assertThisInitialized(_this));
+    _this.onEditComponentsCancel = _this.onEditComponentsCancel.bind(_assertThisInitialized(_this));
+    _this.createChildrenComponentsButton = _this.createChildrenComponentsButton.bind(_assertThisInitialized(_this));
+    _this.onClickAddChildComponent = _this.onClickAddChildComponent.bind(_assertThisInitialized(_this));
+    _this.onClickRemoveChildComponent = _this.onClickRemoveChildComponent.bind(_assertThisInitialized(_this));
+    _this.createDataTree = _this.createDataTree.bind(_assertThisInitialized(_this));
+    _this.createDataTreeNodes = _this.createDataTreeNodes.bind(_assertThisInitialized(_this));
+    _this.initializeForms = _this.initializeForms.bind(_assertThisInitialized(_this));
+    _this.initializeNodeForms = _this.initializeNodeForms.bind(_assertThisInitialized(_this));
+    _this.dataTree = _this.createDataTree(props.schemas, props.schema);
+
+    _this.initializeForms();
+
+    return _this;
   }
 
-  createDataTreeNodes(path, schemas, schema, counter, subType) {
-    console.log("IM HERE - createDataTreeNodes - " + path);
-    let nodes = {};
-    let visualCounter = 0;
-    Object.keys(schema.properties).forEach(key => {
-      let property = schema.properties[key];
+  _createClass(MultiTabFormWithHeaderV2, [{
+    key: "createDataTreeNodes",
+    value: function createDataTreeNodes(path, schemas, schema, counter, subType) {
+      var _this2 = this;
 
-      if (property.contains !== undefined) {
-        let contained = property.contains;
-        let foundSchema = null;
-        Object.keys(schemas).forEach(schemaIndex => {
-          let localSchema = schemas[schemaIndex];
+      console.log("IM HERE - createDataTreeNodes - " + path);
+      var nodes = {};
+      var visualCounter = 0;
+      Object.keys(schema.properties).forEach(function (key) {
+        var property = schema.properties[key];
 
-          if (localSchema.title === contained) {
-            foundSchema = localSchema;
+        if (property.contains !== undefined) {
+          var contained = property.contains;
+          var foundSchema = null;
+          Object.keys(schemas).forEach(function (schemaIndex) {
+            var localSchema = schemas[schemaIndex];
+
+            if (localSchema.title === contained) {
+              foundSchema = localSchema;
+            }
+          }); //let categorizedSchemaElements = null;
+          // if (categorizedElements[schema.title] !== undefined) {
+          // 	categorizedSchemaElements = categorizedElements[schema.title];
+          // } else {
+          // 	categorizedSchemaElements = {};
+          // }
+
+          if (foundSchema !== null) {
+            //categorizedSchemaElements[foundSchema.title] = foundSchema;
+            var newPath = path + "/" + foundSchema.title;
+
+            var subNodes = _this2.createDataTreeNodes(newPath, schemas, foundSchema, counter, subType);
+
+            nodes[foundSchema.title] = {
+              label: foundSchema.title,
+              index: visualCounter,
+              path: newPath,
+              schema: foundSchema,
+              nodes: subNodes
+            }; //categorizedElements[schema.title] = categorizedSchemaElements;
+
+            _this2.paths.push(newPath);
+
+            visualCounter++;
           }
-        }); //let categorizedSchemaElements = null;
-        // if (categorizedElements[schema.title] !== undefined) {
-        // 	categorizedSchemaElements = categorizedElements[schema.title];
-        // } else {
-        // 	categorizedSchemaElements = {};
-        // }
-
-        if (foundSchema !== null) {
-          //categorizedSchemaElements[foundSchema.title] = foundSchema;
-          let newPath = path + "/" + foundSchema.title;
-          let subNodes = this.createDataTreeNodes(newPath, schemas, foundSchema, counter, subType);
-          nodes[foundSchema.title] = {
-            label: foundSchema.title,
-            index: visualCounter,
-            path: newPath,
-            schema: foundSchema,
-            nodes: subNodes
-          }; //categorizedElements[schema.title] = categorizedSchemaElements;
-
-          this.paths.push(newPath);
-          visualCounter++;
         }
-      }
-    });
-    return nodes;
-  }
-
-  createDataTree(schemas, schema) {
-    console.log("IM HERE - createDataTree");
-    let key = schema.title;
-    let nodes = this.createDataTreeNodes(key, schemas, schema, -1, _constants.string_default);
-    let dataTree = {};
-    dataTree[key] = {
-      label: key,
-      index: 0,
-      path: key,
-      schema: schema,
-      nodes: nodes
-    };
-
-    if (this.state.activeFormKey === "") {
-      this.state.activeFormKey = key;
+      });
+      return nodes;
     }
+  }, {
+    key: "createDataTree",
+    value: function createDataTree(schemas, schema) {
+      console.log("IM HERE - createDataTree");
+      var key = schema.title;
+      var nodes = this.createDataTreeNodes(key, schemas, schema, -1, _constants.string_default);
+      var dataTree = {};
+      dataTree[key] = {
+        label: key,
+        index: 0,
+        path: key,
+        schema: schema,
+        nodes: nodes
+      };
 
-    this.paths.push(key);
-    console.log(dataTree);
-    return dataTree;
-  }
+      if (this.state.activeFormKey === "") {
+        this.state.activeFormKey = key;
+      }
 
-  initializeNodeForms(nodes) {
-    let linkedFields = this.state.linkedFields;
-    let currentChildrenComponents = this.state.currentChildrenComponents;
-    console.log("IM HERE - initializeNodeForms");
-    console.log(nodes);
-    Object.keys(nodes).forEach(key => {
-      let node = nodes[key];
-      let path = node.path;
-      this.partialSchema[path] = MultiTabFormWithHeaderV2.transformSchema(currentChildrenComponents, node.schema, this.props.elementByType, linkedFields);
-      let partialInputData = [];
+      this.paths.push(key);
+      console.log(dataTree);
+      return dataTree;
+    }
+  }, {
+    key: "initializeNodeForms",
+    value: function initializeNodeForms(nodes) {
+      var _this3 = this;
+
+      var linkedFields = this.state.linkedFields;
+      var currentChildrenComponents = this.state.currentChildrenComponents;
+      console.log("IM HERE - initializeNodeForms");
+      console.log(nodes);
+      Object.keys(nodes).forEach(function (key) {
+        var node = nodes[key];
+        var path = node.path;
+        _this3.partialSchema[path] = MultiTabFormWithHeaderV2.transformSchema(currentChildrenComponents, node.schema, _this3.props.elementByType, linkedFields);
+        var partialInputData = [];
+
+        if (_this3.props.inputData !== undefined) {
+          partialInputData = MultiTabFormWithHeaderV2.transformInputData(_this3.props.inputData, _this3.partialSchema[path]);
+        }
+
+        var subCategoriesOrder = _this3.props.schema.subCategoriesOrder;
+
+        var subElementForms = _this3.createForms(path, subCategoriesOrder, _this3.partialSchema[path], partialInputData);
+
+        _this3.forms[path] = subElementForms;
+
+        _this3.initializeNodeForms(node.nodes);
+      });
+    }
+  }, {
+    key: "initializeForms",
+    value: function initializeForms() {
+      console.log("IM HERE - initializeForms");
+      var linkedFields = this.state.linkedFields;
+      var currentChildrenComponents = this.state.currentChildrenComponents;
+      var dataTree = this.dataTree;
+      var key = Object.keys(dataTree)[0]; // let rootNode = dataTree[key];
+      // let path = rootNode.path;
+
+      this.partialSchema[key] = MultiTabFormWithHeaderV2.transformSchema(currentChildrenComponents, this.props.schema, this.props.elementByType, linkedFields);
+      var partialInputData = [];
 
       if (this.props.inputData !== undefined) {
-        partialInputData = MultiTabFormWithHeaderV2.transformInputData(this.props.inputData, this.partialSchema[path]);
+        partialInputData = MultiTabFormWithHeaderV2.transformInputData(this.props.inputData, this.partialSchema[key]);
       }
 
-      let subCategoriesOrder = this.props.schema.subCategoriesOrder;
-      let subElementForms = this.createForms(path, subCategoriesOrder, this.partialSchema[path], partialInputData);
-      this.forms[path] = subElementForms;
-      this.initializeNodeForms(node.nodes);
-    });
-  }
-
-  initializeForms() {
-    console.log("IM HERE - initializeForms");
-    let linkedFields = this.state.linkedFields;
-    let currentChildrenComponents = this.state.currentChildrenComponents;
-    let dataTree = this.dataTree;
-    let key = Object.keys(dataTree)[0]; // let rootNode = dataTree[key];
-    // let path = rootNode.path;
-
-    this.partialSchema[key] = MultiTabFormWithHeaderV2.transformSchema(currentChildrenComponents, this.props.schema, this.props.elementByType, linkedFields);
-    let partialInputData = [];
-
-    if (this.props.inputData !== undefined) {
-      partialInputData = MultiTabFormWithHeaderV2.transformInputData(this.props.inputData, this.partialSchema[key]);
+      var subCategoriesOrder = this.props.schema.subCategoriesOrder;
+      var subElementForms = this.createForms(key, subCategoriesOrder, this.partialSchema[key], partialInputData);
+      this.forms[key] = subElementForms;
+      this.initializeNodeForms(dataTree[key].nodes);
     }
-
-    let subCategoriesOrder = this.props.schema.subCategoriesOrder;
-    let subElementForms = this.createForms(key, subCategoriesOrder, this.partialSchema[key], partialInputData);
-    this.forms[key] = subElementForms;
-    this.initializeNodeForms(dataTree[key].nodes);
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    return {
-      state
-    };
-  }
-
-  onSubmit(data) {
-    let localForms = this.formRefs;
-    let index = -1;
-
-    for (let i = 0; i < localForms.length; i++) {
-      let ref = localForms[i];
-
-      if (ref.state.formData === data.formData) {
-        index = i;
-        break;
-      }
-    }
-
-    let linkedFields = this.state.linkedFields;
-
-    for (let key in data.formData) {
-      if (linkedFields[key] !== undefined) {
-        let value = data.formData[key];
-        let index = value.indexOf("/");
-        let newValue = value.substring(index + 1);
-        linkedFields[key].value = newValue;
-      }
-    }
-
-    this.setState({
-      linkedFields: linkedFields
-    });
-    let currentData = this.data.slice();
-    let currentErrors = this.errors.slice();
-    currentData.splice(index, 0, data);
-    currentErrors.splice(index, 0, null);
-    this.data = currentData;
-    this.errors = currentErrors;
-    this.processData();
-  }
-
-  onError(errors) {
-    let localForms = this.formRefs;
-    let index = -1;
-
-    for (let i = 0; i < localForms.length; i++) {
-      let ref = localForms[i];
-
-      if (ref.state.errors === errors) {
-        index = i;
-        break;
-      }
-    }
-
-    let currentData = this.data.slice();
-    let currentErrors = this.errors.slice();
-    currentData.splice(index, 0, null);
-    currentErrors.splice(index, 0, errors);
-    this.data = currentData;
-    this.errors = currentErrors;
-    this.processErrors();
-  }
-
-  processData() {
-    let currentData = this.data;
-    let numberOfForms = this.formRefs.length;
-    if (currentData.length < numberOfForms) return;
-    let consolidatedData = this.transformOutputData(currentData);
-    let currentChildrenComponents = this.state.currentChildrenComponents;
-    let attrName = this.props.currentChildrenComponentIdentifier;
-    Object.keys(currentChildrenComponents).forEach(function (key) {
-      let attr = attrName + key;
-      consolidatedData[attr] = currentChildrenComponents[key];
-    });
-    let linkedFields = Object.assign({}, this.state.linkedFields);
-    this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
-  }
-
-  processErrors() {
-    let currentErrors = this.errors;
-    let numberOfForms = this.formRefs.length;
-    if (currentErrors.length < numberOfForms) return;
-
-    for (let i = 0; i < currentErrors.length; i++) {
-      if (currentErrors[i] !== null) {
-        this.setState({
-          activeKey: "".concat(i)
-        });
-        return;
-      }
-    }
-  }
-
-  onEditComponents() {
-    this.setState({
-      showForm: false
-    });
-  }
-
-  onEditComponentsConfirm() {
-    this.initializeForms();
-    this.setState({
-      showForm: true
-    });
-  }
-
-  onEditComponentsCancel() {
-    this.setState({
-      showForm: true
-    });
-  }
-
-  onConfirm() {
-    let localForms = this.formRefs;
-    this.data = [];
-    this.errors = [];
-
-    for (let i = 0; i < localForms.length; i++) {
-      let ref = localForms[i];
-      ref.submit();
-    }
-  }
-
-  onCancel() {
-    this.props.onCancel();
-  }
-
-  transformOutputData(data) {
-    let consolidatedData = {};
-    data.map(function (item) {
-      let container = item.schema.container;
-      let subType = item.schema.subType;
-      let counter = item.schema.counter;
-      Object.keys(item.formData).forEach(function (key) {
-        if (subType === "object") {
-          if (consolidatedData[container] === undefined) consolidatedData[container] = {};
-          consolidatedData[container][key] = item.formData[key];
-        } else if (subType === "array") {
-          if (consolidatedData[container] === undefined) consolidatedData[container] = [];
-          if (consolidatedData[container][counter] === undefined) consolidatedData[container][counter] = {};
-          consolidatedData[container][counter][key] = item.formData[key];
-        } else {
-          consolidatedData[key] = item.formData[key];
-        }
-      });
-    });
-    return consolidatedData;
-  }
-
-  static findInputPropKeyValue(groupKey, index, propKey, inputData) {
-    let value = null;
-
-    for (let key in inputData) {
-      if (inputData[key] instanceof Array) {
-        if (key !== groupKey) continue;
-
-        if (inputData[key][propKey] !== undefined) {
-          return inputData[key][propKey];
-        } else {
-          value = MultiTabFormWithHeaderV2.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
-          if (value !== undefined) return value;
-        }
-      } else if (inputData[key] instanceof Object) {
-        if (index === -1) {
-          if (inputData[key][propKey] !== undefined) {
-            value = inputData[key][propKey];
-          } else {
-            value = MultiTabFormWithHeaderV2.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
-          }
-        } else if (key !== index) {
-          continue;
-        } else if (inputData[key][propKey] !== undefined) {
-          return inputData[key][propKey];
-        } else {
-          value = MultiTabFormWithHeaderV2.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
-        }
-
-        if (value !== undefined) return value;
-      }
-    }
-
-    return null;
-  }
-
-  static transformInputData(inputData, partialSchema) {
-    let partialInputData = [];
-    Object.keys(partialSchema).forEach(function (key) {
-      if (partialInputData[key] === undefined) partialInputData[key] = {};
-      Object.keys(partialSchema[key].properties).forEach(function (propKey) {
-        if (inputData[propKey] !== undefined) partialInputData[key][propKey] = inputData[propKey];else {
-          let stringIndex = key.lastIndexOf("_");
-          let index = -1;
-          if (stringIndex != -1) index = key.substr(stringIndex + 1, 1);
-          let stringKey = key.replace("_", "");
-          stringKey = stringKey.replace(index, "");
-          let val = MultiTabFormWithHeaderV2.findInputPropKeyValue(stringKey, index, propKey, inputData);
-
-          if (val !== null) {
-            partialInputData[key][propKey] = val;
-          }
-        }
-      });
-    });
-    return partialInputData;
-  }
-
-  static transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, counter, subType, linkedFields) {
-    let partialSchema = {};
-    Object.keys(schema.properties).forEach(function (key) {
-      let property = schema.properties[key];
-
-      if (property.type === _constants.string_object) {
-        let count = 0;
-
-        for (let inputKey in currentChildrenComponents) {
-          if (key.includes(inputKey)) {
-            count = currentChildrenComponents[inputKey];
-            break;
-          }
-        }
-
-        for (let i = 0; i < count; i++) {
-          let localPartialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, _constants.string_object, linkedFields);
-          partialSchema = Object.assign(partialSchema, localPartialSchema);
-        }
-
-        return;
-      } else if (property.type === _constants.string_array) {
-        let count = 0;
-
-        for (let inputKey in currentChildrenComponents) {
-          if (key.includes(inputKey)) {
-            count = currentChildrenComponents[inputKey];
-            break;
-          }
-        }
-
-        for (let i = 0; i < count; i++) {
-          let localPartialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, i, _constants.string_array, linkedFields);
-          partialSchema = Object.assign(partialSchema, localPartialSchema);
-        }
-
-        return;
-      }
-
-      let category = property.category;
-      let newCategory = category;
-      if (counter !== -1) newCategory += "_" + counter;
-      let keysForCategory = partialSchema[newCategory];
-
-      if (keysForCategory === undefined || keysForCategory === null) {
-        keysForCategory = {
-          title: newCategory,
-          type: _constants.string_object,
-          subType: subType,
-          container: category,
-          counter: counter,
-          properties: {}
-        };
-      }
-
-      let newProperty = Object.assign({}, property);
-
-      if (property.linkTo !== undefined) {
-        newProperty[_constants.string_default] = _constants.string_na;
-        newProperty[_constants.string_enum] = [_constants.string_na];
-        newProperty[_constants.string_enumNames] = [_constants.string_not_assigned];
-
-        if (elementByType[property.linkTo] !== undefined) {
-          let propElementByType = elementByType[property.linkTo];
-
-          if (linkedFields[key] === undefined) {
-            linkedFields[key] = {
-              schemaType: property.linkTo,
-              value: _constants.string_not_assigned
-            };
-          }
-
-          Object.keys(propElementByType).forEach(function (propElementByTypeName) {
-            let propElementByTypeID = propElementByType[propElementByTypeName];
-
-            newProperty[_constants.string_enum].push(property.linkTo + "/" + propElementByTypeID);
-
-            newProperty[_constants.string_enumNames].push(propElementByTypeName);
-          });
-        }
-      }
-
-      keysForCategory.properties[key] = newProperty;
-      partialSchema[newCategory] = keysForCategory;
-    });
-    Object.keys(partialSchema).forEach(function (key) {
-      let required = [];
-
-      if (schema.required !== undefined) {
-        Object.keys(partialSchema[key].properties).forEach(function (propKey) {
-          if (schema.required.indexOf(propKey) != -1) required.push(propKey);
-        });
-      }
-
-      if (required.length !== 0) partialSchema[key].required = required;
-    });
-    return partialSchema;
-  }
-
-  static transformSchema(currentChildrenComponents, schema, elementByType, linkedFields) {
-    let partialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, _constants.string_default, linkedFields);
-    return partialSchema;
-  }
-
-  createUISchema(partialSchema) {
-    let partialUISchema = [];
-    Object.keys(partialSchema).forEach((key, index1) => {
-      if (partialUISchema[key] === undefined) partialUISchema[key] = {};
-      Object.keys(partialSchema[key].properties).forEach((propKey, index2) => {
-        let uiProperties = {};
-
-        if (partialUISchema[key][propKey] !== undefined) {
-          Object.assign(uiProperties, partialUISchema[key][propKey]);
-        }
-
-        if (index1 === 0 && index2 === 0) {
-          partialUISchema[key][propKey] = Object.assign(uiProperties, {
-            "ui:autofocus": true
-          });
-        }
-
-        if (partialSchema[key].properties[propKey].readonly !== undefined) {
-          partialUISchema[key][propKey] = Object.assign(uiProperties, {
-            "ui:readonly": true
-          });
-        }
-      });
-    });
-    return partialUISchema;
-  }
-
-  createForm(schema, uiSchema, input, index, currentFormRefs, currentButtonsRefs) {
-    return /*#__PURE__*/_react.default.createElement(_reactJsonschemaForm.default, {
-      schema: schema,
-      uiSchema: uiSchema,
-      onSubmit: this.onSubmit,
-      onError: this.onError,
-      formData: input,
-      showErrorList: false,
-      ref: form => {
-        if (index != -1) {
-          currentFormRefs.splice(index, 0, form);
-        } else {
-          currentFormRefs.push(form);
-        }
-      },
-      style: {
-        overflow: "hidden"
-      }
-    }, /*#__PURE__*/_react.default.createElement("button", {
-      ref: btn => {
-        if (index != -1) {
-          currentButtonsRefs.splice(index, 0, btn);
-        } else {
-          currentButtonsRefs.push(btn);
-        }
-      },
-      style: {
-        display: "none"
-      }
-    }));
-  }
-
-  createForms(formsKey, subCategoriesOrder, partialSchema, partialInputData) {
-    let currentButtonsRefs = [];
-    let currentFormNames = [];
-    let currentFormRefs = [];
-    let partialUISchema = this.createUISchema(partialSchema);
-    let currentForms = [];
-    Object.keys(subCategoriesOrder).forEach((key, index) => {
-      let description = subCategoriesOrder[key];
-      if (partialSchema[key] === undefined) return;
-      partialSchema[key] = Object.assign(partialSchema[key], {
-        description
-      });
-      currentFormNames.splice(index, 0, key);
-      let form = this.createForm(partialSchema[key], partialUISchema[key], partialInputData[key], index, currentFormRefs, currentButtonsRefs);
-      currentForms.push(form); //}
-    });
-    let schemaKeys = Object.keys(partialSchema);
-
-    for (let i = 0; i < schemaKeys.length; i++) {
-      let key = schemaKeys[i];
-      if (Object.keys(subCategoriesOrder).includes(key)) continue;
-      let description = null;
-      Object.keys(subCategoriesOrder).forEach((subKey, index) => {
-        if (key.startsWith(subKey)) {
-          description = subCategoriesOrder[subKey];
-        }
-      });
-      if (description === null) description = "";
-      partialSchema[key] = Object.assign(partialSchema[key], {
-        description
-      });
-      currentFormNames.push(key);
-      let form = this.createForm(partialSchema[key], partialUISchema[key], partialInputData[key], -1, currentFormRefs, currentButtonsRefs);
-      currentForms.push(form);
-    }
-
-    this.buttonsRefs[formsKey] = currentButtonsRefs;
-    this.formNames[formsKey] = currentFormNames;
-    this.formRefs[formsKey] = currentFormRefs;
-    return currentForms;
-  }
-
-  onTabChange(key) {
-    this.setState({
-      activeKey: key
-    });
-  }
-
-  onItemChange(key) {
-    this.setState({
-      activeFormKey: key,
-      activeKey: "0"
-    });
-  }
-
-  onClickAddChildComponent(key) {
-    let currentChildrenComponents = Object.assign({}, this.state.currentChildrenComponents);
-    currentChildrenComponents[key] = currentChildrenComponents[key] + 1;
-    this.setState({
-      currentChildrenComponents: currentChildrenComponents
-    });
-  }
-
-  onClickRemoveChildComponent(key) {
-    let currentChildrenComponents = Object.assign({}, this.state.currentChildrenComponents);
-    currentChildrenComponents[key] = currentChildrenComponents[key] - 1;
-    this.setState({
-      currentChildrenComponents: currentChildrenComponents
-    });
-  }
-
-  createChildrenComponentsButton() {
-    let currentChildrenComponents = this.state.currentChildrenComponents;
-    let minChildrenComponents = this.state.minChildrenComponents;
-    let maxChildrenComponents = this.state.maxChildrenComponents;
-    const buttonNoMargin = {
-      width: "250px",
-      marginBottom: "5px"
-    };
-    const sideButtonLeftMargin = {
-      width: "50px",
-      marginLeft: "5px",
-      marginBottom: "5px"
-    };
-    const sideButtonRightMargin = {
-      width: "50px",
-      marginRight: "5px",
-      marginBottom: "5px"
-    };
-    let buttons = [];
-    Object.keys(currentChildrenComponents).forEach(key => {
-      let currentChildren = currentChildrenComponents[key];
-      let minChildren = minChildrenComponents[key];
-      let maxChildren = maxChildrenComponents[key];
-      let isMinDisabled = minChildren === currentChildren;
-      let isMaxDisabled = maxChildren === currentChildren;
-      buttons.push( /*#__PURE__*/_react.default.createElement("div", {
-        key: key
-      }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-        style: sideButtonLeftMargin,
-        variant: isMinDisabled ? "secondary" : "danger",
-        onClick: isMinDisabled ? null : () => this.onClickRemoveChildComponent(key),
-        disabled: isMinDisabled,
-        value: key
-      }, "-"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-        style: buttonNoMargin,
-        size: "lg",
-        variant: "secondary",
-        disabled: true
-      }, key, " : ", currentChildren), /*#__PURE__*/_react.default.createElement(_Button.default, {
-        style: sideButtonRightMargin,
-        variant: isMaxDisabled ? "secondary" : "success",
-        onClick: isMaxDisabled ? null : () => this.onClickAddChildComponent(key),
-        disabled: isMaxDisabled,
-        value: key
-      }, "+")));
-    });
-    return buttons;
-  }
-
-  render() {
-    const button = {
-      width: "250px",
-      marginLeft: "5px",
-      marginRight: "5px"
-    };
-    const buttonContainerColumnExternal = {
-      display: "flex",
-      flexDirection: "column",
-      flexWap: "wrap",
-      justifyContent: "center",
-      alignItems: "center",
-      width: "100%",
-      height: "100%"
-    };
-    const buttonContainerColumn = {
-      display: "flex",
-      flexDirection: "column",
-      flexWap: "wrap",
-      justifyContent: "center",
-      alignItems: "center"
-    };
-    const buttonContainerRow = {
-      display: "flex",
-      flexDirection: "row",
-      flexWap: "wrap",
-      justifyContent: "center"
-    };
-    let currentChildrenComponents = this.state.currentChildrenComponents;
-    let minChildrenComponents = this.state.minChildrenComponents;
-    let maxChildrenComponents = this.state.maxChildrenComponents;
-    let showForm = this.state.showForm;
-    let childrenButtons = this.createChildrenComponentsButton();
-
-    if (!showForm) {
-      return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
-        overlaysContainer: this.props.overlaysContainer
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: buttonContainerColumnExternal
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: buttonContainerColumn
-      }, childrenButtons), /*#__PURE__*/_react.default.createElement("div", {
-        style: buttonContainerRow
-      }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-        style: button,
-        size: "lg",
-        onClick: this.onEditComponentsConfirm
-      }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-        style: button,
-        size: "lg",
-        onClick: this.onEditComponentsCancel
-      }, "Cancel"))));
-    } //FIXME Add the tree here and tree logic
-
-
-    let activeFormKey = this.state.activeFormKey;
-    let paths = this.paths;
-    console.log("IM HERE - RENDER  - " + activeFormKey);
-    let names = this.formNames[activeFormKey];
-    let forms = this.forms[activeFormKey];
-    console.log(forms);
-    let tabs = forms.map(function (item, index) {
-      return /*#__PURE__*/_react.default.createElement(_rcTabs.TabPane, {
-        tab: names[index],
-        key: index,
-        forceRender: true
-      }, item);
-    });
-    let hasEditableChildren = false;
-
-    if (Object.keys(currentChildrenComponents).length > 0) {
-      for (let key in currentChildrenComponents) {
-        let current = currentChildrenComponents[key];
-        let min = minChildrenComponents[key];
-        let max = maxChildrenComponents[key];
-
-        if (current !== min || current !== max) {
-          hasEditableChildren = true;
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(data) {
+      var localForms = this.formRefs;
+      var index = -1;
+
+      for (var i = 0; i < localForms.length; i++) {
+        var ref = localForms[i];
+
+        if (ref.state.formData === data.formData) {
+          index = i;
           break;
         }
       }
+
+      var linkedFields = this.state.linkedFields;
+
+      for (var key in data.formData) {
+        if (linkedFields[key] !== undefined) {
+          var value = data.formData[key];
+
+          var _index = value.indexOf("/");
+
+          var newValue = value.substring(_index + 1);
+          linkedFields[key].value = newValue;
+        }
+      }
+
+      this.setState({
+        linkedFields: linkedFields
+      });
+      var currentData = this.data.slice();
+      var currentErrors = this.errors.slice();
+      currentData.splice(index, 0, data);
+      currentErrors.splice(index, 0, null);
+      this.data = currentData;
+      this.errors = currentErrors;
+      this.processData();
     }
+  }, {
+    key: "onError",
+    value: function onError(errors) {
+      var localForms = this.formRefs;
+      var index = -1;
 
-    const style = {
-      display: "flex",
-      flexFlow: "row"
-    };
-    const tabsStyle = {
-      overflow: "auto"
-    };
-    const treeStyle = {
-      marginRight: "10px"
-    }; //<div>{this.props.schema.description}</div>
+      for (var i = 0; i < localForms.length; i++) {
+        var ref = localForms[i];
 
-    return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
-      overlaysContainer: this.props.overlaysContainer
-    }, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title), /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement("div", {
-      style: style
-    }, /*#__PURE__*/_react.default.createElement("div", {
-      style: treeStyle
-    }, /*#__PURE__*/_react.default.createElement(_reactSimpleTreeMenu.default, {
-      data: this.dataTree,
-      onClickItem: (_ref2) => {
-        let key = _ref2.key,
-            label = _ref2.label,
-            props = _objectWithoutProperties(_ref2, ["key", "label"]);
+        if (ref.state.errors === errors) {
+          index = i;
+          break;
+        }
+      }
 
-        console.log(props);
-        this.onItemChange(key); //this.navigate(props.url); // user defined prop
-      },
-      openNodes: paths,
-      initialActiveKey: activeFormKey,
-      debounceTime: 125,
-      disableKeyboard: false,
-      hasSearch: false,
-      resetOpenNodesOnDataUpdate: false
-    }, ({
-      search,
-      items
-    }) => /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactstrap.ListGroup, null, items.map(props => /*#__PURE__*/_react.default.createElement(ListItem, props)))))), /*#__PURE__*/_react.default.createElement("div", {
-      style: tabsStyle
-    }, /*#__PURE__*/_react.default.createElement(_rcTabs.default, {
-      onChange: this.onTabChange // renderTabBar={() => <ScrollableTabBar />}
-      // renderTabContent={() => <TabContent animatedWithMargin />}
-      ,
-      activeKey: this.state.activeKey
-    }, tabs))), /*#__PURE__*/_react.default.createElement("div", {
-      style: buttonContainerRow
-    }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-      style: button,
-      size: "lg",
-      variant: !hasEditableChildren ? "secondary" : "primary",
-      onClick: !hasEditableChildren ? null : this.onEditComponents,
-      disabled: !hasEditableChildren
-    }, "Add/Remove band-pass"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-      style: button,
-      size: "lg",
-      onClick: this.onConfirm
-    }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-      style: button,
-      size: "lg",
-      onClick: this.onCancel
-    }, "Cancel")));
-  }
+      var currentData = this.data.slice();
+      var currentErrors = this.errors.slice();
+      currentData.splice(index, 0, null);
+      currentErrors.splice(index, 0, errors);
+      this.data = currentData;
+      this.errors = currentErrors;
+      this.processErrors();
+    }
+  }, {
+    key: "processData",
+    value: function processData() {
+      var currentData = this.data;
+      var numberOfForms = this.formRefs.length;
+      if (currentData.length < numberOfForms) return;
+      var consolidatedData = this.transformOutputData(currentData);
+      var currentChildrenComponents = this.state.currentChildrenComponents;
+      var attrName = this.props.currentChildrenComponentIdentifier;
+      Object.keys(currentChildrenComponents).forEach(function (key) {
+        consolidatedData[attrName + key] = currentChildrenComponents[key];
+      });
+      var linkedFields = Object.assign({}, this.state.linkedFields);
+      this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
+    }
+  }, {
+    key: "processErrors",
+    value: function processErrors() {
+      var currentErrors = this.errors;
+      var numberOfForms = this.formRefs.length;
+      if (currentErrors.length < numberOfForms) return;
 
-}
+      for (var i = 0; i < currentErrors.length; i++) {
+        if (currentErrors[i] !== null) {
+          this.setState({
+            activeKey: "".concat(i)
+          });
+          return;
+        }
+      }
+    }
+  }, {
+    key: "onEditComponents",
+    value: function onEditComponents() {
+      this.setState({
+        showForm: false
+      });
+    }
+  }, {
+    key: "onEditComponentsConfirm",
+    value: function onEditComponentsConfirm() {
+      this.initializeForms();
+      this.setState({
+        showForm: true
+      });
+    }
+  }, {
+    key: "onEditComponentsCancel",
+    value: function onEditComponentsCancel() {
+      this.setState({
+        showForm: true
+      });
+    }
+  }, {
+    key: "onConfirm",
+    value: function onConfirm() {
+      var localForms = this.formRefs;
+      this.data = [];
+      this.errors = [];
+
+      for (var i = 0; i < localForms.length; i++) {
+        var ref = localForms[i];
+        ref.submit();
+      }
+    }
+  }, {
+    key: "onCancel",
+    value: function onCancel() {
+      this.props.onCancel();
+    }
+  }, {
+    key: "transformOutputData",
+    value: function transformOutputData(data) {
+      var consolidatedData = {};
+      data.map(function (item) {
+        var container = item.schema.container;
+        var subType = item.schema.subType;
+        var counter = item.schema.counter;
+        Object.keys(item.formData).forEach(function (key) {
+          if (subType === "object") {
+            if (consolidatedData[container] === undefined) consolidatedData[container] = {};
+            consolidatedData[container][key] = item.formData[key];
+          } else if (subType === "array") {
+            if (consolidatedData[container] === undefined) consolidatedData[container] = [];
+            if (consolidatedData[container][counter] === undefined) consolidatedData[container][counter] = {};
+            consolidatedData[container][counter][key] = item.formData[key];
+          } else {
+            consolidatedData[key] = item.formData[key];
+          }
+        });
+      });
+      return consolidatedData;
+    }
+  }, {
+    key: "createUISchema",
+    value: function createUISchema(partialSchema) {
+      var partialUISchema = [];
+      Object.keys(partialSchema).forEach(function (key, index1) {
+        if (partialUISchema[key] === undefined) partialUISchema[key] = {};
+        Object.keys(partialSchema[key].properties).forEach(function (propKey, index2) {
+          var uiProperties = {};
+
+          if (partialUISchema[key][propKey] !== undefined) {
+            Object.assign(uiProperties, partialUISchema[key][propKey]);
+          }
+
+          if (index1 === 0 && index2 === 0) {
+            partialUISchema[key][propKey] = Object.assign(uiProperties, {
+              "ui:autofocus": true
+            });
+          }
+
+          if (partialSchema[key].properties[propKey].readonly !== undefined) {
+            partialUISchema[key][propKey] = Object.assign(uiProperties, {
+              "ui:readonly": true
+            });
+          }
+        });
+      });
+      return partialUISchema;
+    }
+  }, {
+    key: "createForm",
+    value: function createForm(schema, uiSchema, input, index, currentFormRefs, currentButtonsRefs) {
+      return /*#__PURE__*/_react["default"].createElement(_reactJsonschemaForm["default"], {
+        schema: schema,
+        uiSchema: uiSchema,
+        onSubmit: this.onSubmit,
+        onError: this.onError,
+        formData: input,
+        showErrorList: false,
+        ref: function ref(form) {
+          if (index != -1) {
+            currentFormRefs.splice(index, 0, form);
+          } else {
+            currentFormRefs.push(form);
+          }
+        },
+        style: {
+          overflow: "hidden"
+        }
+      }, /*#__PURE__*/_react["default"].createElement("button", {
+        ref: function ref(btn) {
+          if (index != -1) {
+            currentButtonsRefs.splice(index, 0, btn);
+          } else {
+            currentButtonsRefs.push(btn);
+          }
+        },
+        style: {
+          display: "none"
+        }
+      }));
+    }
+  }, {
+    key: "createForms",
+    value: function createForms(formsKey, subCategoriesOrder, partialSchema, partialInputData) {
+      var _this4 = this;
+
+      var currentButtonsRefs = [];
+      var currentFormNames = [];
+      var currentFormRefs = [];
+      var partialUISchema = this.createUISchema(partialSchema);
+      var currentForms = [];
+      Object.keys(subCategoriesOrder).forEach(function (key, index) {
+        var description = subCategoriesOrder[key];
+        if (partialSchema[key] === undefined) return;
+        partialSchema[key] = Object.assign(partialSchema[key], {
+          description: description
+        });
+        currentFormNames.splice(index, 0, key);
+
+        var form = _this4.createForm(partialSchema[key], partialUISchema[key], partialInputData[key], index, currentFormRefs, currentButtonsRefs);
+
+        currentForms.push(form); //}
+      });
+      var schemaKeys = Object.keys(partialSchema);
+
+      var _loop = function (i) {
+        var key = schemaKeys[i];
+        if (Object.keys(subCategoriesOrder).includes(key)) return "continue";
+        var description = null;
+        Object.keys(subCategoriesOrder).forEach(function (subKey) {
+          if (key.startsWith(subKey)) {
+            description = subCategoriesOrder[subKey];
+          }
+        });
+        if (description === null) description = "";
+        partialSchema[key] = Object.assign(partialSchema[key], {
+          description: description
+        });
+        currentFormNames.push(key);
+
+        var form = _this4.createForm(partialSchema[key], partialUISchema[key], partialInputData[key], -1, currentFormRefs, currentButtonsRefs);
+
+        currentForms.push(form);
+      };
+
+      for (var i = 0; i < schemaKeys.length; i++) {
+        var _ret = _loop(i);
+
+        if (_ret === "continue") continue;
+      }
+
+      this.buttonsRefs[formsKey] = currentButtonsRefs;
+      this.formNames[formsKey] = currentFormNames;
+      this.formRefs[formsKey] = currentFormRefs;
+      return currentForms;
+    }
+  }, {
+    key: "onTabChange",
+    value: function onTabChange(key) {
+      this.setState({
+        activeKey: key
+      });
+    }
+  }, {
+    key: "onItemChange",
+    value: function onItemChange(key) {
+      this.setState({
+        activeFormKey: key,
+        activeKey: "0"
+      });
+    }
+  }, {
+    key: "onClickAddChildComponent",
+    value: function onClickAddChildComponent(key) {
+      var currentChildrenComponents = Object.assign({}, this.state.currentChildrenComponents);
+      currentChildrenComponents[key] = currentChildrenComponents[key] + 1;
+      this.setState({
+        currentChildrenComponents: currentChildrenComponents
+      });
+    }
+  }, {
+    key: "onClickRemoveChildComponent",
+    value: function onClickRemoveChildComponent(key) {
+      var currentChildrenComponents = Object.assign({}, this.state.currentChildrenComponents);
+      currentChildrenComponents[key] = currentChildrenComponents[key] - 1;
+      this.setState({
+        currentChildrenComponents: currentChildrenComponents
+      });
+    }
+  }, {
+    key: "createChildrenComponentsButton",
+    value: function createChildrenComponentsButton() {
+      var _this5 = this;
+
+      var currentChildrenComponents = this.state.currentChildrenComponents;
+      var minChildrenComponents = this.state.minChildrenComponents;
+      var maxChildrenComponents = this.state.maxChildrenComponents;
+      var buttonNoMargin = {
+        width: "250px",
+        marginBottom: "5px"
+      };
+      var sideButtonLeftMargin = {
+        width: "50px",
+        marginLeft: "5px",
+        marginBottom: "5px"
+      };
+      var sideButtonRightMargin = {
+        width: "50px",
+        marginRight: "5px",
+        marginBottom: "5px"
+      };
+      var buttons = [];
+      Object.keys(currentChildrenComponents).forEach(function (key) {
+        var currentChildren = currentChildrenComponents[key];
+        var minChildren = minChildrenComponents[key];
+        var maxChildren = maxChildrenComponents[key];
+        var isMinDisabled = minChildren === currentChildren;
+        var isMaxDisabled = maxChildren === currentChildren;
+        buttons.push( /*#__PURE__*/_react["default"].createElement("div", {
+          key: key
+        }, /*#__PURE__*/_react["default"].createElement(_Button["default"], {
+          style: sideButtonLeftMargin,
+          variant: isMinDisabled ? "secondary" : "danger",
+          onClick: isMinDisabled ? null : function () {
+            return _this5.onClickRemoveChildComponent(key);
+          },
+          disabled: isMinDisabled,
+          value: key
+        }, "-"), /*#__PURE__*/_react["default"].createElement(_Button["default"], {
+          style: buttonNoMargin,
+          size: "lg",
+          variant: "secondary",
+          disabled: true
+        }, key, " : ", currentChildren), /*#__PURE__*/_react["default"].createElement(_Button["default"], {
+          style: sideButtonRightMargin,
+          variant: isMaxDisabled ? "secondary" : "success",
+          onClick: isMaxDisabled ? null : function () {
+            return _this5.onClickAddChildComponent(key);
+          },
+          disabled: isMaxDisabled,
+          value: key
+        }, "+")));
+      });
+      return buttons;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this6 = this;
+
+      var button = {
+        width: "250px",
+        marginLeft: "5px",
+        marginRight: "5px"
+      };
+      var buttonContainerRow = {
+        display: "flex",
+        flexDirection: "row",
+        flexWap: "wrap",
+        justifyContent: "center"
+      };
+      var currentChildrenComponents = this.state.currentChildrenComponents;
+      var minChildrenComponents = this.state.minChildrenComponents;
+      var maxChildrenComponents = this.state.maxChildrenComponents;
+      var showForm = this.state.showForm;
+      var childrenButtons = this.createChildrenComponentsButton();
+
+      if (!showForm) {
+        return /*#__PURE__*/_react["default"].createElement(_modalWindow["default"], {
+          overlaysContainer: this.props.overlaysContainer
+        }, /*#__PURE__*/_react["default"].createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            flexWap: "wrap",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%"
+          }
+        }, /*#__PURE__*/_react["default"].createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            flexWap: "wrap",
+            justifyContent: "center",
+            alignItems: "center"
+          }
+        }, childrenButtons), /*#__PURE__*/_react["default"].createElement("div", {
+          style: buttonContainerRow
+        }, /*#__PURE__*/_react["default"].createElement(_Button["default"], {
+          style: button,
+          size: "lg",
+          onClick: this.onEditComponentsConfirm
+        }, "Confirm"), /*#__PURE__*/_react["default"].createElement(_Button["default"], {
+          style: button,
+          size: "lg",
+          onClick: this.onEditComponentsCancel
+        }, "Cancel"))));
+      } //FIXME Add the tree here and tree logic
+
+
+      var activeFormKey = this.state.activeFormKey;
+      var paths = this.paths;
+      console.log("IM HERE - RENDER  - " + activeFormKey);
+      var names = this.formNames[activeFormKey];
+      var forms = this.forms[activeFormKey];
+      console.log(forms);
+      var tabs = forms.map(function (item, index) {
+        return /*#__PURE__*/_react["default"].createElement(_rcTabs.TabPane, {
+          tab: names[index],
+          key: index,
+          forceRender: true
+        }, item);
+      });
+      var hasEditableChildren = false;
+
+      if (Object.keys(currentChildrenComponents).length > 0) {
+        for (var key in currentChildrenComponents) {
+          var current = currentChildrenComponents[key];
+          var min = minChildrenComponents[key];
+          var max = maxChildrenComponents[key];
+
+          if (current !== min || current !== max) {
+            hasEditableChildren = true;
+            break;
+          }
+        }
+      }
+
+      //<div>{this.props.schema.description}</div>
+      return /*#__PURE__*/_react["default"].createElement(_modalWindow["default"], {
+        overlaysContainer: this.props.overlaysContainer
+      }, /*#__PURE__*/_react["default"].createElement("h3", null, this.props.schema.title), /*#__PURE__*/_react["default"].createElement("p", null, hasEditableChildren ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react["default"].createElement("div", {
+        style: {
+          display: "flex",
+          flexFlow: "row"
+        }
+      }, /*#__PURE__*/_react["default"].createElement("div", {
+        style: {
+          marginRight: "10px"
+        }
+      }, /*#__PURE__*/_react["default"].createElement(_reactSimpleTreeMenu["default"], {
+        data: this.dataTree,
+        onClickItem: function onClickItem(_ref3) {
+          var key = _ref3.key,
+              label = _ref3.label,
+              props = _objectWithoutProperties(_ref3, ["key", "label"]);
+
+          console.log(props);
+
+          _this6.onItemChange(key); //this.navigate(props.url); // user defined prop
+
+        },
+        openNodes: paths,
+        initialActiveKey: activeFormKey,
+        debounceTime: 125,
+        disableKeyboard: false,
+        hasSearch: false,
+        resetOpenNodesOnDataUpdate: false
+      }, function (_ref4) {
+        var search = _ref4.search,
+            items = _ref4.items;
+        return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(_reactstrap.ListGroup, null, items.map(function (props) {
+          return /*#__PURE__*/_react["default"].createElement(ListItem, props);
+        })));
+      })), /*#__PURE__*/_react["default"].createElement("div", {
+        style: {
+          overflow: "auto"
+        }
+      }, /*#__PURE__*/_react["default"].createElement(_rcTabs["default"], {
+        onChange: this.onTabChange // renderTabBar={() => <ScrollableTabBar />}
+        // renderTabContent={() => <TabContent animatedWithMargin />}
+        ,
+        activeKey: this.state.activeKey
+      }, tabs))), /*#__PURE__*/_react["default"].createElement("div", {
+        style: buttonContainerRow
+      }, /*#__PURE__*/_react["default"].createElement(_Button["default"], {
+        style: button,
+        size: "lg",
+        variant: !hasEditableChildren ? "secondary" : "primary",
+        onClick: !hasEditableChildren ? null : this.onEditComponents,
+        disabled: !hasEditableChildren
+      }, "Add/Remove band-pass"), /*#__PURE__*/_react["default"].createElement(_Button["default"], {
+        style: button,
+        size: "lg",
+        onClick: this.onConfirm
+      }, "Confirm"), /*#__PURE__*/_react["default"].createElement(_Button["default"], {
+        style: button,
+        size: "lg",
+        onClick: this.onCancel
+      }, "Cancel")));
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(props, state) {
+      return {
+        state: state
+      };
+    }
+  }, {
+    key: "findInputPropKeyValue",
+    value: function findInputPropKeyValue(groupKey, index, propKey, inputData) {
+      var value = null;
+
+      for (var key in inputData) {
+        if (inputData[key] instanceof Array) {
+          if (key !== groupKey) continue;
+
+          if (inputData[key][propKey] !== undefined) {
+            return inputData[key][propKey];
+          } else {
+            value = MultiTabFormWithHeaderV2.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
+            if (value !== undefined) return value;
+          }
+        } else if (inputData[key] instanceof Object) {
+          if (index === -1) {
+            if (inputData[key][propKey] !== undefined) {
+              value = inputData[key][propKey];
+            } else {
+              value = MultiTabFormWithHeaderV2.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
+            }
+          } else if (key !== index) {
+            continue;
+          } else if (inputData[key][propKey] !== undefined) {
+            return inputData[key][propKey];
+          } else {
+            value = MultiTabFormWithHeaderV2.findInputPropKeyValue(groupKey, index, propKey, inputData[key]);
+          }
+
+          if (value !== undefined) return value;
+        }
+      }
+
+      return null;
+    }
+  }, {
+    key: "transformInputData",
+    value: function transformInputData(inputData, partialSchema) {
+      var partialInputData = [];
+      Object.keys(partialSchema).forEach(function (key) {
+        if (partialInputData[key] === undefined) partialInputData[key] = {};
+        Object.keys(partialSchema[key].properties).forEach(function (propKey) {
+          if (inputData[propKey] !== undefined) partialInputData[key][propKey] = inputData[propKey];else {
+            var stringIndex = key.lastIndexOf("_");
+            var index = -1;
+            if (stringIndex != -1) index = key.substr(stringIndex + 1, 1);
+            var stringKey = key.replace("_", "");
+            stringKey = stringKey.replace(index, "");
+            var val = MultiTabFormWithHeaderV2.findInputPropKeyValue(stringKey, index, propKey, inputData);
+
+            if (val !== null) {
+              partialInputData[key][propKey] = val;
+            }
+          }
+        });
+      });
+      return partialInputData;
+    }
+  }, {
+    key: "transformSchemaCategorizeField",
+    value: function transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, counter, subType, linkedFields) {
+      var partialSchema = {};
+      Object.keys(schema.properties).forEach(function (key) {
+        var property = schema.properties[key];
+
+        if (property.type === _constants.string_object) {
+          var count = 0;
+
+          for (var inputKey in currentChildrenComponents) {
+            if (key.includes(inputKey)) {
+              count = currentChildrenComponents[inputKey];
+              break;
+            }
+          }
+
+          for (var i = 0; i < count; i++) {
+            var localPartialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, _constants.string_object, linkedFields);
+            partialSchema = Object.assign(partialSchema, localPartialSchema);
+          }
+
+          return;
+        } else if (property.type === _constants.string_array) {
+          var _count = 0;
+
+          for (var _inputKey in currentChildrenComponents) {
+            if (key.includes(_inputKey)) {
+              _count = currentChildrenComponents[_inputKey];
+              break;
+            }
+          }
+
+          for (var _i = 0; _i < _count; _i++) {
+            var _localPartialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, _i, _constants.string_array, linkedFields);
+
+            partialSchema = Object.assign(partialSchema, _localPartialSchema);
+          }
+
+          return;
+        }
+
+        var category = property.category;
+        var newCategory = category;
+        if (counter !== -1) newCategory += "_" + counter;
+        var keysForCategory = partialSchema[newCategory];
+
+        if (keysForCategory === undefined || keysForCategory === null) {
+          keysForCategory = {
+            title: newCategory,
+            type: _constants.string_object,
+            subType: subType,
+            container: category,
+            counter: counter,
+            properties: {}
+          };
+        }
+
+        var newProperty = Object.assign({}, property);
+
+        if (property.linkTo !== undefined) {
+          newProperty[_constants.string_default] = _constants.string_na;
+          newProperty[_constants.string_enum] = [_constants.string_na];
+          newProperty[_constants.string_enumNames] = [_constants.string_not_assigned];
+
+          if (elementByType[property.linkTo] !== undefined) {
+            var propElementByType = elementByType[property.linkTo];
+
+            if (linkedFields[key] === undefined) {
+              linkedFields[key] = {
+                schemaType: property.linkTo,
+                value: _constants.string_not_assigned
+              };
+            }
+
+            Object.keys(propElementByType).forEach(function (propElementByTypeName) {
+              var propElementByTypeID = propElementByType[propElementByTypeName];
+
+              newProperty[_constants.string_enum].push(property.linkTo + "/" + propElementByTypeID);
+
+              newProperty[_constants.string_enumNames].push(propElementByTypeName);
+            });
+          }
+        }
+
+        keysForCategory.properties[key] = newProperty;
+        partialSchema[newCategory] = keysForCategory;
+      });
+      Object.keys(partialSchema).forEach(function (key) {
+        var required = [];
+
+        if (schema.required !== undefined) {
+          Object.keys(partialSchema[key].properties).forEach(function (propKey) {
+            if (schema.required.indexOf(propKey) != -1) required.push(propKey);
+          });
+        }
+
+        if (required.length !== 0) partialSchema[key].required = required;
+      });
+      return partialSchema;
+    }
+  }, {
+    key: "transformSchema",
+    value: function transformSchema(currentChildrenComponents, schema, elementByType, linkedFields) {
+      var partialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, _constants.string_default, linkedFields);
+      return partialSchema;
+    }
+  }]);
+
+  return MultiTabFormWithHeaderV2;
+}(_react["default"].PureComponent);
 /**
  * @todo Own file.
  */
 
 
-exports.default = MultiTabFormWithHeaderV2;
+exports["default"] = MultiTabFormWithHeaderV2;
