@@ -411,6 +411,7 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	dropped(e) {
+		let scalingFactor = this.props.scalingFactor;
 		let componentsSchema = this.state.componentsSchema;
 		let elementDimensions = this.props.canvasElementsDimensions;
 		let sourceElement = e.dragData;
@@ -456,6 +457,8 @@ export default class Canvas extends React.PureComponent {
 		let width = 100;
 		let height = 100;
 
+		let defaultOffset = 12 /** scalingFactor*/ + 6.67;
+
 		if (spots !== undefined && spots !== null) {
 			if (
 				ns_ID === "LightPath_ExcitationFilter" ||
@@ -463,19 +466,25 @@ export default class Canvas extends React.PureComponent {
 				ns_ID === "LightPath_StandardDichroic"
 			) {
 				let spot = spots;
-				width = spot.w;
-				height = spot.h;
+				let spotW = spot.w * scalingFactor;
+				let spotH = spot.h * scalingFactor;
+				width = spotW;
+				height = spotH;
 				newElementList.map((item, index) => {
 					if (item.schema_ID === "FilterSet.json") {
 						let tmpID = item.ID + "_" + ns_ID;
 						if (occupiedSpots.includes(tmpID)) return;
 						let xOff = item.x + item.width / 2 + spot.x + containerOffsetX;
 						let yOff =
-							item.y + item.height / 2 + 12 + 6.67 + spot.y + containerOffsetY;
-						let x1 = xOff - spot.w / 2;
-						let x2 = xOff + spot.w / 2;
-						let y1 = yOff - spot.h / 2;
-						let y2 = yOff + spot.h / 2;
+							item.y +
+							item.height / 2 +
+							defaultOffset +
+							spot.y +
+							containerOffsetY;
+						let x1 = xOff - spotW / 2;
+						let x2 = xOff + spotW / 2;
+						let y1 = yOff - spotH / 2;
+						let y2 = yOff + spotH / 2;
 						if (x > x1 && x < x2 && y > y1 && y < y2) {
 							x = x1;
 							y = y1;
@@ -487,16 +496,18 @@ export default class Canvas extends React.PureComponent {
 				for (let i = 0; i < spots.length; i++) {
 					let tmpID = ns_ID + "_" + i;
 					let spot = spots[i];
-					width = spot.w;
-					height = spot.h;
+					let spotW = spot.w * scalingFactor;
+					let spotH = spot.h * scalingFactor;
+					width = spotW;
+					height = spotH;
 					if (occupiedSpots.includes(tmpID)) continue;
 					if (spot.x !== -1 && spot.y !== -1) {
-						let xOff = spot.x + containerOffsetX; // + (offsetX - containerOffsetX);
-						let yOff = spot.y + containerOffsetY; // + (offsetY - containerOffsetY);
-						let x1 = xOff - spot.w / 2;
-						let x2 = xOff + spot.w / 2;
-						let y1 = yOff - spot.h / 2;
-						let y2 = yOff + spot.h / 2;
+						let xOff = spot.x * scalingFactor + containerOffsetX; // + (offsetX - containerOffsetX);
+						let yOff = spot.y * scalingFactor + containerOffsetY; // + (offsetY - containerOffsetY);
+						let x1 = xOff - spotW / 2;
+						let x2 = xOff + spotW / 2;
+						let y1 = yOff - spotH / 2;
+						let y2 = yOff + spotH / 2;
 						if (x > x1 && x < x2 && y > y1 && y < y2) {
 							x = x1;
 							y = y1;
@@ -508,16 +519,18 @@ export default class Canvas extends React.PureComponent {
 			} else {
 				let tmpID = ns_ID + "_" + 1;
 				let spot = spots;
-				width = spot.w;
-				height = spot.h;
+				let spotW = spot.w * scalingFactor;
+				let spotH = spot.h * scalingFactor;
+				width = spotW;
+				height = spotH;
 				if (!occupiedSpots.includes(tmpID)) {
 					if (spot.x !== -1 && spot.y !== -1) {
-						let xOff = spot.x + containerOffsetX; // + (offsetX - containerOffsetX);
-						let yOff = spot.y + containerOffsetY; // + (offsetY - containerOffsetY);
-						let x1 = xOff - spot.w / 2;
-						let x2 = xOff + spot.w / 2;
-						let y1 = yOff - spot.h / 2;
-						let y2 = yOff + spot.h / 2;
+						let xOff = spot.x * scalingFactor + containerOffsetX; // + (offsetX - containerOffsetX);
+						let yOff = spot.y * scalingFactor + containerOffsetY; // + (offsetY - containerOffsetY);
+						let x1 = xOff - spotW / 2;
+						let x2 = xOff + spotW / 2;
+						let y1 = yOff - spotH / 2;
+						let y2 = yOff + spotH / 2;
 						if (x > x1 && x < x2 && y > y1 && y < y2) {
 							x = x1;
 							y = y1;
@@ -530,11 +543,13 @@ export default class Canvas extends React.PureComponent {
 
 		//console.log("DROPPED: w-" + width + "||h-" + height);
 
+		let minElementWidth = number_min_element_width * scalingFactor;
+
 		let adjustedWidth = 0;
-		if (width < number_min_element_width) {
-			adjustedWidth = (number_min_element_width - width) / 2;
+		if (width < minElementWidth) {
+			adjustedWidth = (minElementWidth - width) / 2;
 			x -= adjustedWidth;
-			width = number_min_element_width;
+			width = minElementWidth;
 		}
 
 		if (originalDimensions[schema_ID] === undefined) {
@@ -546,10 +561,11 @@ export default class Canvas extends React.PureComponent {
 
 		if (occupiedSpot !== null) {
 			occupiedSpots.push(occupiedSpot);
-			y -= 12;
+			y -= 12; // * scalingFactor;
+			console.log("IN SPOT");
 		} else {
-			y -= 5;
-			x -= 5;
+			y -= 5 * scalingFactor;
+			x -= 5 * scalingFactor;
 		}
 
 		y -= 6.67;
@@ -836,25 +852,30 @@ export default class Canvas extends React.PureComponent {
 			let z = item.z;
 			if (z > highestZ) highestZ = z;
 		}
+		let imageValidationSize = 16 * scalingFactor;
 		const imageValidation = {
-			height: "16px",
-			width: "16px",
+			height: `${imageValidationSize}px`,
+			width: `${imageValidationSize}px`,
 			margin: "auto",
 			verticalAlign: "middle",
 		};
+		let fontSize = 14 * scalingFactor;
+		let grabberCloserSize = 12 * scalingFactor;
+		//console.log("fontSize - " + fontSize);
+		//console.log("grabberCloserSize - " + grabberCloserSize);
 		const styleGrabber = {
-			lineHeight: "12px",
-			fontSize: "14px",
+			lineHeight: `${grabberCloserSize}px`,
+			fontSize: `${fontSize}px`,
 			fontWeight: "bold",
 			color: "grey",
 			textAlign: "center",
 			verticalAlign: "middle",
 		};
 		const styleCloser = {
-			lineHeight: "12px",
+			lineHeight: `${grabberCloserSize}px`,
 			padding: "0px",
 			border: "none",
-			fontSize: "14px",
+			fontSize: `${fontSize}px`,
 			backgroundColor: "transparent",
 			cursor: "pointer",
 			color: "grey",
@@ -862,11 +883,13 @@ export default class Canvas extends React.PureComponent {
 			verticalAlign: "middle",
 		};
 		//justifyContent: "space-between"
+		let minElementWidth = number_min_element_width * scalingFactor;
+		//	console.log("minElementWidth - " + minElementWidth);
 		const styleActionContainer = {
 			display: "flex",
 			flexDirection: "row",
-			width: `${number_min_element_width}px`,
-			height: "12px",
+			width: `${minElementWidth}px`,
+			height: `${grabberCloserSize}px`,
 		};
 
 		let styleActionElementNameContainer = {
@@ -879,11 +902,13 @@ export default class Canvas extends React.PureComponent {
 			flexDirection: "column",
 		};
 		//paddingLeft: "5px",
+		let hoverSize = 125; //* scalingFactor;
+		let hoverFontSize = 80 * scalingFactor;
 		let styleNameHover = {
 			overflow: "unset",
-			fontSize: "80%",
+			fontSize: `${hoverFontSize}%`,
 			textAlign: "left",
-			lineHeight: "125%",
+			lineHeight: `${hoverSize}%`,
 			color: "gray",
 		};
 		let styleNameRegular = {
@@ -907,17 +932,20 @@ export default class Canvas extends React.PureComponent {
 			// if (containerWidth == -1) containerWidth = 100;
 			// if (containerHeight == -1) containerHeight = 100;
 
-			let scaledContainerWidth = containerWidth * scalingFactor;
-			let scaledContainerHeight = containerHeight * scalingFactor;
+			let scaledContainerWidth = containerWidth;
+			let scaledContainerHeight = containerHeight;
 
 			// if (!item.validated) {
 			// 	scaledContainerWidth += 10;
 			// 	scaledContainerHeight += 10;
 			// }
 
-			if (scaledContainerWidth <= number_min_element_width)
-				scaledContainerWidth = number_min_element_width;
-			scaledContainerHeight += 12 + 6.67;
+			if (scaledContainerWidth <= minElementWidth)
+				scaledContainerWidth = minElementWidth;
+			scaledContainerHeight += 12 /* * scalingFactor */ + 6.67;
+
+			// console.log("SCW - " + scaledContainerWidth);
+			// console.log("SCH - " + scaledContainerHeight);
 
 			stylesContainer[item.ID] = Object.assign(
 				{
@@ -934,8 +962,8 @@ export default class Canvas extends React.PureComponent {
 		let droppableElement = [];
 		let componentsSchema = this.state.componentsSchema;
 		let elementByType = {};
-		console.log("elementData");
-		console.log(elementData);
+		// console.log("elementData");
+		// console.log(elementData);
 		Object.keys(elementData).forEach(function (key) {
 			let element = elementData[key];
 			// console.log("element");
@@ -1169,6 +1197,8 @@ export default class Canvas extends React.PureComponent {
 			let xOff = offsetX - containerOffsetX;
 			let yOff = offsetY - containerOffsetY;
 
+			let defaultOffset = 12 /* * scalingFactor*/ + 6.67;
+
 			//console.log("occupiedSpots");
 			//console.log(occupiedSpots);
 			if (markedSpots !== undefined && markedSpots !== null) {
@@ -1186,18 +1216,17 @@ export default class Canvas extends React.PureComponent {
 							let yOff =
 								item.y +
 								item.height / 2 +
-								12 +
-								6.67 +
+								defaultOffset +
 								spot.y +
 								containerOffsetY;
-							let x1 = xOff - spot.w / 2;
-							let y1 = yOff - spot.h / 2;
+							let x1 = xOff - (spot.w * scalingFactor) / 2;
+							let y1 = yOff - (spot.h * scalingFactor) / 2;
 							let spotStyleTmp = {
 								position: "absolute",
 								left: x1,
 								top: y1,
-								width: spot.w,
-								height: spot.h,
+								width: spot.w * scalingFactor,
+								height: spot.h * scalingFactor,
 							};
 							if (this.state.showcasedSpot === spot) {
 								spotStyleTmp.border = "10px ridge cornflowerBlue";
@@ -1214,16 +1243,16 @@ export default class Canvas extends React.PureComponent {
 						let tmpID = draggingID + "_" + i;
 						if (occupiedSpots.includes(tmpID)) continue;
 						let spot = markedSpots[i];
-						let xOff = spot.x + containerOffsetX; // + xOff;
-						let yOff = spot.y + containerOffsetY; // + yOff;
-						let x1 = xOff - spot.w / 2;
-						let y1 = yOff - spot.h / 2;
+						let xOff = spot.x * scalingFactor + containerOffsetX; // + xOff;
+						let yOff = spot.y * scalingFactor + containerOffsetY; // + yOff;
+						let x1 = xOff - (spot.w * scalingFactor) / 2;
+						let y1 = yOff - (spot.h * scalingFactor) / 2;
 						let spotStyleTmp = {
 							position: "absolute",
 							left: x1,
 							top: y1,
-							width: spot.w,
-							height: spot.h,
+							width: spot.w * scalingFactor,
+							height: spot.h * scalingFactor,
 						};
 						if (this.state.showcasedSpot === spot) {
 							spotStyleTmp.border = "10px ridge cornflowerBlue";
@@ -1238,16 +1267,16 @@ export default class Canvas extends React.PureComponent {
 					let tmpID = draggingID + "_" + 1;
 					if (!occupiedSpots.includes(tmpID)) {
 						let spot = markedSpots;
-						let xOff = spot.x + containerOffsetX; // + xOff;
-						let yOff = spot.y + containerOffsetY; // + yOff;
-						let x1 = xOff - spot.w / 2;
-						let y1 = yOff - spot.h / 2;
+						let xOff = spot.x * scalingFactor + containerOffsetX; // + xOff;
+						let yOff = spot.y * scalingFactor + containerOffsetY; // + yOff;
+						let x1 = xOff - (spot.w * scalingFactor) / 2;
+						let y1 = yOff - (spot.h * scalingFactor) / 2;
 						let spotStyleTmp = {
 							position: "absolute",
 							left: x1,
 							top: y1,
-							width: spot.w,
-							height: spot.h,
+							width: spot.w * scalingFactor,
+							height: spot.h * scalingFactor,
 						};
 						if (this.state.showcasedSpot === spot) {
 							spotStyleTmp.border = "10px ridge cornflowerBlue";
