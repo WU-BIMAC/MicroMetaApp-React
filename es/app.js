@@ -483,7 +483,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     // 	return rawData;
     // }
     value: function createNewMicroscopeFromScratch() {
-      var typeDimensions = this.state.dimensions.Microscope_Inverted;
+      var typeDimensions = this.state.dimensions && this.state.dimensions.Microscope_Inverted || {};
       var uuid = (0, _uuid.v4)();
       var activeTier = this.state.activeTier;
       var adaptedSchemas = this.createAdaptedSchemas(activeTier);
@@ -507,7 +507,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createOrUseMicroscopeFromDroppedFile",
     value: function createOrUseMicroscopeFromDroppedFile() {
-      var typeDimensions = this.state.dimensions.Microscope_Inverted;
+      var typeDimensions = this.state.dimensions && this.state.dimensions.Microscope_Inverted || {};
       var uuid = (0, _uuid.v4)();
       var modifiedMic = this.state.microscope;
       var activeTier = this.state.activeTier;
@@ -580,7 +580,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createOrUseMicroscopeFromSelectedFile",
     value: function createOrUseMicroscopeFromSelectedFile() {
-      var typeDimensions = this.state.dimensions.Microscope_Inverted;
+      var typeDimensions = this.state.dimensions && this.state.dimensions.Microscope_Inverted || {};
       var uuid = (0, _uuid.v4)();
       var microscope = this.state.microscopes[this.state.micName];
       var modifiedMic = microscope;

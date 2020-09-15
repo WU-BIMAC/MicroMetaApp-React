@@ -516,7 +516,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	// }
 
 	createNewMicroscopeFromScratch() {
-		let typeDimensions = this.state.dimensions.Microscope_Inverted;
+		let typeDimensions = (this.state.dimensions && this.state.dimensions.Microscope_Inverted) || {};
 		let uuid = uuidv4();
 		let activeTier = this.state.activeTier;
 		let adaptedSchemas = this.createAdaptedSchemas(activeTier);
@@ -535,7 +535,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	createOrUseMicroscopeFromDroppedFile() {
-		let typeDimensions = this.state.dimensions.Microscope_Inverted;
+		let typeDimensions = (this.state.dimensions && this.state.dimensions.Microscope_Inverted) || {};
 		let uuid = uuidv4();
 		let modifiedMic = this.state.microscope;
 		let activeTier = this.state.activeTier;
@@ -605,7 +605,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	createOrUseMicroscopeFromSelectedFile() {
-		let typeDimensions = this.state.dimensions.Microscope_Inverted;
+		let typeDimensions = (this.state.dimensions && this.state.dimensions.Microscope_Inverted) || {};
 		let uuid = uuidv4();
 		let microscope = this.state.microscopes[this.state.micName];
 		let modifiedMic = microscope;
