@@ -474,7 +474,7 @@ export default class Canvas extends React.PureComponent {
 					if (item.schema_ID === "FilterSet.json") {
 						let tmpID = item.ID + "_" + ns_ID;
 						if (occupiedSpots.includes(tmpID)) return;
-						let xOff = item.x + item.width / 2 + spot.x + containerOffsetX;
+						let xOff = item.x + item.width / 2 + spot.x; // + containerOffsetX;
 						let yOff =
 							item.y +
 							item.height / 2 +
@@ -502,8 +502,8 @@ export default class Canvas extends React.PureComponent {
 					height = spotH;
 					if (occupiedSpots.includes(tmpID)) continue;
 					if (spot.x !== -1 && spot.y !== -1) {
-						let xOff = spot.x * scalingFactor + containerOffsetX; // + (offsetX - containerOffsetX);
-						let yOff = spot.y * scalingFactor + containerOffsetY; // + (offsetY - containerOffsetY);
+						let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
+						let yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
 						let x1 = xOff - spotW / 2;
 						let x2 = xOff + spotW / 2;
 						let y1 = yOff - spotH / 2;
@@ -525,8 +525,8 @@ export default class Canvas extends React.PureComponent {
 				height = spotH;
 				if (!occupiedSpots.includes(tmpID)) {
 					if (spot.x !== -1 && spot.y !== -1) {
-						let xOff = spot.x * scalingFactor + containerOffsetX; // + (offsetX - containerOffsetX);
-						let yOff = spot.y * scalingFactor + containerOffsetY; // + (offsetY - containerOffsetY);
+						let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
+						let yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
 						let x1 = xOff - spotW / 2;
 						let x2 = xOff + spotW / 2;
 						let y1 = yOff - spotH / 2;
@@ -1212,7 +1212,7 @@ export default class Canvas extends React.PureComponent {
 							let tmpID = item.ID + "_" + draggingID;
 							if (occupiedSpots.includes(tmpID)) return;
 							let spot = markedSpots;
-							let xOff = item.x + item.width / 2 + spot.x + containerOffsetX; // + xOff;
+							let xOff = item.x + item.width / 2 + spot.x; // + containerOffsetX; // + xOff;
 							let yOff =
 								item.y +
 								item.height / 2 +
@@ -1243,8 +1243,8 @@ export default class Canvas extends React.PureComponent {
 						let tmpID = draggingID + "_" + i;
 						if (occupiedSpots.includes(tmpID)) continue;
 						let spot = markedSpots[i];
-						let xOff = spot.x * scalingFactor + containerOffsetX; // + xOff;
-						let yOff = spot.y * scalingFactor + containerOffsetY; // + yOff;
+						let xOff = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
+						let yOff = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
 						let x1 = xOff - (spot.w * scalingFactor) / 2;
 						let y1 = yOff - (spot.h * scalingFactor) / 2;
 						let spotStyleTmp = {
@@ -1267,8 +1267,8 @@ export default class Canvas extends React.PureComponent {
 					let tmpID = draggingID + "_" + 1;
 					if (!occupiedSpots.includes(tmpID)) {
 						let spot = markedSpots;
-						let xOff = spot.x * scalingFactor + containerOffsetX; // + xOff;
-						let yOff = spot.y * scalingFactor + containerOffsetY; // + yOff;
+						let xOff = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
+						let yOff = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
 						let x1 = xOff - (spot.w * scalingFactor) / 2;
 						let y1 = yOff - (spot.h * scalingFactor) / 2;
 						let spotStyleTmp = {

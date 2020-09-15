@@ -474,7 +474,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             if (item.schema_ID === "FilterSet.json") {
               var tmpID = item.ID + "_" + ns_ID;
               if (occupiedSpots.includes(tmpID)) return;
-              var xOff = item.x + item.width / 2 + spot.x + containerOffsetX;
+              var xOff = item.x + item.width / 2 + spot.x; // + containerOffsetX;
+
               var yOff = item.y + item.height / 2 + (12
               /** scalingFactor*/
               + 6.67) + spot.y + containerOffsetY;
@@ -502,9 +503,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             if (occupiedSpots.includes(tmpID)) continue;
 
             if (_spot.x !== -1 && _spot.y !== -1) {
-              var xOff = _spot.x * scalingFactor + containerOffsetX; // + (offsetX - containerOffsetX);
+              var xOff = _spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
 
-              var yOff = _spot.y * scalingFactor + containerOffsetY; // + (offsetY - containerOffsetY);
+              var yOff = _spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
 
               var x1 = xOff - _spotW / 2;
               var y1 = yOff - _spotH / 2;
@@ -531,10 +532,10 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
           if (!occupiedSpots.includes(_tmpID)) {
             if (_spot2.x !== -1 && _spot2.y !== -1) {
-              var _xOff = _spot2.x * scalingFactor + containerOffsetX; // + (offsetX - containerOffsetX);
+              var _xOff = _spot2.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
 
 
-              var _yOff = _spot2.y * scalingFactor + containerOffsetY; // + (offsetY - containerOffsetY);
+              var _yOff = _spot2.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
 
 
               var _x = _xOff - _spotW2 / 2;
@@ -1200,7 +1201,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                 if (occupiedSpots.includes(tmpID)) return;
                 var spot = markedSpots;
 
-                var _xOff2 = item.x + item.width / 2 + spot.x + containerOffsetX; // + xOff;
+                var _xOff2 = item.x + item.width / 2 + spot.x; // + containerOffsetX; // + xOff;
 
 
                 var _yOff2 = item.y + item.height / 2 + (12
@@ -1235,10 +1236,10 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
               if (occupiedSpots.includes(tmpID)) continue;
               var spot = markedSpots[i];
 
-              var _xOff3 = spot.x * scalingFactor + containerOffsetX; // + xOff;
+              var _xOff3 = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
 
 
-              var _yOff3 = spot.y * scalingFactor + containerOffsetY; // + yOff;
+              var _yOff3 = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
 
 
               var x1 = _xOff3 - spot.w * scalingFactor / 2;
@@ -1268,10 +1269,10 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             if (!occupiedSpots.includes(_tmpID2)) {
               var _spot3 = markedSpots;
 
-              var _xOff4 = _spot3.x * scalingFactor + containerOffsetX; // + xOff;
+              var _xOff4 = _spot3.x * scalingFactor; // + containerOffsetX; // + xOff;
 
 
-              var _yOff4 = _spot3.y * scalingFactor + containerOffsetY; // + yOff;
+              var _yOff4 = _spot3.y * scalingFactor; // + containerOffsetY; // + yOff;
 
 
               var _x3 = _xOff4 - _spot3.w * scalingFactor / 2;
