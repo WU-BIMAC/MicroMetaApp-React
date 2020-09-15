@@ -465,7 +465,8 @@ class Canvas extends _react.default.PureComponent {
             if (occupiedSpots.includes(tmpID)) return;
             let xOff = item.x + item.width / 2 + spot.x; // + containerOffsetX;
 
-            let yOff = item.y + item.height / 2 + defaultOffset + spot.y + containerOffsetY;
+            let yOff = item.y + item.height / 2 + defaultOffset + spot.y; // + containerOffsetY;
+
             let x1 = xOff - spotW / 2;
             let x2 = xOff + spotW / 2;
             let y1 = yOff - spotH / 2;
@@ -1201,7 +1202,8 @@ class Canvas extends _react.default.PureComponent {
               let spot = markedSpots;
               let xOff = item.x + item.width / 2 + spot.x; // + containerOffsetX; // + xOff;
 
-              let yOff = item.y + item.height / 2 + defaultOffset + spot.y + containerOffsetY;
+              let yOff = item.y + item.height / 2 + defaultOffset + spot.y; // +containerOffsetY;
+
               let x1 = xOff - spot.w * scalingFactor / 2;
               let y1 = yOff - spot.h * scalingFactor / 2;
               let spotStyleTmp = {
