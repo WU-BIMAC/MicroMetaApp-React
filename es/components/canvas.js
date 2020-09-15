@@ -421,6 +421,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "dropped",
     value: function dropped(e) {
+      var scalingFactor = this.props.scalingFactor;
       var componentsSchema = this.state.componentsSchema;
       var elementDimensions = this.props.canvasElementsDimensions;
       var sourceElement = e.dragData;
@@ -465,20 +466,22 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       if (spots !== undefined && spots !== null) {
         if (ns_ID === "LightPath_ExcitationFilter" || ns_ID === "LightPath_EmissionFilter" || ns_ID === "LightPath_StandardDichroic") {
           var spot = spots;
-          width = spot.w;
-          height = spot.h;
+          var spotW = spot.w * scalingFactor;
+          var spotH = spot.h * scalingFactor;
+          width = spotW;
+          height = spotH;
           newElementList.map(function (item) {
             if (item.schema_ID === "FilterSet.json") {
               var tmpID = item.ID + "_" + ns_ID;
               if (occupiedSpots.includes(tmpID)) return;
               var xOff = item.x + item.width / 2 + spot.x + containerOffsetX;
-              var yOff = item.y + item.height / 2 + 12 + 6.67 + spot.y + containerOffsetY;
-              var x1 = xOff - spot.w / 2;
-              var x2 = xOff + spot.w / 2;
-              var y1 = yOff - spot.h / 2;
-              var y2 = yOff + spot.h / 2;
+              var yOff = item.y + item.height / 2 + (12
+              /** scalingFactor*/
+              + 6.67) + spot.y + containerOffsetY;
+              var x1 = xOff - spotW / 2;
+              var y1 = yOff - spotH / 2;
 
-              if (x > x1 && x < x2 && y > y1 && y < y2) {
+              if (x > x1 && x < xOff + spotW / 2 && y > y1 && y < yOff + spotH / 2) {
                 x = x1;
                 y = y1;
                 occupiedSpot = tmpID;
@@ -489,21 +492,24 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           for (var i = 0; i < spots.length; i++) {
             var tmpID = ns_ID + "_" + i;
             var _spot = spots[i];
-            width = _spot.w;
-            height = _spot.h;
+
+            var _spotW = _spot.w * scalingFactor;
+
+            var _spotH = _spot.h * scalingFactor;
+
+            width = _spotW;
+            height = _spotH;
             if (occupiedSpots.includes(tmpID)) continue;
 
             if (_spot.x !== -1 && _spot.y !== -1) {
-              var xOff = _spot.x + containerOffsetX; // + (offsetX - containerOffsetX);
+              var xOff = _spot.x * scalingFactor + containerOffsetX; // + (offsetX - containerOffsetX);
 
-              var yOff = _spot.y + containerOffsetY; // + (offsetY - containerOffsetY);
+              var yOff = _spot.y * scalingFactor + containerOffsetY; // + (offsetY - containerOffsetY);
 
-              var x1 = xOff - _spot.w / 2;
-              var x2 = xOff + _spot.w / 2;
-              var y1 = yOff - _spot.h / 2;
-              var y2 = yOff + _spot.h / 2;
+              var x1 = xOff - _spotW / 2;
+              var y1 = yOff - _spotH / 2;
 
-              if (x > x1 && x < x2 && y > y1 && y < y2) {
+              if (x > x1 && x < xOff + _spotW / 2 && y > y1 && y < yOff + _spotH / 2) {
                 x = x1;
                 y = y1;
                 occupiedSpot = tmpID;
@@ -515,26 +521,27 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           var _tmpID = ns_ID + "_" + 1;
 
           var _spot2 = spots;
-          width = _spot2.w;
-          height = _spot2.h;
+
+          var _spotW2 = _spot2.w * scalingFactor;
+
+          var _spotH2 = _spot2.h * scalingFactor;
+
+          width = _spotW2;
+          height = _spotH2;
 
           if (!occupiedSpots.includes(_tmpID)) {
             if (_spot2.x !== -1 && _spot2.y !== -1) {
-              var _xOff = _spot2.x + containerOffsetX; // + (offsetX - containerOffsetX);
+              var _xOff = _spot2.x * scalingFactor + containerOffsetX; // + (offsetX - containerOffsetX);
 
 
-              var _yOff = _spot2.y + containerOffsetY; // + (offsetY - containerOffsetY);
+              var _yOff = _spot2.y * scalingFactor + containerOffsetY; // + (offsetY - containerOffsetY);
 
 
-              var _x = _xOff - _spot2.w / 2;
+              var _x = _xOff - _spotW2 / 2;
 
-              var _x2 = _xOff + _spot2.w / 2;
+              var _y = _yOff - _spotH2 / 2;
 
-              var _y = _yOff - _spot2.h / 2;
-
-              var _y2 = _yOff + _spot2.h / 2;
-
-              if (x > _x && x < _x2 && y > _y && y < _y2) {
+              if (x > _x && x < _xOff + _spotW2 / 2 && y > _y && y < _yOff + _spotH2 / 2) {
                 x = _x;
                 y = _y;
                 occupiedSpot = _tmpID;
@@ -545,12 +552,13 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       } //console.log("DROPPED: w-" + width + "||h-" + height);
 
 
+      var minElementWidth = _constants.number_min_element_width * scalingFactor;
       var adjustedWidth = 0;
 
-      if (width < _constants.number_min_element_width) {
-        adjustedWidth = (_constants.number_min_element_width - width) / 2;
+      if (width < minElementWidth) {
+        adjustedWidth = (minElementWidth - width) / 2;
         x -= adjustedWidth;
-        width = _constants.number_min_element_width;
+        width = minElementWidth;
       }
 
       if (originalDimensions[schema_ID] === undefined) {
@@ -562,10 +570,12 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
       if (occupiedSpot !== null) {
         occupiedSpots.push(occupiedSpot);
-        y -= 12;
+        y -= 12; // * scalingFactor;
+
+        console.log("IN SPOT");
       } else {
-        y -= 5;
-        x -= 5;
+        y -= 5 * scalingFactor;
+        x -= 5 * scalingFactor;
       }
 
       y -= 6.67; // if (sourceElement.source !== string_toolbar) {
@@ -857,19 +867,30 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         if (z > highestZ) highestZ = z;
       }
 
+      var imageValidationSize = 16 * scalingFactor;
+      ({
+        height: "".concat(imageValidationSize, "px"),
+        width: "".concat(imageValidationSize, "px"),
+        margin: "auto",
+        verticalAlign: "middle"
+      });
+      var fontSize = 14 * scalingFactor;
+      var grabberCloserSize = 12 * scalingFactor; //console.log("fontSize - " + fontSize);
+      //console.log("grabberCloserSize - " + grabberCloserSize);
+
       var styleGrabber = {
-        lineHeight: "12px",
-        fontSize: "14px",
+        lineHeight: "".concat(grabberCloserSize, "px"),
+        fontSize: "".concat(fontSize, "px"),
         fontWeight: "bold",
         color: "grey",
         textAlign: "center",
         verticalAlign: "middle"
       };
       var styleCloser = {
-        lineHeight: "12px",
+        lineHeight: "".concat(grabberCloserSize, "px"),
         padding: "0px",
         border: "none",
-        fontSize: "14px",
+        fontSize: "".concat(fontSize, "px"),
         backgroundColor: "transparent",
         cursor: "pointer",
         color: "grey",
@@ -877,11 +898,13 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         verticalAlign: "middle"
       }; //justifyContent: "space-between"
 
+      var minElementWidth = _constants.number_min_element_width * scalingFactor; //	console.log("minElementWidth - " + minElementWidth);
+
       var styleActionContainer = {
         display: "flex",
         flexDirection: "row",
-        width: "".concat(_constants.number_min_element_width, "px"),
-        height: "12px"
+        width: "".concat(minElementWidth, "px"),
+        height: "".concat(grabberCloserSize, "px")
       };
       var styleActionElementNameContainer = {
         display: "flex",
@@ -894,9 +917,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
       var styleNameHover = {
         overflow: "unset",
-        fontSize: "80%",
+        fontSize: "".concat(80 * scalingFactor, "%"),
         textAlign: "left",
-        lineHeight: "125%",
+        lineHeight: "".concat(125, "%"),
         color: "gray"
       };
       var styleNameRegular = {
@@ -911,14 +934,18 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         var containerHeight = item.height; // if (containerWidth == -1) containerWidth = 100;
         // if (containerHeight == -1) containerHeight = 100;
 
-        var scaledContainerWidth = containerWidth * scalingFactor;
-        var scaledContainerHeight = containerHeight * scalingFactor; // if (!item.validated) {
+        var scaledContainerWidth = containerWidth;
+        var scaledContainerHeight = containerHeight; // if (!item.validated) {
         // 	scaledContainerWidth += 10;
         // 	scaledContainerHeight += 10;
         // }
 
-        if (scaledContainerWidth <= _constants.number_min_element_width) scaledContainerWidth = _constants.number_min_element_width;
-        scaledContainerHeight += 12 + 6.67;
+        if (scaledContainerWidth <= minElementWidth) scaledContainerWidth = minElementWidth;
+        scaledContainerHeight += 12
+        /* * scalingFactor */
+        + 6.67; // console.log("SCW - " + scaledContainerWidth);
+        // console.log("SCH - " + scaledContainerHeight);
+
         stylesContainer[item.ID] = Object.assign({
           width: "".concat(scaledContainerWidth, "px"),
           height: "".concat(scaledContainerHeight, "px")
@@ -934,9 +961,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       });
       var droppableElement = [];
       var componentsSchema = this.state.componentsSchema;
-      var elementByType = {};
-      console.log("elementData");
-      console.log(elementData);
+      var elementByType = {}; // console.log("elementData");
+      // console.log(elementData);
+
       Object.keys(elementData).forEach(function (key) {
         var element = elementData[key]; // console.log("element");
         // console.log(element);
@@ -1176,16 +1203,18 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                 var _xOff2 = item.x + item.width / 2 + spot.x + containerOffsetX; // + xOff;
 
 
-                var _yOff2 = item.y + item.height / 2 + 12 + 6.67 + spot.y + containerOffsetY;
+                var _yOff2 = item.y + item.height / 2 + (12
+                /* * scalingFactor*/
+                + 6.67) + spot.y + containerOffsetY;
 
-                var x1 = _xOff2 - spot.w / 2;
-                var y1 = _yOff2 - spot.h / 2;
+                var x1 = _xOff2 - spot.w * scalingFactor / 2;
+                var y1 = _yOff2 - spot.h * scalingFactor / 2;
                 var spotStyleTmp = {
                   position: "absolute",
                   left: x1,
                   top: y1,
-                  width: spot.w,
-                  height: spot.h
+                  width: spot.w * scalingFactor,
+                  height: spot.h * scalingFactor
                 };
 
                 if (_this3.state.showcasedSpot === spot) {
@@ -1206,20 +1235,20 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
               if (occupiedSpots.includes(tmpID)) continue;
               var spot = markedSpots[i];
 
-              var _xOff3 = spot.x + containerOffsetX; // + xOff;
+              var _xOff3 = spot.x * scalingFactor + containerOffsetX; // + xOff;
 
 
-              var _yOff3 = spot.y + containerOffsetY; // + yOff;
+              var _yOff3 = spot.y * scalingFactor + containerOffsetY; // + yOff;
 
 
-              var x1 = _xOff3 - spot.w / 2;
-              var y1 = _yOff3 - spot.h / 2;
+              var x1 = _xOff3 - spot.w * scalingFactor / 2;
+              var y1 = _yOff3 - spot.h * scalingFactor / 2;
               var spotStyleTmp = {
                 position: "absolute",
                 left: x1,
                 top: y1,
-                width: spot.w,
-                height: spot.h
+                width: spot.w * scalingFactor,
+                height: spot.h * scalingFactor
               };
 
               if (this.state.showcasedSpot === spot) {
@@ -1239,22 +1268,22 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             if (!occupiedSpots.includes(_tmpID2)) {
               var _spot3 = markedSpots;
 
-              var _xOff4 = _spot3.x + containerOffsetX; // + xOff;
+              var _xOff4 = _spot3.x * scalingFactor + containerOffsetX; // + xOff;
 
 
-              var _yOff4 = _spot3.y + containerOffsetY; // + yOff;
+              var _yOff4 = _spot3.y * scalingFactor + containerOffsetY; // + yOff;
 
 
-              var _x3 = _xOff4 - _spot3.w / 2;
+              var _x3 = _xOff4 - _spot3.w * scalingFactor / 2;
 
-              var _y3 = _yOff4 - _spot3.h / 2;
+              var _y3 = _yOff4 - _spot3.h * scalingFactor / 2;
 
               var _spotStyleTmp = {
                 position: "absolute",
                 left: _x3,
                 top: _y3,
-                width: _spot3.w,
-                height: _spot3.h
+                width: _spot3.w * scalingFactor,
+                height: _spot3.h * scalingFactor
               };
 
               if (this.state.showcasedSpot === _spot3) {
