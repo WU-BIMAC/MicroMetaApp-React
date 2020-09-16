@@ -478,7 +478,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
               var yOff = item.y + item.height / 2 + (12
               /** scalingFactor*/
-              + 6.67) + spot.y + containerOffsetY;
+              + 6.67) + spot.y; // + containerOffsetY;
+
               var x1 = xOff - spotW / 2;
               var y1 = yOff - spotH / 2;
 
@@ -1206,7 +1207,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
                 var _yOff2 = item.y + item.height / 2 + (12
                 /* * scalingFactor*/
-                + 6.67) + spot.y + containerOffsetY;
+                + 6.67) + spot.y; // +containerOffsetY;
+
 
                 var x1 = _xOff2 - spot.w * scalingFactor / 2;
                 var y1 = _yOff2 - spot.h * scalingFactor / 2;
