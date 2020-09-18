@@ -176,7 +176,10 @@ class Toolbar extends _react.default.PureComponent {
 
     toolbar.push(hardware_explorer);
 
-    _constants.menu_order.forEach(simpleKey => {
+    _constants.menu_order.forEach(key => {
+      let index = key.lastIndexOf(".");
+      let simpleKey;
+      if (index !== -1) simpleKey = key.substring(index + 1);else simpleKey = key;
       names.push(simpleKey);
     }); // Object.keys(elementList).forEach((key) => {
     // 	let index = key.lastIndexOf(".");
