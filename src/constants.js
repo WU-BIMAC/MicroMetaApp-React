@@ -36,9 +36,11 @@ export const number_logo_width = 800;
 export const number_logo_height = 280;
 
 export const number_canvas_width = 3201;
-export const number_canvas_height = 969;
+export const number_canvas_height = 989;
 
-export const number_min_element_width = 25;
+export const number_canvas_element_min_width = 25;
+export const number_canvas_element_icons_height = 12.5;
+export const number_canvas_element_offset_default = 6.67;
 
 export const menu_order = [
 	"MicroscopyBasics",

@@ -1,0 +1,17 @@
+#microscopy-app-container {
+	@import "react_resizable.scss";
+	@import "rc_tabs.scss";
+
+	.react-resizable-handle {
+		right: -7px !important;
+		bottom: -7px !important;
+	}
+}
+
+#microscopy-app-container button.common-btn {
+	text-align: center;
+	padding: 5px 8px;
+	font-weight: 500;
+	border-radius: 3px;
+	border: 1px solid transparent;
+}

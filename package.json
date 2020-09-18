@@ -13,7 +13,8 @@
 		"build": "gulp build-prod && gulp build-dev",
 		"build-all": "npm run build && npm run build-es",
 		"build-es": "npx babel ./src --out-dir ./es --env-name esm --verbose",
-		"watch-es": "npx babel ./src --out-dir ./es --env-name esm --verbose --watch"
+		"watch-es": "npx babel ./src --out-dir ./es --env-name esm --verbose --watch",
+		"build-css": "sass ./node_modules/react-resizable/css/styles.css ./public/assets/scss/react_resizable.scss && sass ./node_modules/rc-tabs/assets/index.css ./public/assets/scss/rc_tabs.scss && sass ./public/assets/scss/style-new.scss ./public/assets/css/style-new.css"
 	},
 	"publishConfig": {
 		"access": "restricted"
