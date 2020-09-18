@@ -24,7 +24,9 @@ import {
 	string_maxNumberOf_identifier,
 	number_canvas_width,
 	number_canvas_height,
-	number_min_element_width,
+	number_canvas_element_min_width,
+	number_canvas_element_icons_height,
+	number_canvas_element_offset_default,
 } from "../constants";
 import { bool } from "prop-types";
 
@@ -457,7 +459,9 @@ export default class Canvas extends React.PureComponent {
 		let width = 100;
 		let height = 100;
 
-		let defaultOffset = 12 /** scalingFactor*/ + 6.67;
+		let defaultOffset =
+			number_canvas_element_icons_height /** scalingFactor*/ +
+			number_canvas_element_offset_default;
 
 		if (spots !== undefined && spots !== null) {
 			if (
@@ -538,7 +542,7 @@ export default class Canvas extends React.PureComponent {
 
 		//console.log("DROPPED: w-" + width + "||h-" + height);
 
-		let minElementWidth = number_min_element_width * scalingFactor;
+		let minElementWidth = number_canvas_element_min_width * scalingFactor;
 
 		let adjustedWidth = 0;
 		if (width < minElementWidth) {
@@ -556,8 +560,7 @@ export default class Canvas extends React.PureComponent {
 
 		if (occupiedSpot !== null) {
 			occupiedSpots.push(occupiedSpot);
-			y -= 12; // * scalingFactor;
-			console.log("IN SPOT");
+			y -= number_canvas_element_icons_height; // * scalingFactor;
 		} else {
 			y -= 5 * scalingFactor;
 			x -= 5 * scalingFactor;
@@ -847,15 +850,15 @@ export default class Canvas extends React.PureComponent {
 			let z = item.z;
 			if (z > highestZ) highestZ = z;
 		}
-		let imageValidationSize = 16 * scalingFactor;
-		const imageValidation = {
-			height: `${imageValidationSize}px`,
-			width: `${imageValidationSize}px`,
-			margin: "auto",
-			verticalAlign: "middle",
-		};
-		let fontSize = 14 * scalingFactor;
-		let grabberCloserSize = 12 * scalingFactor;
+		// let imageValidationSize = 16 * scalingFactor;
+		// const imageValidation = {
+		// 	height: `${imageValidationSize}px`,
+		// 	width: `${imageValidationSize}px`,
+		// 	margin: "auto",
+		// 	verticalAlign: "middle",
+		// };
+		let fontSize = (number_canvas_element_icons_height + 2) * scalingFactor;
+		let grabberCloserSize = number_canvas_element_icons_height * scalingFactor;
 		//console.log("fontSize - " + fontSize);
 		//console.log("grabberCloserSize - " + grabberCloserSize);
 		const styleGrabber = {
@@ -878,7 +881,7 @@ export default class Canvas extends React.PureComponent {
 			verticalAlign: "middle",
 		};
 		//justifyContent: "space-between"
-		let minElementWidth = number_min_element_width * scalingFactor;
+		let minElementWidth = number_canvas_element_min_width * scalingFactor;
 		//	console.log("minElementWidth - " + minElementWidth);
 		const styleActionContainer = {
 			display: "flex",
@@ -937,7 +940,9 @@ export default class Canvas extends React.PureComponent {
 
 			if (scaledContainerWidth <= minElementWidth)
 				scaledContainerWidth = minElementWidth;
-			scaledContainerHeight += 12 /* * scalingFactor */ + 6.67;
+			scaledContainerHeight +=
+				number_canvas_element_icons_height /* * scalingFactor */ +
+				number_canvas_element_offset_default;
 
 			// console.log("SCW - " + scaledContainerWidth);
 			// console.log("SCH - " + scaledContainerHeight);
@@ -1192,7 +1197,9 @@ export default class Canvas extends React.PureComponent {
 			let xOff = offsetX - containerOffsetX;
 			let yOff = offsetY - containerOffsetY;
 
-			let defaultOffset = 12 /* * scalingFactor*/ + 6.67;
+			let defaultOffset =
+				number_canvas_element_icons_height /* * scalingFactor*/ +
+				number_canvas_element_offset_default;
 
 			//console.log("occupiedSpots");
 			//console.log(occupiedSpots);

@@ -499,9 +499,56 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
             var _spotH = _spot.h * scalingFactor;
 
-            width = _spotW;
-            height = _spotH;
-            if (occupiedSpots.includes(tmpID)) continue;
+    let offsetX = this.state.offsetX;
+    let offsetY = this.state.offsetY;
+    let containerOffsetX = this.props.containerOffsetLeft;
+    let containerOffsetY = this.props.containerOffsetTop;
+    x += offsetX - containerOffsetX;
+    y += offsetY - containerOffsetY; //console.logconsole.log("X: " + x + " - " + "Y: " + y);
+
+    let occupiedSpot = null;
+    let width = 100;
+    let height = 100;
+    let defaultOffset = _constants.number_canvas_element_icons_height
+    /** scalingFactor*/
+    + _constants.number_canvas_element_offset_default;
+
+    if (spots !== undefined && spots !== null) {
+      if (ns_ID === "LightPath_ExcitationFilter" || ns_ID === "LightPath_EmissionFilter" || ns_ID === "LightPath_StandardDichroic") {
+        let spot = spots;
+        let spotW = spot.w * scalingFactor;
+        let spotH = spot.h * scalingFactor;
+        width = spotW;
+        height = spotH;
+        newElementList.map((item, index) => {
+          if (item.schema_ID === "FilterSet.json") {
+            let tmpID = item.ID + "_" + ns_ID;
+            if (occupiedSpots.includes(tmpID)) return;
+            let xOff = item.x + item.width / 2 + spot.x; // + containerOffsetX;
+
+            let yOff = item.y + item.height / 2 + defaultOffset + spot.y; // + containerOffsetY;
+
+            let x1 = xOff - spotW / 2;
+            let x2 = xOff + spotW / 2;
+            let y1 = yOff - spotH / 2;
+            let y2 = yOff + spotH / 2;
+
+            if (x > x1 && x < x2 && y > y1 && y < y2) {
+              x = x1;
+              y = y1;
+              occupiedSpot = tmpID;
+            }
+          }
+        });
+      } else if (Array.isArray(spots)) {
+        for (let i = 0; i < spots.length; i++) {
+          let tmpID = ns_ID + "_" + i;
+          let spot = spots[i];
+          let spotW = spot.w * scalingFactor;
+          let spotH = spot.h * scalingFactor;
+          width = spotW;
+          height = spotH;
+          if (occupiedSpots.includes(tmpID)) continue;
 
             if (_spot.x !== -1 && _spot.y !== -1) {
               var xOff = _spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
@@ -524,17 +571,21 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
           var _spot2 = spots;
 
-          var _spotW2 = _spot2.w * scalingFactor;
+    let minElementWidth = _constants.number_canvas_element_min_width * scalingFactor;
+    let adjustedWidth = 0;
 
           var _spotH2 = _spot2.h * scalingFactor;
 
           width = _spotW2;
           height = _spotH2;
 
-          if (!occupiedSpots.includes(_tmpID)) {
-            if (_spot2.x !== -1 && _spot2.y !== -1) {
-              var _xOff = _spot2.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
-
+    if (occupiedSpot !== null) {
+      occupiedSpots.push(occupiedSpot);
+      y -= _constants.number_canvas_element_icons_height; // * scalingFactor;
+    } else {
+      y -= 5 * scalingFactor;
+      x -= 5 * scalingFactor;
+    }
 
               var _yOff = _spot2.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
 
@@ -839,74 +890,114 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
       elementList.splice(index, 1);
 
-      if (elementData[id] !== undefined) {
-        delete elementData[id];
-      }
+  createList() {
+    let scalingFactor = this.props.scalingFactor;
+    let originalDimensions = this.state.originalDimensions;
+    let hover = this.state.hover;
+    let elementList = this.state.elementList;
+    let elementData = this.state.elementData;
+    let highestZ = 0;
 
-      this.setState({
-        elementList: elementList,
-        elementData: elementData,
-        occupiedSpots: occupiedSpots
-      });
-      var validated = this.areAllElementsValidated();
-      this.props.updateElementData(elementData, validated);
-    }
-  }, {
-    key: "createList",
-    value: function createList() {
-      var _this2 = this;
+    for (let k = 0; k < this.state.elementList.length; k++) {
+      let item = elementList[k];
+      let z = item.z;
+      if (z > highestZ) highestZ = z;
+    } // let imageValidationSize = 16 * scalingFactor;
+    // const imageValidation = {
+    // 	height: `${imageValidationSize}px`,
+    // 	width: `${imageValidationSize}px`,
+    // 	margin: "auto",
+    // 	verticalAlign: "middle",
+    // };
 
-      var scalingFactor = this.props.scalingFactor;
-      var originalDimensions = this.state.originalDimensions;
-      var hover = this.state.hover;
-      var elementList = this.state.elementList;
-      var elementData = this.state.elementData;
-      var highestZ = 0;
 
-      for (var k = 0; k < this.state.elementList.length; k++) {
-        var item = elementList[k];
-        var z = item.z;
-        if (z > highestZ) highestZ = z;
-      }
+    let fontSize = (_constants.number_canvas_element_icons_height + 2) * scalingFactor;
+    let grabberCloserSize = _constants.number_canvas_element_icons_height * scalingFactor; //console.log("fontSize - " + fontSize);
+    //console.log("grabberCloserSize - " + grabberCloserSize);
 
-      var imageValidationSize = 16 * scalingFactor;
-      ({
-        height: "".concat(imageValidationSize, "px"),
-        width: "".concat(imageValidationSize, "px"),
-        margin: "auto",
-        verticalAlign: "middle"
-      });
-      var fontSize = 14 * scalingFactor;
-      var grabberCloserSize = 12 * scalingFactor; //console.log("fontSize - " + fontSize);
-      //console.log("grabberCloserSize - " + grabberCloserSize);
+    const styleGrabber = {
+      lineHeight: "".concat(grabberCloserSize, "px"),
+      fontSize: "".concat(fontSize, "px"),
+      fontWeight: "bold",
+      color: "grey",
+      textAlign: "center",
+      verticalAlign: "middle"
+    };
+    const styleCloser = {
+      lineHeight: "".concat(grabberCloserSize, "px"),
+      padding: "0px",
+      border: "none",
+      fontSize: "".concat(fontSize, "px"),
+      backgroundColor: "transparent",
+      cursor: "pointer",
+      color: "grey",
+      textAlign: "center",
+      verticalAlign: "middle"
+    }; //justifyContent: "space-between"
 
-      var styleGrabber = {
-        lineHeight: "".concat(grabberCloserSize, "px"),
-        fontSize: "".concat(fontSize, "px"),
-        fontWeight: "bold",
-        color: "grey",
-        textAlign: "center",
-        verticalAlign: "middle"
+    let minElementWidth = _constants.number_canvas_element_min_width * scalingFactor; //	console.log("minElementWidth - " + minElementWidth);
+
+    const styleActionContainer = {
+      display: "flex",
+      flexDirection: "row",
+      width: "".concat(minElementWidth, "px"),
+      height: "".concat(grabberCloserSize, "px")
+    };
+    let styleActionElementNameContainer = {
+      display: "flex",
+      flexDirection: "column"
+    };
+    let styleElementNameContainer = {
+      display: "flex",
+      flexDirection: "column"
+    }; //paddingLeft: "5px",
+
+    let hoverSize = 125; //* scalingFactor;
+
+    let hoverFontSize = 80 * scalingFactor;
+    let styleNameHover = {
+      overflow: "unset",
+      fontSize: "".concat(hoverFontSize, "%"),
+      textAlign: "left",
+      lineHeight: "".concat(hoverSize, "%"),
+      color: "gray"
+    };
+    let styleNameRegular = {
+      display: "none"
+    };
+    let stylesContainer = {};
+    let stylesImages = {};
+    elementList.map(item => {
+      let x = item.x;
+      let y = item.y;
+      let style = {
+        position: "absolute",
+        left: x,
+        top: y
       };
-      var styleCloser = {
-        lineHeight: "".concat(grabberCloserSize, "px"),
-        padding: "0px",
-        border: "none",
-        fontSize: "".concat(fontSize, "px"),
-        backgroundColor: "transparent",
-        cursor: "pointer",
-        color: "grey",
-        textAlign: "center",
-        verticalAlign: "middle"
-      }; //justifyContent: "space-between"
+      let containerWidth = item.width;
+      let containerHeight = item.height; // if (containerWidth == -1) containerWidth = 100;
+      // if (containerHeight == -1) containerHeight = 100;
 
-      var minElementWidth = _constants.number_min_element_width * scalingFactor; //	console.log("minElementWidth - " + minElementWidth);
+      let scaledContainerWidth = containerWidth;
+      let scaledContainerHeight = containerHeight; // if (!item.validated) {
+      // 	scaledContainerWidth += 10;
+      // 	scaledContainerHeight += 10;
+      // }
 
-      var styleActionContainer = {
-        display: "flex",
-        flexDirection: "row",
-        width: "".concat(minElementWidth, "px"),
-        height: "".concat(grabberCloserSize, "px")
+      if (scaledContainerWidth <= minElementWidth) scaledContainerWidth = minElementWidth;
+      scaledContainerHeight += _constants.number_canvas_element_icons_height
+      /* * scalingFactor */
+      + _constants.number_canvas_element_offset_default; // console.log("SCW - " + scaledContainerWidth);
+      // console.log("SCH - " + scaledContainerHeight);
+
+      stylesContainer[item.ID] = Object.assign({
+        width: "".concat(scaledContainerWidth, "px"),
+        height: "".concat(scaledContainerHeight, "px")
+      }, style);
+      stylesImages[item.ID] = {
+        width: item.width,
+        height: item.height
       };
       var styleActionElementNameContainer = {
         display: "flex",
@@ -1238,7 +1329,31 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
               if (occupiedSpots.includes(tmpID)) continue;
               var spot = markedSpots[i];
 
-              var _xOff3 = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
+    const showcasedSpots = [];
+
+    if (this.state.draggingID != null) {
+      let elementDimensions = this.props.canvasElementsDimensions;
+      let draggingID = this.state.draggingID;
+      let markedSpots = elementDimensions[draggingID];
+      let offsetX = this.state.offsetX;
+      let offsetY = this.state.offsetY;
+      let containerOffsetX = this.props.containerOffsetLeft;
+      let containerOffsetY = this.props.containerOffsetTop;
+      let xOff = offsetX - containerOffsetX;
+      let yOff = offsetY - containerOffsetY;
+      let defaultOffset = _constants.number_canvas_element_icons_height
+      /* * scalingFactor*/
+      + _constants.number_canvas_element_offset_default; //console.log("occupiedSpots");
+      //console.log(occupiedSpots);
+
+      if (markedSpots !== undefined && markedSpots !== null) {
+        if (draggingID === "LightPath_ExcitationFilter" || draggingID === "LightPath_EmissionFilter" || draggingID === "LightPath_StandardDichroic") {
+          elementList.map((item, index) => {
+            if (item.schema_ID === "FilterSet.json") {
+              let tmpID = item.ID + "_" + draggingID;
+              if (occupiedSpots.includes(tmpID)) return;
+              let spot = markedSpots;
+              let xOff = item.x + item.width / 2 + spot.x; // + containerOffsetX; // + xOff;
 
 
               var _yOff3 = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
