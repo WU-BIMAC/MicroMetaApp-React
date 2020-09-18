@@ -61,15 +61,15 @@ var number_logo_height = 280;
 exports.number_logo_height = number_logo_height;
 var number_canvas_width = 3201;
 exports.number_canvas_width = number_canvas_width;
-const number_canvas_height = 989;
+var number_canvas_height = 989;
 exports.number_canvas_height = number_canvas_height;
-const number_canvas_element_min_width = 25;
+var number_canvas_element_min_width = 25;
 exports.number_canvas_element_min_width = number_canvas_element_min_width;
-const number_canvas_element_icons_height = 12.5;
+var number_canvas_element_icons_height = 12.5;
 exports.number_canvas_element_icons_height = number_canvas_element_icons_height;
-const number_canvas_element_offset_default = 6.67;
+var number_canvas_element_offset_default = 6.67;
 exports.number_canvas_element_offset_default = number_canvas_element_offset_default;
-const menu_order = ["MicroscopyBasics", "Transmitted_LightSource", "Fluorescence_LightSource", "LightSourceCoupling", "Magnification", "Stage", "Focusing", "FilterHolder", // currently absentee
+var menu_order = ["MicroscopyBasics", "Transmitted_LightSource", "Fluorescence_LightSource", "LightSourceCoupling", "Magnification", "Stage", "Focusing", "FilterHolder", // currently absentee
 "LightPath", //in the future Excitation - Emission
 "AdditionalOptics", "Mirror", // in the future MirroringDevice
 "Detector", "Detector.PointDetector", // currently absentee

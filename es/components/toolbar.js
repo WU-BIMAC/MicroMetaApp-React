@@ -169,55 +169,23 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
           alignItems: "center",
           margin: "5px"
         }
-      }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-        key: "HardwareExplorer",
-        variant: "secondary",
-        size: "lg",
-        style: explorerStyle,
-        disabled: true
-      }, "Hardware explorer"))
-    });
+      }, categoryItems);
+    } // 	<Button className="collapse-btn" key={`Trigger${key}`} size="lg">
+    // 	{key}
+    // </Button>
 
-    toolbar.push(hardware_explorer);
+  }, {
+    key: "createCategories",
+    value: function createCategories() {
+      var _this3 = this;
 
-    _constants.menu_order.forEach(key => {
-      let index = key.lastIndexOf(".");
-      let simpleKey;
-      if (index !== -1) simpleKey = key.substring(index + 1);else simpleKey = key;
-      names.push(simpleKey);
-    }); // Object.keys(elementList).forEach((key) => {
-    // 	let index = key.lastIndexOf(".");
-    // 	let simpleKey;
-    // 	if (index !== -1) simpleKey = key.substring(index + 1);
-    // 	else simpleKey = key;
-    //
-    // });
-    //names.sort();
-
-
-    names.forEach(name => {
-      Object.keys(elementList).forEach(key => {
-        let index = key.lastIndexOf(".");
-        let simpleKey;
-        if (index !== -1) simpleKey = key.substring(index + 1);else simpleKey = key;
-        if (simpleKey !== name) return;
-        toolbar.push( /*#__PURE__*/_react.default.createElement(_reactCollapsible.default, {
-          key: "Collapsible-".concat(key),
-          trigger: /*#__PURE__*/_react.default.createElement(_Button.default, {
-            key: "Trigger".concat(key),
-            size: "lg",
-            style: style
-          }, /*#__PURE__*/_react.default.createElement("div", null, simpleKey), /*#__PURE__*/_react.default.createElement("div", {
-            style: styleTransitionClose
-          }, "\u25C1")),
-          triggerWhenOpen: /*#__PURE__*/_react.default.createElement(_Button.default, {
-            key: "Trigger".concat(key),
-            size: "lg",
-            style: style
-          }, /*#__PURE__*/_react.default.createElement("div", null, simpleKey), /*#__PURE__*/_react.default.createElement("div", {
-            style: styleTransitionOpen
-          }, "\u25C1"))
-        }, this.createCategoryItems(key)));
+      var style = {
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between"
+      };
+      var explorerStyle = Object.assign(style, {
+        pointerEvents: "none"
       });
       var styleTransitionClose = {
         transition: "transform 300ms",
@@ -251,7 +219,10 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
 
       toolbar.push(hardware_explorer);
 
-      _constants.menu_order.forEach(function (simpleKey) {
+      _constants.menu_order.forEach(function (key) {
+        var index = key.lastIndexOf(".");
+        var simpleKey;
+        if (index !== -1) simpleKey = key.substring(index + 1);else simpleKey = key;
         names.push(simpleKey);
       }); // Object.keys(elementList).forEach((key) => {
       // 	let index = key.lastIndexOf(".");
