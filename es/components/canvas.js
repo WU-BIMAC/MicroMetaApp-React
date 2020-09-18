@@ -474,11 +474,11 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             if (item.schema_ID === "FilterSet.json") {
               var tmpID = item.ID + "_" + ns_ID;
               if (occupiedSpots.includes(tmpID)) return;
-              var xOff = item.x + item.width / 2 + spot.x; // + containerOffsetX;
+              var xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX;
 
               var yOff = item.y + item.height / 2 + (_constants.number_canvas_element_icons_height
               /** scalingFactor*/
-              + _constants.number_canvas_element_offset_default) + spot.y; // + containerOffsetY;
+              + _constants.number_canvas_element_offset_default) + spot.y * scalingFactor; // + containerOffsetY;
 
               var x1 = xOff - spotW / 2;
               var y1 = yOff - spotH / 2;
@@ -1200,12 +1200,12 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                 if (occupiedSpots.includes(tmpID)) return;
                 var spot = markedSpots;
 
-                var _xOff2 = item.x + item.width / 2 + spot.x; // + containerOffsetX; // + xOff;
+                var _xOff2 = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX; // + xOff;
 
 
                 var _yOff2 = item.y + item.height / 2 + (_constants.number_canvas_element_icons_height
                 /* * scalingFactor*/
-                + _constants.number_canvas_element_offset_default) + spot.y; // +containerOffsetY;
+                + _constants.number_canvas_element_offset_default) + spot.y * scalingFactor; // +containerOffsetY;
 
 
                 var x1 = _xOff2 - spot.w * scalingFactor / 2;
