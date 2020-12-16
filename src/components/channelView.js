@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 
-import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeaderV2";
+import ChannelCanvas_V2 from "./channelCanvas_V2";
 import ModalWindow from "./modalWindow";
 
 import { v4 as uuidv4 } from "uuid";
@@ -108,23 +108,23 @@ export default class ChannelView extends React.PureComponent {
 	onMoveElement() {}
 
 	onElementDataSave(id, data) {
-		let channels = this.state.channels.slice();
-		let found = false;
-		for (let i = 0; i < channels.length; i++) {
-			let name_id = this.props.schema.title + "_" + channels[i].ID;
-			if (id === name_id) {
-				channels[i] = data;
-				found = true;
-				found = true;
-				break;
-			}
-		}
-		if (!found) {
-			//todo should never happen
-			console.log("issue with " + id);
-		}
-		this.setState({ channels: channels, editing: false });
-
+		// let channels = this.state.channels.slice();
+		// let found = false;
+		// for (let i = 0; i < channels.length; i++) {
+		// 	let name_id = this.props.schema.title + "_" + channels[i].ID;
+		// 	if (id === name_id) {
+		// 		channels[i] = data;
+		// 		found = true;
+		// 		found = true;
+		// 		break;
+		// 	}
+		// }
+		// if (!found) {
+		// 	//todo should never happen
+		// 	console.log("issue with " + id);
+		// }
+		//this.setState({ channels: channels, editing: false });
+		this.setState({ editing: false });
 		console.log("saved channel");
 	}
 
@@ -160,18 +160,27 @@ export default class ChannelView extends React.PureComponent {
 		if (this.state.editing) {
 			let schema = this.props.schema;
 			let obj = channels[index];
+
 			return (
-				<MultiTabFormWithHeaderV2
-					schemas={this.props.schemas}
-					schema={schema}
-					inputData={obj}
+				<ChannelCanvas_V2
+					activeTier={this.state.activeTier}
+					imagesPath={this.props.imagesPath}
 					id={this.props.id}
+					schema={schema}
+					settingSchemas={this.props.settingSchemas}
+					componentSchemas={this.props.componentSchemas}
+					channelData={obj}
+					settingData={this.props.settingData}
+					componentData={this.props.componentData}
+					linkedFields={this.props.linkedFields}
+					updateElementData={this.props.updateElementData}
+					updateLinkedFields={this.props.updateLinkedFields}
+					overlaysContainer={this.props.overlaysContainer}
+					containerOffsetTop={this.props.containerOffsetTop}
+					containerOffsetLeft={this.props.containerOffsetLeft}
+					headerOffset={this.props.headerOffset}
 					onConfirm={this.onElementDataSave}
 					onCancel={this.onElementDataCancel}
-					overlaysContainer={this.props.overlaysContainer}
-					currentChildrenComponentIdentifier={string_currentNumberOf_identifier}
-					minChildrenComponentIdentifier={string_minNumberOf_identifier}
-					maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 					elementByType={this.props.elementByType}
 				/>
 			);
@@ -181,6 +190,7 @@ export default class ChannelView extends React.PureComponent {
 				flexDirection: "row",
 				flexWap: "wrap",
 				justifyContent: "center",
+				padding: "5px",
 			};
 			const button1 = {
 				width: "50px",
@@ -237,6 +247,8 @@ export default class ChannelView extends React.PureComponent {
 							<Button style={button1} size="lg" onClick={this.onRemoveElement}>
 								-
 							</Button>
+						</div>
+						<div style={buttonContainerRow}>
 							<Button style={button2} size="lg" onClick={this.onConfirm}>
 								Confirm
 							</Button>
@@ -245,7 +257,6 @@ export default class ChannelView extends React.PureComponent {
 							</Button>
 						</div>
 					</div>
-					<div></div>
 				</ModalWindow>
 			);
 		}

@@ -1,5 +1,5 @@
 import React from "react";
-import Form from "react-jsonschema-form";
+import Form from "@rjsf/bootstrap-4";
 import Tabs, { TabPane } from "rc-tabs";
 // import TabContent from "rc-tabs/lib/TabContent";
 // import ScrollableTabBar from "rc-tabs/lib/TabBar";
@@ -190,6 +190,7 @@ export default class MultiTabFormWithHeaderV2 extends React.PureComponent {
 
 	createDataTree(schemas, schema) {
 		console.log("IM HERE - createDataTree");
+		if (schema === null) return;
 		let key = schema.title;
 		let nodes = this.createDataTreeNodes(
 			key,
@@ -255,6 +256,7 @@ export default class MultiTabFormWithHeaderV2 extends React.PureComponent {
 		let currentChildrenComponents = this.state.currentChildrenComponents;
 
 		let dataTree = this.dataTree;
+		if (dataTree === null || dataTree === undefined) return;
 		let key = Object.keys(dataTree)[0];
 		// let rootNode = dataTree[key];
 		// let path = rootNode.path;
@@ -859,29 +861,36 @@ export default class MultiTabFormWithHeaderV2 extends React.PureComponent {
 		let showForm = this.state.showForm;
 		let childrenButtons = this.createChildrenComponentsButton();
 		if (!showForm) {
-			return (
-				<ModalWindow overlaysContainer={this.props.overlaysContainer}>
-					<div style={buttonContainerColumnExternal}>
-						<div style={buttonContainerColumn}>{childrenButtons}</div>
-						<div style={buttonContainerRow}>
-							<Button
-								style={button}
-								size="lg"
-								onClick={this.onEditComponentsConfirm}
-							>
-								Confirm
-							</Button>
-							<Button
-								style={button}
-								size="lg"
-								onClick={this.onEditComponentsCancel}
-							>
-								Cancel
-							</Button>
-						</div>
+			let multiTabForm = (
+				<div style={buttonContainerColumnExternal}>
+					<div style={buttonContainerColumn}>{childrenButtons}</div>
+					<div style={buttonContainerRow}>
+						<Button
+							style={button}
+							size="lg"
+							onClick={this.onEditComponentsConfirm}
+						>
+							Confirm
+						</Button>
+						<Button
+							style={button}
+							size="lg"
+							onClick={this.onEditComponentsCancel}
+						>
+							Cancel
+						</Button>
 					</div>
-				</ModalWindow>
+				</div>
 			);
+			if (this.props.modalContainer) {
+				return (
+					<ModalWindow overlaysContainer={this.props.overlaysContainer}>
+						{multiTabForm}
+					</ModalWindow>
+				);
+			} else {
+				return multiTabForm;
+			}
 		}
 		//FIXME Add the tree here and tree logic
 		let activeFormKey = this.state.activeFormKey;
@@ -891,22 +900,26 @@ export default class MultiTabFormWithHeaderV2 extends React.PureComponent {
 		let forms = this.forms[activeFormKey];
 		console.log(forms);
 
-		let tabs = forms.map(function (item, index) {
-			return (
-				<TabPane tab={names[index]} key={index} forceRender={true}>
-					{item}
-				</TabPane>
-			);
-		});
+		let tabs = null;
 		let hasEditableChildren = false;
-		if (Object.keys(currentChildrenComponents).length > 0) {
-			for (let key in currentChildrenComponents) {
-				let current = currentChildrenComponents[key];
-				let min = minChildrenComponents[key];
-				let max = maxChildrenComponents[key];
-				if (current !== min || current !== max) {
-					hasEditableChildren = true;
-					break;
+		if (forms !== null && forms !== undefined) {
+			tabs = forms.map(function (item, index) {
+				return (
+					<TabPane tab={names[index]} key={index} forceRender={true}>
+						{item}
+					</TabPane>
+				);
+			});
+
+			if (Object.keys(currentChildrenComponents).length > 0) {
+				for (let key in currentChildrenComponents) {
+					let current = currentChildrenComponents[key];
+					let min = minChildrenComponents[key];
+					let max = maxChildrenComponents[key];
+					if (current !== min || current !== max) {
+						hasEditableChildren = true;
+						break;
+					}
 				}
 			}
 		}
@@ -919,11 +932,34 @@ export default class MultiTabFormWithHeaderV2 extends React.PureComponent {
 			overflow: "auto",
 		};
 		const treeStyle = { marginRight: "10px" };
+		let buttons = null;
+		if (this.props.modalContainer)
+			buttons = (
+				<div style={buttonContainerRow}>
+					<Button
+						style={button}
+						size="lg"
+						variant={!hasEditableChildren ? "secondary" : "primary"}
+						onClick={!hasEditableChildren ? null : this.onEditComponents}
+						disabled={!hasEditableChildren}
+					>
+						Add/Remove band-pass
+					</Button>
+					<Button style={button} size="lg" onClick={this.onConfirm}>
+						Confirm
+					</Button>
+					<Button style={button} size="lg" onClick={this.onCancel}>
+						Cancel
+					</Button>
+				</div>
+			);
 
 		//<div>{this.props.schema.description}</div>
-		return (
-			<ModalWindow overlaysContainer={this.props.overlaysContainer}>
-				<h3>{this.props.schema.title}</h3>
+		let title = null;
+		if (this.props.schema !== null) title = this.props.schema.title;
+		let multiTabForm = (
+			<div>
+				<h3>{title}</h3>
 				<p>{hasEditableChildren ? string_bandpass_warning : ""}</p>
 				<div style={style}>
 					<div style={treeStyle}>
@@ -963,25 +999,18 @@ export default class MultiTabFormWithHeaderV2 extends React.PureComponent {
 						</Tabs>
 					</div>
 				</div>
-				<div style={buttonContainerRow}>
-					<Button
-						style={button}
-						size="lg"
-						variant={!hasEditableChildren ? "secondary" : "primary"}
-						onClick={!hasEditableChildren ? null : this.onEditComponents}
-						disabled={!hasEditableChildren}
-					>
-						Add/Remove band-pass
-					</Button>
-					<Button style={button} size="lg" onClick={this.onConfirm}>
-						Confirm
-					</Button>
-					<Button style={button} size="lg" onClick={this.onCancel}>
-						Cancel
-					</Button>
-				</div>
-			</ModalWindow>
+				{buttons}
+			</div>
 		);
+		if (this.props.modalContainer) {
+			return (
+				<ModalWindow overlaysContainer={this.props.overlaysContainer}>
+					{multiTabForm};
+				</ModalWindow>
+			);
+		} else {
+			return multiTabForm;
+		}
 	}
 }
 

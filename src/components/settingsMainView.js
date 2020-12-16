@@ -34,20 +34,23 @@ export default class SettingMainView extends React.PureComponent {
 
 		this.state = {
 			elementList: [],
-			elementData: Object.assign({}, this.props.inputData),
+			elementData: Object.assign({}, this.props.settingData),
 			componentsSchema: {},
 			editingElement: -1,
 		};
 
+		console.log("settingSchemas");
+		console.log(props.settingSchemas);
+		console.log("componentSchemas");
 		console.log(props.componentSchemas);
 
-		Object.keys(props.componentSchemas).forEach((schemaIndex) => {
-			let schema = props.componentSchemas[schemaIndex];
+		Object.keys(props.settingSchemas).forEach((schemaIndex) => {
+			let schema = props.settingSchemas[schemaIndex];
 			let schema_id = schema.ID;
 			//console.log("schema_id: " + schema_id);
 			let index = schemasOrder.indexOf(schema_id);
-			Object.keys(props.inputData).forEach((objIndex) => {
-				let object = props.inputData[objIndex];
+			Object.keys(props.settingData).forEach((objIndex) => {
+				let object = props.settingData[objIndex];
 				if (props.activeTier < object.tier) return;
 				if (schema_id !== object.Schema_ID) return;
 				let validation = validate(object, schema);
@@ -137,8 +140,8 @@ export default class SettingMainView extends React.PureComponent {
 	static getDerivedStateFromProps(props, state) {
 		if (props.componentsSchema !== null) {
 			let componentsSchema = {};
-			Object.keys(props.componentSchemas).forEach((schemaIndex) => {
-				let schema = props.componentSchemas[schemaIndex];
+			Object.keys(props.settingSchemas).forEach((schemaIndex) => {
+				let schema = props.settingSchemas[schemaIndex];
 				let schema_id = schema.ID;
 				componentsSchema[schema_id] = schema;
 			});
@@ -237,6 +240,25 @@ export default class SettingMainView extends React.PureComponent {
 	}
 
 	render() {
+		// console.log("elementData");
+		// console.log(elementData);
+		let elementByType = {};
+		Object.keys(this.state.elementData).forEach(function (key) {
+			let element = this.state.elementData[key];
+			let schemaID = element.Schema_ID.replace(string_json_ext, "");
+			if (elementByType[schemaID] === undefined) {
+				elementByType[schemaID] = {};
+			}
+			elementByType[schemaID][element.Name] = element.ID;
+		});
+		Object.keys(this.props.microscopeComponents).forEach((key) => {
+			let element = this.props.microscopeComponents[key];
+			let schemaID = element.Schema_ID.replace(string_json_ext, "");
+			if (elementByType[schemaID] === undefined) {
+				elementByType[schemaID] = {};
+			}
+			elementByType[schemaID][element.Name] = element.ID;
+		});
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
 		const styleMainContainer = {
@@ -251,34 +273,17 @@ export default class SettingMainView extends React.PureComponent {
 			padding: "5px",
 		};
 		if (this.state.editingElement != -1) {
+			let element = this.state.elementList[this.state.editingElement];
 			if (bool_isDebug) {
 				console.log("list");
 				console.log(this.state.elementList);
 				console.log("editing element " + this.state.editingElement);
 				console.log("element " + element);
 			}
-			let element = this.state.elementList[this.state.editingElement];
 			console.log(element);
 			let schema_id = element.schema_ID;
 			let obj = element.obj;
 			let schema = this.state.componentsSchema[schema_id];
-			let elementByType = {};
-			Object.keys(this.state.elementData).forEach(function (key) {
-				let element = this.state.elementData[key];
-				let schemaID = element.Schema_ID.replace(string_json_ext, "");
-				if (elementByType[schemaID] === undefined) {
-					elementByType[schemaID] = {};
-				}
-				elementByType[schemaID][element.Name] = element.ID;
-			});
-			Object.keys(this.props.microscopeComponents).forEach((key) => {
-				let element = this.props.microscopeComponents[key];
-				let schemaID = element.Schema_ID.replace(string_json_ext, "");
-				if (elementByType[schemaID] === undefined) {
-					elementByType[schemaID] = {};
-				}
-				elementByType[schemaID][element.Name] = element.ID;
-			});
 			if (this.state.editingElement == 1) {
 				return (
 					<div style={styleMainContainer}>
@@ -295,21 +300,29 @@ export default class SettingMainView extends React.PureComponent {
 			} else if (this.state.editingElement == 2) {
 				return (
 					<ChannelView
-						schemas={this.props.componentSchemas}
+						settingSchemas={this.props.settingSchemas}
+						componentSchemas={this.props.componentSchemas}
 						schema={schema}
 						inputData={obj}
 						id={element.ID}
+						imagesPath={this.props.imagesPath}
+						settingData={this.props.settingData}
+						componentData={this.props.componentData}
+						linkedFields={this.props.linkedFields}
 						onConfirm={this.onElementDataSave}
 						onCancel={this.onElementDataCancel}
 						overlaysContainer={this.props.overlaysContainer}
 						elementByType={elementByType}
+						containerOffsetTop={this.props.containerOffsetTop}
+						containerOffsetLeft={this.props.containerOffsetLeft}
+						headerOffset={this.props.headerOffset}
 					/>
 				);
 			} else {
 				return (
 					<div style={styleMainContainer}>
 						<MultiTabFormWithHeaderV2
-							schemas={this.props.componentSchemas}
+							settings={this.props.settingSchemas}
 							schema={schema}
 							inputData={obj}
 							id={element.ID}
@@ -322,6 +335,7 @@ export default class SettingMainView extends React.PureComponent {
 							minChildrenComponentIdentifier={string_minNumberOf_identifier}
 							maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 							elementByType={elementByType}
+							modalContainer={true}
 						/>
 					</div>
 				);

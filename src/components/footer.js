@@ -3,8 +3,8 @@ import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 
-//import MultiTabFormWithHeaderV2 from "./multiTabFormWithHeaderV2";
-import MultiTabFormWithHeader from "./multiTabFormWithHeader";
+//import MultiTabFormWithHeader from "./multiTabFormWithHeader";
+import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
@@ -54,17 +54,18 @@ export default class Footer extends React.PureComponent {
 	render() {
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
-		//<MultiTabFormWithHeaderV2
 		if (this.state.editing) {
 			return (
-				<MultiTabFormWithHeader
-					schemas={this.props.componentSchemas}
+				<MultiTabFormWithHeaderV3
+					title={"Edit " + this.props.formTitle}
+					//schemas={this.props.componentSchemas}
 					schema={this.props.schema}
 					inputData={this.props.inputData}
-					id={this.props.id}
+					//id={this.props.id}
 					onConfirm={this.onFormConfirm}
 					onCancel={this.onFormCancel}
 					overlaysContainer={this.props.overlaysContainer}
+					editable={true}
 				/>
 			);
 		}

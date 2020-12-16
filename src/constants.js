@@ -16,7 +16,7 @@ export const string_toolbar = "toolbar";
 
 export const string_linkedFields = "LinkedFields";
 
-export const string_currentNumberOf_identifier = "Number_Of_";
+export const string_currentNumberOf_identifier = "Current_Number_Of_";
 export const string_minNumberOf_identifier = "Min_Number_Of_";
 export const string_maxNumberOf_identifier = "Max_Number_Of_";
 
@@ -26,37 +26,107 @@ export const string_logo_img_no_bk = "MicroMetaApp_noBkg_3.png";
 export const string_logo_img_cell_bk = "MicroMetaApp_cellBkg.png";
 export const string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_2.png";
 
-export const string_createFromScratch = "Create from scratch";
+export const string_createFromScratch = "Create # from scratch";
 export const string_createFromFile = "Load from file";
 export const string_loadFromRepository = "Load from repository";
 
 export const string_validationTier = "Validate @ tier: ";
 
+export const string_typeDimensionsGeneral = "General";
+
 export const number_logo_width = 800;
 export const number_logo_height = 280;
 
-export const number_canvas_width = 3201;
-export const number_canvas_height = 989;
+// export const number_canvas_width = 3201;
+// export const number_canvas_height = 989;
 
 export const number_canvas_element_min_width = 25;
 export const number_canvas_element_icons_height = 12.5;
 export const number_canvas_element_offset_default = 6.67;
 
+export const current_stands = [
+	{
+		name: "Inverted",
+		json: "InvertedMicroscopeStand",
+	},
+	{
+		name: "Upright",
+		json: "UprightMicroscopeStand",
+	},
+];
+
+export const channelPath_Excitation = [
+	"ExcitationFilter",
+	"AcoustoOpticalLTuneableFilter", //Advanced/
+	"LiquidCrystalTuneableFilter", //Advanced/
+];
+export const channelPath_Dichroic = [
+	"DiffractionGrating", //Advanced/
+	"AcoustoOpticalLBeamSplitter", //Advanced/
+	"AcoustoOpticalLTuneableFilter", //Advanced/
+	"LiquidCrystalTuneableFilter", //Advanced/
+];
+
+export const channelPath_Emission = [
+	"EmissionFilter",
+	"AcoustoOpticalLTuneableFilter", //Advanced/
+	"LiquidCrystalTuneableFilter", //Advanced/
+	"DiffractionGrating", //Advanced/
+];
+
+export const channelPath_Additional_1_7_8 = [
+	"FilterGroup",
+	"LensGroup",
+	"MirrorGroup",
+	"Shutter",
+	"DiffractionGrating", //Advanced/
+	"MaskingPlate", //Advanced/
+	"Pinhole", //Advanced/
+	"BeamExpander",
+	"Collimator",
+	"PolarizationOptics",
+	"Prism",
+	"Mirror", //TO BE REMOVED
+	"AdditionalOptics", //TO BE REMOVED
+	"EmissionFilter", //TO BE REMOVED
+	"ExcitationFilter", //TO BE REMOVED
+	"StandardDichroic", //TO BE REMOVED
+];
+export const channelPath_Additional_2_3_4_5_6 = [
+	"FilterGroup",
+	"LensGroup",
+	"MirrorGroup",
+	"OpticalApertureGroup",
+	"OpticalAssemblyGroup",
+	"PolarizationOptics",
+	"Prism",
+	"Mirror", //TO BE REMOVED
+	"AdditionalOptics", //TO BE REMOVED
+	"EmissionFilter", //TO BE REMOVED
+	"ExcitationFilter", //TO BE REMOVED
+	"StandardDichroic", //TO BE REMOVED
+];
+
 export const menu_order = [
-	"MicroscopyBasics",
+	"MicroscopyEssentials",
+	"Software",
 	"Transmitted_LightSource",
 	"Fluorescence_LightSource",
-	"LightSourceCoupling",
 	"Magnification",
+	"LightSourceCoupling",
+	"FluorescenceLightPath",
 	"Stage",
 	"Focusing",
-	"FilterHolder", // currently absentee
-	"LightPath", //in the future Excitation - Emission
+	"OpticalAssembly",
+	"Aperture",
+	"OpticsHolder",
+	"Filter",
+	"MirroringDevice",
+	"Lens",
 	"AdditionalOptics",
-	"Mirror", // in the future MirroringDevice
 	"Detector",
-	"Detector.PointDetector", // currently absentee
 	"Detector.Camera",
+	"Detector.PointDetector",
 	"Calibration",
 ];
 

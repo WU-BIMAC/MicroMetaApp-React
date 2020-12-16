@@ -22,11 +22,10 @@ import {
 	string_currentNumberOf_identifier,
 	string_minNumberOf_identifier,
 	string_maxNumberOf_identifier,
-	number_canvas_width,
-	number_canvas_height,
 	number_canvas_element_min_width,
 	number_canvas_element_icons_height,
 	number_canvas_element_offset_default,
+	string_typeDimensionsGeneral,
 } from "../constants";
 import { bool } from "prop-types";
 
@@ -126,7 +125,7 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.componentsSchema !== null) {
+		if (props.componentSchemas !== null) {
 			let componentsSchema = {};
 			Object.keys(props.componentSchemas).forEach((schemaIndex) => {
 				let schema = props.componentSchemas[schemaIndex];
@@ -139,6 +138,10 @@ export default class Canvas extends React.PureComponent {
 				let schema_id = element.schema_ID;
 				let schema = componentsSchema[schema_id];
 				let object = element.obj;
+				// 	console.log("schema");
+				// console.log(schema);
+				// console.log("object");
+				// console.log(object);
 				let validation = validate(object, schema);
 				let validated = validation.valid;
 				element.validated = validated;
@@ -298,14 +301,16 @@ export default class Canvas extends React.PureComponent {
 		let ns_ID = null;
 		if (
 			elementDimensions[schema.category] !== undefined &&
-			elementDimensions[schema.category] !== null
+			elementDimensions[schema.category] !== null &&
+			schema.title !== "MultiLaserEngine" &&
+			schema.title !== "Laser"
 		) {
 			ns_ID = schema.category;
 			spots = elementDimensions[ns_ID];
 			// console.log("Found category NSID: " + ns_ID);
 			// console.log(spots);
 		} else {
-			ns_ID = schema.category + "_" + schema_ID.replace(".json", "");
+			ns_ID = schema.category + "." + schema.title; //schema_ID.replace(".json", "");
 			spots = elementDimensions[ns_ID];
 			// console.log("Found full name NSID: " + ns_ID);
 			// console.log(spots);
@@ -436,13 +441,21 @@ export default class Canvas extends React.PureComponent {
 		let ns_ID = null;
 		if (
 			elementDimensions[schema.category] !== undefined &&
-			elementDimensions[schema.category] !== null
+			elementDimensions[schema.category] !== null &&
+			schema.title !== "MultiLaserEngine" &&
+			schema.title !== "Laser"
 		) {
 			ns_ID = schema.category;
 			spots = elementDimensions[ns_ID];
 		} else {
-			ns_ID = schema.category + "_" + schema_ID.replace(".json", "");
+			ns_ID = schema.category + "." + schema.title; //schema_ID.replace(".json", "");
 			spots = elementDimensions[ns_ID];
+			// if (schema.title === "MultiLaserEngine") {
+			// 	console.log("ns_ID");
+			// 	console.log(ns_ID);
+			// 	console.log("spots");
+			// 	console.log(spots);
+			// }
 		}
 
 		let offsetX = this.state.offsetX;
@@ -464,80 +477,124 @@ export default class Canvas extends React.PureComponent {
 			number_canvas_element_offset_default;
 
 		if (spots !== undefined && spots !== null) {
-			if (
-				ns_ID === "LightPath_ExcitationFilter" ||
-				ns_ID === "LightPath_EmissionFilter" ||
-				ns_ID === "LightPath_StandardDichroic"
-			) {
-				let spot = spots;
-				let spotW = spot.w * scalingFactor;
-				let spotH = spot.h * scalingFactor;
-				width = spotW;
-				height = spotH;
-				newElementList.map((item, index) => {
-					if (item.schema_ID === "FilterSet.json") {
-						let tmpID = item.ID + "_" + ns_ID;
-						if (occupiedSpots.includes(tmpID)) return;
-						let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX;
-						let yOff =
-							item.y + item.height / 2 + defaultOffset + spot.y * scalingFactor; // + containerOffsetY;
-						let x1 = xOff - spotW / 2;
-						let x2 = xOff + spotW / 2;
-						let y1 = yOff - spotH / 2;
-						let y2 = yOff + spotH / 2;
-						if (x > x1 && x < x2 && y > y1 && y < y2) {
-							x = x1;
-							y = y1;
-							occupiedSpot = tmpID;
+			for (let key in spots) {
+				if (key === string_typeDimensionsGeneral) {
+					let keyMarkedSpots = spots[key];
+					if (Array.isArray(keyMarkedSpots)) {
+						for (let i = 0; i < keyMarkedSpots.length; i++) {
+							let tmpID = ns_ID + "_" + i;
+							let spot = keyMarkedSpots[i];
+							let spotW = spot.w * scalingFactor;
+							let spotH = spot.h * scalingFactor;
+							width = spotW;
+							height = spotH;
+							if (occupiedSpots.includes(tmpID)) continue;
+							if (spot.x !== -1 && spot.y !== -1) {
+								let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
+								let yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
+								let x1 = xOff - spotW / 2;
+								let x2 = xOff + spotW / 2;
+								let y1 = yOff - spotH / 2;
+								let y2 = yOff + spotH / 2;
+								if (x > x1 && x < x2 && y > y1 && y < y2) {
+									x = x1;
+									y = y1;
+									occupiedSpot = tmpID;
+									break;
+								}
+							}
+						}
+					} else {
+						let tmpID = ns_ID + "_" + 1;
+						let spot = keyMarkedSpots;
+						let spotW = spot.w * scalingFactor;
+						let spotH = spot.h * scalingFactor;
+						width = spotW;
+						height = spotH;
+						if (!occupiedSpots.includes(tmpID)) {
+							if (spot.x !== -1 && spot.y !== -1) {
+								let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
+								let yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
+								let x1 = xOff - spotW / 2;
+								let x2 = xOff + spotW / 2;
+								let y1 = yOff - spotH / 2;
+								let y2 = yOff + spotH / 2;
+								if (x > x1 && x < x2 && y > y1 && y < y2) {
+									x = x1;
+									y = y1;
+									occupiedSpot = tmpID;
+								}
+							}
 						}
 					}
-				});
-			} else if (Array.isArray(spots)) {
-				for (let i = 0; i < spots.length; i++) {
-					let tmpID = ns_ID + "_" + i;
-					let spot = spots[i];
-					let spotW = spot.w * scalingFactor;
-					let spotH = spot.h * scalingFactor;
-					width = spotW;
-					height = spotH;
-					if (occupiedSpots.includes(tmpID)) continue;
-					if (spot.x !== -1 && spot.y !== -1) {
-						let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
-						let yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
-						let x1 = xOff - spotW / 2;
-						let x2 = xOff + spotW / 2;
-						let y1 = yOff - spotH / 2;
-						let y2 = yOff + spotH / 2;
-						if (x > x1 && x < x2 && y > y1 && y < y2) {
-							x = x1;
-							y = y1;
-							occupiedSpot = tmpID;
-							break;
+				} else {
+					let keyMarkedSpots = spots[key];
+					if (Array.isArray(keyMarkedSpots)) {
+						for (let i = 0; i < keyMarkedSpots.length; i++) {
+							let spot = keyMarkedSpots[i];
+							let spotW = spot.w * scalingFactor;
+							let spotH = spot.h * scalingFactor;
+							width = spotW;
+							height = spotH;
+							newElementList.map((item, index) => {
+								let itemSchemaID = item.schema_ID;
+								let itemSchema = componentsSchema[itemSchemaID];
+								let item_ns_ID_1 = itemSchema.category;
+								let item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
+								let tmpID = item.ID + "_" + ns_ID + "_" + i;
+								if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
+								if (occupiedSpots.includes(tmpID)) return null;
+								let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX;
+								let yOff =
+									item.y +
+									item.height / 2 +
+									defaultOffset +
+									spot.y * scalingFactor; // + containerOffsetY;
+								let x1 = xOff - spotW / 2;
+								let x2 = xOff + spotW / 2;
+								let y1 = yOff - spotH / 2;
+								let y2 = yOff + spotH / 2;
+								if (x > x1 && x < x2 && y > y1 && y < y2) {
+									x = x1;
+									y = y1;
+									occupiedSpot = tmpID;
+									return null;
+								}
+							});
 						}
+					} else {
+						let spot = keyMarkedSpots;
+						let spotW = spot.w * scalingFactor;
+						let spotH = spot.h * scalingFactor;
+						width = spotW;
+						height = spotH;
+						newElementList.map((item, index) => {
+							let itemSchemaID = item.schema_ID;
+							let itemSchema = componentsSchema[itemSchemaID];
+							let item_ns_ID_1 = itemSchema.category;
+							let item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
+							let tmpID = item.ID + "_" + ns_ID + "_" + 1;
+							if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
+							if (occupiedSpots.includes(tmpID)) return null;
+							let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX;
+							let yOff =
+								item.y +
+								item.height / 2 +
+								defaultOffset +
+								spot.y * scalingFactor; // + containerOffsetY;
+							let x1 = xOff - spotW / 2;
+							let x2 = xOff + spotW / 2;
+							let y1 = yOff - spotH / 2;
+							let y2 = yOff + spotH / 2;
+							if (x > x1 && x < x2 && y > y1 && y < y2) {
+								x = x1;
+								y = y1;
+								occupiedSpot = tmpID;
+							}
+						});
 					}
 				}
-			} else {
-				let tmpID = ns_ID + "_" + 1;
-				let spot = spots;
-				let spotW = spot.w * scalingFactor;
-				let spotH = spot.h * scalingFactor;
-				width = spotW;
-				height = spotH;
-				if (!occupiedSpots.includes(tmpID)) {
-					if (spot.x !== -1 && spot.y !== -1) {
-						let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
-						let yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
-						let x1 = xOff - spotW / 2;
-						let x2 = xOff + spotW / 2;
-						let y1 = yOff - spotH / 2;
-						let y2 = yOff + spotH / 2;
-						if (x > x1 && x < x2 && y > y1 && y < y2) {
-							x = x1;
-							y = y1;
-							occupiedSpot = tmpID;
-						}
-					}
-				}
+				if (occupiedSpot !== null) break;
 			}
 		}
 
@@ -702,6 +759,15 @@ export default class Canvas extends React.PureComponent {
 
 	addComponentsIndexesIfMissing(schema, newElementData) {
 		Object.keys(schema.properties).forEach((key) => {
+			let isChildren = false;
+			for (let childrenSchemaKey in Object.keys(this.props.childrenSchemas)) {
+				let childrenSchema = this.props.childrenSchemas[childrenSchemaKey];
+				if (key === childrenSchema.title) {
+					isChildren = true;
+					break;
+				}
+			}
+			if (!isChildren) return;
 			let currentNumber = string_currentNumberOf_identifier + key;
 			let minNumber = string_minNumberOf_identifier + key;
 			let maxNumber = string_maxNumberOf_identifier + key;
@@ -729,6 +795,7 @@ export default class Canvas extends React.PureComponent {
 					newElementData[maxNumber] = 1;
 				}
 			}
+			console.log(newElementData);
 		});
 	}
 
@@ -751,13 +818,15 @@ export default class Canvas extends React.PureComponent {
 		let ns_ID = null;
 		if (
 			elementDimensions[schema.category] !== undefined &&
-			elementDimensions[schema.category] !== null
+			elementDimensions[schema.category] !== null &&
+			schema.title !== "MultiLaserEngine" &&
+			schema.title !== "Laser"
 		) {
 			ns_ID = schema.category;
 			//console.log("Found category NSID: " + ns_ID);
 			//console.log(spots);
 		} else {
-			ns_ID = schema.category + "_" + schemaID.replace(".json", "");
+			ns_ID = schema.category + "." + schema.title; //schemaID.replace(".json", "");
 			//console.log("Found full name NSID: " + ns_ID);
 			//console.log(spots);
 		}
@@ -798,28 +867,43 @@ export default class Canvas extends React.PureComponent {
 		let deletedID = id.replace(deletedSchema, "");
 		deletedID = deletedID.replace("_", "");
 
+		console.log("deletedID");
+		console.log(deletedID);
+
 		let linkedFields = this.state.linkedFields;
+		if (Object.keys(linkedFields).includes(id)) {
+			delete linkedFields[id];
+		}
 
 		for (let key in linkedFields) {
 			let links = linkedFields[key];
 			let done = false;
-			let fieldToDelete = null;
 			for (let field in links) {
-				let link = links[field];
-				if (link.value === deletedID) {
-					if (elementData[key] !== undefined) {
-						elementData[key][field] = string_na;
+				let linkList = links[field].value;
+				if (Array.isArray(linkList)) {
+					if (linkList.includes(deletedID)) {
+						let index = linkList.indexOf(deletedID);
+						if (elementData[key] !== undefined) {
+							elementData[key][field][index] = string_na;
+							linkedFields[key][field].value[index] = string_na;
+							done = true;
+							break;
+						}
 					}
-					fieldToDelete = field;
-					done = true;
-					break;
+				} else {
+					if (linkList === deletedID) {
+						if (elementData[key] !== undefined) {
+							elementData[key][field] = string_na;
+							linkedFields[key][field] = string_na;
+							done = true;
+							break;
+						}
+					}
 				}
 			}
-			delete linkedFields[key][fieldToDelete];
-			if (Object.keys(linkedFields[key]).length === 0) {
-				delete linkedFields[key];
+			if (done) {
+				break;
 			}
-			if (done) break;
 		}
 
 		elementList.splice(index, 1);
@@ -832,10 +916,12 @@ export default class Canvas extends React.PureComponent {
 			elementList: elementList,
 			elementData: elementData,
 			occupiedSpots: occupiedSpots,
+			linkedFields: linkedFields,
 		});
 
 		let validated = this.areAllElementsValidated();
 		this.props.updateElementData(elementData, validated);
+		this.props.updateLinkedFields(linkedFields);
 	}
 
 	createList() {
@@ -970,10 +1056,13 @@ export default class Canvas extends React.PureComponent {
 			// console.log("element");
 			// console.log(element);
 			let schemaID = element.Schema_ID.replace(string_json_ext, "");
-			if (elementByType[schemaID] === undefined) {
+			if (
+				elementByType[schemaID] === undefined ||
+				elementByType[schemaID] === null
+			) {
 				elementByType[schemaID] = {};
 			}
-			elementByType[schemaID][element.Name] = element.ID;
+			elementByType[schemaID][element.ID] = element.Name;
 		});
 
 		for (let k = 0; k <= highestZ; k++) {
@@ -1096,6 +1185,7 @@ export default class Canvas extends React.PureComponent {
 										elementByType={elementByType}
 										isViewOnly={this.props.isViewOnly}
 										setEditingOnCanvas={this.setEditingOnCanvas}
+										formTitle={item.name}
 									/>
 									<div style={styleName}>{item.name}</div>
 								</div>
@@ -1123,6 +1213,19 @@ export default class Canvas extends React.PureComponent {
 		// 	console.log(linkedFields);
 		// }
 
+		// console.log("elementData");
+		// console.log(this.state.elementData);
+
+		let elementDimensions = this.props.canvasElementsDimensions;
+		let stand = this.props.stand;
+		let standSchemaID = stand.Schema_ID;
+		let standImageDimensions =
+			elementDimensions[standSchemaID.replace(".json", "")][
+				string_typeDimensionsGeneral
+			];
+		let canvasWidth = standImageDimensions.w;
+		let canvasHeight = standImageDimensions.h;
+
 		const styleContainer = {
 			borderBottom: "2px solid",
 			borderTop: "2px solid",
@@ -1145,8 +1248,8 @@ export default class Canvas extends React.PureComponent {
 			overflow: "auto",
 		};
 
-		const scaledCanvasWidth = number_canvas_width * scalingFactor;
-		const scaledCanvasHeight = number_canvas_height * scalingFactor;
+		const scaledCanvasWidth = canvasWidth * scalingFactor;
+		const scaledCanvasHeight = canvasHeight * scalingFactor;
 
 		const canvasInnerContainerStyle = {
 			width: `${scaledCanvasWidth}px`,
@@ -1186,9 +1289,13 @@ export default class Canvas extends React.PureComponent {
 
 		const showcasedSpots = [];
 		if (this.state.draggingID != null) {
-			let elementDimensions = this.props.canvasElementsDimensions;
+			let componentsSchema = this.state.componentsSchema;
 			let draggingID = this.state.draggingID;
 			let markedSpots = elementDimensions[draggingID];
+			// console.log("draggingID");
+			// console.log(draggingID);
+			// console.log("markedSpots");
+			// console.log(markedSpots);
 
 			let offsetX = this.state.offsetX;
 			let offsetY = this.state.offsetY;
@@ -1202,92 +1309,129 @@ export default class Canvas extends React.PureComponent {
 				number_canvas_element_icons_height /* * scalingFactor*/ +
 				number_canvas_element_offset_default;
 
-			//console.log("occupiedSpots");
-			//console.log(occupiedSpots);
+			// console.log("occupiedSpots");
+			// console.log(occupiedSpots);
 			if (markedSpots !== undefined && markedSpots !== null) {
-				if (
-					draggingID === "LightPath_ExcitationFilter" ||
-					draggingID === "LightPath_EmissionFilter" ||
-					draggingID === "LightPath_StandardDichroic"
-				) {
-					elementList.map((item, index) => {
-						if (item.schema_ID === "FilterSet.json") {
-							let tmpID = item.ID + "_" + draggingID;
-							if (occupiedSpots.includes(tmpID)) return;
-							let spot = markedSpots;
-							let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX; // + xOff;
-							let yOff =
-								item.y +
-								item.height / 2 +
-								defaultOffset +
-								spot.y * scalingFactor; // +containerOffsetY;
-							let x1 = xOff - (spot.w * scalingFactor) / 2;
-							let y1 = yOff - (spot.h * scalingFactor) / 2;
-							let spotStyleTmp = {
-								position: "absolute",
-								left: x1,
-								top: y1,
-								width: spot.w * scalingFactor,
-								height: spot.h * scalingFactor,
-							};
-							if (this.state.showcasedSpot === spot) {
-								spotStyleTmp.border = "10px ridge cornflowerBlue";
-							} else {
-								spotStyleTmp.border = "2px ridge cornflowerBlue";
+				for (let key in markedSpots) {
+					if (key === string_typeDimensionsGeneral) {
+						let keyMarkedSpots = markedSpots[key];
+						if (Array.isArray(keyMarkedSpots)) {
+							for (let i = 0; i < keyMarkedSpots.length; i++) {
+								let tmpID = draggingID + "_" + i;
+								if (occupiedSpots.includes(tmpID)) continue;
+								let spot = keyMarkedSpots[i];
+								let xOff = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
+								let yOff = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
+								let x1 = xOff - (spot.w * scalingFactor) / 2;
+								let y1 = yOff - (spot.h * scalingFactor) / 2;
+								let spotStyleTmp = {
+									position: "absolute",
+									left: x1,
+									top: y1,
+									width: spot.w * scalingFactor,
+									height: spot.h * scalingFactor,
+								};
+								if (this.state.showcasedSpot === spot) {
+									spotStyleTmp.border = "10px ridge cornflowerBlue";
+								} else {
+									spotStyleTmp.border = "2px ridge cornflowerBlue";
+								}
+
+								const spotStyle = spotStyleTmp;
+								showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
 							}
-
-							const spotStyle = spotStyleTmp;
-							showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
-						}
-					});
-				} else if (Array.isArray(markedSpots)) {
-					for (let i = 0; i < markedSpots.length; i++) {
-						let tmpID = draggingID + "_" + i;
-						if (occupiedSpots.includes(tmpID)) continue;
-						let spot = markedSpots[i];
-						let xOff = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
-						let yOff = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
-						let x1 = xOff - (spot.w * scalingFactor) / 2;
-						let y1 = yOff - (spot.h * scalingFactor) / 2;
-						let spotStyleTmp = {
-							position: "absolute",
-							left: x1,
-							top: y1,
-							width: spot.w * scalingFactor,
-							height: spot.h * scalingFactor,
-						};
-						if (this.state.showcasedSpot === spot) {
-							spotStyleTmp.border = "10px ridge cornflowerBlue";
 						} else {
-							spotStyleTmp.border = "2px ridge cornflowerBlue";
-						}
+							let tmpID = draggingID + "_" + 1;
+							if (!occupiedSpots.includes(tmpID)) {
+								let spot = keyMarkedSpots;
+								let xOff = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
+								let yOff = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
+								let x1 = xOff - (spot.w * scalingFactor) / 2;
+								let y1 = yOff - (spot.h * scalingFactor) / 2;
+								let spotStyleTmp = {
+									position: "absolute",
+									left: x1,
+									top: y1,
+									width: spot.w * scalingFactor,
+									height: spot.h * scalingFactor,
+								};
+								if (this.state.showcasedSpot === spot) {
+									spotStyleTmp.border = "10px ridge cornflowerBlue";
+								} else {
+									spotStyleTmp.border = "2px ridge cornflowerBlue";
+								}
 
-						const spotStyle = spotStyleTmp;
-						showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
-					}
-				} else {
-					let tmpID = draggingID + "_" + 1;
-					if (!occupiedSpots.includes(tmpID)) {
-						let spot = markedSpots;
-						let xOff = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
-						let yOff = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
-						let x1 = xOff - (spot.w * scalingFactor) / 2;
-						let y1 = yOff - (spot.h * scalingFactor) / 2;
-						let spotStyleTmp = {
-							position: "absolute",
-							left: x1,
-							top: y1,
-							width: spot.w * scalingFactor,
-							height: spot.h * scalingFactor,
-						};
-						if (this.state.showcasedSpot === spot) {
-							spotStyleTmp.border = "10px ridge cornflowerBlue";
-						} else {
-							spotStyleTmp.border = "2px ridge cornflowerBlue";
+								const spotStyle = spotStyleTmp;
+								showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
+							}
 						}
+					} else {
+						elementList.map((item, index) => {
+							let itemSchemaID = item.schema_ID;
+							let itemSchema = componentsSchema[itemSchemaID];
+							let item_ns_ID_1 = itemSchema.category;
+							let item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
 
-						const spotStyle = spotStyleTmp;
-						showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
+							if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
+							let keyMarkedSpots = markedSpots[key];
+							if (Array.isArray(keyMarkedSpots)) {
+								for (let i = 0; i < keyMarkedSpots.length; i++) {
+									let tmpID = item.ID + "_" + draggingID + "_" + i;
+									if (occupiedSpots.includes(tmpID)) continue;
+									let spot = keyMarkedSpots[i];
+									let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX; // + xOff;
+									let yOff =
+										item.y +
+										item.height / 2 +
+										defaultOffset +
+										spot.y * scalingFactor; // +containerOffsetY;
+									let x1 = xOff - (spot.w * scalingFactor) / 2;
+									let y1 = yOff - (spot.h * scalingFactor) / 2;
+									let spotStyleTmp = {
+										position: "absolute",
+										left: x1,
+										top: y1,
+										width: spot.w * scalingFactor,
+										height: spot.h * scalingFactor,
+									};
+									if (this.state.showcasedSpot === spot) {
+										spotStyleTmp.border = "10px ridge cornflowerBlue";
+									} else {
+										spotStyleTmp.border = "2px ridge cornflowerBlue";
+									}
+
+									const spotStyle = spotStyleTmp;
+									showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
+								}
+							} else {
+								let tmpID = item.ID + "_" + draggingID + "_" + 1;
+								if (occupiedSpots.includes(tmpID)) return;
+								let spot = keyMarkedSpots;
+								let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX; // + xOff;
+								let yOff =
+									item.y +
+									item.height / 2 +
+									defaultOffset +
+									spot.y * scalingFactor; // +containerOffsetY;
+								let x1 = xOff - (spot.w * scalingFactor) / 2;
+								let y1 = yOff - (spot.h * scalingFactor) / 2;
+								let spotStyleTmp = {
+									position: "absolute",
+									left: x1,
+									top: y1,
+									width: spot.w * scalingFactor,
+									height: spot.h * scalingFactor,
+								};
+								if (this.state.showcasedSpot === spot) {
+									spotStyleTmp.border = "10px ridge cornflowerBlue";
+								} else {
+									spotStyleTmp.border = "2px ridge cornflowerBlue";
+								}
+
+								const spotStyle = spotStyleTmp;
+								showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
+							}
+						});
 					}
 				}
 			}

@@ -1,5 +1,5 @@
 import React from "react";
-import Form from "react-jsonschema-form";
+import Form from "@rjsf/bootstrap-4";
 import Tabs, { TabPane } from "rc-tabs";
 // import TabContent from "rc-tabs/lib/TabContent";
 // import ScrollableTabBar from "rc-tabs/lib/";
@@ -81,10 +81,11 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		);
 
 		this.initializeForms = this.initializeForms.bind(this);
-		this.initializeForms();
+		if (props.schema !== null) this.initializeForms();
 	}
 
 	initializeForms() {
+		//console.log("INITIALIZE FORMS");
 		let linkedFields = this.state.linkedFields;
 		let currentChildrenComponents = this.state.currentChildrenComponents;
 
@@ -110,11 +111,24 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			this.partialSchema,
 			partialInputData
 		);
+		this.forceUpdate();
 	}
 
-	static getDerivedStateFromProps(props, state) {
-		return { state };
+	componentDidUpdate(prevProps) {
+		if (
+			prevProps.inputData === null ||
+			prevProps.inputData === undefined ||
+			this.props.inputData !== prevProps.inputData
+		) {
+			//console.log("FORM UPDATE with OBJ");
+			//console.log(this.props.inputData);
+			this.initializeForms();
+			this.setState({ activeKey: "0" });
+		}
 	}
+	// static getDerivedStateFromProps(props, state) {
+	// 	return { state };
+	// }
 
 	onSubmit(data) {
 		let localForms = this.formRefs;
@@ -294,6 +308,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 
 	static transformInputData(inputData, partialSchema) {
 		let partialInputData = [];
+		if (inputData === null || inputData === undefined) return partialInputData;
 		Object.keys(partialSchema).forEach(function (key) {
 			if (partialInputData[key] === undefined) partialInputData[key] = {};
 			Object.keys(partialSchema[key].properties).forEach(function (propKey) {
@@ -330,6 +345,7 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 		linkedFields
 	) {
 		let partialSchema = {};
+		if (schema === null) return partialSchema;
 		Object.keys(schema.properties).forEach(function (key) {
 			let property = schema.properties[key];
 			if (property.type === string_object) {
@@ -391,6 +407,8 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 			}
 			let newProperty = Object.assign({}, property);
 
+			// console.log("elementByType");
+			// console.log(elementByType);
 			if (property.linkTo !== undefined) {
 				newProperty[string_default] = string_na;
 				newProperty[string_enum] = [string_na];
@@ -465,6 +483,11 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 					});
 				}
 				if (partialSchema[key].properties[propKey].readonly !== undefined) {
+					partialUISchema[key][propKey] = Object.assign(uiProperties, {
+						"ui:readonly": true,
+					});
+				}
+				if (!this.props.editable) {
 					partialUISchema[key][propKey] = Object.assign(uiProperties, {
 						"ui:readonly": true,
 					});
@@ -727,43 +750,71 @@ export default class MultiTabFormWithHeader extends React.PureComponent {
 				}
 			}
 		}
-		//<div>{this.props.schema.description}</div>
-		return (
-			<ModalWindow overlaysContainer={this.props.overlaysContainer}>
-				<div>
-					<h3>{this.props.schema.title}</h3>
-					<p>{hasEditableChildren ? string_bandpass_warning : ""}</p>
-					<Tabs
-						tabPosition={"top"}
-						tabBarStyle={{ display: "row", border: "none" }}
-						onChange={this.onTabChange}
-						animated={true}
-						style={{ border: "none" }}
-						// renderTabBar={() => <ScrollableTabBar />}
-						// renderTabContent={() => <TabContent animated />}
-						activeKey={this.state.activeKey}
-					>
-						{tabs}
-					</Tabs>
-					<div style={buttonContainerRow}>
-						<Button
-							style={button}
-							size="lg"
-							variant={!hasEditableChildren ? "secondary" : "primary"}
-							onClick={!hasEditableChildren ? null : this.onEditComponents}
-							disabled={!hasEditableChildren}
-						>
-							Add/Remove band-pass
-						</Button>
-						<Button style={button} size="lg" onClick={this.onConfirm}>
-							Confirm
-						</Button>
-						<Button style={button} size="lg" onClick={this.onCancel}>
-							Cancel
-						</Button>
-					</div>
-				</div>
-			</ModalWindow>
+		let title = "Selected Hardware";
+		if (this.props.schema !== null) {
+			title = this.props.schema.title;
+		}
+		let buttons = [];
+		if (!this.props.notModal)
+			buttons.push(
+				<Button
+					key="button-addremove"
+					style={button}
+					size="lg"
+					variant={!hasEditableChildren ? "secondary" : "primary"}
+					onClick={!hasEditableChildren ? null : this.onEditComponents}
+					disabled={!hasEditableChildren}
+				>
+					Add/Remove band-pass
+				</Button>
+			);
+		buttons.push(
+			<Button
+				key="button-confirm"
+				style={button}
+				size="lg"
+				onClick={this.onConfirm}
+			>
+				Confirm
+			</Button>
 		);
+		if (!this.props.notModal)
+			buttons.push(
+				<Button
+					key="button-cancel"
+					style={button}
+					size="lg"
+					onClick={this.onCancel}
+				>
+					Cancel
+				</Button>
+			);
+		let form = (
+			<div>
+				<h3>{title}</h3>
+				<p>{hasEditableChildren ? string_bandpass_warning : ""}</p>
+				<Tabs
+					tabPosition={"top"}
+					tabBarStyle={{ display: "row", border: "none" }}
+					onChange={this.onTabChange}
+					animated={true}
+					style={{ border: "none" }}
+					// renderTabBar={() => <ScrollableTabBar />}
+					// renderTabContent={() => <TabContent animated />}
+					activeKey={this.state.activeKey}
+				>
+					{tabs}
+				</Tabs>
+				<div style={buttonContainerRow}>{buttons}</div>
+			</div>
+		);
+		//<div>{this.props.schema.description}</div>
+		if (!this.props.notModal)
+			return (
+				<ModalWindow overlaysContainer={this.props.overlaysContainer}>
+					{form}
+				</ModalWindow>
+			);
+		else return form;
 	}
 }

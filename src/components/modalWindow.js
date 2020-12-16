@@ -13,7 +13,7 @@ export default class ModalWindow extends React.PureComponent {
 					right: 0,
 					backgroundColor: "rgba(0,0,0,0.33)",
 					display: "flex",
-					alignItems: "center"
+					alignItems: "center",
 				}}
 			>
 				<div
@@ -26,7 +26,7 @@ export default class ModalWindow extends React.PureComponent {
 						padding: 10,
 						borderRadius: 5,
 						boxShadow: "0 1px 6px -2px #000",
-						overflow: "auto"
+						overflow: "auto",
 					}}
 				>
 					{this.props.children}

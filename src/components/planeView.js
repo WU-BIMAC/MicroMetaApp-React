@@ -172,6 +172,7 @@ export default class PlaneView extends React.PureComponent {
 				flexDirection: "row",
 				flexWap: "wrap",
 				justifyContent: "center",
+				padding: "5px"
 			};
 			const button1 = {
 				width: "50px",
@@ -227,6 +228,8 @@ export default class PlaneView extends React.PureComponent {
 						<Button style={button1} size="lg" onClick={this.onRemoveElement}>
 							-
 						</Button>
+					</div>
+					<div style={buttonContainerRow}>
 						<Button style={button2} size="lg" onClick={this.onConfirm}>
 							Confirm
 						</Button>
