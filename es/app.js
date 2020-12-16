@@ -1512,7 +1512,7 @@ MicroscopyMetadataTool.defaultProps = {
   imagesPathPNG: "./assets/png/",
   imagesPathSVG: "./assets/svg/",
   dimensionsPath: "./assets/dimension/",
-  tiers: ["1", "2", "3", "4", "5"],
+  tiers: ["1", "2", "3"],
   containerOffsetTop: 0,
   containerOffsetLeft: 0,
   scalingFactor: 1,
