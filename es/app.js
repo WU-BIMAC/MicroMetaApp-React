@@ -1330,7 +1330,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var experimentalSchema = this.state.adaptedExperimentalSchema;
       var childrenSchema = this.state.adaptedChildrenSchema;
       var footerMicroscopeSchemas = [microscopeSchema, microscopeStandSchema];
-      var footerMicroscopeInput = [microscope, microscope[this.state.standType]];
+      var footerMicroscopeInput = [microscope, microscope.MicroscopeStand];
 
       if (!this.state.isCreatingNewMicroscope) {
         return /*#__PURE__*/_react.default.createElement(MicroscopyMetadataToolContainer, {
