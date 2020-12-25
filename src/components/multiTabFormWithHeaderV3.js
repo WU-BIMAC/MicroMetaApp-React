@@ -166,6 +166,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let partialInputData = {};
 		let inputDataIDs = [];
 
+		console.log("elementByType");
+		console.log(this.props.elementByType);
+
 		if (this.props.inputData !== undefined) {
 			if (Array.isArray(this.props.inputData)) {
 				for (let i = 0; i < this.props.schema.length; i++) {
@@ -719,7 +722,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				newProperty[string_enumNames] = [string_not_assigned];
 				if (linkedFields[key] === undefined) {
 					linkedFields[key] = {
-						schemaType: property.linkTo,
+						schemaType: schema.title,
 						value: string_not_assigned,
 					};
 				}
@@ -731,7 +734,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 						let propElementByTypeName = propElementByType[propElementByTypeID];
 						if (inputDataIDs.includes(propElementByTypeID)) return;
 						newProperty[string_enum].push(
-							property.linkTo + "/" + propElementByTypeID
+							schema.title + "/" + propElementByTypeID
 						);
 						newProperty[string_enumNames].push(propElementByTypeName);
 					});
@@ -745,10 +748,12 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				newProperty.items[string_enumNames] = [string_not_assigned];
 				if (linkedFields[key] === undefined) {
 					linkedFields[key] = {
-						schemaType: property.items.linkTo,
+						schemaType: schema.title,
 						value: string_not_assigned,
 					};
 				}
+				console.log("elementByType");
+				console.log(elementByType);
 				if (elementByType[property.items.linkTo] !== undefined) {
 					let propElementByType = elementByType[property.items.linkTo];
 					Object.keys(propElementByType).forEach(function (
@@ -757,7 +762,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 						let propElementByTypeName = propElementByType[propElementByTypeID];
 						if (inputDataIDs.includes(propElementByTypeID)) return;
 						newProperty.items[string_enum].push(
-							property.items.linkTo + "/" + propElementByTypeID
+							schema.title + "/" + propElementByTypeID
 						);
 						newProperty.items[string_enumNames].push(propElementByTypeName);
 					});
@@ -795,6 +800,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			linkedFields,
 			inputDataIDs
 		);
+		//partialSchema = Object.assign(partialSchema, { type: "object" });
 		return partialSchema;
 	}
 
@@ -815,6 +821,21 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				if (partialSchema[key].properties[propKey].readonly !== undefined) {
 					partialUISchema[key][propKey] = Object.assign(uiProperties, {
 						"ui:readonly": true,
+					});
+				}
+				if (partialSchema[key].properties[propKey].description === "NA") {
+					partialUISchema[key][propKey] = Object.assign(uiProperties, {
+						"ui:description": " ",
+					});
+				}
+				if (partialSchema[key].properties[propKey].type === "boolean") {
+					partialUISchema[key][propKey] = Object.assign(uiProperties, {
+						"ui:widget": "checkbox",
+					});
+				}
+				if (partialSchema[key].properties[propKey].description === "NA") {
+					partialUISchema[key][propKey] = Object.assign(uiProperties, {
+						"ui:description": " ",
 					});
 				}
 				if (!this.props.editable) {
@@ -843,6 +864,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				onError={this.onError}
 				formData={input}
 				showErrorList={false}
+				idPrefix={"rjsfPrefix"}
 				ref={(form) => {
 					if (index != -1) {
 						currentFormRefs.splice(index, 0, form);
@@ -872,6 +894,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let currentFormRefs = [];
 		let partialUISchema = this.createUISchema(partialSchema);
 		let currentForms = [];
+
 		Object.keys(subCategoriesOrder).forEach((key, index) => {
 			let description = subCategoriesOrder[key];
 			if (partialSchema[key] === undefined) return;
@@ -888,7 +911,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				currentButtonsRefs
 			);
 			currentForms.push(form);
-			//}
 		});
 		let schemaKeys = Object.keys(partialSchema);
 		for (let i = 0; i < schemaKeys.length; i++) {
@@ -961,7 +983,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		)
 			return null;
 		const buttonNoMargin = {
-			width: "250px",
+			width: "510px",
 			marginBottom: "5px",
 		};
 		const sideButtonLeftMargin = {
@@ -1050,6 +1072,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			flexDirection: "row",
 			flexWap: "wrap",
 			justifyContent: "center",
+			marginBottom: "5px",
 		};
 		let currentChildrenComponents = this.state.currentChildrenComponents;
 		let minChildrenComponents = this.state.minChildrenComponents;

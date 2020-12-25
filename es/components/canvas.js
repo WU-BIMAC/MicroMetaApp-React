@@ -7,6 +7,8 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
 var _reactDragDropContainer = require("react-drag-drop-container");
 
 var _canvasElement = _interopRequireWildcard(require("./canvasElement"));
@@ -303,18 +305,27 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var x = e.x;
       var y = e.y - this.state.headerOffset;
       var schema = componentsSchema[schema_ID];
-      var spots = null;
-      var ns_ID = null;
+      var spotsMap = {};
+      var schemaCategory = schema.category;
 
-      if (elementDimensions[schema.category] !== undefined && elementDimensions[schema.category] !== null && schema.title !== "MultiLaserEngine" && schema.title !== "Laser") {
-        ns_ID = schema.category;
-        spots = elementDimensions[ns_ID]; // console.log("Found category NSID: " + ns_ID);
-        // console.log(spots);
-      } else {
-        ns_ID = schema.category + "." + schema.title; //schema_ID.replace(".json", "");
+      if (elementDimensions[schemaCategory] !== undefined && elementDimensions[schemaCategory] !== null && schema.title !== "MultiLaserEngine") {
+        var ns_ID = schemaCategory;
+        var spots = elementDimensions[ns_ID];
+        spotsMap[ns_ID] = spots;
+      }
 
-        spots = elementDimensions[ns_ID]; // console.log("Found full name NSID: " + ns_ID);
-        // console.log(spots);
+      var schemaFullName = schema.category + "." + schema.title;
+
+      if (elementDimensions[schemaFullName] !== undefined && elementDimensions[schemaFullName] !== null) {
+        var _ns_ID = schemaFullName; //schema_ID.replace(".json", "");
+
+        var _spots = elementDimensions[_ns_ID];
+        spotsMap[_ns_ID] = _spots; // if (schema.title === "MultiLaserEngine") {
+        // 	console.log("ns_ID");
+        // 	console.log(ns_ID);
+        // 	console.log("spots");
+        // 	console.log(spots);
+        // }
       }
 
       var showcasedSpot = null;
@@ -342,12 +353,13 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       // 		break;
       // 	}
       // }
-      //console.log("ns_ID");
-      //console.log(ns_ID);
 
 
+      var draggingID = null;
+      var ns_IDs = Object.keys(spotsMap);
+      if (ns_IDs !== null && ns_IDs !== undefined && ns_IDs.length > 0) draggingID = ns_IDs;
       this.setState({
-        draggingID: ns_ID,
+        draggingID: draggingID,
         showcasedSpot: showcasedSpot,
         occupiedSpots: occupiedSpots
       });
@@ -446,16 +458,22 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var schema = componentsSchema[schema_ID];
-      var spots = null;
-      var ns_ID = null;
+      var spotsMap = {};
+      var schemaCategory = schema.category;
 
-      if (elementDimensions[schema.category] !== undefined && elementDimensions[schema.category] !== null && schema.title !== "MultiLaserEngine" && schema.title !== "Laser") {
-        ns_ID = schema.category;
-        spots = elementDimensions[ns_ID];
-      } else {
-        ns_ID = schema.category + "." + schema.title; //schema_ID.replace(".json", "");
+      if (elementDimensions[schemaCategory] !== undefined && elementDimensions[schemaCategory] !== null && schema.title !== "MultiLaserEngine") {
+        var ns_ID = schemaCategory;
+        var spots = elementDimensions[ns_ID];
+        spotsMap[ns_ID] = spots;
+      }
 
-        spots = elementDimensions[ns_ID]; // if (schema.title === "MultiLaserEngine") {
+      var schemaFullName = schema.category + "." + schema.title;
+
+      if (elementDimensions[schemaFullName] !== undefined && elementDimensions[schemaFullName] !== null) {
+        var _ns_ID2 = schemaFullName; //schema_ID.replace(".json", "");
+
+        var _spots2 = elementDimensions[_ns_ID2];
+        spotsMap[_ns_ID2] = _spots2; // if (schema.title === "MultiLaserEngine") {
         // 	console.log("ns_ID");
         // 	console.log(ns_ID);
         // 	console.log("spots");
@@ -477,159 +495,169 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       /** scalingFactor*/
       + _constants.number_canvas_element_offset_default;
 
-      if (spots !== undefined && spots !== null) {
-        var _loop = function _loop(key) {
-          if (key === _constants.string_typeDimensionsGeneral) {
-            var keyMarkedSpots = spots[key];
+      var _loop = function _loop(_index) {
+        var ns_ID = Object.keys(spotsMap)[_index];
 
-            if (Array.isArray(keyMarkedSpots)) {
-              for (var i = 0; i < keyMarkedSpots.length; i++) {
-                var tmpID = ns_ID + "_" + i;
-                var spot = keyMarkedSpots[i];
-                var spotW = spot.w * scalingFactor;
-                var spotH = spot.h * scalingFactor;
-                width = spotW;
-                height = spotH;
-                if (occupiedSpots.includes(tmpID)) continue;
+        var spots = spotsMap[ns_ID];
 
-                if (spot.x !== -1 && spot.y !== -1) {
-                  var xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
+        if (spots !== undefined && spots !== null) {
+          var _loop2 = function _loop2(key) {
+            if (key === _constants.string_typeDimensionsGeneral) {
+              var keyMarkedSpots = spots[key];
 
-                  var yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
+              if (Array.isArray(keyMarkedSpots)) {
+                for (var i = 0; i < keyMarkedSpots.length; i++) {
+                  var tmpID = ns_ID + "_" + i;
+                  var spot = keyMarkedSpots[i];
+                  var spotW = spot.w * scalingFactor;
+                  var spotH = spot.h * scalingFactor;
+                  width = spotW;
+                  height = spotH;
+                  if (occupiedSpots.includes(tmpID)) continue;
 
-                  var x1 = xOff - spotW / 2;
-                  var x2 = xOff + spotW / 2;
-                  var y1 = yOff - spotH / 2;
-                  var y2 = yOff + spotH / 2;
+                  if (spot.x !== -1 && spot.y !== -1) {
+                    var xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
 
-                  if (x > x1 && x < x2 && y > y1 && y < y2) {
-                    x = x1;
-                    y = y1;
-                    occupiedSpot = tmpID;
-                    break;
+                    var yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
+
+                    var x1 = xOff - spotW / 2;
+                    var x2 = xOff + spotW / 2;
+                    var y1 = yOff - spotH / 2;
+                    var y2 = yOff + spotH / 2;
+
+                    if (x > x1 && x < x2 && y > y1 && y < y2) {
+                      x = x1;
+                      y = y1;
+                      occupiedSpot = tmpID;
+                      break;
+                    }
+                  }
+                }
+              } else {
+                var _tmpID = ns_ID + "_" + 1;
+
+                var _spot = keyMarkedSpots;
+
+                var _spotW = _spot.w * scalingFactor;
+
+                var _spotH = _spot.h * scalingFactor;
+
+                width = _spotW;
+                height = _spotH;
+
+                if (!occupiedSpots.includes(_tmpID)) {
+                  if (_spot.x !== -1 && _spot.y !== -1) {
+                    var _xOff = _spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
+
+
+                    var _yOff = _spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
+
+
+                    var _x = _xOff - _spotW / 2;
+
+                    var _x2 = _xOff + _spotW / 2;
+
+                    var _y = _yOff - _spotH / 2;
+
+                    var _y2 = _yOff + _spotH / 2;
+
+                    if (x > _x && x < _x2 && y > _y && y < _y2) {
+                      x = _x;
+                      y = _y;
+                      occupiedSpot = _tmpID;
+                    }
                   }
                 }
               }
             } else {
-              var _tmpID = ns_ID + "_" + 1;
+              var _keyMarkedSpots = spots[key];
 
-              var _spot = keyMarkedSpots;
+              if (Array.isArray(_keyMarkedSpots)) {
+                var _loop3 = function _loop3(_i) {
+                  var spot = _keyMarkedSpots[_i];
+                  var spotW = spot.w * scalingFactor;
+                  var spotH = spot.h * scalingFactor;
+                  width = spotW;
+                  height = spotH;
+                  newElementList.map(function (item, index) {
+                    var itemSchemaID = item.schema_ID;
+                    var itemSchema = componentsSchema[itemSchemaID];
+                    var item_ns_ID_1 = itemSchema.category;
+                    var item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
 
-              var _spotW = _spot.w * scalingFactor;
+                    var tmpID = item.ID + "_" + ns_ID + "_" + _i;
+                    if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
+                    if (occupiedSpots.includes(tmpID)) return null;
+                    var xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX;
 
-              var _spotH = _spot.h * scalingFactor;
+                    var yOff = item.y + item.height / 2 + defaultOffset + spot.y * scalingFactor; // + containerOffsetY;
 
-              width = _spotW;
-              height = _spotH;
+                    var x1 = xOff - spotW / 2;
+                    var x2 = xOff + spotW / 2;
+                    var y1 = yOff - spotH / 2;
+                    var y2 = yOff + spotH / 2;
 
-              if (!occupiedSpots.includes(_tmpID)) {
-                if (_spot.x !== -1 && _spot.y !== -1) {
-                  var _xOff = _spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
+                    if (x > x1 && x < x2 && y > y1 && y < y2) {
+                      x = x1;
+                      y = y1;
+                      occupiedSpot = tmpID;
+                      return null;
+                    }
+                  });
+                };
 
-
-                  var _yOff = _spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
-
-
-                  var _x = _xOff - _spotW / 2;
-
-                  var _x2 = _xOff + _spotW / 2;
-
-                  var _y = _yOff - _spotH / 2;
-
-                  var _y2 = _yOff + _spotH / 2;
-
-                  if (x > _x && x < _x2 && y > _y && y < _y2) {
-                    x = _x;
-                    y = _y;
-                    occupiedSpot = _tmpID;
-                  }
+                for (var _i = 0; _i < _keyMarkedSpots.length; _i++) {
+                  _loop3(_i);
                 }
-              }
-            }
-          } else {
-            var _keyMarkedSpots = spots[key];
+              } else {
+                var _spot2 = _keyMarkedSpots;
 
-            if (Array.isArray(_keyMarkedSpots)) {
-              var _loop2 = function _loop2(_i) {
-                var spot = _keyMarkedSpots[_i];
-                var spotW = spot.w * scalingFactor;
-                var spotH = spot.h * scalingFactor;
-                width = spotW;
-                height = spotH;
+                var _spotW2 = _spot2.w * scalingFactor;
+
+                var _spotH2 = _spot2.h * scalingFactor;
+
+                width = _spotW2;
+                height = _spotH2;
                 newElementList.map(function (item, index) {
                   var itemSchemaID = item.schema_ID;
                   var itemSchema = componentsSchema[itemSchemaID];
                   var item_ns_ID_1 = itemSchema.category;
                   var item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
 
-                  var tmpID = item.ID + "_" + ns_ID + "_" + _i;
+                  var tmpID = item.ID + "_" + ns_ID + "_" + 1;
                   if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
                   if (occupiedSpots.includes(tmpID)) return null;
-                  var xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX;
+                  var xOff = item.x + item.width / 2 + _spot2.x * scalingFactor; // + containerOffsetX;
 
-                  var yOff = item.y + item.height / 2 + defaultOffset + spot.y * scalingFactor; // + containerOffsetY;
+                  var yOff = item.y + item.height / 2 + defaultOffset + _spot2.y * scalingFactor; // + containerOffsetY;
 
-                  var x1 = xOff - spotW / 2;
-                  var x2 = xOff + spotW / 2;
-                  var y1 = yOff - spotH / 2;
-                  var y2 = yOff + spotH / 2;
+                  var x1 = xOff - _spotW2 / 2;
+                  var x2 = xOff + _spotW2 / 2;
+                  var y1 = yOff - _spotH2 / 2;
+                  var y2 = yOff + _spotH2 / 2;
 
                   if (x > x1 && x < x2 && y > y1 && y < y2) {
                     x = x1;
                     y = y1;
                     occupiedSpot = tmpID;
-                    return null;
                   }
                 });
-              };
-
-              for (var _i = 0; _i < _keyMarkedSpots.length; _i++) {
-                _loop2(_i);
               }
-            } else {
-              var _spot2 = _keyMarkedSpots;
-
-              var _spotW2 = _spot2.w * scalingFactor;
-
-              var _spotH2 = _spot2.h * scalingFactor;
-
-              width = _spotW2;
-              height = _spotH2;
-              newElementList.map(function (item, index) {
-                var itemSchemaID = item.schema_ID;
-                var itemSchema = componentsSchema[itemSchemaID];
-                var item_ns_ID_1 = itemSchema.category;
-                var item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
-
-                var tmpID = item.ID + "_" + ns_ID + "_" + 1;
-                if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
-                if (occupiedSpots.includes(tmpID)) return null;
-                var xOff = item.x + item.width / 2 + _spot2.x * scalingFactor; // + containerOffsetX;
-
-                var yOff = item.y + item.height / 2 + defaultOffset + _spot2.y * scalingFactor; // + containerOffsetY;
-
-                var x1 = xOff - _spotW2 / 2;
-                var x2 = xOff + _spotW2 / 2;
-                var y1 = yOff - _spotH2 / 2;
-                var y2 = yOff + _spotH2 / 2;
-
-                if (x > x1 && x < x2 && y > y1 && y < y2) {
-                  x = x1;
-                  y = y1;
-                  occupiedSpot = tmpID;
-                }
-              });
             }
+
+            if (occupiedSpot !== null) return "break";
+          };
+
+          for (var key in spots) {
+            var _ret = _loop2(key);
+
+            if (_ret === "break") break;
           }
-
-          if (occupiedSpot !== null) return "break";
-        };
-
-        for (var key in spots) {
-          var _ret = _loop(key);
-
-          if (_ret === "break") break;
         }
+      };
+
+      for (var _index in Object.keys(spotsMap)) {
+        _loop(_index);
       } //console.log("DROPPED: w-" + width + "||h-" + height);
 
 
@@ -854,17 +882,33 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var componentsSchema = this.state.componentsSchema;
       var occupiedSpots = this.state.occupiedSpots.slice();
       var schema = componentsSchema[schemaID];
-      var occupiedSpot = elementList[index].occupiedSpot;
-      var ns_ID = null;
-
-      if (elementDimensions[schema.category] !== undefined && elementDimensions[schema.category] !== null && schema.title !== "MultiLaserEngine" && schema.title !== "Laser") {
-        ns_ID = schema.category; //console.log("Found category NSID: " + ns_ID);
-        //console.log(spots);
-      } else {
-        ns_ID = schema.category + "." + schema.title; //schemaID.replace(".json", "");
-        //console.log("Found full name NSID: " + ns_ID);
-        //console.log(spots);
-      }
+      var occupiedSpot = elementList[index].occupiedSpot; //let spotsMap = {};
+      // let schemaCategory = schema.category;
+      // if (
+      // 	elementDimensions[schemaCategory] !== undefined &&
+      // 	elementDimensions[schemaCategory] !== null &&
+      // 	schema.title !== "MultiLaserEngine" &&
+      // 	schema.title !== "Laser"
+      // ) {
+      // 	let ns_ID = schemaCategory;
+      // 	let spots = elementDimensions[ns_ID];
+      // 	spotsMap[ns_ID] = spots;
+      // }
+      // let schemaFullName = schema.category + "." + schema.title;
+      // if (
+      // 	elementDimensions[schemaFullName] !== undefined &&
+      // 	elementDimensions[schemaFullName] !== null
+      // ) {
+      // 	let ns_ID = schemaFullName; //schema_ID.replace(".json", "");
+      // 	let spots = elementDimensions[ns_ID];
+      // 	spotsMap[ns_ID] = spots;
+      // 	// if (schema.title === "MultiLaserEngine") {
+      // 	// 	console.log("ns_ID");
+      // 	// 	console.log(ns_ID);
+      // 	// 	console.log("spots");
+      // 	// 	console.log(spots);
+      // 	// }
+      // }
 
       if (occupiedSpot !== undefined && occupiedSpot !== null) {
         var indexOf = occupiedSpots.indexOf(occupiedSpot); // console.log("indexOf in drag");
@@ -919,11 +963,11 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
           if (Array.isArray(linkList)) {
             if (linkList.includes(deletedID)) {
-              var _index = linkList.indexOf(deletedID);
+              var _index2 = linkList.indexOf(deletedID);
 
               if (elementData[key] !== undefined) {
-                elementData[key][field][_index] = _constants.string_na;
-                linkedFields[key][field].value[_index] = _constants.string_na;
+                elementData[key][field][_index2] = _constants.string_na;
+                linkedFields[key][field].value[_index2] = _constants.string_na;
                 done = true;
                 break;
               }
@@ -1029,13 +1073,13 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
       var hoverSize = 125; //* scalingFactor;
 
-      var hoverFontSize = 80 * scalingFactor;
+      var hoverFontSize = 120 * scalingFactor;
       var styleNameHover = {
         overflow: "unset",
         fontSize: "".concat(hoverFontSize, "%"),
         textAlign: "left",
         lineHeight: "".concat(hoverSize, "%"),
-        color: "gray"
+        color: "#0275d8"
       };
       var styleNameRegular = {
         display: "none"
@@ -1085,15 +1129,22 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         // console.log(element);
 
         var schemaID = element.Schema_ID.replace(_constants.string_json_ext, "");
+        var itemSchema = componentsSchema[element.Schema_ID];
+        var schemaCategory = itemSchema.category;
 
         if (elementByType[schemaID] === undefined || elementByType[schemaID] === null) {
           elementByType[schemaID] = {};
         }
 
+        if (elementByType[schemaCategory] === undefined || elementByType[schemaCategory] === null) {
+          elementByType[schemaCategory] = {};
+        }
+
         elementByType[schemaID][element.ID] = element.Name;
+        elementByType[schemaCategory][element.ID] = element.Name;
       });
 
-      var _loop3 = function _loop3(_k) {
+      var _loop4 = function _loop4(_k) {
         elementList.map(function (item, index) {
           if (item.z != _k) return;
           var schema_id = item.schema_ID;
@@ -1225,7 +1276,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       };
 
       for (var _k = 0; _k <= highestZ; _k++) {
-        _loop3(_k);
+        _loop4(_k);
       }
 
       return droppableElement;
@@ -1328,15 +1379,10 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
       var showcasedSpots = [];
 
-      if (this.state.draggingID != null) {
+      if (this.state.draggingID !== null) {
         (function () {
           var componentsSchema = _this4.state.componentsSchema;
-          var draggingID = _this4.state.draggingID;
-          var markedSpots = elementDimensions[draggingID]; // console.log("draggingID");
-          // console.log(draggingID);
-          // console.log("markedSpots");
-          // console.log(markedSpots);
-
+          var draggingIDs = _this4.state.draggingID;
           var offsetX = _this4.state.offsetX;
           var offsetY = _this4.state.offsetY;
           var containerOffsetX = _this4.props.containerOffsetLeft;
@@ -1345,175 +1391,187 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           var yOff = offsetY - containerOffsetY;
           var defaultOffset = _constants.number_canvas_element_icons_height
           /* * scalingFactor*/
-          + _constants.number_canvas_element_offset_default; // console.log("occupiedSpots");
-          // console.log(occupiedSpots);
+          + _constants.number_canvas_element_offset_default; // console.log("draggingIDs");
+          // console.log(draggingIDs);
 
-          if (markedSpots !== undefined && markedSpots !== null) {
-            var _loop4 = function _loop4(key) {
-              if (key === _constants.string_typeDimensionsGeneral) {
-                var keyMarkedSpots = markedSpots[key];
+          var _loop5 = function _loop5(index) {
+            var draggingID = draggingIDs[index];
+            var markedSpots = elementDimensions[draggingID]; // console.log("draggingID");
+            // console.log(draggingID);
+            // console.log("occupiedSpots");
+            // console.log(occupiedSpots);
 
-                if (Array.isArray(keyMarkedSpots)) {
-                  for (var i = 0; i < keyMarkedSpots.length; i++) {
-                    var tmpID = draggingID + "_" + i;
-                    if (occupiedSpots.includes(tmpID)) continue;
-                    var spot = keyMarkedSpots[i];
-
-                    var _xOff2 = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
-
-
-                    var _yOff2 = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
-
-
-                    var x1 = _xOff2 - spot.w * scalingFactor / 2;
-                    var y1 = _yOff2 - spot.h * scalingFactor / 2;
-                    var spotStyleTmp = {
-                      position: "absolute",
-                      left: x1,
-                      top: y1,
-                      width: spot.w * scalingFactor,
-                      height: spot.h * scalingFactor
-                    };
-
-                    if (_this4.state.showcasedSpot === spot) {
-                      spotStyleTmp.border = "10px ridge cornflowerBlue";
-                    } else {
-                      spotStyleTmp.border = "2px ridge cornflowerBlue";
-                    }
-
-                    var spotStyle = spotStyleTmp;
-                    showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
-                      key: tmpID,
-                      style: spotStyle
-                    }));
-                  }
-                } else {
-                  var _tmpID2 = draggingID + "_" + 1;
-
-                  if (!occupiedSpots.includes(_tmpID2)) {
-                    var _spot3 = keyMarkedSpots;
-
-                    var _xOff3 = _spot3.x * scalingFactor; // + containerOffsetX; // + xOff;
-
-
-                    var _yOff3 = _spot3.y * scalingFactor; // + containerOffsetY; // + yOff;
-
-
-                    var _x3 = _xOff3 - _spot3.w * scalingFactor / 2;
-
-                    var _y3 = _yOff3 - _spot3.h * scalingFactor / 2;
-
-                    var _spotStyleTmp = {
-                      position: "absolute",
-                      left: _x3,
-                      top: _y3,
-                      width: _spot3.w * scalingFactor,
-                      height: _spot3.h * scalingFactor
-                    };
-
-                    if (_this4.state.showcasedSpot === _spot3) {
-                      _spotStyleTmp.border = "10px ridge cornflowerBlue";
-                    } else {
-                      _spotStyleTmp.border = "2px ridge cornflowerBlue";
-                    }
-
-                    var _spotStyle = _spotStyleTmp;
-                    showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
-                      key: _tmpID2,
-                      style: _spotStyle
-                    }));
-                  }
-                }
-              } else {
-                elementList.map(function (item, index) {
-                  var itemSchemaID = item.schema_ID;
-                  var itemSchema = componentsSchema[itemSchemaID];
-                  var item_ns_ID_1 = itemSchema.category;
-                  var item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
-
-                  if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
+            if (markedSpots !== undefined && markedSpots !== null) {
+              var _loop6 = function _loop6(key) {
+                if (key === _constants.string_typeDimensionsGeneral) {
                   var keyMarkedSpots = markedSpots[key];
 
                   if (Array.isArray(keyMarkedSpots)) {
-                    for (var _i2 = 0; _i2 < keyMarkedSpots.length; _i2++) {
-                      var _tmpID3 = item.ID + "_" + draggingID + "_" + _i2;
+                    for (var i = 0; i < keyMarkedSpots.length; i++) {
+                      var tmpID = draggingID + "_" + i;
+                      if (occupiedSpots.includes(tmpID)) continue;
+                      var spot = keyMarkedSpots[i];
 
-                      if (occupiedSpots.includes(_tmpID3)) continue;
-                      var _spot4 = keyMarkedSpots[_i2];
-
-                      var _xOff4 = item.x + item.width / 2 + _spot4.x * scalingFactor; // + containerOffsetX; // + xOff;
-
-
-                      var _yOff4 = item.y + item.height / 2 + defaultOffset + _spot4.y * scalingFactor; // +containerOffsetY;
+                      var _xOff2 = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
 
 
-                      var _x4 = _xOff4 - _spot4.w * scalingFactor / 2;
+                      var _yOff2 = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
 
-                      var _y4 = _yOff4 - _spot4.h * scalingFactor / 2;
 
-                      var _spotStyleTmp2 = {
+                      var x1 = _xOff2 - spot.w * scalingFactor / 2;
+                      var y1 = _yOff2 - spot.h * scalingFactor / 2;
+                      var spotStyleTmp = {
                         position: "absolute",
-                        left: _x4,
-                        top: _y4,
-                        width: _spot4.w * scalingFactor,
-                        height: _spot4.h * scalingFactor
+                        left: x1,
+                        top: y1,
+                        width: spot.w * scalingFactor,
+                        height: spot.h * scalingFactor
                       };
 
-                      if (_this4.state.showcasedSpot === _spot4) {
-                        _spotStyleTmp2.border = "10px ridge cornflowerBlue";
+                      if (_this4.state.showcasedSpot === spot) {
+                        spotStyleTmp.border = "10px ridge cornflowerBlue";
                       } else {
-                        _spotStyleTmp2.border = "2px ridge cornflowerBlue";
+                        spotStyleTmp.border = "2px ridge cornflowerBlue";
                       }
 
-                      var _spotStyle2 = _spotStyleTmp2;
+                      var spotStyle = spotStyleTmp;
                       showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
-                        key: _tmpID3,
-                        style: _spotStyle2
+                        key: tmpID,
+                        style: spotStyle
                       }));
                     }
                   } else {
-                    var _tmpID4 = item.ID + "_" + draggingID + "_" + 1;
+                    var _tmpID2 = draggingID + "_" + 1;
 
-                    if (occupiedSpots.includes(_tmpID4)) return;
-                    var _spot5 = keyMarkedSpots;
+                    if (!occupiedSpots.includes(_tmpID2)) {
+                      var _spot3 = keyMarkedSpots;
 
-                    var _xOff5 = item.x + item.width / 2 + _spot5.x * scalingFactor; // + containerOffsetX; // + xOff;
-
-
-                    var _yOff5 = item.y + item.height / 2 + defaultOffset + _spot5.y * scalingFactor; // +containerOffsetY;
+                      var _xOff3 = _spot3.x * scalingFactor; // + containerOffsetX; // + xOff;
 
 
-                    var _x5 = _xOff5 - _spot5.w * scalingFactor / 2;
+                      var _yOff3 = _spot3.y * scalingFactor; // + containerOffsetY; // + yOff;
 
-                    var _y5 = _yOff5 - _spot5.h * scalingFactor / 2;
 
-                    var _spotStyleTmp3 = {
-                      position: "absolute",
-                      left: _x5,
-                      top: _y5,
-                      width: _spot5.w * scalingFactor,
-                      height: _spot5.h * scalingFactor
-                    };
+                      var _x3 = _xOff3 - _spot3.w * scalingFactor / 2;
 
-                    if (_this4.state.showcasedSpot === _spot5) {
-                      _spotStyleTmp3.border = "10px ridge cornflowerBlue";
-                    } else {
-                      _spotStyleTmp3.border = "2px ridge cornflowerBlue";
+                      var _y3 = _yOff3 - _spot3.h * scalingFactor / 2;
+
+                      var _spotStyleTmp = {
+                        position: "absolute",
+                        left: _x3,
+                        top: _y3,
+                        width: _spot3.w * scalingFactor,
+                        height: _spot3.h * scalingFactor
+                      };
+
+                      if (_this4.state.showcasedSpot === _spot3) {
+                        _spotStyleTmp.border = "10px ridge cornflowerBlue";
+                      } else {
+                        _spotStyleTmp.border = "2px ridge cornflowerBlue";
+                      }
+
+                      var _spotStyle = _spotStyleTmp;
+                      showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
+                        key: _tmpID2,
+                        style: _spotStyle
+                      }));
                     }
-
-                    var _spotStyle3 = _spotStyleTmp3;
-                    showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
-                      key: _tmpID4,
-                      style: _spotStyle3
-                    }));
                   }
-                });
-              }
-            };
+                } else {
+                  elementList.map(function (item, index) {
+                    var itemSchemaID = item.schema_ID;
+                    var itemSchema = componentsSchema[itemSchemaID];
+                    var item_ns_ID_1 = itemSchema.category;
+                    var item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
 
-            for (var key in markedSpots) {
-              _loop4(key);
+                    if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
+                    var keyMarkedSpots = markedSpots[key];
+
+                    if (Array.isArray(keyMarkedSpots)) {
+                      for (var _i2 = 0; _i2 < keyMarkedSpots.length; _i2++) {
+                        var _tmpID3 = item.ID + "_" + draggingID + "_" + _i2;
+
+                        if (occupiedSpots.includes(_tmpID3)) continue;
+                        var _spot4 = keyMarkedSpots[_i2];
+
+                        var _xOff4 = item.x + item.width / 2 + _spot4.x * scalingFactor; // + containerOffsetX; // + xOff;
+
+
+                        var _yOff4 = item.y + item.height / 2 + defaultOffset + _spot4.y * scalingFactor; // +containerOffsetY;
+
+
+                        var _x4 = _xOff4 - _spot4.w * scalingFactor / 2;
+
+                        var _y4 = _yOff4 - _spot4.h * scalingFactor / 2;
+
+                        var _spotStyleTmp2 = {
+                          position: "absolute",
+                          left: _x4,
+                          top: _y4,
+                          width: _spot4.w * scalingFactor,
+                          height: _spot4.h * scalingFactor
+                        };
+
+                        if (_this4.state.showcasedSpot === _spot4) {
+                          _spotStyleTmp2.border = "10px ridge cornflowerBlue";
+                        } else {
+                          _spotStyleTmp2.border = "2px ridge cornflowerBlue";
+                        }
+
+                        var _spotStyle2 = _spotStyleTmp2;
+                        showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
+                          key: _tmpID3,
+                          style: _spotStyle2
+                        }));
+                      }
+                    } else {
+                      var _tmpID4 = item.ID + "_" + draggingID + "_" + 1;
+
+                      if (occupiedSpots.includes(_tmpID4)) return;
+                      var _spot5 = keyMarkedSpots;
+
+                      var _xOff5 = item.x + item.width / 2 + _spot5.x * scalingFactor; // + containerOffsetX; // + xOff;
+
+
+                      var _yOff5 = item.y + item.height / 2 + defaultOffset + _spot5.y * scalingFactor; // +containerOffsetY;
+
+
+                      var _x5 = _xOff5 - _spot5.w * scalingFactor / 2;
+
+                      var _y5 = _yOff5 - _spot5.h * scalingFactor / 2;
+
+                      var _spotStyleTmp3 = {
+                        position: "absolute",
+                        left: _x5,
+                        top: _y5,
+                        width: _spot5.w * scalingFactor,
+                        height: _spot5.h * scalingFactor
+                      };
+
+                      if (_this4.state.showcasedSpot === _spot5) {
+                        _spotStyleTmp3.border = "10px ridge cornflowerBlue";
+                      } else {
+                        _spotStyleTmp3.border = "2px ridge cornflowerBlue";
+                      }
+
+                      var _spotStyle3 = _spotStyleTmp3;
+                      showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
+                        key: _tmpID4,
+                        style: _spotStyle3
+                      }));
+                    }
+                  });
+                }
+              };
+
+              for (var key in markedSpots) {
+                _loop6(key);
+              }
             }
+          };
+
+          for (var index in draggingIDs) {
+            _loop5(index);
           }
         })();
       }

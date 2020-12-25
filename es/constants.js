@@ -109,7 +109,7 @@ var channelPath_Additional_2_3_4_5_6 = ["FilterGroup", "LensGroup", "MirrorGroup
 "StandardDichroic" //TO BE REMOVED
 ];
 exports.channelPath_Additional_2_3_4_5_6 = channelPath_Additional_2_3_4_5_6;
-var menu_order = ["MicroscopyEssentials", "Software", "Transmitted_LightSource", "Fluorescence_LightSource", "Magnification", "LightSourceCoupling", "FluorescenceLightPath", "Stage", "Focusing", "OpticalAssembly", "Aperture", "OpticsHolder", "Filter", "MirroringDevice", "Lens", "AdditionalOptics", "Detector", "Detector.Camera", "Detector.PointDetector", "Calibration"];
+var menu_order = ["MicroscopyEssentials", "Software", "Transmitted_LightSource", "Fluorescence_LightSource", "Magnification", "LightSourceCoupling", "FluorescenceLightPath", "Stage", "Focusing", "OpticalAssembly", "OpticsHolder", "Aperture", "Filter", "MirroringDevice", "Lens", "AdditionalOptics", "Detector", "Detector.Camera", "Detector.PointDetector", "Calibration"];
 exports.menu_order = menu_order;
 var string_bandpass_warning = "If you modify the number of band-pass, the information not saved are going to be lost!";
 exports.string_bandpass_warning = string_bandpass_warning;

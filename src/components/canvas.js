@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { DropTarget } from "react-drag-drop-container";
 import { DragDropContainer } from "react-drag-drop-container";
 
@@ -297,24 +298,33 @@ export default class Canvas extends React.PureComponent {
 		let y = e.y - this.state.headerOffset;
 		let schema = componentsSchema[schema_ID];
 
-		let spots = null;
-		let ns_ID = null;
+		let spotsMap = {};
+		let schemaCategory = schema.category;
 		if (
-			elementDimensions[schema.category] !== undefined &&
-			elementDimensions[schema.category] !== null &&
-			schema.title !== "MultiLaserEngine" &&
-			schema.title !== "Laser"
+			elementDimensions[schemaCategory] !== undefined &&
+			elementDimensions[schemaCategory] !== null &&
+			schema.title !== "MultiLaserEngine"
 		) {
-			ns_ID = schema.category;
-			spots = elementDimensions[ns_ID];
-			// console.log("Found category NSID: " + ns_ID);
-			// console.log(spots);
-		} else {
-			ns_ID = schema.category + "." + schema.title; //schema_ID.replace(".json", "");
-			spots = elementDimensions[ns_ID];
-			// console.log("Found full name NSID: " + ns_ID);
-			// console.log(spots);
+			let ns_ID = schemaCategory;
+			let spots = elementDimensions[ns_ID];
+			spotsMap[ns_ID] = spots;
 		}
+		let schemaFullName = schema.category + "." + schema.title;
+		if (
+			elementDimensions[schemaFullName] !== undefined &&
+			elementDimensions[schemaFullName] !== null
+		) {
+			let ns_ID = schemaFullName; //schema_ID.replace(".json", "");
+			let spots = elementDimensions[ns_ID];
+			spotsMap[ns_ID] = spots;
+			// if (schema.title === "MultiLaserEngine") {
+			// 	console.log("ns_ID");
+			// 	console.log(ns_ID);
+			// 	console.log("spots");
+			// 	console.log(spots);
+			// }
+		}
+
 		let showcasedSpot = null;
 
 		if (occupiedSpot !== undefined && occupiedSpot !== null) {
@@ -343,10 +353,14 @@ export default class Canvas extends React.PureComponent {
 		// 		break;
 		// 	}
 		// }
-		//console.log("ns_ID");
-		//console.log(ns_ID);
+
+		let draggingID = null;
+		let ns_IDs = Object.keys(spotsMap);
+		if (ns_IDs !== null && ns_IDs !== undefined && ns_IDs.length > 0)
+			draggingID = ns_IDs;
+
 		this.setState({
-			draggingID: ns_ID,
+			draggingID: draggingID,
 			showcasedSpot: showcasedSpot,
 			occupiedSpots: occupiedSpots,
 		});
@@ -437,19 +451,26 @@ export default class Canvas extends React.PureComponent {
 			schema_ID = newElementList[sourceElement.index].schema_ID;
 		}
 		let schema = componentsSchema[schema_ID];
-		let spots = null;
-		let ns_ID = null;
+
+		let spotsMap = {};
+		let schemaCategory = schema.category;
 		if (
-			elementDimensions[schema.category] !== undefined &&
-			elementDimensions[schema.category] !== null &&
-			schema.title !== "MultiLaserEngine" &&
-			schema.title !== "Laser"
+			elementDimensions[schemaCategory] !== undefined &&
+			elementDimensions[schemaCategory] !== null &&
+			schema.title !== "MultiLaserEngine"
 		) {
-			ns_ID = schema.category;
-			spots = elementDimensions[ns_ID];
-		} else {
-			ns_ID = schema.category + "." + schema.title; //schema_ID.replace(".json", "");
-			spots = elementDimensions[ns_ID];
+			let ns_ID = schemaCategory;
+			let spots = elementDimensions[ns_ID];
+			spotsMap[ns_ID] = spots;
+		}
+		let schemaFullName = schema.category + "." + schema.title;
+		if (
+			elementDimensions[schemaFullName] !== undefined &&
+			elementDimensions[schemaFullName] !== null
+		) {
+			let ns_ID = schemaFullName; //schema_ID.replace(".json", "");
+			let spots = elementDimensions[ns_ID];
+			spotsMap[ns_ID] = spots;
 			// if (schema.title === "MultiLaserEngine") {
 			// 	console.log("ns_ID");
 			// 	console.log(ns_ID);
@@ -476,62 +497,98 @@ export default class Canvas extends React.PureComponent {
 			number_canvas_element_icons_height /** scalingFactor*/ +
 			number_canvas_element_offset_default;
 
-		if (spots !== undefined && spots !== null) {
-			for (let key in spots) {
-				if (key === string_typeDimensionsGeneral) {
-					let keyMarkedSpots = spots[key];
-					if (Array.isArray(keyMarkedSpots)) {
-						for (let i = 0; i < keyMarkedSpots.length; i++) {
-							let tmpID = ns_ID + "_" + i;
-							let spot = keyMarkedSpots[i];
+		for (let index in Object.keys(spotsMap)) {
+			let ns_ID = Object.keys(spotsMap)[index];
+			let spots = spotsMap[ns_ID];
+			if (spots !== undefined && spots !== null) {
+				for (let key in spots) {
+					if (key === string_typeDimensionsGeneral) {
+						let keyMarkedSpots = spots[key];
+						if (Array.isArray(keyMarkedSpots)) {
+							for (let i = 0; i < keyMarkedSpots.length; i++) {
+								let tmpID = ns_ID + "_" + i;
+								let spot = keyMarkedSpots[i];
+								let spotW = spot.w * scalingFactor;
+								let spotH = spot.h * scalingFactor;
+								width = spotW;
+								height = spotH;
+								if (occupiedSpots.includes(tmpID)) continue;
+								if (spot.x !== -1 && spot.y !== -1) {
+									let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
+									let yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
+									let x1 = xOff - spotW / 2;
+									let x2 = xOff + spotW / 2;
+									let y1 = yOff - spotH / 2;
+									let y2 = yOff + spotH / 2;
+									if (x > x1 && x < x2 && y > y1 && y < y2) {
+										x = x1;
+										y = y1;
+										occupiedSpot = tmpID;
+										break;
+									}
+								}
+							}
+						} else {
+							let tmpID = ns_ID + "_" + 1;
+							let spot = keyMarkedSpots;
 							let spotW = spot.w * scalingFactor;
 							let spotH = spot.h * scalingFactor;
 							width = spotW;
 							height = spotH;
-							if (occupiedSpots.includes(tmpID)) continue;
-							if (spot.x !== -1 && spot.y !== -1) {
-								let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
-								let yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
-								let x1 = xOff - spotW / 2;
-								let x2 = xOff + spotW / 2;
-								let y1 = yOff - spotH / 2;
-								let y2 = yOff + spotH / 2;
-								if (x > x1 && x < x2 && y > y1 && y < y2) {
-									x = x1;
-									y = y1;
-									occupiedSpot = tmpID;
-									break;
+							if (!occupiedSpots.includes(tmpID)) {
+								if (spot.x !== -1 && spot.y !== -1) {
+									let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
+									let yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
+									let x1 = xOff - spotW / 2;
+									let x2 = xOff + spotW / 2;
+									let y1 = yOff - spotH / 2;
+									let y2 = yOff + spotH / 2;
+									if (x > x1 && x < x2 && y > y1 && y < y2) {
+										x = x1;
+										y = y1;
+										occupiedSpot = tmpID;
+									}
 								}
 							}
 						}
 					} else {
-						let tmpID = ns_ID + "_" + 1;
-						let spot = keyMarkedSpots;
-						let spotW = spot.w * scalingFactor;
-						let spotH = spot.h * scalingFactor;
-						width = spotW;
-						height = spotH;
-						if (!occupiedSpots.includes(tmpID)) {
-							if (spot.x !== -1 && spot.y !== -1) {
-								let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
-								let yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
-								let x1 = xOff - spotW / 2;
-								let x2 = xOff + spotW / 2;
-								let y1 = yOff - spotH / 2;
-								let y2 = yOff + spotH / 2;
-								if (x > x1 && x < x2 && y > y1 && y < y2) {
-									x = x1;
-									y = y1;
-									occupiedSpot = tmpID;
-								}
+						let keyMarkedSpots = spots[key];
+						if (Array.isArray(keyMarkedSpots)) {
+							for (let i = 0; i < keyMarkedSpots.length; i++) {
+								let spot = keyMarkedSpots[i];
+								let spotW = spot.w * scalingFactor;
+								let spotH = spot.h * scalingFactor;
+								width = spotW;
+								height = spotH;
+								newElementList.map((item, index) => {
+									let itemSchemaID = item.schema_ID;
+									let itemSchema = componentsSchema[itemSchemaID];
+									let item_ns_ID_1 = itemSchema.category;
+									let item_ns_ID_2 =
+										itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
+									let tmpID = item.ID + "_" + ns_ID + "_" + i;
+									if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
+									if (occupiedSpots.includes(tmpID)) return null;
+									let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX;
+									let yOff =
+										item.y +
+										item.height / 2 +
+										defaultOffset +
+										spot.y * scalingFactor; // + containerOffsetY;
+									let x1 = xOff - spotW / 2;
+									let x2 = xOff + spotW / 2;
+									let y1 = yOff - spotH / 2;
+									let y2 = yOff + spotH / 2;
+									if (x > x1 && x < x2 && y > y1 && y < y2) {
+										x = x1;
+										y = y1;
+										occupiedSpot = tmpID;
+										return null;
+									}
+								});
 							}
-						}
-					}
-				} else {
-					let keyMarkedSpots = spots[key];
-					if (Array.isArray(keyMarkedSpots)) {
-						for (let i = 0; i < keyMarkedSpots.length; i++) {
-							let spot = keyMarkedSpots[i];
+						} else {
+							let spot = keyMarkedSpots;
 							let spotW = spot.w * scalingFactor;
 							let spotH = spot.h * scalingFactor;
 							width = spotW;
@@ -541,7 +598,7 @@ export default class Canvas extends React.PureComponent {
 								let itemSchema = componentsSchema[itemSchemaID];
 								let item_ns_ID_1 = itemSchema.category;
 								let item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
-								let tmpID = item.ID + "_" + ns_ID + "_" + i;
+								let tmpID = item.ID + "_" + ns_ID + "_" + 1;
 								if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
 								if (occupiedSpots.includes(tmpID)) return null;
 								let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX;
@@ -558,43 +615,12 @@ export default class Canvas extends React.PureComponent {
 									x = x1;
 									y = y1;
 									occupiedSpot = tmpID;
-									return null;
 								}
 							});
 						}
-					} else {
-						let spot = keyMarkedSpots;
-						let spotW = spot.w * scalingFactor;
-						let spotH = spot.h * scalingFactor;
-						width = spotW;
-						height = spotH;
-						newElementList.map((item, index) => {
-							let itemSchemaID = item.schema_ID;
-							let itemSchema = componentsSchema[itemSchemaID];
-							let item_ns_ID_1 = itemSchema.category;
-							let item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
-							let tmpID = item.ID + "_" + ns_ID + "_" + 1;
-							if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
-							if (occupiedSpots.includes(tmpID)) return null;
-							let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX;
-							let yOff =
-								item.y +
-								item.height / 2 +
-								defaultOffset +
-								spot.y * scalingFactor; // + containerOffsetY;
-							let x1 = xOff - spotW / 2;
-							let x2 = xOff + spotW / 2;
-							let y1 = yOff - spotH / 2;
-							let y2 = yOff + spotH / 2;
-							if (x > x1 && x < x2 && y > y1 && y < y2) {
-								x = x1;
-								y = y1;
-								occupiedSpot = tmpID;
-							}
-						});
 					}
+					if (occupiedSpot !== null) break;
 				}
-				if (occupiedSpot !== null) break;
 			}
 		}
 
@@ -815,21 +841,34 @@ export default class Canvas extends React.PureComponent {
 		let occupiedSpots = this.state.occupiedSpots.slice();
 		let schema = componentsSchema[schemaID];
 		let occupiedSpot = elementList[index].occupiedSpot;
-		let ns_ID = null;
-		if (
-			elementDimensions[schema.category] !== undefined &&
-			elementDimensions[schema.category] !== null &&
-			schema.title !== "MultiLaserEngine" &&
-			schema.title !== "Laser"
-		) {
-			ns_ID = schema.category;
-			//console.log("Found category NSID: " + ns_ID);
-			//console.log(spots);
-		} else {
-			ns_ID = schema.category + "." + schema.title; //schemaID.replace(".json", "");
-			//console.log("Found full name NSID: " + ns_ID);
-			//console.log(spots);
-		}
+
+		//let spotsMap = {};
+		// let schemaCategory = schema.category;
+		// if (
+		// 	elementDimensions[schemaCategory] !== undefined &&
+		// 	elementDimensions[schemaCategory] !== null &&
+		// 	schema.title !== "MultiLaserEngine" &&
+		// 	schema.title !== "Laser"
+		// ) {
+		// 	let ns_ID = schemaCategory;
+		// 	let spots = elementDimensions[ns_ID];
+		// 	spotsMap[ns_ID] = spots;
+		// }
+		// let schemaFullName = schema.category + "." + schema.title;
+		// if (
+		// 	elementDimensions[schemaFullName] !== undefined &&
+		// 	elementDimensions[schemaFullName] !== null
+		// ) {
+		// 	let ns_ID = schemaFullName; //schema_ID.replace(".json", "");
+		// 	let spots = elementDimensions[ns_ID];
+		// 	spotsMap[ns_ID] = spots;
+		// 	// if (schema.title === "MultiLaserEngine") {
+		// 	// 	console.log("ns_ID");
+		// 	// 	console.log(ns_ID);
+		// 	// 	console.log("spots");
+		// 	// 	console.log(spots);
+		// 	// }
+		// }
 
 		if (occupiedSpot !== undefined && occupiedSpot !== null) {
 			let indexOf = occupiedSpots.indexOf(occupiedSpot);
@@ -988,13 +1027,13 @@ export default class Canvas extends React.PureComponent {
 		};
 		//paddingLeft: "5px",
 		let hoverSize = 125; //* scalingFactor;
-		let hoverFontSize = 80 * scalingFactor;
+		let hoverFontSize = 120 * scalingFactor;
 		let styleNameHover = {
 			overflow: "unset",
 			fontSize: `${hoverFontSize}%`,
 			textAlign: "left",
 			lineHeight: `${hoverSize}%`,
-			color: "gray",
+			color: "#0275d8",
 		};
 		let styleNameRegular = {
 			display: "none",
@@ -1056,13 +1095,22 @@ export default class Canvas extends React.PureComponent {
 			// console.log("element");
 			// console.log(element);
 			let schemaID = element.Schema_ID.replace(string_json_ext, "");
+			let itemSchema = componentsSchema[element.Schema_ID];
+			let schemaCategory = itemSchema.category;
 			if (
 				elementByType[schemaID] === undefined ||
 				elementByType[schemaID] === null
 			) {
 				elementByType[schemaID] = {};
 			}
+			if (
+				elementByType[schemaCategory] === undefined ||
+				elementByType[schemaCategory] === null
+			) {
+				elementByType[schemaCategory] = {};
+			}
 			elementByType[schemaID][element.ID] = element.Name;
+			elementByType[schemaCategory][element.ID] = element.Name;
 		});
 
 		for (let k = 0; k <= highestZ; k++) {
@@ -1288,14 +1336,9 @@ export default class Canvas extends React.PureComponent {
 		}
 
 		const showcasedSpots = [];
-		if (this.state.draggingID != null) {
+		if (this.state.draggingID !== null) {
 			let componentsSchema = this.state.componentsSchema;
-			let draggingID = this.state.draggingID;
-			let markedSpots = elementDimensions[draggingID];
-			// console.log("draggingID");
-			// console.log(draggingID);
-			// console.log("markedSpots");
-			// console.log(markedSpots);
+			let draggingIDs = this.state.draggingID;
 
 			let offsetX = this.state.offsetX;
 			let offsetY = this.state.offsetY;
@@ -1309,76 +1352,112 @@ export default class Canvas extends React.PureComponent {
 				number_canvas_element_icons_height /* * scalingFactor*/ +
 				number_canvas_element_offset_default;
 
-			// console.log("occupiedSpots");
-			// console.log(occupiedSpots);
-			if (markedSpots !== undefined && markedSpots !== null) {
-				for (let key in markedSpots) {
-					if (key === string_typeDimensionsGeneral) {
-						let keyMarkedSpots = markedSpots[key];
-						if (Array.isArray(keyMarkedSpots)) {
-							for (let i = 0; i < keyMarkedSpots.length; i++) {
-								let tmpID = draggingID + "_" + i;
-								if (occupiedSpots.includes(tmpID)) continue;
-								let spot = keyMarkedSpots[i];
-								let xOff = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
-								let yOff = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
-								let x1 = xOff - (spot.w * scalingFactor) / 2;
-								let y1 = yOff - (spot.h * scalingFactor) / 2;
-								let spotStyleTmp = {
-									position: "absolute",
-									left: x1,
-									top: y1,
-									width: spot.w * scalingFactor,
-									height: spot.h * scalingFactor,
-								};
-								if (this.state.showcasedSpot === spot) {
-									spotStyleTmp.border = "10px ridge cornflowerBlue";
-								} else {
-									spotStyleTmp.border = "2px ridge cornflowerBlue";
-								}
+			// console.log("draggingIDs");
+			// console.log(draggingIDs);
 
-								const spotStyle = spotStyleTmp;
-								showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
-							}
-						} else {
-							let tmpID = draggingID + "_" + 1;
-							if (!occupiedSpots.includes(tmpID)) {
-								let spot = keyMarkedSpots;
-								let xOff = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
-								let yOff = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
-								let x1 = xOff - (spot.w * scalingFactor) / 2;
-								let y1 = yOff - (spot.h * scalingFactor) / 2;
-								let spotStyleTmp = {
-									position: "absolute",
-									left: x1,
-									top: y1,
-									width: spot.w * scalingFactor,
-									height: spot.h * scalingFactor,
-								};
-								if (this.state.showcasedSpot === spot) {
-									spotStyleTmp.border = "10px ridge cornflowerBlue";
-								} else {
-									spotStyleTmp.border = "2px ridge cornflowerBlue";
-								}
-
-								const spotStyle = spotStyleTmp;
-								showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
-							}
-						}
-					} else {
-						elementList.map((item, index) => {
-							let itemSchemaID = item.schema_ID;
-							let itemSchema = componentsSchema[itemSchemaID];
-							let item_ns_ID_1 = itemSchema.category;
-							let item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
-
-							if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
+			for (let index in draggingIDs) {
+				let draggingID = draggingIDs[index];
+				let markedSpots = elementDimensions[draggingID];
+				// console.log("draggingID");
+				// console.log(draggingID);
+				// console.log("occupiedSpots");
+				// console.log(occupiedSpots);
+				if (markedSpots !== undefined && markedSpots !== null) {
+					for (let key in markedSpots) {
+						if (key === string_typeDimensionsGeneral) {
 							let keyMarkedSpots = markedSpots[key];
 							if (Array.isArray(keyMarkedSpots)) {
 								for (let i = 0; i < keyMarkedSpots.length; i++) {
-									let tmpID = item.ID + "_" + draggingID + "_" + i;
+									let tmpID = draggingID + "_" + i;
 									if (occupiedSpots.includes(tmpID)) continue;
 									let spot = keyMarkedSpots[i];
+									let xOff = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
+									let yOff = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
+									let x1 = xOff - (spot.w * scalingFactor) / 2;
+									let y1 = yOff - (spot.h * scalingFactor) / 2;
+									let spotStyleTmp = {
+										position: "absolute",
+										left: x1,
+										top: y1,
+										width: spot.w * scalingFactor,
+										height: spot.h * scalingFactor,
+									};
+									if (this.state.showcasedSpot === spot) {
+										spotStyleTmp.border = "10px ridge cornflowerBlue";
+									} else {
+										spotStyleTmp.border = "2px ridge cornflowerBlue";
+									}
+
+									const spotStyle = spotStyleTmp;
+									showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
+								}
+							} else {
+								let tmpID = draggingID + "_" + 1;
+								if (!occupiedSpots.includes(tmpID)) {
+									let spot = keyMarkedSpots;
+									let xOff = spot.x * scalingFactor; // + containerOffsetX; // + xOff;
+									let yOff = spot.y * scalingFactor; // + containerOffsetY; // + yOff;
+									let x1 = xOff - (spot.w * scalingFactor) / 2;
+									let y1 = yOff - (spot.h * scalingFactor) / 2;
+									let spotStyleTmp = {
+										position: "absolute",
+										left: x1,
+										top: y1,
+										width: spot.w * scalingFactor,
+										height: spot.h * scalingFactor,
+									};
+									if (this.state.showcasedSpot === spot) {
+										spotStyleTmp.border = "10px ridge cornflowerBlue";
+									} else {
+										spotStyleTmp.border = "2px ridge cornflowerBlue";
+									}
+
+									const spotStyle = spotStyleTmp;
+									showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
+								}
+							}
+						} else {
+							elementList.map((item, index) => {
+								let itemSchemaID = item.schema_ID;
+								let itemSchema = componentsSchema[itemSchemaID];
+								let item_ns_ID_1 = itemSchema.category;
+								let item_ns_ID_2 = itemSchema.category + "." + itemSchema.title; //itemSchemaID.replace(".json", "");
+
+								if (item_ns_ID_1 !== key && item_ns_ID_2 !== key) return null;
+								let keyMarkedSpots = markedSpots[key];
+								if (Array.isArray(keyMarkedSpots)) {
+									for (let i = 0; i < keyMarkedSpots.length; i++) {
+										let tmpID = item.ID + "_" + draggingID + "_" + i;
+										if (occupiedSpots.includes(tmpID)) continue;
+										let spot = keyMarkedSpots[i];
+										let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX; // + xOff;
+										let yOff =
+											item.y +
+											item.height / 2 +
+											defaultOffset +
+											spot.y * scalingFactor; // +containerOffsetY;
+										let x1 = xOff - (spot.w * scalingFactor) / 2;
+										let y1 = yOff - (spot.h * scalingFactor) / 2;
+										let spotStyleTmp = {
+											position: "absolute",
+											left: x1,
+											top: y1,
+											width: spot.w * scalingFactor,
+											height: spot.h * scalingFactor,
+										};
+										if (this.state.showcasedSpot === spot) {
+											spotStyleTmp.border = "10px ridge cornflowerBlue";
+										} else {
+											spotStyleTmp.border = "2px ridge cornflowerBlue";
+										}
+
+										const spotStyle = spotStyleTmp;
+										showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
+									}
+								} else {
+									let tmpID = item.ID + "_" + draggingID + "_" + 1;
+									if (occupiedSpots.includes(tmpID)) return;
+									let spot = keyMarkedSpots;
 									let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX; // + xOff;
 									let yOff =
 										item.y +
@@ -1403,35 +1482,8 @@ export default class Canvas extends React.PureComponent {
 									const spotStyle = spotStyleTmp;
 									showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
 								}
-							} else {
-								let tmpID = item.ID + "_" + draggingID + "_" + 1;
-								if (occupiedSpots.includes(tmpID)) return;
-								let spot = keyMarkedSpots;
-								let xOff = item.x + item.width / 2 + spot.x * scalingFactor; // + containerOffsetX; // + xOff;
-								let yOff =
-									item.y +
-									item.height / 2 +
-									defaultOffset +
-									spot.y * scalingFactor; // +containerOffsetY;
-								let x1 = xOff - (spot.w * scalingFactor) / 2;
-								let y1 = yOff - (spot.h * scalingFactor) / 2;
-								let spotStyleTmp = {
-									position: "absolute",
-									left: x1,
-									top: y1,
-									width: spot.w * scalingFactor,
-									height: spot.h * scalingFactor,
-								};
-								if (this.state.showcasedSpot === spot) {
-									spotStyleTmp.border = "10px ridge cornflowerBlue";
-								} else {
-									spotStyleTmp.border = "2px ridge cornflowerBlue";
-								}
-
-								const spotStyle = spotStyleTmp;
-								showcasedSpots.push(<div key={tmpID} style={spotStyle} />);
-							}
-						});
+							});
+						}
 					}
 				}
 			}
