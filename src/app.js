@@ -1395,7 +1395,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let childrenSchema = this.state.adaptedChildrenSchema;
 
 		let footerMicroscopeSchemas = [microscopeSchema, microscopeStandSchema];
-		let footerMicroscopeInput = [microscope, microscope[this.state.standType]];
+		let footerMicroscopeInput = [microscope, microscope.MicroscopeStand];
 
 		if (!this.state.isCreatingNewMicroscope) {
 			return (
