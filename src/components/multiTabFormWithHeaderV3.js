@@ -430,6 +430,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			let localConsolidatedData = partialConsolidatedData[id];
 			let localPartialInputData = partialInputData[id];
 			let schemaTitle = localPartialInputData.schemaTitle;
+			let schema = localPartialInputData.schema;
 			let localSubComponents = [];
 			if (
 				subComponents[schemaTitle] !== null &&

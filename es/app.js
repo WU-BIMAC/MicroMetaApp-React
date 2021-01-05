@@ -546,13 +546,20 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         var compSchemaID = comp.Schema_ID;
         var compSchema = componentsSchema[compSchemaID];
 
-        if (compSchema === undefined) {
-          console.log(compSchemaID + " not found");
-        }
-
         if (compSchema !== undefined && compSchema !== null && comp.Version !== compSchema.version) {
           comp.Version = compSchema.version;
-        } else if (compSchema === undefined && compSchema === null) {//Adjustment case for renamed Schemas
+        } else if (compSchema === undefined || compSchema === null) {
+          //Adjustment case for renamed Schemas
+          console.log(compSchemaID + " not found - OLD NAME");
+          var newCompSchemaID = null;
+          if (compSchemaID === "AutoFocus.json") newCompSchemaID = "FocusStabilizationDevice.json";else if (compSchemaID === "Direct.json") newCompSchemaID = "FreeBeam.json";else if (compSchemaID === "FilterSet.json") newCompSchemaID = "FilterCube.json";else if (compSchemaID === "Optovar.json") newCompSchemaID = "MagnificationChanger.json";else if (compSchemaID === "SampleHolder.json") newCompSchemaID = "StageInsert.json";else if (compSchemaID === "ObjectiveTurretFocus.json") newCompSchemaID = "TurretObjectiveFocusing.json";else if (compSchemaID === "PiezoElectricObjectiveFocus.json") newCompSchemaID = "IndividualObjectiveFocusing.json";
+          var _compSchema = componentsSchema[newCompSchemaID];
+
+          if (_compSchema === undefined || _compSchema === null) {
+            console.log(newCompSchemaID + " not found - NEW NAME");
+          } else {
+            comp.Schema_ID = newCompSchemaID;
+          }
         }
       }
 
@@ -561,6 +568,8 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         //Manufacturer, Model, SerialNumber -> CatalogNumber, LotNumber, EyePieceFieldNumber
         var activeTier = this.state.activeTier;
         var uuid2 = (0, _uuid.v4)();
+        console.log("OLD MICROSCOPE");
+        console.log(originalMicroscope);
         var newMicroscope = Object.assign({}, originalMicroscope);
         delete newMicroscope.Manufacturer;
         delete newMicroscope.Model;
@@ -569,7 +578,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         delete newMicroscope.SpecsFile;
         delete newMicroscope.EyePieceFieldNumber;
         delete newMicroscope.Type;
-        newMicroscope["MicroscopeStand"] = {
+        newMicroscope.MicroscopeStand = {
           Name: "New ".concat(microscopeStandSchema.title),
           Schema_ID: microscopeStandSchema.ID,
           ID: uuid2,
@@ -583,6 +592,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           EyePieceFieldNumber: originalMicroscope.EyePieceFieldNumber,
           SpecsFile: originalMicroscope.SpecsFile
         };
+        newMicroscope.Schema_ID = "Instrument.json";
         console.log("newMicroscope");
         console.log(newMicroscope);
         return newMicroscope;
@@ -610,7 +620,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         Version: microscopeSchema.version
       };
       var uuid2 = (0, _uuid.v4)();
-      microscope["MicroscopeStand"] = {
+      microscope.MicroscopeStand = {
         Name: "New ".concat(microscopeStandSchema.title),
         Schema_ID: microscopeStandSchema.ID,
         ID: uuid2,
@@ -666,8 +676,11 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var linkedFields = Object.assign({}, modifiedMic.linkedFields);
-      var validation = validate(modifiedMic, microscopeSchema);
-      var validated = validation.valid;
+      var validationMicroscope = validate(modifiedMic, microscopeSchema);
+      var validatedMicroscope = validationMicroscope.valid;
+      var validationStand = validate(modifiedMic.MicroscopeStand, microscopeStandSchema);
+      var validatedStand = validationStand.valid;
+      var validated = validatedMicroscope && validatedStand;
 
       if (this.state.isCreatingNewMicroscope) {
         MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(modifiedMic, newElementData, this.props.scalingFactor);
@@ -745,8 +758,11 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var linkedFields = Object.assign({}, modifiedMic.linkedFields);
-      var validation = validate(modifiedMic, microscopeSchema);
-      var validated = validation.valid;
+      var validationMicroscope = validate(modifiedMic, microscopeSchema);
+      var validatedMicroscope = validationMicroscope.valid;
+      var validationStand = validate(modifiedMic.MicroscopeStand, microscopeStandSchema);
+      var validatedStand = validationStand.valid;
+      var validated = validatedMicroscope && validatedStand;
 
       if (this.state.isCreatingNewMicroscope) {
         MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(modifiedMic, newElementData, this.props.scalingFactor);
@@ -962,6 +978,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         //return;
       }
 
+      var elementData = this.state.elementData;
       var components = [];
       Object.keys(elementData).forEach(function (item, index) {
         components[index] = elementData[item];
@@ -1088,10 +1105,10 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     key: "onMicroscopeDataSave",
     value: function onMicroscopeDataSave(id, data) {
       var oldMicroscope = this.state.microscope;
-      var oldStand = oldMicroscope[this.state.standType];
+      var oldStand = oldMicroscope.MicroscopeStand;
       var newStand = Object.assign(oldStand, data[this.state.standType]);
       var newMicroscope = Object.assign(oldMicroscope, data);
-      newMicroscope[this.state.standType] = newStand;
+      newMicroscope.MicroscopeStand = newStand;
       this.setState({
         microscope: newMicroscope,
         isMicroscopeValidated: true

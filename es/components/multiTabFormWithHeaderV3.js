@@ -442,6 +442,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var localConsolidatedData = partialConsolidatedData[id];
         var localPartialInputData = partialInputData[id];
         var schemaTitle = localPartialInputData.schemaTitle;
+        var schema = localPartialInputData.schema;
         var localSubComponents = [];
 
         if (subComponents[schemaTitle] !== null && subComponents[schemaTitle] !== undefined) {
