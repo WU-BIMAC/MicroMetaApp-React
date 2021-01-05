@@ -501,7 +501,8 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     value: function applyPreviousVersionModification(originalMicroscope) {
       var schema = this.state.schema;
       var oldVersion = originalMicroscope.Version;
-      var oldVersionNumber = Number(oldVersion.replace(".", ""));
+      var oldVersionString = oldVersion.replaceAll(".", "");
+      var oldVersionNumber = Number(oldVersionString);
       var microscopeSchema = {};
       var microscopeStandSchema = {}; //In theory these should never be needed because settings shouldn't be re-edited
       //let imageSchema = {};
@@ -1246,10 +1247,10 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           Object.keys(microscopes).forEach(function (key) {
             var mic = microscopes[key];
 
-            if (mic.Manufacturer !== null && mic.Manufacturer !== undefined) {
-              var catNames = microscopeNames[mic.Manufacturer];
+            if (mic.MicroscopeStand !== null && mic.MicroscopeStand !== undefined && mic.MicroscopeStand.Manufacturer !== null && mic.MicroscopeStand.Manufacturer !== undefined) {
+              var catNames = microscopeNames[mic.MicroscopeStand.Manufacturer];
               if (catNames !== null && catNames !== undefined) catNames.push(key);else catNames = [key];
-              microscopeNames[mic.Manufacturer] = catNames;
+              microscopeNames[mic.MicroscopeStand.Manufacturer] = catNames;
             } else {
               var _catNames = microscopeNames["Others"];
               if (_catNames !== null && _catNames !== undefined) _catNames.push(key);else _catNames = [key];

@@ -535,7 +535,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	applyPreviousVersionModification(originalMicroscope) {
 		let schema = this.state.schema;
 		let oldVersion = originalMicroscope.Version;
-		let oldVersionNumber = Number(oldVersion.replace(".", ""));
+		let oldVersionString = oldVersion.replaceAll(".", "");
+		let oldVersionNumber = Number(oldVersionString);
 		let microscopeSchema = {};
 		let microscopeStandSchema = {};
 		//In theory these should never be needed because settings shouldn't be re-edited
@@ -1302,11 +1303,16 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			if (microscopes) {
 				Object.keys(microscopes).forEach((key) => {
 					let mic = microscopes[key];
-					if (mic.Manufacturer !== null && mic.Manufacturer !== undefined) {
-						let catNames = microscopeNames[mic.Manufacturer];
+					if (
+						mic.MicroscopeStand !== null &&
+						mic.MicroscopeStand !== undefined &&
+						mic.MicroscopeStand.Manufacturer !== null &&
+						mic.MicroscopeStand.Manufacturer !== undefined
+					) {
+						let catNames = microscopeNames[mic.MicroscopeStand.Manufacturer];
 						if (catNames !== null && catNames !== undefined) catNames.push(key);
 						else catNames = [key];
-						microscopeNames[mic.Manufacturer] = catNames;
+						microscopeNames[mic.MicroscopeStand.Manufacturer] = catNames;
 					} else {
 						let catNames = microscopeNames["Others"];
 						if (catNames !== null && catNames !== undefined) catNames.push(key);
