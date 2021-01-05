@@ -501,7 +501,8 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     value: function applyPreviousVersionModification(originalMicroscope) {
       var schema = this.state.schema;
       var oldVersion = originalMicroscope.Version;
-      var oldVersionString = oldVersion.replaceAll(".", "");
+      var oldVersionString = oldVersion.split(".").join(""); //oldVersion.replaceAll(".", "");
+
       var oldVersionNumber = Number(oldVersionString);
       var microscopeSchema = {};
       var microscopeStandSchema = {}; //In theory these should never be needed because settings shouldn't be re-edited

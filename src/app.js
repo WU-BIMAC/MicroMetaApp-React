@@ -535,7 +535,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	applyPreviousVersionModification(originalMicroscope) {
 		let schema = this.state.schema;
 		let oldVersion = originalMicroscope.Version;
-		let oldVersionString = oldVersion.replaceAll(".", "");
+		let oldVersionString = oldVersion.split(".").join("");//oldVersion.replaceAll(".", "");
 		let oldVersionNumber = Number(oldVersionString);
 		let microscopeSchema = {};
 		let microscopeStandSchema = {};
