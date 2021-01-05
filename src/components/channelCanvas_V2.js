@@ -1182,7 +1182,7 @@ export default class ChannelsCanvas_V2 extends React.PureComponent {
 		Object.keys(this.props.componentSchemas).forEach((schemaIndex) => {
 			let schema = this.props.componentSchemas[schemaIndex];
 			let schema_id = schema.ID;
-			if (schema_id === "Direct.json") {
+			if (schema_id === "FreeBeam.json") {
 				lightSourceCouplingImage = url.resolve(
 					this.props.imagesPath,
 					schema.image

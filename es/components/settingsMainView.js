@@ -43,7 +43,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 var validate = require("jsonschema").validate;
 
-var schemasOrder = ["Experiment.json", "Plane.json", "Channel.json", "TIRFSettings.json", "ImagingEnvironment.json", "MicroscopeSettings.json", "ObjectiveSettings.json"];
+var schemasOrder = ["Experiment.json", "Plane.json", "Channel.json", "ImagingEnvironment.json", "MicroscopeSettings.json", "ObjectiveSettings.json", "TIRFSettings.json"];
 
 var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(SettingMainView, _React$PureComponent);
@@ -60,19 +60,21 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
       elementList: [],
       elementData: Object.assign({}, _this.props.settingData),
       componentsSchema: {},
+      experimentalSchema: {},
       editingElement: -1
-    };
-    console.log("settingSchemas");
-    console.log(props.settingSchemas);
-    console.log("componentSchemas");
-    console.log(props.componentSchemas);
-    Object.keys(props.settingSchemas).forEach(function (schemaIndex) {
-      var schema = props.settingSchemas[schemaIndex];
+    }; // console.log("settingSchemas");
+    // console.log(props.settingSchemas);
+    // console.log("componentSchemas");
+    // console.log(props.componentSchemas);
+
+    if (props.experimentalSchemas !== undefined && props.experimentalSchemas !== null) Object.keys(props.experimentalSchemas).forEach(function (schemaIndex) {
+      var schema = props.experimentalSchemas[schemaIndex];
       var schema_id = schema.ID; //console.log("schema_id: " + schema_id);
 
       var index = schemasOrder.indexOf(schema_id);
-      Object.keys(props.settingData).forEach(function (objIndex) {
-        var object = props.settingData[objIndex];
+      if (index < 0) return;
+      if (props.experimentalData !== undefined && props.experimentalData !== null) Object.keys(props.experimentalData).forEach(function (objIndex) {
+        var object = props.experimentalData[objIndex];
         if (props.activeTier < object.tier) return;
         if (schema_id !== object.Schema_ID) return;
         var validation = validate(object, schema);
@@ -138,6 +140,81 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
       _this.state.componentsSchema[schema_id] = schema;
     });
+    if (props.settingSchemas !== undefined && props.settingSchemas !== null) Object.keys(props.settingSchemas).forEach(function (schemaIndex) {
+      var schema = props.settingSchemas[schemaIndex];
+      var schema_id = schema.ID; //console.log("schema_id: " + schema_id);
+
+      var index = schemasOrder.indexOf(schema_id);
+      if (index < 0) return;
+      if (props.settingData !== undefined && props.settingData !== null) Object.keys(props.settingData).forEach(function (objIndex) {
+        var object = props.settingData[objIndex];
+        if (props.activeTier < object.tier) return;
+        if (schema_id !== object.Schema_ID) return;
+        var validation = validate(object, schema);
+        var validated = validation.valid;
+        var newElement = {
+          ID: schema.title + "_" + object.ID,
+          schema_ID: schema_id,
+          name: object.Name,
+          validated: validated,
+          obj: object
+        };
+        _this.state.elementList[index] = newElement;
+      });
+
+      if (_this.state.elementList[index] === null || _this.state.elementList[index] == undefined) {
+        var uuid = (0, _uuid.v4)();
+        var newElementData;
+        newElementData = {
+          Name: "New ".concat(schema.title),
+          ID: uuid,
+          Tier: schema.tier,
+          Schema_ID: schema.ID,
+          Version: schema.version
+        };
+        Object.keys(schema.properties).forEach(function (key) {
+          if (schema.properties[key].type === _constants.string_array) {
+            var currentNumber = _constants.string_currentNumberOf_identifier + key;
+            var minNumber = _constants.string_minNumberOf_identifier + key;
+            var maxNumber = _constants.string_maxNumberOf_identifier + key;
+
+            if (schema.required.indexOf(key) != -1) {
+              newElementData[currentNumber] = 1;
+              newElementData[minNumber] = 1;
+              newElementData[maxNumber] = -1;
+            } else {
+              newElementData[currentNumber] = 0;
+              newElementData[minNumber] = 0;
+              newElementData[maxNumber] = -1;
+            }
+          } else if (schema.properties[key].type === _constants.string_object) {
+            var _currentNumber2 = _constants.string_currentNumberOf_identifier + key;
+
+            var _minNumber2 = _constants.string_minNumberOf_identifier + key;
+
+            var _maxNumber2 = _constants.string_maxNumberOf_identifier + key;
+
+            if (schema.required.indexOf(key) === -1) {
+              newElementData[_currentNumber2] = 0;
+              newElementData[_minNumber2] = 0;
+              newElementData[_maxNumber2] = 1;
+            }
+          }
+        });
+        var newElement = {
+          ID: schema.title + "_" + uuid,
+          schema_ID: schema.ID,
+          name: newElementData.Name,
+          validated: false,
+          obj: newElementData
+        };
+        _this.state.elementList[index] = newElement;
+      }
+
+      _this.state.componentsSchema[schema_id] = schema;
+    });
+    console.log("elementList");
+    console.log(_this.state.elementList);
     _this.onElementDataSave = _this.onElementDataSave.bind(_assertThisInitialized(_this));
     _this.onElementDataCancel = _this.onElementDataCancel.bind(_assertThisInitialized(_this));
     _this.getElementData = _this.getElementData.bind(_assertThisInitialized(_this));
@@ -426,19 +503,25 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
   }], [{
     key: "getDerivedStateFromProps",
     value: function getDerivedStateFromProps(props, state) {
-      if (props.componentsSchema !== null) {
-        var componentsSchema = {};
-        Object.keys(props.settingSchemas).forEach(function (schemaIndex) {
+      if (props.settingSchemas !== null || props.experimentalSchemas !== null) {
+        var settingsSchema = {};
+        if (props.settingSchemas !== null) Object.keys(props.settingSchemas).forEach(function (schemaIndex) {
           var schema = props.settingSchemas[schemaIndex];
           var schema_id = schema.ID;
-          componentsSchema[schema_id] = schema;
+          settingsSchema[schema_id] = schema;
+        });
+        if (props.experimentalSchemas !== null) Object.keys(props.experimentalSchemas).forEach(function (schemaIndex) {
+          var schema = props.experimentalSchemas[schemaIndex];
+          var schema_id = schema.ID;
+          settingsSchema[schema_id] = schema;
         });
         var elementList = state.elementList;
 
         for (var i = 0; i < elementList.length; i++) {
           var element = elementList[i];
+          console.log(element);
           var schema_id = element.schema_ID;
-          var schema = componentsSchema[schema_id];
+          var schema = settingsSchema[schema_id];
           var object = element.obj;
           var validation = validate(object, schema);
           var validated = validation.valid;
@@ -446,7 +529,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         return {
-          componentsSchema: componentsSchema
+          componentsSchema: settingsSchema
         };
       }
     }

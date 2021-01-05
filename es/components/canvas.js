@@ -1355,25 +1355,43 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var micInfo = [];
 
       if (microscope !== null && microscope !== undefined) {
-        if (microscope.Name) {
-          micInfo.push("Name: ".concat(microscope.Name));
+        if (microscope.Name !== undefined && microscope.Name !== null) {
+          micInfo.push("Microscope Name: ".concat(microscope.Name));
           micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
             key: "newline-1"
           }));
         }
 
-        if (microscope.Manufacturer !== null && microscope.Manufacturer !== undefined) {
-          micInfo.push("Manufacturer: ".concat(microscope.Manufacturer));
-          micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
-            key: "newline-2"
-          }));
-        }
+        if (microscope.MicroscopeStand !== undefined && microscope.MicroscopeStand !== null) {
+          var _stand = microscope.MicroscopeStand;
 
-        if (microscope.Model !== null && microscope.Model !== undefined) {
-          micInfo.push("Model: ".concat(microscope.Model));
-          micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
-            key: "newline-3"
-          }));
+          if (_stand.Name !== null && _stand.Name !== undefined) {
+            micInfo.push("MicroscopeStand Name: ".concat(_stand.Name));
+            micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+              key: "newline-2"
+            }));
+          }
+
+          if (_stand.Manufacturer !== null && _stand.Manufacturer !== undefined) {
+            micInfo.push("MicroscopeStand Manufacturer: ".concat(_stand.Manufacturer));
+            micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+              key: "newline-3"
+            }));
+          }
+
+          if (_stand.Model !== null && _stand.Model !== undefined) {
+            micInfo.push("MicroscopeStand Model: ".concat(_stand.Model));
+            micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+              key: "newline-4"
+            }));
+          }
+
+          if (_stand.Type !== null && _stand.Type !== undefined) {
+            micInfo.push("MicroscopeStand Type: ".concat(_stand.Type));
+            micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+              key: "newline-5"
+            }));
+          }
         }
       }
 

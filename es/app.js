@@ -1107,6 +1107,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var oldMicroscope = this.state.microscope;
       var oldStand = oldMicroscope.MicroscopeStand;
       var newStand = Object.assign(oldStand, data[this.state.standType]);
+      delete data[this.state.standType];
       var newMicroscope = Object.assign(oldMicroscope, data);
       newMicroscope.MicroscopeStand = newStand;
       this.setState({
@@ -1140,6 +1141,8 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var setting = this.state.setting;
       var settings = this.state.settings;
       var settingData = this.state.settingData;
+      var experimental = this.state.experimental;
+      var experimentalData = this.state.experimentalData;
       var linkedFields = this.state.linkedFields;
       var scalingFactor = this.props.scalingFactor;
       width = Math.max(1100, width);
@@ -1364,8 +1367,10 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           ref: this.settingsMainViewRef,
           imagesPath: imagesPathSVG,
           settingSchemas: settingsSchema,
+          experimentalSchemas: experimentalSchema,
           componentSchemas: componentsSchema,
           settingData: settingData,
+          experimentalData: experimentalData,
           componentData: elementData,
           linkedFields: linkedFields,
           updateElementData: this.updateSettingData,

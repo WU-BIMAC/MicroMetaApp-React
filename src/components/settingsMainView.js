@@ -11,6 +11,7 @@ const validate = require("jsonschema").validate;
 
 import {
 	bool_isDebug,
+	bool_isAdvanced,
 	string_object,
 	string_array,
 	string_json_ext,
@@ -22,10 +23,10 @@ const schemasOrder = [
 	"Experiment.json",
 	"Plane.json",
 	"Channel.json",
-	"TIRFSettings.json",
 	"ImagingEnvironment.json",
 	"MicroscopeSettings.json",
 	"ObjectiveSettings.json",
+	"TIRFSettings.json",
 ];
 
 export default class SettingMainView extends React.PureComponent {
@@ -36,83 +37,169 @@ export default class SettingMainView extends React.PureComponent {
 			elementList: [],
 			elementData: Object.assign({}, this.props.settingData),
 			componentsSchema: {},
+			experimentalSchema: {},
 			editingElement: -1,
 		};
 
-		console.log("settingSchemas");
-		console.log(props.settingSchemas);
-		console.log("componentSchemas");
-		console.log(props.componentSchemas);
+		// console.log("settingSchemas");
+		// console.log(props.settingSchemas);
+		// console.log("componentSchemas");
+		// console.log(props.componentSchemas);
 
-		Object.keys(props.settingSchemas).forEach((schemaIndex) => {
-			let schema = props.settingSchemas[schemaIndex];
-			let schema_id = schema.ID;
-			//console.log("schema_id: " + schema_id);
-			let index = schemasOrder.indexOf(schema_id);
-			Object.keys(props.settingData).forEach((objIndex) => {
-				let object = props.settingData[objIndex];
-				if (props.activeTier < object.tier) return;
-				if (schema_id !== object.Schema_ID) return;
-				let validation = validate(object, schema);
-				let validated = validation.valid;
-				let newElement = {
-					ID: schema.title + "_" + object.ID,
-					schema_ID: schema_id,
-					name: object.Name,
-					validated: validated,
-					obj: object,
-				};
-				this.state.elementList[index] = newElement;
+		if (
+			props.experimentalSchemas !== undefined &&
+			props.experimentalSchemas !== null
+		)
+			Object.keys(props.experimentalSchemas).forEach((schemaIndex) => {
+				let schema = props.experimentalSchemas[schemaIndex];
+				let schema_id = schema.ID;
+				//console.log("schema_id: " + schema_id);
+				let index = schemasOrder.indexOf(schema_id);
+				if (index < 0) return;
+				if (
+					props.experimentalData !== undefined &&
+					props.experimentalData !== null
+				)
+					Object.keys(props.experimentalData).forEach((objIndex) => {
+						let object = props.experimentalData[objIndex];
+						if (props.activeTier < object.tier) return;
+						if (schema_id !== object.Schema_ID) return;
+						let validation = validate(object, schema);
+						let validated = validation.valid;
+						let newElement = {
+							ID: schema.title + "_" + object.ID,
+							schema_ID: schema_id,
+							name: object.Name,
+							validated: validated,
+							obj: object,
+						};
+						this.state.elementList[index] = newElement;
+					});
+				if (
+					this.state.elementList[index] === null ||
+					this.state.elementList[index] == undefined
+				) {
+					let uuid = uuidv4();
+					let newElementData;
+					newElementData = {
+						Name: `New ${schema.title}`,
+						ID: uuid,
+						Tier: schema.tier,
+						Schema_ID: schema.ID,
+						Version: schema.version,
+					};
+					Object.keys(schema.properties).forEach((key) => {
+						if (schema.properties[key].type === string_array) {
+							let currentNumber = string_currentNumberOf_identifier + key;
+							let minNumber = string_minNumberOf_identifier + key;
+							let maxNumber = string_maxNumberOf_identifier + key;
+							if (schema.required.indexOf(key) != -1) {
+								newElementData[currentNumber] = 1;
+								newElementData[minNumber] = 1;
+								newElementData[maxNumber] = -1;
+							} else {
+								newElementData[currentNumber] = 0;
+								newElementData[minNumber] = 0;
+								newElementData[maxNumber] = -1;
+							}
+						} else if (schema.properties[key].type === string_object) {
+							let currentNumber = string_currentNumberOf_identifier + key;
+							let minNumber = string_minNumberOf_identifier + key;
+							let maxNumber = string_maxNumberOf_identifier + key;
+							if (schema.required.indexOf(key) === -1) {
+								newElementData[currentNumber] = 0;
+								newElementData[minNumber] = 0;
+								newElementData[maxNumber] = 1;
+							}
+						}
+					});
+					let newElement = {
+						ID: schema.title + "_" + uuid,
+						schema_ID: schema.ID,
+						name: newElementData.Name,
+						validated: false,
+						obj: newElementData,
+					};
+					this.state.elementList[index] = newElement;
+				}
+				this.state.componentsSchema[schema_id] = schema;
 			});
-			if (
-				this.state.elementList[index] === null ||
-				this.state.elementList[index] == undefined
-			) {
-				let uuid = uuidv4();
-				let newElementData;
-				newElementData = {
-					Name: `New ${schema.title}`,
-					ID: uuid,
-					Tier: schema.tier,
-					Schema_ID: schema.ID,
-					Version: schema.version,
-				};
-				Object.keys(schema.properties).forEach((key) => {
-					if (schema.properties[key].type === string_array) {
-						let currentNumber = string_currentNumberOf_identifier + key;
-						let minNumber = string_minNumberOf_identifier + key;
-						let maxNumber = string_maxNumberOf_identifier + key;
-						if (schema.required.indexOf(key) != -1) {
-							newElementData[currentNumber] = 1;
-							newElementData[minNumber] = 1;
-							newElementData[maxNumber] = -1;
-						} else {
-							newElementData[currentNumber] = 0;
-							newElementData[minNumber] = 0;
-							newElementData[maxNumber] = -1;
+
+		if (props.settingSchemas !== undefined && props.settingSchemas !== null)
+			Object.keys(props.settingSchemas).forEach((schemaIndex) => {
+				let schema = props.settingSchemas[schemaIndex];
+				let schema_id = schema.ID;
+				//console.log("schema_id: " + schema_id);
+				let index = schemasOrder.indexOf(schema_id);
+				if (index < 0) return;
+				if (props.settingData !== undefined && props.settingData !== null)
+					Object.keys(props.settingData).forEach((objIndex) => {
+						let object = props.settingData[objIndex];
+						if (props.activeTier < object.tier) return;
+						if (schema_id !== object.Schema_ID) return;
+						let validation = validate(object, schema);
+						let validated = validation.valid;
+						let newElement = {
+							ID: schema.title + "_" + object.ID,
+							schema_ID: schema_id,
+							name: object.Name,
+							validated: validated,
+							obj: object,
+						};
+						this.state.elementList[index] = newElement;
+					});
+				if (
+					this.state.elementList[index] === null ||
+					this.state.elementList[index] == undefined
+				) {
+					let uuid = uuidv4();
+					let newElementData;
+					newElementData = {
+						Name: `New ${schema.title}`,
+						ID: uuid,
+						Tier: schema.tier,
+						Schema_ID: schema.ID,
+						Version: schema.version,
+					};
+					Object.keys(schema.properties).forEach((key) => {
+						if (schema.properties[key].type === string_array) {
+							let currentNumber = string_currentNumberOf_identifier + key;
+							let minNumber = string_minNumberOf_identifier + key;
+							let maxNumber = string_maxNumberOf_identifier + key;
+							if (schema.required.indexOf(key) != -1) {
+								newElementData[currentNumber] = 1;
+								newElementData[minNumber] = 1;
+								newElementData[maxNumber] = -1;
+							} else {
+								newElementData[currentNumber] = 0;
+								newElementData[minNumber] = 0;
+								newElementData[maxNumber] = -1;
+							}
+						} else if (schema.properties[key].type === string_object) {
+							let currentNumber = string_currentNumberOf_identifier + key;
+							let minNumber = string_minNumberOf_identifier + key;
+							let maxNumber = string_maxNumberOf_identifier + key;
+							if (schema.required.indexOf(key) === -1) {
+								newElementData[currentNumber] = 0;
+								newElementData[minNumber] = 0;
+								newElementData[maxNumber] = 1;
+							}
 						}
-					} else if (schema.properties[key].type === string_object) {
-						let currentNumber = string_currentNumberOf_identifier + key;
-						let minNumber = string_minNumberOf_identifier + key;
-						let maxNumber = string_maxNumberOf_identifier + key;
-						if (schema.required.indexOf(key) === -1) {
-							newElementData[currentNumber] = 0;
-							newElementData[minNumber] = 0;
-							newElementData[maxNumber] = 1;
-						}
-					}
-				});
-				let newElement = {
-					ID: schema.title + "_" + uuid,
-					schema_ID: schema.ID,
-					name: newElementData.Name,
-					validated: false,
-					obj: newElementData,
-				};
-				this.state.elementList[index] = newElement;
-			}
-			this.state.componentsSchema[schema_id] = schema;
-		});
+					});
+					let newElement = {
+						ID: schema.title + "_" + uuid,
+						schema_ID: schema.ID,
+						name: newElementData.Name,
+						validated: false,
+						obj: newElementData,
+					};
+					this.state.elementList[index] = newElement;
+				}
+				this.state.componentsSchema[schema_id] = schema;
+			});
+
+		console.log("elementList");
+		console.log(this.state.elementList);
 
 		this.onElementDataSave = this.onElementDataSave.bind(this);
 		this.onElementDataCancel = this.onElementDataCancel.bind(this);
@@ -138,25 +225,33 @@ export default class SettingMainView extends React.PureComponent {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.componentsSchema !== null) {
-			let componentsSchema = {};
-			Object.keys(props.settingSchemas).forEach((schemaIndex) => {
-				let schema = props.settingSchemas[schemaIndex];
-				let schema_id = schema.ID;
-				componentsSchema[schema_id] = schema;
-			});
+		if (props.settingSchemas !== null || props.experimentalSchemas !== null) {
+			let settingsSchema = {};
+			if (props.settingSchemas !== null)
+				Object.keys(props.settingSchemas).forEach((schemaIndex) => {
+					let schema = props.settingSchemas[schemaIndex];
+					let schema_id = schema.ID;
+					settingsSchema[schema_id] = schema;
+				});
+			if (props.experimentalSchemas !== null)
+				Object.keys(props.experimentalSchemas).forEach((schemaIndex) => {
+					let schema = props.experimentalSchemas[schemaIndex];
+					let schema_id = schema.ID;
+					settingsSchema[schema_id] = schema;
+				});
 			let elementList = state.elementList;
 			for (let i = 0; i < elementList.length; i++) {
 				let element = elementList[i];
+				console.log(element);
 				let schema_id = element.schema_ID;
-				let schema = componentsSchema[schema_id];
+				let schema = settingsSchema[schema_id];
 				let object = element.obj;
 				let validation = validate(object, schema);
 				let validated = validation.valid;
 				element.validated = validated;
 			}
 			return {
-				componentsSchema: componentsSchema,
+				componentsSchema: settingsSchema,
 			};
 		}
 	}

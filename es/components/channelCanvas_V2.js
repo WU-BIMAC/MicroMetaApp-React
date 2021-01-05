@@ -1112,7 +1112,7 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         var schema = _this4.props.componentSchemas[schemaIndex];
         var schema_id = schema.ID;
 
-        if (schema_id === "Direct.json") {
+        if (schema_id === "FreeBeam.json") {
           lightSourceCouplingImage = url.resolve(_this4.props.imagesPath, schema.image);
         }
       });

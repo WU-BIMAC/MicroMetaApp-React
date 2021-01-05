@@ -1152,6 +1152,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let oldMicroscope = this.state.microscope;
 		let oldStand = oldMicroscope.MicroscopeStand;
 		let newStand = Object.assign(oldStand, data[this.state.standType]);
+		delete data[this.state.standType];
 		let newMicroscope = Object.assign(oldMicroscope, data);
 		newMicroscope.MicroscopeStand = newStand;
 
@@ -1176,6 +1177,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let setting = this.state.setting;
 		let settings = this.state.settings;
 		let settingData = this.state.settingData;
+		let experimental = this.state.experimental;
+		let experimentalData = this.state.experimentalData;
 		let linkedFields = this.state.linkedFields;
 
 		let scalingFactor = this.props.scalingFactor;
@@ -1451,8 +1454,10 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						ref={this.settingsMainViewRef}
 						imagesPath={imagesPathSVG}
 						settingSchemas={settingsSchema}
+						experimentalSchemas={experimentalSchema}
 						componentSchemas={componentsSchema}
 						settingData={settingData}
+						experimentalData={experimentalData}
 						componentData={elementData}
 						linkedFields={linkedFields}
 						updateElementData={this.updateSettingData}

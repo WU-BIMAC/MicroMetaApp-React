@@ -1318,20 +1318,31 @@ export default class Canvas extends React.PureComponent {
 		};
 		const micInfo = [];
 		if (microscope !== null && microscope !== undefined) {
-			if (microscope.Name) {
-				micInfo.push(`Name: ${microscope.Name}`);
+			if (microscope.Name !== undefined && microscope.Name !== null) {
+				micInfo.push(`Microscope Name: ${microscope.Name}`);
 				micInfo.push(<br key={"newline-1"} />);
 			}
 			if (
-				microscope.Manufacturer !== null &&
-				microscope.Manufacturer !== undefined
+				microscope.MicroscopeStand !== undefined &&
+				microscope.MicroscopeStand !== null
 			) {
-				micInfo.push(`Manufacturer: ${microscope.Manufacturer}`);
-				micInfo.push(<br key={"newline-2"} />);
-			}
-			if (microscope.Model !== null && microscope.Model !== undefined) {
-				micInfo.push(`Model: ${microscope.Model}`);
-				micInfo.push(<br key={"newline-3"} />);
+				let stand = microscope.MicroscopeStand;
+				if (stand.Name !== null && stand.Name !== undefined) {
+					micInfo.push(`MicroscopeStand Name: ${stand.Name}`);
+					micInfo.push(<br key={"newline-2"} />);
+				}
+				if (stand.Manufacturer !== null && stand.Manufacturer !== undefined) {
+					micInfo.push(`MicroscopeStand Manufacturer: ${stand.Manufacturer}`);
+					micInfo.push(<br key={"newline-3"} />);
+				}
+				if (stand.Model !== null && stand.Model !== undefined) {
+					micInfo.push(`MicroscopeStand Model: ${stand.Model}`);
+					micInfo.push(<br key={"newline-4"} />);
+				}
+				if (stand.Type !== null && stand.Type !== undefined) {
+					micInfo.push(`MicroscopeStand Type: ${stand.Type}`);
+					micInfo.push(<br key={"newline-5"} />);
+				}
 			}
 		}
 
