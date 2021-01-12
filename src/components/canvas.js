@@ -420,7 +420,7 @@ export default class Canvas extends React.PureComponent {
 		newElementList.map((item, index) => {
 			if (occupiedSpotsToClear.includes(item.occupiedSpot)) {
 				newElementList[index].occupiedSpot = null;
-				newElementDataList[item.ID] = null;
+				newElementDataList[item.ID].occupiedSpot = null;
 			}
 		});
 
@@ -1088,12 +1088,12 @@ export default class Canvas extends React.PureComponent {
 		let droppableElement = [];
 		let componentsSchema = this.state.componentsSchema;
 		let elementByType = {};
-		// console.log("elementData");
-		// console.log(elementData);
+		console.log("elementData");
+		console.log(elementData);
 		Object.keys(elementData).forEach(function (key) {
 			let element = elementData[key];
-			// console.log("element");
-			// console.log(element);
+			console.log("element");
+			console.log(element);
 			let schemaID = element.Schema_ID.replace(string_json_ext, "");
 			let itemSchema = componentsSchema[element.Schema_ID];
 			let schemaCategory = itemSchema.category;
