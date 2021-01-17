@@ -1121,13 +1121,13 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       });
       var droppableElement = [];
       var componentsSchema = this.state.componentsSchema;
-      var elementByType = {};
-      console.log("elementData");
-      console.log(elementData);
+      var elementByType = {}; // console.log("elementData");
+      // console.log(elementData);
+
       Object.keys(elementData).forEach(function (key) {
-        var element = elementData[key];
-        console.log("element");
-        console.log(element);
+        var element = elementData[key]; // console.log("element");
+        // console.log(element);
+
         var schemaID = element.Schema_ID.replace(_constants.string_json_ext, "");
         var itemSchema = componentsSchema[element.Schema_ID];
         var schemaCategory = itemSchema.category;
