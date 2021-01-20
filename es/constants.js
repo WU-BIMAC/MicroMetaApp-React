@@ -11,7 +11,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var bool_isDebug = false;
 exports.bool_isDebug = bool_isDebug;
-var bool_isSettings = true;
+var bool_isSettings = false;
 exports.bool_isSettings = bool_isSettings;
 var bool_isAdvanced = false;
 exports.bool_isAdvanced = bool_isAdvanced;

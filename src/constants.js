@@ -1,7 +1,7 @@
 import React from "react";
 
 export const bool_isDebug = false;
-export const bool_isSettings = true;
+export const bool_isSettings = false;
 export const bool_isAdvanced = false;
 
 export const string_na = "na";
