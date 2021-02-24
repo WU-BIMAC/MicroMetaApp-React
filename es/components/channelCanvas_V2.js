@@ -15,9 +15,7 @@ var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
 var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
 
-var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV2"));
-
-var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWithHeader"));
+var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
 
 var _url = require("url");
 
@@ -53,19 +51,19 @@ var url = require("url");
 
 var validate = require("jsonschema").validate;
 
-var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
-  _inherits(ChannelsCanvas_V2, _React$PureComponent);
+var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
+  _inherits(ChannelCanvas_V2, _React$PureComponent);
 
-  var _super = _createSuper(ChannelsCanvas_V2);
+  var _super = _createSuper(ChannelCanvas_V2);
 
-  function ChannelsCanvas_V2(props) {
+  function ChannelCanvas_V2(props) {
     var _this;
 
-    _classCallCheck(this, ChannelsCanvas_V2);
+    _classCallCheck(this, ChannelCanvas_V2);
 
     _this = _super.call(this, props);
     _this.state = {
-      elementList: [],
+      //elementList: [],
       elementData: Object.assign({}, _this.props.inputData),
       componentsSchema: {},
       linkedFields: props.linkedFields || {},
@@ -76,54 +74,66 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       offsetX: 0,
       headerOffset: props.headerOffset || 0,
       editing: false,
+      editingSettings: false,
       hover: null,
       category: null,
       selectedSlot: null,
       selectedComp: null,
-      slots: {}
-    }; // Object.keys(props.componentSchemas).forEach((schemaIndex) => {
-    // 	let schema = props.componentSchemas[schemaIndex];
-    // 	let schema_id = schema.ID;
-    // 	//Validate schemas using jsonschema????
-    // 	Object.keys(this.props.settingData).forEach((objIndex) => {
-    // 		let object = this.props.settingData[objIndex];
-    // 		if (props.activeTier < object.tier) return;
-    // 		if (schema_id !== object.Schema_ID) return;
-    // 		let validation = validate(object, schema);
-    // 		//if (schema_id === "CCD.json") console.log(validation);
-    // 		let validated = validation.valid;
-    // 		let positionZ = object.PositionZ === undefined ? 0 : object.PositionZ;
-    // 		let newElement = {
-    // 			ID: schema.title + "_" + object.ID,
-    // 			schema_ID: schema_id,
-    // 			name: object.Name,
-    // 			validated: validated,
-    // 			dragged: false,
-    // 			obj: object,
-    // 			x: object.PositionX,
-    // 			y: object.PositionY,
-    // 			z: positionZ,
-    // 			width: object.Width,
-    // 			height: object.Height,
-    // 		};
-    // 		this.state.elementList.push(newElement);
-    // 	});
-    // 	this.state.componentsSchema[schema_id] = schema;
-    // });
+      slots: {},
+      tmpSlots: [],
+      settingData: {},
+      channelData: props.channelData || {}
+    };
+    var components = {};
+    Object.keys(_this.props.componentData).forEach(function (compIndex) {
+      var comp = _this.props.componentData[compIndex];
+      components[comp.ID] = comp;
+    });
 
-    _this.addComponentsIndexesIfMissing = _this.addComponentsIndexesIfMissing.bind(_assertThisInitialized(_this));
+    if (props.channelData !== null && props.channelData !== undefined) {
+      var lightPath = props.channelData[0].LightPath;
+
+      if (lightPath !== null && lightPath !== undefined) {
+        var componentSettings = lightPath.ComponentSettings;
+        _this.state.settingData = componentSettings;
+
+        if (componentSettings !== null && componentSettings !== undefined) {
+          for (var slot in componentSettings) {
+            var settingDatas = componentSettings[slot];
+
+            if (slot.includes("AdditionalSlot_")) {
+              for (var index in settingDatas) {
+                var settingData = settingDatas[index];
+                var compID = settingData.Component_ID;
+                var partialSlots = [];
+                if (_this.state.slots[slot] !== null && _this.state.slots[slot] !== undefined) partialSlots = _this.state.slots[slot];
+                partialSlots[index] = components[compID];
+                _this.state.slots[slot] = partialSlots;
+              }
+            } else {
+              var _settingData = settingDatas;
+              var _compID = _settingData.Component_ID;
+              _this.state.slots[slot] = components[_compID];
+            }
+          }
+        }
+      }
+    } //TRANSFER INPUT TO SETTING DATA
+    //this.addComponentsIndexesIfMissing = this.addComponentsIndexesIfMissing.bind(this);
+
+
     _this.onEditElement = _this.onEditElement.bind(_assertThisInitialized(_this));
     _this.onElementDataCancel = _this.onElementDataCancel.bind(_assertThisInitialized(_this));
     _this.onElementDataSave = _this.onElementDataSave.bind(_assertThisInitialized(_this));
     _this.onInnerElementDataSave = _this.onInnerElementDataSave.bind(_assertThisInitialized(_this));
-    _this.onAddAdditionalConfirm = _this.onAddAdditionalConfirm.bind(_assertThisInitialized(_this));
-    _this.onAddAdditionalCancel = _this.onAddAdditionalCancel.bind(_assertThisInitialized(_this));
-    _this.onCanvasElementDataSave = _this.onCanvasElementDataSave.bind(_assertThisInitialized(_this));
-    _this.getElementData = _this.getElementData.bind(_assertThisInitialized(_this));
-    _this.updatedDimensions = _this.updatedDimensions.bind(_assertThisInitialized(_this));
-    _this.areAllElementsValidated = _this.areAllElementsValidated.bind(_assertThisInitialized(_this));
-    _this.handleClick_additionalItemButton_1_7_8 = _this.handleClick_additionalItemButton_1_7_8.bind(_assertThisInitialized(_this));
-    _this.handleClick_additionalItemButton_2_3_4_5_6 = _this.handleClick_additionalItemButton_2_3_4_5_6.bind(_assertThisInitialized(_this));
+    _this.onInnerElementDataCancel = _this.onInnerElementDataCancel.bind(_assertThisInitialized(_this));
+    _this.onAddAdditionalConfirm = _this.onAddAdditionalConfirm.bind(_assertThisInitialized(_this)); //this.onAddAdditionalCancel = this.onAddAdditionalCancel.bind(this);
+    //this.onCanvasElementDataSave = this.onCanvasElementDataSave.bind(this);
+    //this.getElementData = this.getElementData.bind(this);
+    //this.updatedDimensions = this.updatedDimensions.bind(this);
+    //this.areAllElementsValidated = this.areAllElementsValidated.bind(this);
+
+    _this.handleClick_additionalItemButton = _this.handleClick_additionalItemButton.bind(_assertThisInitialized(_this));
     _this.handleClick_lightSource = _this.handleClick_lightSource.bind(_assertThisInitialized(_this));
     _this.handleClick_detector = _this.handleClick_detector.bind(_assertThisInitialized(_this));
     _this.handleClick_couplingLens = _this.handleClick_couplingLens.bind(_assertThisInitialized(_this));
@@ -133,7 +143,11 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleClick_dichroic = _this.handleClick_dichroic.bind(_assertThisInitialized(_this));
     _this.handleClick_emission = _this.handleClick_emission.bind(_assertThisInitialized(_this));
     _this.handleClick_objective = _this.handleClick_objective.bind(_assertThisInitialized(_this));
-    _this.handleSelectComp = _this.handleSelectComp.bind(_assertThisInitialized(_this)); // this.handleScroll = this.handleScroll.bind(this);
+    _this.handleSelectComp = _this.handleSelectComp.bind(_assertThisInitialized(_this));
+    _this.handleDeleteComp = _this.handleDeleteComp.bind(_assertThisInitialized(_this));
+    _this.handleEditSettings = _this.handleEditSettings.bind(_assertThisInitialized(_this));
+    _this.onConfirm = _this.onConfirm.bind(_assertThisInitialized(_this));
+    _this.onCancel = _this.onCancel.bind(_assertThisInitialized(_this)); // this.handleScroll = this.handleScroll.bind(this);
     //this.props.updateElementData(this.state.elementData, true);
 
     return _this;
@@ -161,201 +175,348 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   // }
   // return null;
   //}
-  // handleScroll(e) {
-  // 	if (this.state.isEditing) {
+  // updatedDimensions(id, width, height, isResize) {
+  // 	let element = null;
+  // 	this.state.elementList.forEach((item) => {
+  // 		if (item.ID === id) element = item;
+  // 	});
+  // 	let newElementDataList = Object.assign({}, this.state.elementData);
+  // 	let obj = newElementDataList[id];
+  // 	if (element === null || obj === undefined) return;
+  // 	if (element.width !== -1 && element.height !== -1 && !isResize) {
   // 		return;
   // 	}
-  // 	let element = e.target;
-  // 	let offsetY = element.scrollTop;
-  // 	let offsetX = element.scrollLeft;
-  // 	this.setState({ offsetX: offsetX, offsetY: offsetY });
+  // 	element.width = width;
+  // 	element.height = height;
+  // 	obj.Width = width;
+  // 	obj.Height = height;
+  // 	let validated = this.areAllElementsValidated();
+  // 	this.props.updateElementData(newElementDataList, validated);
+  // }
+  // onImgLoad({ target: img }) {
+  // 	let oldHeight = this.state.imgHeight;
+  // 	let oldWidth = this.state.imgWidth;
+  // 	if (oldWidth !== null && oldHeight !== null) return;
+  // 	let newHeight = img.height;
+  // 	let newWidth = img.width;
+  // 	this.setState({
+  // 		imgHeight: newHeight,
+  // 		imgWidth: newWidth,
+  // 	});
+  // }
+  // areAllElementsValidated() {
+  // 	let elementList = this.state.elementList;
+  // 	for (let i = 0; i < elementList.length; i++) {
+  // 		if (!elementList[i].validated) {
+  // 			return false;
+  // 		}
+  // 	}
+  // 	return true;
+  // }
+  // onCanvasElementDataSave(id, data, dataLinkedFields) {
+  // 	let linkedFields = this.state.linkedFields;
+  // 	if (
+  // 		dataLinkedFields !== undefined &&
+  // 		Object.keys(dataLinkedFields).length > 0
+  // 	) {
+  // 		linkedFields[id] = dataLinkedFields;
+  // 	}
+  // 	// let elementList = this.state.elementList;
+  // 	// for (let i = 0; i < elementList.length; i++) {
+  // 	// 	if (elementList[i].ID === id) {
+  // 	// 		elementList[i].validated = true;
+  // 	// 		elementList[i].name = data.Name;
+  // 	// 		break;
+  // 	// 	}
+  // 	// }
+  // 	let currentElementData = Object.assign({}, this.state.elementData);
+  // 	currentElementData[id] = Object.assign(currentElementData[id], data);
+  // 	this.setState({
+  // 		elementData: currentElementData,
+  // 		linkedFields: linkedFields,
+  // 	});
+  // 	let validated = this.areAllElementsValidated();
+  // 	this.props.updateElementData(currentElementData, validated);
+  // 	this.props.updateLinkedFields(linkedFields);
+  // }
+  // getElementData() {
+  // 	return Object.assign({}, this.state.elementData);
+  // }
+  // addComponentsIndexesIfMissing(schema, newElementData) {
+  // 	Object.keys(schema.properties).forEach((key) => {
+  // 		let currentNumber = string_currentNumberOf_identifier + key;
+  // 		let minNumber = string_minNumberOf_identifier + key;
+  // 		let maxNumber = string_maxNumberOf_identifier + key;
+  // 		if (newElementData[currentNumber] !== undefined) {
+  // 			return;
+  // 		}
+  // 		if (schema.properties[key].type === string_array) {
+  // 			if (schema.required.indexOf(key) != -1) {
+  // 				newElementData[currentNumber] = 1;
+  // 				newElementData[minNumber] = 1;
+  // 				newElementData[maxNumber] = -1;
+  // 			} else {
+  // 				newElementData[currentNumber] = 0;
+  // 				newElementData[minNumber] = 0;
+  // 				newElementData[maxNumber] = -1;
+  // 			}
+  // 		} else if (schema.properties[key].type === string_object) {
+  // 			if (schema.required.indexOf(key) === -1) {
+  // 				newElementData[currentNumber] = 0;
+  // 				newElementData[minNumber] = 0;
+  // 				newElementData[maxNumber] = 1;
+  // 			} else {
+  // 				newElementData[currentNumber] = 1;
+  // 				newElementData[minNumber] = 1;
+  // 				newElementData[maxNumber] = 1;
+  // 			}
+  // 		}
+  // 	});
   // }
 
 
-  _createClass(ChannelsCanvas_V2, [{
-    key: "updatedDimensions",
-    value: function updatedDimensions(id, width, height, isResize) {
-      var element = null;
-      this.state.elementList.forEach(function (item) {
-        if (item.ID === id) element = item;
-      });
-      var newElementDataList = Object.assign({}, this.state.elementData);
-      var obj = newElementDataList[id];
-      if (element === null || obj === undefined) return;
+  _createClass(ChannelCanvas_V2, [{
+    key: "onConfirm",
+    value: function onConfirm() {
+      var channelData = this.state.channelData[0];
+      var settingData = this.state.settingData; //let slots = this.state.slots;
 
-      if (element.width !== -1 && element.height !== -1 && !isResize) {
-        return;
-      }
-
-      element.width = width;
-      element.height = height;
-      obj.Width = width;
-      obj.Height = height;
-      var validated = this.areAllElementsValidated();
-      this.props.updateElementData(newElementDataList, validated);
-    } // onImgLoad({ target: img }) {
-    // 	let oldHeight = this.state.imgHeight;
-    // 	let oldWidth = this.state.imgWidth;
-    // 	if (oldWidth !== null && oldHeight !== null) return;
-    // 	let newHeight = img.height;
-    // 	let newWidth = img.width;
-    // 	this.setState({
-    // 		imgHeight: newHeight,
-    // 		imgWidth: newWidth,
-    // 	});
-    // }
-
-  }, {
-    key: "areAllElementsValidated",
-    value: function areAllElementsValidated() {
-      var elementList = this.state.elementList;
-
-      for (var i = 0; i < elementList.length; i++) {
-        if (!elementList[i].validated) {
-          return false;
-        }
-      }
-
-      return true;
-    }
-  }, {
-    key: "onCanvasElementDataSave",
-    value: function onCanvasElementDataSave(id, data, dataLinkedFields) {
-      var linkedFields = this.state.linkedFields;
-
-      if (dataLinkedFields !== undefined && Object.keys(dataLinkedFields).length > 0) {
-        linkedFields[id] = dataLinkedFields;
-      }
-
-      var elementList = this.state.elementList;
-
-      for (var i = 0; i < elementList.length; i++) {
-        if (elementList[i].ID === id) {
-          elementList[i].validated = true;
-          elementList[i].name = data.Name;
-          break;
-        }
-      }
-
-      var currentElementData = Object.assign({}, this.state.elementData);
-      currentElementData[id] = Object.assign(currentElementData[id], data);
+      channelData.LightPath.ComponentSettings = settingData;
       this.setState({
-        elementData: currentElementData,
-        linkedFields: linkedFields
+        editing: false,
+        editingSettings: false,
+        category: null,
+        selectedSlot: null,
+        selectedComp: null,
+        slots: {},
+        tmpSlots: [],
+        settingData: {},
+        channelData: {}
       });
-      var validated = this.areAllElementsValidated();
-      this.props.updateElementData(currentElementData, validated);
-      this.props.updateLinkedFields(linkedFields);
+      this.props.onConfirm(this.props.id, channelData);
     }
   }, {
-    key: "getElementData",
-    value: function getElementData() {
-      return Object.assign({}, this.state.elementData);
+    key: "onCancel",
+    value: function onCancel() {
+      this.setState({
+        editing: false,
+        editingSettings: false,
+        category: null,
+        selectedSlot: null,
+        selectedComp: null,
+        slots: {},
+        tmpSlots: [],
+        settingData: {},
+        channelData: {}
+      });
+      this.props.onCancel();
     }
   }, {
-    key: "addComponentsIndexesIfMissing",
-    value: function addComponentsIndexesIfMissing(schema, newElementData) {
-      Object.keys(schema.properties).forEach(function (key) {
-        var currentNumber = _constants.string_currentNumberOf_identifier + key;
-        var minNumber = _constants.string_minNumberOf_identifier + key;
-        var maxNumber = _constants.string_maxNumberOf_identifier + key;
-
-        if (newElementData[currentNumber] !== undefined) {
-          return;
-        }
-
-        if (schema.properties[key].type === _constants.string_array) {
-          if (schema.required.indexOf(key) != -1) {
-            newElementData[currentNumber] = 1;
-            newElementData[minNumber] = 1;
-            newElementData[maxNumber] = -1;
-          } else {
-            newElementData[currentNumber] = 0;
-            newElementData[minNumber] = 0;
-            newElementData[maxNumber] = -1;
-          }
-        } else if (schema.properties[key].type === _constants.string_object) {
-          if (schema.required.indexOf(key) === -1) {
-            newElementData[currentNumber] = 0;
-            newElementData[minNumber] = 0;
-            newElementData[maxNumber] = 1;
-          } else {
-            newElementData[currentNumber] = 1;
-            newElementData[minNumber] = 1;
-            newElementData[maxNumber] = 1;
-          }
-        }
+    key: "onInnerElementDataCancel",
+    value: function onInnerElementDataCancel() {
+      //console.log("onInnerElementDataCancel");
+      this.setState({
+        editing: false,
+        editingSettings: false,
+        category: null,
+        selectedSlot: null,
+        selectedComp: null,
+        tmpSlots: null
       });
     }
   }, {
     key: "onInnerElementDataSave",
     value: function onInnerElementDataSave(id, data) {
-      var category = this.state.category;
+      //console.log("onInnerElementDataSave");
+      var selectedComp = this.state.selectedComp;
+      var selectedSchema = this.state.selectedSchema;
       var selectedSlot = this.state.selectedSlot;
+      var category = this.state.category;
+      var slots = this.state.slots;
+      var settingsSchema = this.props.settingSchemas;
+      var experimentalsSchema = this.props.experimentalSchemas;
+      var settingData = Object.assign({}, this.state.settingData);
+      var settingsSchemas = {};
 
-      if (category === null) {
-        this.setState({
-          editing: false
-        });
-        console.log("saved inner channel data category null");
-      } else {
-        if (selectedSlot.includes("AddButton")) {
-          var selectedComp = this.state.selectedComp;
-          var _selectedSlot = this.state.selectedSlot;
-          var slots = Object.assign({}, this.state.slots);
-          var slotItems = [];
+      for (var i in settingsSchema) {
+        var schema = settingsSchema[i];
+        settingsSchemas[schema.ID] = schema;
+      }
 
-          if (slots[_selectedSlot] !== null && slots[_selectedSlot] !== undefined) {
-            slotItems = slots[_selectedSlot];
+      var expSchemas = {};
+
+      for (var _i in experimentalsSchema) {
+        var _schema = experimentalsSchema[_i];
+        expSchemas[_schema.ID] = _schema;
+      }
+
+      if (category !== null) {
+        //console.log("onAddAdditionalConfirm data category " + category);
+        slots = Object.assign({}, slots);
+
+        if (selectedSlot.includes("AdditionalSlot_")) {
+          var tmpSlots = this.state.tmpSlots;
+          slots[selectedSlot] = tmpSlots;
+        } else {
+          slots[selectedSlot] = selectedComp;
+          var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
+          var currentSchema = settingsSchemas[settingsName];
+          var uuid = (0, _uuid.v4)();
+          var settingCompData = {
+            Name: "".concat(currentSchema.title),
+            ID: uuid,
+            Component_ID: selectedComp.ID,
+            Tier: currentSchema.tier,
+            Schema_ID: currentSchema.ID,
+            Version: currentSchema.version
+          };
+
+          if (selectedComp.Schema_ID === "Objective.json") {
+            var uuid2 = (0, _uuid.v4)();
+            var immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
+
+            if (settingCompData.ImmersionLiquid !== null || settingCompData.ImmersionLiquid !== undefined) {
+              settingCompData.ImmersionLiquid = {
+                Name: "".concat(immersionLiquidSchema.title),
+                ID: uuid2,
+                Tier: immersionLiquidSchema.tier,
+                Schema_ID: immersionLiquidSchema.ID,
+                Version: immersionLiquidSchema.version
+              };
+            }
           }
 
-          slotItems.push(selectedComp);
-          slots[_selectedSlot] = slotItems;
-          this.setState({
-            slots: slots
-          }); // console.log("slots");
-          // console.log(slots);
+          settingData[selectedSlot] = settingCompData;
         }
 
-        console.log("saved inner channel data category " + category);
+        this.setState({
+          editing: false,
+          editingSettings: false,
+          category: null,
+          selectedSlot: null,
+          selectedComp: null,
+          selectedSchema: null,
+          slots: slots,
+          settingData: settingData
+        });
       }
     }
   }, {
     key: "onElementDataSave",
     value: function onElementDataSave(id, data) {
-      // let channels = this.state.channels.slice();
-      // let found = false;
-      // for (let i = 0; i < channels.length; i++) {
-      // 	let name_id = this.props.schema.title + "_" + channels[i].ID;
-      // 	if (id === name_id) {
-      // 		channels[i] = data;
-      // 		found = true;
-      // 		found = true;
-      // 		break;
-      // 	}
-      // }
-      // if (!found) {
-      // 	//todo should never happen
-      // 	console.log("issue with " + id);
-      // }
-      //this.setState({ channels: channels, editing: false });
-      var category = this.state.category;
+      var selectedComp = this.state.selectedComp;
+      var selectedSlot = this.state.selectedSlot;
+      var category = this.state.category; //let slots = this.state.slots;
 
-      if (category === null) {
+      var settingData = Object.assign({}, this.state.settingData);
+
+      if (this.state.editingSettings) {
+        console.log("saving setting data");
+        console.log(id);
+        console.log(data);
+
+        if (selectedSlot.includes("AdditionalSlot_")) {
+          var currentSlots = this.state.tmpSlots;
+          var index = currentSlots.indexOf(selectedComp);
+          var obj = settingData[selectedSlot][index];
+          settingData[selectedSlot][index] = Object.assign(obj, data);
+        } else {
+          var _obj = settingData[selectedSlot];
+          settingData[selectedSlot] = Object.assign(_obj, data);
+        }
+
+        console.log("settingData");
+        console.log(settingData);
         this.setState({
-          editing: false
+          //editing: false,
+          editingSettings: false,
+          settingData: settingData
         });
-        console.log("saved channel data category null");
       } else {
-        console.log("saved channel data category " + category);
+        console.log("saving channel data");
+        console.log(id);
+        console.log(data);
+        var currentChannelData = data;
+        var currentLightPath = data.LightPath;
+        var currentFluorophore = data.Fluorophore;
+        var objects = this.state.channelData.slice();
+        objects[0] = Object.assign(objects[0], currentChannelData);
+        objects[1] = Object.assign(objects[1], currentLightPath);
+        objects[2] = Object.assign(objects[2], currentFluorophore);
+        this.setState({
+          editing: false,
+          editingSettings: false,
+          channelData: objects
+        });
       }
+    }
+  }, {
+    key: "handleSelectComp",
+    value: function handleSelectComp(comp) {
+      var selectedComp = comp;
+      var componentSchema = this.props.componentSchemas;
+      var compSchemas = {};
+
+      for (var i in componentSchema) {
+        var schema = componentSchema[i];
+        compSchemas[schema.ID] = schema;
+      }
+
+      var selectedSchema = compSchemas[selectedComp.Schema_ID];
+      this.setState({
+        selectedComp: selectedComp,
+        selectedSchema: selectedSchema
+      });
+    }
+  }, {
+    key: "handleDeleteComp",
+    value: function handleDeleteComp(selectedSlot, index) {
+      var i = index - 1;
+
+      if (selectedSlot.includes("AdditionalSlot_")) {
+        var tmpSlots = this.state.tmpSlots;
+
+        if (i !== 0) {
+          tmpSlots.splice(i, 1);
+        } else {
+          tmpSlots = [];
+        }
+
+        this.setState({
+          tmpSlots: tmpSlots
+        });
+      } else {
+        var slots = Object.assign({}, this.state.slots);
+        delete slots[selectedSlot];
+        this.setState({
+          slots: slots
+        });
+      }
+    }
+  }, {
+    key: "handleEditSettings",
+    value: function handleEditSettings(comp, schema, slot) {
+      this.setState({
+        selectedComp: comp,
+        selectedSchema: schema,
+        selectedSlot: slot,
+        editing: true,
+        editingSettings: true
+      });
     }
   }, {
     key: "onElementDataCancel",
     value: function onElementDataCancel() {
-      this.setState({
-        editing: false
-      });
+      if (this.state.editingSettings) {
+        this.setState({
+          editingSettings: false
+        });
+      } else {
+        this.setState({
+          editing: false,
+          editingSettings: false
+        });
+      }
     }
   }, {
     key: "onEditElement",
@@ -368,45 +529,76 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onAddAdditionalConfirm",
     value: function onAddAdditionalConfirm() {
+      //console.log("onAddAdditionalConfirm - click");
       var selectedComp = this.state.selectedComp;
+      var selectedSchema = this.state.selectedSchema;
       var selectedSlot = this.state.selectedSlot;
-      this.setState({
-        editing: false,
-        category: null,
-        selectedSlot: null,
-        selectedComp: selectedComp
-      });
+      var category = this.state.category;
+      var settingsSchema = this.props.settingSchemas;
+      var settingData = Object.assign({}, this.state.settingData);
+      var settingsSchemas = {};
+
+      for (var i in settingsSchema) {
+        var schema = settingsSchema[i];
+        settingsSchemas[schema.ID] = schema;
+      }
+
+      if (category !== null) {
+        //console.log("onAddAdditionalConfirm category null");
+        if (selectedSlot.includes("AdditionalSlot_")) {
+          //console.log("onAddAdditionalConfirm category " + category);
+          var tmpSlots = this.state.tmpSlots.slice();
+          tmpSlots.push(selectedComp);
+          var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
+          var currentSchema = settingsSchemas[settingsName];
+          var uuid = (0, _uuid.v4)();
+          var settingCompData = {
+            Name: "".concat(currentSchema.title),
+            ID: uuid,
+            Component_ID: selectedComp.ID,
+            Tier: currentSchema.tier,
+            Schema_ID: currentSchema.ID,
+            Version: currentSchema.version
+          };
+          var slotSettings = [];
+
+          if (settingData[selectedSlot] !== null && settingData[selectedSlot] !== undefined) {
+            slotSettings = settingData[selectedSlot];
+          }
+
+          slotSettings.push(settingCompData);
+          settingData[selectedSlot] = slotSettings;
+          this.setState({
+            tmpSlots: tmpSlots,
+            settingData: settingData,
+            selectedComp: null,
+            selectedSchema: null
+          });
+        }
+      }
     }
   }, {
-    key: "onAddAdditionalCancel",
-    value: function onAddAdditionalCancel() {
-      this.setState({
-        editing: false,
-        category: null,
-        selectedSlot: null,
-        selectedComp: null
-      });
-    }
-  }, {
-    key: "handleClick_additionalItemButton_1_7_8",
-    value: function handleClick_additionalItemButton_1_7_8(index) {
+    key: "handleClick_additionalItemButton",
+    value: function handleClick_additionalItemButton(category, index) {
       var i = Number(index);
-      console.log("handleClick_additionalItemButton " + i);
+      var selectedSlot = "AdditionalSlot_" + i;
+      var slots = this.state.slots;
+      var comp = null;
+      var localComps = null;
+
+      if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) {
+        localComps = slots[selectedSlot];
+        comp = localComps[localComps.length - 1];
+      } else {
+        localComps = [];
+      }
+
       this.setState({
         editing: true,
-        category: _constants.channelPath_Additional_1_7_8,
-        selectedSlot: "AddButton_" + i
-      });
-    }
-  }, {
-    key: "handleClick_additionalItemButton_2_3_4_5_6",
-    value: function handleClick_additionalItemButton_2_3_4_5_6(index) {
-      var i = Number(index);
-      console.log("handleClick_additionalItemButton " + i);
-      this.setState({
-        editing: true,
-        category: _constants.channelPath_Additional_2_3_4_5_6,
-        selectedSlot: "AddButton_" + i
+        category: category,
+        selectedSlot: selectedSlot,
+        selectedComp: comp,
+        tmpSlots: localComps
       });
     }
   }, {
@@ -414,10 +606,14 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleClick_lightSource() {
       var category = ["Fluorescence_LightSource", "Transmitted_LightSource"];
       var selectedSlot = "LightSource";
+      var slots = this.state.slots;
+      var comp = null;
+      if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
         category: category,
-        selectedSlot: selectedSlot
+        selectedSlot: selectedSlot,
+        selectedComp: comp
       });
     }
   }, {
@@ -425,10 +621,14 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleClick_detector() {
       var category = ["Detector"];
       var selectedSlot = "Detector";
+      var slots = this.state.slots;
+      var comp = null;
+      if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
         category: category,
-        selectedSlot: selectedSlot
+        selectedSlot: selectedSlot,
+        selectedComp: comp
       });
     }
   }, {
@@ -436,10 +636,14 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleClick_couplingLens() {
       var category = ["CouplingLens"];
       var selectedSlot = "CouplingLens";
+      var slots = this.state.slots;
+      var comp = null;
+      if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
         category: category,
-        selectedSlot: selectedSlot
+        selectedSlot: selectedSlot,
+        selectedComp: comp
       });
     }
   }, {
@@ -447,10 +651,14 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleClick_relayLens() {
       var category = ["RelayLens"];
       var selectedSlot = "RelayLens";
+      var slots = this.state.slots;
+      var comp = null;
+      if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
         category: category,
-        selectedSlot: selectedSlot
+        selectedSlot: selectedSlot,
+        selectedComp: comp
       });
     }
   }, {
@@ -458,43 +666,59 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleClick_lightSourceCoupling() {
       var category = ["LightSourceCoupling"];
       var selectedSlot = "LightSourceCoupling";
+      var slots = this.state.slots;
+      var comp = null;
+      if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
         category: category,
-        selectedSlot: selectedSlot
+        selectedSlot: selectedSlot,
+        selectedComp: comp
       });
     }
   }, {
     key: "handleClick_excitation",
     value: function handleClick_excitation() {
-      var category = ["ExcitationFilter"];
+      var category = _constants.channelPath_Excitation;
       var selectedSlot = "ExcitationFilter";
+      var slots = this.state.slots;
+      var comp = null;
+      if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
         category: category,
-        selectedSlot: selectedSlot
+        selectedSlot: selectedSlot,
+        selectedComp: comp
       });
     }
   }, {
     key: "handleClick_dichroic",
     value: function handleClick_dichroic() {
-      var category = ["StandardDichroic"];
+      var category = _constants.channelPath_Dichroic;
       var selectedSlot = "StandardDichroic";
+      var slots = this.state.slots;
+      var comp = null;
+      if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
         category: category,
-        selectedSlot: selectedSlot
+        selectedSlot: selectedSlot,
+        selectedComp: comp
       });
     }
   }, {
     key: "handleClick_emission",
     value: function handleClick_emission() {
-      var category = ["EmissionFilter"];
+      var category = _constants.channelPath_Emission;
       var selectedSlot = "EmissionFilter";
+      var slots = this.state.slots;
+      var comp = null;
+      if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
         category: category,
-        selectedSlot: selectedSlot
+        selectedSlot: selectedSlot,
+        selectedComp: comp
       });
     }
   }, {
@@ -502,101 +726,34 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleClick_objective() {
       var category = ["Objective"];
       var selectedSlot = "Objective";
+      var slots = this.state.slots;
+      var comp = null;
+      if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
         category: category,
-        selectedSlot: selectedSlot
+        selectedSlot: selectedSlot,
+        selectedComp: comp
       });
     }
   }, {
-    key: "createAddButton_1_7_8",
-    value: function createAddButton_1_7_8(buttonStyle, image, index) {
+    key: "createAddButton",
+    value: function createAddButton(buttonStyle, image, index, category) {
       var _this2 = this;
 
       //
       return /*#__PURE__*/_react.default.createElement("button", {
         style: buttonStyle,
         onClick: function onClick() {
-          return _this2.handleClick_additionalItemButton_1_7_8(index);
+          return _this2.handleClick_additionalItemButton(category, index);
         }
       }, image, "Add additional element");
-    }
-  }, {
-    key: "createAddButton_2_3_4_5_6",
-    value: function createAddButton_2_3_4_5_6(buttonStyle, image, index) {
-      var _this3 = this;
-
-      //
-      return /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: function onClick() {
-          return _this3.handleClick_additionalItemButton_2_3_4_5_6(index);
-        }
-      }, image, "Add additional element");
-    }
-  }, {
-    key: "handleSelectComp",
-    value: function handleSelectComp(comp) {
-      var selectedComp = comp;
-      this.setState({
-        selectedComp: selectedComp
-      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
-      // const {
-      // 	backgroundImage,
-      // 	dimensions: { width, height } = {},
-      // 	microscope = null,
-      // 	scalingFactor = 1,
-      // } = this.props;
-      // const { linkedFields } = this.state;
-      // if (bool_isDebug) {
-      // 	console.log("LinkedFields");
-      // 	console.log(linkedFields);
-      // }
-      // const styleContainer = {
-      // 	borderBottom: "2px solid",
-      // 	borderTop: "2px solid",
-      // 	borderRight: "2px solid",
-      // 	color: "black",
-      // 	width: `${width}px`,
-      // 	height: `${height}px`,
-      // };
-      // const innerWidth = width - 2;
-      // const innerHeight = height - 4;
-      // const dropTargetStyle = {
-      // 	width: `${innerWidth}px`,
-      // 	height: `${innerHeight}px`,
-      // };
-      // const canvasContainerStyle = {
-      // 	width: "100%",
-      // 	height: "100%",
-      // 	position: "relative",
-      // 	overflow: "auto",
-      // };
-      // const scaledCanvasWidth = number_canvas_width * scalingFactor;
-      // const scaledCanvasHeight = number_canvas_height * scalingFactor;
-      // const canvasInnerContainerStyle = {
-      // 	width: `${scaledCanvasWidth}px`,
-      // 	height: `${scaledCanvasHeight}px`,
-      // 	position: "absolute",
-      // 	left: 0,
-      // 	top: 0,
-      // };
-      // const imageStyle = {
-      // 	width: "100%",
-      // 	height: "100%",
-      // 	margin: "auto",
-      // };
-      // const infoStyle = {
-      // 	position: "absolute",
-      // 	left: 0,
-      // 	top: 0,
-      // };
       var buttonContainerRow = {
         display: "flex",
         flexDirection: "row",
@@ -636,12 +793,13 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var modalGrid = {
         display: "flex",
         flexDirection: "column",
-        flexWrap: "wrap",
-        justifyContent: "space-evenly",
+        //flexWrap: "wrap",
+        justifyContent: "flex-start",
         overflow: "auto",
         width: "20%",
-        maxHeight: "100%",
-        alignItems: "center"
+        height: "100%",
+        maxHeight: "100%" //alignItems: "center",
+
       };
       var modalTopListContainer = {
         display: "flex",
@@ -686,12 +844,124 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         color: "inherit",
         cursor: "pointer"
       };
+      var fontSize = _constants.number_canvas_element_icons_height + 2;
+      var grabberCloserSize = _constants.number_canvas_element_icons_height;
+      var styleCloser = {
+        lineHeight: "".concat(grabberCloserSize, "px"),
+        padding: "0px",
+        border: "none",
+        fontSize: "".concat(fontSize, "px"),
+        backgroundColor: "transparent",
+        cursor: "pointer",
+        color: "grey",
+        textAlign: "right",
+        verticalAlign: "middle",
+        position: "relative",
+        left: "5px",
+        top: "5px"
+      };
+      var channelData = this.state.channelData;
+      var slots = this.state.slots;
+      var componentSchema = this.props.componentSchemas;
+      var compSchemas = {};
+
+      for (var i in componentSchema) {
+        var schema = componentSchema[i];
+        compSchemas[schema.ID] = schema;
+      }
+
+      var settingsSchema = this.props.settingSchemas;
+      var settingsSchemas = {};
+
+      for (var _i2 in settingsSchema) {
+        var _schema2 = settingsSchema[_i2];
+        settingsSchemas[_schema2.ID] = _schema2;
+      }
+
+      var experimentalsSchema = this.props.experimentalSchemas;
+      var expSchemas = {};
+
+      for (var _i3 in experimentalsSchema) {
+        var _schema3 = experimentalsSchema[_i3];
+        expSchemas[_schema3.ID] = _schema3;
+      }
+
+      var selectedComp = this.state.selectedComp;
+      var selectedSlot = this.state.selectedSlot;
+      var selectedSchema = null;
+      var selectedID = null;
+
+      if (selectedComp !== null && (selectedSchema === null || selectedSchema === undefined)) {
+        selectedID = selectedComp.Schema_ID;
+        selectedSchema = compSchemas[selectedID];
+      }
 
       if (this.state.editing) {
-        if (this.state.category === null) {
-          return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeader.default, {
+        if (this.state.editingSettings) {
+          var settingData = this.state.settingData;
+          var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
+          var settings = null;
+          var comp = null;
+          var id = null;
+
+          if (selectedComp.Schema_ID === "Objective.json") {
+            var settingCompData = settingData[selectedSlot];
+            id = settingCompData.ID;
+            var immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
+            var immersionLiquid = settingCompData.ImmersionLiquid;
+            comp = [];
+            comp[0] = settingCompData;
+            comp[1] = immersionLiquid;
+            settings = [];
+            settings[0] = settingsSchemas[settingsName];
+            settings[1] = immersionLiquidSchema;
+          } else {
+            var _settingCompData = null;
+
+            if (selectedSlot.includes("AdditionalSlot_")) {
+              var currentSlots = this.state.tmpSlots; // console.log("slots");
+              // console.log(slots);
+              // console.log("selectedSlot");
+              // console.log(selectedSlot);
+              // console.log("currentSlots");
+              // console.log(currentSlots);
+
+              var index = currentSlots.indexOf(selectedComp);
+              _settingCompData = settingData[selectedSlot][index];
+            } else {
+              _settingCompData = settingData[selectedSlot];
+            }
+
+            id = _settingCompData.ID;
+            settings = settingsSchemas[settingsName];
+            comp = _settingCompData;
+          } // console.log("settingData");
+          // console.log(settingData);
+          // console.log("settingsName");
+          // console.log(settingsName);
+          // console.log("settings");
+          // console.log(settings);
+          // console.log("comp");
+          // console.log(comp);
+
+
+          return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+            schema: settings,
+            inputData: comp,
+            id: id,
+            onConfirm: this.onElementDataSave,
+            onCancel: this.onElementDataCancel,
+            overlaysContainer: this.props.overlaysContainer,
+            currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
+            minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
+            maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+            elementByType: this.props.elementByType,
+            editable: true
+          });
+        } else if (this.state.category === null) {
+          return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
             schema: this.props.schema,
-            inputData: this.props.channelData,
+            inputData: channelData,
             id: this.props.id,
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
@@ -699,60 +969,24 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
             minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
             maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
-            elementByType: this.props.elementByType
-          }) // <MultiTabFormWithHeaderV2
-          // 	schemas={this.props.settingSchemas}
-          // 	schema={this.props.schema}
-          // 	inputData={this.props.channelData}
-          // 	id={this.props.id}
-          // 	onConfirm={this.onElementDataSave}
-          // 	onCancel={this.onElementDataCancel}
-          // 	overlaysContainer={this.props.overlaysContainer}
-          // 	currentChildrenComponentIdentifier={
-          // 		string_currentNumberOf_identifier
-          // 	}
-          // 	minChildrenComponentIdentifier={string_minNumberOf_identifier}
-          // 	maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
-          // 	elementByType={this.props.elementByType}
-          // 	modalContainer={true}
-          // />
-          ;
+            elementByType: this.props.elementByType,
+            editable: true
+          });
         } else {
-          var selectedComp = this.state.selectedComp;
-          var selectedSlot = this.state.selectedSlot;
-          var selectedSchema = null;
-          var selectedID = null;
-
-          if (selectedComp !== null) {
-            selectedID = selectedComp.ID;
-            Object.keys(this.props.componentSchemas).forEach(function (schemaIndex) {
-              var schema = _this4.props.componentSchemas[schemaIndex];
-
-              if (schema.ID === selectedComp.Schema_ID) {
-                selectedSchema = schema;
-              }
-            });
-          } // console.log("componentData");
-          // console.log(this.props.componentData);
-
-
           var itemList = [];
           Object.keys(this.props.componentData).forEach(function (compIndex) {
-            var comp = _this4.props.componentData[compIndex];
-            var compSchema = null;
+            var comp = _this3.props.componentData[compIndex];
             var schema_id = comp.Schema_ID;
-            Object.keys(_this4.props.componentSchemas).forEach(function (schemaIndex) {
-              var schema = _this4.props.componentSchemas[schemaIndex];
+            var compSchema = compSchemas[schema_id];
+            if (compSchema === null) return;
 
-              if (schema.ID === schema_id) {
-                compSchema = schema;
-              }
-            });
-            if (compSchema === null) return; // console.log("category");
-            // console.log(this.state.category);
-
-            if (_this4.state.category.includes(schema_id.replace(".json", "")) || _this4.state.category.includes(compSchema.category)) {
-              var compImage = url.resolve(_this4.props.imagesPath, compSchema.image);
+            if (_this3.state.category.includes(schema_id.replace(_constants.string_json_ext, "")) || _this3.state.category.includes(compSchema.category)) {
+              // if (selectedComp === null || selectedComp === undefined) {
+              // 	selectedComp = comp;
+              // }
+              // if (selectedSchema === null || selectedSchema === undefined)
+              // 	selectedSchema = compSchema;
+              var compImage = url.resolve(_this3.props.imagesPath, compSchema.image);
 
               var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
                 src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
@@ -762,7 +996,7 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
               var buttonStyleModified = null;
 
-              if (comp === _this4.state.selectedComp) {
+              if (comp === selectedComp) {
                 buttonStyleModified = Object.assign({}, buttonStyle, {
                   border: "5px solid cyan"
                 });
@@ -774,40 +1008,30 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 key: "button-" + comp.Name,
                 style: buttonStyleModified,
                 onClick: function onClick() {
-                  return _this4.handleSelectComp(comp);
+                  return _this3.handleSelectComp(comp);
                 }
               }, compItemImage, comp.Name);
 
               itemList.push(compButton);
             }
-          }); // console.log("itemList");
-          // console.log(itemList);
-
+          });
           var topItems = null;
+          var confirmCallback = null;
 
-          if (selectedSlot.includes("AddButton")) {
-            var items = [];
-            var slots = this.state.slots; // console.log("slots");
-            // console.log(slots);
-
-            var _selectedSlot2 = this.state.selectedSlot;
-            if (slots[_selectedSlot2] !== undefined && slots[_selectedSlot2] !== null) items = this.state.slots[this.state.selectedSlot]; // console.log("items");
-            // console.log(items);
-
+          if (selectedSlot.includes("AdditionalSlot_")) {
+            //let items = [];
+            // let slots = this.state.slots;
+            // let selectedSlot = this.state.selectedSlot;
+            // if (slots[selectedSlot] !== undefined && slots[selectedSlot] !== null)
+            // 	items = slots[selectedSlot];
+            var items = this.state.tmpSlots;
             var slotList = [];
             Object.keys(items).forEach(function (compIndex) {
               var comp = items[compIndex];
-              var compSchema = null;
               var schema_id = comp.Schema_ID;
-              Object.keys(_this4.props.componentSchemas).forEach(function (schemaIndex) {
-                var schema = _this4.props.componentSchemas[schemaIndex];
-
-                if (schema.ID === schema_id) {
-                  compSchema = schema;
-                }
-              });
+              var compSchema = compSchemas[schema_id];
               if (compSchema === null) return;
-              var compImage = url.resolve(_this4.props.imagesPath, compSchema.image);
+              var compImage = url.resolve(_this3.props.imagesPath, compSchema.image);
 
               var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
                 src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
@@ -817,40 +1041,43 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
               var buttonStyleModified = null;
 
-              if (comp === _this4.state.selectedComp) {
+              if (comp === selectedComp) {
                 buttonStyleModified = Object.assign({}, buttonStyle, {
                   border: "5px solid cyan",
-                  margin: "10px"
+                  margin: "5px"
                 });
               } else {
                 buttonStyleModified = Object.assign({}, buttonStyle, {
-                  margin: "10px"
+                  margin: "5px"
                 });
               }
 
-              slotList.push( /*#__PURE__*/_react.default.createElement("button", {
+              slotList.push( /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+                type: "button",
+                onClick: function onClick() {
+                  return _this3.handleDeleteComp(selectedSlot, slotList.length);
+                },
+                style: styleCloser
+              }, "x"), /*#__PURE__*/_react.default.createElement("button", {
                 key: "button-" + comp.Name,
                 style: buttonStyleModified,
                 onClick: function onClick() {
-                  return _this4.handleSelectComp(comp);
+                  return _this3.handleEditSettings(comp, compSchema, selectedSlot);
                 }
-              }, compItemImage, comp.Name));
-            }); // console.log("slotList");
-            // console.log(slotList);
-
+              }, compItemImage, comp.Name)));
+            });
             var arrowedSlotList = [];
 
-            for (var i = 0; i < slotList.length; i++) {
-              var button1 = slotList[i];
-              var nextIndex = i + 1;
+            for (var _i4 = 0; _i4 < slotList.length; _i4++) {
+              var button1 = slotList[_i4];
+              var nextIndex = _i4 + 1;
               var hasConnection = false;
 
               if (slotList[nextIndex] !== null && slotList[nextIndex] !== undefined) {
-                hasConnection = true;
-                console.log("Index " + i + " hasConnection");
+                hasConnection = true; //console.log("Index " + i + " hasConnection");
               }
 
-              var id1 = "button" + i;
+              var id1 = "button" + _i4;
               var id2 = "button" + nextIndex;
               var relations = [];
 
@@ -862,16 +1089,21 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 }];
               }
 
-              var arrowItem = /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+              var arrowItem = /*#__PURE__*/_react.default.createElement("div", {
+                key: id1,
+                style: {
+                  margin: "10px"
+                }
+              }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
                 key: "arrowItem" + id1,
                 id: id1,
                 relations: relations
-              }, button1);
+              }, button1));
 
               arrowedSlotList.push(arrowItem);
-            }
+            } //console.log(arrowedSlotList);
 
-            console.log(arrowedSlotList);
+
             topItems = /*#__PURE__*/_react.default.createElement("div", {
               style: modalTopListContainer
             }, /*#__PURE__*/_react.default.createElement("h5", null, "Current components in this slot"), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherContainer, {
@@ -887,8 +1119,24 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             Object.assign(modalGridPanel, {
               height: "60%"
             });
+            confirmCallback = this.onAddAdditionalConfirm;
           }
 
+          var multiTabPanel = null;
+          if (selectedComp !== null && selectedComp !== undefined) multiTabPanel = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+            schema: selectedSchema,
+            inputData: selectedComp,
+            id: selectedComp.ID,
+            onConfirm: confirmCallback,
+            onCancel: null,
+            overlaysContainer: this.props.overlaysContainer,
+            currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
+            minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
+            maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+            elementByType: this.props.elementByType,
+            notModal: true,
+            editable: false
+          });
           return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
             overlaysContainer: this.props.overlaysContainer
           }, /*#__PURE__*/_react.default.createElement("div", {
@@ -899,49 +1147,18 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             style: modalGrid
           }, itemList), /*#__PURE__*/_react.default.createElement("div", {
             style: multiTab
-          }, /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeader.default, {
-            schema: selectedSchema,
-            inputData: selectedComp,
-            id: selectedID,
-            onConfirm: this.onInnerElementDataSave,
-            onCancel: null,
-            overlaysContainer: this.props.overlaysContainer,
-            currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
-            minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
-            maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
-            elementByType: this.props.elementByType,
-            notModal: true,
-            editable: false
-          }) // <MultiTabFormWithHeaderV2
-          // 	schemas={this.props.settingSchemas}
-          // 	schema={selectedSchema}
-          // 	inputData={selectedComp}
-          // 	id={selectedID}
-          // 	onConfirm={this.onElementDataSave}
-          // 	onCancel={null}
-          // 	overlaysContainer={this.props.overlaysContainer}
-          // 	currentChildrenComponentIdentifier={
-          // 		string_currentNumberOf_identifier
-          // 	}
-          // 	minChildrenComponentIdentifier={
-          // 		string_minNumberOf_identifier
-          // 	}
-          // 	maxChildrenComponentIdentifier={
-          // 		string_maxNumberOf_identifier
-          // 	}
-          // 	elementByType={this.props.elementByType}
-          // 	modalContainer={false}
-          // />
-          )), /*#__PURE__*/_react.default.createElement("div", {
+          }, multiTabPanel)), /*#__PURE__*/_react.default.createElement("div", {
             style: buttonContainerRow
           }, /*#__PURE__*/_react.default.createElement(_Button.default, {
             style: button2,
             size: "lg",
-            onClick: this.onAddAdditionalConfirm
+            onClick: this.onInnerElementDataSave //this.onAddAdditionalConfirm
+
           }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
             style: button2,
             size: "lg",
-            onClick: this.onAddAdditionalCancel
+            onClick: this.onInnerElementDataCancel //this.onAddAdditionalCancel
+
           }, "Cancel"))));
         }
       }
@@ -995,10 +1212,8 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         alignItems: "center",
         //margin: "5px",
         alignContent: "center"
-      };
-      var gridSpaceSpecimen = Object.assign({
-        fontSize: "20px"
-      }, gridSpace);
+      }; //const gridSpaceSpecimen = Object.assign({ fontSize: "20px" }, gridSpace);
+
       var regularOpaqueImageStyle = Object.assign({
         opacity: "0.4"
       }, regularImageStyle);
@@ -1015,202 +1230,24 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         style: addButtonImageStyle
       });
 
-      var additionalItemButton_1 = this.createAddButton_1_7_8(buttonStyle, additionalItemImage, 1);
-      var additionalItemButton_2 = this.createAddButton_2_3_4_5_6(buttonStyle, additionalItemImage, 2);
-      var additionalItemButton_3 = this.createAddButton_2_3_4_5_6(buttonStyle, additionalItemImage, 3);
-      var additionalItemButton_4 = this.createAddButton_2_3_4_5_6(buttonStyle, additionalItemImage, 4);
-      var additionalItemButton_5 = this.createAddButton_2_3_4_5_6(buttonStyle, additionalItemImage, 5);
-      var additionalItemButton_6 = this.createAddButton_2_3_4_5_6(buttonStyle, additionalItemImage, 6);
-      var additionalItemButton_7 = this.createAddButton_1_7_8(buttonStyle, additionalItemImage, 7);
-      var additionalItemButton_8 = this.createAddButton_1_7_8(buttonStyle, additionalItemImage, 8);
-      var lightSourceImage;
-      Object.keys(this.props.componentSchemas).forEach(function (schemaIndex) {
-        var schema = _this4.props.componentSchemas[schemaIndex];
-        var schema_id = schema.ID;
-
-        if (schema_id === "Fluorescence_LightSource_GenericExcitationSource.json") {
-          lightSourceImage = url.resolve(_this4.props.imagesPath, schema.image);
-        }
-      });
-
-      var lightSourceItemImage = /*#__PURE__*/_react.default.createElement("img", {
-        src: lightSourceImage + (lightSourceImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "LightSource",
-        style: regularOpaqueImageStyle
-      });
-
-      var lightSourceButton = /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: this.handleClick_lightSource
-      }, lightSourceItemImage, "Select Light Source");
-
-      var detectorImage;
-      Object.keys(this.props.componentSchemas).forEach(function (schemaIndex) {
-        var schema = _this4.props.componentSchemas[schemaIndex];
-        var schema_id = schema.ID;
-
-        if (schema_id === "GenericDetector.json") {
-          detectorImage = url.resolve(_this4.props.imagesPath, schema.image);
-        }
-      });
-
-      var detectorItemImage = /*#__PURE__*/_react.default.createElement("img", {
-        src: detectorImage + (detectorImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "Detector",
-        style: regularOpaqueImageStyle
-      });
-
-      var detectorButton = /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: this.handleClick_detector
-      }, detectorItemImage, "Select Detector");
-
-      var relayLensImage;
-      Object.keys(this.props.componentSchemas).forEach(function (schemaIndex) {
-        var schema = _this4.props.componentSchemas[schemaIndex];
-        var schema_id = schema.ID;
-
-        if (schema_id === "RelayLens.json") {
-          relayLensImage = url.resolve(_this4.props.imagesPath, schema.image);
-        }
-      });
-
-      var relayLensItemImage = /*#__PURE__*/_react.default.createElement("img", {
-        src: relayLensImage + (relayLensImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "RelayLens",
-        style: regularOpaqueImageStyle
-      });
-
-      var relayLensButton = /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: this.handleClick_relayLens
-      }, relayLensItemImage, "Select Relay Lens");
-
-      var couplingLensImage;
-      Object.keys(this.props.componentSchemas).forEach(function (schemaIndex) {
-        var schema = _this4.props.componentSchemas[schemaIndex];
-        var schema_id = schema.ID;
-
-        if (schema_id === "CouplingLens.json") {
-          couplingLensImage = url.resolve(_this4.props.imagesPath, schema.image);
-        }
-      });
-
-      var couplingLensItemImage = /*#__PURE__*/_react.default.createElement("img", {
-        src: couplingLensImage + (couplingLensImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "CouplingLens",
-        style: regularOpaqueImageStyle
-      });
-
-      var couplingLensButton = /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: this.handleClick_couplingLens
-      }, couplingLensItemImage, "Select Coupling Lens");
-
-      var lightSourceCouplingImage;
-      Object.keys(this.props.componentSchemas).forEach(function (schemaIndex) {
-        var schema = _this4.props.componentSchemas[schemaIndex];
-        var schema_id = schema.ID;
-
-        if (schema_id === "FreeBeam.json") {
-          lightSourceCouplingImage = url.resolve(_this4.props.imagesPath, schema.image);
-        }
-      });
-
-      var lightSourceCouplingItemImage = /*#__PURE__*/_react.default.createElement("img", {
-        src: lightSourceCouplingImage + (lightSourceCouplingImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "LightSourceCoupling",
-        style: regularOpaqueImageStyle
-      });
-
-      var lightSourceCouplingButton = /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: this.handleClick_lightSourceCoupling
-      }, lightSourceCouplingItemImage, "Select Light Source Coupling");
-
-      var excitationImage;
-      Object.keys(this.props.componentSchemas).forEach(function (schemaIndex) {
-        var schema = _this4.props.componentSchemas[schemaIndex];
-        var schema_id = schema.ID;
-
-        if (schema_id === "ExcitationFilter.json") {
-          excitationImage = url.resolve(_this4.props.imagesPath, schema.image);
-        }
-      });
-
-      var excitationItemImage = /*#__PURE__*/_react.default.createElement("img", {
-        src: excitationImage + (excitationImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "Excitation",
-        style: regularOpaqueImageStyle
-      });
-
-      var excitationButton = /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: this.handleClick_excitation
-      }, excitationItemImage, "Select Excitation Wavelength");
-
-      var dichroicImage;
-      Object.keys(this.props.componentSchemas).forEach(function (schemaIndex) {
-        var schema = _this4.props.componentSchemas[schemaIndex];
-        var schema_id = schema.ID;
-
-        if (schema_id === "StandardDichroic.json") {
-          dichroicImage = url.resolve(_this4.props.imagesPath, schema.image);
-        }
-      });
-
-      var dichroicItemImage = /*#__PURE__*/_react.default.createElement("img", {
-        src: dichroicImage + (dichroicImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "Dichroic",
-        style: regularOpaqueImageStyle
-      });
-
-      var dichroicButton = /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: this.handleClick_dichroic
-      }, dichroicItemImage, "Select Dichroic");
-
-      var emissionImage;
-      Object.keys(this.props.componentSchemas).forEach(function (schemaIndex) {
-        var schema = _this4.props.componentSchemas[schemaIndex];
-        var schema_id = schema.ID;
-
-        if (schema_id === "EmissionFilter.json") {
-          emissionImage = url.resolve(_this4.props.imagesPath, schema.image);
-        }
-      });
-
-      var emissionItemImage = /*#__PURE__*/_react.default.createElement("img", {
-        src: emissionImage + (emissionImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "Emission",
-        style: regularOpaqueImageStyle
-      });
-
-      var emissionButton = /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: this.handleClick_emission
-      }, emissionItemImage, "Select Emission Wavelength");
-
-      var objectiveImage;
-      Object.keys(this.props.componentSchemas).forEach(function (schemaIndex) {
-        var schema = _this4.props.componentSchemas[schemaIndex];
-        var schema_id = schema.ID;
-
-        if (schema_id === "Objective.json") {
-          objectiveImage = url.resolve(_this4.props.imagesPath, schema.image);
-        }
-      });
-
-      var objectiveItemImage = /*#__PURE__*/_react.default.createElement("img", {
-        src: objectiveImage + (objectiveImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "Objective",
-        style: regularOpaqueImageStyle
-      });
-
-      var objectiveButton = /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: this.handleClick_objective
-      }, objectiveItemImage, "Select Objective");
+      var additionalItemButton_1 = this.createAddButton(buttonStyle, additionalItemImage, 1, _constants.channelPath_Additional_1_8);
+      var additionalItemButton_2 = this.createAddButton(buttonStyle, additionalItemImage, 2, _constants.channelPath_Additional_2);
+      var additionalItemButton_3 = this.createAddButton(buttonStyle, additionalItemImage, 3, _constants.channelPath_Additional_3_4_5_6);
+      var additionalItemButton_4 = this.createAddButton(buttonStyle, additionalItemImage, 4, _constants.channelPath_Additional_3_4_5_6);
+      var additionalItemButton_5 = this.createAddButton(buttonStyle, additionalItemImage, 5, _constants.channelPath_Additional_3_4_5_6);
+      var additionalItemButton_6 = this.createAddButton(buttonStyle, additionalItemImage, 6, _constants.channelPath_Additional_3_4_5_6);
+      var additionalItemButton_7 = this.createAddButton(buttonStyle, additionalItemImage, 7, _constants.channelPath_Additional_7);
+      var additionalItemButton_8 = this.createAddButton(buttonStyle, additionalItemImage, 8, _constants.channelPath_Additional_1_8);
+      var specimenButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_10_Specimen.svg", "Specimen", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, null, null, null, "Specimen");
+      var lightSourceButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_1_LightSource_outline.svg", "LightSource", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_lightSource, this.handleDeleteComp, this.handleEditSettings, "Select Light Source");
+      var detectorButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_9_Detector_outline.svg", "Detector", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_detector, this.handleDeleteComp, this.handleEditSettings, "Select Detector");
+      var relayLensButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_8_RelayLens_outline.svg", "RelayLens", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_relayLens, this.handleDeleteComp, this.handleEditSettings, "Select Relay Lens");
+      var couplingLensButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_3_CouplingLens_outline.svg", "CouplingLens", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_couplingLens, this.handleDeleteComp, this.handleEditSettings, "Select Coupling Lens");
+      var lightSourceCouplingButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_2_LightSourceCoupling_outline.svg", "LightSourceCoupling", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_lightSourceCoupling, this.handleDeleteComp, this.handleEditSettings, "Select Light Source Coupling");
+      var excitationButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_4_ExcitationFilter_outline.svg", "Excitation", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_excitation, this.handleDeleteComp, this.handleEditSettings, "Select Excitation Wavelength");
+      var dichroicButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_5_Dichroic_outline.svg", "Dichroic", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_dichroic, this.handleDeleteComp, this.handleEditSettings, "Select Dichroic");
+      var emissionButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_6_EmissionFilter_outline.svg", "Emission", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_emission, this.handleDeleteComp, this.handleEditSettings, "Select Emission Wavelength");
+      var objectiveButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_7_Objective_outline.svg", "Objective", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_objective, this.handleDeleteComp, this.handleEditSettings, "Select Objective");
 
       var row1 = /*#__PURE__*/_react.default.createElement("div", {
         style: gridRow
@@ -1225,9 +1262,16 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         style: gridSpace
       }, lightSourceButton)), /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }), /*#__PURE__*/_react.default.createElement("div", {
+      }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+        id: "specimen",
+        relations: [{
+          targetId: "objective",
+          targetAnchor: "top",
+          sourceAnchor: "bottom"
+        }]
+      }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }), /*#__PURE__*/_react.default.createElement("div", {
+      }, specimenButton)), /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
       }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "detectorButton",
@@ -1277,16 +1321,9 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         style: gridSpace
       }, couplingLensButton)), /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
-        id: "specimen",
-        relations: [{
-          targetId: "objective",
-          targetAnchor: "top",
-          sourceAnchor: "bottom"
-        }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: gridSpaceSpecimen
-      }, "SPECIMEN")), /*#__PURE__*/_react.default.createElement("div", {
+      }), /*#__PURE__*/_react.default.createElement("div", {
+        style: gridSpace
+      }), /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
       }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "relayLens",
@@ -1428,89 +1465,11 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }, emissionButton))); // let row7 = (
-      // 	<div style={gridRowAdd}>
-      // 		<div style={gridSpaceAdd}></div>
-      // 		<ArcherElement
-      // 			id="addButton_4"
-      // 			relations={[
-      // 				{
-      // 					targetId: "objective",
-      // 					targetAnchor: "left",
-      // 					sourceAnchor: "bottom",
-      // 				},
-      // 			]}
-      // 		>
-      // 			<div style={gridSpaceAdd}>{additionalItemButton_4}</div>
-      // 		</ArcherElement>
-      // 		<div style={gridSpaceAdd}></div>
-      // 		<ArcherElement
-      // 			id="addButton_5"
-      // 			relations={[
-      // 				{
-      // 					targetId: "dichroicFilter",
-      // 					targetAnchor: "bottom",
-      // 					sourceAnchor: "left",
-      // 				},
-      // 			]}
-      // 		>
-      // 			<div style={gridSpaceAdd}>{additionalItemButton_5}</div>
-      // 		</ArcherElement>
-      // 		<div style={gridSpaceAdd}></div>
-      // 	</div>
-      // );
-      // let row8 = (
-      // 	<div style={gridRow}>
-      // 		<div style={gridSpace}></div>
-      // 		<div style={gridSpace}></div>
-      // 		<ArcherElement
-      // 			id="objective"
-      // 			relations={[
-      // 				// {
-      // 				// 	targetId: "specimen",
-      // 				// 	targetAnchor: "top",
-      // 				// 	sourceAnchor: "left",
-      // 				// },
-      // 				{
-      // 					targetId: "addButton_5",
-      // 					targetAnchor: "bottom",
-      // 					sourceAnchor: "right",
-      // 				},
-      // 			]}
-      // 		>
-      // 			<div style={gridSpace}>{objectiveButton}</div>
-      // 		</ArcherElement>
-      // 		<div style={gridSpace}></div>
-      // 		<div style={gridSpace}></div>
-      // 	</div>
-      // );
-      // let row9 = (
-      // 	<div style={gridRowAdd}>
-      // 		<div style={gridSpaceAdd}></div>
-      // 		<div style={gridSpaceAdd}></div>
-      // 		<ArcherElement
-      // 			id="specimen"
-      // 			relations={
-      // 				[
-      // 					// {
-      // 					// 	targetId: "objective",
-      // 					// 	targetAnchor: "right",
-      // 					// 	sourceAnchor: "top",
-      // 					// },
-      // 				]
-      // 			}
-      // 		>
-      // 			<div style={gridSpaceAdd}>SPECIMEN</div>
-      // 		</ArcherElement>
-      // 		<div style={gridSpaceAdd}></div>
-      // 		<div style={gridSpaceAdd}></div>
-      // 	</div>
-      // );
-
+      }, emissionButton)));
 
       return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
         overlaysContainer: this.props.overlaysContainer
-      }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title)), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherContainer, {
+      }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema[0].title)), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherContainer, {
         strokeColor: "red"
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: grid
@@ -1519,7 +1478,7 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       }, /*#__PURE__*/_react.default.createElement(_Button.default, {
         style: button2,
         size: "lg",
-        onClick: this.props.onConfirm
+        onClick: this.onConfirm
       }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
         style: button2,
         size: "lg",
@@ -1527,12 +1486,53 @@ var ChannelsCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       }, "Edit Channel"), /*#__PURE__*/_react.default.createElement(_Button.default, {
         style: button2,
         size: "lg",
-        onClick: this.props.onCancel
+        onClick: this.onCancel
       }, "Cancel")));
+    }
+  }], [{
+    key: "createSlotButton",
+    value: function createSlotButton(imagesPath, imageName, imageSlot, slots, compSchemas, style, buttonStyle, styleCloser, callback, deleteCallback, editCallback, text) {
+      var image = null;
+      var name = text;
+      var needDelete = false;
+      var element = null;
+
+      if (slots[imageSlot] !== null && slots[imageSlot] !== undefined) {
+        element = slots[imageSlot];
+        image = url.resolve(imagesPath, compSchemas[element.Schema_ID].image);
+        name = element.Name;
+        needDelete = true;
+      } else {
+        image = url.resolve(imagesPath, imageName);
+      }
+
+      var itemImage = /*#__PURE__*/_react.default.createElement("img", {
+        src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
+        alt: imageSlot,
+        style: style
+      });
+
+      var button = null;
+      if (needDelete) button = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+        type: "button",
+        onClick: function onClick() {
+          return deleteCallback(imageSlot);
+        },
+        style: styleCloser
+      }, "x"), /*#__PURE__*/_react.default.createElement("button", {
+        style: buttonStyle,
+        onClick: function onClick() {
+          return editCallback(element, compSchemas[element.Schema_ID], imageSlot);
+        }
+      }, itemImage, name));else button = /*#__PURE__*/_react.default.createElement("button", {
+        style: buttonStyle,
+        onClick: callback
+      }, itemImage, name);
+      return button;
     }
   }]);
 
-  return ChannelsCanvas_V2;
+  return ChannelCanvas_V2;
 }(_react.default.PureComponent);
 
-exports.default = ChannelsCanvas_V2;
+exports.default = ChannelCanvas_V2;

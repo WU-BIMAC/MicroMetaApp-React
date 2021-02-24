@@ -57,10 +57,30 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
 
     _this = _super.call(this, props);
     _this.state = {
-      channels: _this.props.inputData.channels !== undefined ? _this.props.inputData.channels : [],
+      channels: _this.props.inputData || [],
       editing: false,
-      selectedIndex: -1
+      selectedIndex: -1,
+      fluorophoreSchema: null,
+      lightPathSchema: null,
+      objective: null
     };
+
+    for (var index in props.settingSchemas) {
+      var schema = props.settingSchemas[index];
+
+      if (schema.ID === "LightPath.json") {
+        _this.state.lightPathSchema = schema; //console.log("schema found");
+      }
+    }
+
+    for (var _index in props.experimentalSchemas) {
+      var _schema = props.experimentalSchemas[_index];
+
+      if (_schema.ID === "Fluorophore.json") {
+        _this.state.fluorophoreSchema = _schema; //console.log("schema found");
+      }
+    }
+
     _this.onAddElement = _this.onAddElement.bind(_assertThisInitialized(_this));
     _this.onEditElement = _this.onEditElement.bind(_assertThisInitialized(_this));
     _this.onRemoveElement = _this.onRemoveElement.bind(_assertThisInitialized(_this));
@@ -77,45 +97,130 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
     key: "onAddElement",
     value: function onAddElement() {
       var uuid = (0, _uuid.v4)();
-      var schema = this.props.schema;
+      var uuid2 = (0, _uuid.v4)();
+      var uuid3 = (0, _uuid.v4)();
+      var channelSchema = this.props.schema;
+      var fluorophoreSchema = this.state.fluorophoreSchema;
+      var lightPathSchema = this.state.lightPathSchema;
       var channels = this.state.channels.slice();
-      var newElementData = {
-        Name: "".concat(schema.title, " ").concat(channels.length),
+      var newChannelElementData = {
+        Name: "".concat(channelSchema.title, " ").concat(channels.length),
         ID: uuid,
-        Tier: schema.tier,
-        Schema_ID: schema.ID,
-        Version: schema.version
+        Tier: channelSchema.tier,
+        Schema_ID: channelSchema.ID,
+        Version: channelSchema.version
       };
-      Object.keys(schema.properties).forEach(function (key) {
-        if (schema.properties[key].type === _constants.string_array) {
+      Object.keys(channelSchema.properties).forEach(function (key) {
+        if (channelSchema.properties[key].type === _constants.string_array) {
           var currentNumber = _constants.string_currentNumberOf_identifier + key;
           var minNumber = _constants.string_minNumberOf_identifier + key;
           var maxNumber = _constants.string_maxNumberOf_identifier + key;
 
-          if (schema.required.indexOf(key) != -1) {
-            newElementData[currentNumber] = 1;
-            newElementData[minNumber] = 1;
-            newElementData[maxNumber] = -1;
+          if (channelSchema.required.indexOf(key) != -1) {
+            newChannelElementData[currentNumber] = 1;
+            newChannelElementData[minNumber] = 1;
+            newChannelElementData[maxNumber] = -1;
           } else {
-            newElementData[currentNumber] = 0;
-            newElementData[minNumber] = 0;
-            newElementData[maxNumber] = -1;
+            newChannelElementData[currentNumber] = 0;
+            newChannelElementData[minNumber] = 0;
+            newChannelElementData[maxNumber] = -1;
           }
-        } else if (schema.properties[key].type === _constants.string_object) {
+        } else if (channelSchema.properties[key].type === _constants.string_object) {
           var _currentNumber = _constants.string_currentNumberOf_identifier + key;
 
           var _minNumber = _constants.string_minNumberOf_identifier + key;
 
           var _maxNumber = _constants.string_maxNumberOf_identifier + key;
 
-          if (schema.required.indexOf(key) === -1) {
-            newElementData[_currentNumber] = 0;
-            newElementData[_minNumber] = 0;
-            newElementData[_maxNumber] = 1;
+          if (channelSchema.required.indexOf(key) === -1) {
+            newChannelElementData[_currentNumber] = 0;
+            newChannelElementData[_minNumber] = 0;
+            newChannelElementData[_maxNumber] = 1;
           }
         }
       });
-      channels.push(newElementData);
+      var newFluorophoreElementData = {
+        Name: "".concat(fluorophoreSchema.title, " ").concat(channels.length),
+        ID: uuid2,
+        Tier: fluorophoreSchema.tier,
+        Schema_ID: fluorophoreSchema.ID,
+        Version: fluorophoreSchema.version
+      };
+      Object.keys(fluorophoreSchema.properties).forEach(function (key) {
+        if (fluorophoreSchema.properties[key].type === _constants.string_array) {
+          var currentNumber = _constants.string_currentNumberOf_identifier + key;
+          var minNumber = _constants.string_minNumberOf_identifier + key;
+          var maxNumber = _constants.string_maxNumberOf_identifier + key;
+
+          if (fluorophoreSchema.required.indexOf(key) != -1) {
+            newFluorophoreElementData[currentNumber] = 1;
+            newFluorophoreElementData[minNumber] = 1;
+            newFluorophoreElementData[maxNumber] = -1;
+          } else {
+            newFluorophoreElementData[currentNumber] = 0;
+            newFluorophoreElementData[minNumber] = 0;
+            newFluorophoreElementData[maxNumber] = -1;
+          }
+        } else if (fluorophoreSchema.properties[key].type === _constants.string_object) {
+          var _currentNumber2 = _constants.string_currentNumberOf_identifier + key;
+
+          var _minNumber2 = _constants.string_minNumberOf_identifier + key;
+
+          var _maxNumber2 = _constants.string_maxNumberOf_identifier + key;
+
+          if (fluorophoreSchema.required.indexOf(key) === -1) {
+            newFluorophoreElementData[_currentNumber2] = 0;
+            newFluorophoreElementData[_minNumber2] = 0;
+            newFluorophoreElementData[_maxNumber2] = 1;
+          }
+        }
+      });
+      var newLightPathElementData = {
+        Name: "".concat(lightPathSchema.title, " ").concat(channels.length),
+        ID: uuid3,
+        Tier: lightPathSchema.tier,
+        Schema_ID: lightPathSchema.ID,
+        Version: lightPathSchema.version
+      };
+      Object.keys(lightPathSchema.properties).forEach(function (key) {
+        if (lightPathSchema.properties[key].type === _constants.string_array) {
+          var currentNumber = _constants.string_currentNumberOf_identifier + key;
+          var minNumber = _constants.string_minNumberOf_identifier + key;
+          var maxNumber = _constants.string_maxNumberOf_identifier + key;
+
+          if (lightPathSchema.required.indexOf(key) != -1) {
+            newLightPathElementData[currentNumber] = 1;
+            newLightPathElementData[minNumber] = 1;
+            newLightPathElementData[maxNumber] = -1;
+          } else {
+            newLightPathElementData[currentNumber] = 0;
+            newLightPathElementData[minNumber] = 0;
+            newLightPathElementData[maxNumber] = -1;
+          }
+        } else if (lightPathSchema.properties[key].type === _constants.string_object) {
+          var _currentNumber3 = _constants.string_currentNumberOf_identifier + key;
+
+          var _minNumber3 = _constants.string_minNumberOf_identifier + key;
+
+          var _maxNumber3 = _constants.string_maxNumberOf_identifier + key;
+
+          if (lightPathSchema.required.indexOf(key) === -1) {
+            newLightPathElementData[_currentNumber3] = 0;
+            newLightPathElementData[_minNumber3] = 0;
+            newLightPathElementData[_maxNumber3] = 1;
+          }
+        }
+      });
+      newChannelElementData.LightPath = newLightPathElementData;
+      newChannelElementData.Fluorophore = newFluorophoreElementData;
+      var objective = this.state.objective;
+
+      if (objective !== null) {
+        newChannelElementData.LightPath.ComponentSettings = {};
+        newChannelElementData.LightPath.ComponentSettings.Objective = objective;
+      }
+
+      channels.push(newChannelElementData);
       this.setState({
         channels: channels
       });
@@ -168,10 +273,18 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       // 	console.log("issue with " + id);
       // }
       //this.setState({ channels: channels, editing: false });
+      var index = this.state.selectedIndex;
+      var channels = this.state.channels.slice();
+      channels[index] = data;
+      console.log(channels);
+      console.log("saved channel"); //let objective = data.LightPath.ComponentSettings.Objective;
+
+      var objective = null;
       this.setState({
-        editing: false
+        editing: false,
+        channels: channels,
+        objective: objective
       });
-      console.log("saved channel");
     }
   }, {
     key: "onElementDataCancel",
@@ -191,15 +304,14 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onConfirm",
     value: function onConfirm() {
-      var output = {
-        channels: this.state.channels
-      };
-      var outputData = Object.assign(this.props.inputData, output);
-      var id = this.props.schema.title + "_" + this.props.inputData.ID;
-      console.log(outputData);
+      var channels = this.state.channels;
+      var id = this.props.id; // console.log("channels");
+      // console.log(channels);
+
       this.setState({
         editing: false
-      }); //this.props.onConfirm(id, outputData);
+      });
+      this.props.onConfirm(id, channels);
     }
   }, {
     key: "onCancel",
@@ -216,16 +328,26 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       // console.log("index " + index);
 
       if (this.state.editing) {
-        var schema = this.props.schema;
-        var obj = channels[index];
+        var schemas = [];
+        schemas[0] = this.props.schema;
+        schemas[1] = this.state.lightPathSchema;
+        schemas[2] = this.state.fluorophoreSchema;
+        var objects = [];
+        var channel = channels[index];
+        var lightPath = channels[index].LightPath;
+        var fluorophore = channels[index].Fluorophore;
+        objects[0] = channel;
+        objects[1] = lightPath;
+        objects[2] = fluorophore;
         return /*#__PURE__*/_react.default.createElement(_channelCanvas_V.default, {
           activeTier: this.state.activeTier,
           imagesPath: this.props.imagesPath,
-          id: this.props.id,
-          schema: schema,
+          id: channel.ID,
+          schema: schemas,
           settingSchemas: this.props.settingSchemas,
           componentSchemas: this.props.componentSchemas,
-          channelData: obj,
+          experimentalSchemas: this.props.experimentalSchemas,
+          channelData: objects,
           settingData: this.props.settingData,
           componentData: this.props.componentData,
           linkedFields: this.props.linkedFields,
@@ -262,7 +384,7 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
         var list = [];
 
         for (var i = 0; i < channels.length; i++) {
-          var channel = channels[i];
+          var _channel = channels[i];
           var variant = "dark";
 
           if (i % 2 === 0) {
@@ -275,7 +397,7 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
             onClick: this.onSelectElement,
             key: "Channel-" + i,
             "data-id": i
-          }, channel.Name));
+          }, _channel.Name));
         }
 
         return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.hardware_explorer_tooltip = exports.save_microscope_tooltip = exports.validation_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.create_mode_continue_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.create_from_file_tooltip = exports.create_mode_selector_tooltip = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_2_3_4_5_6 = exports.channelPath_Additional_1_7_8 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.current_stands = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_width = exports.number_logo_height = exports.number_logo_width = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_isAdvanced = exports.bool_isSettings = exports.bool_isDebug = void 0;
+exports.hardware_explorer_tooltip = exports.save_microscope_tooltip = exports.validation_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.create_mode_continue_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.create_from_file_tooltip = exports.create_mode_selector_tooltip = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_7 = exports.channelPath_Additional_3_4_5_6 = exports.channelPath_Additional_2 = exports.channelPath_Additional_1_8 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.matchSettings = exports.current_stands = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_width = exports.number_logo_height = exports.number_logo_width = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_hasExperimental = exports.bool_hasAdvanced = exports.bool_isSettings = exports.bool_isDebug = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -11,10 +11,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var bool_isDebug = false;
 exports.bool_isDebug = bool_isDebug;
-var bool_isSettings = false;
+var bool_isSettings = true;
 exports.bool_isSettings = bool_isSettings;
-var bool_isAdvanced = false;
-exports.bool_isAdvanced = bool_isAdvanced;
+var bool_hasAdvanced = false;
+exports.bool_hasAdvanced = bool_hasAdvanced;
+var bool_hasExperimental = false;
+exports.bool_hasExperimental = bool_hasExperimental;
 var string_na = "na";
 exports.string_na = string_na;
 var string_not_assigned = "Not assigned";
@@ -79,14 +81,17 @@ var current_stands = [{
   json: "UprightMicroscopeStand"
 }];
 exports.current_stands = current_stands;
+var matchSettings = {};
+exports.matchSettings = matchSettings;
 var channelPath_Excitation = ["ExcitationFilter", "AcoustoOpticalLTuneableFilter", //Advanced/
-"LiquidCrystalTuneableFilter" //Advanced/
+"LiquidCrystalTuneableFilter", //Advanced/
+"DiffractionGrating" //Advanced/
 ];
 exports.channelPath_Excitation = channelPath_Excitation;
-var channelPath_Dichroic = ["DiffractionGrating", //Advanced/
-"AcoustoOpticalLBeamSplitter", //Advanced/
+var channelPath_Dichroic = ["StandardDichroic", "AcoustoOpticalLBeamSplitter", //Advanced/
 "AcoustoOpticalLTuneableFilter", //Advanced/
-"LiquidCrystalTuneableFilter" //Advanced/
+"LiquidCrystalTuneableFilter", //Advanced/
+"DiffractionGrating" //Advanced/
 ];
 exports.channelPath_Dichroic = channelPath_Dichroic;
 var channelPath_Emission = ["EmissionFilter", "AcoustoOpticalLTuneableFilter", //Advanced/
@@ -94,23 +99,31 @@ var channelPath_Emission = ["EmissionFilter", "AcoustoOpticalLTuneableFilter", /
 "DiffractionGrating" //Advanced/
 ];
 exports.channelPath_Emission = channelPath_Emission;
-var channelPath_Additional_1_7_8 = ["FilterGroup", "LensGroup", "MirrorGroup", "Shutter", "DiffractionGrating", //Advanced/
+var channelPath_Additional_1_8 = ["ExcitationFilter", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "BeamExpanderLens", "CollimatorLens", "BeamExpander", "BeamCollimator", "AdditionalDichroic", "BeamSplitter", "ReflectingMirror", "StandardDichroic", "Shutter", "PolarizationOptics", "Prism", "DiffractionGrating", //Advanced/
+"MaskingPlate" //Advanced/
+];
+exports.channelPath_Additional_1_8 = channelPath_Additional_1_8;
+var channelPath_Additional_2 = ["ExcitationFilter", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "BeamExpanderLens", "CollimatorLens", "CondenserLens", "MagnificationChanger", "TubeLens", "AdditionalDichroic", "BeamSplitter", "ReflectingMirror", "StandardDichroic", "AdditionalDichroic", "BeamSplitter", "ReflectingMirror", "StandardDichroic", "PolarizationOptics", "Prism", "DarkfieldStop", "HoffmanSlitPlate", "IrisDiaphragm", "PhaseRing", "VarelRing", "Shutter", "BeamExpander", "BeamCollimator", "Condenser", "SpinningDisk", //Advanced/
+"RasterScanner", //Advanced/
+"DiffractionGrafting", //Advanced/
 "MaskingPlate", //Advanced/
-"Pinhole", //Advanced/
-"BeamExpander", "Collimator", "PolarizationOptics", "Prism", "Mirror", //TO BE REMOVED
-"AdditionalOptics", //TO BE REMOVED
-"EmissionFilter", //TO BE REMOVED
-"ExcitationFilter", //TO BE REMOVED
-"StandardDichroic" //TO BE REMOVED
+"Pinhole" //Advanced
 ];
-exports.channelPath_Additional_1_7_8 = channelPath_Additional_1_7_8;
-var channelPath_Additional_2_3_4_5_6 = ["FilterGroup", "LensGroup", "MirrorGroup", "OpticalApertureGroup", "OpticalAssemblyGroup", "PolarizationOptics", "Prism", "Mirror", //TO BE REMOVED
-"AdditionalOptics", //TO BE REMOVED
-"EmissionFilter", //TO BE REMOVED
-"ExcitationFilter", //TO BE REMOVED
-"StandardDichroic" //TO BE REMOVED
+exports.channelPath_Additional_2 = channelPath_Additional_2;
+var channelPath_Additional_3_4_5_6 = ["ExcitationFilter", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "MagnificationChanger", "TubeLens", "AdditionalDichroic", "BeamSplitter", "ReflectingMirror", "StandardDichroic", "PolarizationOptics", "Prism", "DarkfieldStop", "HoffmanSlitPlate", "IrisDiaphragm", "Shutter", "BeamExpander", "BeamCollimator", "SpinningDisk", //Advanced/
+"RasterScanner", //Advanced/
+"DiffractionGrafting", //Advanced/
+"MaskingPlate", //Advanced/
+"Pinhole" //Advanced
 ];
-exports.channelPath_Additional_2_3_4_5_6 = channelPath_Additional_2_3_4_5_6;
+exports.channelPath_Additional_3_4_5_6 = channelPath_Additional_3_4_5_6;
+var channelPath_Additional_7 = ["ExcitationFilter", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "BeamExpanderLens", "CollimatorLens", "TubeLens", "AdditionalDichroic", "BeamSplitter", "ReflectingMirror", "StandardDichroic", "PolarizationOptics", "Prism", "DarkfieldStop", "HoffmanSlitPlate", "IrisDiaphragm", "Shutter", "BeamExpander", "BeamCollimator", "SpinningDisk", //Advanced/
+"RasterScanner", //Advanced/
+"DiffractionGrafting", //Advanced/
+"MaskingPlate", //Advanced/
+"Pinhole" //Advanced
+];
+exports.channelPath_Additional_7 = channelPath_Additional_7;
 var menu_order = ["MicroscopyEssentials", "Software", "Transmitted_LightSource", "Fluorescence_LightSource", "Magnification", "LightSourceCoupling", "FluorescenceLightPath", "Stage", "Focusing", "OpticalAssembly", "OpticsHolder", "Aperture", "Filter", "MirroringDevice", "Lens", "AdditionalOptics", "Detector", "Detector.Camera", "Detector.PointDetector", "Calibration"];
 exports.menu_order = menu_order;
 var string_bandpass_warning = "If you modify the number of band-pass, the information not saved are going to be lost!";

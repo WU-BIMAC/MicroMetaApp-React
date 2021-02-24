@@ -13,7 +13,7 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _ListGroup = _interopRequireDefault(require("react-bootstrap/ListGroup"));
 
-var _multiTabFormWithHeader = _interopRequireDefault(require("./multiTabFormWithHeader"));
+var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
@@ -45,6 +45,51 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 var validate = require("jsonschema").validate;
 
+var multiplePlanesSchema = {
+  $schema: "http://json-schema.org/draft-07/schema",
+  ID: "MultiplePlanesSchema.json",
+  type: "object",
+  title: "Add Multiple Planes",
+  description: "Insert the required values to add multiple planes at once.",
+  tier: 1,
+  subCategoriesOrder: {
+    General: "General information about the element"
+  },
+  properties: {
+    NumberOfPlanes: {
+      type: "integer",
+      description: "Insert the number of planes desired.",
+      tier: 1,
+      category: "General"
+    },
+    "Z-Increment": {
+      type: "boolean",
+      description: "Select this if you want the increment to be on Z.",
+      tier: 1,
+      category: "General"
+    },
+    "T-Increment": {
+      type: "boolean",
+      description: "Select this if you want the increment to be on T.",
+      tier: 1,
+      category: "General"
+    },
+    "C-Increment": {
+      type: "boolean",
+      description: "Select this if you want the increment to be on C.",
+      tier: 1,
+      category: "General"
+    },
+    "TimeStamp-Increment": {
+      type: "integer",
+      description: "How much does time increment for each plane.",
+      tier: 1,
+      category: "General"
+    }
+  },
+  required: ["NumberOfPlanes", "Z-Increment", "T-Increment", "C-Increment", "TimeStamp-Increment"]
+};
+
 var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(PlaneView, _React$PureComponent);
 
@@ -57,9 +102,12 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
 
     _this = _super.call(this, props);
     _this.state = {
-      planes: _this.props.inputData.planes !== undefined ? _this.props.inputData.planes : [],
+      planes: _this.props.inputData || [],
       editing: false,
-      selectedIndex: -1
+      selectedIndex: -1,
+      addingMultiplePlanes: false,
+      addingMultiplePlanes2: false,
+      addingMultiplePlanesSetup: null
     };
     _this.onAddElement = _this.onAddElement.bind(_assertThisInitialized(_this));
     _this.onEditElement = _this.onEditElement.bind(_assertThisInitialized(_this));
@@ -69,6 +117,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
     _this.onElementDataSave = _this.onElementDataSave.bind(_assertThisInitialized(_this));
     _this.onConfirm = _this.onConfirm.bind(_assertThisInitialized(_this));
     _this.onCancel = _this.onCancel.bind(_assertThisInitialized(_this));
+    _this.onAddMultiplePlanes = _this.onAddMultiplePlanes.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -79,7 +128,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       var schema = this.props.schema;
       var planes = this.state.planes.slice();
       var newElementData = {
-        Name: "".concat(schema.title, " ").concat(planes.length),
+        //Name: `${schema.title} ${planes.length}`,
         ID: uuid,
         Tier: schema.tier,
         Schema_ID: schema.ID,
@@ -148,35 +197,118 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onElementDataSave",
     value: function onElementDataSave(id, data) {
-      var channels = this.state.channels.slice();
-      var found = false;
+      var _this2 = this;
 
-      for (var i = 0; i < channels.length; i++) {
-        var name_id = this.props.schema.title + "_" + channels[i].ID;
+      if (this.state.addingMultiplePlanes) {
+        this.setState({
+          addingMultiplePlanes: false,
+          addingMultiplePlanes2: true,
+          addingMultiplePlanesSetup: data
+        });
+      } else if (this.state.addingMultiplePlanes2) {
+        var addingMultiplePlanesSetup = this.state.addingMultiplePlanesSetup;
+        var planes = this.state.planes.slice();
+        var numberOfPlanes = addingMultiplePlanesSetup.NumberOfPlanes;
+        var tIncrement = addingMultiplePlanesSetup["T-Increment"];
+        var zIncrement = addingMultiplePlanesSetup["Z-Increment"];
+        var cIncrement = addingMultiplePlanesSetup["C-Increment"];
+        var timeStampIncrement = addingMultiplePlanesSetup["TimeStamp-Increment"];
 
-        if (id === name_id) {
-          channels[i] = data;
-          found = true;
-          found = true;
-          break;
+        var _loop = function _loop(i) {
+          var schema = _this2.props.schema;
+          var newElementData = Object.assign({}, data);
+          var timeStamp = Number(data.Timestamp);
+          var theZ = Number(data.TheZ);
+          var theC = Number(data.TheC);
+          var theT = Number(data.TheT);
+          newElementData.ID = (0, _uuid.v4)();
+
+          if (tIncrement) {
+            newElementData.TheZ = theZ;
+            newElementData.TheT = theT + i;
+            newElementData.TheC = theC;
+          } else if (zIncrement) {
+            newElementData.TheZ = theZ + i;
+            newElementData.TheT = theT;
+            newElementData.TheC = theC;
+          } else if (cIncrement) {
+            newElementData.TheZ = theZ;
+            newElementData.TheT = theT;
+            newElementData.TheC = theC + i;
+          }
+
+          newElementData.Timestamp = timeStamp + timeStampIncrement * i;
+          Object.keys(schema.properties).forEach(function (key) {
+            if (schema.properties[key].type === _constants.string_array) {
+              var currentNumber = _constants.string_currentNumberOf_identifier + key;
+              var minNumber = _constants.string_minNumberOf_identifier + key;
+              var maxNumber = _constants.string_maxNumberOf_identifier + key;
+
+              if (schema.required.indexOf(key) != -1) {
+                newElementData[currentNumber] = 1;
+                newElementData[minNumber] = 1;
+                newElementData[maxNumber] = -1;
+              } else {
+                newElementData[currentNumber] = 0;
+                newElementData[minNumber] = 0;
+                newElementData[maxNumber] = -1;
+              }
+            } else if (schema.properties[key].type === _constants.string_object) {
+              var _currentNumber2 = _constants.string_currentNumberOf_identifier + key;
+
+              var _minNumber2 = _constants.string_minNumberOf_identifier + key;
+
+              var _maxNumber2 = _constants.string_maxNumberOf_identifier + key;
+
+              if (schema.required.indexOf(key) === -1) {
+                newElementData[_currentNumber2] = 0;
+                newElementData[_minNumber2] = 0;
+                newElementData[_maxNumber2] = 1;
+              }
+            }
+          });
+          planes.push(newElementData);
+        };
+
+        for (var i = 0; i < numberOfPlanes; i++) {
+          _loop(i);
         }
-      }
 
-      if (!found) {
-        //todo should never happen
-        console.log("issue with " + id);
-      }
+        this.setState({
+          planes: planes,
+          addingMultiplePlanes2: false
+        });
+      } else {
+        var _planes = this.state.planes.slice();
 
-      this.setState({
-        channels: channels,
-        editing: false
-      });
-      console.log("channel plane");
+        var found = false;
+
+        for (var _i = 0; _i < _planes.length; _i++) {
+          var name_id = this.props.schema.title + "_" + _planes[_i].ID;
+
+          if (id === name_id) {
+            _planes[_i] = data;
+            found = true;
+            break;
+          }
+        }
+
+        if (!found) {
+          //todo should never happen
+          console.log("issue with " + id);
+        }
+
+        this.setState({
+          planes: _planes,
+          editing: false
+        });
+      }
     }
   }, {
     key: "onElementDataCancel",
     value: function onElementDataCancel() {
       this.setState({
+        addingMultiplePlanes: false,
         editing: false
       });
     }
@@ -191,15 +323,14 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onConfirm",
     value: function onConfirm() {
-      var output = {
-        channels: this.state.channels
-      };
-      var outputData = Object.assign(this.props.inputData, output);
-      var id = this.props.schema.title + "_" + this.props.inputData.ID;
-      console.log(outputData);
+      var planes = this.state.planes;
+      var id = this.props.id; // console.log("channels");
+      // console.log(channels);
+
       this.setState({
         editing: false
-      }); //this.props.onConfirm(id, outputData);
+      });
+      this.props.onConfirm(id, planes);
     }
   }, {
     key: "onCancel",
@@ -207,25 +338,70 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       this.props.onCancel();
     }
   }, {
+    key: "onAddMultiplePlanes",
+    value: function onAddMultiplePlanes() {
+      this.setState({
+        addingMultiplePlanes: true
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var index = this.state.selectedIndex;
       var planes = this.state.planes;
 
-      if (this.state.editing) {
-        var schema = this.props.schema;
-        var obj = planes[index];
-        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeader.default, {
-          schema: schema,
-          inputData: obj,
-          id: schema.title + "_" + obj.ID,
+      if (this.state.addingMultiplePlanes) {
+        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          schema: multiplePlanesSchema,
+          inputData: {
+            ID: "multiplePlanesSchema"
+          },
+          id: "multiplePlanesSchema",
           onConfirm: this.onElementDataSave,
           onCancel: this.onElementDataCancel,
           overlaysContainer: this.props.overlaysContainer,
           currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
           minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
           maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
-          elementByType: this.props.elementByType
+          elementByType: this.props.elementByType,
+          editable: true
+        });
+      } else if (this.state.addingMultiplePlanes2) {
+        var schema = this.props.schema; //let obj = planes[index];
+
+        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          schema: schema,
+          inputData: {
+            ID: "Not assigned",
+            Tier: schema.tier,
+            Schema_ID: schema.ID,
+            Version: schema.version
+          },
+          id: "Not assigned",
+          onConfirm: this.onElementDataSave,
+          onCancel: this.onElementDataCancel,
+          overlaysContainer: this.props.overlaysContainer,
+          currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
+          minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
+          maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+          elementByType: this.props.elementByType,
+          editable: true
+        });
+      } else if (this.state.editing) {
+        var _schema = this.props.schema;
+        var obj = planes[index];
+        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          schema: _schema,
+          inputData: obj,
+          id: _schema.title + "_" + obj.ID,
+          onConfirm: this.onElementDataSave,
+          onCancel: this.onElementDataCancel,
+          overlaysContainer: this.props.overlaysContainer,
+          currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
+          minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
+          maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+          elementByType: this.props.elementByType,
+          editable: true
         });
       } else {
         var buttonContainerRow = {
@@ -250,7 +426,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
         var list = [];
 
         for (var i = 0; i < planes.length; i++) {
-          var channel = planes[i];
+          var plane = planes[i];
           var variant = "dark";
 
           if (i % 2 === 0) {
@@ -261,20 +437,38 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
             action: true,
             variant: variant,
             onClick: this.onSelectElement,
-            key: "Channel-" + i,
+            key: "Plane-" + i,
             "data-id": i
-          }, channel.Name));
+          }, "Plane " + i));
+        }
+
+        var planeListStyle = {
+          overflow: "auto",
+          maxHeight: "0%",
+          height: "0%"
+        };
+
+        if (planes.length > 0) {
+          planeListStyle.maxHeight = "80%";
+          planeListStyle.height = "80%";
         }
 
         return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
           overlaysContainer: this.props.overlaysContainer
-        }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title + "s")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_ListGroup.default, null, list)), /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title + "s")), /*#__PURE__*/_react.default.createElement("div", {
+          style: planeListStyle
+        }, /*#__PURE__*/_react.default.createElement(_ListGroup.default, null, list)), /*#__PURE__*/_react.default.createElement("div", {
           style: buttonContainerRow
         }, /*#__PURE__*/_react.default.createElement(_Button.default, {
           style: button1,
           size: "lg",
           onClick: this.onAddElement
         }, "+"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          style: button2,
+          size: "lg",
+          onClick: this.onAddMultiplePlanes //disabled={index === -1}
+
+        }, "Add multiple planes"), /*#__PURE__*/_react.default.createElement(_Button.default, {
           style: button2,
           size: "lg",
           onClick: this.onEditElement,

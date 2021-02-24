@@ -1,8 +1,9 @@
 import React from "react";
 
 export const bool_isDebug = false;
-export const bool_isSettings = false;
-export const bool_isAdvanced = false;
+export const bool_isSettings = true;
+export const bool_hasAdvanced = false;
+export const bool_hasExperimental = false;
 
 export const string_na = "na";
 export const string_not_assigned = "Not assigned";
@@ -56,16 +57,20 @@ export const current_stands = [
 	},
 ];
 
+export const matchSettings = {};
+
 export const channelPath_Excitation = [
 	"ExcitationFilter",
 	"AcoustoOpticalLTuneableFilter", //Advanced/
 	"LiquidCrystalTuneableFilter", //Advanced/
+	"DiffractionGrating", //Advanced/
 ];
 export const channelPath_Dichroic = [
-	"DiffractionGrating", //Advanced/
+	"StandardDichroic",
 	"AcoustoOpticalLBeamSplitter", //Advanced/
 	"AcoustoOpticalLTuneableFilter", //Advanced/
 	"LiquidCrystalTuneableFilter", //Advanced/
+	"DiffractionGrating", //Advanced/
 ];
 
 export const channelPath_Emission = [
@@ -75,37 +80,135 @@ export const channelPath_Emission = [
 	"DiffractionGrating", //Advanced/
 ];
 
-export const channelPath_Additional_1_7_8 = [
-	"FilterGroup",
-	"LensGroup",
-	"MirrorGroup",
+export const channelPath_Additional_1_8 = [
+	"ExcitationFilter",
+	"EmissionFilter",
+	"NeutralDensityFilter",
+	"AdditionalFilter",
+
+	"BeamExpanderLens",
+	"CollimatorLens",
+	"BeamExpander",
+	"BeamCollimator",
+
+	"AdditionalDichroic",
+	"BeamSplitter",
+	"ReflectingMirror",
+	"StandardDichroic",
+
 	"Shutter",
+	"PolarizationOptics",
+	"Prism",
 	"DiffractionGrating", //Advanced/
 	"MaskingPlate", //Advanced/
-	"Pinhole", //Advanced/
-	"BeamExpander",
-	"Collimator",
-	"PolarizationOptics",
-	"Prism",
-	"Mirror", //TO BE REMOVED
-	"AdditionalOptics", //TO BE REMOVED
-	"EmissionFilter", //TO BE REMOVED
-	"ExcitationFilter", //TO BE REMOVED
-	"StandardDichroic", //TO BE REMOVED
 ];
-export const channelPath_Additional_2_3_4_5_6 = [
-	"FilterGroup",
-	"LensGroup",
-	"MirrorGroup",
-	"OpticalApertureGroup",
-	"OpticalAssemblyGroup",
+
+export const channelPath_Additional_2 = [
+	"ExcitationFilter",
+	"EmissionFilter",
+	"NeutralDensityFilter",
+	"AdditionalFilter",
+
+	"BeamExpanderLens",
+	"CollimatorLens",
+	"CondenserLens",
+	"MagnificationChanger",
+	"TubeLens",
+
+	"AdditionalDichroic",
+	"BeamSplitter",
+	"ReflectingMirror",
+	"StandardDichroic",
+
+	"AdditionalDichroic",
+	"BeamSplitter",
+	"ReflectingMirror",
+	"StandardDichroic",
+
 	"PolarizationOptics",
 	"Prism",
-	"Mirror", //TO BE REMOVED
-	"AdditionalOptics", //TO BE REMOVED
-	"EmissionFilter", //TO BE REMOVED
-	"ExcitationFilter", //TO BE REMOVED
-	"StandardDichroic", //TO BE REMOVED
+
+	"DarkfieldStop",
+	"HoffmanSlitPlate",
+	"IrisDiaphragm",
+	"PhaseRing",
+	"VarelRing",
+	"Shutter",
+
+	"BeamExpander",
+	"BeamCollimator",
+	"Condenser",
+
+	"SpinningDisk", //Advanced/
+	"RasterScanner", //Advanced/
+	"DiffractionGrafting", //Advanced/
+	"MaskingPlate", //Advanced/
+	"Pinhole", //Advanced
+];
+
+export const channelPath_Additional_3_4_5_6 = [
+	"ExcitationFilter",
+	"EmissionFilter",
+	"NeutralDensityFilter",
+	"AdditionalFilter",
+
+	"MagnificationChanger",
+	"TubeLens",
+
+	"AdditionalDichroic",
+	"BeamSplitter",
+	"ReflectingMirror",
+	"StandardDichroic",
+
+	"PolarizationOptics",
+	"Prism",
+
+	"DarkfieldStop",
+	"HoffmanSlitPlate",
+	"IrisDiaphragm",
+	"Shutter",
+
+	"BeamExpander",
+	"BeamCollimator",
+
+	"SpinningDisk", //Advanced/
+	"RasterScanner", //Advanced/
+	"DiffractionGrafting", //Advanced/
+	"MaskingPlate", //Advanced/
+	"Pinhole", //Advanced
+];
+
+export const channelPath_Additional_7 = [
+	"ExcitationFilter",
+	"EmissionFilter",
+	"NeutralDensityFilter",
+	"AdditionalFilter",
+
+	"BeamExpanderLens",
+	"CollimatorLens",
+	"TubeLens",
+
+	"AdditionalDichroic",
+	"BeamSplitter",
+	"ReflectingMirror",
+	"StandardDichroic",
+
+	"PolarizationOptics",
+	"Prism",
+
+	"DarkfieldStop",
+	"HoffmanSlitPlate",
+	"IrisDiaphragm",
+	"Shutter",
+
+	"BeamExpander",
+	"BeamCollimator",
+
+	"SpinningDisk", //Advanced/
+	"RasterScanner", //Advanced/
+	"DiffractionGrafting", //Advanced/
+	"MaskingPlate", //Advanced/
+	"Pinhole", //Advanced
 ];
 
 export const menu_order = [

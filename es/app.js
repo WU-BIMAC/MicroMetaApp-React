@@ -641,6 +641,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     key: "createOrUseMicroscopeFromDroppedFile",
     value: function createOrUseMicroscopeFromDroppedFile() {
       var uuid = (0, _uuid.v4)();
+      var uuid2 = (0, _uuid.v4)();
       var modifiedMic = this.state.microscope;
       var activeTier = this.state.activeTier;
 
@@ -661,6 +662,17 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var microscopeStandSchema = adaptedSchemas[1];
       var componentsSchema = adaptedSchemas[2];
       var imageSchema = adaptedSchemas[3];
+      var settingsSchema = adaptedSchemas[4];
+      var pixelsSchema = null;
+
+      for (var i in settingsSchema) {
+        var localSchema = settingsSchema[i];
+
+        if (localSchema.ID === "Pixels.json") {
+          pixelsSchema = localSchema;
+        }
+      }
+
       var components = this.state.microscope.components;
       var newElementData = {};
 
@@ -704,8 +716,19 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           ID: uuid,
           Tier: activeTier,
           ValidationTier: activeTier,
-          Version: imageSchema.version
+          Version: imageSchema.version,
+          InstrumentName: modifiedMic.Name,
+          InstrumentID: modifiedMic.ID
         };
+        var pixels = {
+          Name: "New ".concat(pixelsSchema.title),
+          Schema_ID: pixelsSchema.ID,
+          ID: uuid2,
+          Tier: activeTier,
+          ValidationTier: activeTier,
+          Version: pixelsSchema.version
+        };
+        setting.Pixels = pixels;
         this.setState({
           microscope: modifiedMic,
           setting: setting,
@@ -722,6 +745,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     key: "createOrUseMicroscopeFromSelectedFile",
     value: function createOrUseMicroscopeFromSelectedFile() {
       var uuid = (0, _uuid.v4)();
+      var uuid2 = (0, _uuid.v4)();
       var microscope = this.state.microscopes[this.state.micName];
       var modifiedMic = microscope;
       var activeTier = this.state.activeTier;
@@ -743,6 +767,18 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var microscopeStandSchema = adaptedSchemas[1];
       var componentsSchema = adaptedSchemas[2];
       var imageSchema = adaptedSchemas[3];
+      var settingsSchema = adaptedSchemas[4];
+      console.log(settingsSchema);
+      var pixelsSchema = null;
+
+      for (var i in settingsSchema) {
+        var localSchema = settingsSchema[i];
+
+        if (localSchema.ID === "Pixels.json") {
+          pixelsSchema = localSchema;
+        }
+      }
+
       var components = microscope.components;
       var newElementData = {};
 
@@ -788,8 +824,19 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           ID: uuid,
           Tier: activeTier,
           ValidationTier: activeTier,
-          Version: imageSchema.version
+          Version: imageSchema.version,
+          InstrumentName: modifiedMic.Name,
+          InstrumentID: modifiedMic.ID
         };
+        var pixels = {
+          Name: "New ".concat(pixelsSchema.title),
+          Schema_ID: pixelsSchema.ID,
+          ID: uuid2,
+          Tier: activeTier,
+          ValidationTier: activeTier,
+          Version: pixelsSchema.version
+        };
+        setting.Pixels = pixels;
         this.setState({
           microscope: modifiedMic,
           setting: setting,
@@ -877,8 +924,10 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "updateSettingData",
     value: function updateSettingData(settingData, areSettingComponentsValidated) {
+      var oldSettingData = this.state.settingData;
+      var newSettingData = Object.assign(oldSettingData, settingData);
       this.setState({
-        settingData: settingData,
+        settingData: newSettingData,
         areSettingComponentsValidated: areSettingComponentsValidated
       });
     }
@@ -1058,15 +1107,15 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         //return;
       }
 
-      var settingData = this.state.settingData;
-      var components = [];
-      Object.keys(settingData).forEach(function (item, index) {
-        components[index] = settingData[item];
-      });
-      var comps = {
-        components
-      };
-      var setting = Object.assign(this.state.setting, comps); // let node = ReactDOM.findDOMNode(this.canvasRef.current);
+      var settingData = this.state.settingData; // let components = [];
+      // Object.keys(settingData).forEach((item, index) => {
+      // 	components[index] = settingData[item];
+      // });
+      //let comps = { components };
+
+      var setting = Object.assign(this.state.setting, settingData);
+      console.log("setting");
+      console.log(setting); // let node = ReactDOM.findDOMNode(this.canvasRef.current);
       // html2canvas(node, {
       // 	allowTaint: true,
       // 	foreignObjectRendering: true,
@@ -1124,7 +1173,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var newSetting = Object.assign(oldSetting, data);
       this.setState({
         setting: newSetting,
-        isSettingValidated: true
+        isSettingsValidated: true
       }); //this.isMicroscopeValidated = true;
     }
   }, {
@@ -1351,10 +1400,55 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var settingsSchema = this.state.adaptedSettingsSchema;
       var experimentalSchema = this.state.adaptedExperimentalSchema;
       var childrenSchema = this.state.adaptedChildrenSchema;
+      var pixelsSchema = null;
+
+      for (var _i in settingsSchema) {
+        var localSchema = settingsSchema[_i];
+
+        if (localSchema.ID === "Pixels.json") {
+          pixelsSchema = localSchema;
+        }
+      }
+
       var footerMicroscopeSchemas = [microscopeSchema, microscopeStandSchema];
       var footerMicroscopeInput = [microscope, microscope.MicroscopeStand];
+      var comps = {};
+
+      for (var _i2 in componentsSchema) {
+        var _localSchema = componentsSchema[_i2];
+        comps[_localSchema.ID] = _localSchema;
+      } // console.log("elementData");
+      // console.log(elementData);
+      // console.log("componentsSchema");
+      // console.log(componentsSchema);
+
+
+      var elementByType = {};
+      Object.keys(elementData).forEach(function (key) {
+        var element = elementData[key]; // console.log("element");
+        // console.log(element);
+
+        var schemaID = element.Schema_ID.replace(_constants.string_json_ext, "");
+        var itemSchema = comps[element.Schema_ID]; // if (itemSchema === null || itemSchema === undefined)
+        // 	console.log(element);
+
+        var schemaCategory = itemSchema.category;
+
+        if (elementByType[schemaID] === undefined || elementByType[schemaID] === null) {
+          elementByType[schemaID] = {};
+        }
+
+        if (elementByType[schemaCategory] === undefined || elementByType[schemaCategory] === null) {
+          elementByType[schemaCategory] = {};
+        }
+
+        elementByType[schemaID][element.ID] = element.Name;
+        elementByType[schemaCategory][element.ID] = element.Name;
+      });
 
       if (!this.state.isCreatingNewMicroscope) {
+        var footerSettingsSchemas = [imageSchema, pixelsSchema];
+        var footerSettingsInput = [setting, setting.Pixels];
         return /*#__PURE__*/_react.default.createElement(MicroscopyMetadataToolContainer, {
           width: width,
           height: height,
@@ -1375,7 +1469,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           experimentalData: experimentalData,
           componentData: elementData,
           linkedFields: linkedFields,
-          updateElementData: this.updateSettingData,
+          updateSettingData: this.updateSettingData,
           updateLinkedFields: this.updateLinkedFields,
           overlaysContainer: this.overlaysContainerRef.current,
           areComponentsValidated: this.state.areComponentsValidated,
@@ -1386,20 +1480,21 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         }), /*#__PURE__*/_react.default.createElement(_footer.default, {
           activeTier: this.state.activeTier,
           validationTier: this.state.validationTier,
-          componentSchemas: settingsSchema,
-          schema: imageSchema,
+          componentSchemas: componentsSchema,
+          schema: footerSettingsSchemas,
           onFormConfirm: this.onSettingDataSave,
           onClickSave: this.handleSaveSetting,
           onClickBack: this.onClickBack,
           hasSaveOption: this.props.onSaveSetting ? true : false,
           onClickChangeValidation: this.createAdaptedSchemas,
           overlaysContainer: this.overlaysContainerRef.current,
-          inputData: setting,
+          inputData: footerSettingsInput,
           isSchemaValidated: this.state.isSettingsValidated,
           dimensions: headerFooterDims,
           element: "setting",
           formTitle: setting.Name,
-          imagesPath: imagesPathSVG
+          imagesPath: imagesPathSVG,
+          elementByType: elementByType
         }));
       } else {
         if (this.state.isViewOnly) {
@@ -1497,7 +1592,8 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
             dimensions: headerFooterDims,
             element: "microscope",
             formTitle: microscope.Name,
-            imagesPath: imagesPathSVG
+            imagesPath: imagesPathSVG,
+            elementByType: elementByType
           }));
         }
       }
@@ -1666,6 +1762,12 @@ MicroscopyMetadataTool.defaultProps = {
     // Do some stuff... show pane for people to browse/select schema.. etc.
     setTimeout(function () {
       complete(microscope.Name);
+    });
+  },
+  onSaveSetting: function onSaveSetting(setting, complete) {
+    // Do some stuff... show pane for people to browse/select schema.. etc.
+    setTimeout(function () {
+      complete(setting.Name);
     });
   }
 };

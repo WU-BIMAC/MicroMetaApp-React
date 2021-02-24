@@ -66,6 +66,7 @@ export default class Footer extends React.PureComponent {
 					onCancel={this.onFormCancel}
 					overlaysContainer={this.props.overlaysContainer}
 					editable={true}
+					elementByType={this.props.elementByType}
 				/>
 			);
 		}
