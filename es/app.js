@@ -1338,10 +1338,10 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           Object.keys(microscopes).forEach(function (key) {
             var mic = microscopes[key];
 
-            if (mic.Manufacturer !== null && mic.Manufacturer !== undefined) {
-              var catNames = _microscopeNames[mic.Manufacturer];
+            if (mic.Manufacturer !== null && mic.MicroscopeStand.Manufacturer !== undefined) {
+              var catNames = _microscopeNames[mic.MicroscopeStand.Manufacturer];
               if (catNames !== null && catNames !== undefined) catNames.push(key);else catNames = [key];
-              _microscopeNames[mic.Manufacturer] = catNames;
+              _microscopeNames[mic.MicroscopeStand.Manufacturer] = catNames;
             } else {
               var _catNames2 = _microscopeNames["Others"];
               if (_catNames2 !== null && _catNames2 !== undefined) _catNames2.push(key);else _catNames2 = [key];
@@ -1491,7 +1491,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           inputData: footerSettingsInput,
           isSchemaValidated: this.state.isSettingsValidated,
           dimensions: headerFooterDims,
-          element: "setting",
+          element: "settings",
           formTitle: setting.Name,
           imagesPath: imagesPathSVG,
           elementByType: elementByType

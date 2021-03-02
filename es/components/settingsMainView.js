@@ -579,26 +579,6 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           }, "Edit Experiment"));
         }
 
-        index = elements.indexOf("planes");
-        styleButt = styleButton;
-        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-Planes",
-          onClick: function onClick() {
-            return _this2.onClickEditSettings(elements.indexOf("planes"));
-          },
-          style: styleButt,
-          size: "lg"
-        }, "Edit Planes"));
-        index = elements.indexOf("channels");
-        styleButt = styleButton;
-        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-Channels",
-          onClick: function onClick() {
-            return _this2.onClickEditSettings(elements.indexOf("channels"));
-          },
-          style: styleButt,
-          size: "lg"
-        }, "Edit Channels"));
         index = elements.indexOf("tirfSettings");
         _schema_id = schemas[index];
         object = this.state.TIRFSettings;
@@ -635,6 +615,22 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           style: styleButt,
           size: "lg"
         }, "Edit Imaging Environment"));
+        index = elements.indexOf("micTableSettings");
+        _schema_id = schemas[index];
+        object = this.state.micTableSettings;
+        _schema = this.state.settingSchemas[_schema_id];
+        validation = validate(object, _schema);
+        validated = validation.valid;
+        styleButt = styleButton;
+        if (!validated) styleButt = styleEditButton;
+        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "Button-MicTableSettings",
+          onClick: function onClick() {
+            return _this2.onClickEditSettings(elements.indexOf("micTableSettings"));
+          },
+          style: styleButt,
+          size: "lg"
+        }, "Edit Microscope Table Settings"));
         index = elements.indexOf("micSettings");
         _schema_id = schemas[index];
         object = this.state.micSettings;
@@ -683,22 +679,26 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           style: styleButt,
           size: "lg"
         }, "Edit Sample Positioning Settings"));
-        index = elements.indexOf("micTableSettings");
-        _schema_id = schemas[index];
-        object = this.state.micTableSettings;
-        _schema = this.state.settingSchemas[_schema_id];
-        validation = validate(object, _schema);
-        validated = validation.valid;
+        index = elements.indexOf("planes");
         styleButt = styleButton;
-        if (!validated) styleButt = styleEditButton;
         buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-MicTableSettings",
+          key: "Button-Planes",
           onClick: function onClick() {
-            return _this2.onClickEditSettings(elements.indexOf("micTableSettings"));
+            return _this2.onClickEditSettings(elements.indexOf("planes"));
           },
           style: styleButt,
           size: "lg"
-        }, "Edit Microscope Table Settings"));
+        }, "Edit Planes"));
+        index = elements.indexOf("channels");
+        styleButt = styleButton;
+        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "Button-Channels",
+          onClick: function onClick() {
+            return _this2.onClickEditSettings(elements.indexOf("channels"));
+          },
+          style: styleButt,
+          size: "lg"
+        }, "Edit Channels"));
         return /*#__PURE__*/_react.default.createElement("div", {
           style: styleMainContainer
         }, buttons);

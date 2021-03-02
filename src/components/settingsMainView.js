@@ -585,32 +585,6 @@ export default class SettingMainView extends React.PureComponent {
 				);
 			}
 
-			index = elements.indexOf("planes");
-			styleButt = styleButton;
-			buttons.push(
-				<Button
-					key={"Button-Planes"}
-					onClick={() => this.onClickEditSettings(elements.indexOf("planes"))}
-					style={styleButt}
-					size="lg"
-				>
-					{"Edit Planes"}
-				</Button>
-			);
-
-			index = elements.indexOf("channels");
-			styleButt = styleButton;
-			buttons.push(
-				<Button
-					key={"Button-Channels"}
-					onClick={() => this.onClickEditSettings(elements.indexOf("channels"))}
-					style={styleButt}
-					size="lg"
-				>
-					{"Edit Channels"}
-				</Button>
-			);
-
 			index = elements.indexOf("tirfSettings");
 			schema_id = schemas[index];
 			object = this.state.TIRFSettings;
@@ -650,6 +624,27 @@ export default class SettingMainView extends React.PureComponent {
 					size="lg"
 				>
 					{"Edit Imaging Environment"}
+				</Button>
+			);
+
+			index = elements.indexOf("micTableSettings");
+			schema_id = schemas[index];
+			object = this.state.micTableSettings;
+			schema = this.state.settingSchemas[schema_id];
+			validation = validate(object, schema);
+			validated = validation.valid;
+			styleButt = styleButton;
+			if (!validated) styleButt = styleEditButton;
+			buttons.push(
+				<Button
+					key={"Button-MicTableSettings"}
+					onClick={() =>
+						this.onClickEditSettings(elements.indexOf("micTableSettings"))
+					}
+					style={styleButt}
+					size="lg"
+				>
+					{"Edit Microscope Table Settings"}
 				</Button>
 			);
 
@@ -716,26 +711,32 @@ export default class SettingMainView extends React.PureComponent {
 				</Button>
 			);
 
-			index = elements.indexOf("micTableSettings");
-			schema_id = schemas[index];
-			object = this.state.micTableSettings;
-			schema = this.state.settingSchemas[schema_id];
-			validation = validate(object, schema);
-			validated = validation.valid;
+			index = elements.indexOf("planes");
 			styleButt = styleButton;
-			if (!validated) styleButt = styleEditButton;
 			buttons.push(
 				<Button
-					key={"Button-MicTableSettings"}
-					onClick={() =>
-						this.onClickEditSettings(elements.indexOf("micTableSettings"))
-					}
+					key={"Button-Planes"}
+					onClick={() => this.onClickEditSettings(elements.indexOf("planes"))}
 					style={styleButt}
 					size="lg"
 				>
-					{"Edit Microscope Table Settings"}
+					{"Edit Planes"}
 				</Button>
 			);
+
+			index = elements.indexOf("channels");
+			styleButt = styleButton;
+			buttons.push(
+				<Button
+					key={"Button-Channels"}
+					onClick={() => this.onClickEditSettings(elements.indexOf("channels"))}
+					style={styleButt}
+					size="lg"
+				>
+					{"Edit Channels"}
+				</Button>
+			);
+
 			return <div style={styleMainContainer}>{buttons}</div>;
 		}
 	}

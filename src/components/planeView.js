@@ -28,36 +28,42 @@ const multiplePlanesSchema = {
 	description: "Insert the required values to add multiple planes at once.",
 	tier: 1,
 	subCategoriesOrder: {
-		General: "General information about the element",
+		General:
+			"This interface allows you to add multiple image Planes to this Image. For example, in case the Image has 10 Z-sections, 3 channels, and 1 time-points, the interface should be used to add three batches (one per Channel) of 10 Planes each.",
 	},
 	properties: {
 		NumberOfPlanes: {
 			type: "integer",
-			description: "Insert the number of planes desired.",
+			description:
+				"Insert the number of Planes to be inserted as part of this batch.",
 			tier: 1,
 			category: "General",
 		},
 		"Z-Increment": {
 			type: "boolean",
-			description: "Select this if you want the increment to be on Z.",
+			description:
+				"Select this if you want the different Planes in this batch to have increasing Z-dimension numbers.",
 			tier: 1,
 			category: "General",
 		},
 		"T-Increment": {
 			type: "boolean",
-			description: "Select this if you want the increment to be on T.",
+			description:
+				"Select this if you want the different Planes in this batch to have increasing timepoint-dimension numbers.",
 			tier: 1,
 			category: "General",
 		},
 		"C-Increment": {
 			type: "boolean",
-			description: "Select this if you want the increment to be on C.",
+			description:
+				"Select this if you want the different Planes in this batch to have increasing channel-dimension numbers.",
 			tier: 1,
 			category: "General",
 		},
 		"TimeStamp-Increment": {
 			type: "integer",
-			description: "How much does time increment for each plane.",
+			description:
+				"Select this if you want the different Planes in this batch to have increasing channel-dimension numbers.",
 			tier: 1,
 			category: "General",
 		},
@@ -183,17 +189,17 @@ export default class PlaneView extends React.PureComponent {
 				let theT = Number(data.TheT);
 				newElementData.ID = uuidv4();
 				if (tIncrement) {
-					newElementData.TheZ = theZ;
-					newElementData.TheT = theT + i;
-					newElementData.TheC = theC;
+					newElementData.TheZ = String(theZ);
+					newElementData.TheT = String(theT + i);
+					newElementData.TheC = String(theC);
 				} else if (zIncrement) {
-					newElementData.TheZ = theZ + i;
-					newElementData.TheT = theT;
-					newElementData.TheC = theC;
+					newElementData.TheZ = String(theZ + i);
+					newElementData.TheT = String(theT);
+					newElementData.TheC = String(theC);
 				} else if (cIncrement) {
-					newElementData.TheZ = theZ;
-					newElementData.TheT = theT;
-					newElementData.TheC = theC + i;
+					newElementData.TheZ = String(theZ);
+					newElementData.TheT = String(theT);
+					newElementData.TheC = String(theC + i);
 				}
 				newElementData.Timestamp = timeStamp + timeStampIncrement * i;
 				Object.keys(schema.properties).forEach((key) => {

@@ -421,6 +421,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       // 	this.props.onConfirm(this.props.id);
       // 	return;
       // }
+      //console.log("I SHOULD BE HERE1");
 
       var _loop2 = function _loop2(currentID) {
         var forms = localForms[currentID];
@@ -428,6 +429,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var numberOfForms = forms.length;
 
         if (currentData === null || currentData === undefined || currentData.length < numberOfForms || currentData.includes(null)) {
+          //console.log("I SHOULD NOT BE HERE");
           return {
             v: void 0
           };
@@ -452,7 +454,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var _ret = _loop2(currentID);
 
         if (typeof _ret === "object") return _ret.v;
-      }
+      } //console.log("I SHOULD BE HERE2");
+
 
       if (this.props.notModal) {
         //console.log("CONFIRM CLICK");

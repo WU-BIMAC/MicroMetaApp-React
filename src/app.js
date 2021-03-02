@@ -1411,11 +1411,14 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			if (microscopes) {
 				Object.keys(microscopes).forEach((key) => {
 					let mic = microscopes[key];
-					if (mic.Manufacturer !== null && mic.Manufacturer !== undefined) {
-						let catNames = microscopeNames[mic.Manufacturer];
+					if (
+						mic.Manufacturer !== null &&
+						mic.MicroscopeStand.Manufacturer !== undefined
+					) {
+						let catNames = microscopeNames[mic.MicroscopeStand.Manufacturer];
 						if (catNames !== null && catNames !== undefined) catNames.push(key);
 						else catNames = [key];
-						microscopeNames[mic.Manufacturer] = catNames;
+						microscopeNames[mic.MicroscopeStand.Manufacturer] = catNames;
 					} else {
 						let catNames = microscopeNames["Others"];
 						if (catNames !== null && catNames !== undefined) catNames.push(key);
@@ -1586,7 +1589,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						inputData={footerSettingsInput}
 						isSchemaValidated={this.state.isSettingsValidated}
 						dimensions={headerFooterDims}
-						element={"setting"}
+						element={"settings"}
 						formTitle={setting.Name}
 						imagesPath={imagesPathSVG}
 						elementByType={elementByType}

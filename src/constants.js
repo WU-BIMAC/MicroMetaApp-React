@@ -59,6 +59,8 @@ export const current_stands = [
 
 export const matchSettings = {};
 
+export const channelPath_Detector = [];
+
 export const channelPath_Excitation = [
 	"ExcitationFilter",
 	"AcoustoOpticalLTuneableFilter", //Advanced/

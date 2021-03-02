@@ -358,18 +358,40 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           var tmpSlots = this.state.tmpSlots;
           slots[selectedSlot] = tmpSlots;
         } else {
+          if (selectedComp === null || selectedComp === undefined) {
+            this.setState({
+              editing: false,
+              editingSettings: false,
+              category: null,
+              selectedSlot: null,
+              selectedComp: null,
+              selectedSchema: null
+            });
+            return;
+          }
+
           slots[selectedSlot] = selectedComp;
           var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
           var currentSchema = settingsSchemas[settingsName];
+          var settingCompData = null;
           var uuid = (0, _uuid.v4)();
-          var settingCompData = {
-            Name: "".concat(currentSchema.title),
-            ID: uuid,
-            Component_ID: selectedComp.ID,
-            Tier: currentSchema.tier,
-            Schema_ID: currentSchema.ID,
-            Version: currentSchema.version
-          };
+
+          if (selectedSchema.modelSettings === "NA") {
+            settingCompData = {
+              Name: "".concat(selectedSchema.title),
+              ID: uuid,
+              Component_ID: selectedComp.ID
+            };
+          } else {
+            settingCompData = {
+              Name: "".concat(currentSchema.title),
+              ID: uuid,
+              Component_ID: selectedComp.ID,
+              Tier: currentSchema.tier,
+              Schema_ID: currentSchema.ID,
+              Version: currentSchema.version
+            };
+          }
 
           if (selectedComp.Schema_ID === "Objective.json") {
             var uuid2 = (0, _uuid.v4)();
@@ -411,10 +433,9 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var settingData = Object.assign({}, this.state.settingData);
 
       if (this.state.editingSettings) {
-        console.log("saving setting data");
-        console.log(id);
-        console.log(data);
-
+        // console.log("saving setting data");
+        // console.log(id);
+        // console.log(data);
         if (selectedSlot.includes("AdditionalSlot_")) {
           var currentSlots = this.state.tmpSlots;
           var index = currentSlots.indexOf(selectedComp);
@@ -507,16 +528,15 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onElementDataCancel",
     value: function onElementDataCancel() {
-      if (this.state.editingSettings) {
-        this.setState({
-          editingSettings: false
-        });
-      } else {
-        this.setState({
-          editing: false,
-          editingSettings: false
-        });
-      }
+      // if (this.state.editingSettings) {
+      // 	this.setState({ editingSettings: false });
+      // } else {
+      // 	this.setState({ editing: false, editingSettings: false });
+      // }
+      this.setState({
+        editing: false,
+        editingSettings: false
+      });
     }
   }, {
     key: "onEditElement",
@@ -543,23 +563,47 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         settingsSchemas[schema.ID] = schema;
       }
 
+      console.log("category");
+      console.log(category);
+      console.log("selectedSlot");
+      console.log(selectedSlot);
+
       if (category !== null) {
         //console.log("onAddAdditionalConfirm category null");
         if (selectedSlot.includes("AdditionalSlot_")) {
-          //console.log("onAddAdditionalConfirm category " + category);
+          if (selectedComp === null || selectedComp === undefined) {
+            this.setState({
+              selectedSlot: null,
+              selectedComp: null
+            });
+            return;
+          } //console.log("onAddAdditionalConfirm category " + category);
+
+
           var tmpSlots = this.state.tmpSlots.slice();
           tmpSlots.push(selectedComp);
           var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
           var currentSchema = settingsSchemas[settingsName];
           var uuid = (0, _uuid.v4)();
-          var settingCompData = {
-            Name: "".concat(currentSchema.title),
-            ID: uuid,
-            Component_ID: selectedComp.ID,
-            Tier: currentSchema.tier,
-            Schema_ID: currentSchema.ID,
-            Version: currentSchema.version
-          };
+          var settingCompData = null;
+
+          if (selectedSchema.modelSettings === "NA") {
+            settingCompData = {
+              Name: "".concat(selectedSchema.title),
+              ID: uuid,
+              Component_ID: selectedComp.ID
+            };
+          } else {
+            settingCompData = {
+              Name: "".concat(currentSchema.title),
+              ID: uuid,
+              Component_ID: selectedComp.ID,
+              Tier: currentSchema.tier,
+              Schema_ID: currentSchema.ID,
+              Version: currentSchema.version
+            };
+          }
+
           var slotSettings = [];
 
           if (settingData[selectedSlot] !== null && settingData[selectedSlot] !== undefined) {
@@ -695,7 +739,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     key: "handleClick_dichroic",
     value: function handleClick_dichroic() {
       var category = _constants.channelPath_Dichroic;
-      var selectedSlot = "StandardDichroic";
+      var selectedSlot = "Dichroic";
       var slots = this.state.slots;
       var comp = null;
       if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
@@ -979,8 +1023,9 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             var schema_id = comp.Schema_ID;
             var compSchema = compSchemas[schema_id];
             if (compSchema === null) return;
+            var compSchemaCategory = compSchema.category;
 
-            if (_this3.state.category.includes(schema_id.replace(_constants.string_json_ext, "")) || _this3.state.category.includes(compSchema.category)) {
+            if (_this3.state.category.includes(schema_id.replace(_constants.string_json_ext, "")) || _this3.state.category.includes(compSchemaCategory) || _this3.state.category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
               // if (selectedComp === null || selectedComp === undefined) {
               // 	selectedComp = comp;
               // }
@@ -1244,9 +1289,9 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var relayLensButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_8_RelayLens_outline.svg", "RelayLens", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_relayLens, this.handleDeleteComp, this.handleEditSettings, "Select Relay Lens");
       var couplingLensButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_3_CouplingLens_outline.svg", "CouplingLens", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_couplingLens, this.handleDeleteComp, this.handleEditSettings, "Select Coupling Lens");
       var lightSourceCouplingButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_2_LightSourceCoupling_outline.svg", "LightSourceCoupling", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_lightSourceCoupling, this.handleDeleteComp, this.handleEditSettings, "Select Light Source Coupling");
-      var excitationButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_4_ExcitationFilter_outline.svg", "Excitation", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_excitation, this.handleDeleteComp, this.handleEditSettings, "Select Excitation Wavelength");
+      var excitationButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_4_ExcitationFilter_outline.svg", "ExcitationFilter", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_excitation, this.handleDeleteComp, this.handleEditSettings, "Select Excitation Wavelength");
       var dichroicButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_5_Dichroic_outline.svg", "Dichroic", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_dichroic, this.handleDeleteComp, this.handleEditSettings, "Select Dichroic");
-      var emissionButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_6_EmissionFilter_outline.svg", "Emission", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_emission, this.handleDeleteComp, this.handleEditSettings, "Select Emission Wavelength");
+      var emissionButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_6_EmissionFilter_outline.svg", "EmissionFilter", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_emission, this.handleDeleteComp, this.handleEditSettings, "Select Emission Wavelength");
       var objectiveButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_7_Objective_outline.svg", "Objective", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_objective, this.handleDeleteComp, this.handleEditSettings, "Select Objective");
 
       var row1 = /*#__PURE__*/_react.default.createElement("div", {

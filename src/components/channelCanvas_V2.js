@@ -30,6 +30,7 @@ import {
 	channelPath_Excitation,
 	channelPath_Dichroic,
 	channelPath_Emission,
+	channelPath_Detector,
 } from "../constants";
 import { bool } from "prop-types";
 
@@ -355,19 +356,39 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 				let tmpSlots = this.state.tmpSlots;
 				slots[selectedSlot] = tmpSlots;
 			} else {
-				slots[selectedSlot] = selectedComp;
+				if (selectedComp === null || selectedComp === undefined) {
+					this.setState({
+						editing: false,
+						editingSettings: false,
+						category: null,
+						selectedSlot: null,
+						selectedComp: null,
+						selectedSchema: null,
+					});
+					return;
+				}
 
+				slots[selectedSlot] = selectedComp;
 				let settingsName = selectedSchema.modelSettings + string_json_ext;
 				let currentSchema = settingsSchemas[settingsName];
+				let settingCompData = null;
 				let uuid = uuidv4();
-				let settingCompData = {
-					Name: `${currentSchema.title}`,
-					ID: uuid,
-					Component_ID: selectedComp.ID,
-					Tier: currentSchema.tier,
-					Schema_ID: currentSchema.ID,
-					Version: currentSchema.version,
-				};
+				if (selectedSchema.modelSettings === "NA") {
+					settingCompData = {
+						Name: `${selectedSchema.title}`,
+						ID: uuid,
+						Component_ID: selectedComp.ID,
+					};
+				} else {
+					settingCompData = {
+						Name: `${currentSchema.title}`,
+						ID: uuid,
+						Component_ID: selectedComp.ID,
+						Tier: currentSchema.tier,
+						Schema_ID: currentSchema.ID,
+						Version: currentSchema.version,
+					};
+				}
 				if (selectedComp.Schema_ID === "Objective.json") {
 					let uuid2 = uuidv4();
 					let immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
@@ -407,9 +428,9 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		//let slots = this.state.slots;
 		let settingData = Object.assign({}, this.state.settingData);
 		if (this.state.editingSettings) {
-			console.log("saving setting data");
-			console.log(id);
-			console.log(data);
+			// console.log("saving setting data");
+			// console.log(id);
+			// console.log(data);
 			if (selectedSlot.includes("AdditionalSlot_")) {
 				let currentSlots = this.state.tmpSlots;
 				let index = currentSlots.indexOf(selectedComp);
@@ -490,11 +511,12 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	onElementDataCancel() {
-		if (this.state.editingSettings) {
-			this.setState({ editingSettings: false });
-		} else {
-			this.setState({ editing: false, editingSettings: false });
-		}
+		// if (this.state.editingSettings) {
+		// 	this.setState({ editingSettings: false });
+		// } else {
+		// 	this.setState({ editing: false, editingSettings: false });
+		// }
+		this.setState({ editing: false, editingSettings: false });
 	}
 
 	onEditElement() {
@@ -517,25 +539,45 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			settingsSchemas[schema.ID] = schema;
 		}
 
+		console.log("category");
+		console.log(category);
+		console.log("selectedSlot");
+		console.log(selectedSlot);
 		if (category !== null) {
 			//console.log("onAddAdditionalConfirm category null");
 			if (selectedSlot.includes("AdditionalSlot_")) {
+				if (selectedComp === null || selectedComp === undefined) {
+					this.setState({
+						selectedSlot: null,
+						selectedComp: null,
+					});
+					return;
+				}
 				//console.log("onAddAdditionalConfirm category " + category);
+
 				let tmpSlots = this.state.tmpSlots.slice();
 				tmpSlots.push(selectedComp);
 
 				let settingsName = selectedSchema.modelSettings + string_json_ext;
 				let currentSchema = settingsSchemas[settingsName];
 				let uuid = uuidv4();
-				let settingCompData = {
-					Name: `${currentSchema.title}`,
-					ID: uuid,
-					Component_ID: selectedComp.ID,
-					Tier: currentSchema.tier,
-					Schema_ID: currentSchema.ID,
-					Version: currentSchema.version,
-				};
-
+				let settingCompData = null;
+				if (selectedSchema.modelSettings === "NA") {
+					settingCompData = {
+						Name: `${selectedSchema.title}`,
+						ID: uuid,
+						Component_ID: selectedComp.ID,
+					};
+				} else {
+					settingCompData = {
+						Name: `${currentSchema.title}`,
+						ID: uuid,
+						Component_ID: selectedComp.ID,
+						Tier: currentSchema.tier,
+						Schema_ID: currentSchema.ID,
+						Version: currentSchema.version,
+					};
+				}
 				let slotSettings = [];
 				if (
 					settingData[selectedSlot] !== null &&
@@ -669,7 +711,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 
 	handleClick_dichroic() {
 		let category = channelPath_Dichroic;
-		let selectedSlot = "StandardDichroic";
+		let selectedSlot = "Dichroic";
 		let slots = this.state.slots;
 		let comp = null;
 		if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined)
@@ -1031,11 +1073,13 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 					let schema_id = comp.Schema_ID;
 					let compSchema = compSchemas[schema_id];
 					if (compSchema === null) return;
+					let compSchemaCategory = compSchema.category;
 					if (
 						this.state.category.includes(
 							schema_id.replace(string_json_ext, "")
 						) ||
-						this.state.category.includes(compSchema.category)
+						this.state.category.includes(compSchemaCategory) ||
+						this.state.category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))
 					) {
 						// if (selectedComp === null || selectedComp === undefined) {
 						// 	selectedComp = comp;
@@ -1484,7 +1528,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		let excitationButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_4_ExcitationFilter_outline.svg",
-			"Excitation",
+			"ExcitationFilter",
 			slots,
 			compSchemas,
 			regularOpaqueImageStyle,
@@ -1514,7 +1558,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		let emissionButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_6_EmissionFilter_outline.svg",
-			"Emission",
+			"EmissionFilter",
 			slots,
 			compSchemas,
 			regularOpaqueImageStyle,

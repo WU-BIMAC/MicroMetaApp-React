@@ -423,6 +423,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		// 	return;
 		// }
 
+		//console.log("I SHOULD BE HERE1");
+
 		for (let currentID in localForms) {
 			let forms = localForms[currentID];
 			let currentData = localData[currentID];
@@ -433,6 +435,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				currentData.length < numberOfForms ||
 				currentData.includes(null)
 			) {
+				//console.log("I SHOULD NOT BE HERE");
 				return;
 			}
 
@@ -452,9 +455,10 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			}
 			partialConsolidatedData[currentID] = localConsolidatedData;
 		}
-
+		//console.log("I SHOULD BE HERE2");
 		if (this.props.notModal) {
 			//console.log("CONFIRM CLICK");
+
 			this.props.onConfirm(this.props.id);
 			return;
 		}
