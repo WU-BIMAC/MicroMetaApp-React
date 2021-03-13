@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.hardware_explorer_tooltip = exports.save_microscope_tooltip = exports.validation_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.create_mode_continue_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.create_from_file_tooltip = exports.create_mode_selector_tooltip = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_7 = exports.channelPath_Additional_3_4_5_6 = exports.channelPath_Additional_2 = exports.channelPath_Additional_1_8 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.channelPath_Detector = exports.matchSettings = exports.current_stands = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_width = exports.number_logo_height = exports.number_logo_width = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_hasExperimental = exports.bool_hasAdvanced = exports.bool_isSettings = exports.bool_isDebug = void 0;
+exports.edit_channel = exports.edit_plane = exports.remove_channel = exports.add_channel = exports.remove_plane = exports.add_plane = exports.add_multi_planes = exports.edit_mic_table_settings = exports.edit_sample_pos_settings = exports.edit_obj_settings = exports.edit_mic_settings = exports.edit_img_env_settings = exports.edit_channels = exports.edit_planes = exports.hardware_explorer_tooltip = exports.save_setting_tooltip = exports.save_microscope_tooltip = exports.validation_setting_tooltip = exports.validation_microscope_tooltip = exports.edit_setting_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.createSettings_mode_continue_tooltip = exports.create_mode_continue_tooltip = exports.createSettings_from_repo_names_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.createSettings_from_file_tooltip = exports.create_from_file_tooltip = exports.createSettings_mode_selector_tooltip = exports.create_mode_selector_tooltip = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_7 = exports.channelPath_Additional_3_4_5_6 = exports.channelPath_Additional_2 = exports.channelPath_Additional_1_8 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.channelPath_LightSource = exports.channelPath_Detector = exports.channelPath_RelayLens = exports.channelPath_CouplingLens = exports.channelPath_LightSourceCoupling = exports.channelPath_Objective = exports.matchSettings = exports.current_stands = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_width = exports.number_logo_height = exports.number_logo_width = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_hasExperimental = exports.bool_hasAdvanced = exports.bool_isSettings = exports.bool_isDebug = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -83,8 +83,18 @@ var current_stands = [{
 exports.current_stands = current_stands;
 var matchSettings = {};
 exports.matchSettings = matchSettings;
-var channelPath_Detector = [];
+var channelPath_Objective = ["Objective"];
+exports.channelPath_Objective = channelPath_Objective;
+var channelPath_LightSourceCoupling = ["LightSourceCoupling"];
+exports.channelPath_LightSourceCoupling = channelPath_LightSourceCoupling;
+var channelPath_CouplingLens = ["CouplingLens"];
+exports.channelPath_CouplingLens = channelPath_CouplingLens;
+var channelPath_RelayLens = ["RelayLens"];
+exports.channelPath_RelayLens = channelPath_RelayLens;
+var channelPath_Detector = ["Detector"];
 exports.channelPath_Detector = channelPath_Detector;
+var channelPath_LightSource = ["Fluorescence_LightSource", "Transmitted_LightSource"];
+exports.channelPath_LightSource = channelPath_LightSource;
 var channelPath_Excitation = ["ExcitationFilter", "AcoustoOpticalLTuneableFilter", //Advanced/
 "LiquidCrystalTuneableFilter", //Advanced/
 "DiffractionGrating" //Advanced/
@@ -133,6 +143,8 @@ exports.string_bandpass_warning = string_bandpass_warning;
 var tier_selector_tooltip = {
   title: "Tier Selector",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the Tier level you want to utilize to document Instrument Hardware Specifications and Image Acquisition Settings. For more details about Tier definition please refer to the following", " ", /*#__PURE__*/_react.default.createElement("a", {
+    target: "_blank",
+    rel: "noopener noreferrer",
     href: "https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
   }, "link"), "."),
   position: "top"
@@ -152,16 +164,28 @@ var manage_settings_tooltip = {
 exports.manage_settings_tooltip = manage_settings_tooltip;
 var create_mode_selector_tooltip = {
   title: "Create mode selector",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the modality you want to use for Instrument hardware management. 'Create from scratch' allows you to create a brand new Microscope file from scratch.'Load from file' allows you to import into Micro- Meta App a previously available Microscope file (i.e., an example file, a template file, or an existing Microscope file shared by a colleague) to edit.'Load from repository' allows you to load a previously available file from the active Micro-Meta App repository."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the modality you want to use for Instrument hardware management. 'Create from scratch' allows you to create a brand new Microscope file from scratch.'Load from file' allows you to import into Micro-Meta App a previously available Microscope file (i.e., an example file, a template file, or an existing Microscope file shared by a colleague) to edit.'Load from repository' allows you to load a previously available file from the active Micro-Meta App repository."),
   position: "top"
 };
 exports.create_mode_selector_tooltip = create_mode_selector_tooltip;
+var createSettings_mode_selector_tooltip = {
+  title: "Create mode selector",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the modality you want to use for Settings management. 'Create from scratch' allows you to create a brand new Settings file from scratch.'Load from file' allows you to import into Micro-Meta App a previously available Settings file (i.e., an example file, a template file, or an existing Settings file shared by a colleague) to edit.'Load from repository' allows you to load a previously available file from the active Micro-Meta App repository."),
+  position: "top"
+};
+exports.createSettings_mode_selector_tooltip = createSettings_mode_selector_tooltip;
 var create_from_file_tooltip = {
   title: "Create from file",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Select an existing Microscope file you want to work on."),
   position: "top"
 };
 exports.create_from_file_tooltip = create_from_file_tooltip;
+var createSettings_from_file_tooltip = {
+  title: "Load from file",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Select an existing Settings file you want to work on."),
+  position: "top"
+};
+exports.createSettings_from_file_tooltip = createSettings_from_file_tooltip;
 var create_from_repo_manufacturer_tooltip = {
   title: "Create from repository",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Select the Manufacturer of the Microscope you want to load."),
@@ -174,12 +198,24 @@ var create_from_repo_names_tooltip = {
   position: "top"
 };
 exports.create_from_repo_names_tooltip = create_from_repo_names_tooltip;
+var createSettings_from_repo_names_tooltip = {
+  title: "Load from repository",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Select the Settings you want to load."),
+  position: "top"
+};
+exports.createSettings_from_repo_names_tooltip = createSettings_from_repo_names_tooltip;
 var create_mode_continue_tooltip = {
   title: "Continue",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Create a microscope using the mode selected above."),
   position: "left"
 };
 exports.create_mode_continue_tooltip = create_mode_continue_tooltip;
+var createSettings_mode_continue_tooltip = {
+  title: "Continue",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Create a Settings configuration using the mode selected above."),
+  position: "left"
+};
+exports.createSettings_mode_continue_tooltip = createSettings_mode_continue_tooltip;
 var back_tooltip = {
   title: "Back",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Return to the initial window."),
@@ -192,23 +228,131 @@ var edit_microscope_tooltip = {
   position: "top"
 };
 exports.edit_microscope_tooltip = edit_microscope_tooltip;
-var validation_tooltip = {
+var edit_setting_tooltip = {
+  title: "Edit Image Acquisition Settings",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to enter general information about the acquisition settings utilized for this image."),
+  position: "top"
+};
+exports.edit_setting_tooltip = edit_setting_tooltip;
+var validation_microscope_tooltip = {
   title: "Validation Tier selector",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the Tier level you want to use to validate this Microscope file. For more details about Tier definition please refer to the following", " ", /*#__PURE__*/_react.default.createElement("a", {
+    target: "_blank",
+    rel: "noopener noreferrer",
     href: "https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
   }, "link"), "."),
   position: "top"
 };
-exports.validation_tooltip = validation_tooltip;
+exports.validation_microscope_tooltip = validation_microscope_tooltip;
+var validation_setting_tooltip = {
+  title: "Validation Tier selector",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the Tier level you want to use to validate this Settings file. For more details about Tier definition please refer to the following", " ", /*#__PURE__*/_react.default.createElement("a", {
+    target: "_blank",
+    rel: "noopener noreferrer",
+    href: "https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
+  }, "link"), "."),
+  position: "top"
+};
+exports.validation_setting_tooltip = validation_setting_tooltip;
 var save_microscope_tooltip = {
   title: "Save microscope",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Choose whether you want to save this Microscope file to the active Micro-Meta App repository or if you want to export it to your local file system."),
   position: "top"
 };
 exports.save_microscope_tooltip = save_microscope_tooltip;
+var save_setting_tooltip = {
+  title: "Save settings",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose whether you want to save this Settings file to the active Micro-Meta App repository or if you want to export it to your local file system."),
+  position: "top"
+};
+exports.save_setting_tooltip = save_setting_tooltip;
 var hardware_explorer_tooltip = {
   title: "Hardware component selection",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Use this menu to select hardware components to include in this Microscope file. Please follow these steps: 1 - Open an individual menu. 2 - Drag-and-drop the desired element into the main canvas. 3 - Click on the desired element to enter the information you want to document. 4 - Click on Confirm to save the information you have entered."),
   position: "bottom"
 };
 exports.hardware_explorer_tooltip = hardware_explorer_tooltip;
+var edit_planes = {
+  title: "Edit Planes",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to edit or enter general information about the Image Planes."),
+  position: "bottom"
+};
+exports.edit_planes = edit_planes;
+var edit_channels = {
+  title: "Edit Channels",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to edit or enter the light path associated with each Image Channel."),
+  position: "bottom"
+};
+exports.edit_channels = edit_channels;
+var edit_img_env_settings = {
+  title: "Edit Imaging Environment",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Imaging Environmental Control Device that was used and edit information about the environment in which the biological sample was maintained during the acquisition of this Image."),
+  position: "bottom"
+};
+exports.edit_img_env_settings = edit_img_env_settings;
+var edit_mic_settings = {
+  title: "Edit Microscope Settings",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to edit or enter information about the Settings that were applied to the Microscope Stand during the acquisition of this Image."),
+  position: "bottom"
+};
+exports.edit_mic_settings = edit_mic_settings;
+var edit_obj_settings = {
+  title: "Edit Objective Settings",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Objective and edit the settings that were used for the acquisition of this Image."),
+  position: "bottom"
+};
+exports.edit_obj_settings = edit_obj_settings;
+var edit_sample_pos_settings = {
+  title: "Edit Sample Positioning Settings",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Sample Positioning Settings and edit the settings that were used during the acquisition of this Image."),
+  position: "bottom"
+};
+exports.edit_sample_pos_settings = edit_sample_pos_settings;
+var edit_mic_table_settings = {
+  title: "Edit Microscope Table Settings",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Microscope Table and edit the settings that were used for the acquisition of this Image."),
+  position: "bottom"
+};
+exports.edit_mic_table_settings = edit_mic_table_settings;
+var add_multi_planes = {
+  title: "Add multiple Planes",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to add multiple Planes to this Image."),
+  position: "bottom"
+};
+exports.add_multi_planes = add_multi_planes;
+var add_plane = {
+  title: "Add Plane",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to add a single Image Plane"),
+  position: "bottom"
+};
+exports.add_plane = add_plane;
+var remove_plane = {
+  title: "Remove Plane",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to remove the selected Image Plane"),
+  position: "bottom"
+};
+exports.remove_plane = remove_plane;
+var add_channel = {
+  title: "Add Channel",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to add a single Image Channel"),
+  position: "bottom"
+};
+exports.add_channel = add_channel;
+var remove_channel = {
+  title: "Remove Channel",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to remove the selected Image Channel"),
+  position: "bottom"
+};
+exports.remove_channel = remove_channel;
+var edit_plane = {
+  title: "Edit Plane",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to edit or enter general information about the selected Image Planes."),
+  position: "bottom"
+};
+exports.edit_plane = edit_plane;
+var edit_channel = {
+  title: "Edit Channel",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to edit or enter the light path associated with the selected Image Channel."),
+  position: "bottom"
+};
+exports.edit_channel = edit_channel;

@@ -148,19 +148,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         });
         validated = /*#__PURE__*/_react.default.createElement("div", {
           style: styleValidated
-        }, "\u25CF"); // let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
-        // validated = (
-        // 	<img
-        // 		src={
-        // 			image +
-        // 			(image.indexOf("githubusercontent.com") > -1
-        // 				? "?sanitize=true"
-        // 				: "")
-        // 		}
-        // 		alt={"validated"}
-        // 		style={styleValidation}
-        // 	/>
-        // );
+        }, "\u25CF");
       } else {
         var _styleValidated = Object.assign({}, styleValidation, {
           color: "red"
@@ -168,30 +156,25 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
 
         validated = /*#__PURE__*/_react.default.createElement("div", {
           style: _styleValidated
-        }, "\u25CF"); // let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
-        // validated = (
-        // 	<img
-        // 		src={
-        // 			image +
-        // 			(image.indexOf("githubusercontent.com") > -1
-        // 				? "?sanitize=true"
-        // 				: "")
-        // 		}
-        // 		alt={"not validated"}
-        // 		style={imageValidation}
-        // 	/>
-        // );
-        // styleEditButton = Object.assign(styleEditButton, {
-        // 	border: "5px ridge red",
-        // });
+        }, "\u25CF");
+      }
+
+      var editTooltip = _constants.edit_microscope_tooltip;
+      var validationTooltip = _constants.validation_microscope_tooltip;
+      var saveTooltip = _constants.save_microscope_tooltip;
+
+      if (this.props.element === "setting") {
+        editTooltip = _constants.edit_setting_tooltip;
+        validationTooltip = _constants.validation_setting_tooltip;
+        saveTooltip = _constants.save_setting_tooltip;
       }
 
       var buttons = [];
       buttons[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "TooltipButton-0",
-        position: _constants.edit_microscope_tooltip.position,
-        title: _constants.edit_microscope_tooltip.title,
-        content: _constants.edit_microscope_tooltip.content,
+        position: editTooltip.position,
+        title: editTooltip.title,
+        content: editTooltip.content,
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "Button-0",
           onClick: this.onClickEdit,
@@ -215,7 +198,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         margin: 5,
         defaultValue: defaultValidationTier,
         direction: "up",
-        tooltip: _constants.validation_tooltip
+        tooltip: validationTooltip
       });
       var saveOptions = [];
 
@@ -234,7 +217,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         width: 250,
         margin: 5,
         direction: "up",
-        tooltip: _constants.save_microscope_tooltip
+        tooltip: saveTooltip
       });
       buttons[3] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "TooltipButton-3",

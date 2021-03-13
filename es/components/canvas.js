@@ -106,6 +106,13 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           height: object.Height,
           occupiedSpot: object.OccupiedSpot
         };
+
+        if (object.Rotate !== null && object.Rotate !== undefined) {
+          newElement.rotate = object.Rotate;
+        } else {
+          newElement.rotate = null;
+        }
+
         var occupiedSpot = object.OccupiedSpot;
 
         if (occupiedSpot !== undefined) {
@@ -447,6 +454,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var originalDimensions = Object.assign({}, this.state.originalDimensions);
       var newElement = null;
       var occupiedSpots = this.state.occupiedSpots.slice();
+      var rotate = null;
       var x = e.x;
       var y = e.y - this.state.headerOffset;
       var schema_ID = null;
@@ -513,6 +521,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                   var spotH = spot.h * scalingFactor;
                   width = spotW;
                   height = spotH;
+                  rotate = spot.r;
                   if (occupiedSpots.includes(tmpID)) continue;
 
                   if (spot.x !== -1 && spot.y !== -1) {
@@ -544,6 +553,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
                 width = _spotW;
                 height = _spotH;
+                rotate = _spot.r;
 
                 if (!occupiedSpots.includes(_tmpID)) {
                   if (_spot.x !== -1 && _spot.y !== -1) {
@@ -579,6 +589,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                   var spotH = spot.h * scalingFactor;
                   width = spotW;
                   height = spotH;
+                  rotate = spot.r;
                   newElementList.map(function (item, index) {
                     var itemSchemaID = item.schema_ID;
                     var itemSchema = componentsSchema[itemSchemaID];
@@ -618,6 +629,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
                 width = _spotW2;
                 height = _spotH2;
+                rotate = _spot2.r;
                 newElementList.map(function (item, index) {
                   var itemSchemaID = item.schema_ID;
                   var itemSchema = componentsSchema[itemSchemaID];
@@ -659,6 +671,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       for (var _index in Object.keys(spotsMap)) {
         _loop(_index);
       } //console.log("DROPPED: w-" + width + "||h-" + height);
+      //console.log("DROPPED: r-" + rotate);
 
 
       var minElementWidth = _constants.number_canvas_element_min_width * scalingFactor;
@@ -707,6 +720,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           x: x,
           y: y,
           z: 0,
+          rotate: rotate,
           width: width,
           height: height,
           offsetX: offsetX,
@@ -729,6 +743,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           OffsetY: offsetY,
           OccupiedSpot: occupiedSpot
         };
+        if (rotate !== null) newElementData.Rotate = rotate;
         newElement.name = newElementData.Name;
         this.addComponentsIndexesIfMissing(schema, newElementData);
         newElement.obj = newElementData;
@@ -1180,38 +1195,14 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             });
             validated = /*#__PURE__*/_react.default.createElement("div", {
               style: styleValidated
-            }, "\u25CF"); // let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
-            // validated = (
-            // 	<img
-            // 		src={
-            // 			image +
-            // 			(image.indexOf("githubusercontent.com") > -1
-            // 				? "?sanitize=true"
-            // 				: "")
-            // 		}
-            // 		alt={"validated"}
-            // 		style={imageValidation}
-            // 	/>
-            // );
+            }, "\u25CF");
           } else {
             var styleNotValidated = Object.assign({}, styleGrabber, {
               color: "red"
             });
             validated = /*#__PURE__*/_react.default.createElement("div", {
               style: styleNotValidated
-            }, "\u25CF"); // let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
-            // validated = (
-            // 	<img
-            // 		src={
-            // 			image +
-            // 			(image.indexOf("githubusercontent.com") > -1
-            // 				? "?sanitize=true"
-            // 				: "")
-            // 		}
-            // 		alt={"not validated"}
-            // 		style={imageValidation}
-            // 	/>
-            // );
+            }, "\u25CF");
           }
 
           droppableElement.push( /*#__PURE__*/_react.default.createElement("div", {
@@ -1248,6 +1239,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/_react.default.createElement(_canvasElement.default, {
             activeTier: _this3.props.activeTier,
             id: item.ID,
+            rotate: item.rotate,
             image: url.resolve(_this3.props.imagesPath, schema.image),
             schema: schema,
             handleConfirm: _this3.onCanvasElementDataSave,

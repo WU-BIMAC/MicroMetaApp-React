@@ -9,11 +9,15 @@ var _react = _interopRequireDefault(require("react"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
+var _settingComponentSelector = _interopRequireDefault(require("./settingComponentSelector"));
+
 var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
 
 var _planeView = _interopRequireDefault(require("./planeView"));
 
 var _channelView = _interopRequireDefault(require("./channelView"));
+
+var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
 
 var _uuid = require("uuid");
 
@@ -43,8 +47,15 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 var validate = require("jsonschema").validate;
 
-var schemas = ["Experiment.json", "Plane.json", "Channel.json", "TIRFSettings.json", "ImagingEnvironment.json", "MicroscopeSettings.json", "ObjectiveSettings.json", "SamplePositioningSettings.json", "MicroscopeTableSettings.json"];
+var schemas = ["Experiment.json", "Plane.json", "Channel.json", "TIRFSettings.json", //TIRFHardwareModule
+"ImagingEnvironment.json", //EnvironmentalControlDevice
+"MicroscopeStandSettings.json", //InvertedMicroscopeStand, UprightMicroscopeStand
+"ObjectiveSettings.json", //Objective
+"SamplePositioningSettings.json", //Z-Drive, TurretObjectiveFocusing, IndividualObjectiveFocusing, MechanicalStage, PiezoElectricStage
+"MicroscopeTableSettings.json" //MicroscopeTable
+];
 var elements = ["exp", "planes", "channels", "tirfSettings", "imgEnv", "micSettings", "objSettings", "samplePosSettings", "micTableSettings"];
+var categories = [[], [], [], ["TIRFHardwareModule"], ["EnvironmentalControlDevice"], ["InvertedMicroscopeStand", "UprightMicroscopeStand"], ["Objective"], ["Z-Drive", "TurretObjectiveFocusing", "IndividualObjectiveFocusing", "MechanicalStage", "PiezoElectricStage"], ["MicroscopeTable"]];
 
 var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(SettingMainView, _React$PureComponent);
@@ -68,26 +79,82 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
       channels: props.settingData.Channels || [],
       TIRFSettings: props.settingData.TIRFSettings,
       imagingEnv: props.settingData.ImagingEnvironment,
-      micSettings: props.settingData.MicroscopeSettings,
+      micSettings: props.settingData.MicroscopeStandSettings,
       objSettings: props.settingData.ObjectiveSettings,
       samplePosSettings: props.settingData.SamplePositioningSettings,
       micTableSettings: props.settingData.MicroscopeTableSettings,
       settingSchemas: {},
       experimentalSchemas: {},
-      componentSchemas: {},
-      objective: null
+      componentSchemas: {} //objective: null,
+
     };
     var settingData = {};
+
+    if (props.settingData !== undefined && props.settingData !== null) {
+      Object.keys(props.settingData).forEach(function (settIndex) {
+        var sett = props.settingData[settIndex]; //console.log(sett);
+
+        var schema_id = sett.Schema_ID;
+
+        if (schema_id === "TIRFSettings.json" && _constants.bool_hasAdvanced) {
+          _this.state.TIRFSettings = sett; //settingData.TIRFSettings = sett;
+        } else if (schema_id === "ImagingEnvironment.json") {
+          _this.state.imagingEnv = sett; //settingData.imagingEnv = sett;
+        } else if (schema_id === "MicroscopeStandSettings.json") {
+          _this.state.micSettings = sett; //settingData.micSettings = sett;
+        } else if (schema_id === "ObjectiveSettings.json") {
+          _this.state.objSettings = sett; //settingData.objSettings = sett;
+        } else if (schema_id === "SamplePositioningSettings.json") {
+          _this.state.samplePosSettings = sett; //settingData.samplePosSettings = sett;
+        } else if (schema_id === "MicroscopeTableSettings.json") {
+          _this.state.micTableSettings = sett; //settingData.micTableSettings = sett;
+        }
+
+        if (schema_id === "Experiment.json" && _constants.bool_hasExperimental) {
+          _this.state.experiment = sett; //settingData.experiment = sett;
+        }
+      });
+    }
 
     if (props.settingSchemas !== undefined && props.settingSchemas !== null) {
       Object.keys(props.settingSchemas).forEach(function (schemaIndex) {
         var uuid = (0, _uuid.v4)();
         var schema = props.settingSchemas[schemaIndex];
         var schema_id = schema.ID;
-        _this.state.settingSchemas[schema_id] = schema;
+        _this.state.settingSchemas[schema_id] = schema; // 		if (schema_id === "TIRFSettings.json" && bool_hasAdvanced) {
+        // 			if (
+        // 				this.state.TIRFSettings === null ||
+        // 				this.state.TIRFSettings === undefined
+        // 			) {
+        // 				let newElement = {
+        // 					Name: `${schema.title}`,
+        // 					ID: uuid,
+        // 					Tier: schema.tier,
+        // 					Schema_ID: schema.ID,
+        // 					Version: schema.version,
+        // 				};
+        // 				this.state.TIRFSettings = newElement;
+        // 				settingData.TIRFSettings = newElement;
+        // 			}
+        // 		} else if (schema_id === "ImagingEnvironment.json") {
+        // 			if (
+        // 				this.state.imagingEnv === null ||
+        // 				this.state.imagingEnv === undefined
+        // 			) {
+        // 				let newElement = {
+        // 					Name: `${schema.title}`,
+        // 					ID: uuid,
+        // 					Tier: schema.tier,
+        // 					Schema_ID: schema.ID,
+        // 					Version: schema.version,
+        // 				};
+        // 				this.state.imagingEnv = newElement;
+        // 				settingData.ImagingEnvironment = newElement;
+        // 			}
+        //	} else
 
-        if (schema_id === "TIRFSettings.json" && _constants.bool_hasAdvanced) {
-          if (_this.state.TIRFSettings === null || _this.state.TIRFSettings === undefined) {
+        if (schema_id === "MicroscopeStandSettings.json") {
+          if (_this.state.micSettings === null || _this.state.micSettings === undefined) {
             var newElement = {
               Name: "".concat(schema.title),
               ID: uuid,
@@ -95,81 +162,67 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
               Schema_ID: schema.ID,
               Version: schema.version
             };
-            _this.state.TIRFSettings = newElement;
-            settingData.TIRFSettings = newElement;
+            _this.state.micSettings = newElement;
+            settingData.MicroscopeStandSettings = newElement;
           }
-        } else if (schema_id === "ImagingEnvironment.json") {
-          if (_this.state.imagingEnv === null || _this.state.imagingEnv === undefined) {
-            var _newElement = {
-              Name: "".concat(schema.title),
-              ID: uuid,
-              Tier: schema.tier,
-              Schema_ID: schema.ID,
-              Version: schema.version
-            };
-            _this.state.imagingEnv = _newElement;
-            settingData.ImagingEnvironment = _newElement;
-          }
-        } else if (schema_id === "MicroscopeSettings.json") {
-          if (_this.state.micSettings === null || _this.state.micSettings === undefined) {
-            var _newElement2 = {
-              Name: "".concat(schema.title),
-              ID: uuid,
-              Tier: schema.tier,
-              Schema_ID: schema.ID,
-              Version: schema.version
-            };
-            _this.state.micSettings = _newElement2;
-            settingData.MicroscopeSettings = _newElement2;
-          }
-        } else if (schema_id === "ObjectiveSettings.json") {
-          if (_this.state.objSettings === null || _this.state.objSettings === undefined) {
-            var _newElement3 = {
-              Name: "".concat(schema.title),
-              ID: uuid,
-              Tier: schema.tier,
-              Schema_ID: schema.ID,
-              Version: schema.version
-            };
-            _this.state.objSettings = _newElement3;
-            settingData.ObjectiveSettings = _newElement3;
-          }
-        } else if (schema_id === "SamplePositioningSettings.json") {
-          if (_this.state.samplePosSettings === null || _this.state.samplePosSettings === undefined) {
-            var _newElement4 = {
-              Name: "".concat(schema.title),
-              ID: uuid,
-              Tier: schema.tier,
-              Schema_ID: schema.ID,
-              Version: schema.version
-            };
-            _this.state.samplePosSettings = _newElement4;
-            settingData.SamplePositioningSettings = _newElement4;
-          }
-        } else if (schema_id === "MicroscopeTableSettings.json") {
-          if (_this.state.micTableSettings === null || _this.state.micTableSettings === undefined) {
-            var _newElement5 = {
-              Name: "".concat(schema.title),
-              ID: uuid,
-              Tier: schema.tier,
-              Schema_ID: schema.ID,
-              Version: schema.version
-            };
-            _this.state.micTableSettings = _newElement5;
-            settingData.MicroscopeTableSettings = _newElement5;
-          }
-        }
+        } //else if (schema_id === "ObjectiveSettings.json") {
+        // 			if (
+        // 				this.state.objSettings === null ||
+        // 				this.state.objSettings === undefined
+        // 			) {
+        // 				let newElement = {
+        // 					Name: `${schema.title}`,
+        // 					ID: uuid,
+        // 					Tier: schema.tier,
+        // 					Schema_ID: schema.ID,
+        // 					Version: schema.version,
+        // 				};
+        // 				this.state.objSettings = newElement;
+        // 				settingData.ObjectiveSettings = newElement;
+        // 			}
+        // 		} else if (schema_id === "SamplePositioningSettings.json") {
+        // 			if (
+        // 				this.state.samplePosSettings === null ||
+        // 				this.state.samplePosSettings === undefined
+        // 			) {
+        // 				let newElement = {
+        // 					Name: `${schema.title}`,
+        // 					ID: uuid,
+        // 					Tier: schema.tier,
+        // 					Schema_ID: schema.ID,
+        // 					Version: schema.version,
+        // 				};
+        // 				this.state.samplePosSettings = newElement;
+        // 				settingData.SamplePositioningSettings = newElement;
+        // 			}
+        // 		} else if (schema_id === "MicroscopeTableSettings.json") {
+        // 			if (
+        // 				this.state.micTableSettings === null ||
+        // 				this.state.micTableSettings === undefined
+        // 			) {
+        // 				let newElement = {
+        // 					Name: `${schema.title}`,
+        // 					ID: uuid,
+        // 					Tier: schema.tier,
+        // 					Schema_ID: schema.ID,
+        // 					Version: schema.version,
+        // 				};
+        // 				this.state.micTableSettings = newElement;
+        // 				settingData.MicroscopeTableSettings = newElement;
+        // 			}
+        // 		}
+
       });
     }
 
-    if (props.experimentalSchemas !== undefined && props.experimentalSchemas !== null) {
+    if (props.experimentalSchemas !== undefined && props.experimentalSchemas !== null && _constants.bool_hasExperimental) {
       Object.keys(props.experimentalSchemas).forEach(function (schemaIndex) {
         var uuid = (0, _uuid.v4)();
         var schema = props.experimentalSchemas[schemaIndex];
         var schema_id = schema.ID;
         _this.state.experimentalSchemas[schema_id] = schema;
 
-        if (schema_id === "Experiment.json" && _constants.bool_hasExperimental) {
+        if (schema_id === "Experiment.json") {
           if (_this.state.experiment === null || _this.state.experiment === undefined) {
             var newElement = {
               Name: "".concat(schema.title),
@@ -270,64 +323,71 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           planes: data
         });
       } else if (id === elements.indexOf("channels")) {
-        var objective = null; // let objective = this.state.objective;
-        // if (objective === null) {
-        // 	objective = data[0].LightPath.ComponentSettings.Objective;
-        // }
-
         settingData.Channels = data;
         this.setState({
           editingElement: -1,
-          channels: data,
-          objective: objective
+          channels: data //objective: objective,
+
         });
       } else if (id === elements.indexOf("tirfSettings")) {
-        var TIRFSettings = this.state.TIRFSettings;
-        var newTIRFSettings = Object.assign(TIRFSettings, data);
-        settingData.TIRFSettings = newTIRFSettings;
+        // let TIRFSettings = this.state.TIRFSettings;
+        // let newTIRFSettings = Object.assign(TIRFSettings, data);
+        // settingData.TIRFSettings = newTIRFSettings;
+        settingData.TIRFSettings = data;
         this.setState({
           editingElement: -1,
-          TIRFSettings: newTIRFSettings
+          //TIRFSettings: newTIRFSettings
+          TIRFSettings: data
         });
       } else if (id === elements.indexOf("imgEnv")) {
-        var imagingEnv = this.state.imagingEnv;
-        var newImagingEnv = Object.assign(imagingEnv, data);
-        settingData.ImagingEnvironment = newImagingEnv;
+        // let imagingEnv = this.state.imagingEnv;
+        // let newImagingEnv = Object.assign(imagingEnv, data);
+        // settingData.ImagingEnvironment = newImagingEnv;
+        settingData.ImagingEnvironment = data;
         this.setState({
           editingElement: -1,
-          imagingEnv: newImagingEnv
+          //imagingEnv: newImagingEnv
+          imagingEnv: data
         });
       } else if (id === elements.indexOf("micSettings")) {
-        var micSettings = this.state.micSettings;
-        var newMicSettings = Object.assign(micSettings, data);
-        settingData.MicroscopeSettings = newMicSettings;
+        // let micSettings = this.state.micSettings;
+        // let newMicSettings = Object.assign(micSettings, data);
+        // settingData.MicroscopeStandSettings = newMicSettings;
+        settingData.MicroscopeStandSettings = data;
         this.setState({
           editingElement: -1,
-          micSettings: newMicSettings
+          //micSettings: newMicSettings
+          micSettings: data
         });
       } else if (id === elements.indexOf("objSettings")) {
-        var objSettings = this.state.objSettings;
-        var newObjSettings = Object.assign(objSettings, data);
-        settingData.ObjectiveSettings = newObjSettings;
+        // let objSettings = this.state.objSettings;
+        // let newObjSettings = Object.assign(objSettings, data);
+        // settingData.ObjectiveSettings = newObjSettings;
+        settingData.ObjectiveSettings = data;
         this.setState({
           editingElement: -1,
-          micSettings: newObjSettings
+          //micSettings: newObjSettings
+          objSettings: data
         });
       } else if (id === elements.indexOf("samplePosSettings")) {
-        var samplePosSettings = this.state.samplePosSettings;
-        var newSamplePosSettings = Object.assign(samplePosSettings, data);
-        settingData.SamplePositioningSettings = newSamplePosSettings;
+        // let samplePosSettings = this.state.samplePosSettings;
+        // let newSamplePosSettings = Object.assign(samplePosSettings, data);
+        // settingData.SamplePositioningSettings = newSamplePosSettings;
+        settingData.SamplePositioningSettings = data;
         this.setState({
           editingElement: -1,
-          samplePosSettings: newSamplePosSettings
+          //samplePosSettings: newSamplePosSettings,
+          samplePosSettings: data
         });
       } else if (id === elements.indexOf("micTableSettings")) {
-        var micTableSettings = this.state.micTableSettings;
-        var newMicTableSettings = Object.assign(micTableSettings, data);
-        settingData.MicroscopeTableSettings = newMicTableSettings;
+        // let micTableSettings = this.state.micTableSettings;
+        // let newMicTableSettings = Object.assign(micTableSettings, data);
+        //settingData.MicroscopeTableSettings = newMicTableSettings;
+        settingData.MicroscopeTableSettings = data;
         this.setState({
           editingElement: -1,
-          micTableSettings: newMicTableSettings
+          //micTableSettings: newMicTableSettings,
+          micTableSettings: data
         });
       } //let validated = this.areAllElementsValidated();
 
@@ -374,8 +434,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
     // 		editingElement: "ImgEnv",
     // 	});
     // }
-    // onClickEditMicroscopeSettings() {
-    // 	let editingElement = schemasOrder.indexOf("MicroscopeSettings.json");
+    // onClickEditMicroscopeStandSettings() {
+    // 	let editingElement = schemasOrder.indexOf("MicroscopeStandSettings.json");
     // 	this.setState({
     // 		editingElement: "MicSettings",
     // 	});
@@ -407,23 +467,10 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
       // console.log("elementData");
       // console.log(elementData);
-      var elementByType = {}; // Object.keys(this.state.elementData).forEach(function (key) {
-      // 	let element = this.state.elementData[key];
-      // 	let schemaID = element.Schema_ID.replace(string_json_ext, "");
-      // 	if (elementByType[schemaID] === undefined) {
-      // 		elementByType[schemaID] = {};
-      // 	}
-      // 	elementByType[schemaID][element.Name] = element.ID;
-      // });
-
+      var elementByType = {};
       var componentSchemas = this.state.componentSchemas;
       Object.keys(this.props.microscopeComponents).forEach(function (key) {
-        var element = _this2.props.microscopeComponents[key]; // let schemaID = element.Schema_ID.replace(string_json_ext, "");
-        // if (elementByType[schemaID] === undefined) {
-        // 	elementByType[schemaID] = {};
-        // }
-        // elementByType[schemaID][element.Name] = element.ID;
-
+        var element = _this2.props.microscopeComponents[key];
         var schemaID = element.Schema_ID.replace(_constants.string_json_ext, "");
         var itemSchema = componentSchemas[element.Schema_ID];
         var schemaCategory = itemSchema.category;
@@ -462,6 +509,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         var obj = null;
         var schema_id = schemas[editingElement];
         var schema = null;
+        var category = null;
 
         if (editingElement === elements.indexOf("exp")) {
           obj = this.state.experiment;
@@ -486,12 +534,15 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           }
 
           schema = this.state.settingSchemas[schema_id];
+          category = categories[editingElement];
         }
 
         console.log("setting schema");
         console.log(schema);
         console.log("setting obj");
         console.log(obj);
+        console.log("category");
+        console.log(category);
 
         if (editingElement == elements.indexOf("planes")) {
           return /*#__PURE__*/_react.default.createElement("div", {
@@ -504,7 +555,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             onCancel: this.onElementDataCancel,
             overlaysContainer: this.props.overlaysContainer
           }));
-        } else if (this.state.editingElement == elements.indexOf("channels")) {
+        } else if (editingElement == elements.indexOf("channels")) {
           return /*#__PURE__*/_react.default.createElement(_channelView.default, {
             settingSchemas: this.props.settingSchemas,
             componentSchemas: this.props.componentSchemas,
@@ -523,6 +574,24 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             containerOffsetTop: this.props.containerOffsetTop,
             containerOffsetLeft: this.props.containerOffsetLeft,
             headerOffset: this.props.headerOffset
+          });
+        } else if (editingElement == elements.indexOf("imgEnv") || editingElement == elements.indexOf("tirfSettings") || editingElement == elements.indexOf("objSettings") || editingElement == elements.indexOf("samplePosSettings") || editingElement == elements.indexOf("micTableSettings")) {
+          return /*#__PURE__*/_react.default.createElement(_settingComponentSelector.default, {
+            settingSchemas: this.props.settingSchemas,
+            componentSchemas: this.props.componentSchemas,
+            experimentalSchemas: this.props.experimentalSchemas,
+            schema: schema,
+            inputData: obj,
+            id: editingElement,
+            category: category,
+            imagesPath: this.props.imagesPath,
+            settingData: this.props.settingData,
+            componentData: this.props.componentData,
+            linkedFields: this.props.linkedFields,
+            onConfirm: this.onElementDataSave,
+            onCancel: this.onElementDataCancel,
+            overlaysContainer: this.props.overlaysContainer,
+            elementByType: elementByType
           });
         } else {
           return /*#__PURE__*/_react.default.createElement("div", {
@@ -552,31 +621,60 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           // marginRight: "5px",
 
         };
-        var styleEditButton = Object.assign({}, styleButton, {
-          border: "5px ridge red"
+        var styleValidation = {
+          position: "absolute",
+          verticalAlign: "middle",
+          fontWeight: "bold",
+          textAlign: "center"
+        };
+        var styleValidated = Object.assign({}, styleValidation, {
+          color: "green"
         });
+        var styleNotValidated = Object.assign({}, styleValidation, {
+          color: "red"
+        });
+
+        var isValid = /*#__PURE__*/_react.default.createElement("div", {
+          style: styleValidated
+        }, "\u25CF");
+
+        var isInvalid = /*#__PURE__*/_react.default.createElement("div", {
+          style: styleNotValidated
+        }, "\u25CF");
+
         var buttons = [];
+        var _category = null;
+        var disabled = false;
         var index = elements.indexOf("exp");
         var _schema_id = schemas[index];
         var object = this.state.experiment;
         var _schema = this.state.experimentalSchemas[_schema_id];
         var validation = null;
         var validated = null;
-        var styleButt = null;
+        var valid = null;
 
         if (_constants.bool_hasExperimental) {
-          validation = validate(object, _schema);
-          validated = validation.valid;
-          styleButt = styleButton;
-          if (!validated) styleButt = styleEditButton;
+          validated = false;
+
+          if (object !== null && object !== undefined) {
+            validation = validate(object, _schema);
+            validated = validation.valid;
+          }
+
+          if (validated) {
+            valid = isValid;
+          } else {
+            valid = isInvalid;
+          }
+
           buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
             key: "Button-Experiment",
             onClick: function onClick() {
               return _this2.onClickEditSettings(elements.indexOf("exp"));
             },
-            style: styleButt,
+            style: styleButton,
             size: "lg"
-          }, "Edit Experiment"));
+          }, valid, "Edit Experiment"));
         }
 
         index = elements.indexOf("tirfSettings");
@@ -585,120 +683,277 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         _schema = this.state.settingSchemas[_schema_id];
 
         if (_constants.bool_hasAdvanced) {
-          validation = validate(object, _schema);
-          validated = validation.valid;
-          styleButt = styleButton;
-          if (!validated) styleButt = styleEditButton;
+          validated = false;
+
+          if (object !== null && object !== undefined) {
+            validation = validate(object, _schema);
+            validated = validation.valid;
+          }
+
+          valid = null;
+
+          if (validated) {
+            valid = isValid;
+          } else {
+            valid = isInvalid;
+          }
+
+          _category = categories[index];
+          disabled = false;
+
+          for (var catIndex in _category) {
+            var cat = _category[catIndex];
+            var ele = elementByType[cat];
+            if (ele === null || ele === undefined) disabled = true;
+          }
+
           buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
             key: "Button-TIRF",
             onClick: function onClick() {
               return _this2.onClickEditSettings(elements.indexOf("tirfSettings"));
             },
-            style: styleButt,
-            size: "lg"
-          }, "Edit TIRF Settings"));
+            style: styleButton,
+            size: "lg",
+            disabled: disabled
+          }, disabled ? null : valid, "Edit TIRF Settings"));
         }
 
         index = elements.indexOf("imgEnv");
         _schema_id = schemas[index];
         object = this.state.imagingEnv;
         _schema = this.state.settingSchemas[_schema_id];
-        validation = validate(object, _schema);
-        validated = validation.valid;
-        styleButt = styleButton;
-        if (!validated) styleButt = styleEditButton;
-        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-ImgEnv",
-          onClick: function onClick() {
-            return _this2.onClickEditSettings(elements.indexOf("imgEnv"));
-          },
-          style: styleButt,
-          size: "lg"
-        }, "Edit Imaging Environment"));
+        validated = false;
+
+        if (object !== null && object !== undefined) {
+          validation = validate(object, _schema);
+          validated = validation.valid;
+        }
+
+        valid = null;
+
+        if (validated) {
+          valid = isValid;
+        } else {
+          valid = isInvalid;
+        }
+
+        _category = categories[index];
+        disabled = false;
+
+        for (var _catIndex in _category) {
+          var _cat = _category[_catIndex];
+          var _ele = elementByType[_cat];
+          if (_ele === null || _ele === undefined) disabled = true;
+        }
+
+        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-ImgEnv",
+          position: _constants.edit_img_env_settings.position,
+          title: _constants.edit_img_env_settings.title,
+          content: _constants.edit_img_env_settings.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-ImgEnv",
+            onClick: function onClick() {
+              return _this2.onClickEditSettings(elements.indexOf("imgEnv"));
+            },
+            style: styleButton,
+            size: "lg",
+            disabled: disabled
+          }, disabled ? null : valid, "Edit Imaging Environment")
+        }));
         index = elements.indexOf("micTableSettings");
         _schema_id = schemas[index];
         object = this.state.micTableSettings;
         _schema = this.state.settingSchemas[_schema_id];
-        validation = validate(object, _schema);
-        validated = validation.valid;
-        styleButt = styleButton;
-        if (!validated) styleButt = styleEditButton;
-        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-MicTableSettings",
-          onClick: function onClick() {
-            return _this2.onClickEditSettings(elements.indexOf("micTableSettings"));
-          },
-          style: styleButt,
-          size: "lg"
-        }, "Edit Microscope Table Settings"));
+        validated = false;
+
+        if (object !== null && object !== undefined) {
+          console.log("object");
+          console.log(object);
+          console.log("schema");
+          console.log(_schema);
+          validation = validate(object, _schema);
+          validated = validation.valid;
+        }
+
+        valid = null;
+
+        if (validated) {
+          valid = isValid;
+        } else {
+          valid = isInvalid;
+        }
+
+        _category = categories[index];
+        disabled = false;
+
+        for (var _catIndex2 in _category) {
+          var _cat2 = _category[_catIndex2];
+          var _ele2 = elementByType[_cat2];
+          if (_ele2 === null || _ele2 === undefined) disabled = true;
+        }
+
+        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-MicTableSettings",
+          position: _constants.edit_mic_table_settings.position,
+          title: _constants.edit_mic_table_settings.title,
+          content: _constants.edit_mic_table_settings.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-MicTableSettings",
+            onClick: function onClick() {
+              return _this2.onClickEditSettings(elements.indexOf("micTableSettings"));
+            },
+            style: styleButton,
+            size: "lg",
+            disabled: disabled
+          }, disabled ? null : valid, "Edit Microscope Table Settings")
+        }));
         index = elements.indexOf("micSettings");
         _schema_id = schemas[index];
         object = this.state.micSettings;
         _schema = this.state.settingSchemas[_schema_id];
+        validated = false;
         validation = validate(object, _schema);
         validated = validation.valid;
-        styleButt = styleButton;
-        if (!validated) styleButt = styleEditButton;
-        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-MicSettings",
-          onClick: function onClick() {
-            return _this2.onClickEditSettings(elements.indexOf("micSettings"));
-          },
-          style: styleButt,
-          size: "lg"
-        }, "Edit Microscope Settings"));
+        valid = null;
+
+        if (validated) {
+          valid = isValid;
+        } else {
+          valid = isInvalid;
+        }
+
+        disabled = false;
+        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-MicSettings",
+          position: _constants.edit_mic_settings.position,
+          title: _constants.edit_mic_settings.title,
+          content: _constants.edit_mic_settings.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-MicSettings",
+            onClick: function onClick() {
+              return _this2.onClickEditSettings(elements.indexOf("micSettings"));
+            },
+            style: styleButton,
+            size: "lg"
+          }, valid, "Edit Microscope Stand Settings")
+        }));
         index = elements.indexOf("objSettings");
         _schema_id = schemas[index];
         object = this.state.objSettings;
         _schema = this.state.settingSchemas[_schema_id];
-        validation = validate(object, _schema);
-        validated = validation.valid;
-        styleButt = styleButton;
-        if (!validated) styleButt = styleEditButton;
-        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-ObjSettings",
-          onClick: function onClick() {
-            return _this2.onClickEditSettings(elements.indexOf("objSettings"));
-          },
-          style: styleButt,
-          size: "lg"
-        }, "Edit Objective Settings"));
+        validated = false;
+
+        if (object !== null && object !== undefined) {
+          validation = validate(object, _schema);
+          validated = validation.valid;
+        }
+
+        valid = null;
+
+        if (validated) {
+          valid = isValid;
+        } else {
+          valid = isInvalid;
+        }
+
+        _category = categories[index];
+        disabled = false;
+
+        for (var _catIndex3 in _category) {
+          var _cat3 = _category[_catIndex3];
+          var _ele3 = elementByType[_cat3];
+          if (_ele3 === null || _ele3 === undefined) disabled = true;
+        }
+
+        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-ObjSettings",
+          position: _constants.edit_obj_settings.position,
+          title: _constants.edit_obj_settings.title,
+          content: _constants.edit_obj_settings.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-ObjSettings",
+            onClick: function onClick() {
+              return _this2.onClickEditSettings(elements.indexOf("objSettings"));
+            },
+            style: styleButton,
+            size: "lg",
+            disabled: disabled
+          }, disabled ? null : valid, "Edit Objective Settings")
+        }));
         index = elements.indexOf("samplePosSettings");
         _schema_id = schemas[index];
         object = this.state.samplePosSettings;
         _schema = this.state.settingSchemas[_schema_id];
-        validation = validate(object, _schema);
-        validated = validation.valid;
-        styleButt = styleButton;
-        if (!validated) styleButt = styleEditButton;
-        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-SamplePosSettings",
-          onClick: function onClick() {
-            return _this2.onClickEditSettings(elements.indexOf("samplePosSettings"));
-          },
-          style: styleButt,
-          size: "lg"
-        }, "Edit Sample Positioning Settings"));
+        validated = false;
+
+        if (object !== null && object !== undefined) {
+          validation = validate(object, _schema);
+          validated = validation.valid;
+        }
+
+        valid = null;
+
+        if (validated) {
+          valid = isValid;
+        } else {
+          valid = isInvalid;
+        }
+
+        _category = categories[index];
+        disabled = false;
+
+        for (var _catIndex4 in _category) {
+          var _cat4 = _category[_catIndex4];
+          var _ele4 = elementByType[_cat4];
+          if (_ele4 === null || _ele4 === undefined) disabled = true;
+        }
+
+        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-SamplePosSettings",
+          position: _constants.edit_sample_pos_settings.position,
+          title: _constants.edit_sample_pos_settings.title,
+          content: _constants.edit_sample_pos_settings.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-SamplePosSettings",
+            onClick: function onClick() {
+              return _this2.onClickEditSettings(elements.indexOf("samplePosSettings"));
+            },
+            style: styleButton,
+            size: "lg",
+            disabled: disabled
+          }, disabled ? null : valid, "Edit Sample Positioning Settings")
+        }));
         index = elements.indexOf("planes");
-        styleButt = styleButton;
-        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-Planes",
-          onClick: function onClick() {
-            return _this2.onClickEditSettings(elements.indexOf("planes"));
-          },
-          style: styleButt,
-          size: "lg"
-        }, "Edit Planes"));
+        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-Planes",
+          position: _constants.edit_planes.position,
+          title: _constants.edit_planes.title,
+          content: _constants.edit_planes.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-Planes",
+            onClick: function onClick() {
+              return _this2.onClickEditSettings(elements.indexOf("planes"));
+            },
+            style: styleButton,
+            size: "lg"
+          }, "Edit Planes")
+        }));
         index = elements.indexOf("channels");
-        styleButt = styleButton;
-        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-Channels",
-          onClick: function onClick() {
-            return _this2.onClickEditSettings(elements.indexOf("channels"));
-          },
-          style: styleButt,
-          size: "lg"
-        }, "Edit Channels"));
+        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-Channels",
+          position: _constants.edit_channels.position,
+          title: _constants.edit_channels.title,
+          content: _constants.edit_channels.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-Channels",
+            onClick: function onClick() {
+              return _this2.onClickEditSettings(elements.indexOf("channels"));
+            },
+            style: styleButton,
+            size: "lg"
+          }, "Edit Channels")
+        }));
         return /*#__PURE__*/_react.default.createElement("div", {
           style: styleMainContainer
         }, buttons);

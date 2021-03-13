@@ -80,12 +80,24 @@ var ImageElement = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "center",
         backgroundColor: "transparent"
       }, propStyle);
+      var rotate = this.props.rotate;
+      var rotateImageStyle = null;
+
+      if (rotate !== null && rotate !== undefined) {
+        console.log("rotate");
+        console.log(rotate);
+        rotateImageStyle = Object.assign({
+          transform: "rotate(".concat(rotate, "deg)")
+        }, imageStyle);
+      } else {
+        rotateImageStyle = imageStyle;
+      }
 
       var img = /*#__PURE__*/_react.default.createElement("img", {
         //onLoad={this.onImgLoad}
         src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
         alt: name,
-        style: imageStyle
+        style: rotateImageStyle
       });
 
       return /*#__PURE__*/_react.default.createElement("div", {

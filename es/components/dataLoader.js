@@ -52,14 +52,17 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       isLoadingSchema: false,
       isLoadingMicroscopes: false,
       isLoadingDimensions: false,
+      isLoadingSettings: false,
       isSchemaLoaded: false,
       isMicroscopesLoaded: false,
-      isDimensionsLoaded: false
+      isDimensionsLoaded: false,
+      isSettingsLoaded: false
     };
     _this.simulateClickLoadSchema = _this.simulateClickLoadSchema.bind(_assertThisInitialized(_this));
     _this.onClickLoadSchema = _this.onClickLoadSchema.bind(_assertThisInitialized(_this));
     _this.simulateClickLoadMicroscopes = _this.simulateClickLoadMicroscopes.bind(_assertThisInitialized(_this));
     _this.onClickLoadMicroscopes = _this.onClickLoadMicroscopes.bind(_assertThisInitialized(_this));
+    _this.onClickLoadSettings = _this.onClickLoadSettings.bind(_assertThisInitialized(_this));
     _this.simulateClickLoadDimensions = _this.simulateClickLoadDimensions.bind(_assertThisInitialized(_this));
     _this.onClickLoadDimensions = _this.onClickLoadDimensions.bind(_assertThisInitialized(_this));
     return _this;
@@ -114,6 +117,22 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       });
     }
   }, {
+    key: "onClickLoadSettings",
+    value: function onClickLoadSettings() {
+      var _this5 = this;
+
+      this.setState({
+        isLoadingSettings: true
+      }, function () {
+        _this5.props.onClickLoadSettings().then(function () {
+          _this5.setState({
+            isLoadingSettings: false,
+            isSettingsLoaded: true
+          });
+        });
+      });
+    }
+  }, {
     key: "simulateClickLoadDimensions",
     value: function simulateClickLoadDimensions(loadDimensionsButtonRef) {
       if (loadDimensionsButtonRef === null) return;
@@ -130,6 +149,12 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
     value: function simulateClickLoadMicroscopes(loadMicroscopesButtonRef) {
       if (loadMicroscopesButtonRef === null) return;
       loadMicroscopesButtonRef.click();
+    }
+  }, {
+    key: "simulateClickLoadSettings",
+    value: function simulateClickLoadSettings(loadSettingsButtonRef) {
+      if (loadSettingsButtonRef === null) return;
+      loadSettingsButtonRef.click();
     }
   }, {
     key: "render",
@@ -167,8 +192,10 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       };
       var isLoadingSchema = this.state.isLoadingSchema;
       var isLoadingMicroscopes = this.state.isLoadingMicroscopes;
+      var isLoadingSettings = this.state.isLoadingSettings;
       var isSchemaLoaded = this.state.isSchemaLoaded;
       var isMicroscopesLoaded = this.state.isMicroscopesLoaded;
+      var isSettingsLoaded = this.state.isSettingsLoaded;
       var isLoadingDimensions = this.state.isLoadingDimensions;
       var isDimensionsLoaded = this.state.isDimensionsLoaded;
       return /*#__PURE__*/_react.default.createElement("div", {
@@ -200,7 +227,13 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         onClick: !isLoadingMicroscopes && !isMicroscopesLoaded ? this.onClickLoadMicroscopes : null,
         style: buttonStyle,
         size: "lg"
-      }, isLoadingMicroscopes ? "Loading microscopes" : isMicroscopesLoaded ? "Microscopes loaded" : "Load microscopes")));
+      }, isLoadingMicroscopes ? "Loading microscopes" : isMicroscopesLoaded ? "Microscopes loaded" : "Load microscopes"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+        ref: this.simulateClickLoadSettings,
+        disabled: isLoadingSettings || isSettingsLoaded,
+        onClick: !isLoadingSettings && !isSettingsLoaded ? this.onClickLoadSettings : null,
+        style: buttonStyle,
+        size: "lg"
+      }, isLoadingSettings ? "Loading settings" : isSettingsLoaded ? "Settings loaded" : "Load settings")));
     }
   }]);
 

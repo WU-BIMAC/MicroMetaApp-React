@@ -91,13 +91,14 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     });
 
     if (props.channelData !== null && props.channelData !== undefined) {
-      var lightPath = props.channelData[0].LightPath;
+      var lightPath = props.channelData[1];
 
       if (lightPath !== null && lightPath !== undefined) {
         var componentSettings = lightPath.ComponentSettings;
-        _this.state.settingData = componentSettings;
 
         if (componentSettings !== null && componentSettings !== undefined) {
+          _this.state.settingData = componentSettings;
+
           for (var slot in componentSettings) {
             var settingDatas = componentSettings[slot];
 
@@ -441,22 +442,29 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           var index = currentSlots.indexOf(selectedComp);
           var obj = settingData[selectedSlot][index];
           settingData[selectedSlot][index] = Object.assign(obj, data);
+          this.setState({
+            editingSettings: false,
+            settingData: settingData
+          });
         } else {
           var _obj = settingData[selectedSlot];
           settingData[selectedSlot] = Object.assign(_obj, data);
-        }
+          this.setState({
+            editing: false,
+            editingSettings: false,
+            settingData: settingData,
+            category: null,
+            selectedSlot: null,
+            selectedComp: null,
+            selectedSchema: null
+          });
+        } // console.log("settingData");
+        // console.log(settingData);
 
-        console.log("settingData");
-        console.log(settingData);
-        this.setState({
-          //editing: false,
-          editingSettings: false,
-          settingData: settingData
-        });
       } else {
-        console.log("saving channel data");
-        console.log(id);
-        console.log(data);
+        // console.log("saving channel data");
+        // console.log(id);
+        // console.log(data);
         var currentChannelData = data;
         var currentLightPath = data.LightPath;
         var currentFluorophore = data.Fluorophore;
@@ -467,7 +475,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         this.setState({
           editing: false,
           editingSettings: false,
-          channelData: objects
+          channelData: objects,
+          category: null,
+          selectedSlot: null,
+          selectedComp: null,
+          selectedSchema: null
         });
       }
     }
@@ -528,15 +540,20 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onElementDataCancel",
     value: function onElementDataCancel() {
-      // if (this.state.editingSettings) {
-      // 	this.setState({ editingSettings: false });
-      // } else {
-      // 	this.setState({ editing: false, editingSettings: false });
-      // }
-      this.setState({
-        editing: false,
-        editingSettings: false
-      });
+      var selectedSlot = this.state.selectedSlot;
+
+      if (selectedSlot.includes("AdditionalSlot_")) {
+        //if (this.state.editingSettings) {
+        this.setState({
+          editingSettings: false
+        });
+      } else {
+        this.setState({
+          editing: false,
+          editingSettings: false
+        });
+      } //this.setState({ editing: false, editingSettings: false });
+
     }
   }, {
     key: "onEditElement",
@@ -561,12 +578,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       for (var i in settingsSchema) {
         var schema = settingsSchema[i];
         settingsSchemas[schema.ID] = schema;
-      }
+      } // console.log("category");
+      // console.log(category);
+      // console.log("selectedSlot");
+      // console.log(selectedSlot);
+      // console.log("selectedComp");
+      // console.log(selectedComp);
 
-      console.log("category");
-      console.log(category);
-      console.log("selectedSlot");
-      console.log(selectedSlot);
 
       if (category !== null) {
         //console.log("onAddAdditionalConfirm category null");
@@ -577,8 +595,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               selectedComp: null
             });
             return;
-          } //console.log("onAddAdditionalConfirm category " + category);
-
+          }
 
           var tmpSlots = this.state.tmpSlots.slice();
           tmpSlots.push(selectedComp);
@@ -648,7 +665,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_lightSource",
     value: function handleClick_lightSource() {
-      var category = ["Fluorescence_LightSource", "Transmitted_LightSource"];
+      var category = _constants.channelPath_LightSource;
       var selectedSlot = "LightSource";
       var slots = this.state.slots;
       var comp = null;
@@ -663,7 +680,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_detector",
     value: function handleClick_detector() {
-      var category = ["Detector"];
+      var category = _constants.channelPath_Detector;
       var selectedSlot = "Detector";
       var slots = this.state.slots;
       var comp = null;
@@ -678,7 +695,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_couplingLens",
     value: function handleClick_couplingLens() {
-      var category = ["CouplingLens"];
+      var category = _constants.channelPath_CouplingLens;
       var selectedSlot = "CouplingLens";
       var slots = this.state.slots;
       var comp = null;
@@ -693,7 +710,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_relayLens",
     value: function handleClick_relayLens() {
-      var category = ["RelayLens"];
+      var category = _constants.channelPath_RelayLens;
       var selectedSlot = "RelayLens";
       var slots = this.state.slots;
       var comp = null;
@@ -708,7 +725,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_lightSourceCoupling",
     value: function handleClick_lightSourceCoupling() {
-      var category = ["LightSourceCoupling"];
+      var category = _constants.channelPath_LightSourceCoupling;
       var selectedSlot = "LightSourceCoupling";
       var slots = this.state.slots;
       var comp = null;
@@ -768,7 +785,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_objective",
     value: function handleClick_objective() {
-      var category = ["Objective"];
+      var category = _constants.channelPath_Objective;
       var selectedSlot = "Objective";
       var slots = this.state.slots;
       var comp = null;
@@ -782,15 +799,27 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "createAddButton",
-    value: function createAddButton(buttonStyle, image, index, category) {
+    value: function createAddButton(buttonStyle, addButtonImage, addButtonImageStyle, index, category, isEnabled) {
       var _this2 = this;
 
-      //
-      return /*#__PURE__*/_react.default.createElement("button", {
+      var image = /*#__PURE__*/_react.default.createElement("img", {
+        src: addButtonImage + (addButtonImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
+        alt: "Add",
+        style: addButtonImageStyle
+      });
+
+      if (isEnabled) return /*#__PURE__*/_react.default.createElement("button", {
         style: buttonStyle,
         onClick: function onClick() {
           return _this2.handleClick_additionalItemButton(category, index);
         }
+      }, image, "Add additional element");
+      var buttStyle = Object.assign({}, buttonStyle, {
+        border: "none"
+      });
+      return /*#__PURE__*/_react.default.createElement("button", {
+        style: buttStyle,
+        disabled: true
       }, image, "Add additional element");
     }
   }, {
@@ -847,7 +876,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       };
       var modalTopListContainer = {
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         flexWrap: "wrap",
         justifyContent: "space-evenly",
         overflow: "auto",
@@ -883,7 +912,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         backgroundColor: "white",
         padding: "0px",
         margin: "5px",
-        border: "5px solid blue",
+        border: "2px solid grey",
         fontSize: "14px",
         color: "inherit",
         cursor: "pointer"
@@ -899,12 +928,68 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         cursor: "pointer",
         color: "grey",
         textAlign: "right",
+        verticalAlign: "middle" //position: "relative",
+        //left: "5px",
+        //top: "5px",
+
+      };
+      var styleValidation = {
+        position: "absolute",
         verticalAlign: "middle",
+        fontWeight: "bold",
+        textAlign: "center"
+      };
+      var styleValidation2 = {
+        //position: "relative",
+        verticalAlign: "middle",
+        fontWeight: "bold",
+        textAlign: "center" //left: "15px",
+        //top: "5px",
+
+      };
+      var styleIcons = {
+        display: "flex",
+        flexDirection: "row",
+        flexWap: "wrap",
+        justifyContent: "left",
+        //padding: "5px",
         position: "relative",
         left: "5px",
-        top: "5px"
+        top: "10px",
+        width: "90%",
+        height: "24px"
       };
+      var styleValidated = Object.assign({}, styleValidation, {
+        color: "green"
+      });
+      var styleNotValidated = Object.assign({}, styleValidation, {
+        color: "red"
+      });
+      var styleValidated2 = Object.assign({}, styleValidation2, {
+        color: "green"
+      });
+      var styleNotValidated2 = Object.assign({}, styleValidation2, {
+        color: "red"
+      });
+
+      var isValid = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleValidated
+      }, "\u25CF");
+
+      var isInvalid = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleNotValidated
+      }, "\u25CF");
+
+      var isValid2 = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleValidated2
+      }, "\u25CF");
+
+      var isInvalid2 = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleNotValidated2
+      }, "\u25CF");
+
       var channelData = this.state.channelData;
+      var settingData = this.state.settingData;
       var slots = this.state.slots;
       var componentSchema = this.props.componentSchemas;
       var compSchemas = {};
@@ -942,7 +1027,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.state.editing) {
         if (this.state.editingSettings) {
-          var settingData = this.state.settingData;
           var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
           var settings = null;
           var comp = null;
@@ -1043,7 +1127,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
               if (comp === selectedComp) {
                 buttonStyleModified = Object.assign({}, buttonStyle, {
-                  border: "5px solid cyan"
+                  border: "2px solid cyan"
                 });
               } else {
                 buttonStyleModified = buttonStyle;
@@ -1070,6 +1154,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             // if (slots[selectedSlot] !== undefined && slots[selectedSlot] !== null)
             // 	items = slots[selectedSlot];
             var items = this.state.tmpSlots;
+            var settingDataSlot = settingData[selectedSlot];
             var slotList = [];
             Object.keys(items).forEach(function (compIndex) {
               var comp = items[compIndex];
@@ -1088,28 +1173,64 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
               if (comp === selectedComp) {
                 buttonStyleModified = Object.assign({}, buttonStyle, {
-                  border: "5px solid cyan",
-                  margin: "5px"
+                  border: "2px solid cyan"
+                });
+              } else if (compSchema.modelSettings === "NA") {
+                buttonStyleModified = Object.assign({}, buttonStyle, {
+                  opacity: "0.4",
+                  border: "none"
                 });
               } else {
-                buttonStyleModified = Object.assign({}, buttonStyle, {
-                  margin: "5px"
-                });
+                buttonStyleModified = buttonStyle;
               }
 
-              slotList.push( /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+              var valid = null;
+
+              if (settingDataSlot !== null && settingDataSlot !== undefined) {
+                var settingDataObj = settingDataSlot[compIndex];
+
+                if (settingDataObj !== null && settingDataObj !== undefined) {
+                  var _schema4 = settingsSchemas[settingDataObj.Schema_ID];
+
+                  if (_schema4 !== null && _schema4 !== undefined) {
+                    var validation = validate(settingDataObj, _schema4);
+                    var validated = validation.valid;
+
+                    if (validated) {
+                      valid = isValid2;
+                    } else {
+                      valid = isInvalid2;
+                    }
+                  }
+                }
+              }
+
+              var butt = null;
+
+              if (compSchema.modelSettings !== "NA") {
+                butt = /*#__PURE__*/_react.default.createElement("button", {
+                  key: "button-" + comp.Name,
+                  style: buttonStyleModified,
+                  onClick: function onClick() {
+                    return _this3.handleEditSettings(comp, compSchema, selectedSlot);
+                  }
+                }, compItemImage, comp.Name);
+              } else {
+                butt = /*#__PURE__*/_react.default.createElement("button", {
+                  key: "button-" + comp.Name,
+                  style: buttonStyleModified
+                }, compItemImage, comp.Name);
+              }
+
+              slotList.push( /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+                style: styleIcons
+              }, /*#__PURE__*/_react.default.createElement("button", {
                 type: "button",
                 onClick: function onClick() {
                   return _this3.handleDeleteComp(selectedSlot, slotList.length);
                 },
                 style: styleCloser
-              }, "x"), /*#__PURE__*/_react.default.createElement("button", {
-                key: "button-" + comp.Name,
-                style: buttonStyleModified,
-                onClick: function onClick() {
-                  return _this3.handleEditSettings(comp, compSchema, selectedSlot);
-                }
-              }, compItemImage, comp.Name)));
+              }, "x"), valid), butt));
             });
             var arrowedSlotList = [];
 
@@ -1267,32 +1388,260 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         width: "25px",
         margin: "auto"
       };
+      var opaqueAddButtonImageStyle = Object.assign({
+        opacity: "0.4"
+      }, addButtonImageStyle);
       var addButtonImage = url.resolve(this.props.imagesPath, "AddButton.svg");
+      var hasChannelPath_Additional_1_8 = false;
+      var hasChannelPath_Additional_2 = false;
+      var hasChannelPath_Additional_3_4_5_6 = false;
+      var hasChannelPath_Additional_7 = false;
+      var hasLightSource = false;
+      var hasDetector = false;
+      var hasRelayLens = false;
+      var hasCouplingLens = false;
+      var hasLightSourceCoupling = false;
+      var hasExcitation = false;
+      var hasDichroic = false;
+      var hasEmission = false;
+      var hasObjective = false;
+      var testCategory = [_constants.channelPath_Additional_1_8, _constants.channelPath_Additional_2, _constants.channelPath_Additional_3_4_5_6, _constants.channelPath_Additional_7, _constants.channelPath_LightSource, _constants.channelPath_Detector, _constants.channelPath_RelayLens, _constants.channelPath_CouplingLens, _constants.channelPath_LightSourceCoupling, _constants.channelPath_Excitation, _constants.channelPath_Dichroic, _constants.channelPath_Emission, _constants.channelPath_Objective]; // let cp18String = JSON.stringify(channelPath_Additional_1_8);
+      // let cp2String = JSON.stringify(channelPath_Additional_2);
+      // let cp3456String = JSON.stringify(channelPath_Additional_3_4_5_6);
+      // let cp7String = JSON.stringify(channelPath_Additional_7);
+      // let lightSourceString = JSON.stringify(channelPath_LightSource);
+      // let detectorString = JSON.stringify(channelPath_Detector);
+      // let relayLensString = JSON.stringify(channelPath_RelayLens);
+      // let couplingLensString = JSON.stringify(channelPath_CouplingLens);
+      // let lightSourceCouplingString = JSON.stringify(
+      // 	channelPath_LightSourceCoupling
+      // );
+      // let excitationString = JSON.stringify(channelPath_Excitation);
+      // let dichroicString = JSON.stringify(channelPath_Dichroic);
+      // let emissionString = JSON.stringify(channelPath_Emission);
+      // let objectiveString = JSON.stringify(channelPath_Objective);
+      // console.log("lightSourceString");
+      // console.log(lightSourceString);
 
-      var additionalItemImage = /*#__PURE__*/_react.default.createElement("img", {
-        src: addButtonImage + (addButtonImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "Add",
-        style: addButtonImageStyle
+      Object.keys(this.props.componentData).forEach(function (compIndex) {
+        var comp = _this3.props.componentData[compIndex];
+        var schema_id = comp.Schema_ID;
+        var compSchema = compSchemas[schema_id];
+        if (compSchema === null) return;
+        var compSchemaCategory = compSchema.category;
+
+        for (var _index in testCategory) {
+          var category = testCategory[_index];
+
+          if (category.includes(schema_id.replace(_constants.string_json_ext, "")) || category.includes(compSchemaCategory) || category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
+            //let catString = JSON.stringify(category);
+            if (category === _constants.channelPath_Additional_1_8) hasChannelPath_Additional_1_8 = true;
+            if (category === _constants.channelPath_Additional_2) hasChannelPath_Additional_2 = true;
+            if (category === _constants.channelPath_Additional_3_4_5_6) hasChannelPath_Additional_3_4_5_6 = true;
+            if (category === _constants.channelPath_Additional_7) hasChannelPath_Additional_7 = true;
+            if (category === _constants.channelPath_LightSource) hasLightSource = true;
+            if (category === _constants.channelPath_Detector) hasDetector = true;
+            if (category === _constants.channelPath_RelayLens) hasRelayLens = true;
+            if (category === _constants.channelPath_CouplingLens) hasCouplingLens = true;
+            if (category === _constants.channelPath_LightSourceCoupling) hasLightSourceCoupling = true;
+            if (category === _constants.channelPath_Excitation) hasExcitation = true;
+            if (category === _constants.channelPath_Dichroic) hasDichroic = true;
+            if (category === _constants.channelPath_Emission) hasEmission = true;
+            if (category === _constants.channelPath_Objective) hasObjective = true;
+          }
+        }
       });
+      var additionalItemButton_1 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_1_8 ? addButtonImageStyle : opaqueAddButtonImageStyle, 1, _constants.channelPath_Additional_1_8, hasChannelPath_Additional_1_8);
+      var additionalItemButton_2 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_2 ? addButtonImageStyle : opaqueAddButtonImageStyle, 2, _constants.channelPath_Additional_2, hasChannelPath_Additional_2);
+      var additionalItemButton_3 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 3, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
+      var additionalItemButton_4 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 4, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
+      var additionalItemButton_5 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 5, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
+      var additionalItemButton_6 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 6, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
+      var additionalItemButton_7 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_7 ? addButtonImageStyle : opaqueAddButtonImageStyle, 7, _constants.channelPath_Additional_7, hasChannelPath_Additional_7);
+      var additionalItemButton_8 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_1_8 ? addButtonImageStyle : opaqueAddButtonImageStyle, 8, _constants.channelPath_Additional_1_8, hasChannelPath_Additional_1_8);
+      var specButtStyle = Object.assign({}, buttonStyle, {
+        border: "none"
+      });
+      var specimenButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_10_Specimen.svg", "Specimen", slots, compSchemas, regularImageStyle, specButtStyle, styleCloser, styleIcons, null, null, null, "Specimen", false, null);
+      var lightSource = settingData["LightSource"];
+      var valid = null;
 
-      var additionalItemButton_1 = this.createAddButton(buttonStyle, additionalItemImage, 1, _constants.channelPath_Additional_1_8);
-      var additionalItemButton_2 = this.createAddButton(buttonStyle, additionalItemImage, 2, _constants.channelPath_Additional_2);
-      var additionalItemButton_3 = this.createAddButton(buttonStyle, additionalItemImage, 3, _constants.channelPath_Additional_3_4_5_6);
-      var additionalItemButton_4 = this.createAddButton(buttonStyle, additionalItemImage, 4, _constants.channelPath_Additional_3_4_5_6);
-      var additionalItemButton_5 = this.createAddButton(buttonStyle, additionalItemImage, 5, _constants.channelPath_Additional_3_4_5_6);
-      var additionalItemButton_6 = this.createAddButton(buttonStyle, additionalItemImage, 6, _constants.channelPath_Additional_3_4_5_6);
-      var additionalItemButton_7 = this.createAddButton(buttonStyle, additionalItemImage, 7, _constants.channelPath_Additional_7);
-      var additionalItemButton_8 = this.createAddButton(buttonStyle, additionalItemImage, 8, _constants.channelPath_Additional_1_8);
-      var specimenButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_10_Specimen.svg", "Specimen", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, null, null, null, "Specimen");
-      var lightSourceButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_1_LightSource_outline.svg", "LightSource", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_lightSource, this.handleDeleteComp, this.handleEditSettings, "Select Light Source");
-      var detectorButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_9_Detector_outline.svg", "Detector", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_detector, this.handleDeleteComp, this.handleEditSettings, "Select Detector");
-      var relayLensButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_8_RelayLens_outline.svg", "RelayLens", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_relayLens, this.handleDeleteComp, this.handleEditSettings, "Select Relay Lens");
-      var couplingLensButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_3_CouplingLens_outline.svg", "CouplingLens", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_couplingLens, this.handleDeleteComp, this.handleEditSettings, "Select Coupling Lens");
-      var lightSourceCouplingButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_2_LightSourceCoupling_outline.svg", "LightSourceCoupling", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_lightSourceCoupling, this.handleDeleteComp, this.handleEditSettings, "Select Light Source Coupling");
-      var excitationButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_4_ExcitationFilter_outline.svg", "ExcitationFilter", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_excitation, this.handleDeleteComp, this.handleEditSettings, "Select Excitation Wavelength");
-      var dichroicButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_5_Dichroic_outline.svg", "Dichroic", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_dichroic, this.handleDeleteComp, this.handleEditSettings, "Select Dichroic");
-      var emissionButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_6_EmissionFilter_outline.svg", "EmissionFilter", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_emission, this.handleDeleteComp, this.handleEditSettings, "Select Emission Wavelength");
-      var objectiveButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_7_Objective_outline.svg", "Objective", slots, compSchemas, regularOpaqueImageStyle, buttonStyle, styleCloser, this.handleClick_objective, this.handleDeleteComp, this.handleEditSettings, "Select Objective");
+      if (lightSource !== undefined && lightSource !== null) {
+        var _schema5 = settingsSchemas[lightSource.Schema_ID];
+
+        if (_schema5 !== undefined && _schema5 !== null) {
+          var validation = validate(lightSource, _schema5);
+          var validated = validation.valid;
+
+          if (validated) {
+            valid = isValid2;
+          } else {
+            valid = isInvalid2;
+          }
+        }
+      }
+
+      var lightSourceButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_1_LightSource_outline.svg", "LightSource", slots, compSchemas, hasLightSource ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_lightSource, this.handleDeleteComp, this.handleEditSettings, "Select Light Source", hasLightSource, valid);
+      var detector = settingData["Detector"];
+      valid = null;
+
+      if (detector !== undefined && detector !== null) {
+        var _schema6 = settingsSchemas[detector.Schema_ID];
+
+        if (_schema6 !== undefined && _schema6 !== null) {
+          var _validation = validate(detector, _schema6);
+
+          var _validated = _validation.valid;
+
+          if (_validated) {
+            valid = isValid2;
+          } else {
+            valid = isInvalid2;
+          }
+        }
+      }
+
+      var detectorButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_9_Detector_outline.svg", "Detector", slots, compSchemas, hasDetector ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_detector, this.handleDeleteComp, this.handleEditSettings, "Select Detector", hasDetector, valid);
+      var relayLens = settingData["RelayLens"];
+      valid = null;
+
+      if (relayLens !== undefined && relayLens !== null) {
+        var _schema7 = settingsSchemas[relayLens.Schema_ID];
+
+        if (_schema7 !== undefined && _schema7 !== null) {
+          var _validation2 = validate(relayLens, _schema7);
+
+          var _validated2 = _validation2.valid;
+
+          if (_validated2) {
+            valid = isValid2;
+          } else {
+            valid = isInvalid2;
+          }
+        }
+      }
+
+      var relayLensButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_8_RelayLens_outline.svg", "RelayLens", slots, compSchemas, hasRelayLens ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_relayLens, this.handleDeleteComp, this.handleEditSettings, "Select Relay Lens", hasRelayLens);
+      var couplingLens = settingData["CouplingLens"];
+      valid = null;
+
+      if (couplingLens !== undefined && couplingLens !== null) {
+        var _schema8 = settingsSchemas[couplingLens.Schema_ID];
+
+        if (_schema8 !== undefined && _schema8 !== null) {
+          var _validation3 = validate(couplingLens, _schema8);
+
+          var _validated3 = _validation3.valid;
+
+          if (_validated3) {
+            valid = isValid2;
+          } else {
+            valid = isInvalid2;
+          }
+        }
+      }
+
+      var couplingLensButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_3_CouplingLens_outline.svg", "CouplingLens", slots, compSchemas, hasCouplingLens ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_couplingLens, this.handleDeleteComp, this.handleEditSettings, "Select Coupling Lens", hasCouplingLens, valid);
+      var lightSourceCoupling = settingData["LightSourceCoupling"];
+      valid = null;
+
+      if (lightSourceCoupling !== undefined && lightSourceCoupling !== null) {
+        var _schema9 = settingsSchemas[lightSourceCoupling.Schema_ID];
+
+        if (_schema9 !== undefined && _schema9 !== null) {
+          var _validation4 = validate(lightSourceCoupling, _schema9);
+
+          var _validated4 = _validation4.valid;
+
+          if (_validated4) {
+            valid = isValid2;
+          } else {
+            valid = isInvalid2;
+          }
+        }
+      }
+
+      var lightSourceCouplingButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_2_LightSourceCoupling_outline.svg", "LightSourceCoupling", slots, compSchemas, hasLightSourceCoupling ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_lightSourceCoupling, this.handleDeleteComp, this.handleEditSettings, "Select Light Source Coupling", hasLightSourceCoupling, valid);
+      var excitationFilter = settingData["ExcitationFilter"];
+      valid = null;
+
+      if (excitationFilter !== undefined && excitationFilter !== null) {
+        var _schema10 = settingsSchemas[excitationFilter.Schema_ID];
+
+        if (_schema10 !== undefined && _schema10 !== null) {
+          var _validation5 = validate(excitationFilter, _schema10);
+
+          var _validated5 = _validation5.valid;
+
+          if (_validated5) {
+            valid = isValid2;
+          } else {
+            valid = isInvalid2;
+          }
+        }
+      }
+
+      var excitationButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_4_ExcitationFilter_outline.svg", "ExcitationFilter", slots, compSchemas, hasExcitation ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_excitation, this.handleDeleteComp, this.handleEditSettings, "Select Excitation Wavelength", hasExcitation, valid);
+      var dichroic = settingData["Dichroic"];
+      valid = null;
+
+      if (dichroic !== undefined && dichroic !== null) {
+        var _schema11 = settingsSchemas[dichroic.Schema_ID];
+
+        if (_schema11 !== undefined && _schema11 !== null) {
+          var _validation6 = validate(dichroic, _schema11);
+
+          var _validated6 = _validation6.valid;
+
+          if (_validated6) {
+            valid = isValid2;
+          } else {
+            valid = isInvalid2;
+          }
+        }
+      }
+
+      var dichroicButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_5_Dichroic_outline.svg", "Dichroic", slots, compSchemas, hasDichroic ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_dichroic, this.handleDeleteComp, this.handleEditSettings, "Select Dichroic", hasDichroic, valid);
+      var emissionFilter = settingData["EmissionFilter"];
+      valid = null;
+
+      if (emissionFilter !== undefined && emissionFilter !== null) {
+        var _schema12 = settingsSchemas[emissionFilter.Schema_ID];
+
+        if (_schema12 !== undefined && _schema12 !== null) {
+          var _validation7 = validate(emissionFilter, _schema12);
+
+          var _validated7 = _validation7.valid;
+
+          if (_validated7) {
+            valid = isValid2;
+          } else {
+            valid = isInvalid2;
+          }
+        }
+      }
+
+      var emissionButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_6_EmissionFilter_outline.svg", "EmissionFilter", slots, compSchemas, hasEmission ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_emission, this.handleDeleteComp, this.handleEditSettings, "Select Emission Wavelength", hasEmission, valid);
+      var objective = settingData["Objective"];
+      valid = null;
+
+      if (objective !== undefined && objective !== null) {
+        var _schema13 = settingsSchemas[objective.Schema_ID];
+
+        if (_schema13 !== undefined && _schema13 !== null) {
+          var _validation8 = validate(objective, _schema13);
+
+          var _validated8 = _validation8.valid;
+
+          if (_validated8) {
+            valid = isValid2;
+          } else {
+            valid = isInvalid2;
+          }
+        }
+      }
+
+      var objectiveButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_7_Objective_outline.svg", "Objective", slots, compSchemas, hasObjective ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_objective, this.handleDeleteComp, this.handleEditSettings, "Select Objective", hasObjective, valid);
 
       var row1 = /*#__PURE__*/_react.default.createElement("div", {
         style: gridRow
@@ -1512,6 +1861,41 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         style: gridSpace
       }, emissionButton)));
 
+      valid = null;
+
+      if (this.props.schema !== undefined && this.props.schema !== null && this.state.channelData !== undefined && this.state.channelData !== null) {
+        var channelObj = this.state.channelData;
+        var validation1 = validate(channelObj[0], this.props.schema[0]);
+        console.log(validation1);
+        var validated1 = validation1.valid;
+        console.log(validated1);
+        var validated2 = false;
+
+        if (channelObj[2] !== undefined && channelObj[2] !== null) {
+          var validation2 = validate(channelObj[2], this.props.schema[2]);
+          console.log(validation2);
+          validated2 = validation2.valid;
+          console.log(validated2);
+        }
+
+        var validated3 = false;
+
+        if (channelObj[1] !== undefined && channelObj[1] !== null) {
+          var validation3 = validate(channelObj[1], this.props.schema[1]);
+          console.log(validation3);
+          validated3 = validation3.valid;
+          console.log(validated3);
+        }
+
+        if (validated1 && validated2 && validated3) {
+          valid = isValid;
+        } else {
+          valid = isInvalid;
+        }
+      } else {
+        valid = isInvalid;
+      }
+
       return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
         overlaysContainer: this.props.overlaysContainer
       }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema[0].title)), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherContainer, {
@@ -1528,7 +1912,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         style: button2,
         size: "lg",
         onClick: this.onEditElement
-      }, "Edit Channel"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+      }, valid, "Edit Channel Settings"), /*#__PURE__*/_react.default.createElement(_Button.default, {
         style: button2,
         size: "lg",
         onClick: this.onCancel
@@ -1536,17 +1920,23 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     }
   }], [{
     key: "createSlotButton",
-    value: function createSlotButton(imagesPath, imageName, imageSlot, slots, compSchemas, style, buttonStyle, styleCloser, callback, deleteCallback, editCallback, text) {
+    value: function createSlotButton(imagesPath, imageName, imageSlot, slots, compSchemas, style, buttonStyle, styleCloser, styleIcons, callback, deleteCallback, editCallback, text, isEnabled, valid) {
       var image = null;
       var name = text;
       var needDelete = false;
+      var hasSettings = true;
       var element = null;
 
       if (slots[imageSlot] !== null && slots[imageSlot] !== undefined) {
         element = slots[imageSlot];
-        image = url.resolve(imagesPath, compSchemas[element.Schema_ID].image);
+        var elementSchema = compSchemas[element.Schema_ID];
+        image = url.resolve(imagesPath, elementSchema.image);
         name = element.Name;
         needDelete = true;
+
+        if (elementSchema.modelSettings === "NA") {
+          hasSettings = false;
+        }
       } else {
         image = url.resolve(imagesPath, imageName);
       }
@@ -1558,21 +1948,54 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       });
 
       var button = null;
-      if (needDelete) button = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
-        type: "button",
-        onClick: function onClick() {
-          return deleteCallback(imageSlot);
-        },
-        style: styleCloser
-      }, "x"), /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: function onClick() {
-          return editCallback(element, compSchemas[element.Schema_ID], imageSlot);
+
+      if (needDelete) {
+        var butt = null;
+
+        if (isEnabled && hasSettings) {
+          butt = /*#__PURE__*/_react.default.createElement("button", {
+            style: buttonStyle,
+            onClick: function onClick() {
+              return editCallback(element, compSchemas[element.Schema_ID], imageSlot);
+            }
+          }, itemImage, name);
+        } else {
+          var buttStyle = Object.assign({}, buttonStyle, {
+            border: "none"
+          });
+          butt = /*#__PURE__*/_react.default.createElement("button", {
+            style: buttStyle,
+            disabled: true
+          }, itemImage, name);
         }
-      }, itemImage, name));else button = /*#__PURE__*/_react.default.createElement("button", {
-        style: buttonStyle,
-        onClick: callback
-      }, itemImage, name);
+
+        button = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+          style: styleIcons
+        }, /*#__PURE__*/_react.default.createElement("button", {
+          type: "button",
+          onClick: function onClick() {
+            return deleteCallback(imageSlot);
+          },
+          style: styleCloser
+        }, "x"), valid), butt);
+      } else {
+        if (isEnabled) {
+          button = /*#__PURE__*/_react.default.createElement("button", {
+            style: buttonStyle,
+            onClick: callback
+          }, itemImage, name);
+        } else {
+          var _buttStyle = Object.assign({}, buttonStyle, {
+            border: "none"
+          });
+
+          button = /*#__PURE__*/_react.default.createElement("button", {
+            style: _buttStyle,
+            disabled: true
+          }, itemImage, name);
+        }
+      }
+
       return button;
     }
   }]);

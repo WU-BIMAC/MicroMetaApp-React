@@ -125,7 +125,7 @@ var MicroscopePreLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: buttonStyle,
           size: "lg",
           disabled: !_constants.bool_isSettings
-        }, "Edit Settings")
+        }, "Manage Settings")
       }))));
     }
   }]);

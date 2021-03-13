@@ -17,6 +17,8 @@ var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWit
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
+var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
+
 var _uuid = require("uuid");
 
 var _constants = require("../constants");
@@ -347,6 +349,27 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
+      var styleValidation = {
+        position: "absolute",
+        verticalAlign: "middle",
+        fontWeight: "bold",
+        textAlign: "center"
+      };
+      var styleValidated = Object.assign({}, styleValidation, {
+        color: "green"
+      });
+      var styleNotValidated = Object.assign({}, styleValidation, {
+        color: "red"
+      });
+
+      var isValid = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleValidated
+      }, "\u25CF");
+
+      var isInvalid = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleNotValidated
+      }, "\u25CF");
+
       var index = this.state.selectedIndex;
       var planes = this.state.planes;
 
@@ -433,13 +456,23 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
             variant = "light";
           }
 
+          var validation = validate(plane, this.props.schema);
+          var validated = validation.valid;
+          var valid = null;
+
+          if (validated) {
+            valid = isValid;
+          } else {
+            valid = isInvalid;
+          }
+
           list.push( /*#__PURE__*/_react.default.createElement(_ListGroup.default.Item, {
             action: true,
             variant: variant,
             onClick: this.onSelectElement,
             key: "Plane-" + i,
             "data-id": i
-          }, "Plane " + i));
+          }, valid, "- Plane " + i));
         }
 
         var planeListStyle = {
@@ -459,25 +492,49 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           style: planeListStyle
         }, /*#__PURE__*/_react.default.createElement(_ListGroup.default, null, list)), /*#__PURE__*/_react.default.createElement("div", {
           style: buttonContainerRow
-        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-          style: button1,
-          size: "lg",
-          onClick: this.onAddElement
-        }, "+"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-          style: button2,
-          size: "lg",
-          onClick: this.onAddMultiplePlanes //disabled={index === -1}
+        }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-Add",
+          position: _constants.add_plane.position,
+          title: _constants.add_plane.title,
+          content: _constants.add_plane.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            style: button1,
+            size: "lg",
+            onClick: this.onAddElement
+          }, "+")
+        }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-AddMulti",
+          position: _constants.add_multi_planes.position,
+          title: _constants.add_multi_planes.title,
+          content: _constants.add_multi_planes.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            style: button2,
+            size: "lg",
+            onClick: this.onAddMultiplePlanes //disabled={index === -1}
 
-        }, "Add multiple planes"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-          style: button2,
-          size: "lg",
-          onClick: this.onEditElement,
-          disabled: index === -1
-        }, "Edit selected"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-          style: button1,
-          size: "lg",
-          onClick: this.onRemoveElement
-        }, "-")), /*#__PURE__*/_react.default.createElement("div", {
+          }, "Add multiple planes")
+        }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-Edit",
+          position: _constants.edit_plane.position,
+          title: _constants.edit_plane.title,
+          content: _constants.edit_plane.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            style: button2,
+            size: "lg",
+            onClick: this.onEditElement,
+            disabled: index === -1
+          }, "Edit selected")
+        }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-Remove",
+          position: _constants.remove_plane.position,
+          title: _constants.remove_plane.title,
+          content: _constants.remove_plane.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            style: button1,
+            size: "lg",
+            onClick: this.onRemoveElement
+          }, "-")
+        })), /*#__PURE__*/_react.default.createElement("div", {
           style: buttonContainerRow
         }, /*#__PURE__*/_react.default.createElement(_Button.default, {
           style: button2,

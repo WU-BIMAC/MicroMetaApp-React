@@ -196,6 +196,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       }, /*#__PURE__*/_react.default.createElement(_imageElement.default, {
         updateMinMaxDimensions: this.updateMinMaxDimensions,
         id: this.props.id,
+        rotate: this.props.rotate,
         image: this.props.image,
         name: this.props.schema.title,
         style: styleImage

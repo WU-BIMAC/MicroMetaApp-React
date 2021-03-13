@@ -17,6 +17,8 @@ var _channelCanvas_V = _interopRequireDefault(require("./channelCanvas_V2"));
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
+var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
+
 var _uuid = require("uuid");
 
 var _constants = require("../constants");
@@ -273,6 +275,7 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       // 	console.log("issue with " + id);
       // }
       //this.setState({ channels: channels, editing: false });
+      //NEED TO VALIDATE EVERYTHING HERE OR HOW TO SOLVE THIS ?
       var index = this.state.selectedIndex;
       var channels = this.state.channels.slice();
       channels[index] = data;
@@ -321,6 +324,27 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
+      var styleValidation = {
+        position: "absolute",
+        verticalAlign: "middle",
+        fontWeight: "bold",
+        textAlign: "center"
+      };
+      var styleValidated = Object.assign({}, styleValidation, {
+        color: "green"
+      });
+      var styleNotValidated = Object.assign({}, styleValidation, {
+        color: "red"
+      });
+
+      var isValid = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleValidated
+      }, "\u25CF");
+
+      var isInvalid = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleNotValidated
+      }, "\u25CF");
+
       var index = this.state.selectedIndex;
       var channels = this.state.channels; // console.log("planes length " + planes.length);
       // console.log("planes");
@@ -391,33 +415,65 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
             variant = "light";
           }
 
+          var validation1 = validate(_channel, this.props.schema);
+          var validated1 = validation1.valid;
+          var validation2 = false;
+          if (_channel.Fluorophore !== undefined || _channel.Fluorophore !== null) validated2 = validate(_channel.Fluorophore, this.state.fluorophoreSchema);
+          var validated2 = validation2.valid;
+          var valid = null;
+
+          if (validated1 && validated2) {
+            valid = isValid;
+          } else {
+            valid = isInvalid;
+          }
+
+          var channelName = "- " + _channel.Name;
           list.push( /*#__PURE__*/_react.default.createElement(_ListGroup.default.Item, {
             action: true,
             variant: variant,
             onClick: this.onSelectElement,
             key: "Channel-" + i,
             "data-id": i
-          }, _channel.Name));
+          }, valid, channelName));
         }
 
         return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
           overlaysContainer: this.props.overlaysContainer
         }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title + "s")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_ListGroup.default, null, list)), /*#__PURE__*/_react.default.createElement("div", {
           style: buttonContainerRow
-        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-          style: button1,
-          size: "lg",
-          onClick: this.onAddElement
-        }, "+"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-          style: button2,
-          size: "lg",
-          onClick: this.onEditElement,
-          disabled: index === -1
-        }, "Edit selected"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-          style: button1,
-          size: "lg",
-          onClick: this.onRemoveElement
-        }, "-")), /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-Add",
+          position: _constants.add_channel.position,
+          title: _constants.add_channel.title,
+          content: _constants.add_channel.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            style: button1,
+            size: "lg",
+            onClick: this.onAddElement
+          }, "+")
+        }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-Edit",
+          position: _constants.edit_channel.position,
+          title: _constants.edit_channel.title,
+          content: _constants.edit_channel.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            style: button2,
+            size: "lg",
+            onClick: this.onEditElement,
+            disabled: index === -1
+          }, "Edit selected")
+        }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-Remove",
+          position: _constants.remove_channel.position,
+          title: _constants.remove_channel.title,
+          content: _constants.remove_channel.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            style: button1,
+            size: "lg",
+            onClick: this.onRemoveElement
+          }, "-")
+        })), /*#__PURE__*/_react.default.createElement("div", {
           style: buttonContainerRow
         }, /*#__PURE__*/_react.default.createElement(_Button.default, {
           style: button2,

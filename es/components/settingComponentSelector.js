@@ -19,7 +19,7 @@ var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWit
 
 var _url = require("url");
 
-var _uuid2 = require("uuid");
+var _uuid = require("uuid");
 
 var _constants = require("../constants");
 
@@ -62,14 +62,26 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
     _this = _super.call(this, props);
     _this.state = {
       editing: false,
-      editingSettings: false,
       selectedComp: null,
-      selectedSchema: null
+      selectedSchema: null,
+      currentComp: null,
+      settingData: props.inputData || null
     };
+    if (_this.state.settingData !== null && _this.state.settingData !== undefined) Object.keys(_this.props.componentData).forEach(function (compIndex) {
+      var comp = _this.props.componentData[compIndex];
+
+      if (comp.ID === _this.state.settingData.Component_ID) {
+        _this.state.currentComp = comp;
+      }
+    });
     _this.handleSelectComp = _this.handleSelectComp.bind(_assertThisInitialized(_this));
     _this.handleDeleteComp = _this.handleDeleteComp.bind(_assertThisInitialized(_this));
     _this.handleEditSettings = _this.handleEditSettings.bind(_assertThisInitialized(_this));
-    _this.handleConfirmComponent = _this.handleConfirmComponent.bind(_assertThisInitialized(_this));
+    _this.onAddConfirm = _this.onAddConfirm.bind(_assertThisInitialized(_this));
+    _this.onElementDataCancel = _this.onElementDataCancel.bind(_assertThisInitialized(_this));
+    _this.onElementDataSave = _this.onElementDataSave.bind(_assertThisInitialized(_this));
+    _this.onConfirm = _this.onConfirm.bind(_assertThisInitialized(_this));
+    _this.onCancel = _this.onCancel.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -93,7 +105,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleDeleteComp",
-    value: function handleDeleteComp(selectedSlot, index) {
+    value: function handleDeleteComp() {
       // let i = index - 1;
       // if (selectedSlot.includes("AdditionalSlot_")) {
       // 	let tmpSlots = this.props.tmpSlots;
@@ -109,27 +121,80 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       // 	this.setState({ slots: slots });
       // }
       this.setState({
+        settingData: null,
         selectedComp: null,
         selectedSchema: null
       });
     }
   }, {
     key: "handleEditSettings",
-    value: function handleEditSettings(comp, schema, slot) {
+    value: function handleEditSettings(comp, schema) {
       this.setState({
         selectedComp: comp,
         selectedSchema: schema,
         //selectedSlot: slot,
-        editing: true,
-        editingSettings: true
+        editing: true
       });
     }
   }, {
-    key: "handleConfirmComponent",
-    value: function handleConfirmComponent() {
+    key: "onConfirm",
+    value: function onConfirm() {
+      var settingData = this.state.settingData; //let slots = this.state.slots;
+
+      this.setState({
+        editing: false,
+        selectedSlot: null,
+        selectedComp: null,
+        currentComp: null,
+        settingData: {}
+      });
+      this.props.onConfirm(this.props.id, settingData);
+    }
+  }, {
+    key: "onCancel",
+    value: function onCancel() {
+      this.setState({
+        editing: false,
+        selectedSlot: null,
+        selectedComp: null,
+        currentComp: null,
+        settingData: {}
+      });
+      this.props.onCancel();
+    }
+  }, {
+    key: "onElementDataSave",
+    value: function onElementDataSave(id, data) {
+      // let selectedComp = this.state.selectedComp;
+      // let selectedSlot = this.state.selectedSlot;
+      // let category = this.state.category;
+      //let slots = this.state.slots;
+      var settingData = Object.assign(this.state.settingData, data);
+      this.setState({
+        editing: false,
+        settingData: settingData
+      });
+    }
+  }, {
+    key: "onElementDataCancel",
+    value: function onElementDataCancel() {
+      // let selectedSlot = this.state.selectedSlot;
+      // if (selectedSlot.includes("AdditionalSlot_")) {
+      // 	//if (this.state.editingSettings) {
+      // 	this.setState({ editingSettings: false });
+      // } else {
+      // 	this.setState({ editing: false, editingSettings: false });
+      // }
+      this.setState({
+        editing: false
+      });
+    }
+  }, {
+    key: "onAddConfirm",
+    value: function onAddConfirm() {
       var selectedComp = this.state.selectedComp;
-      var selectedSchema = this.state.selectedSchema;
-      var selectedSlot = this.props.selectedSlot;
+      var selectedSchema = this.state.selectedSchema; //let selectedSlot = this.props.selectedSlot;
+
       var category = this.props.category;
       var settingsSchema = this.props.settingSchemas;
       var settingData = Object.assign({}, this.state.settingData);
@@ -142,103 +207,49 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
 
       console.log("category");
       console.log(category);
-      console.log("selectedSlot");
-      console.log(selectedSlot);
 
-      if (category !== null) {
-        //console.log("onAddAdditionalConfirm category null");
-        if (selectedSlot.includes("AdditionalSlot_")) {
-          if (selectedComp === null || selectedComp === undefined) {
-            this.setState({
-              selectedComp: null,
-              selectedSchema: null
-            });
-            return;
-          } //console.log("onAddAdditionalConfirm category " + category);
-
-
-          var tmpSlots = this.props.tmpSlots.slice();
-          tmpSlots.push(selectedComp);
-          var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
-          var currentSchema = settingsSchemas[settingsName];
-          var uuid = (0, _uuid2.v4)();
-          var settingCompData = null;
-
-          if (selectedSchema.modelSettings === "NA") {
-            settingCompData = {
-              Name: "".concat(selectedSchema.title),
-              ID: uuid,
-              Component_ID: selectedComp.ID
-            };
-          } else {
-            settingCompData = {
-              Name: "".concat(currentSchema.title),
-              ID: uuid,
-              Component_ID: selectedComp.ID,
-              Tier: currentSchema.tier,
-              Schema_ID: currentSchema.ID,
-              Version: currentSchema.version
-            };
-          }
-
-          var slotSettings = [];
-
-          if (settingData[selectedSlot] !== null && settingData[selectedSlot] !== undefined) {
-            slotSettings = settingData[selectedSlot];
-          }
-
-          slotSettings.push(settingCompData);
-          settingData[selectedSlot] = slotSettings; //TODO Should return tmpSlot if used inside ChannelCanvas_V2
-
-          this.setState({
-            //tmpSlots: tmpSlots,
-            settingData: settingData,
-            selectedComp: null,
-            selectedSchema: null
-          });
-        } else {
-          if (selectedComp === null || selectedComp === undefined) {
-            this.setState({
-              selectedComp: null,
-              selectedSchema: null
-            });
-            return;
-          }
-
-          var _settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
-
-          var _currentSchema = settingsSchemas[_settingsName];
-
-          var _uuid = (0, _uuid2.v4)();
-
-          var _settingCompData = null;
-
-          if (selectedSchema.modelSettings === "NA") {
-            _settingCompData = {
-              Name: "".concat(selectedSchema.title),
-              ID: _uuid,
-              Component_ID: selectedComp.ID
-            };
-          } else {
-            _settingCompData = {
-              Name: "".concat(_currentSchema.title),
-              ID: _uuid,
-              Component_ID: selectedComp.ID,
-              Tier: _currentSchema.tier,
-              Schema_ID: _currentSchema.ID,
-              Version: _currentSchema.version
-            };
-          }
-
-          settingData = _settingCompData;
-          this.setState({
-            //tmpSlots: tmpSlots,
-            settingData: settingData,
-            selectedComp: null,
-            selectedSchema: null
-          });
-        }
+      if (this.state.currentComp) {
+        return;
       }
+
+      if (selectedComp === null || selectedComp === undefined) {
+        this.setState({
+          selectedComp: null,
+          selectedSchema: null
+        });
+        return;
+      }
+
+      var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
+      var currentSchema = settingsSchemas[settingsName];
+      var uuid = (0, _uuid.v4)();
+      var settingCompData = null;
+
+      if (selectedSchema.modelSettings === "NA") {
+        settingCompData = {
+          Name: "".concat(selectedSchema.title),
+          ID: uuid,
+          Component_ID: selectedComp.ID
+        };
+      } else {
+        settingCompData = {
+          Name: "".concat(currentSchema.title),
+          ID: uuid,
+          Component_ID: selectedComp.ID,
+          Tier: currentSchema.tier,
+          Schema_ID: currentSchema.ID,
+          Version: currentSchema.version
+        };
+      }
+
+      settingData = settingCompData;
+      this.setState({
+        //tmpSlots: tmpSlots,
+        settingData: settingData,
+        currentComp: selectedComp,
+        selectedComp: null,
+        selectedSchema: null
+      });
     }
   }, {
     key: "render",
@@ -294,7 +305,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       };
       var modalTopListContainer = {
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         flexWrap: "wrap",
         justifyContent: "space-evenly",
         overflow: "auto",
@@ -335,8 +346,8 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         color: "inherit",
         cursor: "pointer"
       };
-      var fontSize = number_canvas_element_icons_height + 2;
-      var grabberCloserSize = number_canvas_element_icons_height;
+      var fontSize = _constants.number_canvas_element_icons_height + 2;
+      var grabberCloserSize = _constants.number_canvas_element_icons_height;
       var styleCloser = {
         lineHeight: "".concat(grabberCloserSize, "px"),
         padding: "0px",
@@ -351,7 +362,6 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         left: "5px",
         top: "5px"
       };
-      var slots = this.state.slots;
       var componentSchema = this.props.componentSchemas;
       var compSchemas = {};
 
@@ -377,7 +387,6 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var selectedComp = this.state.selectedComp;
-      var selectedSlot = this.props.selectedSlot;
       var selectedSchema = this.state.selectedSchema;
       var selectedID = null;
 
@@ -387,202 +396,170 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (this.state.editing) {
-        if (this.state.editingSettings) {
-          var settingData = this.props.settingData;
-          var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
-          var settings = null;
-          var comp = null;
-          var id = null;
-          var settingCompData = null;
+        var settingData = this.state.settingData;
+        var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
+        var id = settingData.ID;
+        var settings = settingsSchemas[settingsName];
+        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          schema: settings,
+          inputData: settingData,
+          id: id,
+          onConfirm: this.onElementDataSave,
+          onCancel: this.onElementDataCancel,
+          overlaysContainer: this.props.overlaysContainer,
+          currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
+          minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
+          maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+          elementByType: this.props.elementByType,
+          editable: true
+        });
+      } else {
+        var itemList = [];
+        Object.keys(this.props.componentData).forEach(function (compIndex) {
+          var comp = _this2.props.componentData[compIndex];
+          var schema_id = comp.Schema_ID;
+          var compSchema = compSchemas[schema_id];
+          if (compSchema === null) return;
+          var compSchemaCategory = compSchema.category;
+          var category = _this2.props.category;
 
-          if (selectedSlot.includes("AdditionalSlot_")) {
-            var currentSlots = this.props.tmpSlots; // console.log("slots");
-            // console.log(slots);
-            // console.log("selectedSlot");
-            // console.log(selectedSlot);
-            // console.log("currentSlots");
-            // console.log(currentSlots);
+          if (category.includes(schema_id.replace(_constants.string_json_ext, "")) || category.includes(compSchemaCategory) || category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
+            // if (selectedComp === null || selectedComp === undefined) {
+            // 	selectedComp = comp;
+            // }
+            // if (selectedSchema === null || selectedSchema === undefined)
+            // 	selectedSchema = compSchema;
+            var compImage = url.resolve(_this2.props.imagesPath, compSchema.image);
 
-            var index = currentSlots.indexOf(selectedComp);
-            settingCompData = settingData[selectedSlot][index];
-          } else {
-            settingCompData = settingData[selectedSlot];
-          }
+            var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
+              src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
+              alt: comp.Name,
+              style: regularImageStyle
+            });
 
-          id = settingCompData.ID;
-          settings = settingsSchemas[settingsName];
-          comp = settingCompData; // console.log("settingData");
-          // console.log(settingData);
-          // console.log("settingsName");
-          // console.log(settingsName);
-          // console.log("settings");
-          // console.log(settings);
-          // console.log("comp");
-          // console.log(comp);
+            var buttonStyleModified = null;
 
-          return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
-            schema: settings,
-            inputData: comp,
-            id: id,
-            onConfirm: this.onElementDataSave,
-            onCancel: this.onElementDataCancel,
-            overlaysContainer: this.props.overlaysContainer,
-            currentChildrenComponentIdentifier: string_currentNumberOf_identifier,
-            minChildrenComponentIdentifier: string_minNumberOf_identifier,
-            maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
-            elementByType: this.props.elementByType,
-            editable: true
-          });
-        } else {
-          var itemList = [];
-          Object.keys(this.props.componentData).forEach(function (compIndex) {
-            var comp = _this2.props.componentData[compIndex];
-            var schema_id = comp.Schema_ID;
-            var compSchema = compSchemas[schema_id];
-            if (compSchema === null) return;
-            var compSchemaCategory = compSchema.category;
-
-            if (_this2.props.category.includes(schema_id.replace(_constants.string_json_ext, "")) || _this2.props.category.includes(compSchemaCategory) || _this2.props.category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
-              // if (selectedComp === null || selectedComp === undefined) {
-              // 	selectedComp = comp;
-              // }
-              // if (selectedSchema === null || selectedSchema === undefined)
-              // 	selectedSchema = compSchema;
-              var compImage = url.resolve(_this2.props.imagesPath, compSchema.image);
-
-              var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
-                src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-                alt: comp.Name,
-                style: regularImageStyle
+            if (comp === selectedComp) {
+              buttonStyleModified = Object.assign({}, buttonStyle, {
+                border: "5px solid cyan"
               });
-
-              var buttonStyleModified = null;
-
-              if (comp === selectedComp) {
-                buttonStyleModified = Object.assign({}, buttonStyle, {
-                  border: "5px solid cyan"
-                });
-              } else {
-                buttonStyleModified = buttonStyle;
-              }
-
-              var compButton = /*#__PURE__*/_react.default.createElement("button", {
-                key: "button-" + comp.Name,
-                style: buttonStyleModified,
-                onClick: function onClick() {
-                  return _this2.handleSelectComp(comp);
-                }
-              }, compItemImage, comp.Name);
-
-              itemList.push(compButton);
+            } else {
+              buttonStyleModified = buttonStyle;
             }
-          });
-          var topItems = null;
-          var confirmCallback = null;
 
-          if (selectedSlot.includes("AdditionalSlot_")) {
-            //let items = [];
-            // let slots = this.state.slots;
-            // let selectedSlot = this.state.selectedSlot;
-            // if (slots[selectedSlot] !== undefined && slots[selectedSlot] !== null)
-            // 	items = slots[selectedSlot];
-            var items = this.props.tmpSlots;
-            var slotList = [];
-            Object.keys(items).forEach(function (compIndex) {
-              var comp = items[compIndex];
-              var schema_id = comp.Schema_ID;
-              var compSchema = compSchemas[schema_id];
-              if (compSchema === null) return;
-              var compImage = url.resolve(_this2.props.imagesPath, compSchema.image);
-
-              var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
-                src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-                alt: comp.Name,
-                style: regularImageStyle
-              });
-
-              var buttonStyleModified = null;
-
-              if (comp === selectedComp) {
-                buttonStyleModified = Object.assign({}, buttonStyle, {
-                  border: "5px solid cyan",
-                  margin: "5px"
-                });
-              } else {
-                buttonStyleModified = Object.assign({}, buttonStyle, {
-                  margin: "5px"
-                });
+            var compButton = /*#__PURE__*/_react.default.createElement("button", {
+              key: "button-" + comp.Name,
+              style: buttonStyleModified,
+              onClick: function onClick() {
+                return _this2.handleSelectComp(comp);
               }
+            }, compItemImage, comp.Name);
 
-              slotList.push( /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
-                type: "button",
-                onClick: function onClick() {
-                  return _this2.handleDeleteComp(selectedSlot, slotList.length);
-                },
-                style: styleCloser
-              }, "x"), /*#__PURE__*/_react.default.createElement("button", {
-                key: "button-" + comp.Name,
-                style: buttonStyleModified,
-                onClick: function onClick() {
-                  return _this2.handleEditSettings(comp, compSchema, selectedSlot);
-                }
-              }, compItemImage, comp.Name)));
-            });
-            topItems = /*#__PURE__*/_react.default.createElement("div", {
-              style: modalTopListContainer
-            }, /*#__PURE__*/_react.default.createElement("h5", null, "Current components in this slot"), /*#__PURE__*/_react.default.createElement("div", {
-              style: modalTopList
-            }, slotList)); // if (
-            // 	slotList !== null &&
-            // 	slotList !== undefined &&
-            // 	slotList.length > 0
-            // )
+            itemList.push(compButton);
+          }
+        });
+        var topItems = null;
+        var confirmCallback = null; //let item = this.state.currentComp;
+        // if (item !== null && item !== undefined) {
+        //let items = [];
+        // let slots = this.state.slots;
+        // let selectedSlot = this.state.selectedSlot;
+        // if (slots[selectedSlot] !== undefined && slots[selectedSlot] !== null)
+        // 	items = slots[selectedSlot];
 
-            Object.assign(modalGridPanel, {
-              height: "60%"
+        var comp = this.state.currentComp;
+        var butt = null;
+
+        if (comp !== null && comp !== undefined) {
+          var schema_id = comp.Schema_ID;
+          var compSchema = compSchemas[schema_id];
+          if (compSchema === null) return;
+          var compImage = url.resolve(this.props.imagesPath, compSchema.image);
+
+          var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
+            src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
+            alt: comp.Name,
+            style: regularImageStyle
+          });
+
+          var buttonStyleModified = null;
+
+          if (comp === selectedComp) {
+            buttonStyleModified = Object.assign({}, buttonStyle, {
+              border: "5px solid cyan",
+              margin: "5px"
             });
-            confirmCallback = this.handleConfirmComponent;
+          } else {
+            buttonStyleModified = Object.assign({}, buttonStyle, {
+              margin: "5px"
+            });
           }
 
-          var multiTabPanel = null;
-          if (selectedComp !== null && selectedComp !== undefined) multiTabPanel = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
-            schema: selectedSchema,
-            inputData: selectedComp,
-            id: selectedComp.ID,
-            onConfirm: confirmCallback,
-            onCancel: null,
-            overlaysContainer: this.props.overlaysContainer,
-            currentChildrenComponentIdentifier: string_currentNumberOf_identifier,
-            minChildrenComponentIdentifier: string_minNumberOf_identifier,
-            maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
-            elementByType: this.props.elementByType,
-            notModal: true,
-            editable: false
-          });
-          return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
-            overlaysContainer: this.props.overlaysContainer
-          }, /*#__PURE__*/_react.default.createElement("div", {
-            style: modalGridContainer
-          }, topItems, /*#__PURE__*/_react.default.createElement("div", {
-            style: modalGridPanel
-          }, /*#__PURE__*/_react.default.createElement("div", {
-            style: modalGrid
-          }, itemList), /*#__PURE__*/_react.default.createElement("div", {
-            style: multiTab
-          }, multiTabPanel)), /*#__PURE__*/_react.default.createElement("div", {
-            style: buttonContainerRow
-          }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-            style: button2,
-            size: "lg",
-            onClick: this.onInnerElementDataSave //this.onAddAdditionalConfirm
-
-          }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-            style: button2,
-            size: "lg",
-            onClick: this.onInnerElementDataCancel //this.onAddAdditionalCancel
-
-          }, "Cancel"))));
+          butt = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+            type: "button",
+            onClick: this.handleDeleteComp,
+            style: styleCloser
+          }, "x"), /*#__PURE__*/_react.default.createElement("button", {
+            key: "button-" + comp.Name,
+            style: buttonStyleModified,
+            onClick: function onClick() {
+              return _this2.handleEditSettings(comp, compSchema);
+            }
+          }, compItemImage, comp.Name));
         }
+
+        topItems = /*#__PURE__*/_react.default.createElement("div", {
+          style: modalTopListContainer
+        }, /*#__PURE__*/_react.default.createElement("h5", null, "Current component in this slot"), /*#__PURE__*/_react.default.createElement("div", {
+          style: modalTopList
+        }, butt));
+        Object.assign(modalGridPanel, {
+          height: "60%"
+        });
+        confirmCallback = this.onAddConfirm; //}
+
+        var multiTabPanel = null;
+        if (selectedComp !== null && selectedComp !== undefined) multiTabPanel = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          schema: selectedSchema,
+          inputData: selectedComp,
+          id: selectedComp.ID,
+          onConfirm: confirmCallback,
+          onCancel: null,
+          overlaysContainer: this.props.overlaysContainer,
+          currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
+          minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
+          maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+          elementByType: this.props.elementByType,
+          notModal: true,
+          editable: false
+        }); // console.log("itemList");
+        // console.log(itemList);
+        // console.log("multiTabPanel");
+        // console.log(multiTabPanel);
+
+        return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+          overlaysContainer: this.props.overlaysContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: modalGridContainer
+        }, topItems, /*#__PURE__*/_react.default.createElement("div", {
+          style: modalGridPanel
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: modalGrid
+        }, itemList), /*#__PURE__*/_react.default.createElement("div", {
+          style: multiTab
+        }, multiTabPanel)), /*#__PURE__*/_react.default.createElement("div", {
+          style: buttonContainerRow
+        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+          style: button2,
+          size: "lg",
+          onClick: this.onConfirm //this.onAddAdditionalConfirm
+
+        }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          style: button2,
+          size: "lg",
+          onClick: this.onCancel //this.onAddAdditionalCancel
+
+        }, "Cancel"))));
       }
     }
   }]);
