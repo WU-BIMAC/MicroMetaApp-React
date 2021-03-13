@@ -59,7 +59,20 @@ export const current_stands = [
 
 export const matchSettings = {};
 
-export const channelPath_Detector = [];
+export const channelPath_Objective = ["Objective"];
+
+export const channelPath_LightSourceCoupling = ["LightSourceCoupling"];
+
+export const channelPath_CouplingLens = ["CouplingLens"];
+
+export const channelPath_RelayLens = ["RelayLens"];
+
+export const channelPath_Detector = ["Detector"];
+
+export const channelPath_LightSource = [
+	"Fluorescence_LightSource",
+	"Transmitted_LightSource",
+];
 
 export const channelPath_Excitation = [
 	"ExcitationFilter",
@@ -246,7 +259,14 @@ export const tier_selector_tooltip = {
 			Choose the Tier level you want to utilize to document Instrument Hardware
 			Specifications and Image Acquisition Settings. For more details about Tier
 			definition please refer to the following{" "}
-			<a href="https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf">link</a>.
+			<a
+				target="_blank"
+				rel="noopener noreferrer"
+				href="https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
+			>
+				link
+			</a>
+			.
 		</p>
 	),
 	position: "top",
@@ -282,7 +302,7 @@ export const create_mode_selector_tooltip = {
 		<p>
 			Choose the modality you want to use for Instrument hardware management.
 			'Create from scratch' allows you to create a brand new Microscope file
-			from scratch.'Load from file' allows you to import into Micro- Meta App a
+			from scratch.'Load from file' allows you to import into Micro-Meta App a
 			previously available Microscope file (i.e., an example file, a template
 			file, or an existing Microscope file shared by a colleague) to edit.'Load
 			from repository' allows you to load a previously available file from the
@@ -292,9 +312,31 @@ export const create_mode_selector_tooltip = {
 	position: "top",
 };
 
+export const createSettings_mode_selector_tooltip = {
+	title: "Create mode selector",
+	content: (
+		<p>
+			Choose the modality you want to use for Settings management. 'Create from
+			scratch' allows you to create a brand new Settings file from scratch.'Load
+			from file' allows you to import into Micro-Meta App a previously available
+			Settings file (i.e., an example file, a template file, or an existing
+			Settings file shared by a colleague) to edit.'Load from repository' allows
+			you to load a previously available file from the active Micro-Meta App
+			repository.
+		</p>
+	),
+	position: "top",
+};
+
 export const create_from_file_tooltip = {
 	title: "Create from file",
 	content: <p>Select an existing Microscope file you want to work on.</p>,
+	position: "top",
+};
+
+export const createSettings_from_file_tooltip = {
+	title: "Load from file",
+	content: <p>Select an existing Settings file you want to work on.</p>,
 	position: "top",
 };
 
@@ -310,9 +352,23 @@ export const create_from_repo_names_tooltip = {
 	position: "top",
 };
 
+export const createSettings_from_repo_names_tooltip = {
+	title: "Load from repository",
+	content: <p>Select the Settings you want to load.</p>,
+	position: "top",
+};
+
 export const create_mode_continue_tooltip = {
 	title: "Continue",
 	content: <p>Create a microscope using the mode selected above.</p>,
+	position: "left",
+};
+
+export const createSettings_mode_continue_tooltip = {
+	title: "Continue",
+	content: (
+		<p>Create a Settings configuration using the mode selected above.</p>
+	),
 	position: "left",
 };
 
@@ -330,13 +386,50 @@ export const edit_microscope_tooltip = {
 	position: "top",
 };
 
-export const validation_tooltip = {
+export const edit_setting_tooltip = {
+	title: "Edit Image Acquisition Settings",
+	content: (
+		<p>
+			Click this button to enter general information about the acquisition
+			settings utilized for this image.
+		</p>
+	),
+	position: "top",
+};
+
+export const validation_microscope_tooltip = {
 	title: "Validation Tier selector",
 	content: (
 		<p>
 			Choose the Tier level you want to use to validate this Microscope file.
 			For more details about Tier definition please refer to the following{" "}
-			<a href="https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf">link</a>.
+			<a
+				target="_blank"
+				rel="noopener noreferrer"
+				href="https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
+			>
+				link
+			</a>
+			.
+		</p>
+	),
+	position: "top",
+};
+
+export const validation_setting_tooltip = {
+	title: "Validation Tier selector",
+	content: (
+		<p>
+			Choose the Tier level you want to use to validate this Settings file. For
+			more details about Tier definition please refer to the following{" "}
+			<a
+				target="_blank"
+				rel="noopener noreferrer"
+				href="https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
+			>
+				link
+			</a>
+			.
 		</p>
 	),
 	position: "top",
@@ -354,6 +447,18 @@ export const save_microscope_tooltip = {
 	position: "top",
 };
 
+export const save_setting_tooltip = {
+	title: "Save settings",
+	content: (
+		<p>
+			Choose whether you want to save this Settings file to the active
+			Micro-Meta App repository or if you want to export it to your local file
+			system.
+		</p>
+	),
+	position: "top",
+};
+
 export const hardware_explorer_tooltip = {
 	title: "Hardware component selection",
 	content: (
@@ -363,6 +468,136 @@ export const hardware_explorer_tooltip = {
 			Drag-and-drop the desired element into the main canvas. 3 - Click on the
 			desired element to enter the information you want to document. 4 - Click
 			on Confirm to save the information you have entered.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const edit_planes = {
+	title: "Edit Planes",
+	content: (
+		<p>
+			Click this button to edit or enter general information about the Image
+			Planes.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const edit_channels = {
+	title: "Edit Channels",
+	content: (
+		<p>
+			Click this button to edit or enter the light path associated with each
+			Image Channel.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const edit_img_env_settings = {
+	title: "Edit Imaging Environment",
+	content: (
+		<p>
+			Click this button to select the Imaging Environmental Control Device that
+			was used and edit information about the environment in which the
+			biological sample was maintained during the acquisition of this Image.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const edit_mic_settings = {
+	title: "Edit Microscope Settings",
+	content: (
+		<p>
+			Click this button to edit or enter information about the Settings that
+			were applied to the Microscope Stand during the acquisition of this Image.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const edit_obj_settings = {
+	title: "Edit Objective Settings",
+	content: (
+		<p>
+			Click this button to select the Objective and edit the settings that were
+			used for the acquisition of this Image.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const edit_sample_pos_settings = {
+	title: "Edit Sample Positioning Settings",
+	content: (
+		<p>
+			Click this button to select the Sample Positioning Settings and edit the
+			settings that were used during the acquisition of this Image.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const edit_mic_table_settings = {
+	title: "Edit Microscope Table Settings",
+	content: (
+		<p>
+			Click this button to select the Microscope Table and edit the settings
+			that were used for the acquisition of this Image.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const add_multi_planes = {
+	title: "Add multiple Planes",
+	content: <p>Click this button to add multiple Planes to this Image.</p>,
+	position: "bottom",
+};
+
+export const add_plane = {
+	title: "Add Plane",
+	content: <p>Click this button to add a single Image Plane</p>,
+	position: "bottom",
+};
+
+export const remove_plane = {
+	title: "Remove Plane",
+	content: <p>Click this button to remove the selected Image Plane</p>,
+	position: "bottom",
+};
+
+export const add_channel = {
+	title: "Add Channel",
+	content: <p>Click this button to add a single Image Channel</p>,
+	position: "bottom",
+};
+
+export const remove_channel = {
+	title: "Remove Channel",
+	content: <p>Click this button to remove the selected Image Channel</p>,
+	position: "bottom",
+};
+
+export const edit_plane = {
+	title: "Edit Plane",
+	content: (
+		<p>
+			Click this button to edit or enter general information about the selected
+			Image Planes.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const edit_channel = {
+	title: "Edit Channel",
+	content: (
+		<p>
+			Click this button to edit or enter the light path associated with the
+			selected Image Channel.
 		</p>
 	),
 	position: "bottom",
