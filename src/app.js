@@ -1705,7 +1705,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					let sett = settings[key];
 					let sett_ID = sett.InstrumentID;
 					if (sett_ID === mic_ID) {
-						settingsNames.put(sett.Name);
+						settingsNames.put(key);
 					}
 				});
 			}
