@@ -180,8 +180,66 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		// console.log("elementByType - Init");
 		// console.log(this.props.elementByType);
 
-		if (this.props.inputData !== undefined) {
+		if (this.props.inputData !== undefined && this.props.inputData !== null) {
 			if (Array.isArray(this.props.inputData)) {
+				if (
+					this.props.currentChildrenComponentIdentifier !== null &&
+					this.props.minChildrenComponentIdentifier !== null &&
+					this.props.maxChildrenComponentIdentifier !== null
+				) {
+					for (let y = 0; y < this.props.inputData.length; y++) {
+						let inputData = this.props.inputData[y];
+						let id = inputData.ID;
+						if (
+							this.state.minChildrenComponents[id] === undefined ||
+							this.state.minChildrenComponents[id] === null
+						) {
+							this.state.minChildrenComponents[id] = {};
+						}
+						if (
+							this.state.maxChildrenComponents[id] === undefined ||
+							this.state.maxChildrenComponents[id] === null
+						) {
+							this.state.maxChildrenComponents[id] = {};
+						}
+						if (
+							this.state.currentChildrenComponents[id] === undefined ||
+							this.state.currentChildrenComponents[id] === null
+						) {
+							this.state.currentChildrenComponents[id] = {};
+						}
+						if (this.state.activeID === null) this.state.activeID = id;
+
+						//console.log("inputData");
+						//console.log(inputData);
+
+						Object.keys(inputData).forEach((key) => {
+							if (key.includes(this.props.minChildrenComponentIdentifier)) {
+								let name = key.replace(
+									this.props.minChildrenComponentIdentifier,
+									""
+								);
+								this.state.minChildrenComponents[id][name] = inputData[key];
+							} else if (
+								key.includes(this.props.maxChildrenComponentIdentifier)
+							) {
+								let name = key.replace(
+									this.props.maxChildrenComponentIdentifier,
+									""
+								);
+								this.state.maxChildrenComponents[id][name] = inputData[key];
+							} else if (
+								key.includes(this.props.currentChildrenComponentIdentifier)
+							) {
+								let name = key.replace(
+									this.props.currentChildrenComponentIdentifier,
+									""
+								);
+								this.state.currentChildrenComponents[id][name] = inputData[key];
+							}
+						});
+					}
+				}
 				for (let i = 0; i < this.props.schema.length; i++) {
 					let schema = this.props.schema[i];
 					for (let y = 0; y < this.props.inputData.length; y++) {
@@ -212,6 +270,62 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				}
 			} else {
+				if (
+					this.props.currentChildrenComponentIdentifier !== null &&
+					this.props.minChildrenComponentIdentifier !== null &&
+					this.props.maxChildrenComponentIdentifier !== null
+				) {
+					let inputData = this.props.inputData;
+					let id = inputData.ID;
+					if (this.state.activeID === null) this.state.activeID = id;
+					if (
+						this.state.minChildrenComponents[id] === undefined ||
+						this.state.minChildrenComponents[id] === null
+					) {
+						this.state.minChildrenComponents[id] = {};
+					}
+					if (
+						this.state.maxChildrenComponents[id] === undefined ||
+						this.state.maxChildrenComponents[id] === null
+					) {
+						this.state.maxChildrenComponents[id] = {};
+					}
+					if (
+						this.state.currentChildrenComponents[id] === undefined ||
+						this.state.currentChildrenComponents[id] === null
+					) {
+						this.state.currentChildrenComponents[id] = {};
+					}
+
+					//console.log("inputData");
+					//console.log(inputData);
+
+					Object.keys(inputData).forEach((key) => {
+						if (key.includes(this.props.minChildrenComponentIdentifier)) {
+							let name = key.replace(
+								this.props.minChildrenComponentIdentifier,
+								""
+							);
+							this.state.minChildrenComponents[id][name] = inputData[key];
+						} else if (
+							key.includes(this.props.maxChildrenComponentIdentifier)
+						) {
+							let name = key.replace(
+								this.props.maxChildrenComponentIdentifier,
+								""
+							);
+							this.state.maxChildrenComponents[id][name] = inputData[key];
+						} else if (
+							key.includes(this.props.currentChildrenComponentIdentifier)
+						) {
+							let name = key.replace(
+								this.props.currentChildrenComponentIdentifier,
+								""
+							);
+							this.state.currentChildrenComponents[id][name] = inputData[key];
+						}
+					});
+				}
 				//create case if 1 input but multiple schemas ?
 				let schema = this.props.schema;
 				let inputData = this.props.inputData;
@@ -238,8 +352,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			}
 		}
 
-		console.log("partialInputData");
-		console.log(partialInputData);
+		// console.log("partialInputData");
+		// console.log(partialInputData);
 
 		for (let id in partialInputData) {
 			// console.log("partialInputData");
@@ -264,6 +378,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		if (Object.keys(this.state.partialInputData).length === 0) {
 			this.state.partialInputData = partialInputData;
 			this.state.activeID = newActiveID;
+			//this.forceUpdate();
 		} else {
 			this.forceUpdate();
 		}
