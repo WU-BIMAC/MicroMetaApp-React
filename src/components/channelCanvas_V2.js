@@ -5,7 +5,6 @@ import { ArcherContainer, ArcherElement } from "react-archer";
 import ModalWindow from "./modalWindow";
 import PopoverTooltip from "./popoverTooltip";
 import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
-//import MultiTabFormWithHeader from "./multiTabFormWithHeader";
 
 import { pathToFileURL } from "url";
 import { v4 as uuidv4 } from "uuid";
@@ -30,7 +29,12 @@ import {
 	channelPath_Excitation,
 	channelPath_Dichroic,
 	channelPath_Emission,
+	channelPath_LightSource,
 	channelPath_Detector,
+	channelPath_RelayLens,
+	channelPath_CouplingLens,
+	channelPath_LightSourceCoupling,
+	channelPath_Objective,
 } from "../constants";
 import { bool } from "prop-types";
 
@@ -68,11 +72,11 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		});
 
 		if (props.channelData !== null && props.channelData !== undefined) {
-			let lightPath = props.channelData[0].LightPath;
+			let lightPath = props.channelData[1];
 			if (lightPath !== null && lightPath !== undefined) {
 				let componentSettings = lightPath.ComponentSettings;
-				this.state.settingData = componentSettings;
 				if (componentSettings !== null && componentSettings !== undefined) {
+					this.state.settingData = componentSettings;
 					for (let slot in componentSettings) {
 						let settingDatas = componentSettings[slot];
 						if (slot.includes("AdditionalSlot_")) {
@@ -436,21 +440,29 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 				let index = currentSlots.indexOf(selectedComp);
 				let obj = settingData[selectedSlot][index];
 				settingData[selectedSlot][index] = Object.assign(obj, data);
+				this.setState({
+					editingSettings: false,
+					settingData: settingData,
+				});
 			} else {
 				let obj = settingData[selectedSlot];
 				settingData[selectedSlot] = Object.assign(obj, data);
+				this.setState({
+					editing: false,
+					editingSettings: false,
+					settingData: settingData,
+					category: null,
+					selectedSlot: null,
+					selectedComp: null,
+					selectedSchema: null,
+				});
 			}
-			console.log("settingData");
-			console.log(settingData);
-			this.setState({
-				//editing: false,
-				editingSettings: false,
-				settingData: settingData,
-			});
+			// console.log("settingData");
+			// console.log(settingData);
 		} else {
-			console.log("saving channel data");
-			console.log(id);
-			console.log(data);
+			// console.log("saving channel data");
+			// console.log(id);
+			// console.log(data);
 			let currentChannelData = data;
 			let currentLightPath = data.LightPath;
 			let currentFluorophore = data.Fluorophore;
@@ -462,6 +474,10 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 				editing: false,
 				editingSettings: false,
 				channelData: objects,
+				category: null,
+				selectedSlot: null,
+				selectedComp: null,
+				selectedSchema: null,
 			});
 		}
 	}
@@ -511,12 +527,14 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	onElementDataCancel() {
-		// if (this.state.editingSettings) {
-		// 	this.setState({ editingSettings: false });
-		// } else {
-		// 	this.setState({ editing: false, editingSettings: false });
-		// }
-		this.setState({ editing: false, editingSettings: false });
+		let selectedSlot = this.state.selectedSlot;
+		if (selectedSlot.includes("AdditionalSlot_")) {
+			//if (this.state.editingSettings) {
+			this.setState({ editingSettings: false });
+		} else {
+			this.setState({ editing: false, editingSettings: false });
+		}
+		//this.setState({ editing: false, editingSettings: false });
 	}
 
 	onEditElement() {
@@ -539,10 +557,12 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			settingsSchemas[schema.ID] = schema;
 		}
 
-		console.log("category");
-		console.log(category);
-		console.log("selectedSlot");
-		console.log(selectedSlot);
+		// console.log("category");
+		// console.log(category);
+		// console.log("selectedSlot");
+		// console.log(selectedSlot);
+		// console.log("selectedComp");
+		// console.log(selectedComp);
 		if (category !== null) {
 			//console.log("onAddAdditionalConfirm category null");
 			if (selectedSlot.includes("AdditionalSlot_")) {
@@ -553,7 +573,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 					});
 					return;
 				}
-				//console.log("onAddAdditionalConfirm category " + category);
 
 				let tmpSlots = this.state.tmpSlots.slice();
 				tmpSlots.push(selectedComp);
@@ -620,7 +639,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	handleClick_lightSource() {
-		let category = ["Fluorescence_LightSource", "Transmitted_LightSource"];
+		let category = channelPath_LightSource;
 		let selectedSlot = "LightSource";
 		let slots = this.state.slots;
 		let comp = null;
@@ -635,7 +654,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	handleClick_detector() {
-		let category = ["Detector"];
+		let category = channelPath_Detector;
 		let selectedSlot = "Detector";
 		let slots = this.state.slots;
 		let comp = null;
@@ -650,7 +669,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	handleClick_couplingLens() {
-		let category = ["CouplingLens"];
+		let category = channelPath_CouplingLens;
 		let selectedSlot = "CouplingLens";
 		let slots = this.state.slots;
 		let comp = null;
@@ -665,7 +684,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	handleClick_relayLens() {
-		let category = ["RelayLens"];
+		let category = channelPath_RelayLens;
 		let selectedSlot = "RelayLens";
 		let slots = this.state.slots;
 		let comp = null;
@@ -680,7 +699,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	handleClick_lightSourceCoupling() {
-		let category = ["LightSourceCoupling"];
+		let category = channelPath_LightSourceCoupling;
 		let selectedSlot = "LightSourceCoupling";
 		let slots = this.state.slots;
 		let comp = null;
@@ -740,7 +759,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	handleClick_objective() {
-		let category = ["Objective"];
+		let category = channelPath_Objective;
 		let selectedSlot = "Objective";
 		let slots = this.state.slots;
 		let comp = null;
@@ -754,13 +773,41 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		});
 	}
 
-	createAddButton(buttonStyle, image, index, category) {
-		//
+	createAddButton(
+		buttonStyle,
+		addButtonImage,
+		addButtonImageStyle,
+		index,
+		category,
+		isEnabled
+	) {
+		let image = (
+			<img
+				src={
+					addButtonImage +
+					(addButtonImage.indexOf("githubusercontent.com") > -1
+						? "?sanitize=true"
+						: "")
+				}
+				alt={"Add"}
+				style={addButtonImageStyle}
+			/>
+		);
+
+		if (isEnabled)
+			return (
+				<button
+					style={buttonStyle}
+					onClick={() => this.handleClick_additionalItemButton(category, index)}
+				>
+					{image}
+					Add additional element
+				</button>
+			);
+
+		let buttStyle = Object.assign({}, buttonStyle, { border: "none" });
 		return (
-			<button
-				style={buttonStyle}
-				onClick={() => this.handleClick_additionalItemButton(category, index)}
-			>
+			<button style={buttStyle} disabled>
 				{image}
 				Add additional element
 			</button>
@@ -776,20 +823,28 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		style,
 		buttonStyle,
 		styleCloser,
+		styleIcons,
 		callback,
 		deleteCallback,
 		editCallback,
-		text
+		text,
+		isEnabled,
+		valid
 	) {
 		let image = null;
 		let name = text;
 		let needDelete = false;
+		let hasSettings = true;
 		let element = null;
 		if (slots[imageSlot] !== null && slots[imageSlot] !== undefined) {
 			element = slots[imageSlot];
-			image = url.resolve(imagesPath, compSchemas[element.Schema_ID].image);
+			let elementSchema = compSchemas[element.Schema_ID];
+			image = url.resolve(imagesPath, elementSchema.image);
 			name = element.Name;
 			needDelete = true;
+			if (elementSchema.modelSettings === "NA") {
+				hasSettings = false;
+			}
 		} else {
 			image = url.resolve(imagesPath, imageName);
 		}
@@ -805,16 +860,10 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		);
 
 		let button = null;
-		if (needDelete)
-			button = (
-				<div>
-					<button
-						type="button"
-						onClick={() => deleteCallback(imageSlot)}
-						style={styleCloser}
-					>
-						x
-					</button>
+		if (needDelete) {
+			let butt = null;
+			if (isEnabled && hasSettings) {
+				butt = (
 					<button
 						style={buttonStyle}
 						onClick={() =>
@@ -824,15 +873,50 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						{itemImage}
 						{name}
 					</button>
+				);
+			} else {
+				let buttStyle = Object.assign({}, buttonStyle, { border: "none" });
+				butt = (
+					<button style={buttStyle} disabled>
+						{itemImage}
+						{name}
+					</button>
+				);
+			}
+
+			button = (
+				<div>
+					<div style={styleIcons}>
+						<button
+							type="button"
+							onClick={() => deleteCallback(imageSlot)}
+							style={styleCloser}
+						>
+							x
+						</button>
+						{valid}
+					</div>
+					{butt}
 				</div>
 			);
-		else
-			button = (
-				<button style={buttonStyle} onClick={callback}>
-					{itemImage}
-					{name}
-				</button>
-			);
+		} else {
+			if (isEnabled) {
+				button = (
+					<button style={buttonStyle} onClick={callback}>
+						{itemImage}
+						{name}
+					</button>
+				);
+			} else {
+				let buttStyle = Object.assign({}, buttonStyle, { border: "none" });
+				button = (
+					<button style={buttStyle} disabled>
+						{itemImage}
+						{name}
+					</button>
+				);
+			}
+		}
 		return button;
 	}
 
@@ -889,7 +973,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		};
 		const modalTopListContainer = {
 			display: "flex",
-			flexDirection: "row",
+			flexDirection: "column",
 			flexWrap: "wrap",
 			justifyContent: "space-evenly",
 			overflow: "auto",
@@ -927,7 +1011,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			backgroundColor: "white",
 			padding: "0px",
 			margin: "5px",
-			border: "5px solid blue",
+			border: "2px solid grey",
 			fontSize: "14px",
 			color: "inherit",
 			cursor: "pointer",
@@ -945,13 +1029,55 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			color: "grey",
 			textAlign: "right",
 			verticalAlign: "middle",
+			//position: "relative",
+			//left: "5px",
+			//top: "5px",
+		};
+		const styleValidation = {
+			position: "absolute",
+			verticalAlign: "middle",
+			fontWeight: "bold",
+			textAlign: "center",
+		};
+		const styleValidation2 = {
+			//position: "relative",
+			verticalAlign: "middle",
+			fontWeight: "bold",
+			textAlign: "center",
+			//left: "15px",
+			//top: "5px",
+		};
+		const styleIcons = {
+			display: "flex",
+			flexDirection: "row",
+			flexWap: "wrap",
+			justifyContent: "left",
+			//padding: "5px",
 			position: "relative",
 			left: "5px",
-			top: "5px",
+			top: "10px",
+			width: "90%",
+			height: "24px",
 		};
+		const styleValidated = Object.assign({}, styleValidation, {
+			color: "green",
+		});
+		const styleNotValidated = Object.assign({}, styleValidation, {
+			color: "red",
+		});
+		const styleValidated2 = Object.assign({}, styleValidation2, {
+			color: "green",
+		});
+		const styleNotValidated2 = Object.assign({}, styleValidation2, {
+			color: "red",
+		});
+		let isValid = <div style={styleValidated}>&#9679;</div>;
+		let isInvalid = <div style={styleNotValidated}>&#9679;</div>;
+		let isValid2 = <div style={styleValidated2}>&#9679;</div>;
+		let isInvalid2 = <div style={styleNotValidated2}>&#9679;</div>;
 
 		let channelData = this.state.channelData;
-
+		let settingData = this.state.settingData;
 		let slots = this.state.slots;
 		let componentSchema = this.props.componentSchemas;
 		let compSchemas = {};
@@ -987,7 +1113,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 
 		if (this.state.editing) {
 			if (this.state.editingSettings) {
-				let settingData = this.state.settingData;
 				let settingsName = selectedSchema.modelSettings + string_json_ext;
 				let settings = null;
 				let comp = null;
@@ -1079,7 +1204,9 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							schema_id.replace(string_json_ext, "")
 						) ||
 						this.state.category.includes(compSchemaCategory) ||
-						this.state.category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))
+						this.state.category.includes(
+							compSchemaCategory.substring(0, compSchemaCategory.indexOf("."))
+						)
 					) {
 						// if (selectedComp === null || selectedComp === undefined) {
 						// 	selectedComp = comp;
@@ -1106,7 +1233,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						let buttonStyleModified = null;
 						if (comp === selectedComp) {
 							buttonStyleModified = Object.assign({}, buttonStyle, {
-								border: "5px solid cyan",
+								border: "2px solid cyan",
 							});
 						} else {
 							buttonStyleModified = buttonStyle;
@@ -1134,6 +1261,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 					// if (slots[selectedSlot] !== undefined && slots[selectedSlot] !== null)
 					// 	items = slots[selectedSlot];
 					let items = this.state.tmpSlots;
+					let settingDataSlot = settingData[selectedSlot];
 
 					let slotList = [];
 					Object.keys(items).forEach((compIndex) => {
@@ -1163,25 +1291,36 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						let buttonStyleModified = null;
 						if (comp === selectedComp) {
 							buttonStyleModified = Object.assign({}, buttonStyle, {
-								border: "5px solid cyan",
-								margin: "5px",
+								border: "2px solid cyan",
+							});
+						} else if (compSchema.modelSettings === "NA") {
+							buttonStyleModified = Object.assign({}, buttonStyle, {
+								opacity: "0.4",
+								border: "none",
 							});
 						} else {
-							buttonStyleModified = Object.assign({}, buttonStyle, {
-								margin: "5px",
-							});
+							buttonStyleModified = buttonStyle;
 						}
-						slotList.push(
-							<div>
-								<button
-									type="button"
-									onClick={() =>
-										this.handleDeleteComp(selectedSlot, slotList.length)
+						let valid = null;
+						if (settingDataSlot !== null && settingDataSlot !== undefined) {
+							let settingDataObj = settingDataSlot[compIndex];
+							if (settingDataObj !== null && settingDataObj !== undefined) {
+								let schema = settingsSchemas[settingDataObj.Schema_ID];
+								if (schema !== null && schema !== undefined) {
+									let validation = validate(settingDataObj, schema);
+									let validated = validation.valid;
+									if (validated) {
+										valid = isValid2;
+									} else {
+										valid = isInvalid2;
 									}
-									style={styleCloser}
-								>
-									x
-								</button>
+								}
+							}
+						}
+
+						let butt = null;
+						if (compSchema.modelSettings !== "NA") {
+							butt = (
 								<button
 									key={"button-" + comp.Name}
 									style={buttonStyleModified}
@@ -1192,6 +1331,31 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 									{compItemImage}
 									{comp.Name}
 								</button>
+							);
+						} else {
+							butt = (
+								<button key={"button-" + comp.Name} style={buttonStyleModified}>
+									{compItemImage}
+									{comp.Name}
+								</button>
+							);
+						}
+
+						slotList.push(
+							<div>
+								<div style={styleIcons}>
+									<button
+										type="button"
+										onClick={() =>
+											this.handleDeleteComp(selectedSlot, slotList.length)
+										}
+										style={styleCloser}
+									>
+										x
+									</button>
+									{valid}
+								</div>
+								{butt}
 							</div>
 						);
 					});
@@ -1372,217 +1536,487 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			margin: "auto",
 		};
 
-		let addButtonImage = url.resolve(this.props.imagesPath, "AddButton.svg");
-		let additionalItemImage = (
-			<img
-				src={
-					addButtonImage +
-					(addButtonImage.indexOf("githubusercontent.com") > -1
-						? "?sanitize=true"
-						: "")
-				}
-				alt={"Add"}
-				style={addButtonImageStyle}
-			/>
+		const opaqueAddButtonImageStyle = Object.assign(
+			{ opacity: "0.4" },
+			addButtonImageStyle
 		);
+
+		let addButtonImage = url.resolve(this.props.imagesPath, "AddButton.svg");
+
+		let hasChannelPath_Additional_1_8 = false;
+		let hasChannelPath_Additional_2 = false;
+		let hasChannelPath_Additional_3_4_5_6 = false;
+		let hasChannelPath_Additional_7 = false;
+		let hasLightSource = false;
+		let hasDetector = false;
+		let hasRelayLens = false;
+		let hasCouplingLens = false;
+		let hasLightSourceCoupling = false;
+		let hasExcitation = false;
+		let hasDichroic = false;
+		let hasEmission = false;
+		let hasObjective = false;
+		let testCategory = [
+			channelPath_Additional_1_8,
+			channelPath_Additional_2,
+			channelPath_Additional_3_4_5_6,
+			channelPath_Additional_7,
+			channelPath_LightSource,
+			channelPath_Detector,
+			channelPath_RelayLens,
+			channelPath_CouplingLens,
+			channelPath_LightSourceCoupling,
+			channelPath_Excitation,
+			channelPath_Dichroic,
+			channelPath_Emission,
+			channelPath_Objective,
+		];
+		// let cp18String = JSON.stringify(channelPath_Additional_1_8);
+		// let cp2String = JSON.stringify(channelPath_Additional_2);
+		// let cp3456String = JSON.stringify(channelPath_Additional_3_4_5_6);
+		// let cp7String = JSON.stringify(channelPath_Additional_7);
+		// let lightSourceString = JSON.stringify(channelPath_LightSource);
+		// let detectorString = JSON.stringify(channelPath_Detector);
+		// let relayLensString = JSON.stringify(channelPath_RelayLens);
+		// let couplingLensString = JSON.stringify(channelPath_CouplingLens);
+		// let lightSourceCouplingString = JSON.stringify(
+		// 	channelPath_LightSourceCoupling
+		// );
+		// let excitationString = JSON.stringify(channelPath_Excitation);
+		// let dichroicString = JSON.stringify(channelPath_Dichroic);
+		// let emissionString = JSON.stringify(channelPath_Emission);
+		// let objectiveString = JSON.stringify(channelPath_Objective);
+		// console.log("lightSourceString");
+		// console.log(lightSourceString);
+		Object.keys(this.props.componentData).forEach((compIndex) => {
+			let comp = this.props.componentData[compIndex];
+
+			let schema_id = comp.Schema_ID;
+			let compSchema = compSchemas[schema_id];
+			if (compSchema === null) return;
+			let compSchemaCategory = compSchema.category;
+
+			for (let index in testCategory) {
+				let category = testCategory[index];
+				if (
+					category.includes(schema_id.replace(string_json_ext, "")) ||
+					category.includes(compSchemaCategory) ||
+					category.includes(
+						compSchemaCategory.substring(0, compSchemaCategory.indexOf("."))
+					)
+				) {
+					//let catString = JSON.stringify(category);
+					if (category === channelPath_Additional_1_8)
+						hasChannelPath_Additional_1_8 = true;
+					if (category === channelPath_Additional_2)
+						hasChannelPath_Additional_2 = true;
+					if (category === channelPath_Additional_3_4_5_6)
+						hasChannelPath_Additional_3_4_5_6 = true;
+					if (category === channelPath_Additional_7)
+						hasChannelPath_Additional_7 = true;
+
+					if (category === channelPath_LightSource) hasLightSource = true;
+					if (category === channelPath_Detector) hasDetector = true;
+					if (category === channelPath_RelayLens) hasRelayLens = true;
+					if (category === channelPath_CouplingLens) hasCouplingLens = true;
+					if (category === channelPath_LightSourceCoupling)
+						hasLightSourceCoupling = true;
+
+					if (category === channelPath_Excitation) hasExcitation = true;
+					if (category === channelPath_Dichroic) hasDichroic = true;
+					if (category === channelPath_Emission) hasEmission = true;
+
+					if (category === channelPath_Objective) hasObjective = true;
+				}
+			}
+		});
 
 		let additionalItemButton_1 = this.createAddButton(
 			buttonStyle,
-			additionalItemImage,
+			addButtonImage,
+			hasChannelPath_Additional_1_8
+				? addButtonImageStyle
+				: opaqueAddButtonImageStyle,
 			1,
-			channelPath_Additional_1_8
+			channelPath_Additional_1_8,
+			hasChannelPath_Additional_1_8
 		);
+
 		let additionalItemButton_2 = this.createAddButton(
 			buttonStyle,
-			additionalItemImage,
+			addButtonImage,
+			hasChannelPath_Additional_2
+				? addButtonImageStyle
+				: opaqueAddButtonImageStyle,
 			2,
-			channelPath_Additional_2
+			channelPath_Additional_2,
+			hasChannelPath_Additional_2
 		);
 		let additionalItemButton_3 = this.createAddButton(
 			buttonStyle,
-			additionalItemImage,
+			addButtonImage,
+			hasChannelPath_Additional_3_4_5_6
+				? addButtonImageStyle
+				: opaqueAddButtonImageStyle,
 			3,
-			channelPath_Additional_3_4_5_6
+			channelPath_Additional_3_4_5_6,
+			hasChannelPath_Additional_3_4_5_6
 		);
 		let additionalItemButton_4 = this.createAddButton(
 			buttonStyle,
-			additionalItemImage,
+			addButtonImage,
+			hasChannelPath_Additional_3_4_5_6
+				? addButtonImageStyle
+				: opaqueAddButtonImageStyle,
 			4,
-			channelPath_Additional_3_4_5_6
+			channelPath_Additional_3_4_5_6,
+			hasChannelPath_Additional_3_4_5_6
 		);
 		let additionalItemButton_5 = this.createAddButton(
 			buttonStyle,
-			additionalItemImage,
+			addButtonImage,
+			hasChannelPath_Additional_3_4_5_6
+				? addButtonImageStyle
+				: opaqueAddButtonImageStyle,
 			5,
-			channelPath_Additional_3_4_5_6
+			channelPath_Additional_3_4_5_6,
+			hasChannelPath_Additional_3_4_5_6
 		);
 		let additionalItemButton_6 = this.createAddButton(
 			buttonStyle,
-			additionalItemImage,
+			addButtonImage,
+			hasChannelPath_Additional_3_4_5_6
+				? addButtonImageStyle
+				: opaqueAddButtonImageStyle,
 			6,
-			channelPath_Additional_3_4_5_6
+			channelPath_Additional_3_4_5_6,
+			hasChannelPath_Additional_3_4_5_6
 		);
 		let additionalItemButton_7 = this.createAddButton(
 			buttonStyle,
-			additionalItemImage,
+			addButtonImage,
+			hasChannelPath_Additional_7
+				? addButtonImageStyle
+				: opaqueAddButtonImageStyle,
 			7,
-			channelPath_Additional_7
+			channelPath_Additional_7,
+			hasChannelPath_Additional_7
 		);
 		let additionalItemButton_8 = this.createAddButton(
 			buttonStyle,
-			additionalItemImage,
+			addButtonImage,
+			hasChannelPath_Additional_1_8
+				? addButtonImageStyle
+				: opaqueAddButtonImageStyle,
 			8,
-			channelPath_Additional_1_8
+			channelPath_Additional_1_8,
+			hasChannelPath_Additional_1_8
 		);
 
+		let specButtStyle = Object.assign({}, buttonStyle, { border: "none" });
 		let specimenButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_10_Specimen.svg",
 			"Specimen",
 			slots,
 			compSchemas,
-			regularOpaqueImageStyle,
-			buttonStyle,
+			regularImageStyle,
+			specButtStyle,
 			styleCloser,
+			styleIcons,
 			null,
 			null,
 			null,
-			"Specimen"
+			"Specimen",
+			false,
+			null
 		);
 
+		let lightSource = settingData["LightSource"];
+		let valid = null;
+		if (lightSource !== undefined && lightSource !== null) {
+			let schema = settingsSchemas[lightSource.Schema_ID];
+			if (schema !== undefined && schema !== null) {
+				let validation = validate(lightSource, schema);
+				let validated = validation.valid;
+				if (validated) {
+					valid = isValid2;
+				} else {
+					valid = isInvalid2;
+				}
+			}
+		}
 		let lightSourceButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_1_LightSource_outline.svg",
 			"LightSource",
 			slots,
 			compSchemas,
-			regularOpaqueImageStyle,
+			hasLightSource ? regularImageStyle : regularOpaqueImageStyle,
 			buttonStyle,
 			styleCloser,
+			styleIcons,
 			this.handleClick_lightSource,
 			this.handleDeleteComp,
 			this.handleEditSettings,
-			"Select Light Source"
+			"Select Light Source",
+			hasLightSource,
+			valid
 		);
 
+		let detector = settingData["Detector"];
+		valid = null;
+		if (detector !== undefined && detector !== null) {
+			let schema = settingsSchemas[detector.Schema_ID];
+			if (schema !== undefined && schema !== null) {
+				let validation = validate(detector, schema);
+				let validated = validation.valid;
+				if (validated) {
+					valid = isValid2;
+				} else {
+					valid = isInvalid2;
+				}
+			}
+		}
 		let detectorButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_9_Detector_outline.svg",
 			"Detector",
 			slots,
 			compSchemas,
-			regularOpaqueImageStyle,
+			hasDetector ? regularImageStyle : regularOpaqueImageStyle,
 			buttonStyle,
 			styleCloser,
+			styleIcons,
 			this.handleClick_detector,
 			this.handleDeleteComp,
 			this.handleEditSettings,
-			"Select Detector"
+			"Select Detector",
+			hasDetector,
+			valid
 		);
 
+		let relayLens = settingData["RelayLens"];
+		valid = null;
+		if (relayLens !== undefined && relayLens !== null) {
+			let schema = settingsSchemas[relayLens.Schema_ID];
+			if (schema !== undefined && schema !== null) {
+				let validation = validate(relayLens, schema);
+				let validated = validation.valid;
+				if (validated) {
+					valid = isValid2;
+				} else {
+					valid = isInvalid2;
+				}
+			}
+		}
 		let relayLensButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_8_RelayLens_outline.svg",
 			"RelayLens",
 			slots,
 			compSchemas,
-			regularOpaqueImageStyle,
+			hasRelayLens ? regularImageStyle : regularOpaqueImageStyle,
 			buttonStyle,
 			styleCloser,
+			styleIcons,
 			this.handleClick_relayLens,
 			this.handleDeleteComp,
 			this.handleEditSettings,
-			"Select Relay Lens"
+			"Select Relay Lens",
+			hasRelayLens
 		);
 
+		let couplingLens = settingData["CouplingLens"];
+		valid = null;
+		if (couplingLens !== undefined && couplingLens !== null) {
+			let schema = settingsSchemas[couplingLens.Schema_ID];
+			if (schema !== undefined && schema !== null) {
+				let validation = validate(couplingLens, schema);
+				let validated = validation.valid;
+				if (validated) {
+					valid = isValid2;
+				} else {
+					valid = isInvalid2;
+				}
+			}
+		}
 		let couplingLensButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_3_CouplingLens_outline.svg",
 			"CouplingLens",
 			slots,
 			compSchemas,
-			regularOpaqueImageStyle,
+			hasCouplingLens ? regularImageStyle : regularOpaqueImageStyle,
 			buttonStyle,
 			styleCloser,
+			styleIcons,
 			this.handleClick_couplingLens,
 			this.handleDeleteComp,
 			this.handleEditSettings,
-			"Select Coupling Lens"
+			"Select Coupling Lens",
+			hasCouplingLens,
+			valid
 		);
 
+		let lightSourceCoupling = settingData["LightSourceCoupling"];
+		valid = null;
+		if (lightSourceCoupling !== undefined && lightSourceCoupling !== null) {
+			let schema = settingsSchemas[lightSourceCoupling.Schema_ID];
+			if (schema !== undefined && schema !== null) {
+				let validation = validate(lightSourceCoupling, schema);
+				let validated = validation.valid;
+				if (validated) {
+					valid = isValid2;
+				} else {
+					valid = isInvalid2;
+				}
+			}
+		}
 		let lightSourceCouplingButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_2_LightSourceCoupling_outline.svg",
 			"LightSourceCoupling",
 			slots,
 			compSchemas,
-			regularOpaqueImageStyle,
+			hasLightSourceCoupling ? regularImageStyle : regularOpaqueImageStyle,
 			buttonStyle,
 			styleCloser,
+			styleIcons,
 			this.handleClick_lightSourceCoupling,
 			this.handleDeleteComp,
 			this.handleEditSettings,
-			"Select Light Source Coupling"
+			"Select Light Source Coupling",
+			hasLightSourceCoupling,
+			valid
 		);
 
+		let excitationFilter = settingData["ExcitationFilter"];
+		valid = null;
+		if (excitationFilter !== undefined && excitationFilter !== null) {
+			let schema = settingsSchemas[excitationFilter.Schema_ID];
+			if (schema !== undefined && schema !== null) {
+				let validation = validate(excitationFilter, schema);
+				let validated = validation.valid;
+				if (validated) {
+					valid = isValid2;
+				} else {
+					valid = isInvalid2;
+				}
+			}
+		}
 		let excitationButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_4_ExcitationFilter_outline.svg",
 			"ExcitationFilter",
 			slots,
 			compSchemas,
-			regularOpaqueImageStyle,
+			hasExcitation ? regularImageStyle : regularOpaqueImageStyle,
 			buttonStyle,
 			styleCloser,
+			styleIcons,
 			this.handleClick_excitation,
 			this.handleDeleteComp,
 			this.handleEditSettings,
-			"Select Excitation Wavelength"
+			"Select Excitation Wavelength",
+			hasExcitation,
+			valid
 		);
 
+		let dichroic = settingData["Dichroic"];
+		valid = null;
+		if (dichroic !== undefined && dichroic !== null) {
+			let schema = settingsSchemas[dichroic.Schema_ID];
+			if (schema !== undefined && schema !== null) {
+				let validation = validate(dichroic, schema);
+				let validated = validation.valid;
+				if (validated) {
+					valid = isValid2;
+				} else {
+					valid = isInvalid2;
+				}
+			}
+		}
 		let dichroicButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_5_Dichroic_outline.svg",
 			"Dichroic",
 			slots,
 			compSchemas,
-			regularOpaqueImageStyle,
+			hasDichroic ? regularImageStyle : regularOpaqueImageStyle,
 			buttonStyle,
 			styleCloser,
+			styleIcons,
 			this.handleClick_dichroic,
 			this.handleDeleteComp,
 			this.handleEditSettings,
-			"Select Dichroic"
+			"Select Dichroic",
+			hasDichroic,
+			valid
 		);
 
+		let emissionFilter = settingData["EmissionFilter"];
+		valid = null;
+		if (emissionFilter !== undefined && emissionFilter !== null) {
+			let schema = settingsSchemas[emissionFilter.Schema_ID];
+			if (schema !== undefined && schema !== null) {
+				let validation = validate(emissionFilter, schema);
+				let validated = validation.valid;
+				if (validated) {
+					valid = isValid2;
+				} else {
+					valid = isInvalid2;
+				}
+			}
+		}
 		let emissionButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_6_EmissionFilter_outline.svg",
 			"EmissionFilter",
 			slots,
 			compSchemas,
-			regularOpaqueImageStyle,
+			hasEmission ? regularImageStyle : regularOpaqueImageStyle,
 			buttonStyle,
 			styleCloser,
+			styleIcons,
 			this.handleClick_emission,
 			this.handleDeleteComp,
 			this.handleEditSettings,
-			"Select Emission Wavelength"
+			"Select Emission Wavelength",
+			hasEmission,
+			valid
 		);
 
+		let objective = settingData["Objective"];
+		valid = null;
+		if (objective !== undefined && objective !== null) {
+			let schema = settingsSchemas[objective.Schema_ID];
+			if (schema !== undefined && schema !== null) {
+				let validation = validate(objective, schema);
+				let validated = validation.valid;
+				if (validated) {
+					valid = isValid2;
+				} else {
+					valid = isInvalid2;
+				}
+			}
+		}
 		let objectiveButton = ChannelCanvas_V2.createSlotButton(
 			this.props.imagesPath,
 			"LightPath_7_Objective_outline.svg",
 			"Objective",
 			slots,
 			compSchemas,
-			regularOpaqueImageStyle,
+			hasObjective ? regularImageStyle : regularOpaqueImageStyle,
 			buttonStyle,
 			styleCloser,
+			styleIcons,
 			this.handleClick_objective,
 			this.handleDeleteComp,
 			this.handleEditSettings,
-			"Select Objective"
+			"Select Objective",
+			hasObjective,
+			valid
 		);
 
 		let row1 = (
@@ -1849,6 +2283,42 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			</div>
 		);
 
+		valid = null;
+		if (
+			this.props.schema !== undefined &&
+			this.props.schema !== null &&
+			this.state.channelData !== undefined &&
+			this.state.channelData !== null
+		) {
+			let channelObj = this.state.channelData;
+			let validation1 = validate(channelObj[0], this.props.schema[0]);
+			console.log(validation1);
+			let validated1 = validation1.valid;
+			console.log(validated1);
+			let validated2 = false;
+			if (channelObj[2] !== undefined && channelObj[2] !== null) {
+				let validation2 = validate(channelObj[2], this.props.schema[2]);
+				console.log(validation2);
+				validated2 = validation2.valid;
+				console.log(validated2);
+			}
+			let validated3 = false;
+			if (channelObj[1] !== undefined && channelObj[1] !== null) {
+				let validation3 = validate(channelObj[1], this.props.schema[1]);
+				console.log(validation3);
+				validated3 = validation3.valid;
+				console.log(validated3);
+			}
+
+			if (validated1 && validated2 && validated3) {
+				valid = isValid;
+			} else {
+				valid = isInvalid;
+			}
+		} else {
+			valid = isInvalid;
+		}
+
 		return (
 			<ModalWindow overlaysContainer={this.props.overlaysContainer}>
 				<div>
@@ -1868,7 +2338,8 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						Confirm
 					</Button>
 					<Button style={button2} size="lg" onClick={this.onEditElement}>
-						Edit Channel
+						{valid}
+						{"Edit Channel Settings"}
 					</Button>
 					<Button style={button2} size="lg" onClick={this.onCancel}>
 						Cancel
