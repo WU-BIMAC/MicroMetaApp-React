@@ -12,9 +12,11 @@ export default class DataLoader extends React.PureComponent {
 			isLoadingSchema: false,
 			isLoadingMicroscopes: false,
 			isLoadingDimensions: false,
+			isLoadingSettings: false,
 			isSchemaLoaded: false,
 			isMicroscopesLoaded: false,
 			isDimensionsLoaded: false,
+			isSettingsLoaded: false,
 		};
 
 		this.simulateClickLoadSchema = this.simulateClickLoadSchema.bind(this);
@@ -24,6 +26,7 @@ export default class DataLoader extends React.PureComponent {
 			this
 		);
 		this.onClickLoadMicroscopes = this.onClickLoadMicroscopes.bind(this);
+		this.onClickLoadSettings = this.onClickLoadSettings.bind(this);
 
 		this.simulateClickLoadDimensions = this.simulateClickLoadDimensions.bind(
 			this
@@ -58,6 +61,17 @@ export default class DataLoader extends React.PureComponent {
 		});
 	}
 
+	onClickLoadSettings() {
+		this.setState({ isLoadingSettings: true }, () => {
+			this.props.onClickLoadSettings().then(() => {
+				this.setState({
+					isLoadingSettings: false,
+					isSettingsLoaded: true,
+				});
+			});
+		});
+	}
+
 	simulateClickLoadDimensions(loadDimensionsButtonRef) {
 		if (loadDimensionsButtonRef === null) return;
 		loadDimensionsButtonRef.click();
@@ -71,6 +85,11 @@ export default class DataLoader extends React.PureComponent {
 	simulateClickLoadMicroscopes(loadMicroscopesButtonRef) {
 		if (loadMicroscopesButtonRef === null) return;
 		loadMicroscopesButtonRef.click();
+	}
+
+	simulateClickLoadSettings(loadSettingsButtonRef) {
+		if (loadSettingsButtonRef === null) return;
+		loadSettingsButtonRef.click();
 	}
 
 	render() {
@@ -107,8 +126,10 @@ export default class DataLoader extends React.PureComponent {
 		};
 		let isLoadingSchema = this.state.isLoadingSchema;
 		let isLoadingMicroscopes = this.state.isLoadingMicroscopes;
+		let isLoadingSettings = this.state.isLoadingSettings;
 		let isSchemaLoaded = this.state.isSchemaLoaded;
 		let isMicroscopesLoaded = this.state.isMicroscopesLoaded;
+		let isSettingsLoaded = this.state.isSettingsLoaded;
 		let isLoadingDimensions = this.state.isLoadingDimensions;
 		let isDimensionsLoaded = this.state.isDimensionsLoaded;
 		return (
@@ -172,6 +193,23 @@ export default class DataLoader extends React.PureComponent {
 							: isMicroscopesLoaded
 							? "Microscopes loaded"
 							: "Load microscopes"}
+					</Button>
+					<Button
+						ref={this.simulateClickLoadSettings}
+						disabled={isLoadingSettings || isSettingsLoaded}
+						onClick={
+							!isLoadingSettings && !isSettingsLoaded
+								? this.onClickLoadSettings
+								: null
+						}
+						style={buttonStyle}
+						size="lg"
+					>
+						{isLoadingSettings
+							? "Loading settings"
+							: isSettingsLoaded
+							? "Settings loaded"
+							: "Load settings"}
 					</Button>
 				</div>
 			</div>
