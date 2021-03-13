@@ -1639,7 +1639,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           loadingOption: this.state.loadingOption,
           loadingMode: this.state.loadingMode,
           onClickLoadingOptionSelection: this.handleLoadingOptionSelection,
-          onClickMicroscopeSelection: this.selectSettingFromRepository,
+          onClickSettingsSelection: this.selectSettingFromRepository,
           onClickConfirm: this.createOrUseSetting,
           onClickBack: this.onClickBack
         }));

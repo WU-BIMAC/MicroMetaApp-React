@@ -1729,7 +1729,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						loadingOption={this.state.loadingOption}
 						loadingMode={this.state.loadingMode}
 						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
-						onClickMicroscopeSelection={this.selectSettingFromRepository}
+						onClickSettingsSelection={this.selectSettingFromRepository}
 						onClickConfirm={this.createOrUseSetting}
 						onClickBack={this.onClickBack}
 					/>
