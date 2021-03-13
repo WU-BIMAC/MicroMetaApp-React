@@ -102,7 +102,7 @@ export default class MicroscopePreLoader extends React.PureComponent {
 									size="lg"
 									disabled={!bool_isSettings}
 								>
-									Edit Settings
+									Manage Settings
 								</Button>
 							}
 						/>
