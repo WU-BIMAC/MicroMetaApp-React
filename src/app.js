@@ -11,6 +11,7 @@ import SettingsMainView from "./components/settingsMainView";
 import DataLoader from "./components/dataLoader";
 import MicroscopePreLoader from "./components/microscopePreLoader";
 import MicroscopeLoader from "./components/microscopeLoader";
+import SettingLoader from "./components/settingLoader";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -54,8 +55,10 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			activeTier: 1,
 			validationTier: 1,
 			isCreatingNewMicroscope: null,
+			isLoadingMicroscope: null,
 			loadingOption: null,
 			micName: null,
+			settingName: null,
 			elementData: null,
 			settingData: null,
 			linkedFields: null,
@@ -124,16 +127,22 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.uploadMicroscopeFromDropzone = this.uploadMicroscopeFromDropzone.bind(
 			this
 		);
+		this.uploadSettingFromDropzone = this.uploadSettingFromDropzone.bind(this);
+
 		this.handleLoadingOptionSelection = this.handleLoadingOptionSelection.bind(
 			this
 		);
 		this.selectMicroscopeFromRepository = this.selectMicroscopeFromRepository.bind(
 			this
 		);
+		this.selectSettingFromRepository = this.selectSettingFromRepository.bind(
+			this
+		);
 
 		this.applyPreviousVersionModification = this.applyPreviousVersionModification.bind(
 			this
 		);
+
 		this.createOrUseMicroscope = this.createOrUseMicroscope.bind(this);
 		this.createNewMicroscopeFromScratch = this.createNewMicroscopeFromScratch.bind(
 			this
@@ -145,6 +154,17 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			this
 		);
 		//this.setMicroscopeScale = this.setMicroscopeScale.bind(this);
+
+		this.createOrUseSetting = this.createOrUseSetting.bind(this);
+		this.createNewSettingFromScratch = this.createNewSettingFromScratch.bind(
+			this
+		);
+		this.createOrUseSettingFromDroppedFile = this.createOrUseSettingFromDroppedFile.bind(
+			this
+		);
+		this.createOrUseSettingFromSelectedFile = this.createOrUseSettingFromSelectedFile.bind(
+			this
+		);
 
 		this.onClickBack = this.onClickBack.bind(this);
 
@@ -250,6 +270,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		}
 	}
 
+	//HAVE TO DO THE SAME FOR SETTINGS?
 	handleMicroscopePreset() {
 		let microscope = this.state.microscope;
 		let tier = microscope.Tier;
@@ -286,6 +307,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	setLoadMicroscope() {
 		this.setState({
 			isCreatingNewMicroscope: false,
+			isLoadingMicroscope: true,
 			loadingOption: string_createFromFile,
 			loadingMode: 1,
 		});
@@ -304,8 +326,16 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.setState({ micName: item });
 	}
 
+	selectSettingFromRepository(item) {
+		this.setState({ settingName: item });
+	}
+
 	uploadMicroscopeFromDropzone(microscope) {
 		this.setState({ microscope: microscope });
+	}
+
+	uploadSettingFromDropzone(setting) {
+		this.setState({ setting: setting });
 	}
 
 	// setMicroscopeScale(scale) {
@@ -750,7 +780,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		);
 		let validatedStand = validationStand.valid;
 		let validated = validatedMicroscope && validatedStand;
-		if (this.state.isCreatingNewMicroscope) {
+		if (this.state.isCreatingNewMicroscope || this.state.isLoadingMicroscope) {
 			MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(
 				modifiedMic,
 				newElementData,
@@ -767,37 +797,38 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				typeDimensions: typeDimensions,
 				standType: standType,
 			});
-		} else {
-			let setting = {
-				Name: `New ${imageSchema.title}`,
-				Schema_ID: imageSchema.ID,
-				ID: uuid,
-				Tier: activeTier,
-				ValidationTier: activeTier,
-				Version: imageSchema.version,
-				InstrumentName: modifiedMic.Name,
-				InstrumentID: modifiedMic.ID,
-			};
-			let pixels = {
-				Name: `New ${pixelsSchema.title}`,
-				Schema_ID: pixelsSchema.ID,
-				ID: uuid2,
-				Tier: activeTier,
-				ValidationTier: activeTier,
-				Version: pixelsSchema.version,
-			};
-			setting.Pixels = pixels;
-			this.setState({
-				microscope: modifiedMic,
-				setting: setting,
-				elementData: newElementData,
-				settingData: {},
-				validationTier: modifiedMic.ValidationTier,
-				isMicroscopeValidated: validated,
-				typeDimensions: typeDimensions,
-				standType: standType,
-			});
 		}
+		// else {
+		// 	let setting = {
+		// 		Name: `New ${imageSchema.title}`,
+		// 		Schema_ID: imageSchema.ID,
+		// 		ID: uuid,
+		// 		Tier: activeTier,
+		// 		ValidationTier: activeTier,
+		// 		Version: imageSchema.version,
+		// 		InstrumentName: modifiedMic.Name,
+		// 		InstrumentID: modifiedMic.ID,
+		// 	};
+		// 	let pixels = {
+		// 		Name: `New ${pixelsSchema.title}`,
+		// 		Schema_ID: pixelsSchema.ID,
+		// 		ID: uuid2,
+		// 		Tier: activeTier,
+		// 		ValidationTier: activeTier,
+		// 		Version: pixelsSchema.version,
+		// 	};
+		// 	setting.Pixels = pixels;
+		// 	this.setState({
+		// 		microscope: modifiedMic,
+		// 		setting: setting,
+		// 		elementData: newElementData,
+		// 		settingData: {},
+		// 		validationTier: modifiedMic.ValidationTier,
+		// 		isMicroscopeValidated: validated,
+		// 		typeDimensions: typeDimensions,
+		// 		standType: standType,
+		// 	});
+		// }
 	}
 
 	createOrUseMicroscopeFromSelectedFile() {
@@ -859,7 +890,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		);
 		let validatedStand = validationStand.valid;
 		let validated = validatedMicroscope && validatedStand;
-		if (this.state.isCreatingNewMicroscope) {
+		if (this.state.isCreatingNewMicroscope || this.state.isLoadingMicroscope) {
 			MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(
 				modifiedMic,
 				newElementData,
@@ -876,39 +907,40 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				typeDimensions: typeDimensions,
 				standType: standType,
 			});
-		} else {
-			let setting = {
-				//todo this means the microscope schema needs to be at 0 all the time
-				//need to find better solution
-				Name: `New ${imageSchema.title}`,
-				Schema_ID: imageSchema.ID,
-				ID: uuid,
-				Tier: activeTier,
-				ValidationTier: activeTier,
-				Version: imageSchema.version,
-				InstrumentName: modifiedMic.Name,
-				InstrumentID: modifiedMic.ID,
-			};
-			let pixels = {
-				Name: `New ${pixelsSchema.title}`,
-				Schema_ID: pixelsSchema.ID,
-				ID: uuid2,
-				Tier: activeTier,
-				ValidationTier: activeTier,
-				Version: pixelsSchema.version,
-			};
-			setting.Pixels = pixels;
-			this.setState({
-				microscope: modifiedMic,
-				setting: setting,
-				elementData: newElementData,
-				settingData: {},
-				validationTier: modifiedMic.ValidationTier,
-				isMicroscopeValidated: validated,
-				typeDimensions: typeDimensions,
-				standType: standType,
-			});
 		}
+		// else {
+		// 	let setting = {
+		// 		//todo this means the microscope schema needs to be at 0 all the time
+		// 		//need to find better solution
+		// 		Name: `New ${imageSchema.title}`,
+		// 		Schema_ID: imageSchema.ID,
+		// 		ID: uuid,
+		// 		Tier: activeTier,
+		// 		ValidationTier: activeTier,
+		// 		Version: imageSchema.version,
+		// 		InstrumentName: modifiedMic.Name,
+		// 		InstrumentID: modifiedMic.ID,
+		// 	};
+		// 	let pixels = {
+		// 		Name: `New ${pixelsSchema.title}`,
+		// 		Schema_ID: pixelsSchema.ID,
+		// 		ID: uuid2,
+		// 		Tier: activeTier,
+		// 		ValidationTier: activeTier,
+		// 		Version: pixelsSchema.version,
+		// 	};
+		// 	setting.Pixels = pixels;
+		// 	this.setState({
+		// 		microscope: modifiedMic,
+		// 		setting: setting,
+		// 		elementData: newElementData,
+		// 		settingData: {},
+		// 		validationTier: modifiedMic.ValidationTier,
+		// 		isMicroscopeValidated: validated,
+		// 		typeDimensions: typeDimensions,
+		// 		standType: standType,
+		// 	});
+		// }
 	}
 
 	createOrUseMicroscope() {
@@ -937,6 +969,254 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		}
 	}
 
+	createNewSettingFromScratch() {
+		let microscope = this.state.microscope;
+		let standType = microscope.MicroscopeStand.Schema_ID.replace(".json", "");
+		let typeDimensions = this.state.dimensions[standType];
+		let uuid = uuidv4();
+		let uuid2 = uuidv4();
+		let activeTier = this.state.activeTier;
+		let adaptedSchemas = this.createAdaptedSchemas(activeTier, standType);
+		let imageSchema = adaptedSchemas[3];
+		let settingsSchema = adaptedSchemas[4];
+
+		console.log(settingsSchema);
+		let pixelsSchema = null;
+		for (let i in settingsSchema) {
+			let localSchema = settingsSchema[i];
+			if (localSchema.ID === "Pixels.json") {
+				pixelsSchema = localSchema;
+			}
+		}
+
+		let setting = {
+			//todo this means the microscope schema needs to be at 0 all the time
+			//need to find better solution
+			Name: `New ${imageSchema.title}`,
+			Schema_ID: imageSchema.ID,
+			ID: uuid,
+			Tier: activeTier,
+			ValidationTier: activeTier,
+			Version: imageSchema.version,
+			InstrumentName: microscope.Name,
+			InstrumentID: microscope.ID,
+		};
+		let pixels = {
+			Name: `New ${pixelsSchema.title}`,
+			Schema_ID: pixelsSchema.ID,
+			ID: uuid2,
+			Tier: activeTier,
+			ValidationTier: activeTier,
+			Version: pixelsSchema.version,
+		};
+		setting.Pixels = pixels;
+		this.setState({
+			setting: setting,
+			settingData: {},
+			typeDimensions: typeDimensions,
+			standType: standType,
+		});
+	}
+
+	createOrUseSettingFromDroppedFile() {
+		let uuid = uuidv4();
+		let uuid2 = uuidv4();
+		let microscope = this.state.microscope;
+		let modifiedSetting = this.state.setting;
+		let activeTier = this.state.activeTier;
+		if (activeTier !== this.state.microscope.Tier) {
+			//TODO warning tier is different ask if continue?
+			modifiedSetting.Tier = activeTier;
+		}
+		if (modifiedSetting.ValidationTier > activeTier) {
+			modifiedSetting.ValidationTier = activeTier;
+		}
+		//modifiedSetting = this.applyPreviousVersionModification(modifiedSetting);
+		let adaptedSchemas = this.createAdaptedSchemas(
+			modifiedSetting.ValidationTier,
+			this.state.standType
+		);
+		let imageSchema = adaptedSchemas[3];
+		let settingsSchema = adaptedSchemas[4];
+
+		let pixelsSchema = null;
+		for (let i in settingsSchema) {
+			let localSchema = settingsSchema[i];
+			if (localSchema.ID === "Pixels.json") {
+				pixelsSchema = localSchema;
+			}
+		}
+
+		let newSettingData = {};
+		let imgEnv = modifiedSetting.ImagingEnvironment;
+		if (imgEnv !== null && imgEnv !== undefined)
+			newSettingData.ImagingEnvironment = imgEnv;
+		let micStandSet = modifiedSetting.MicroscopeStandSettings;
+		if (micStandSet !== null && micStandSet !== undefined)
+			newSettingData.MicroscopeStandSettings = micStandSet;
+		let micTableSet = modifiedSetting.MicroscopeTableSettings;
+		if (micTableSet !== null && micTableSet !== undefined)
+			newSettingData.MicroscopeTableSettings = micTableSet;
+		let objSet = modifiedSetting.ObjectiveSettings;
+		if (objSet !== null && objSet !== undefined)
+			newSettingData.ObjectiveSettings = objSet;
+		let samPosSet = modifiedSetting.SamplePositioningSettings;
+		if (samPosSet !== null && samPosSet !== undefined)
+			newSettingData.SamplePositioningSettings = samPosSet;
+		let channels = modifiedSetting.Channels;
+		if (channels !== null && channels !== undefined)
+			newSettingData.Channels = channels;
+		let planes = modifiedSetting.Planes;
+		if (planes !== null && planes !== undefined) newSettingData.Planes = planes;
+		let exp = modifiedSetting.Experiment;
+		if (exp !== null && exp !== undefined) newSettingData.Experiment = exp;
+		let tirf = modifiedSetting.TIRFSettings;
+		if (tirf !== null && tirf !== undefined) newSettingData.TIRFSettings = tirf;
+
+		// console.log("settingData");
+		// console.log(newSettingData);
+
+		//let linkedFields = Object.assign({}, modifiedSetting.linkedFields);
+		let validationSetting = validate(modifiedSetting, imageSchema);
+		let validatedSetting = validationSetting.valid;
+		let validationPixels = validate(modifiedSetting.Pixels, pixelsSchema);
+		let validatedPixels = validationPixels.valid;
+		let validated = validatedSetting && validatedPixels;
+		if (!this.state.isCreatingNewMicroscope) {
+			let setting = {
+				Name: `New ${imageSchema.title}`,
+				Schema_ID: imageSchema.ID,
+				ID: uuid,
+				Tier: activeTier,
+				ValidationTier: activeTier,
+				Version: imageSchema.version,
+				InstrumentName: microscope.Name,
+				InstrumentID: microscope.ID,
+			};
+			let pixels = {
+				Name: `New ${pixelsSchema.title}`,
+				Schema_ID: pixelsSchema.ID,
+				ID: uuid2,
+				Tier: activeTier,
+				ValidationTier: activeTier,
+				Version: pixelsSchema.version,
+			};
+			setting.Pixels = pixels;
+			this.setState({
+				setting: setting,
+				settingData: newSettingData,
+				validationTier: modifiedSetting.ValidationTier,
+				isSettingValidated: validated,
+			});
+		}
+	}
+
+	createOrUseSettingFromSelectedFile() {
+		let uuid = uuidv4();
+		let uuid2 = uuidv4();
+		let microscope = this.state.microscope;
+		let setting = this.state.settings[this.state.settingName];
+		let modifiedSetting = setting;
+		let activeTier = this.state.activeTier;
+		if (activeTier !== microscope.Tier) {
+			//TODO warning tier is different ask if continue?
+			modifiedSetting.Tier = activeTier;
+		}
+
+		if (modifiedSetting.ValidationTier > activeTier) {
+			modifiedSetting.ValidationTier = activeTier;
+		}
+		//modifiedSetting = this.applyPreviousVersionModification(modifiedSetting);
+		let adaptedSchemas = this.createAdaptedSchemas(
+			modifiedSetting.ValidationTier,
+			this.state.standType
+		);
+		let imageSchema = adaptedSchemas[3];
+		let settingsSchema = adaptedSchemas[4];
+
+		console.log(settingsSchema);
+		let pixelsSchema = null;
+		for (let i in settingsSchema) {
+			let localSchema = settingsSchema[i];
+			if (localSchema.ID === "Pixels.json") {
+				pixelsSchema = localSchema;
+			}
+		}
+
+		let newSettingData = {};
+		let imgEnv = modifiedSetting.ImagingEnvironment;
+		if (imgEnv !== null && imgEnv !== undefined)
+			newSettingData.ImagingEnvironment = imgEnv;
+		let micStandSet = modifiedSetting.MicroscopeStandSettings;
+		if (micStandSet !== null && micStandSet !== undefined)
+			newSettingData.MicroscopeStandSettings = micStandSet;
+		let micTableSet = modifiedSetting.MicroscopeTableSettings;
+		if (micTableSet !== null && micTableSet !== undefined)
+			newSettingData.MicroscopeTableSettings = micTableSet;
+		let objSet = modifiedSetting.ObjectiveSettings;
+		if (objSet !== null && objSet !== undefined)
+			newSettingData.ObjectiveSettings = objSet;
+		let samPosSet = modifiedSetting.SamplePositioningSettings;
+		if (samPosSet !== null && samPosSet !== undefined)
+			newSettingData.SamplePositioningSettings = samPosSet;
+		let channels = modifiedSetting.Channels;
+		if (channels !== null && channels !== undefined)
+			newSettingData.Channels = channels;
+		let planes = modifiedSetting.Planes;
+		if (planes !== null && planes !== undefined) newSettingData.Planes = planes;
+		let exp = modifiedSetting.Experiment;
+		if (exp !== null && exp !== undefined) newSettingData.Experiment = exp;
+		let tirf = modifiedSetting.TIRFSettings;
+		if (tirf !== null && tirf !== undefined) newSettingData.TIRFSettings = tirf;
+
+		//let linkedFields = Object.assign({}, modifiedMic.linkedFields);
+		let validationSetting = validate(modifiedSetting, imageSchema);
+		let validatedSetting = validationSetting.valid;
+		let validationPixels = validate(modifiedSetting.Pixels, pixelsSchema);
+		let validatedPixels = validationPixels.valid;
+		let validated = validatedSetting && validatedPixels;
+		if (!this.state.isCreatingNewMicroscope) {
+			let setting = {
+				//todo this means the microscope schema needs to be at 0 all the time
+				//need to find better solution
+				Name: `New ${imageSchema.title}`,
+				Schema_ID: imageSchema.ID,
+				ID: uuid,
+				Tier: activeTier,
+				ValidationTier: activeTier,
+				Version: imageSchema.version,
+				InstrumentName: microscope.Name,
+				InstrumentID: microscope.ID,
+			};
+			let pixels = {
+				Name: `New ${pixelsSchema.title}`,
+				Schema_ID: pixelsSchema.ID,
+				ID: uuid2,
+				Tier: activeTier,
+				ValidationTier: activeTier,
+				Version: pixelsSchema.version,
+			};
+			setting.Pixels = pixels;
+			this.setState({
+				setting: modifiedSetting,
+				settingData: newSettingData,
+				validationTier: modifiedSetting.ValidationTier,
+				isSettingValidated: validated,
+			});
+		}
+	}
+
+	createOrUseSetting() {
+		let modifiedCreateString = string_createFromScratch.replace("# ", "");
+		if (this.state.loadingOption === modifiedCreateString) {
+			this.createNewSettingFromScratch();
+		} else if (this.state.loadingOption === string_createFromFile) {
+			this.createOrUseSettingFromDroppedFile();
+		} else {
+			this.createOrUseSettingFromSelectedFile();
+		}
+	}
+
 	onClickBack() {
 		let presetMicroscope = null;
 		if (this.state.isPreset) {
@@ -949,6 +1229,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			microscopes: null,
 			setting: null,
 			isCreatingNewMicroscope: null,
+			isLoadingMicroscope: null,
 			loadingOption: null,
 			micName: null,
 			schema: null,
@@ -1214,7 +1495,10 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 	onSettingDataSave(id, data) {
 		let oldSetting = this.state.setting;
+		let oldPixels = oldSetting.Pixels;
+		let newPixels = Object.assign(oldPixels, data.Pixels);
 		let newSetting = Object.assign(oldSetting, data);
+		newSetting.Pixels = newPixels;
 		this.setState({ setting: newSetting, isSettingsValidated: true });
 		//this.isMicroscopeValidated = true;
 	}
@@ -1266,6 +1550,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						onClickLoadSchema={this.handleLoadSchema}
 						onClickLoadDimensions={this.handleLoadDimensions}
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
+						onClickLoadSettings={this.handleLoadSettings}
 					/>
 				</MicroscopyMetadataToolContainer>
 			);
@@ -1337,16 +1622,21 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		}
 
 		if (
-			this.state.isCreatingNewMicroscope &&
+			(this.state.isCreatingNewMicroscope || this.state.isLoadingMicroscope) &&
 			(microscope === null || elementData === null)
 		) {
 			let loadingOptions = [];
 			//CREATE MULTIPLE ENTRIES FOR DIFFERENT MICROSCOPE
-			for (let i = 0; i < current_stands.length; i++) {
-				let stand = current_stands[i];
-				let name = stand.name;
-				let modifiedCreateString = string_createFromScratch.replace("#", name);
-				loadingOptions.push(modifiedCreateString);
+			if (!this.state.isLoadingMicroscope) {
+				for (let i = 0; i < current_stands.length; i++) {
+					let stand = current_stands[i];
+					let name = stand.name;
+					let modifiedCreateString = string_createFromScratch.replace(
+						"#",
+						name
+					);
+					loadingOptions.push(modifiedCreateString);
+				}
 			}
 			//let loadingOptions = [string_createFromScratch, string_createFromFile];
 			loadingOptions.push(string_createFromFile);
@@ -1406,31 +1696,23 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			(setting === null || settingData === null)
 		) {
 			console.log("SETTINGS LOADER");
-			let loadingOptions = [string_createFromFile];
-			let microscopeNames = {};
-			if (microscopes) {
-				Object.keys(microscopes).forEach((key) => {
-					let mic = microscopes[key];
-					if (
-						mic.Manufacturer !== null &&
-						mic.MicroscopeStand.Manufacturer !== undefined
-					) {
-						let catNames = microscopeNames[mic.MicroscopeStand.Manufacturer];
-						if (catNames !== null && catNames !== undefined) catNames.push(key);
-						else catNames = [key];
-						microscopeNames[mic.MicroscopeStand.Manufacturer] = catNames;
-					} else {
-						let catNames = microscopeNames["Others"];
-						if (catNames !== null && catNames !== undefined) catNames.push(key);
-						else catNames = [key];
-						microscopeNames["Others"] = catNames;
+			let modifiedCreateString = string_createFromScratch.replace("# ", "");
+			let loadingOptions = [modifiedCreateString, string_createFromFile];
+			let settingsNames = [];
+			if (settings) {
+				let mic_ID = microscope.ID;
+				Object.keys(settings).forEach((key) => {
+					let sett = settings[key];
+					let sett_ID = sett.InstrumentID;
+					if (sett_ID === mic_ID) {
+						settingsNames.put(sett.Name);
 					}
 				});
 			}
 			if (
-				microscopeNames !== null &&
-				microscopeNames !== undefined &&
-				Object.keys(microscopeNames).length > 0
+				settingsNames !== null &&
+				settingsNames !== undefined &&
+				Object.keys(settingsNames).length > 0
 			)
 				loadingOptions.push(string_loadFromRepository);
 			return (
@@ -1439,16 +1721,16 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
-					<MicroscopeLoader
+					<SettingLoader
 						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
 						loadingOptions={loadingOptions}
-						microscopes={microscopeNames}
-						onFileDrop={this.uploadMicroscopeFromDropzone}
+						settings={settingsNames}
+						onFileDrop={this.uploadSettingFromDropzone}
 						loadingOption={this.state.loadingOption}
 						loadingMode={this.state.loadingMode}
 						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
-						onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
-						onClickConfirm={this.createOrUseMicroscope}
+						onClickMicroscopeSelection={this.selectSettingFromRepository}
+						onClickConfirm={this.createOrUseSetting}
 						onClickBack={this.onClickBack}
 					/>
 				</MicroscopyMetadataToolContainer>
@@ -1771,6 +2053,12 @@ MicroscopyMetadataTool.defaultProps = {
 		});
 	},
 	onLoadMicroscopes: function (complete) {
+		// Do some stuff... show pane for people to browse/select schema.. etc.
+		setTimeout(function () {
+			complete(null);
+		});
+	},
+	onLoadSettings: function (complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
 			complete(null);
