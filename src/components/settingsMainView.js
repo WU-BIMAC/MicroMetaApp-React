@@ -97,37 +97,34 @@ export default class SettingMainView extends React.PureComponent {
 			experimentalSchemas: {},
 			componentSchemas: {},
 
-			//objective: null,
+			objective: null,
 		};
 
 		let settingData = {};
 		if (props.settingData !== undefined && props.settingData !== null) {
 			Object.keys(props.settingData).forEach((settIndex) => {
 				let sett = props.settingData[settIndex];
-				//console.log(sett);
 				let schema_id = sett.Schema_ID;
 				if (schema_id === "TIRFSettings.json" && bool_hasAdvanced) {
 					this.state.TIRFSettings = sett;
-					//settingData.TIRFSettings = sett;
 				} else if (schema_id === "ImagingEnvironment.json") {
 					this.state.imagingEnv = sett;
-					//settingData.imagingEnv = sett;
 				} else if (schema_id === "MicroscopeStandSettings.json") {
 					this.state.micSettings = sett;
-					//settingData.micSettings = sett;
 				} else if (schema_id === "ObjectiveSettings.json") {
 					this.state.objSettings = sett;
-					//settingData.objSettings = sett;
+					let compID = sett.Component_ID;
+					Object.keys(this.props.microscopeComponents).forEach((key) => {
+						let element = this.props.microscopeComponents[key];
+						if (element.ID === compID) this.state.objective = element;
+					});
 				} else if (schema_id === "SamplePositioningSettings.json") {
 					this.state.samplePosSettings = sett;
-					//settingData.samplePosSettings = sett;
 				} else if (schema_id === "MicroscopeTableSettings.json") {
 					this.state.micTableSettings = sett;
-					//settingData.micTableSettings = sett;
 				}
 				if (schema_id === "Experiment.json" && bool_hasExperimental) {
 					this.state.experiment = sett;
-					//settingData.experiment = sett;
 				}
 			});
 		}
@@ -137,37 +134,6 @@ export default class SettingMainView extends React.PureComponent {
 				let schema = props.settingSchemas[schemaIndex];
 				let schema_id = schema.ID;
 				this.state.settingSchemas[schema_id] = schema;
-				// 		if (schema_id === "TIRFSettings.json" && bool_hasAdvanced) {
-				// 			if (
-				// 				this.state.TIRFSettings === null ||
-				// 				this.state.TIRFSettings === undefined
-				// 			) {
-				// 				let newElement = {
-				// 					Name: `${schema.title}`,
-				// 					ID: uuid,
-				// 					Tier: schema.tier,
-				// 					Schema_ID: schema.ID,
-				// 					Version: schema.version,
-				// 				};
-				// 				this.state.TIRFSettings = newElement;
-				// 				settingData.TIRFSettings = newElement;
-				// 			}
-				// 		} else if (schema_id === "ImagingEnvironment.json") {
-				// 			if (
-				// 				this.state.imagingEnv === null ||
-				// 				this.state.imagingEnv === undefined
-				// 			) {
-				// 				let newElement = {
-				// 					Name: `${schema.title}`,
-				// 					ID: uuid,
-				// 					Tier: schema.tier,
-				// 					Schema_ID: schema.ID,
-				// 					Version: schema.version,
-				// 				};
-				// 				this.state.imagingEnv = newElement;
-				// 				settingData.ImagingEnvironment = newElement;
-				// 			}
-				//	} else
 				if (schema_id === "MicroscopeStandSettings.json") {
 					if (
 						this.state.micSettings === null ||
@@ -184,66 +150,19 @@ export default class SettingMainView extends React.PureComponent {
 						settingData.MicroscopeStandSettings = newElement;
 					}
 				}
-				//else if (schema_id === "ObjectiveSettings.json") {
-				// 			if (
-				// 				this.state.objSettings === null ||
-				// 				this.state.objSettings === undefined
-				// 			) {
-				// 				let newElement = {
-				// 					Name: `${schema.title}`,
-				// 					ID: uuid,
-				// 					Tier: schema.tier,
-				// 					Schema_ID: schema.ID,
-				// 					Version: schema.version,
-				// 				};
-				// 				this.state.objSettings = newElement;
-				// 				settingData.ObjectiveSettings = newElement;
-				// 			}
-				// 		} else if (schema_id === "SamplePositioningSettings.json") {
-				// 			if (
-				// 				this.state.samplePosSettings === null ||
-				// 				this.state.samplePosSettings === undefined
-				// 			) {
-				// 				let newElement = {
-				// 					Name: `${schema.title}`,
-				// 					ID: uuid,
-				// 					Tier: schema.tier,
-				// 					Schema_ID: schema.ID,
-				// 					Version: schema.version,
-				// 				};
-				// 				this.state.samplePosSettings = newElement;
-				// 				settingData.SamplePositioningSettings = newElement;
-				// 			}
-				// 		} else if (schema_id === "MicroscopeTableSettings.json") {
-				// 			if (
-				// 				this.state.micTableSettings === null ||
-				// 				this.state.micTableSettings === undefined
-				// 			) {
-				// 				let newElement = {
-				// 					Name: `${schema.title}`,
-				// 					ID: uuid,
-				// 					Tier: schema.tier,
-				// 					Schema_ID: schema.ID,
-				// 					Version: schema.version,
-				// 				};
-				// 				this.state.micTableSettings = newElement;
-				// 				settingData.MicroscopeTableSettings = newElement;
-				// 			}
-				// 		}
 			});
 		}
 
 		if (
 			props.experimentalSchemas !== undefined &&
-			props.experimentalSchemas !== null &&
-			bool_hasExperimental
+			props.experimentalSchemas !== null
 		) {
 			Object.keys(props.experimentalSchemas).forEach((schemaIndex) => {
 				let uuid = uuidv4();
 				let schema = props.experimentalSchemas[schemaIndex];
 				let schema_id = schema.ID;
 				this.state.experimentalSchemas[schema_id] = schema;
-				if (schema_id === "Experiment.json") {
+				if (schema_id === "Experiment.json" && bool_hasExperimental) {
 					if (
 						this.state.experiment === null ||
 						this.state.experiment === undefined
@@ -273,68 +192,16 @@ export default class SettingMainView extends React.PureComponent {
 			});
 		}
 
-		// console.log("settingSchemas");
-		// console.log(this.state.settingSchemas);
-		// console.log("expSchemas");
-		// console.log(this.state.experimentalSchemas);
-
 		this.onElementDataSave = this.onElementDataSave.bind(this);
 		this.onElementDataCancel = this.onElementDataCancel.bind(this);
-		//this.getElementData = this.getElementData.bind(this);
-
-		//this.areAllElementsValidated = this.areAllElementsValidated.bind(this);
 
 		this.onClickEditSettings = this.onClickEditSettings.bind(this);
 
 		this.props.updateSettingData(settingData, true);
 	}
 
-	// static getDerivedStateFromProps(props, state) {
-	// 	if (props.settingSchemas !== null || props.experimentalSchemas !== null) {
-	// 		let settingsSchema = {};
-	// 		if (props.settingSchemas !== null)
-	// 			Object.keys(props.settingSchemas).forEach((schemaIndex) => {
-	// 				let schema = props.settingSchemas[schemaIndex];
-	// 				let schema_id = schema.ID;
-	// 				settingsSchema[schema_id] = schema;
-	// 			});
-	// 		if (props.experimentalSchemas !== null)
-	// 			Object.keys(props.experimentalSchemas).forEach((schemaIndex) => {
-	// 				let schema = props.experimentalSchemas[schemaIndex];
-	// 				let schema_id = schema.ID;
-	// 				settingsSchema[schema_id] = schema;
-	// 			});
-	// 		let elementList = state.elementList;
-	// 		for (let i = 0; i < elementList.length; i++) {
-	// 			let element = elementList[i];
-	// 			//console.log(element);
-	// 			let schema_id = element.schema_ID;
-	// 			let schema = settingsSchema[schema_id];
-	// 			let object = element.obj;
-	// 			let validation = validate(object, schema);
-	// 			let validated = validation.valid;
-	// 			element.validated = validated;
-	// 		}
-	// 		return {
-	// 			componentsSchema: settingsSchema,
-	// 		};
-	// 	}
-	// }
-
-	// areAllElementsValidated() {
-	// 	let elementList = this.state.elementList;
-	// 	for (let i = 0; i < elementList.length; i++) {
-	// 		if (!elementList[i].validated) {
-	// 			return false;
-	// 		}
-	// 	}
-	// 	return true;
-	// }
-
 	onElementDataSave(id, data) {
 		let settingData = {};
-		console.log("save " + elements[id]);
-		console.log(data);
 		if (id === elements.indexOf("exp")) {
 			let experiment = this.state.experiment;
 			let newExperiment = Object.assign(experiment, data);
@@ -348,71 +215,52 @@ export default class SettingMainView extends React.PureComponent {
 			this.setState({
 				editingElement: -1,
 				channels: data,
-				//objective: objective,
 			});
 		} else if (id === elements.indexOf("tirfSettings")) {
-			// let TIRFSettings = this.state.TIRFSettings;
-			// let newTIRFSettings = Object.assign(TIRFSettings, data);
-			// settingData.TIRFSettings = newTIRFSettings;
 			settingData.TIRFSettings = data;
 			this.setState({
 				editingElement: -1,
-				//TIRFSettings: newTIRFSettings
 				TIRFSettings: data,
 			});
 		} else if (id === elements.indexOf("imgEnv")) {
-			// let imagingEnv = this.state.imagingEnv;
-			// let newImagingEnv = Object.assign(imagingEnv, data);
-			// settingData.ImagingEnvironment = newImagingEnv;
 			settingData.ImagingEnvironment = data;
 			this.setState({
 				editingElement: -1,
-				//imagingEnv: newImagingEnv
 				imagingEnv: data,
 			});
 		} else if (id === elements.indexOf("micSettings")) {
-			// let micSettings = this.state.micSettings;
-			// let newMicSettings = Object.assign(micSettings, data);
-			// settingData.MicroscopeStandSettings = newMicSettings;
 			settingData.MicroscopeStandSettings = data;
 			this.setState({
 				editingElement: -1,
-				//micSettings: newMicSettings
 				micSettings: data,
 			});
 		} else if (id === elements.indexOf("objSettings")) {
-			// let objSettings = this.state.objSettings;
-			// let newObjSettings = Object.assign(objSettings, data);
-			// settingData.ObjectiveSettings = newObjSettings;
 			settingData.ObjectiveSettings = data;
+			let compID = data.Component_ID;
+			let objective = null;
+			Object.keys(this.props.microscopeComponents).forEach((key) => {
+				let element = this.props.microscopeComponents[key];
+				if (element.ID === compID) objective = element;
+			});
 			this.setState({
 				editingElement: -1,
-				//micSettings: newObjSettings
 				objSettings: data,
+				objective: objective,
 			});
 		} else if (id === elements.indexOf("samplePosSettings")) {
-			// let samplePosSettings = this.state.samplePosSettings;
-			// let newSamplePosSettings = Object.assign(samplePosSettings, data);
-			// settingData.SamplePositioningSettings = newSamplePosSettings;
 			settingData.SamplePositioningSettings = data;
 			this.setState({
 				editingElement: -1,
-				//samplePosSettings: newSamplePosSettings,
 				samplePosSettings: data,
 			});
 		} else if (id === elements.indexOf("micTableSettings")) {
-			// let micTableSettings = this.state.micTableSettings;
-			// let newMicTableSettings = Object.assign(micTableSettings, data);
-			//settingData.MicroscopeTableSettings = newMicTableSettings;
 			settingData.MicroscopeTableSettings = data;
 			this.setState({
 				editingElement: -1,
-				//micTableSettings: newMicTableSettings,
 				micTableSettings: data,
 			});
 		}
 
-		//let validated = this.areAllElementsValidated();
 		this.props.updateSettingData(settingData, true);
 	}
 
@@ -420,70 +268,13 @@ export default class SettingMainView extends React.PureComponent {
 		this.setState({ editingElement: -1 });
 	}
 
-	// getElementData() {
-	// 	return Object.assign({}, this.state.elementData);
-	// }
-
 	onClickEditSettings(editingElement) {
 		this.setState({
 			editingElement: editingElement,
 		});
 	}
-	// onClickEditPlanes() {
-	// 	let editingElement = schemasOrder.indexOf("Plane.json");
-	// 	this.setState({
-	// 		editingElement: "Planes",
-	// 	});
-	// }
-	// onClickEditChannels() {
-	// 	let editingElement = schemasOrder.indexOf("Channel.json");
-	// 	this.setState({
-	// 		editingElement: "Channels",
-	// 	});
-	// }
-	// onClickEditTIRFSettings() {
-	// 	let editingElement = schemasOrder.indexOf("TIRFSettings.json");
-	// 	this.setState({
-	// 		editingElement: "TIRFSettings",
-	// 	});
-	// }
-	// onClickEditImagingEnvironment() {
-	// 	let editingElement = schemasOrder.indexOf("ImagingEnvironment.json");
-	// 	this.setState({
-	// 		editingElement: "ImgEnv",
-	// 	});
-	// }
-	// onClickEditMicroscopeStandSettings() {
-	// 	let editingElement = schemasOrder.indexOf("MicroscopeStandSettings.json");
-	// 	this.setState({
-	// 		editingElement: "MicSettings",
-	// 	});
-	// }
-	// onClickEditObjectiveSettings() {
-	// 	let editingElement = schemasOrder.indexOf("ObjectiveSettings.json");
-	// 	//ImmersionLiquid should go here
-	// 	this.setState({
-	// 		editingElement: "ObjSettings",
-	// 	});
-	// }
-
-	// onClickEditSamplePositioningSettings() {
-	// 	let editingElement = schemasOrder.indexOf("SamplePositioningSettings.json");
-	// 	this.setState({
-	// 		editingElement: "SamplePosSettings",
-	// 	});
-	// }
-
-	// onClickEditMicroscopeTableSettings() {
-	// 	let editingElement = schemasOrder.indexOf("MicroscopeTableSettings.json");
-	// 	this.setState({
-	// 		editingElement: "MicTableSettings",
-	// 	});
-	// }
 
 	render() {
-		// console.log("elementData");
-		// console.log(elementData);
 		let elementByType = {};
 		let componentSchemas = this.state.componentSchemas;
 
@@ -536,32 +327,31 @@ export default class SettingMainView extends React.PureComponent {
 				obj = this.state.experiment;
 				schema = this.state.experimentalSchemas[schema_id];
 			} else {
-				if (editingElement === elements.indexOf("planes")) {
-					obj = this.state.planes;
-				} else if (editingElement === elements.indexOf("channels")) {
-					obj = this.state.channels;
-				} else if (editingElement === elements.indexOf("tirfSettings")) {
-					obj = this.state.TIRFSettings;
-				} else if (editingElement === elements.indexOf("imgEnv")) {
-					obj = this.state.imagingEnv;
-				} else if (editingElement === elements.indexOf("micSettings")) {
-					obj = this.state.micSettings;
-				} else if (editingElement === elements.indexOf("objSettings")) {
+				if (editingElement === elements.indexOf("objSettings")) {
 					obj = this.state.objSettings;
-				} else if (editingElement === elements.indexOf("samplePosSettings")) {
-					obj = this.state.samplePosSettings;
-				} else if (editingElement === elements.indexOf("micTableSettings")) {
-					obj = this.state.micTableSettings;
+					schema = [];
+					schema.push(this.state.settingSchemas[schema_id]);
+					schema.push(this.state.experimentalSchemas["ImmersionLiquid.json"]);
+				} else {
+					if (editingElement === elements.indexOf("planes")) {
+						obj = this.state.planes;
+					} else if (editingElement === elements.indexOf("channels")) {
+						obj = this.state.channels;
+					} else if (editingElement === elements.indexOf("tirfSettings")) {
+						obj = this.state.TIRFSettings;
+					} else if (editingElement === elements.indexOf("imgEnv")) {
+						obj = this.state.imagingEnv;
+					} else if (editingElement === elements.indexOf("micSettings")) {
+						obj = this.state.micSettings;
+					} else if (editingElement === elements.indexOf("samplePosSettings")) {
+						obj = this.state.samplePosSettings;
+					} else if (editingElement === elements.indexOf("micTableSettings")) {
+						obj = this.state.micTableSettings;
+					}
+					schema = this.state.settingSchemas[schema_id];
 				}
-				schema = this.state.settingSchemas[schema_id];
 				category = categories[editingElement];
 			}
-			console.log("setting schema");
-			console.log(schema);
-			console.log("setting obj");
-			console.log(obj);
-			console.log("category");
-			console.log(category);
 			if (editingElement == elements.indexOf("planes")) {
 				return (
 					<div style={styleMainContainer}>
@@ -595,6 +385,8 @@ export default class SettingMainView extends React.PureComponent {
 						containerOffsetTop={this.props.containerOffsetTop}
 						containerOffsetLeft={this.props.containerOffsetLeft}
 						headerOffset={this.props.headerOffset}
+						objective={this.state.objective}
+						objectiveSettings={this.state.objSettings}
 					/>
 				);
 			} else if (
@@ -796,10 +588,6 @@ export default class SettingMainView extends React.PureComponent {
 			schema = this.state.settingSchemas[schema_id];
 			validated = false;
 			if (object !== null && object !== undefined) {
-				console.log("object");
-				console.log(object);
-				console.log("schema");
-				console.log(schema);
 				validation = validate(object, schema);
 				validated = validation.valid;
 			}

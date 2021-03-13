@@ -94,6 +94,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 			settingData: null,
 			selectedComp: null,
 			selectedSchema: null,
+			currentComp: null,
 		});
 	}
 
@@ -135,8 +136,20 @@ export default class SettingComponentSelector extends React.PureComponent {
 		// let selectedSlot = this.state.selectedSlot;
 		// let category = this.state.category;
 		//let slots = this.state.slots;
-		let settingData = Object.assign(this.state.settingData, data);
-		this.setState({ editing: false, settingData: settingData });
+		let oldSettingData = Object.assign({}, this.state.settingData);
+		let newSettingData = Object.assign(oldSettingData, this.state.settingData);
+		if (data.ImmersionLiquid !== null && data.ImmersionLiquid !== undefined) {
+			let oldImmersionLiquid = Object.assign(
+				{},
+				this.state.settingData.ImmersionLiquid
+			);
+			let immersionLiquid = Object.assign(
+				oldImmersionLiquid,
+				data.ImmersionLiquid
+			);
+			newSettingData.ImmersionLiquid = immersionLiquid;
+		}
+		this.setState({ editing: false, settingData: newSettingData });
 	}
 
 	onElementDataCancel() {
@@ -154,21 +167,26 @@ export default class SettingComponentSelector extends React.PureComponent {
 		let selectedComp = this.state.selectedComp;
 		let selectedSchema = this.state.selectedSchema;
 		//let selectedSlot = this.props.selectedSlot;
-		let category = this.props.category;
+		//let category = this.props.category;
+		let currentComp = this.state.currentComp;
 
-		let settingsSchema = this.props.settingSchemas;
+		// let settingsSchema = this.props.settingSchemas;
+		// let experimentalsSchema = this.props.experimentalSchemas;
 		let settingData = Object.assign({}, this.state.settingData);
 
-		let settingsSchemas = {};
-		for (let i in settingsSchema) {
-			let schema = settingsSchema[i];
-			settingsSchemas[schema.ID] = schema;
-		}
+		// let settingsSchemas = {};
+		// for (let i in settingsSchema) {
+		// 	let schema = settingsSchema[i];
+		// 	settingsSchemas[schema.ID] = schema;
+		// }
 
-		console.log("category");
-		console.log(category);
+		// let expSchemas = {};
+		// for (let i in experimentalsSchema) {
+		// 	let schema = experimentalsSchema[i];
+		// 	expSchemas[schema.ID] = schema;
+		// }
 
-		if (this.state.currentComp) {
+		if (currentComp !== null && currentComp !== undefined) {
 			return;
 		}
 
@@ -180,8 +198,9 @@ export default class SettingComponentSelector extends React.PureComponent {
 			return;
 		}
 
-		let settingsName = selectedSchema.modelSettings + string_json_ext;
-		let currentSchema = settingsSchemas[settingsName];
+		// let settingsName = selectedSchema.modelSettings + string_json_ext;
+		// let currentSchema = settingsSchemas[settingsName];
+		let currentSchema = this.props.schema;
 		let uuid = uuidv4();
 		let settingCompData = null;
 		if (selectedSchema.modelSettings === "NA") {
@@ -191,14 +210,35 @@ export default class SettingComponentSelector extends React.PureComponent {
 				Component_ID: selectedComp.ID,
 			};
 		} else {
-			settingCompData = {
-				Name: `${currentSchema.title}`,
-				ID: uuid,
-				Component_ID: selectedComp.ID,
-				Tier: currentSchema.tier,
-				Schema_ID: currentSchema.ID,
-				Version: currentSchema.version,
-			};
+			if (selectedSchema.modelSettings === "ObjectiveSettings") {
+				let uuid2 = uuidv4();
+				let objSettingsSchema = currentSchema[0];
+				let immersionLiquidSchema = currentSchema[1];
+				settingCompData = {
+					Name: `${objSettingsSchema.title}`,
+					ID: uuid,
+					Component_ID: selectedComp.ID,
+					Tier: objSettingsSchema.tier,
+					Schema_ID: objSettingsSchema.ID,
+					Version: objSettingsSchema.version,
+				};
+				settingCompData.ImmersionLiquid = {
+					Name: `${immersionLiquidSchema.title}`,
+					ID: uuid2,
+					Tier: immersionLiquidSchema.tier,
+					Schema_ID: immersionLiquidSchema.ID,
+					Version: immersionLiquidSchema.version,
+				};
+			} else {
+				settingCompData = {
+					Name: `${currentSchema.title}`,
+					ID: uuid,
+					Component_ID: selectedComp.ID,
+					Tier: currentSchema.tier,
+					Schema_ID: currentSchema.ID,
+					Version: currentSchema.version,
+				};
+			}
 		}
 
 		settingData = settingCompData;
@@ -206,8 +246,6 @@ export default class SettingComponentSelector extends React.PureComponent {
 			//tmpSlots: tmpSlots,
 			settingData: settingData,
 			currentComp: selectedComp,
-			selectedComp: null,
-			selectedSchema: null,
 		});
 	}
 
@@ -320,10 +358,39 @@ export default class SettingComponentSelector extends React.PureComponent {
 			color: "grey",
 			textAlign: "right",
 			verticalAlign: "middle",
+			//position: "relative",
+			//left: "5px",
+			//top: "5px",
+		};
+		const styleValidation2 = {
+			//position: "relative",
+			verticalAlign: "middle",
+			fontWeight: "bold",
+			textAlign: "center",
+			//left: "15px",
+			//top: "5px",
+		};
+		const styleIcons = {
+			display: "flex",
+			flexDirection: "row",
+			flexWap: "wrap",
+			justifyContent: "left",
+			//padding: "5px",
 			position: "relative",
 			left: "5px",
-			top: "5px",
+			top: "10px",
+			width: "90%",
+			height: "24px",
 		};
+
+		const styleValidated2 = Object.assign({}, styleValidation2, {
+			color: "green",
+		});
+		const styleNotValidated2 = Object.assign({}, styleValidation2, {
+			color: "red",
+		});
+		let isValid2 = <div style={styleValidated2}>&#9679;</div>;
+		let isInvalid2 = <div style={styleNotValidated2}>&#9679;</div>;
 
 		let componentSchema = this.props.componentSchemas;
 		let compSchemas = {};
@@ -358,9 +425,18 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 		if (this.state.editing) {
 			let settingData = this.state.settingData;
-			let settingsName = selectedSchema.modelSettings + string_json_ext;
+			if (
+				settingData.ImmersionLiquid !== null &&
+				settingData.ImmersionLiquid !== undefined
+			) {
+				settingData = [];
+				settingData.push(this.state.settingData);
+				settingData.push(this.state.settingData.ImmersionLiquid);
+			}
 			let id = settingData.ID;
-			let settings = settingsSchemas[settingsName];
+			//let settingsName = selectedSchema.modelSettings + string_json_ext;
+			//let settings = settingsSchemas[settingsName];
+			let settings = this.props.schema;
 			return (
 				<MultiTabFormWithHeaderV3
 					schema={settings}
@@ -378,6 +454,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 			);
 		} else {
 			let itemList = [];
+			let settingData = this.state.settingData;
 			Object.keys(this.props.componentData).forEach((compIndex) => {
 				let comp = this.props.componentData[compIndex];
 
@@ -416,7 +493,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 					let buttonStyleModified = null;
 					if (comp === selectedComp) {
 						buttonStyleModified = Object.assign({}, buttonStyle, {
-							border: "5px solid cyan",
+							border: "2px solid cyan",
 						});
 					} else {
 						buttonStyleModified = buttonStyle;
@@ -436,7 +513,6 @@ export default class SettingComponentSelector extends React.PureComponent {
 				}
 			});
 			let topItems = null;
-			let confirmCallback = null;
 			//let item = this.state.currentComp;
 
 			// if (item !== null && item !== undefined) {
@@ -447,7 +523,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 			// 	items = slots[selectedSlot];
 
 			let comp = this.state.currentComp;
-			let butt = null;
+			let fullButt = null;
 			if (comp !== null && comp !== undefined) {
 				let schema_id = comp.Schema_ID;
 				let compSchema = compSchemas[schema_id];
@@ -470,23 +546,47 @@ export default class SettingComponentSelector extends React.PureComponent {
 				let buttonStyleModified = null;
 				if (comp === selectedComp) {
 					buttonStyleModified = Object.assign({}, buttonStyle, {
-						border: "5px solid cyan",
-						margin: "5px",
+						border: "2px solid cyan",
+					});
+				} else if (compSchema.modelSettings === "NA") {
+					buttonStyleModified = Object.assign({}, buttonStyle, {
+						opacity: "0.4",
+						border: "none",
 					});
 				} else {
-					buttonStyleModified = Object.assign({}, buttonStyle, {
-						margin: "5px",
-					});
+					buttonStyleModified = buttonStyle;
 				}
-				butt = (
-					<div>
-						<button
-							type="button"
-							onClick={this.handleDeleteComp}
-							style={styleCloser}
-						>
-							x
-						</button>
+				let valid = null;
+				if (settingData !== null && settingData !== undefined) {
+					let schema = this.props.schema;
+					if (schema !== null && schema !== undefined) {
+						let validated = false;
+						if (
+							settingData.ImmersionLiquid !== null &&
+							settingData.ImmersionLiquid !== undefined
+						) {
+							let validation1 = validate(settingData, schema[0]);
+							let validated1 = validation1.valid;
+							let validation2 = validate(
+								settingData.ImmersionLiquid,
+								schema[1]
+							);
+							let validated2 = validation2.valid;
+							validated = validated1 && validated2;
+						} else {
+							let validation = validate(settingData, schema);
+							validated = validation.valid;
+						}
+						if (validated) {
+							valid = isValid2;
+						} else {
+							valid = isInvalid2;
+						}
+					}
+				}
+				let butt = null;
+				if (compSchema.modelSettings !== "NA") {
+					butt = (
 						<button
 							key={"button-" + comp.Name}
 							style={buttonStyleModified}
@@ -495,6 +595,28 @@ export default class SettingComponentSelector extends React.PureComponent {
 							{compItemImage}
 							{comp.Name}
 						</button>
+					);
+				} else {
+					butt = (
+						<button key={"button-" + comp.Name} style={buttonStyleModified}>
+							{compItemImage}
+							{comp.Name}
+						</button>
+					);
+				}
+				fullButt = (
+					<div>
+						<div style={styleIcons}>
+							<button
+								type="button"
+								onClick={() => this.handleDeleteComp()}
+								style={styleCloser}
+							>
+								x
+							</button>
+							{valid}
+						</div>
+						{butt}
 					</div>
 				);
 			}
@@ -502,12 +624,11 @@ export default class SettingComponentSelector extends React.PureComponent {
 			topItems = (
 				<div style={modalTopListContainer}>
 					<h5>Current component in this slot</h5>
-					<div style={modalTopList}>{butt}</div>
+					<div style={modalTopList}>{fullButt}</div>
 				</div>
 			);
 
 			Object.assign(modalGridPanel, { height: "60%" });
-			confirmCallback = this.onAddConfirm;
 			//}
 
 			let multiTabPanel = null;
@@ -517,7 +638,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 						schema={selectedSchema}
 						inputData={selectedComp}
 						id={selectedComp.ID}
-						onConfirm={confirmCallback}
+						onConfirm={this.onAddConfirm}
 						onCancel={null}
 						overlaysContainer={this.props.overlaysContainer}
 						currentChildrenComponentIdentifier={
@@ -531,10 +652,6 @@ export default class SettingComponentSelector extends React.PureComponent {
 					/>
 				);
 
-			// console.log("itemList");
-			// console.log(itemList);
-			// console.log("multiTabPanel");
-			// console.log(multiTabPanel);
 			return (
 				<ModalWindow overlaysContainer={this.props.overlaysContainer}>
 					<div style={modalGridContainer}>

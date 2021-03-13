@@ -42,7 +42,6 @@ export default class ChannelView extends React.PureComponent {
 			let schema = props.settingSchemas[index];
 			if (schema.ID === "LightPath.json") {
 				this.state.lightPathSchema = schema;
-				//console.log("schema found");
 			}
 		}
 
@@ -50,7 +49,6 @@ export default class ChannelView extends React.PureComponent {
 			let schema = props.experimentalSchemas[index];
 			if (schema.ID === "Fluorophore.json") {
 				this.state.fluorophoreSchema = schema;
-				//console.log("schema found");
 			}
 		}
 
@@ -58,8 +56,6 @@ export default class ChannelView extends React.PureComponent {
 		this.onEditElement = this.onEditElement.bind(this);
 		this.onRemoveElement = this.onRemoveElement.bind(this);
 		this.onSelectElement = this.onSelectElement.bind(this);
-
-		//this.onMoveElement = this.onMoveElement.bind(this);
 
 		this.onElementDataCancel = this.onElementDataCancel.bind(this);
 		this.onElementDataSave = this.onElementDataSave.bind(this);
@@ -185,7 +181,6 @@ export default class ChannelView extends React.PureComponent {
 
 		channels.push(newChannelElementData);
 		this.setState({ channels: channels });
-		if (bool_isDebug) console.log("added channel");
 	}
 
 	onRemoveElement() {
@@ -197,44 +192,19 @@ export default class ChannelView extends React.PureComponent {
 			let removed = channels.pop();
 		}
 		this.setState({ channels: channels });
-		if (bool_isDebug) console.log("removed channel");
 	}
 
 	onEditElement() {
 		this.setState({ editing: true });
-		if (bool_isDebug) console.log("edit channel");
 	}
 
 	onMoveElement() {}
 
 	onElementDataSave(id, data) {
-		// let channels = this.state.channels.slice();
-		// let found = false;
-		// for (let i = 0; i < channels.length; i++) {
-		// 	let name_id = this.props.schema.title + "_" + channels[i].ID;
-		// 	if (id === name_id) {
-		// 		channels[i] = data;
-		// 		found = true;
-		// 		found = true;
-		// 		break;
-		// 	}
-		// }
-		// if (!found) {
-		// 	//todo should never happen
-		// 	console.log("issue with " + id);
-		// }
-		//this.setState({ channels: channels, editing: false });
-
-		//NEED TO VALIDATE EVERYTHING HERE OR HOW TO SOLVE THIS ?
-
 		let index = this.state.selectedIndex;
 		let channels = this.state.channels.slice();
 		channels[index] = data;
 
-		console.log(channels);
-		console.log("saved channel");
-
-		//let objective = data.LightPath.ComponentSettings.Objective;
 		let objective = null;
 
 		this.setState({ editing: false, channels: channels, objective: objective });
@@ -252,8 +222,6 @@ export default class ChannelView extends React.PureComponent {
 	onConfirm() {
 		let channels = this.state.channels;
 		let id = this.props.id;
-		// console.log("channels");
-		// console.log(channels);
 		this.setState({ editing: false });
 		this.props.onConfirm(id, channels);
 	}
@@ -280,10 +248,6 @@ export default class ChannelView extends React.PureComponent {
 
 		let index = this.state.selectedIndex;
 		let channels = this.state.channels;
-		// console.log("planes length " + planes.length);
-		// console.log("planes");
-		// console.log(planes);
-		// console.log("index " + index);
 		if (this.state.editing) {
 			let schemas = [];
 			schemas[0] = this.props.schema;
@@ -319,6 +283,8 @@ export default class ChannelView extends React.PureComponent {
 					onConfirm={this.onElementDataSave}
 					onCancel={this.onElementDataCancel}
 					elementByType={this.props.elementByType}
+					objective={this.props.objective}
+					objectiveSettings={this.props.objectiveSettings}
 				/>
 			);
 		} else {

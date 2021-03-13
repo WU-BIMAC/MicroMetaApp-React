@@ -71,6 +71,15 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			components[comp.ID] = comp;
 		});
 
+		if (
+			props.objective !== null &&
+			props.objective !== undefined &&
+			props.objectiveSettings !== null &&
+			props.objectiveSettings !== undefined
+		) {
+			this.state.slots["Objective"] = props.objective;
+		}
+
 		if (props.channelData !== null && props.channelData !== undefined) {
 			let lightPath = props.channelData[1];
 			if (lightPath !== null && lightPath !== undefined) {
@@ -319,7 +328,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	onInnerElementDataCancel() {
-		//console.log("onInnerElementDataCancel");
 		this.setState({
 			editing: false,
 			editingSettings: false,
@@ -331,7 +339,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	onInnerElementDataSave(id, data) {
-		//console.log("onInnerElementDataSave");
 		let selectedComp = this.state.selectedComp;
 		let selectedSchema = this.state.selectedSchema;
 		let selectedSlot = this.state.selectedSlot;
@@ -354,7 +361,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		}
 
 		if (category !== null) {
-			//console.log("onAddAdditionalConfirm data category " + category);
 			slots = Object.assign({}, slots);
 			if (selectedSlot.includes("AdditionalSlot_")) {
 				let tmpSlots = this.state.tmpSlots;
@@ -428,13 +434,9 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	onElementDataSave(id, data) {
 		let selectedComp = this.state.selectedComp;
 		let selectedSlot = this.state.selectedSlot;
-		let category = this.state.category;
-		//let slots = this.state.slots;
+		//let category = this.state.category;
 		let settingData = Object.assign({}, this.state.settingData);
 		if (this.state.editingSettings) {
-			// console.log("saving setting data");
-			// console.log(id);
-			// console.log(data);
 			if (selectedSlot.includes("AdditionalSlot_")) {
 				let currentSlots = this.state.tmpSlots;
 				let index = currentSlots.indexOf(selectedComp);
@@ -445,8 +447,10 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 					settingData: settingData,
 				});
 			} else {
-				let obj = settingData[selectedSlot];
-				settingData[selectedSlot] = Object.assign(obj, data);
+				if (!selectedSlot.includes("Objective")) {
+					let obj = settingData[selectedSlot];
+					settingData[selectedSlot] = Object.assign(obj, data);
+				}
 				this.setState({
 					editing: false,
 					editingSettings: false,
@@ -457,12 +461,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 					selectedSchema: null,
 				});
 			}
-			// console.log("settingData");
-			// console.log(settingData);
 		} else {
-			// console.log("saving channel data");
-			// console.log(id);
-			// console.log(data);
 			let currentChannelData = data;
 			let currentLightPath = data.LightPath;
 			let currentFluorophore = data.Fluorophore;
@@ -529,21 +528,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	onElementDataCancel() {
 		let selectedSlot = this.state.selectedSlot;
 		if (selectedSlot.includes("AdditionalSlot_")) {
-			//if (this.state.editingSettings) {
 			this.setState({ editingSettings: false });
 		} else {
 			this.setState({ editing: false, editingSettings: false });
 		}
-		//this.setState({ editing: false, editingSettings: false });
 	}
 
 	onEditElement() {
 		this.setState({ editing: true });
-		if (bool_isDebug) console.log("edit channel data");
 	}
 
 	onAddAdditionalConfirm() {
-		//console.log("onAddAdditionalConfirm - click");
 		let selectedComp = this.state.selectedComp;
 		let selectedSchema = this.state.selectedSchema;
 		let selectedSlot = this.state.selectedSlot;
@@ -557,14 +552,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			settingsSchemas[schema.ID] = schema;
 		}
 
-		// console.log("category");
-		// console.log(category);
-		// console.log("selectedSlot");
-		// console.log(selectedSlot);
-		// console.log("selectedComp");
-		// console.log(selectedComp);
 		if (category !== null) {
-			//console.log("onAddAdditionalConfirm category null");
 			if (selectedSlot.includes("AdditionalSlot_")) {
 				if (selectedComp === null || selectedComp === undefined) {
 					this.setState({
@@ -836,6 +824,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		let needDelete = false;
 		let hasSettings = true;
 		let element = null;
+		let isObjective = false;
 		if (slots[imageSlot] !== null && slots[imageSlot] !== undefined) {
 			element = slots[imageSlot];
 			let elementSchema = compSchemas[element.Schema_ID];
@@ -845,8 +834,11 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			if (elementSchema.modelSettings === "NA") {
 				hasSettings = false;
 			}
+			if (elementSchema.modelSettings === "ObjectiveSettings")
+				isObjective = true;
 		} else {
 			image = url.resolve(imagesPath, imageName);
+			if (imageSlot === "Objective") isObjective = true;
 		}
 		let itemImage = (
 			<img
@@ -862,6 +854,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		let button = null;
 		if (needDelete) {
 			let butt = null;
+			let callback = null;
 			if (isEnabled && hasSettings) {
 				butt = (
 					<button
@@ -884,23 +877,30 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 				);
 			}
 
+			let deleteButt = null;
+			if (!isObjective) {
+				deleteButt = (
+					<button
+						type="button"
+						onClick={() => deleteCallback(imageSlot)}
+						style={styleCloser}
+					>
+						x
+					</button>
+				);
+			}
+
 			button = (
 				<div>
 					<div style={styleIcons}>
-						<button
-							type="button"
-							onClick={() => deleteCallback(imageSlot)}
-							style={styleCloser}
-						>
-							x
-						</button>
+						{deleteButt}
 						{valid}
 					</div>
 					{butt}
 				</div>
 			);
 		} else {
-			if (isEnabled) {
+			if (isEnabled && !isObjective) {
 				button = (
 					<button style={buttonStyle} onClick={callback}>
 						{itemImage}
@@ -1117,8 +1117,10 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 				let settings = null;
 				let comp = null;
 				let id = null;
+				let editable = true;
 				if (selectedComp.Schema_ID === "Objective.json") {
-					let settingCompData = settingData[selectedSlot];
+					//let settingCompData = settingData[selectedSlot];
+					let settingCompData = this.props.objectiveSettings;
 					id = settingCompData.ID;
 					let immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
 					let immersionLiquid = settingCompData.ImmersionLiquid;
@@ -1128,16 +1130,11 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 					settings = [];
 					settings[0] = settingsSchemas[settingsName];
 					settings[1] = immersionLiquidSchema;
+					editable = false;
 				} else {
 					let settingCompData = null;
 					if (selectedSlot.includes("AdditionalSlot_")) {
 						let currentSlots = this.state.tmpSlots;
-						// console.log("slots");
-						// console.log(slots);
-						// console.log("selectedSlot");
-						// console.log(selectedSlot);
-						// console.log("currentSlots");
-						// console.log(currentSlots);
 						let index = currentSlots.indexOf(selectedComp);
 						settingCompData = settingData[selectedSlot][index];
 					} else {
@@ -1147,14 +1144,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 					settings = settingsSchemas[settingsName];
 					comp = settingCompData;
 				}
-				// console.log("settingData");
-				// console.log(settingData);
-				// console.log("settingsName");
-				// console.log(settingsName);
-				// console.log("settings");
-				// console.log(settings);
-				// console.log("comp");
-				// console.log(comp);
 				return (
 					<MultiTabFormWithHeaderV3
 						schema={settings}
@@ -1169,7 +1158,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						minChildrenComponentIdentifier={string_minNumberOf_identifier}
 						maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 						elementByType={this.props.elementByType}
-						editable={true}
+						editable={editable}
 					/>
 				);
 			} else if (this.state.category === null) {
@@ -1370,7 +1359,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							slotList[nextIndex] !== undefined
 						) {
 							hasConnection = true;
-							//console.log("Index " + i + " hasConnection");
 						}
 						let id1 = "button" + i;
 						let id2 = "button" + nextIndex;
@@ -1397,7 +1385,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						);
 						arrowedSlotList.push(arrowItem);
 					}
-					//console.log(arrowedSlotList);
 
 					topItems = (
 						<div style={modalTopListContainer}>
@@ -1407,11 +1394,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							</ArcherContainer>
 						</div>
 					);
-					// if (
-					// 	slotList !== null &&
-					// 	slotList !== undefined &&
-					// 	slotList.length > 0
-					// )
 
 					Object.assign(modalGridPanel, { height: "60%" });
 					confirmCallback = this.onAddAdditionalConfirm;
@@ -1571,23 +1553,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			channelPath_Emission,
 			channelPath_Objective,
 		];
-		// let cp18String = JSON.stringify(channelPath_Additional_1_8);
-		// let cp2String = JSON.stringify(channelPath_Additional_2);
-		// let cp3456String = JSON.stringify(channelPath_Additional_3_4_5_6);
-		// let cp7String = JSON.stringify(channelPath_Additional_7);
-		// let lightSourceString = JSON.stringify(channelPath_LightSource);
-		// let detectorString = JSON.stringify(channelPath_Detector);
-		// let relayLensString = JSON.stringify(channelPath_RelayLens);
-		// let couplingLensString = JSON.stringify(channelPath_CouplingLens);
-		// let lightSourceCouplingString = JSON.stringify(
-		// 	channelPath_LightSourceCoupling
-		// );
-		// let excitationString = JSON.stringify(channelPath_Excitation);
-		// let dichroicString = JSON.stringify(channelPath_Dichroic);
-		// let emissionString = JSON.stringify(channelPath_Emission);
-		// let objectiveString = JSON.stringify(channelPath_Objective);
-		// console.log("lightSourceString");
-		// console.log(lightSourceString);
 		Object.keys(this.props.componentData).forEach((compIndex) => {
 			let comp = this.props.componentData[compIndex];
 
@@ -1605,7 +1570,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						compSchemaCategory.substring(0, compSchemaCategory.indexOf("."))
 					)
 				) {
-					//let catString = JSON.stringify(category);
 					if (category === channelPath_Additional_1_8)
 						hasChannelPath_Additional_1_8 = true;
 					if (category === channelPath_Additional_2)
@@ -1987,14 +1951,21 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			valid
 		);
 
-		let objective = settingData["Objective"];
+		//let objective = settingData["Objective"];
+		let objective = this.props.objectiveSettings;
 		valid = null;
 		if (objective !== undefined && objective !== null) {
 			let schema = settingsSchemas[objective.Schema_ID];
 			if (schema !== undefined && schema !== null) {
 				let validation = validate(objective, schema);
 				let validated = validation.valid;
-				if (validated) {
+				let immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
+				let validation2 = validate(
+					objective.ImmersionLiquid,
+					immersionLiquidSchema
+				);
+				let validated2 = validation2.valid;
+				if (validated && validated2) {
 					valid = isValid2;
 				} else {
 					valid = isInvalid2;
@@ -2292,22 +2263,16 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		) {
 			let channelObj = this.state.channelData;
 			let validation1 = validate(channelObj[0], this.props.schema[0]);
-			console.log(validation1);
 			let validated1 = validation1.valid;
-			console.log(validated1);
 			let validated2 = false;
 			if (channelObj[2] !== undefined && channelObj[2] !== null) {
 				let validation2 = validate(channelObj[2], this.props.schema[2]);
-				console.log(validation2);
 				validated2 = validation2.valid;
-				console.log(validated2);
 			}
 			let validated3 = false;
 			if (channelObj[1] !== undefined && channelObj[1] !== null) {
 				let validation3 = validate(channelObj[1], this.props.schema[1]);
-				console.log(validation3);
 				validated3 = validation3.valid;
-				console.log(validated3);
 			}
 
 			if (validated1 && validated2 && validated3) {
