@@ -6,6 +6,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 import ChannelCanvas_V2 from "./channelCanvas_V2";
 import ModalWindow from "./modalWindow";
+import PopoverTooltip from "./popoverTooltip";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -18,6 +19,10 @@ import {
 	string_currentNumberOf_identifier,
 	string_minNumberOf_identifier,
 	string_maxNumberOf_identifier,
+	edit_channel,
+	add_channel,
+	remove_channel,
+	remove_plane,
 } from "../constants";
 
 export default class ChannelView extends React.PureComponent {
@@ -220,6 +225,8 @@ export default class ChannelView extends React.PureComponent {
 		// }
 		//this.setState({ channels: channels, editing: false });
 
+		//NEED TO VALIDATE EVERYTHING HERE OR HOW TO SOLVE THIS ?
+
 		let index = this.state.selectedIndex;
 		let channels = this.state.channels.slice();
 		channels[index] = data;
@@ -256,6 +263,21 @@ export default class ChannelView extends React.PureComponent {
 	}
 
 	render() {
+		const styleValidation = {
+			position: "absolute",
+			verticalAlign: "middle",
+			fontWeight: "bold",
+			textAlign: "center",
+		};
+		const styleValidated = Object.assign({}, styleValidation, {
+			color: "green",
+		});
+		const styleNotValidated = Object.assign({}, styleValidation, {
+			color: "red",
+		});
+		let isValid = <div style={styleValidated}>&#9679;</div>;
+		let isInvalid = <div style={styleNotValidated}>&#9679;</div>;
+
 		let index = this.state.selectedIndex;
 		let channels = this.state.channels;
 		// console.log("planes length " + planes.length);
@@ -326,6 +348,24 @@ export default class ChannelView extends React.PureComponent {
 				if (i % 2 === 0) {
 					variant = "light";
 				}
+
+				let validation1 = validate(channel, this.props.schema);
+				let validated1 = validation1.valid;
+				let validation2 = false;
+				if (channel.Fluorophore !== undefined || channel.Fluorophore !== null)
+					validated2 = validate(
+						channel.Fluorophore,
+						this.state.fluorophoreSchema
+					);
+				let validated2 = validation2.valid;
+				let valid = null;
+				if (validated1 && validated2) {
+					valid = isValid;
+				} else {
+					valid = isInvalid;
+				}
+				let channelName = "- " + channel.Name;
+
 				list.push(
 					<ListGroup.Item
 						action
@@ -334,7 +374,8 @@ export default class ChannelView extends React.PureComponent {
 						key={"Channel-" + i}
 						data-id={i}
 					>
-						{channel.Name}
+						{valid}
+						{channelName}
 					</ListGroup.Item>
 				);
 			}
@@ -348,20 +389,50 @@ export default class ChannelView extends React.PureComponent {
 							<ListGroup>{list}</ListGroup>
 						</div>
 						<div style={buttonContainerRow}>
-							<Button style={button1} size="lg" onClick={this.onAddElement}>
-								+
-							</Button>
-							<Button
-								style={button2}
-								size="lg"
-								onClick={this.onEditElement}
-								disabled={index === -1}
-							>
-								Edit selected
-							</Button>
-							<Button style={button1} size="lg" onClick={this.onRemoveElement}>
-								-
-							</Button>
+							<PopoverTooltip
+								key={"TooltipButton-Add"}
+								position={add_channel.position}
+								title={add_channel.title}
+								content={add_channel.content}
+								element={
+									<Button style={button1} size="lg" onClick={this.onAddElement}>
+										+
+									</Button>
+								}
+							/>
+
+							<PopoverTooltip
+								key={"TooltipButton-Edit"}
+								position={edit_channel.position}
+								title={edit_channel.title}
+								content={edit_channel.content}
+								element={
+									<Button
+										style={button2}
+										size="lg"
+										onClick={this.onEditElement}
+										disabled={index === -1}
+									>
+										Edit selected
+									</Button>
+								}
+							/>
+
+							<PopoverTooltip
+								key={"TooltipButton-Remove"}
+								position={remove_channel.position}
+								title={remove_channel.title}
+								content={remove_channel.content}
+								element={
+									<Button
+										style={button1}
+										size="lg"
+										onClick={this.onRemoveElement}
+									>
+										-
+									</Button>
+								}
+							/>
 						</div>
 						<div style={buttonContainerRow}>
 							<Button style={button2} size="lg" onClick={this.onConfirm}>
