@@ -90,6 +90,10 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       components[comp.ID] = comp;
     });
 
+    if (props.objective !== null && props.objective !== undefined && props.objectiveSettings !== null && props.objectiveSettings !== undefined) {
+      _this.state.slots["Objective"] = props.objective;
+    }
+
     if (props.channelData !== null && props.channelData !== undefined) {
       var lightPath = props.channelData[1];
 
@@ -315,7 +319,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onInnerElementDataCancel",
     value: function onInnerElementDataCancel() {
-      //console.log("onInnerElementDataCancel");
       this.setState({
         editing: false,
         editingSettings: false,
@@ -328,7 +331,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onInnerElementDataSave",
     value: function onInnerElementDataSave(id, data) {
-      //console.log("onInnerElementDataSave");
       var selectedComp = this.state.selectedComp;
       var selectedSchema = this.state.selectedSchema;
       var selectedSlot = this.state.selectedSlot;
@@ -352,7 +354,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (category !== null) {
-        //console.log("onAddAdditionalConfirm data category " + category);
         slots = Object.assign({}, slots);
 
         if (selectedSlot.includes("AdditionalSlot_")) {
@@ -428,15 +429,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     key: "onElementDataSave",
     value: function onElementDataSave(id, data) {
       var selectedComp = this.state.selectedComp;
-      var selectedSlot = this.state.selectedSlot;
-      var category = this.state.category; //let slots = this.state.slots;
+      var selectedSlot = this.state.selectedSlot; //let category = this.state.category;
 
       var settingData = Object.assign({}, this.state.settingData);
 
       if (this.state.editingSettings) {
-        // console.log("saving setting data");
-        // console.log(id);
-        // console.log(data);
         if (selectedSlot.includes("AdditionalSlot_")) {
           var currentSlots = this.state.tmpSlots;
           var index = currentSlots.indexOf(selectedComp);
@@ -447,8 +444,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             settingData: settingData
           });
         } else {
-          var _obj = settingData[selectedSlot];
-          settingData[selectedSlot] = Object.assign(_obj, data);
+          if (!selectedSlot.includes("Objective")) {
+            var _obj = settingData[selectedSlot];
+            settingData[selectedSlot] = Object.assign(_obj, data);
+          }
+
           this.setState({
             editing: false,
             editingSettings: false,
@@ -458,13 +458,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             selectedComp: null,
             selectedSchema: null
           });
-        } // console.log("settingData");
-        // console.log(settingData);
-
+        }
       } else {
-        // console.log("saving channel data");
-        // console.log(id);
-        // console.log(data);
         var currentChannelData = data;
         var currentLightPath = data.LightPath;
         var currentFluorophore = data.Fluorophore;
@@ -543,7 +538,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var selectedSlot = this.state.selectedSlot;
 
       if (selectedSlot.includes("AdditionalSlot_")) {
-        //if (this.state.editingSettings) {
         this.setState({
           editingSettings: false
         });
@@ -552,8 +546,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           editing: false,
           editingSettings: false
         });
-      } //this.setState({ editing: false, editingSettings: false });
-
+      }
     }
   }, {
     key: "onEditElement",
@@ -561,12 +554,10 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         editing: true
       });
-      if (_constants.bool_isDebug) console.log("edit channel data");
     }
   }, {
     key: "onAddAdditionalConfirm",
     value: function onAddAdditionalConfirm() {
-      //console.log("onAddAdditionalConfirm - click");
       var selectedComp = this.state.selectedComp;
       var selectedSchema = this.state.selectedSchema;
       var selectedSlot = this.state.selectedSlot;
@@ -578,16 +569,9 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       for (var i in settingsSchema) {
         var schema = settingsSchema[i];
         settingsSchemas[schema.ID] = schema;
-      } // console.log("category");
-      // console.log(category);
-      // console.log("selectedSlot");
-      // console.log(selectedSlot);
-      // console.log("selectedComp");
-      // console.log(selectedComp);
-
+      }
 
       if (category !== null) {
-        //console.log("onAddAdditionalConfirm category null");
         if (selectedSlot.includes("AdditionalSlot_")) {
           if (selectedComp === null || selectedComp === undefined) {
             this.setState({
@@ -1031,9 +1015,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           var settings = null;
           var comp = null;
           var id = null;
+          var editable = true;
 
           if (selectedComp.Schema_ID === "Objective.json") {
-            var settingCompData = settingData[selectedSlot];
+            //let settingCompData = settingData[selectedSlot];
+            var settingCompData = this.props.objectiveSettings;
             id = settingCompData.ID;
             var immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
             var immersionLiquid = settingCompData.ImmersionLiquid;
@@ -1043,17 +1029,12 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             settings = [];
             settings[0] = settingsSchemas[settingsName];
             settings[1] = immersionLiquidSchema;
+            editable = false;
           } else {
             var _settingCompData = null;
 
             if (selectedSlot.includes("AdditionalSlot_")) {
-              var currentSlots = this.state.tmpSlots; // console.log("slots");
-              // console.log(slots);
-              // console.log("selectedSlot");
-              // console.log(selectedSlot);
-              // console.log("currentSlots");
-              // console.log(currentSlots);
-
+              var currentSlots = this.state.tmpSlots;
               var index = currentSlots.indexOf(selectedComp);
               _settingCompData = settingData[selectedSlot][index];
             } else {
@@ -1063,15 +1044,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             id = _settingCompData.ID;
             settings = settingsSchemas[settingsName];
             comp = _settingCompData;
-          } // console.log("settingData");
-          // console.log(settingData);
-          // console.log("settingsName");
-          // console.log(settingsName);
-          // console.log("settings");
-          // console.log(settings);
-          // console.log("comp");
-          // console.log(comp);
-
+          }
 
           return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
             schema: settings,
@@ -1084,7 +1057,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
             maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
             elementByType: this.props.elementByType,
-            editable: true
+            editable: editable
           });
         } else if (this.state.category === null) {
           return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
@@ -1240,7 +1213,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               var hasConnection = false;
 
               if (slotList[nextIndex] !== null && slotList[nextIndex] !== undefined) {
-                hasConnection = true; //console.log("Index " + i + " hasConnection");
+                hasConnection = true;
               }
 
               var id1 = "button" + _i4;
@@ -1267,8 +1240,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               }, button1));
 
               arrowedSlotList.push(arrowItem);
-            } //console.log(arrowedSlotList);
-
+            }
 
             topItems = /*#__PURE__*/_react.default.createElement("div", {
               style: modalTopListContainer
@@ -1276,12 +1248,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               strokeColor: "red"
             }, /*#__PURE__*/_react.default.createElement("div", {
               style: modalTopList
-            }, arrowedSlotList))); // if (
-            // 	slotList !== null &&
-            // 	slotList !== undefined &&
-            // 	slotList.length > 0
-            // )
-
+            }, arrowedSlotList)));
             Object.assign(modalGridPanel, {
               height: "60%"
             });
@@ -1405,24 +1372,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var hasDichroic = false;
       var hasEmission = false;
       var hasObjective = false;
-      var testCategory = [_constants.channelPath_Additional_1_8, _constants.channelPath_Additional_2, _constants.channelPath_Additional_3_4_5_6, _constants.channelPath_Additional_7, _constants.channelPath_LightSource, _constants.channelPath_Detector, _constants.channelPath_RelayLens, _constants.channelPath_CouplingLens, _constants.channelPath_LightSourceCoupling, _constants.channelPath_Excitation, _constants.channelPath_Dichroic, _constants.channelPath_Emission, _constants.channelPath_Objective]; // let cp18String = JSON.stringify(channelPath_Additional_1_8);
-      // let cp2String = JSON.stringify(channelPath_Additional_2);
-      // let cp3456String = JSON.stringify(channelPath_Additional_3_4_5_6);
-      // let cp7String = JSON.stringify(channelPath_Additional_7);
-      // let lightSourceString = JSON.stringify(channelPath_LightSource);
-      // let detectorString = JSON.stringify(channelPath_Detector);
-      // let relayLensString = JSON.stringify(channelPath_RelayLens);
-      // let couplingLensString = JSON.stringify(channelPath_CouplingLens);
-      // let lightSourceCouplingString = JSON.stringify(
-      // 	channelPath_LightSourceCoupling
-      // );
-      // let excitationString = JSON.stringify(channelPath_Excitation);
-      // let dichroicString = JSON.stringify(channelPath_Dichroic);
-      // let emissionString = JSON.stringify(channelPath_Emission);
-      // let objectiveString = JSON.stringify(channelPath_Objective);
-      // console.log("lightSourceString");
-      // console.log(lightSourceString);
-
+      var testCategory = [_constants.channelPath_Additional_1_8, _constants.channelPath_Additional_2, _constants.channelPath_Additional_3_4_5_6, _constants.channelPath_Additional_7, _constants.channelPath_LightSource, _constants.channelPath_Detector, _constants.channelPath_RelayLens, _constants.channelPath_CouplingLens, _constants.channelPath_LightSourceCoupling, _constants.channelPath_Excitation, _constants.channelPath_Dichroic, _constants.channelPath_Emission, _constants.channelPath_Objective];
       Object.keys(this.props.componentData).forEach(function (compIndex) {
         var comp = _this3.props.componentData[compIndex];
         var schema_id = comp.Schema_ID;
@@ -1434,7 +1384,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           var category = testCategory[_index];
 
           if (category.includes(schema_id.replace(_constants.string_json_ext, "")) || category.includes(compSchemaCategory) || category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
-            //let catString = JSON.stringify(category);
             if (category === _constants.channelPath_Additional_1_8) hasChannelPath_Additional_1_8 = true;
             if (category === _constants.channelPath_Additional_2) hasChannelPath_Additional_2 = true;
             if (category === _constants.channelPath_Additional_3_4_5_6) hasChannelPath_Additional_3_4_5_6 = true;
@@ -1621,8 +1570,9 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
-      var emissionButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_6_EmissionFilter_outline.svg", "EmissionFilter", slots, compSchemas, hasEmission ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_emission, this.handleDeleteComp, this.handleEditSettings, "Select Emission Wavelength", hasEmission, valid);
-      var objective = settingData["Objective"];
+      var emissionButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_6_EmissionFilter_outline.svg", "EmissionFilter", slots, compSchemas, hasEmission ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_emission, this.handleDeleteComp, this.handleEditSettings, "Select Emission Wavelength", hasEmission, valid); //let objective = settingData["Objective"];
+
+      var objective = this.props.objectiveSettings;
       valid = null;
 
       if (objective !== undefined && objective !== null) {
@@ -1632,8 +1582,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           var _validation8 = validate(objective, _schema13);
 
           var _validated8 = _validation8.valid;
+          var _immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
+          var validation2 = validate(objective.ImmersionLiquid, _immersionLiquidSchema);
+          var validated2 = validation2.valid;
 
-          if (_validated8) {
+          if (_validated8 && validated2) {
             valid = isValid2;
           } else {
             valid = isInvalid2;
@@ -1866,28 +1819,23 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       if (this.props.schema !== undefined && this.props.schema !== null && this.state.channelData !== undefined && this.state.channelData !== null) {
         var channelObj = this.state.channelData;
         var validation1 = validate(channelObj[0], this.props.schema[0]);
-        console.log(validation1);
         var validated1 = validation1.valid;
-        console.log(validated1);
-        var validated2 = false;
+        var _validated9 = false;
 
         if (channelObj[2] !== undefined && channelObj[2] !== null) {
-          var validation2 = validate(channelObj[2], this.props.schema[2]);
-          console.log(validation2);
-          validated2 = validation2.valid;
-          console.log(validated2);
+          var _validation9 = validate(channelObj[2], this.props.schema[2]);
+
+          _validated9 = _validation9.valid;
         }
 
         var validated3 = false;
 
         if (channelObj[1] !== undefined && channelObj[1] !== null) {
           var validation3 = validate(channelObj[1], this.props.schema[1]);
-          console.log(validation3);
           validated3 = validation3.valid;
-          console.log(validated3);
         }
 
-        if (validated1 && validated2 && validated3) {
+        if (validated1 && _validated9 && validated3) {
           valid = isValid;
         } else {
           valid = isInvalid;
@@ -1926,6 +1874,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var needDelete = false;
       var hasSettings = true;
       var element = null;
+      var isObjective = false;
 
       if (slots[imageSlot] !== null && slots[imageSlot] !== undefined) {
         element = slots[imageSlot];
@@ -1937,8 +1886,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         if (elementSchema.modelSettings === "NA") {
           hasSettings = false;
         }
+
+        if (elementSchema.modelSettings === "ObjectiveSettings") isObjective = true;
       } else {
         image = url.resolve(imagesPath, imageName);
+        if (imageSlot === "Objective") isObjective = true;
       }
 
       var itemImage = /*#__PURE__*/_react.default.createElement("img", {
@@ -1951,6 +1903,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (needDelete) {
         var butt = null;
+        var _callback = null;
 
         if (isEnabled && hasSettings) {
           butt = /*#__PURE__*/_react.default.createElement("button", {
@@ -1969,17 +1922,23 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           }, itemImage, name);
         }
 
+        var deleteButt = null;
+
+        if (!isObjective) {
+          deleteButt = /*#__PURE__*/_react.default.createElement("button", {
+            type: "button",
+            onClick: function onClick() {
+              return deleteCallback(imageSlot);
+            },
+            style: styleCloser
+          }, "x");
+        }
+
         button = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
           style: styleIcons
-        }, /*#__PURE__*/_react.default.createElement("button", {
-          type: "button",
-          onClick: function onClick() {
-            return deleteCallback(imageSlot);
-          },
-          style: styleCloser
-        }, "x"), valid), butt);
+        }, deleteButt, valid), butt);
       } else {
-        if (isEnabled) {
+        if (isEnabled && !isObjective) {
           button = /*#__PURE__*/_react.default.createElement("button", {
             style: buttonStyle,
             onClick: callback

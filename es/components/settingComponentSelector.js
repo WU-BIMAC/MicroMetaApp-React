@@ -123,7 +123,8 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         settingData: null,
         selectedComp: null,
-        selectedSchema: null
+        selectedSchema: null,
+        currentComp: null
       });
     }
   }, {
@@ -169,10 +170,18 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       // let selectedSlot = this.state.selectedSlot;
       // let category = this.state.category;
       //let slots = this.state.slots;
-      var settingData = Object.assign(this.state.settingData, data);
+      var oldSettingData = Object.assign({}, this.state.settingData);
+      var newSettingData = Object.assign(oldSettingData, this.state.settingData);
+
+      if (data.ImmersionLiquid !== null && data.ImmersionLiquid !== undefined) {
+        var oldImmersionLiquid = Object.assign({}, this.state.settingData.ImmersionLiquid);
+        var immersionLiquid = Object.assign(oldImmersionLiquid, data.ImmersionLiquid);
+        newSettingData.ImmersionLiquid = immersionLiquid;
+      }
+
       this.setState({
         editing: false,
-        settingData: settingData
+        settingData: newSettingData
       });
     }
   }, {
@@ -194,21 +203,23 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
     value: function onAddConfirm() {
       var selectedComp = this.state.selectedComp;
       var selectedSchema = this.state.selectedSchema; //let selectedSlot = this.props.selectedSlot;
+      //let category = this.props.category;
 
-      var category = this.props.category;
-      var settingsSchema = this.props.settingSchemas;
-      var settingData = Object.assign({}, this.state.settingData);
-      var settingsSchemas = {};
+      var currentComp = this.state.currentComp; // let settingsSchema = this.props.settingSchemas;
+      // let experimentalsSchema = this.props.experimentalSchemas;
 
-      for (var i in settingsSchema) {
-        var schema = settingsSchema[i];
-        settingsSchemas[schema.ID] = schema;
-      }
+      var settingData = Object.assign({}, this.state.settingData); // let settingsSchemas = {};
+      // for (let i in settingsSchema) {
+      // 	let schema = settingsSchema[i];
+      // 	settingsSchemas[schema.ID] = schema;
+      // }
+      // let expSchemas = {};
+      // for (let i in experimentalsSchema) {
+      // 	let schema = experimentalsSchema[i];
+      // 	expSchemas[schema.ID] = schema;
+      // }
 
-      console.log("category");
-      console.log(category);
-
-      if (this.state.currentComp) {
+      if (currentComp !== null && currentComp !== undefined) {
         return;
       }
 
@@ -218,10 +229,11 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
           selectedSchema: null
         });
         return;
-      }
+      } // let settingsName = selectedSchema.modelSettings + string_json_ext;
+      // let currentSchema = settingsSchemas[settingsName];
 
-      var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
-      var currentSchema = settingsSchemas[settingsName];
+
+      var currentSchema = this.props.schema;
       var uuid = (0, _uuid.v4)();
       var settingCompData = null;
 
@@ -232,23 +244,42 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
           Component_ID: selectedComp.ID
         };
       } else {
-        settingCompData = {
-          Name: "".concat(currentSchema.title),
-          ID: uuid,
-          Component_ID: selectedComp.ID,
-          Tier: currentSchema.tier,
-          Schema_ID: currentSchema.ID,
-          Version: currentSchema.version
-        };
+        if (selectedSchema.modelSettings === "ObjectiveSettings") {
+          var uuid2 = (0, _uuid.v4)();
+          var objSettingsSchema = currentSchema[0];
+          var immersionLiquidSchema = currentSchema[1];
+          settingCompData = {
+            Name: "".concat(objSettingsSchema.title),
+            ID: uuid,
+            Component_ID: selectedComp.ID,
+            Tier: objSettingsSchema.tier,
+            Schema_ID: objSettingsSchema.ID,
+            Version: objSettingsSchema.version
+          };
+          settingCompData.ImmersionLiquid = {
+            Name: "".concat(immersionLiquidSchema.title),
+            ID: uuid2,
+            Tier: immersionLiquidSchema.tier,
+            Schema_ID: immersionLiquidSchema.ID,
+            Version: immersionLiquidSchema.version
+          };
+        } else {
+          settingCompData = {
+            Name: "".concat(currentSchema.title),
+            ID: uuid,
+            Component_ID: selectedComp.ID,
+            Tier: currentSchema.tier,
+            Schema_ID: currentSchema.ID,
+            Version: currentSchema.version
+          };
+        }
       }
 
       settingData = settingCompData;
       this.setState({
         //tmpSlots: tmpSlots,
         settingData: settingData,
-        currentComp: selectedComp,
-        selectedComp: null,
-        selectedSchema: null
+        currentComp: selectedComp
       });
     }
   }, {
@@ -357,11 +388,46 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         cursor: "pointer",
         color: "grey",
         textAlign: "right",
+        verticalAlign: "middle" //position: "relative",
+        //left: "5px",
+        //top: "5px",
+
+      };
+      var styleValidation2 = {
+        //position: "relative",
         verticalAlign: "middle",
+        fontWeight: "bold",
+        textAlign: "center" //left: "15px",
+        //top: "5px",
+
+      };
+      var styleIcons = {
+        display: "flex",
+        flexDirection: "row",
+        flexWap: "wrap",
+        justifyContent: "left",
+        //padding: "5px",
         position: "relative",
         left: "5px",
-        top: "5px"
+        top: "10px",
+        width: "90%",
+        height: "24px"
       };
+      var styleValidated2 = Object.assign({}, styleValidation2, {
+        color: "green"
+      });
+      var styleNotValidated2 = Object.assign({}, styleValidation2, {
+        color: "red"
+      });
+
+      var isValid2 = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleValidated2
+      }, "\u25CF");
+
+      var isInvalid2 = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleNotValidated2
+      }, "\u25CF");
+
       var componentSchema = this.props.componentSchemas;
       var compSchemas = {};
 
@@ -397,9 +463,17 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.state.editing) {
         var settingData = this.state.settingData;
-        var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
-        var id = settingData.ID;
-        var settings = settingsSchemas[settingsName];
+
+        if (settingData.ImmersionLiquid !== null && settingData.ImmersionLiquid !== undefined) {
+          settingData = [];
+          settingData.push(this.state.settingData);
+          settingData.push(this.state.settingData.ImmersionLiquid);
+        }
+
+        var id = settingData.ID; //let settingsName = selectedSchema.modelSettings + string_json_ext;
+        //let settings = settingsSchemas[settingsName];
+
+        var settings = this.props.schema;
         return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
           schema: settings,
           inputData: settingData,
@@ -415,6 +489,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         });
       } else {
         var itemList = [];
+        var _settingData = this.state.settingData;
         Object.keys(this.props.componentData).forEach(function (compIndex) {
           var comp = _this2.props.componentData[compIndex];
           var schema_id = comp.Schema_ID;
@@ -441,7 +516,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
 
             if (comp === selectedComp) {
               buttonStyleModified = Object.assign({}, buttonStyle, {
-                border: "5px solid cyan"
+                border: "2px solid cyan"
               });
             } else {
               buttonStyleModified = buttonStyle;
@@ -458,8 +533,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             itemList.push(compButton);
           }
         });
-        var topItems = null;
-        var confirmCallback = null; //let item = this.state.currentComp;
+        var topItems = null; //let item = this.state.currentComp;
         // if (item !== null && item !== undefined) {
         //let items = [];
         // let slots = this.state.slots;
@@ -468,7 +542,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         // 	items = slots[selectedSlot];
 
         var comp = this.state.currentComp;
-        var butt = null;
+        var fullButt = null;
 
         if (comp !== null && comp !== undefined) {
           var schema_id = comp.Schema_ID;
@@ -486,44 +560,87 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
 
           if (comp === selectedComp) {
             buttonStyleModified = Object.assign({}, buttonStyle, {
-              border: "5px solid cyan",
-              margin: "5px"
+              border: "2px solid cyan"
+            });
+          } else if (compSchema.modelSettings === "NA") {
+            buttonStyleModified = Object.assign({}, buttonStyle, {
+              opacity: "0.4",
+              border: "none"
             });
           } else {
-            buttonStyleModified = Object.assign({}, buttonStyle, {
-              margin: "5px"
-            });
+            buttonStyleModified = buttonStyle;
           }
 
-          butt = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
-            type: "button",
-            onClick: this.handleDeleteComp,
-            style: styleCloser
-          }, "x"), /*#__PURE__*/_react.default.createElement("button", {
-            key: "button-" + comp.Name,
-            style: buttonStyleModified,
-            onClick: function onClick() {
-              return _this2.handleEditSettings(comp, compSchema);
+          var valid = null;
+
+          if (_settingData !== null && _settingData !== undefined) {
+            var _schema3 = this.props.schema;
+
+            if (_schema3 !== null && _schema3 !== undefined) {
+              var validated = false;
+
+              if (_settingData.ImmersionLiquid !== null && _settingData.ImmersionLiquid !== undefined) {
+                var validation1 = validate(_settingData, _schema3[0]);
+                var validated1 = validation1.valid;
+                var validation2 = validate(_settingData.ImmersionLiquid, _schema3[1]);
+                var validated2 = validation2.valid;
+                validated = validated1 && validated2;
+              } else {
+                var validation = validate(_settingData, _schema3);
+                validated = validation.valid;
+              }
+
+              if (validated) {
+                valid = isValid2;
+              } else {
+                valid = isInvalid2;
+              }
             }
-          }, compItemImage, comp.Name));
+          }
+
+          var butt = null;
+
+          if (compSchema.modelSettings !== "NA") {
+            butt = /*#__PURE__*/_react.default.createElement("button", {
+              key: "button-" + comp.Name,
+              style: buttonStyleModified,
+              onClick: function onClick() {
+                return _this2.handleEditSettings(comp, compSchema);
+              }
+            }, compItemImage, comp.Name);
+          } else {
+            butt = /*#__PURE__*/_react.default.createElement("button", {
+              key: "button-" + comp.Name,
+              style: buttonStyleModified
+            }, compItemImage, comp.Name);
+          }
+
+          fullButt = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+            style: styleIcons
+          }, /*#__PURE__*/_react.default.createElement("button", {
+            type: "button",
+            onClick: function onClick() {
+              return _this2.handleDeleteComp();
+            },
+            style: styleCloser
+          }, "x"), valid), butt);
         }
 
         topItems = /*#__PURE__*/_react.default.createElement("div", {
           style: modalTopListContainer
         }, /*#__PURE__*/_react.default.createElement("h5", null, "Current component in this slot"), /*#__PURE__*/_react.default.createElement("div", {
           style: modalTopList
-        }, butt));
+        }, fullButt));
         Object.assign(modalGridPanel, {
           height: "60%"
-        });
-        confirmCallback = this.onAddConfirm; //}
+        }); //}
 
         var multiTabPanel = null;
         if (selectedComp !== null && selectedComp !== undefined) multiTabPanel = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
           schema: selectedSchema,
           inputData: selectedComp,
           id: selectedComp.ID,
-          onConfirm: confirmCallback,
+          onConfirm: this.onAddConfirm,
           onCancel: null,
           overlaysContainer: this.props.overlaysContainer,
           currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
@@ -532,11 +649,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
           elementByType: this.props.elementByType,
           notModal: true,
           editable: false
-        }); // console.log("itemList");
-        // console.log(itemList);
-        // console.log("multiTabPanel");
-        // console.log(multiTabPanel);
-
+        });
         return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
           overlaysContainer: this.props.overlaysContainer
         }, /*#__PURE__*/_react.default.createElement("div", {

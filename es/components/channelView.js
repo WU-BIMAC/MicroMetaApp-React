@@ -71,7 +71,7 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       var schema = props.settingSchemas[index];
 
       if (schema.ID === "LightPath.json") {
-        _this.state.lightPathSchema = schema; //console.log("schema found");
+        _this.state.lightPathSchema = schema;
       }
     }
 
@@ -79,15 +79,14 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       var _schema = props.experimentalSchemas[_index];
 
       if (_schema.ID === "Fluorophore.json") {
-        _this.state.fluorophoreSchema = _schema; //console.log("schema found");
+        _this.state.fluorophoreSchema = _schema;
       }
     }
 
     _this.onAddElement = _this.onAddElement.bind(_assertThisInitialized(_this));
     _this.onEditElement = _this.onEditElement.bind(_assertThisInitialized(_this));
     _this.onRemoveElement = _this.onRemoveElement.bind(_assertThisInitialized(_this));
-    _this.onSelectElement = _this.onSelectElement.bind(_assertThisInitialized(_this)); //this.onMoveElement = this.onMoveElement.bind(this);
-
+    _this.onSelectElement = _this.onSelectElement.bind(_assertThisInitialized(_this));
     _this.onElementDataCancel = _this.onElementDataCancel.bind(_assertThisInitialized(_this));
     _this.onElementDataSave = _this.onElementDataSave.bind(_assertThisInitialized(_this));
     _this.onConfirm = _this.onConfirm.bind(_assertThisInitialized(_this));
@@ -226,7 +225,6 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         channels: channels
       });
-      if (_constants.bool_isDebug) console.log("added channel");
     }
   }, {
     key: "onRemoveElement",
@@ -243,7 +241,6 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         channels: channels
       });
-      if (_constants.bool_isDebug) console.log("removed channel");
     }
   }, {
     key: "onEditElement",
@@ -251,7 +248,6 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         editing: true
       });
-      if (_constants.bool_isDebug) console.log("edit channel");
     }
   }, {
     key: "onMoveElement",
@@ -259,29 +255,9 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onElementDataSave",
     value: function onElementDataSave(id, data) {
-      // let channels = this.state.channels.slice();
-      // let found = false;
-      // for (let i = 0; i < channels.length; i++) {
-      // 	let name_id = this.props.schema.title + "_" + channels[i].ID;
-      // 	if (id === name_id) {
-      // 		channels[i] = data;
-      // 		found = true;
-      // 		found = true;
-      // 		break;
-      // 	}
-      // }
-      // if (!found) {
-      // 	//todo should never happen
-      // 	console.log("issue with " + id);
-      // }
-      //this.setState({ channels: channels, editing: false });
-      //NEED TO VALIDATE EVERYTHING HERE OR HOW TO SOLVE THIS ?
       var index = this.state.selectedIndex;
       var channels = this.state.channels.slice();
       channels[index] = data;
-      console.log(channels);
-      console.log("saved channel"); //let objective = data.LightPath.ComponentSettings.Objective;
-
       var objective = null;
       this.setState({
         editing: false,
@@ -308,9 +284,7 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
     key: "onConfirm",
     value: function onConfirm() {
       var channels = this.state.channels;
-      var id = this.props.id; // console.log("channels");
-      // console.log(channels);
-
+      var id = this.props.id;
       this.setState({
         editing: false
       });
@@ -346,10 +320,7 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       }, "\u25CF");
 
       var index = this.state.selectedIndex;
-      var channels = this.state.channels; // console.log("planes length " + planes.length);
-      // console.log("planes");
-      // console.log(planes);
-      // console.log("index " + index);
+      var channels = this.state.channels;
 
       if (this.state.editing) {
         var schemas = [];
@@ -383,7 +354,9 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
           headerOffset: this.props.headerOffset,
           onConfirm: this.onElementDataSave,
           onCancel: this.onElementDataCancel,
-          elementByType: this.props.elementByType
+          elementByType: this.props.elementByType,
+          objective: this.props.objective,
+          objectiveSettings: this.props.objectiveSettings
         });
       } else {
         var buttonContainerRow = {
