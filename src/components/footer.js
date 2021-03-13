@@ -14,8 +14,11 @@ import {
 	bool_isDebug,
 	string_validationTier,
 	edit_microscope_tooltip,
-	validation_tooltip,
+	edit_setting_tooltip,
+	validation_microscope_tooltip,
+	validation_setting_tooltip,
 	save_microscope_tooltip,
+	save_setting_tooltip,
 	back_tooltip,
 } from "../constants";
 
@@ -103,49 +106,29 @@ export default class Footer extends React.PureComponent {
 				color: "green",
 			});
 			validated = <div style={styleValidated}>&#9679;</div>;
-			// let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
-			// validated = (
-			// 	<img
-			// 		src={
-			// 			image +
-			// 			(image.indexOf("githubusercontent.com") > -1
-			// 				? "?sanitize=true"
-			// 				: "")
-			// 		}
-			// 		alt={"validated"}
-			// 		style={styleValidation}
-			// 	/>
-			// );
 		} else {
 			const styleValidated = Object.assign({}, styleValidation, {
 				color: "red",
 			});
 			validated = <div style={styleValidated}>&#9679;</div>;
-			// let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
-			// validated = (
-			// 	<img
-			// 		src={
-			// 			image +
-			// 			(image.indexOf("githubusercontent.com") > -1
-			// 				? "?sanitize=true"
-			// 				: "")
-			// 		}
-			// 		alt={"not validated"}
-			// 		style={imageValidation}
-			// 	/>
-			// );
-			// styleEditButton = Object.assign(styleEditButton, {
-			// 	border: "5px ridge red",
-			// });
+		}
+
+		let editTooltip = edit_microscope_tooltip;
+		let validationTooltip = validation_microscope_tooltip;
+		let saveTooltip = save_microscope_tooltip;
+		if (this.props.element === "setting") {
+			editTooltip = edit_setting_tooltip;
+			validationTooltip = validation_setting_tooltip;
+			saveTooltip = save_setting_tooltip;
 		}
 
 		let buttons = [];
 		buttons[0] = (
 			<PopoverTooltip
 				key={"TooltipButton-0"}
-				position={edit_microscope_tooltip.position}
-				title={edit_microscope_tooltip.title}
-				content={edit_microscope_tooltip.content}
+				position={editTooltip.position}
+				title={editTooltip.title}
+				content={editTooltip.content}
 				element={
 					<Button
 						key={"Button-0"}
@@ -164,6 +147,7 @@ export default class Footer extends React.PureComponent {
 			inputData.push(i);
 		}
 		let defaultValidationTier = this.props.validationTier - 1;
+
 		buttons[1] = (
 			<DropdownMenu
 				key={"Button-1"}
@@ -174,7 +158,7 @@ export default class Footer extends React.PureComponent {
 				margin={5}
 				defaultValue={defaultValidationTier}
 				direction={"up"}
-				tooltip={validation_tooltip}
+				tooltip={validationTooltip}
 			/>
 		);
 		let saveOptions = [];
@@ -193,7 +177,7 @@ export default class Footer extends React.PureComponent {
 				width={250}
 				margin={5}
 				direction={"up"}
-				tooltip={save_microscope_tooltip}
+				tooltip={saveTooltip}
 			/>
 		);
 		buttons[3] = (
