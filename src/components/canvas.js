@@ -79,6 +79,11 @@ export default class Canvas extends React.PureComponent {
 					height: object.Height,
 					occupiedSpot: object.OccupiedSpot,
 				};
+				if (object.Rotate !== null && object.Rotate !== undefined) {
+					newElement.rotate = object.Rotate;
+				} else {
+					newElement.rotate = null;
+				}
 				let occupiedSpot = object.OccupiedSpot;
 				if (occupiedSpot !== undefined) {
 					newElement = Object.assign(newElement, {
@@ -441,6 +446,7 @@ export default class Canvas extends React.PureComponent {
 		let originalDimensions = Object.assign({}, this.state.originalDimensions);
 		let newElement = null;
 		let occupiedSpots = this.state.occupiedSpots.slice();
+		let rotate = null;
 		let x = e.x;
 		let y = e.y - this.state.headerOffset;
 
@@ -512,6 +518,7 @@ export default class Canvas extends React.PureComponent {
 								let spotH = spot.h * scalingFactor;
 								width = spotW;
 								height = spotH;
+								rotate = spot.r;
 								if (occupiedSpots.includes(tmpID)) continue;
 								if (spot.x !== -1 && spot.y !== -1) {
 									let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
@@ -535,6 +542,7 @@ export default class Canvas extends React.PureComponent {
 							let spotH = spot.h * scalingFactor;
 							width = spotW;
 							height = spotH;
+							rotate = spot.r;
 							if (!occupiedSpots.includes(tmpID)) {
 								if (spot.x !== -1 && spot.y !== -1) {
 									let xOff = spot.x * scalingFactor; // + containerOffsetX; // + (offsetX - containerOffsetX);
@@ -560,6 +568,7 @@ export default class Canvas extends React.PureComponent {
 								let spotH = spot.h * scalingFactor;
 								width = spotW;
 								height = spotH;
+								rotate = spot.r;
 								newElementList.map((item, index) => {
 									let itemSchemaID = item.schema_ID;
 									let itemSchema = componentsSchema[itemSchemaID];
@@ -593,6 +602,7 @@ export default class Canvas extends React.PureComponent {
 							let spotH = spot.h * scalingFactor;
 							width = spotW;
 							height = spotH;
+							rotate = spot.r;
 							newElementList.map((item, index) => {
 								let itemSchemaID = item.schema_ID;
 								let itemSchema = componentsSchema[itemSchemaID];
@@ -625,6 +635,7 @@ export default class Canvas extends React.PureComponent {
 		}
 
 		//console.log("DROPPED: w-" + width + "||h-" + height);
+		//console.log("DROPPED: r-" + rotate);
 
 		let minElementWidth = number_canvas_element_min_width * scalingFactor;
 
@@ -675,6 +686,7 @@ export default class Canvas extends React.PureComponent {
 				x: x,
 				y: y,
 				z: 0,
+				rotate: rotate,
 				width: width,
 				height: height,
 				offsetX: offsetX,
@@ -697,6 +709,7 @@ export default class Canvas extends React.PureComponent {
 				OffsetY: offsetY,
 				OccupiedSpot: occupiedSpot,
 			};
+			if (rotate !== null) newElementData.Rotate = rotate;
 			newElement.name = newElementData.Name;
 			this.addComponentsIndexesIfMissing(schema, newElementData);
 			newElement.obj = newElementData;
@@ -1143,37 +1156,11 @@ export default class Canvas extends React.PureComponent {
 						color: "green",
 					});
 					validated = <div style={styleValidated}>&#9679;</div>;
-					// let image = url.resolve(this.props.imagesPath, "green_thumb_up.svg");
-					// validated = (
-					// 	<img
-					// 		src={
-					// 			image +
-					// 			(image.indexOf("githubusercontent.com") > -1
-					// 				? "?sanitize=true"
-					// 				: "")
-					// 		}
-					// 		alt={"validated"}
-					// 		style={imageValidation}
-					// 	/>
-					// );
 				} else {
 					const styleNotValidated = Object.assign({}, styleGrabber, {
 						color: "red",
 					});
 					validated = <div style={styleNotValidated}>&#9679;</div>;
-					// let image = url.resolve(this.props.imagesPath, "red_thumb_down.svg");
-					// validated = (
-					// 	<img
-					// 		src={
-					// 			image +
-					// 			(image.indexOf("githubusercontent.com") > -1
-					// 				? "?sanitize=true"
-					// 				: "")
-					// 		}
-					// 		alt={"not validated"}
-					// 		style={imageValidation}
-					// 	/>
-					// );
 				}
 				droppableElement.push(
 					<div
@@ -1207,6 +1194,7 @@ export default class Canvas extends React.PureComponent {
 									<CanvasElement
 										activeTier={this.props.activeTier}
 										id={item.ID}
+										rotate={item.rotate}
 										image={url.resolve(this.props.imagesPath, schema.image)}
 										schema={schema}
 										handleConfirm={this.onCanvasElementDataSave}

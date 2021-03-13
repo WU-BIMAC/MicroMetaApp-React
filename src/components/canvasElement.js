@@ -160,6 +160,7 @@ export default class CanvasElement extends React.PureComponent {
 					<ImageElement
 						updateMinMaxDimensions={this.updateMinMaxDimensions}
 						id={this.props.id}
+						rotate={this.props.rotate}
 						image={this.props.image}
 						name={this.props.schema.title}
 						style={styleImage}

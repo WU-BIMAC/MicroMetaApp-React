@@ -42,6 +42,18 @@ export default class ImageElement extends React.PureComponent {
 			},
 			propStyle
 		);
+		let rotate = this.props.rotate;
+		let rotateImageStyle = null;
+		if (rotate !== null && rotate !== undefined) {
+			console.log("rotate");
+			console.log(rotate);
+			rotateImageStyle = Object.assign(
+				{ transform: `rotate(${rotate}deg)` },
+				imageStyle
+			);
+		} else {
+			rotateImageStyle = imageStyle;
+		}
 		let img = (
 			<img
 				//onLoad={this.onImgLoad}
@@ -50,7 +62,7 @@ export default class ImageElement extends React.PureComponent {
 					(image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "")
 				}
 				alt={name}
-				style={imageStyle}
+				style={rotateImageStyle}
 			/>
 		);
 		return <div style={style}>{img}</div>;
