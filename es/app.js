@@ -1621,7 +1621,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
             var sett_ID = sett.InstrumentID;
 
             if (sett_ID === mic_ID) {
-              settingsNames.put(key);
+              settingsNames.push(key);
             }
           });
         }
