@@ -6,6 +6,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
 import ModalWindow from "./modalWindow";
+import PopoverTooltip from "./popoverTooltip";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -18,6 +19,10 @@ import {
 	string_currentNumberOf_identifier,
 	string_minNumberOf_identifier,
 	string_maxNumberOf_identifier,
+	add_multi_planes,
+	edit_plane,
+	add_plane,
+	remove_plane,
 } from "../constants";
 
 const multiplePlanesSchema = {
@@ -277,6 +282,21 @@ export default class PlaneView extends React.PureComponent {
 	}
 
 	render() {
+		const styleValidation = {
+			position: "absolute",
+			verticalAlign: "middle",
+			fontWeight: "bold",
+			textAlign: "center",
+		};
+		const styleValidated = Object.assign({}, styleValidation, {
+			color: "green",
+		});
+		const styleNotValidated = Object.assign({}, styleValidation, {
+			color: "red",
+		});
+		let isValid = <div style={styleValidated}>&#9679;</div>;
+		let isInvalid = <div style={styleNotValidated}>&#9679;</div>;
+
 		let index = this.state.selectedIndex;
 		let planes = this.state.planes;
 		if (this.state.addingMultiplePlanes) {
@@ -363,6 +383,16 @@ export default class PlaneView extends React.PureComponent {
 				if (i % 2 === 0) {
 					variant = "light";
 				}
+
+				let validation = validate(plane, this.props.schema);
+				let validated = validation.valid;
+				let valid = null;
+				if (validated) {
+					valid = isValid;
+				} else {
+					valid = isInvalid;
+				}
+
 				list.push(
 					<ListGroup.Item
 						action
@@ -371,7 +401,8 @@ export default class PlaneView extends React.PureComponent {
 						key={"Plane-" + i}
 						data-id={i}
 					>
-						{"Plane " + i}
+						{valid}
+						{"- Plane " + i}
 					</ListGroup.Item>
 				);
 			}
@@ -393,28 +424,66 @@ export default class PlaneView extends React.PureComponent {
 						<ListGroup>{list}</ListGroup>
 					</div>
 					<div style={buttonContainerRow}>
-						<Button style={button1} size="lg" onClick={this.onAddElement}>
-							+
-						</Button>
-						<Button
-							style={button2}
-							size="lg"
-							onClick={this.onAddMultiplePlanes}
-							//disabled={index === -1}
-						>
-							Add multiple planes
-						</Button>
-						<Button
-							style={button2}
-							size="lg"
-							onClick={this.onEditElement}
-							disabled={index === -1}
-						>
-							Edit selected
-						</Button>
-						<Button style={button1} size="lg" onClick={this.onRemoveElement}>
-							-
-						</Button>
+						<PopoverTooltip
+							key={"TooltipButton-Add"}
+							position={add_plane.position}
+							title={add_plane.title}
+							content={add_plane.content}
+							element={
+								<Button style={button1} size="lg" onClick={this.onAddElement}>
+									+
+								</Button>
+							}
+						/>
+
+						<PopoverTooltip
+							key={"TooltipButton-AddMulti"}
+							position={add_multi_planes.position}
+							title={add_multi_planes.title}
+							content={add_multi_planes.content}
+							element={
+								<Button
+									style={button2}
+									size="lg"
+									onClick={this.onAddMultiplePlanes}
+									//disabled={index === -1}
+								>
+									Add multiple planes
+								</Button>
+							}
+						/>
+						<PopoverTooltip
+							key={"TooltipButton-Edit"}
+							position={edit_plane.position}
+							title={edit_plane.title}
+							content={edit_plane.content}
+							element={
+								<Button
+									style={button2}
+									size="lg"
+									onClick={this.onEditElement}
+									disabled={index === -1}
+								>
+									Edit selected
+								</Button>
+							}
+						/>
+
+						<PopoverTooltip
+							key={"TooltipButton-Remove"}
+							position={remove_plane.position}
+							title={remove_plane.title}
+							content={remove_plane.content}
+							element={
+								<Button
+									style={button1}
+									size="lg"
+									onClick={this.onRemoveElement}
+								>
+									-
+								</Button>
+							}
+						/>
 					</div>
 					<div style={buttonContainerRow}>
 						<Button style={button2} size="lg" onClick={this.onConfirm}>
