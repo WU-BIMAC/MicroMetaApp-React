@@ -66,9 +66,9 @@ const multiplePlanesSchema = {
 			category: "General",
 		},
 		"TimeStamp-Increment": {
-			type: "integer",
+			type: "float",
 			description:
-				"Select this if you want the different Planes in this batch to have increasing channel-dimension numbers.",
+				"Insert the TimeStamp increment to be set between image Planes in this batch.",
 			tier: 1,
 			category: "General",
 		},
@@ -376,6 +376,10 @@ export default class PlaneView extends React.PureComponent {
 				marginLeft: "5px",
 				marginRight: "5px",
 			};
+			const nameStyle = {
+				display: "flex",
+				flexDirection: "row",
+			};
 			let list = [];
 			for (let i = 0; i < planes.length; i++) {
 				let plane = planes[i];
@@ -393,6 +397,7 @@ export default class PlaneView extends React.PureComponent {
 					valid = isInvalid;
 				}
 
+				let planeName = "Plane " + i;
 				list.push(
 					<ListGroup.Item
 						action
@@ -401,8 +406,10 @@ export default class PlaneView extends React.PureComponent {
 						key={"Plane-" + i}
 						data-id={i}
 					>
-						{valid}
-						{"- Plane " + i}
+						<div style={nameStyle}>
+							<div style={{ width: "24px" }}>{valid}</div>
+							<div>{planeName}</div>
+						</div>
 					</ListGroup.Item>
 				);
 			}
