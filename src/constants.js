@@ -435,6 +435,18 @@ export const validation_setting_tooltip = {
 	position: "top",
 };
 
+export const save_component_tooltip = {
+	title: "Save component",
+	content: (
+		<p>
+			Choose whether you want to save this Component file to the active
+			Micro-Meta App repository or if you want to export it to your local file
+			system.
+		</p>
+	),
+	position: "top",
+};
+
 export const save_microscope_tooltip = {
 	title: "Save microscope",
 	content: (
