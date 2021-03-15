@@ -70,7 +70,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     // 	this
     // );
 
-    _this.props.onClickSettingsSelection(_this.props.inputData[0]);
+    _this.props.onClickSettingsSelection(_this.props.settings[0]);
 
     return _this;
   }

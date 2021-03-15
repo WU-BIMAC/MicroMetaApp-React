@@ -41,7 +41,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		// this.onClickManufacturerSelection = this.onClickManufacturerSelection.bind(
 		// 	this
 		// );
-		this.props.onClickSettingsSelection(this.props.inputData[0]);
+		this.props.onClickSettingsSelection(this.props.settings[0]);
 	}
 
 	static getDerivedStateFromProps(props, state) {
