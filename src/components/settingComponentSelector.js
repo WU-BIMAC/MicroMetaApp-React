@@ -117,7 +117,11 @@ export default class SettingComponentSelector extends React.PureComponent {
 			currentComp: null,
 			settingData: {},
 		});
-		this.props.onConfirm(this.props.id, settingData);
+		if (settingData === null || settingData === undefined) {
+			this.props.onCancel();
+		} else {
+			this.props.onConfirm(this.props.id, settingData);
+		}
 	}
 
 	onCancel() {
@@ -137,7 +141,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 		// let category = this.state.category;
 		//let slots = this.state.slots;
 		let oldSettingData = Object.assign({}, this.state.settingData);
-		let newSettingData = Object.assign(oldSettingData, this.state.settingData);
+		let newSettingData = Object.assign(oldSettingData, data);
 		if (data.ImmersionLiquid !== null && data.ImmersionLiquid !== undefined) {
 			let oldImmersionLiquid = Object.assign(
 				{},
@@ -306,8 +310,8 @@ export default class SettingComponentSelector extends React.PureComponent {
 			flexWrap: "wrap",
 			justifyContent: "space-evenly",
 			overflow: "auto",
-			height: "20%",
-			maxHeight: "20%",
+			height: "250px",
+			maxHeight: "250px",
 			alignItems: "center",
 		};
 
@@ -339,8 +343,8 @@ export default class SettingComponentSelector extends React.PureComponent {
 			justifyContent: "space-around",
 			backgroundColor: "white",
 			padding: "0px",
-			margin: "5px",
-			border: "5px solid blue",
+			margin: "10px",
+			border: "2px solid grey",
 			fontSize: "14px",
 			color: "inherit",
 			cursor: "pointer",
@@ -471,11 +475,15 @@ export default class SettingComponentSelector extends React.PureComponent {
 						compSchemaCategory.substring(0, compSchemaCategory.indexOf("."))
 					)
 				) {
-					// if (selectedComp === null || selectedComp === undefined) {
-					// 	selectedComp = comp;
+					// if (selectedSlot.includes("AdditionalSlot_")) {
+					// 	let items = this.state.tmpSlots;
+					// 	let found = false;
+					// 	Object.keys(items).forEach((tmpCompIndex) => {
+					// 		let tmpComp = items[tmpCompIndex];
+					// 		if (comp.ID === tmpComp.ID) found = true;
+					// 	});
+					// 	if (found) return;
 					// }
-					// if (selectedSchema === null || selectedSchema === undefined)
-					// 	selectedSchema = compSchema;
 					let compImage = url.resolve(this.props.imagesPath, compSchema.image);
 					let compItemImage = (
 						<img
