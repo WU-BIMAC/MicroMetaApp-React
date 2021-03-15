@@ -1,6 +1,6 @@
 import React from "react";
 
-export const bool_isDebug = false;
+export const bool_isDebug = true;
 export const bool_isSettings = true;
 export const bool_hasAdvanced = false;
 export const bool_hasExperimental = false;

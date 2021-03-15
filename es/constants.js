@@ -9,7 +9,7 @@ var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var bool_isDebug = false;
+var bool_isDebug = true;
 exports.bool_isDebug = bool_isDebug;
 var bool_isSettings = true;
 exports.bool_isSettings = bool_isSettings;
