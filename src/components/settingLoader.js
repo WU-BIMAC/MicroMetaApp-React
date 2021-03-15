@@ -41,6 +41,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		// this.onClickManufacturerSelection = this.onClickManufacturerSelection.bind(
 		// 	this
 		// );
+		this.props.onClickSettingsSelection(this.props.inputData[0]);
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -211,7 +212,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				selectedSettings !== null && selectedSettings !== undefined
 					? inputData.indexOf(selectedSettings)
 					: 0;
-			console.log(inputData);
+			//console.log(inputData);
 			list.push(
 				<DropdownMenu
 					key={"dropdown-names"}

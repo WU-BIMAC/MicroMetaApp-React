@@ -70,6 +70,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     // 	this
     // );
 
+    _this.props.onClickSettingsSelection(_this.props.inputData[0]);
+
     return _this;
   }
 
@@ -238,8 +240,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
       if (loadingMode === 2) {
         var selectedSettings = this.state.selectedSettings;
-        var defaultMic = selectedSettings !== null && selectedSettings !== undefined ? inputData.indexOf(selectedSettings) : 0;
-        console.log(inputData);
+        var defaultMic = selectedSettings !== null && selectedSettings !== undefined ? inputData.indexOf(selectedSettings) : 0; //console.log(inputData);
+
         list.push( /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
           key: "dropdown-names",
           title: "",
