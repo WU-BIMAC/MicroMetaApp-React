@@ -1115,6 +1115,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let uuid = uuidv4();
 		let uuid2 = uuidv4();
 		let microscope = this.state.microscope;
+		if(bool_isDebug) {
+			console.log("settings");
+			console.log(this.state.settings);
+			console.log("settingName");
+			console.log(this.state.settingName);
+		}
 		let setting = this.state.settings[this.state.settingName];
 		let modifiedSetting = setting;
 		let activeTier = this.state.activeTier;
@@ -1871,7 +1877,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						inputData={footerSettingsInput}
 						isSchemaValidated={this.state.isSettingsValidated}
 						dimensions={headerFooterDims}
-						element={"settings"}
+						element={"image settings"}
 						formTitle={setting.Name}
 						imagesPath={imagesPathSVG}
 						elementByType={elementByType}
