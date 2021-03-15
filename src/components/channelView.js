@@ -307,6 +307,10 @@ export default class ChannelView extends React.PureComponent {
 				marginLeft: "5px",
 				marginRight: "5px",
 			};
+			const nameStyle = {
+				display: "flex",
+				flexDirection: "row",
+			};
 			let list = [];
 			for (let i = 0; i < channels.length; i++) {
 				let channel = channels[i];
@@ -317,20 +321,29 @@ export default class ChannelView extends React.PureComponent {
 
 				let validation1 = validate(channel, this.props.schema);
 				let validated1 = validation1.valid;
-				let validation2 = false;
-				if (channel.Fluorophore !== undefined || channel.Fluorophore !== null)
-					validated2 = validate(
+				let validated2 = false;
+				if (channel.Fluorophore !== undefined || channel.Fluorophore !== null) {
+					let validation2 = validate(
 						channel.Fluorophore,
 						this.state.fluorophoreSchema
 					);
-				let validated2 = validation2.valid;
+					validated2 = validation2.valid;
+				}
+				let validated3 = false;
+				if (channel.LightPath !== undefined || channel.LightPath !== null) {
+					let validation3 = validate(
+						channel.LightPath,
+						this.state.lightPathSchema
+					);
+					validated3 = validation3.valid;
+				}
 				let valid = null;
-				if (validated1 && validated2) {
+				if (validated1 && validated2 && validated3) {
 					valid = isValid;
 				} else {
 					valid = isInvalid;
 				}
-				let channelName = "- " + channel.Name;
+				let channelName = channel.Name;
 
 				list.push(
 					<ListGroup.Item
@@ -340,8 +353,10 @@ export default class ChannelView extends React.PureComponent {
 						key={"Channel-" + i}
 						data-id={i}
 					>
-						{valid}
-						{channelName}
+						<div style={nameStyle}>
+							<div style={{ width: "24px" }}>{valid}</div>
+							<div>{channelName}</div>
+						</div>
 					</ListGroup.Item>
 				);
 			}
