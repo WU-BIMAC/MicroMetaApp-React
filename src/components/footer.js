@@ -116,7 +116,7 @@ export default class Footer extends React.PureComponent {
 		let editTooltip = edit_microscope_tooltip;
 		let validationTooltip = validation_microscope_tooltip;
 		let saveTooltip = save_microscope_tooltip;
-		if (this.props.element === "setting") {
+		if (this.props.element === "image settings") {
 			editTooltip = edit_setting_tooltip;
 			validationTooltip = validation_setting_tooltip;
 			saveTooltip = save_setting_tooltip;
