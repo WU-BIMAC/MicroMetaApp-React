@@ -70,12 +70,21 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     // 	this
     // );
 
-    _this.props.onClickSettingsSelection(_this.props.settings[0]);
-
+    _this.onClickSettingsSelection = _this.onClickSettingsSelection.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(MicroscopeLoader, [{
+    key: "onClickSettingsSelection",
+    value: function onClickSettingsSelection(item) {
+      if (item !== null && item !== undefined) {
+        this.setState({
+          selectedSettings: item
+        });
+        this.props.onClickSettingsSelection(item);
+      }
+    }
+  }, {
     key: "onFileReaderAbort",
     value: function onFileReaderAbort(e) {
       this.setState({
@@ -197,7 +206,6 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
       var fileLoaded = this.state.fileLoaded;
-      var selectedManu = this.state.selectedManu;
       var isDropzoneActive = false;
       if (loadingMode === 1) isDropzoneActive = true;
       var list = [];
@@ -245,7 +253,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         list.push( /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
           key: "dropdown-names",
           title: "",
-          handleMenuItemClick: this.props.onClickSettingsSelection,
+          handleMenuItemClick: this.onClickSettingsSelection,
           inputData: inputData,
           defaultValue: defaultMic,
           width: width,
@@ -292,16 +300,17 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
   }], [{
     key: "getDerivedStateFromProps",
     value: function getDerivedStateFromProps(props, state) {
-      // if (props.loadingMode === 2) {
-      // 	if (props.settings !== null && props.settings !== undefined) {
-      // 		if (state.selectedManu === null) {
-      // 			let selectedManu = Object.keys(props.microscopes)[0];
-      // 			let micNames = props.microscopes[selectedManu];
-      // 			props.onClickSettingsSelection(micNames[0]);
-      // 			return { selectedManu: selectedManu, micNames: micNames };
-      // 		}
-      // 	}
-      // }
+      if (props.loadingMode === 2) {
+        if (props.settings !== null && props.settings !== undefined) {
+          if (state.selectedSettings === null || state.selectedSettings === undefined) {
+            var selectedSettings = props.settings[0];
+            props.onClickSettingsSelection(selectedSettings);
+          }
+
+          return null;
+        }
+      }
+
       return null;
     }
   }]);

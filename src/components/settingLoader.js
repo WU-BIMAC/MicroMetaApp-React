@@ -41,21 +41,30 @@ export default class MicroscopeLoader extends React.PureComponent {
 		// this.onClickManufacturerSelection = this.onClickManufacturerSelection.bind(
 		// 	this
 		// );
-		this.props.onClickSettingsSelection(this.props.settings[0]);
+		this.onClickSettingsSelection = this.onClickSettingsSelection.bind(this);
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		// if (props.loadingMode === 2) {
-		// 	if (props.settings !== null && props.settings !== undefined) {
-		// 		if (state.selectedManu === null) {
-		// 			let selectedManu = Object.keys(props.microscopes)[0];
-		// 			let micNames = props.microscopes[selectedManu];
-		// 			props.onClickSettingsSelection(micNames[0]);
-		// 			return { selectedManu: selectedManu, micNames: micNames };
-		// 		}
-		// 	}
-		// }
+		if (props.loadingMode === 2) {
+			if (props.settings !== null && props.settings !== undefined) {
+				if (
+					state.selectedSettings === null ||
+					state.selectedSettings === undefined
+				) {
+					let selectedSettings = props.settings[0];
+					props.onClickSettingsSelection(selectedSettings);
+				}
+				return null;
+			}
+		}
 		return null;
+	}
+
+	onClickSettingsSelection(item) {
+		if (item !== null && item !== undefined) {
+			this.setState({ selectedSettings: item });
+			this.props.onClickSettingsSelection(item);
+		}
 	}
 
 	onFileReaderAbort(e) {
@@ -153,8 +162,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 		let fileLoading = this.state.fileLoading;
 		let fileLoaded = this.state.fileLoaded;
 
-		let selectedManu = this.state.selectedManu;
-
 		let isDropzoneActive = false;
 		if (loadingMode === 1) isDropzoneActive = true;
 
@@ -217,7 +224,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				<DropdownMenu
 					key={"dropdown-names"}
 					title={""}
-					handleMenuItemClick={this.props.onClickSettingsSelection}
+					handleMenuItemClick={this.onClickSettingsSelection}
 					inputData={inputData}
 					defaultValue={defaultMic}
 					width={width}
