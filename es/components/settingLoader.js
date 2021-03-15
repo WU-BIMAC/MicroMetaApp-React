@@ -41,15 +41,15 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
-  _inherits(MicroscopeLoader, _React$PureComponent);
+var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
+  _inherits(SettingLoader, _React$PureComponent);
 
-  var _super = _createSuper(MicroscopeLoader);
+  var _super = _createSuper(SettingLoader);
 
-  function MicroscopeLoader(props) {
+  function SettingLoader(props) {
     var _this;
 
-    _classCallCheck(this, MicroscopeLoader);
+    _classCallCheck(this, SettingLoader);
 
     _this = _super.call(this, props);
     _this.state = {
@@ -66,15 +66,12 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     _this.dropzoneDialogCancel = _this.dropzoneDialogCancel.bind(_assertThisInitialized(_this));
     _this.onFileReaderAbort = _this.onFileReaderAbort.bind(_assertThisInitialized(_this));
     _this.onFileReaderError = _this.onFileReaderError.bind(_assertThisInitialized(_this));
-    _this.onFileReaderLoad = _this.onFileReaderLoad.bind(_assertThisInitialized(_this)); // this.onClickManufacturerSelection = this.onClickManufacturerSelection.bind(
-    // 	this
-    // );
-
+    _this.onFileReaderLoad = _this.onFileReaderLoad.bind(_assertThisInitialized(_this));
     _this.onClickSettingsSelection = _this.onClickSettingsSelection.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  _createClass(MicroscopeLoader, [{
+  _createClass(SettingLoader, [{
     key: "onClickSettingsSelection",
     value: function onClickSettingsSelection(item) {
       if (item !== null && item !== undefined) {
@@ -153,12 +150,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         fileLoading: false,
         fileLoaded: false
       });
-    } // onClickManufacturerSelection(item) {
-    // 	let micNames = this.props.microscopes[item];
-    // 	this.setState({ selectedManu: item, micNames: micNames });
-    // 	this.props.onClickMicroscopeSelection(this.props.microscopes[item][0]);
-    // }
-
+    }
   }, {
     key: "render",
     value: function render() {
@@ -315,7 +307,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     }
   }]);
 
-  return MicroscopeLoader;
+  return SettingLoader;
 }(_react.default.PureComponent);
 
-exports.default = MicroscopeLoader;
+exports.default = SettingLoader;

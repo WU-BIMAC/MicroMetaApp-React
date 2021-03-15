@@ -17,7 +17,7 @@ import {
 	back_tooltip,
 } from "../constants";
 
-export default class MicroscopeLoader extends React.PureComponent {
+export default class SettingLoader extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -38,9 +38,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 		this.onFileReaderError = this.onFileReaderError.bind(this);
 		this.onFileReaderLoad = this.onFileReaderLoad.bind(this);
 
-		// this.onClickManufacturerSelection = this.onClickManufacturerSelection.bind(
-		// 	this
-		// );
 		this.onClickSettingsSelection = this.onClickSettingsSelection.bind(this);
 	}
 
@@ -108,12 +105,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 	dropzoneDialogCancel() {
 		this.setState({ fileLoading: false, fileLoaded: false });
 	}
-
-	// onClickManufacturerSelection(item) {
-	// 	let micNames = this.props.microscopes[item];
-	// 	this.setState({ selectedManu: item, micNames: micNames });
-	// 	this.props.onClickMicroscopeSelection(this.props.microscopes[item][0]);
-	// }
 
 	render() {
 		const buttonStyle = {
