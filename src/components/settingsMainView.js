@@ -203,8 +203,8 @@ export default class SettingMainView extends React.PureComponent {
 	onElementDataSave(id, data) {
 		let settingData = {};
 		if (id === elements.indexOf("exp")) {
-			let experiment = this.state.experiment;
-			let newExperiment = Object.assign(experiment, data);
+			let oldExperiment = Object.assign({}, this.state.experiment);
+			let newExperiment = Object.assign(oldExperiment, data);
 			settingData.Experiment = newExperiment;
 			this.setState({ editingElement: -1, experiment: newExperiment });
 		} else if (id === elements.indexOf("planes")) {
@@ -217,25 +217,33 @@ export default class SettingMainView extends React.PureComponent {
 				channels: data,
 			});
 		} else if (id === elements.indexOf("tirfSettings")) {
-			settingData.TIRFSettings = data;
+			let oldTIRFSettings = Object.assign({}, this.state.TIRFSettings);
+			let newTIRFSettings = Object.assign(oldTIRFSettings, data);
+			settingData.TIRFSettings = newTIRFSettings;
 			this.setState({
 				editingElement: -1,
-				TIRFSettings: data,
+				TIRFSettings: newTIRFSettings,
 			});
 		} else if (id === elements.indexOf("imgEnv")) {
-			settingData.ImagingEnvironment = data;
+			let oldImagingEnv = Object.assign({}, this.state.imagingEnv);
+			let newImagingEnv = Object.assign(oldImagingEnv, data);
+			settingData.ImagingEnvironment = newImagingEnv;
 			this.setState({
 				editingElement: -1,
-				imagingEnv: data,
+				imagingEnv: newImagingEnv,
 			});
 		} else if (id === elements.indexOf("micSettings")) {
-			settingData.MicroscopeStandSettings = data;
+			let oldMicSettings = Object.assign({}, this.state.micSettings);
+			let newMicSettings = Object.assign(oldMicSettings, data);
+			settingData.MicroscopeStandSettings = newMicSettings;
 			this.setState({
 				editingElement: -1,
-				micSettings: data,
+				micSettings: newMicSettings,
 			});
 		} else if (id === elements.indexOf("objSettings")) {
-			settingData.ObjectiveSettings = data;
+			let oldObjSettings = Object.assign({}, this.state.objSettings);
+			let newObjSettings = Object.assign(oldObjSettings, data);
+			settingData.ObjectiveSettings = newObjSettings;
 			let compID = data.Component_ID;
 			let objective = null;
 			Object.keys(this.props.microscopeComponents).forEach((key) => {
@@ -244,20 +252,29 @@ export default class SettingMainView extends React.PureComponent {
 			});
 			this.setState({
 				editingElement: -1,
-				objSettings: data,
+				objSettings: newObjSettings,
 				objective: objective,
 			});
 		} else if (id === elements.indexOf("samplePosSettings")) {
-			settingData.SamplePositioningSettings = data;
+			let oldSamplePosSettings = Object.assign(
+				{},
+				this.state.samplePosSettings
+			);
+			let newSamplePosSettings = Object.assign(oldSamplePosSettings, data);
+			settingData.SamplePositioningSettings = newSamplePosSettings;
 			this.setState({
 				editingElement: -1,
-				samplePosSettings: data,
+				samplePosSettings: newSamplePosSettings,
 			});
 		} else if (id === elements.indexOf("micTableSettings")) {
-			settingData.MicroscopeTableSettings = data;
+			let oldMicTableSettings = Object.assign({}, this.state.micTableSettings);
+			let newMicTableSettings = Object.assign(oldMicTableSettings, data);
+			console.log("newMicTableSettings");
+			console.log(newMicTableSettings);
+			settingData.MicroscopeTableSettings = newMicTableSettings;
 			this.setState({
 				editingElement: -1,
-				micTableSettings: data,
+				micTableSettings: newMicTableSettings,
 			});
 		}
 
@@ -471,12 +488,15 @@ export default class SettingMainView extends React.PureComponent {
 			let schema_id = schemas[index];
 			let object = this.state.experiment;
 			let schema = this.state.experimentalSchemas[schema_id];
+			let schemaHasProp = false;
+			if (schema !== null && schema !== undefined)
+				schemaHasProp = Object.keys(schema.properties).length > 0;
 			let validation = null;
 			let validated = null;
 			let valid = null;
 			if (bool_hasExperimental) {
 				validated = false;
-				if (object !== null && object !== undefined) {
+				if (object !== null && object !== undefined && schemaHasProp) {
 					validation = validate(object, schema);
 					validated = validation.valid;
 				}
@@ -485,14 +505,17 @@ export default class SettingMainView extends React.PureComponent {
 				} else {
 					valid = isInvalid;
 				}
+				disabled = true;
+				if (schemaHasProp) disabled = false;
 				buttons.push(
 					<Button
 						key={"Button-Experiment"}
 						onClick={() => this.onClickEditSettings(elements.indexOf("exp"))}
 						style={styleButton}
 						size="lg"
+						disabled={disabled}
 					>
-						{valid}
+						{disabled ? null : valid}
 						{"Edit Experiment"}
 					</Button>
 				);
@@ -502,9 +525,12 @@ export default class SettingMainView extends React.PureComponent {
 			schema_id = schemas[index];
 			object = this.state.TIRFSettings;
 			schema = this.state.settingSchemas[schema_id];
+			schemaHasProp = false;
+			if (schema !== null && schema !== undefined)
+				schemaHasProp = Object.keys(schema.properties).length > 0;
 			if (bool_hasAdvanced) {
 				validated = false;
-				if (object !== null && object !== undefined) {
+				if (object !== null && object !== undefined && schemaHasProp) {
 					validation = validate(object, schema);
 					validated = validation.valid;
 				}
@@ -515,12 +541,13 @@ export default class SettingMainView extends React.PureComponent {
 					valid = isInvalid;
 				}
 				category = categories[index];
-				disabled = false;
-				for (let catIndex in category) {
-					let cat = category[catIndex];
-					let ele = elementByType[cat];
-					if (ele === null || ele === undefined) disabled = true;
-				}
+				disabled = true;
+				if (schemaHasProp)
+					for (let catIndex in category) {
+						let cat = category[catIndex];
+						let ele = elementByType[cat];
+						if (ele !== null && ele !== undefined) disabled = false;
+					}
 				buttons.push(
 					<Button
 						key={"Button-TIRF"}
@@ -541,8 +568,11 @@ export default class SettingMainView extends React.PureComponent {
 			schema_id = schemas[index];
 			object = this.state.imagingEnv;
 			schema = this.state.settingSchemas[schema_id];
+			schemaHasProp = false;
+			if (schema !== null && schema !== undefined)
+				schemaHasProp = Object.keys(schema.properties).length > 0;
 			validated = false;
-			if (object !== null && object !== undefined) {
+			if (object !== null && object !== undefined && schemaHasProp) {
 				validation = validate(object, schema);
 				validated = validation.valid;
 			}
@@ -553,12 +583,13 @@ export default class SettingMainView extends React.PureComponent {
 				valid = isInvalid;
 			}
 			category = categories[index];
-			disabled = false;
-			for (let catIndex in category) {
-				let cat = category[catIndex];
-				let ele = elementByType[cat];
-				if (ele === null || ele === undefined) disabled = true;
-			}
+			disabled = true;
+			if (schemaHasProp)
+				for (let catIndex in category) {
+					let cat = category[catIndex];
+					let ele = elementByType[cat];
+					if (ele !== null && ele !== undefined) disabled = false;
+				}
 			buttons.push(
 				<PopoverTooltip
 					key={"TooltipButton-ImgEnv"}
@@ -586,8 +617,11 @@ export default class SettingMainView extends React.PureComponent {
 			schema_id = schemas[index];
 			object = this.state.micTableSettings;
 			schema = this.state.settingSchemas[schema_id];
+			schemaHasProp = false;
+			if (schema !== null && schema !== undefined)
+				schemaHasProp = Object.keys(schema.properties).length > 0;
 			validated = false;
-			if (object !== null && object !== undefined) {
+			if (object !== null && object !== undefined && schemaHasProp) {
 				validation = validate(object, schema);
 				validated = validation.valid;
 			}
@@ -598,12 +632,13 @@ export default class SettingMainView extends React.PureComponent {
 				valid = isInvalid;
 			}
 			category = categories[index];
-			disabled = false;
-			for (let catIndex in category) {
-				let cat = category[catIndex];
-				let ele = elementByType[cat];
-				if (ele === null || ele === undefined) disabled = true;
-			}
+			disabled = true;
+			if (schemaHasProp)
+				for (let catIndex in category) {
+					let cat = category[catIndex];
+					let ele = elementByType[cat];
+					if (ele !== null && ele !== undefined) disabled = false;
+				}
 			buttons.push(
 				<PopoverTooltip
 					key={"TooltipButton-MicTableSettings"}
@@ -631,9 +666,14 @@ export default class SettingMainView extends React.PureComponent {
 			schema_id = schemas[index];
 			object = this.state.micSettings;
 			schema = this.state.settingSchemas[schema_id];
+			schemaHasProp = false;
+			if (schema !== null && schema !== undefined)
+				schemaHasProp = Object.keys(schema.properties).length > 0;
 			validated = false;
-			validation = validate(object, schema);
-			validated = validation.valid;
+			if (schemaHasProp) {
+				validation = validate(object, schema);
+				validated = validation.valid;
+			}
 			valid = null;
 			if (validated) {
 				valid = isValid;
@@ -641,6 +681,7 @@ export default class SettingMainView extends React.PureComponent {
 				valid = isInvalid;
 			}
 			disabled = false;
+			if (!schemaHasProp) disabled = true;
 			buttons.push(
 				<PopoverTooltip
 					key={"TooltipButton-MicSettings"}
@@ -655,8 +696,9 @@ export default class SettingMainView extends React.PureComponent {
 							}
 							style={styleButton}
 							size="lg"
+							disabled={disabled}
 						>
-							{valid}
+							{disabled ? null : valid}
 							{"Edit Microscope Stand Settings"}
 						</Button>
 					}
@@ -667,8 +709,11 @@ export default class SettingMainView extends React.PureComponent {
 			schema_id = schemas[index];
 			object = this.state.objSettings;
 			schema = this.state.settingSchemas[schema_id];
+			schemaHasProp = false;
+			if (schema !== null && schema !== undefined)
+				schemaHasProp = Object.keys(schema.properties).length > 0;
 			validated = false;
-			if (object !== null && object !== undefined) {
+			if (object !== null && object !== undefined && schemaHasProp) {
 				validation = validate(object, schema);
 				validated = validation.valid;
 			}
@@ -679,12 +724,13 @@ export default class SettingMainView extends React.PureComponent {
 				valid = isInvalid;
 			}
 			category = categories[index];
-			disabled = false;
-			for (let catIndex in category) {
-				let cat = category[catIndex];
-				let ele = elementByType[cat];
-				if (ele === null || ele === undefined) disabled = true;
-			}
+			disabled = true;
+			if (schemaHasProp)
+				for (let catIndex in category) {
+					let cat = category[catIndex];
+					let ele = elementByType[cat];
+					if (ele !== null && ele !== undefined) disabled = false;
+				}
 			buttons.push(
 				<PopoverTooltip
 					key={"TooltipButton-ObjSettings"}
@@ -712,8 +758,11 @@ export default class SettingMainView extends React.PureComponent {
 			schema_id = schemas[index];
 			object = this.state.samplePosSettings;
 			schema = this.state.settingSchemas[schema_id];
+			schemaHasProp = false;
+			if (schema !== null && schema !== undefined)
+				schemaHasProp = Object.keys(schema.properties).length > 0;
 			validated = false;
-			if (object !== null && object !== undefined) {
+			if (object !== null && object !== undefined && schemaHasProp) {
 				validation = validate(object, schema);
 				validated = validation.valid;
 			}
@@ -724,12 +773,13 @@ export default class SettingMainView extends React.PureComponent {
 				valid = isInvalid;
 			}
 			category = categories[index];
-			disabled = false;
-			for (let catIndex in category) {
-				let cat = category[catIndex];
-				let ele = elementByType[cat];
-				if (ele === null || ele === undefined) disabled = true;
-			}
+			disabled = true;
+			if (schemaHasProp)
+				for (let catIndex in category) {
+					let cat = category[catIndex];
+					let ele = elementByType[cat];
+					if (ele !== null && ele !== undefined) disabled = false;
+				}
 			buttons.push(
 				<PopoverTooltip
 					key={"TooltipButton-SamplePosSettings"}
