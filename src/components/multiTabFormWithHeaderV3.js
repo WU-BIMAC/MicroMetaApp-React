@@ -17,6 +17,7 @@ import {
 	string_object,
 	string_array,
 	string_bandpass_warning,
+	save_component_tooltip
 } from "../constants";
 
 export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
