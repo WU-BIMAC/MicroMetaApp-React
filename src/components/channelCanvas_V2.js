@@ -466,13 +466,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			let currentLightPath = data.LightPath;
 			let currentFluorophore = data.Fluorophore;
 			let objects = this.state.channelData.slice();
-			objects[0] = Object.assign(objects[0], currentChannelData);
-			objects[1] = Object.assign(objects[1], currentLightPath);
-			objects[2] = Object.assign(objects[2], currentFluorophore);
+			let oldChannelData = Object.assign({}, objects[0]);
+			let oldLightPath = Object.assign({}, objects[1]);
+			let oldFluorophore = Object.assign({}, objects[2]);
+			let newObjects = [];
+			newObjects[0] = Object.assign(oldChannelData, currentChannelData);
+			newObjects[1] = Object.assign(oldLightPath, currentLightPath);
+			newObjects[2] = Object.assign(oldFluorophore, currentFluorophore);
 			this.setState({
 				editing: false,
 				editingSettings: false,
-				channelData: objects,
+				channelData: newObjects,
 				category: null,
 				selectedSlot: null,
 				selectedComp: null,
@@ -499,15 +503,13 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	handleDeleteComp(selectedSlot, index) {
-		let i = index - 1;
+		let i = index;
 		if (selectedSlot.includes("AdditionalSlot_")) {
-			let tmpSlots = this.state.tmpSlots;
-			if (i !== 0) {
-				tmpSlots.splice(i, 1);
-			} else {
-				tmpSlots = [];
-			}
-			this.setState({ tmpSlots: tmpSlots });
+			let tmpSlots = this.state.tmpSlots.slice();
+			console.log(tmpSlots);
+			tmpSlots.splice(i, 1);
+			let newTmpSlots = tmpSlots;
+			this.setState({ tmpSlots: newTmpSlots });
 		} else {
 			let slots = Object.assign({}, this.state.slots);
 			delete slots[selectedSlot];
@@ -527,7 +529,11 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 
 	onElementDataCancel() {
 		let selectedSlot = this.state.selectedSlot;
-		if (selectedSlot.includes("AdditionalSlot_")) {
+		if (
+			selectedSlot !== null &&
+			selectedSlot !== undefined &&
+			selectedSlot.includes("AdditionalSlot_")
+		) {
 			this.setState({ editingSettings: false });
 		} else {
 			this.setState({ editing: false, editingSettings: false });
@@ -854,7 +860,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		let button = null;
 		if (needDelete) {
 			let butt = null;
-			let callback = null;
 			if (isEnabled && hasSettings) {
 				butt = (
 					<button
@@ -974,11 +979,11 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		const modalTopListContainer = {
 			display: "flex",
 			flexDirection: "column",
-			flexWrap: "wrap",
+			//flexWrap: "wrap",
 			justifyContent: "space-evenly",
 			overflow: "auto",
-			height: "20%",
-			maxHeight: "20%",
+			height: "250px",
+			maxHeight: "250px",
 			alignItems: "center",
 		};
 
@@ -1010,7 +1015,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			justifyContent: "space-around",
 			backgroundColor: "white",
 			padding: "0px",
-			margin: "5px",
+			margin: "10px",
 			border: "2px solid grey",
 			fontSize: "14px",
 			color: "inherit",
@@ -1105,6 +1110,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 
 		if (
 			selectedComp !== null &&
+			selectedComp !== undefined &&
 			(selectedSchema === null || selectedSchema === undefined)
 		) {
 			selectedID = selectedComp.Schema_ID;
@@ -1197,11 +1203,15 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							compSchemaCategory.substring(0, compSchemaCategory.indexOf("."))
 						)
 					) {
-						// if (selectedComp === null || selectedComp === undefined) {
-						// 	selectedComp = comp;
-						// }
-						// if (selectedSchema === null || selectedSchema === undefined)
-						// 	selectedSchema = compSchema;
+						if (selectedSlot.includes("AdditionalSlot_")) {
+							let items = this.state.tmpSlots;
+							let found = false;
+							Object.keys(items).forEach((tmpCompIndex) => {
+								let tmpComp = items[tmpCompIndex];
+								if (comp.ID === tmpComp.ID) found = true;
+							});
+							if (found) return;
+						}
 						let compImage = url.resolve(
 							this.props.imagesPath,
 							compSchema.image
@@ -1291,24 +1301,28 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							buttonStyleModified = buttonStyle;
 						}
 						let valid = null;
+						let schemaHasProp = false;
 						if (settingDataSlot !== null && settingDataSlot !== undefined) {
 							let settingDataObj = settingDataSlot[compIndex];
 							if (settingDataObj !== null && settingDataObj !== undefined) {
 								let schema = settingsSchemas[settingDataObj.Schema_ID];
 								if (schema !== null && schema !== undefined) {
-									let validation = validate(settingDataObj, schema);
-									let validated = validation.valid;
-									if (validated) {
-										valid = isValid2;
-									} else {
-										valid = isInvalid2;
+									schemaHasProp = Object.keys(schema.properties).length > 0;
+									if (schemaHasProp) {
+										let validation = validate(settingDataObj, schema);
+										let validated = validation.valid;
+										if (validated) {
+											valid = isValid2;
+										} else {
+											valid = isInvalid2;
+										}
 									}
 								}
 							}
 						}
 
 						let butt = null;
-						if (compSchema.modelSettings !== "NA") {
+						if (compSchema.modelSettings !== "NA" && schemaHasProp) {
 							butt = (
 								<button
 									key={"button-" + comp.Name}
@@ -1330,14 +1344,13 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							);
 						}
 
+						let len = slotList.length;
 						slotList.push(
 							<div>
 								<div style={styleIcons}>
 									<button
 										type="button"
-										onClick={() =>
-											this.handleDeleteComp(selectedSlot, slotList.length)
-										}
+										onClick={() => this.handleDeleteComp(selectedSlot, len)}
 										style={styleCloser}
 									>
 										x
@@ -1700,13 +1713,18 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		let valid = null;
 		if (lightSource !== undefined && lightSource !== null) {
 			let schema = settingsSchemas[lightSource.Schema_ID];
-			if (schema !== undefined && schema !== null) {
-				let validation = validate(lightSource, schema);
-				let validated = validation.valid;
-				if (validated) {
-					valid = isValid2;
+			if (schema !== null && schema !== undefined) {
+				let schemaHasProp = Object.keys(schema.properties).length > 0;
+				if (schemaHasProp) {
+					let validation = validate(lightSource, schema);
+					let validated = validation.valid;
+					if (validated) {
+						valid = isValid2;
+					} else {
+						valid = isInvalid2;
+					}
 				} else {
-					valid = isInvalid2;
+					hasLightSource = false;
 				}
 			}
 		}
@@ -1732,13 +1750,18 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		valid = null;
 		if (detector !== undefined && detector !== null) {
 			let schema = settingsSchemas[detector.Schema_ID];
-			if (schema !== undefined && schema !== null) {
-				let validation = validate(detector, schema);
-				let validated = validation.valid;
-				if (validated) {
-					valid = isValid2;
+			if (schema !== null && schema !== undefined) {
+				let schemaHasProp = Object.keys(schema.properties).length > 0;
+				if (schemaHasProp) {
+					let validation = validate(detector, schema);
+					let validated = validation.valid;
+					if (validated) {
+						valid = isValid2;
+					} else {
+						valid = isInvalid2;
+					}
 				} else {
-					valid = isInvalid2;
+					hasDetector = false;
 				}
 			}
 		}
@@ -1764,13 +1787,18 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		valid = null;
 		if (relayLens !== undefined && relayLens !== null) {
 			let schema = settingsSchemas[relayLens.Schema_ID];
-			if (schema !== undefined && schema !== null) {
-				let validation = validate(relayLens, schema);
-				let validated = validation.valid;
-				if (validated) {
-					valid = isValid2;
+			if (schema !== null && schema !== undefined) {
+				let schemaHasProp = Object.keys(schema.properties).length > 0;
+				if (schemaHasProp) {
+					let validation = validate(relayLens, schema);
+					let validated = validation.valid;
+					if (validated) {
+						valid = isValid2;
+					} else {
+						valid = isInvalid2;
+					}
 				} else {
-					valid = isInvalid2;
+					hasRelayLens = false;
 				}
 			}
 		}
@@ -1795,13 +1823,18 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		valid = null;
 		if (couplingLens !== undefined && couplingLens !== null) {
 			let schema = settingsSchemas[couplingLens.Schema_ID];
-			if (schema !== undefined && schema !== null) {
-				let validation = validate(couplingLens, schema);
-				let validated = validation.valid;
-				if (validated) {
-					valid = isValid2;
+			if (schema !== null && schema !== undefined) {
+				let schemaHasProp = Object.keys(schema.properties).length > 0;
+				if (schemaHasProp) {
+					let validation = validate(couplingLens, schema);
+					let validated = validation.valid;
+					if (validated) {
+						valid = isValid2;
+					} else {
+						valid = isInvalid2;
+					}
 				} else {
-					valid = isInvalid2;
+					hasCouplingLens = false;
 				}
 			}
 		}
@@ -1827,13 +1860,18 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		valid = null;
 		if (lightSourceCoupling !== undefined && lightSourceCoupling !== null) {
 			let schema = settingsSchemas[lightSourceCoupling.Schema_ID];
-			if (schema !== undefined && schema !== null) {
-				let validation = validate(lightSourceCoupling, schema);
-				let validated = validation.valid;
-				if (validated) {
-					valid = isValid2;
+			if (schema !== null && schema !== undefined) {
+				let schemaHasProp = Object.keys(schema.properties).length > 0;
+				if (schemaHasProp) {
+					let validation = validate(lightSourceCoupling, schema);
+					let validated = validation.valid;
+					if (validated) {
+						valid = isValid2;
+					} else {
+						valid = isInvalid2;
+					}
 				} else {
-					valid = isInvalid2;
+					hasLightSourceCoupling = false;
 				}
 			}
 		}
@@ -1859,13 +1897,18 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		valid = null;
 		if (excitationFilter !== undefined && excitationFilter !== null) {
 			let schema = settingsSchemas[excitationFilter.Schema_ID];
-			if (schema !== undefined && schema !== null) {
-				let validation = validate(excitationFilter, schema);
-				let validated = validation.valid;
-				if (validated) {
-					valid = isValid2;
+			if (schema !== null && schema !== undefined) {
+				let schemaHasProp = Object.keys(schema.properties).length > 0;
+				if (schemaHasProp) {
+					let validation = validate(excitationFilter, schema);
+					let validated = validation.valid;
+					if (validated) {
+						valid = isValid2;
+					} else {
+						valid = isInvalid2;
+					}
 				} else {
-					valid = isInvalid2;
+					hasExcitation = false;
 				}
 			}
 		}
@@ -1891,13 +1934,18 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		valid = null;
 		if (dichroic !== undefined && dichroic !== null) {
 			let schema = settingsSchemas[dichroic.Schema_ID];
-			if (schema !== undefined && schema !== null) {
-				let validation = validate(dichroic, schema);
-				let validated = validation.valid;
-				if (validated) {
-					valid = isValid2;
+			if (schema !== null && schema !== undefined) {
+				let schemaHasProp = Object.keys(schema.properties).length > 0;
+				if (schemaHasProp) {
+					let validation = validate(dichroic, schema);
+					let validated = validation.valid;
+					if (validated) {
+						valid = isValid2;
+					} else {
+						valid = isInvalid2;
+					}
 				} else {
-					valid = isInvalid2;
+					hasDichroic = false;
 				}
 			}
 		}
@@ -1923,13 +1971,18 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		valid = null;
 		if (emissionFilter !== undefined && emissionFilter !== null) {
 			let schema = settingsSchemas[emissionFilter.Schema_ID];
-			if (schema !== undefined && schema !== null) {
-				let validation = validate(emissionFilter, schema);
-				let validated = validation.valid;
-				if (validated) {
-					valid = isValid2;
+			if (schema !== null && schema !== undefined) {
+				let schemaHasProp = Object.keys(schema.properties).length > 0;
+				if (schemaHasProp) {
+					let validation = validate(emissionFilter, schema);
+					let validated = validation.valid;
+					if (validated) {
+						valid = isValid2;
+					} else {
+						valid = isInvalid2;
+					}
 				} else {
-					valid = isInvalid2;
+					hasEmission = false;
 				}
 			}
 		}
@@ -1956,19 +2009,26 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		valid = null;
 		if (objective !== undefined && objective !== null) {
 			let schema = settingsSchemas[objective.Schema_ID];
-			if (schema !== undefined && schema !== null) {
-				let validation = validate(objective, schema);
-				let validated = validation.valid;
-				let immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
-				let validation2 = validate(
-					objective.ImmersionLiquid,
-					immersionLiquidSchema
-				);
-				let validated2 = validation2.valid;
-				if (validated && validated2) {
-					valid = isValid2;
+			let immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
+			if (schema !== null && schema !== undefined) {
+				let schemaHasProp = Object.keys(schema.properties).length > 0;
+				let schemaHasProp2 =
+					Object.keys(immersionLiquidSchema.properties).length > 0;
+				if (schemaHasProp || schemaHasProp2) {
+					let validation = validate(objective, schema);
+					let validated = validation.valid;
+					let validation2 = validate(
+						objective.ImmersionLiquid,
+						immersionLiquidSchema
+					);
+					let validated2 = validation2.valid;
+					if (validated && validated2) {
+						valid = isValid2;
+					} else {
+						valid = isInvalid2;
+					}
 				} else {
-					valid = isInvalid2;
+					hasObjective = false;
 				}
 			}
 		}
