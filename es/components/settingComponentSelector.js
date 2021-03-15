@@ -149,7 +149,12 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         currentComp: null,
         settingData: {}
       });
-      this.props.onConfirm(this.props.id, settingData);
+
+      if (settingData === null || settingData === undefined) {
+        this.props.onCancel();
+      } else {
+        this.props.onConfirm(this.props.id, settingData);
+      }
     }
   }, {
     key: "onCancel",
@@ -171,7 +176,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       // let category = this.state.category;
       //let slots = this.state.slots;
       var oldSettingData = Object.assign({}, this.state.settingData);
-      var newSettingData = Object.assign(oldSettingData, this.state.settingData);
+      var newSettingData = Object.assign(oldSettingData, data);
 
       if (data.ImmersionLiquid !== null && data.ImmersionLiquid !== undefined) {
         var oldImmersionLiquid = Object.assign({}, this.state.settingData.ImmersionLiquid);
@@ -340,8 +345,8 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         flexWrap: "wrap",
         justifyContent: "space-evenly",
         overflow: "auto",
-        height: "20%",
-        maxHeight: "20%",
+        height: "250px",
+        maxHeight: "250px",
         alignItems: "center"
       };
       var modalTopList = {
@@ -371,8 +376,8 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "space-around",
         backgroundColor: "white",
         padding: "0px",
-        margin: "5px",
-        border: "5px solid blue",
+        margin: "10px",
+        border: "2px solid grey",
         fontSize: "14px",
         color: "inherit",
         cursor: "pointer"
@@ -499,11 +504,15 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
           var category = _this2.props.category;
 
           if (category.includes(schema_id.replace(_constants.string_json_ext, "")) || category.includes(compSchemaCategory) || category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
-            // if (selectedComp === null || selectedComp === undefined) {
-            // 	selectedComp = comp;
+            // if (selectedSlot.includes("AdditionalSlot_")) {
+            // 	let items = this.state.tmpSlots;
+            // 	let found = false;
+            // 	Object.keys(items).forEach((tmpCompIndex) => {
+            // 		let tmpComp = items[tmpCompIndex];
+            // 		if (comp.ID === tmpComp.ID) found = true;
+            // 	});
+            // 	if (found) return;
             // }
-            // if (selectedSchema === null || selectedSchema === undefined)
-            // 	selectedSchema = compSchema;
             var compImage = url.resolve(_this2.props.imagesPath, compSchema.image);
 
             var compItemImage = /*#__PURE__*/_react.default.createElement("img", {

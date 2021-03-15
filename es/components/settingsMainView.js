@@ -191,8 +191,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
       var settingData = {};
 
       if (id === elements.indexOf("exp")) {
-        var experiment = this.state.experiment;
-        var newExperiment = Object.assign(experiment, data);
+        var oldExperiment = Object.assign({}, this.state.experiment);
+        var newExperiment = Object.assign(oldExperiment, data);
         settingData.Experiment = newExperiment;
         this.setState({
           editingElement: -1,
@@ -211,25 +211,33 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           channels: data
         });
       } else if (id === elements.indexOf("tirfSettings")) {
-        settingData.TIRFSettings = data;
+        var oldTIRFSettings = Object.assign({}, this.state.TIRFSettings);
+        var newTIRFSettings = Object.assign(oldTIRFSettings, data);
+        settingData.TIRFSettings = newTIRFSettings;
         this.setState({
           editingElement: -1,
-          TIRFSettings: data
+          TIRFSettings: newTIRFSettings
         });
       } else if (id === elements.indexOf("imgEnv")) {
-        settingData.ImagingEnvironment = data;
+        var oldImagingEnv = Object.assign({}, this.state.imagingEnv);
+        var newImagingEnv = Object.assign(oldImagingEnv, data);
+        settingData.ImagingEnvironment = newImagingEnv;
         this.setState({
           editingElement: -1,
-          imagingEnv: data
+          imagingEnv: newImagingEnv
         });
       } else if (id === elements.indexOf("micSettings")) {
-        settingData.MicroscopeStandSettings = data;
+        var oldMicSettings = Object.assign({}, this.state.micSettings);
+        var newMicSettings = Object.assign(oldMicSettings, data);
+        settingData.MicroscopeStandSettings = newMicSettings;
         this.setState({
           editingElement: -1,
-          micSettings: data
+          micSettings: newMicSettings
         });
       } else if (id === elements.indexOf("objSettings")) {
-        settingData.ObjectiveSettings = data;
+        var oldObjSettings = Object.assign({}, this.state.objSettings);
+        var newObjSettings = Object.assign(oldObjSettings, data);
+        settingData.ObjectiveSettings = newObjSettings;
         var compID = data.Component_ID;
         var objective = null;
         Object.keys(this.props.microscopeComponents).forEach(function (key) {
@@ -238,20 +246,26 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         });
         this.setState({
           editingElement: -1,
-          objSettings: data,
+          objSettings: newObjSettings,
           objective: objective
         });
       } else if (id === elements.indexOf("samplePosSettings")) {
-        settingData.SamplePositioningSettings = data;
+        var oldSamplePosSettings = Object.assign({}, this.state.samplePosSettings);
+        var newSamplePosSettings = Object.assign(oldSamplePosSettings, data);
+        settingData.SamplePositioningSettings = newSamplePosSettings;
         this.setState({
           editingElement: -1,
-          samplePosSettings: data
+          samplePosSettings: newSamplePosSettings
         });
       } else if (id === elements.indexOf("micTableSettings")) {
-        settingData.MicroscopeTableSettings = data;
+        var oldMicTableSettings = Object.assign({}, this.state.micTableSettings);
+        var newMicTableSettings = Object.assign(oldMicTableSettings, data);
+        console.log("newMicTableSettings");
+        console.log(newMicTableSettings);
+        settingData.MicroscopeTableSettings = newMicTableSettings;
         this.setState({
           editingElement: -1,
-          micTableSettings: data
+          micTableSettings: newMicTableSettings
         });
       }
 
@@ -459,6 +473,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         var _schema_id = schemas[index];
         var object = this.state.experiment;
         var _schema = this.state.experimentalSchemas[_schema_id];
+        var schemaHasProp = false;
+        if (_schema !== null && _schema !== undefined) schemaHasProp = Object.keys(_schema.properties).length > 0;
         var validation = null;
         var validated = null;
         var valid = null;
@@ -466,7 +482,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         if (_constants.bool_hasExperimental) {
           validated = false;
 
-          if (object !== null && object !== undefined) {
+          if (object !== null && object !== undefined && schemaHasProp) {
             validation = validate(object, _schema);
             validated = validation.valid;
           }
@@ -477,25 +493,30 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             valid = isInvalid;
           }
 
+          disabled = true;
+          if (schemaHasProp) disabled = false;
           buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
             key: "Button-Experiment",
             onClick: function onClick() {
               return _this3.onClickEditSettings(elements.indexOf("exp"));
             },
             style: styleButton,
-            size: "lg"
-          }, valid, "Edit Experiment"));
+            size: "lg",
+            disabled: disabled
+          }, disabled ? null : valid, "Edit Experiment"));
         }
 
         index = elements.indexOf("tirfSettings");
         _schema_id = schemas[index];
         object = this.state.TIRFSettings;
         _schema = this.state.settingSchemas[_schema_id];
+        schemaHasProp = false;
+        if (_schema !== null && _schema !== undefined) schemaHasProp = Object.keys(_schema.properties).length > 0;
 
         if (_constants.bool_hasAdvanced) {
           validated = false;
 
-          if (object !== null && object !== undefined) {
+          if (object !== null && object !== undefined && schemaHasProp) {
             validation = validate(object, _schema);
             validated = validation.valid;
           }
@@ -509,14 +530,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           }
 
           _category = categories[index];
-          disabled = false;
-
-          for (var catIndex in _category) {
+          disabled = true;
+          if (schemaHasProp) for (var catIndex in _category) {
             var cat = _category[catIndex];
             var ele = elementByType[cat];
-            if (ele === null || ele === undefined) disabled = true;
+            if (ele !== null && ele !== undefined) disabled = false;
           }
-
           buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
             key: "Button-TIRF",
             onClick: function onClick() {
@@ -532,9 +551,11 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         _schema_id = schemas[index];
         object = this.state.imagingEnv;
         _schema = this.state.settingSchemas[_schema_id];
+        schemaHasProp = false;
+        if (_schema !== null && _schema !== undefined) schemaHasProp = Object.keys(_schema.properties).length > 0;
         validated = false;
 
-        if (object !== null && object !== undefined) {
+        if (object !== null && object !== undefined && schemaHasProp) {
           validation = validate(object, _schema);
           validated = validation.valid;
         }
@@ -548,14 +569,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         _category = categories[index];
-        disabled = false;
-
-        for (var _catIndex in _category) {
+        disabled = true;
+        if (schemaHasProp) for (var _catIndex in _category) {
           var _cat = _category[_catIndex];
           var _ele = elementByType[_cat];
-          if (_ele === null || _ele === undefined) disabled = true;
+          if (_ele !== null && _ele !== undefined) disabled = false;
         }
-
         buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           key: "TooltipButton-ImgEnv",
           position: _constants.edit_img_env_settings.position,
@@ -575,9 +594,11 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         _schema_id = schemas[index];
         object = this.state.micTableSettings;
         _schema = this.state.settingSchemas[_schema_id];
+        schemaHasProp = false;
+        if (_schema !== null && _schema !== undefined) schemaHasProp = Object.keys(_schema.properties).length > 0;
         validated = false;
 
-        if (object !== null && object !== undefined) {
+        if (object !== null && object !== undefined && schemaHasProp) {
           validation = validate(object, _schema);
           validated = validation.valid;
         }
@@ -591,14 +612,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         _category = categories[index];
-        disabled = false;
-
-        for (var _catIndex2 in _category) {
+        disabled = true;
+        if (schemaHasProp) for (var _catIndex2 in _category) {
           var _cat2 = _category[_catIndex2];
           var _ele2 = elementByType[_cat2];
-          if (_ele2 === null || _ele2 === undefined) disabled = true;
+          if (_ele2 !== null && _ele2 !== undefined) disabled = false;
         }
-
         buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           key: "TooltipButton-MicTableSettings",
           position: _constants.edit_mic_table_settings.position,
@@ -618,9 +637,15 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         _schema_id = schemas[index];
         object = this.state.micSettings;
         _schema = this.state.settingSchemas[_schema_id];
+        schemaHasProp = false;
+        if (_schema !== null && _schema !== undefined) schemaHasProp = Object.keys(_schema.properties).length > 0;
         validated = false;
-        validation = validate(object, _schema);
-        validated = validation.valid;
+
+        if (schemaHasProp) {
+          validation = validate(object, _schema);
+          validated = validation.valid;
+        }
+
         valid = null;
 
         if (validated) {
@@ -630,6 +655,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         disabled = false;
+        if (!schemaHasProp) disabled = true;
         buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           key: "TooltipButton-MicSettings",
           position: _constants.edit_mic_settings.position,
@@ -641,16 +667,19 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
               return _this3.onClickEditSettings(elements.indexOf("micSettings"));
             },
             style: styleButton,
-            size: "lg"
-          }, valid, "Edit Microscope Stand Settings")
+            size: "lg",
+            disabled: disabled
+          }, disabled ? null : valid, "Edit Microscope Stand Settings")
         }));
         index = elements.indexOf("objSettings");
         _schema_id = schemas[index];
         object = this.state.objSettings;
         _schema = this.state.settingSchemas[_schema_id];
+        schemaHasProp = false;
+        if (_schema !== null && _schema !== undefined) schemaHasProp = Object.keys(_schema.properties).length > 0;
         validated = false;
 
-        if (object !== null && object !== undefined) {
+        if (object !== null && object !== undefined && schemaHasProp) {
           validation = validate(object, _schema);
           validated = validation.valid;
         }
@@ -664,14 +693,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         _category = categories[index];
-        disabled = false;
-
-        for (var _catIndex3 in _category) {
+        disabled = true;
+        if (schemaHasProp) for (var _catIndex3 in _category) {
           var _cat3 = _category[_catIndex3];
           var _ele3 = elementByType[_cat3];
-          if (_ele3 === null || _ele3 === undefined) disabled = true;
+          if (_ele3 !== null && _ele3 !== undefined) disabled = false;
         }
-
         buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           key: "TooltipButton-ObjSettings",
           position: _constants.edit_obj_settings.position,
@@ -691,9 +718,11 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         _schema_id = schemas[index];
         object = this.state.samplePosSettings;
         _schema = this.state.settingSchemas[_schema_id];
+        schemaHasProp = false;
+        if (_schema !== null && _schema !== undefined) schemaHasProp = Object.keys(_schema.properties).length > 0;
         validated = false;
 
-        if (object !== null && object !== undefined) {
+        if (object !== null && object !== undefined && schemaHasProp) {
           validation = validate(object, _schema);
           validated = validation.valid;
         }
@@ -707,14 +736,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         _category = categories[index];
-        disabled = false;
-
-        for (var _catIndex4 in _category) {
+        disabled = true;
+        if (schemaHasProp) for (var _catIndex4 in _category) {
           var _cat4 = _category[_catIndex4];
           var _ele4 = elementByType[_cat4];
-          if (_ele4 === null || _ele4 === undefined) disabled = true;
+          if (_ele4 !== null && _ele4 !== undefined) disabled = false;
         }
-
         buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           key: "TooltipButton-SamplePosSettings",
           position: _constants.edit_sample_pos_settings.position,

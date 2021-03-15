@@ -163,7 +163,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       var validationTooltip = _constants.validation_microscope_tooltip;
       var saveTooltip = _constants.save_microscope_tooltip;
 
-      if (this.props.element === "setting") {
+      if (this.props.element === "image settings") {
         editTooltip = _constants.edit_setting_tooltip;
         validationTooltip = _constants.validation_setting_tooltip;
         saveTooltip = _constants.save_setting_tooltip;

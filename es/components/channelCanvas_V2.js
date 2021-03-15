@@ -464,13 +464,17 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         var currentLightPath = data.LightPath;
         var currentFluorophore = data.Fluorophore;
         var objects = this.state.channelData.slice();
-        objects[0] = Object.assign(objects[0], currentChannelData);
-        objects[1] = Object.assign(objects[1], currentLightPath);
-        objects[2] = Object.assign(objects[2], currentFluorophore);
+        var oldChannelData = Object.assign({}, objects[0]);
+        var oldLightPath = Object.assign({}, objects[1]);
+        var oldFluorophore = Object.assign({}, objects[2]);
+        var newObjects = [];
+        newObjects[0] = Object.assign(oldChannelData, currentChannelData);
+        newObjects[1] = Object.assign(oldLightPath, currentLightPath);
+        newObjects[2] = Object.assign(oldFluorophore, currentFluorophore);
         this.setState({
           editing: false,
           editingSettings: false,
-          channelData: objects,
+          channelData: newObjects,
           category: null,
           selectedSlot: null,
           selectedComp: null,
@@ -499,19 +503,15 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleDeleteComp",
     value: function handleDeleteComp(selectedSlot, index) {
-      var i = index - 1;
+      var i = index;
 
       if (selectedSlot.includes("AdditionalSlot_")) {
-        var tmpSlots = this.state.tmpSlots;
-
-        if (i !== 0) {
-          tmpSlots.splice(i, 1);
-        } else {
-          tmpSlots = [];
-        }
-
+        var tmpSlots = this.state.tmpSlots.slice();
+        console.log(tmpSlots);
+        tmpSlots.splice(i, 1);
+        var newTmpSlots = tmpSlots;
         this.setState({
-          tmpSlots: tmpSlots
+          tmpSlots: newTmpSlots
         });
       } else {
         var slots = Object.assign({}, this.state.slots);
@@ -537,7 +537,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     value: function onElementDataCancel() {
       var selectedSlot = this.state.selectedSlot;
 
-      if (selectedSlot.includes("AdditionalSlot_")) {
+      if (selectedSlot !== null && selectedSlot !== undefined && selectedSlot.includes("AdditionalSlot_")) {
         this.setState({
           editingSettings: false
         });
@@ -861,11 +861,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var modalTopListContainer = {
         display: "flex",
         flexDirection: "column",
-        flexWrap: "wrap",
+        //flexWrap: "wrap",
         justifyContent: "space-evenly",
         overflow: "auto",
-        height: "20%",
-        maxHeight: "20%",
+        height: "250px",
+        maxHeight: "250px",
         alignItems: "center"
       };
       var modalTopList = {
@@ -895,7 +895,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "space-around",
         backgroundColor: "white",
         padding: "0px",
-        margin: "5px",
+        margin: "10px",
         border: "2px solid grey",
         fontSize: "14px",
         color: "inherit",
@@ -1004,7 +1004,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var selectedSchema = null;
       var selectedID = null;
 
-      if (selectedComp !== null && (selectedSchema === null || selectedSchema === undefined)) {
+      if (selectedComp !== null && selectedComp !== undefined && (selectedSchema === null || selectedSchema === undefined)) {
         selectedID = selectedComp.Schema_ID;
         selectedSchema = compSchemas[selectedID];
       }
@@ -1083,11 +1083,16 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             var compSchemaCategory = compSchema.category;
 
             if (_this3.state.category.includes(schema_id.replace(_constants.string_json_ext, "")) || _this3.state.category.includes(compSchemaCategory) || _this3.state.category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
-              // if (selectedComp === null || selectedComp === undefined) {
-              // 	selectedComp = comp;
-              // }
-              // if (selectedSchema === null || selectedSchema === undefined)
-              // 	selectedSchema = compSchema;
+              if (selectedSlot.includes("AdditionalSlot_")) {
+                var items = _this3.state.tmpSlots;
+                var found = false;
+                Object.keys(items).forEach(function (tmpCompIndex) {
+                  var tmpComp = items[tmpCompIndex];
+                  if (comp.ID === tmpComp.ID) found = true;
+                });
+                if (found) return;
+              }
+
               var compImage = url.resolve(_this3.props.imagesPath, compSchema.image);
 
               var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
@@ -1158,6 +1163,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               }
 
               var valid = null;
+              var schemaHasProp = false;
 
               if (settingDataSlot !== null && settingDataSlot !== undefined) {
                 var settingDataObj = settingDataSlot[compIndex];
@@ -1166,13 +1172,17 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                   var _schema4 = settingsSchemas[settingDataObj.Schema_ID];
 
                   if (_schema4 !== null && _schema4 !== undefined) {
-                    var validation = validate(settingDataObj, _schema4);
-                    var validated = validation.valid;
+                    schemaHasProp = Object.keys(_schema4.properties).length > 0;
 
-                    if (validated) {
-                      valid = isValid2;
-                    } else {
-                      valid = isInvalid2;
+                    if (schemaHasProp) {
+                      var validation = validate(settingDataObj, _schema4);
+                      var validated = validation.valid;
+
+                      if (validated) {
+                        valid = isValid2;
+                      } else {
+                        valid = isInvalid2;
+                      }
                     }
                   }
                 }
@@ -1180,7 +1190,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
               var butt = null;
 
-              if (compSchema.modelSettings !== "NA") {
+              if (compSchema.modelSettings !== "NA" && schemaHasProp) {
                 butt = /*#__PURE__*/_react.default.createElement("button", {
                   key: "button-" + comp.Name,
                   style: buttonStyleModified,
@@ -1195,12 +1205,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 }, compItemImage, comp.Name);
               }
 
+              var len = slotList.length;
               slotList.push( /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
                 style: styleIcons
               }, /*#__PURE__*/_react.default.createElement("button", {
                 type: "button",
                 onClick: function onClick() {
-                  return _this3.handleDeleteComp(selectedSlot, slotList.length);
+                  return _this3.handleDeleteComp(selectedSlot, len);
                 },
                 style: styleCloser
               }, "x"), valid), butt));
@@ -1418,14 +1429,20 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       if (lightSource !== undefined && lightSource !== null) {
         var _schema5 = settingsSchemas[lightSource.Schema_ID];
 
-        if (_schema5 !== undefined && _schema5 !== null) {
-          var validation = validate(lightSource, _schema5);
-          var validated = validation.valid;
+        if (_schema5 !== null && _schema5 !== undefined) {
+          var schemaHasProp = Object.keys(_schema5.properties).length > 0;
 
-          if (validated) {
-            valid = isValid2;
+          if (schemaHasProp) {
+            var validation = validate(lightSource, _schema5);
+            var validated = validation.valid;
+
+            if (validated) {
+              valid = isValid2;
+            } else {
+              valid = isInvalid2;
+            }
           } else {
-            valid = isInvalid2;
+            hasLightSource = false;
           }
         }
       }
@@ -1437,15 +1454,21 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       if (detector !== undefined && detector !== null) {
         var _schema6 = settingsSchemas[detector.Schema_ID];
 
-        if (_schema6 !== undefined && _schema6 !== null) {
-          var _validation = validate(detector, _schema6);
+        if (_schema6 !== null && _schema6 !== undefined) {
+          var _schemaHasProp = Object.keys(_schema6.properties).length > 0;
 
-          var _validated = _validation.valid;
+          if (_schemaHasProp) {
+            var _validation = validate(detector, _schema6);
 
-          if (_validated) {
-            valid = isValid2;
+            var _validated = _validation.valid;
+
+            if (_validated) {
+              valid = isValid2;
+            } else {
+              valid = isInvalid2;
+            }
           } else {
-            valid = isInvalid2;
+            hasDetector = false;
           }
         }
       }
@@ -1457,15 +1480,21 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       if (relayLens !== undefined && relayLens !== null) {
         var _schema7 = settingsSchemas[relayLens.Schema_ID];
 
-        if (_schema7 !== undefined && _schema7 !== null) {
-          var _validation2 = validate(relayLens, _schema7);
+        if (_schema7 !== null && _schema7 !== undefined) {
+          var _schemaHasProp2 = Object.keys(_schema7.properties).length > 0;
 
-          var _validated2 = _validation2.valid;
+          if (_schemaHasProp2) {
+            var _validation2 = validate(relayLens, _schema7);
 
-          if (_validated2) {
-            valid = isValid2;
+            var _validated2 = _validation2.valid;
+
+            if (_validated2) {
+              valid = isValid2;
+            } else {
+              valid = isInvalid2;
+            }
           } else {
-            valid = isInvalid2;
+            hasRelayLens = false;
           }
         }
       }
@@ -1477,15 +1506,21 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       if (couplingLens !== undefined && couplingLens !== null) {
         var _schema8 = settingsSchemas[couplingLens.Schema_ID];
 
-        if (_schema8 !== undefined && _schema8 !== null) {
-          var _validation3 = validate(couplingLens, _schema8);
+        if (_schema8 !== null && _schema8 !== undefined) {
+          var _schemaHasProp3 = Object.keys(_schema8.properties).length > 0;
 
-          var _validated3 = _validation3.valid;
+          if (_schemaHasProp3) {
+            var _validation3 = validate(couplingLens, _schema8);
 
-          if (_validated3) {
-            valid = isValid2;
+            var _validated3 = _validation3.valid;
+
+            if (_validated3) {
+              valid = isValid2;
+            } else {
+              valid = isInvalid2;
+            }
           } else {
-            valid = isInvalid2;
+            hasCouplingLens = false;
           }
         }
       }
@@ -1497,15 +1532,21 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       if (lightSourceCoupling !== undefined && lightSourceCoupling !== null) {
         var _schema9 = settingsSchemas[lightSourceCoupling.Schema_ID];
 
-        if (_schema9 !== undefined && _schema9 !== null) {
-          var _validation4 = validate(lightSourceCoupling, _schema9);
+        if (_schema9 !== null && _schema9 !== undefined) {
+          var _schemaHasProp4 = Object.keys(_schema9.properties).length > 0;
 
-          var _validated4 = _validation4.valid;
+          if (_schemaHasProp4) {
+            var _validation4 = validate(lightSourceCoupling, _schema9);
 
-          if (_validated4) {
-            valid = isValid2;
+            var _validated4 = _validation4.valid;
+
+            if (_validated4) {
+              valid = isValid2;
+            } else {
+              valid = isInvalid2;
+            }
           } else {
-            valid = isInvalid2;
+            hasLightSourceCoupling = false;
           }
         }
       }
@@ -1517,15 +1558,21 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       if (excitationFilter !== undefined && excitationFilter !== null) {
         var _schema10 = settingsSchemas[excitationFilter.Schema_ID];
 
-        if (_schema10 !== undefined && _schema10 !== null) {
-          var _validation5 = validate(excitationFilter, _schema10);
+        if (_schema10 !== null && _schema10 !== undefined) {
+          var _schemaHasProp5 = Object.keys(_schema10.properties).length > 0;
 
-          var _validated5 = _validation5.valid;
+          if (_schemaHasProp5) {
+            var _validation5 = validate(excitationFilter, _schema10);
 
-          if (_validated5) {
-            valid = isValid2;
+            var _validated5 = _validation5.valid;
+
+            if (_validated5) {
+              valid = isValid2;
+            } else {
+              valid = isInvalid2;
+            }
           } else {
-            valid = isInvalid2;
+            hasExcitation = false;
           }
         }
       }
@@ -1537,15 +1584,21 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       if (dichroic !== undefined && dichroic !== null) {
         var _schema11 = settingsSchemas[dichroic.Schema_ID];
 
-        if (_schema11 !== undefined && _schema11 !== null) {
-          var _validation6 = validate(dichroic, _schema11);
+        if (_schema11 !== null && _schema11 !== undefined) {
+          var _schemaHasProp6 = Object.keys(_schema11.properties).length > 0;
 
-          var _validated6 = _validation6.valid;
+          if (_schemaHasProp6) {
+            var _validation6 = validate(dichroic, _schema11);
 
-          if (_validated6) {
-            valid = isValid2;
+            var _validated6 = _validation6.valid;
+
+            if (_validated6) {
+              valid = isValid2;
+            } else {
+              valid = isInvalid2;
+            }
           } else {
-            valid = isInvalid2;
+            hasDichroic = false;
           }
         }
       }
@@ -1557,15 +1610,21 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       if (emissionFilter !== undefined && emissionFilter !== null) {
         var _schema12 = settingsSchemas[emissionFilter.Schema_ID];
 
-        if (_schema12 !== undefined && _schema12 !== null) {
-          var _validation7 = validate(emissionFilter, _schema12);
+        if (_schema12 !== null && _schema12 !== undefined) {
+          var _schemaHasProp7 = Object.keys(_schema12.properties).length > 0;
 
-          var _validated7 = _validation7.valid;
+          if (_schemaHasProp7) {
+            var _validation7 = validate(emissionFilter, _schema12);
 
-          if (_validated7) {
-            valid = isValid2;
+            var _validated7 = _validation7.valid;
+
+            if (_validated7) {
+              valid = isValid2;
+            } else {
+              valid = isInvalid2;
+            }
           } else {
-            valid = isInvalid2;
+            hasEmission = false;
           }
         }
       }
@@ -1577,19 +1636,27 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (objective !== undefined && objective !== null) {
         var _schema13 = settingsSchemas[objective.Schema_ID];
+        var _immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
 
-        if (_schema13 !== undefined && _schema13 !== null) {
-          var _validation8 = validate(objective, _schema13);
+        if (_schema13 !== null && _schema13 !== undefined) {
+          var _schemaHasProp8 = Object.keys(_schema13.properties).length > 0;
 
-          var _validated8 = _validation8.valid;
-          var _immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
-          var validation2 = validate(objective.ImmersionLiquid, _immersionLiquidSchema);
-          var validated2 = validation2.valid;
+          var schemaHasProp2 = Object.keys(_immersionLiquidSchema.properties).length > 0;
 
-          if (_validated8 && validated2) {
-            valid = isValid2;
+          if (_schemaHasProp8 || schemaHasProp2) {
+            var _validation8 = validate(objective, _schema13);
+
+            var _validated8 = _validation8.valid;
+            var validation2 = validate(objective.ImmersionLiquid, _immersionLiquidSchema);
+            var validated2 = validation2.valid;
+
+            if (_validated8 && validated2) {
+              valid = isValid2;
+            } else {
+              valid = isInvalid2;
+            }
           } else {
-            valid = isInvalid2;
+            hasObjective = false;
           }
         }
       }
@@ -1903,7 +1970,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (needDelete) {
         var butt = null;
-        var _callback = null;
 
         if (isEnabled && hasSettings) {
           butt = /*#__PURE__*/_react.default.createElement("button", {

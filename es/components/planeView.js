@@ -83,8 +83,8 @@ var multiplePlanesSchema = {
       category: "General"
     },
     "TimeStamp-Increment": {
-      type: "integer",
-      description: "Select this if you want the different Planes in this batch to have increasing channel-dimension numbers.",
+      type: "float",
+      description: "Insert the TimeStamp increment to be set between image Planes in this batch.",
       tier: 1,
       category: "General"
     }
@@ -446,6 +446,10 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           marginLeft: "5px",
           marginRight: "5px"
         };
+        var nameStyle = {
+          display: "flex",
+          flexDirection: "row"
+        };
         var list = [];
 
         for (var i = 0; i < planes.length; i++) {
@@ -466,13 +470,20 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
             valid = isInvalid;
           }
 
+          var planeName = "Plane " + i;
           list.push( /*#__PURE__*/_react.default.createElement(_ListGroup.default.Item, {
             action: true,
             variant: variant,
             onClick: this.onSelectElement,
             key: "Plane-" + i,
             "data-id": i
-          }, valid, "- Plane " + i));
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: nameStyle
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: {
+              width: "24px"
+            }
+          }, valid), /*#__PURE__*/_react.default.createElement("div", null, planeName))));
         }
 
         var planeListStyle = {

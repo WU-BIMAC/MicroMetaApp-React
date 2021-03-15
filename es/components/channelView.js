@@ -378,6 +378,10 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
           marginLeft: "5px",
           marginRight: "5px"
         };
+        var nameStyle = {
+          display: "flex",
+          flexDirection: "row"
+        };
         var list = [];
 
         for (var i = 0; i < channels.length; i++) {
@@ -390,25 +394,42 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
 
           var validation1 = validate(_channel, this.props.schema);
           var validated1 = validation1.valid;
-          var validation2 = false;
-          if (_channel.Fluorophore !== undefined || _channel.Fluorophore !== null) validated2 = validate(_channel.Fluorophore, this.state.fluorophoreSchema);
-          var validated2 = validation2.valid;
+          var validated2 = false;
+
+          if (_channel.Fluorophore !== undefined || _channel.Fluorophore !== null) {
+            var validation2 = validate(_channel.Fluorophore, this.state.fluorophoreSchema);
+            validated2 = validation2.valid;
+          }
+
+          var validated3 = false;
+
+          if (_channel.LightPath !== undefined || _channel.LightPath !== null) {
+            var validation3 = validate(_channel.LightPath, this.state.lightPathSchema);
+            validated3 = validation3.valid;
+          }
+
           var valid = null;
 
-          if (validated1 && validated2) {
+          if (validated1 && validated2 && validated3) {
             valid = isValid;
           } else {
             valid = isInvalid;
           }
 
-          var channelName = "- " + _channel.Name;
+          var channelName = _channel.Name;
           list.push( /*#__PURE__*/_react.default.createElement(_ListGroup.default.Item, {
             action: true,
             variant: variant,
             onClick: this.onSelectElement,
             key: "Channel-" + i,
             "data-id": i
-          }, valid, channelName));
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: nameStyle
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: {
+              width: "24px"
+            }
+          }, valid), /*#__PURE__*/_react.default.createElement("div", null, channelName))));
         }
 
         return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {

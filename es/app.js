@@ -1054,6 +1054,14 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var uuid = (0, _uuid.v4)();
       var uuid2 = (0, _uuid.v4)();
       var microscope = this.state.microscope;
+
+      if (_constants.bool_isDebug) {
+        console.log("settings");
+        console.log(this.state.settings);
+        console.log("settingName");
+        console.log(this.state.settingName);
+      }
+
       var setting = this.state.settings[this.state.settingName];
       var modifiedSetting = setting;
       var activeTier = this.state.activeTier;
@@ -1767,7 +1775,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           inputData: footerSettingsInput,
           isSchemaValidated: this.state.isSettingsValidated,
           dimensions: headerFooterDims,
-          element: "settings",
+          element: "image settings",
           formTitle: setting.Name,
           imagesPath: imagesPathSVG,
           elementByType: elementByType
