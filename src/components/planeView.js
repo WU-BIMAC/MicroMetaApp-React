@@ -66,7 +66,7 @@ const multiplePlanesSchema = {
 			category: "General",
 		},
 		"TimeStamp-Increment": {
-			type: "float",
+			type: "number",
 			description:
 				"Insert the TimeStamp increment to be set between image Planes in this batch.",
 			tier: 1,
