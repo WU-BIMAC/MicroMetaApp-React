@@ -467,10 +467,15 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         var oldChannelData = Object.assign({}, objects[0]);
         var oldLightPath = Object.assign({}, objects[1]);
         var oldFluorophore = Object.assign({}, objects[2]);
+        var newChannelData = Object.assign(oldChannelData, currentChannelData);
+        var newLightPath = Object.assign(oldLightPath, currentLightPath);
+        var newFluorophore = Object.assign(oldFluorophore, currentFluorophore);
+        newChannelData.LightPath = newLightPath;
+        newChannelData.Fluorophore = newFluorophore;
         var newObjects = [];
-        newObjects[0] = Object.assign(oldChannelData, currentChannelData);
-        newObjects[1] = Object.assign(oldLightPath, currentLightPath);
-        newObjects[2] = Object.assign(oldFluorophore, currentFluorophore);
+        newObjects[0] = newChannelData;
+        newObjects[1] = newLightPath;
+        newObjects[2] = newFluorophore;
         this.setState({
           editing: false,
           editingSettings: false,
