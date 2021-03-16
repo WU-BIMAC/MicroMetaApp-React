@@ -507,7 +507,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (selectedSlot.includes("AdditionalSlot_")) {
         var tmpSlots = this.state.tmpSlots.slice();
-        console.log(tmpSlots);
         tmpSlots.splice(i, 1);
         var newTmpSlots = tmpSlots;
         this.setState({
@@ -1172,8 +1171,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                   var _schema4 = settingsSchemas[settingDataObj.Schema_ID];
 
                   if (_schema4 !== null && _schema4 !== undefined) {
-                    schemaHasProp = Object.keys(_schema4.properties).length > 0;
-
                     if (schemaHasProp) {
                       var validation = validate(settingDataObj, _schema4);
                       var validated = validation.valid;
