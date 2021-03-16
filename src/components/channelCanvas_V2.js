@@ -469,10 +469,15 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			let oldChannelData = Object.assign({}, objects[0]);
 			let oldLightPath = Object.assign({}, objects[1]);
 			let oldFluorophore = Object.assign({}, objects[2]);
+			let newChannelData = Object.assign(oldChannelData, currentChannelData);
+			let newLightPath = Object.assign(oldLightPath, currentLightPath);
+			let newFluorophore = Object.assign(oldFluorophore, currentFluorophore);
+			newChannelData.LightPath = newLightPath;
+			newChannelData.Fluorophore = newFluorophore;
 			let newObjects = [];
-			newObjects[0] = Object.assign(oldChannelData, currentChannelData);
-			newObjects[1] = Object.assign(oldLightPath, currentLightPath);
-			newObjects[2] = Object.assign(oldFluorophore, currentFluorophore);
+			newObjects[0] = newChannelData;
+			newObjects[1] = newLightPath;
+			newObjects[2] = newFluorophore;
 			this.setState({
 				editing: false,
 				editingSettings: false,
