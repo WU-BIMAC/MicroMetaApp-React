@@ -64,16 +64,23 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       editing: false,
       selectedComp: null,
       selectedSchema: null,
-      currentComp: null,
-      settingData: props.inputData || null
+      currentComps: [],
+      settingData: props.inputData || []
     };
-    if (_this.state.settingData !== null && _this.state.settingData !== undefined) Object.keys(_this.props.componentData).forEach(function (compIndex) {
-      var comp = _this.props.componentData[compIndex];
 
-      if (comp.ID === _this.state.settingData.Component_ID) {
-        _this.state.currentComp = comp;
-      }
-    });
+    if (_this.state.settingData !== null && _this.state.settingData !== undefined) {
+      Object.keys(_this.state.settingData).forEach(function (settingIndex) {
+        var sett = _this.state.settingData[settingIndex];
+        Object.keys(_this.props.componentData).forEach(function (compIndex) {
+          var comp = _this.props.componentData[compIndex];
+
+          if (comp.ID === sett.Component_ID) {
+            _this.state.currentComps.push(comp);
+          }
+        });
+      });
+    }
+
     _this.handleSelectComp = _this.handleSelectComp.bind(_assertThisInitialized(_this));
     _this.handleDeleteComp = _this.handleDeleteComp.bind(_assertThisInitialized(_this));
     _this.handleEditSettings = _this.handleEditSettings.bind(_assertThisInitialized(_this));
@@ -105,26 +112,16 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleDeleteComp",
-    value: function handleDeleteComp() {
-      // let i = index - 1;
-      // if (selectedSlot.includes("AdditionalSlot_")) {
-      // 	let tmpSlots = this.props.tmpSlots;
-      // 	if (i !== 0) {
-      // 		tmpSlots.splice(i, 1);
-      // 	} else {
-      // 		tmpSlots = [];
-      // 	}
-      // 	this.setState({ tmpSlots: tmpSlots });
-      // } else {
-      // 	let slots = Object.assign({}, this.props.slots);
-      // 	delete props[selectedSlot];
-      // 	this.setState({ slots: slots });
-      // }
+    value: function handleDeleteComp(index) {
+      var i = index;
+      var currentComps = this.state.currentComps.slice();
+      currentComps.splice(i, 1);
+      var newCurrentComps = currentComps;
       this.setState({
         settingData: null,
         selectedComp: null,
         selectedSchema: null,
-        currentComp: null
+        currentComp: newCurrentComps
       });
     }
   }, {
@@ -146,15 +143,15 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         editing: false,
         selectedSlot: null,
         selectedComp: null,
-        currentComp: null,
-        settingData: {}
-      });
+        currentComps: [],
+        settingData: []
+      }); // if (settingData === null || settingData === undefined) {
+      // 	this.props.onCancel();
+      // } else {
+      // 	this.props.onConfirm(this.props.id, settingData);
+      // }
 
-      if (settingData === null || settingData === undefined) {
-        this.props.onCancel();
-      } else {
-        this.props.onConfirm(this.props.id, settingData);
-      }
+      this.props.onConfirm(this.props.id, settingData);
     }
   }, {
     key: "onCancel",
@@ -163,19 +160,36 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         editing: false,
         selectedSlot: null,
         selectedComp: null,
-        currentComp: null,
-        settingData: {}
+        currentComps: [],
+        settingData: []
       });
       this.props.onCancel();
     }
   }, {
     key: "onElementDataSave",
     value: function onElementDataSave(id, data) {
-      // let selectedComp = this.state.selectedComp;
-      // let selectedSlot = this.state.selectedSlot;
+      var selectedComp = this.state.selectedComp; // let selectedSlot = this.state.selectedSlot;
       // let category = this.state.category;
       //let slots = this.state.slots;
-      var oldSettingData = Object.assign({}, this.state.settingData);
+
+      var settingsData = this.state.settingData.slice();
+      var settingData = null;
+      var index = null;
+      Object.keys(settingsData).forEach(function (settingIndex) {
+        var sett = settingsData[settingIndex];
+
+        if (sett.Component_ID === selectedComp.ID) {
+          settingData = sett;
+          index = settingIndex;
+        }
+      });
+
+      if (settingData === null) {
+        console.log("Settings data not found in SettingComponentSelector-editing");
+        return;
+      }
+
+      var oldSettingData = Object.assign({}, settingData);
       var newSettingData = Object.assign(oldSettingData, data);
 
       if (data.ImmersionLiquid !== null && data.ImmersionLiquid !== undefined) {
@@ -184,9 +198,10 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         newSettingData.ImmersionLiquid = immersionLiquid;
       }
 
+      settingsData[index] = newSettingData;
       this.setState({
         editing: false,
-        settingData: newSettingData
+        settingData: settingsData
       });
     }
   }, {
@@ -210,10 +225,10 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var selectedSchema = this.state.selectedSchema; //let selectedSlot = this.props.selectedSlot;
       //let category = this.props.category;
 
-      var currentComp = this.state.currentComp; // let settingsSchema = this.props.settingSchemas;
+      var currentComps = this.state.currentComps.slice(); // let settingsSchema = this.props.settingSchemas;
       // let experimentalsSchema = this.props.experimentalSchemas;
 
-      var settingData = Object.assign({}, this.state.settingData); // let settingsSchemas = {};
+      var settingData = this.state.settingData.slice(); // let settingsSchemas = {};
       // for (let i in settingsSchema) {
       // 	let schema = settingsSchema[i];
       // 	settingsSchemas[schema.ID] = schema;
@@ -223,10 +238,9 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       // 	let schema = experimentalsSchema[i];
       // 	expSchemas[schema.ID] = schema;
       // }
-
-      if (currentComp !== null && currentComp !== undefined) {
-        return;
-      }
+      // if (currentComp !== null && currentComp !== undefined) {
+      // 	return;
+      // }
 
       if (selectedComp === null || selectedComp === undefined) {
         this.setState({
@@ -280,11 +294,12 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
-      settingData = settingCompData;
+      currentComps.push(selectedComp);
+      settingData.push(settingCompData);
       this.setState({
         //tmpSlots: tmpSlots,
         settingData: settingData,
-        currentComp: selectedComp
+        currentComps: currentComps
       });
     }
   }, {
@@ -461,18 +476,32 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var selectedSchema = this.state.selectedSchema;
       var selectedID = null;
 
-      if (selectedComp !== null && (selectedSchema === null || selectedSchema === undefined)) {
+      if (selectedComp !== null && selectedComp !== undefined && (selectedSchema === null || selectedSchema === undefined)) {
         selectedID = selectedComp.Schema_ID;
         selectedSchema = compSchemas[selectedID];
       }
 
       if (this.state.editing) {
-        var settingData = this.state.settingData;
+        var settingsData = this.state.settingData;
+        var settingData = null;
+        Object.keys(settingsData).forEach(function (settingIndex) {
+          var sett = settingsData[settingIndex];
+          if (sett.Component_ID === selectedComp.ID) settingData = sett;
+        });
+
+        if (settingData === null) {
+          console.log("Settings data not found in SettingComponentSelector-editing");
+          return;
+        }
+
+        var settingsObj = null;
 
         if (settingData.ImmersionLiquid !== null && settingData.ImmersionLiquid !== undefined) {
-          settingData = [];
-          settingData.push(this.state.settingData);
-          settingData.push(this.state.settingData.ImmersionLiquid);
+          settingsObj = [];
+          settingsObj.push(settingData);
+          settingsObj.push(settingData.ImmersionLiquid);
+        } else {
+          settingsObj = settingData;
         }
 
         var id = settingData.ID; //let settingsName = selectedSchema.modelSettings + string_json_ext;
@@ -481,7 +510,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         var settings = this.props.schema;
         return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
           schema: settings,
-          inputData: settingData,
+          inputData: settingsObj,
           id: id,
           onConfirm: this.onElementDataSave,
           onCancel: this.onElementDataCancel,
@@ -494,7 +523,8 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         });
       } else {
         var itemList = [];
-        var _settingData = this.state.settingData;
+        var _settingsData = this.state.settingData;
+        var currentComps = this.state.currentComps;
         Object.keys(this.props.componentData).forEach(function (compIndex) {
           var comp = _this2.props.componentData[compIndex];
           var schema_id = comp.Schema_ID;
@@ -504,15 +534,12 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
           var category = _this2.props.category;
 
           if (category.includes(schema_id.replace(_constants.string_json_ext, "")) || category.includes(compSchemaCategory) || category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
-            // if (selectedSlot.includes("AdditionalSlot_")) {
-            // 	let items = this.state.tmpSlots;
-            // 	let found = false;
-            // 	Object.keys(items).forEach((tmpCompIndex) => {
-            // 		let tmpComp = items[tmpCompIndex];
-            // 		if (comp.ID === tmpComp.ID) found = true;
-            // 	});
-            // 	if (found) return;
-            // }
+            var found = false;
+            Object.keys(currentComps).forEach(function (tmpCompIndex) {
+              var tmpComp = currentComps[tmpCompIndex];
+              if (comp.ID === tmpComp.ID) found = true;
+            });
+            if (found) return;
             var compImage = url.resolve(_this2.props.imagesPath, compSchema.image);
 
             var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
@@ -542,104 +569,123 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             itemList.push(compButton);
           }
         });
-        var topItems = null; //let item = this.state.currentComp;
-        // if (item !== null && item !== undefined) {
+        var slotList = [];
+        Object.keys(currentComps).forEach(function (compIndex) {
+          var comp = currentComps[compIndex];
+          var fullButt = null;
+
+          if (comp !== null && comp !== undefined) {
+            var schema_id = comp.Schema_ID;
+            var compSchema = compSchemas[schema_id];
+            if (compSchema === null) return;
+            var _settingData = null;
+            Object.keys(_settingsData).forEach(function (settingIndex) {
+              var sett = _settingsData[settingIndex];
+              if (sett.Component_ID === comp.ID) _settingData = sett;
+            });
+
+            if (_settingData === null) {
+              console.log("Settings data not found in SettingComponentSelector-display");
+              return;
+            }
+
+            var compImage = url.resolve(_this2.props.imagesPath, compSchema.image);
+
+            var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
+              src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
+              alt: comp.Name,
+              style: regularImageStyle
+            });
+
+            var buttonStyleModified = null;
+
+            if (comp === selectedComp) {
+              buttonStyleModified = Object.assign({}, buttonStyle, {
+                border: "2px solid cyan"
+              });
+            } else if (compSchema.modelSettings === "NA") {
+              buttonStyleModified = Object.assign({}, buttonStyle, {
+                opacity: "0.4",
+                border: "none"
+              });
+            } else {
+              buttonStyleModified = buttonStyle;
+            }
+
+            var valid = null;
+            var schemaHasProp = false;
+
+            if (_settingData !== null && _settingData !== undefined) {
+              var _schema3 = _this2.props.schema;
+
+              if (_schema3 !== null && _schema3 !== undefined) {
+                var validated = false;
+
+                if (_settingData.ImmersionLiquid !== null && _settingData.ImmersionLiquid !== undefined) {
+                  var schemaHasProp1 = Object.keys(_schema3[0].properties).length > 0;
+                  var schemaHasProp2 = Object.keys(_schema3[1].properties).length > 0;
+                  schemaHasProp = schemaHasProp1 && schemaHasProp2;
+                  var validation1 = validate(_settingData, _schema3[0]);
+                  var validated1 = validation1.valid;
+                  var validation2 = validate(_settingData.ImmersionLiquid, _schema3[1]);
+                  var validated2 = validation2.valid;
+                  validated = validated1 && validated2;
+                } else {
+                  schemaHasProp = Object.keys(_schema3.properties).length > 0;
+                  var validation = validate(_settingData, _schema3);
+                  validated = validation.valid;
+                }
+
+                if (schemaHasProp) if (validated) {
+                  valid = isValid2;
+                } else {
+                  valid = isInvalid2;
+                }
+              }
+            }
+
+            var butt = null;
+
+            if (compSchema.modelSettings !== "NA" && schemaHasProp) {
+              butt = /*#__PURE__*/_react.default.createElement("button", {
+                key: "button-" + comp.Name,
+                style: buttonStyleModified,
+                onClick: function onClick() {
+                  return _this2.handleEditSettings(comp, compSchema);
+                }
+              }, compItemImage, comp.Name);
+            } else {
+              butt = /*#__PURE__*/_react.default.createElement("button", {
+                key: "button-" + comp.Name,
+                style: buttonStyleModified
+              }, compItemImage, comp.Name);
+            }
+
+            fullButt = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+              style: styleIcons
+            }, /*#__PURE__*/_react.default.createElement("button", {
+              type: "button",
+              onClick: function onClick() {
+                return _this2.handleDeleteComp();
+              },
+              style: styleCloser
+            }, "x"), valid), butt);
+            slotList.push(fullButt);
+          }
+        }); // if (item !== null && item !== undefined) {
         //let items = [];
         // let slots = this.state.slots;
         // let selectedSlot = this.state.selectedSlot;
         // if (slots[selectedSlot] !== undefined && slots[selectedSlot] !== null)
         // 	items = slots[selectedSlot];
+        //let comp = this.state.currentComp;
 
-        var comp = this.state.currentComp;
-        var fullButt = null;
-
-        if (comp !== null && comp !== undefined) {
-          var schema_id = comp.Schema_ID;
-          var compSchema = compSchemas[schema_id];
-          if (compSchema === null) return;
-          var compImage = url.resolve(this.props.imagesPath, compSchema.image);
-
-          var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
-            src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-            alt: comp.Name,
-            style: regularImageStyle
-          });
-
-          var buttonStyleModified = null;
-
-          if (comp === selectedComp) {
-            buttonStyleModified = Object.assign({}, buttonStyle, {
-              border: "2px solid cyan"
-            });
-          } else if (compSchema.modelSettings === "NA") {
-            buttonStyleModified = Object.assign({}, buttonStyle, {
-              opacity: "0.4",
-              border: "none"
-            });
-          } else {
-            buttonStyleModified = buttonStyle;
-          }
-
-          var valid = null;
-
-          if (_settingData !== null && _settingData !== undefined) {
-            var _schema3 = this.props.schema;
-
-            if (_schema3 !== null && _schema3 !== undefined) {
-              var validated = false;
-
-              if (_settingData.ImmersionLiquid !== null && _settingData.ImmersionLiquid !== undefined) {
-                var validation1 = validate(_settingData, _schema3[0]);
-                var validated1 = validation1.valid;
-                var validation2 = validate(_settingData.ImmersionLiquid, _schema3[1]);
-                var validated2 = validation2.valid;
-                validated = validated1 && validated2;
-              } else {
-                var validation = validate(_settingData, _schema3);
-                validated = validation.valid;
-              }
-
-              if (validated) {
-                valid = isValid2;
-              } else {
-                valid = isInvalid2;
-              }
-            }
-          }
-
-          var butt = null;
-
-          if (compSchema.modelSettings !== "NA") {
-            butt = /*#__PURE__*/_react.default.createElement("button", {
-              key: "button-" + comp.Name,
-              style: buttonStyleModified,
-              onClick: function onClick() {
-                return _this2.handleEditSettings(comp, compSchema);
-              }
-            }, compItemImage, comp.Name);
-          } else {
-            butt = /*#__PURE__*/_react.default.createElement("button", {
-              key: "button-" + comp.Name,
-              style: buttonStyleModified
-            }, compItemImage, comp.Name);
-          }
-
-          fullButt = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
-            style: styleIcons
-          }, /*#__PURE__*/_react.default.createElement("button", {
-            type: "button",
-            onClick: function onClick() {
-              return _this2.handleDeleteComp();
-            },
-            style: styleCloser
-          }, "x"), valid), butt);
-        }
-
-        topItems = /*#__PURE__*/_react.default.createElement("div", {
+        var topItems = /*#__PURE__*/_react.default.createElement("div", {
           style: modalTopListContainer
         }, /*#__PURE__*/_react.default.createElement("h5", null, "Current component in this slot"), /*#__PURE__*/_react.default.createElement("div", {
           style: modalTopList
-        }, fullButt));
+        }, slotList));
+
         Object.assign(modalGridPanel, {
           height: "60%"
         }); //}
