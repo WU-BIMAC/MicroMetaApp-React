@@ -65,20 +65,42 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       selectedComp: null,
       selectedSchema: null,
       currentComps: [],
-      settingData: props.inputData || []
+      settingData: props.inputData || null
     };
 
-    if (_this.state.settingData !== null && _this.state.settingData !== undefined) {
-      Object.keys(_this.state.settingData).forEach(function (settingIndex) {
-        var sett = _this.state.settingData[settingIndex];
-        Object.keys(_this.props.componentData).forEach(function (compIndex) {
-          var comp = _this.props.componentData[compIndex];
+    if (_this.state.settingData === null) {
+      if (_this.props.maxNumberElement === 1) {
+        _this.state.settingData = {};
+      } else {
+        _this.state.settingData = [];
+      }
+    }
 
-          if (comp.ID === sett.Component_ID) {
-            _this.state.currentComps.push(comp);
-          }
+    if (_this.state.settingData !== null && _this.state.settingData !== undefined) {
+      if (Array.isArray(_this.state.settingData)) {
+        Object.keys(_this.state.settingData).forEach(function (settingIndex) {
+          var sett = _this.state.settingData[settingIndex];
+          Object.keys(_this.props.componentData).forEach(function (compIndex) {
+            var comp = _this.props.componentData[compIndex];
+
+            if (comp.ID === sett.Component_ID) {
+              _this.state.currentComps.push(comp);
+            }
+          });
         });
-      });
+      } else {
+        var compID = _this.state.settingData.Component_ID;
+
+        if (compID !== null && compID !== undefined) {
+          Object.keys(_this.props.componentData).forEach(function (compIndex) {
+            var comp = _this.props.componentData[compIndex];
+
+            if (comp.ID === compID) {
+              _this.state.currentComps.push(comp);
+            }
+          });
+        }
+      }
     }
 
     _this.handleSelectComp = _this.handleSelectComp.bind(_assertThisInitialized(_this));
@@ -172,17 +194,24 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       // let category = this.state.category;
       //let slots = this.state.slots;
 
-      var settingsData = this.state.settingData.slice();
+      var oldSettingsData = this.state.settingData;
+      var settingsData = null;
       var settingData = null;
       var index = null;
-      Object.keys(settingsData).forEach(function (settingIndex) {
-        var sett = settingsData[settingIndex];
 
-        if (sett.Component_ID === selectedComp.ID) {
-          settingData = sett;
-          index = settingIndex;
-        }
-      });
+      if (Array.isArray(oldSettingData)) {
+        settingsData = oldSettingsData.slice();
+        Object.keys(settingsData).forEach(function (settingIndex) {
+          var sett = settingsData[settingIndex];
+
+          if (sett.Component_ID === selectedComp.ID) {
+            settingData = sett;
+            index = settingIndex;
+          }
+        });
+      } else {
+        settingData = oldSettingsData;
+      }
 
       if (settingData === null) {
         console.log("Settings data not found in SettingComponentSelector-editing");
@@ -193,12 +222,21 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var newSettingData = Object.assign(oldSettingData, data);
 
       if (data.ImmersionLiquid !== null && data.ImmersionLiquid !== undefined) {
-        var oldImmersionLiquid = Object.assign({}, this.state.settingData.ImmersionLiquid);
+        var oldImmersionLiquid = Object.assign({}, oldSettingsData.ImmersionLiquid);
         var immersionLiquid = Object.assign(oldImmersionLiquid, data.ImmersionLiquid);
         newSettingData.ImmersionLiquid = immersionLiquid;
       }
 
-      settingsData[index] = newSettingData;
+      if (settingsData !== null && index !== null) {
+        console.log("IM HERE");
+        settingsData[index] = newSettingData;
+      } else {
+        console.log("IM HERE2");
+        settingsData = newSettingData;
+      }
+
+      console.log("settingsData");
+      console.log(settingsData);
       this.setState({
         editing: false,
         settingData: settingsData
@@ -228,7 +266,19 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var currentComps = this.state.currentComps.slice(); // let settingsSchema = this.props.settingSchemas;
       // let experimentalsSchema = this.props.experimentalSchemas;
 
-      var settingData = this.state.settingData.slice(); // let settingsSchemas = {};
+      var oldSettingData = this.state.settingData;
+      var settingData = null;
+      var isArray = null;
+
+      if (Array.isArray(oldSettingData)) {
+        settingData = this.state.settingData.slice();
+        isArray = true;
+      } else {
+        settingData = this.state.settingData;
+        var compID = settingData.Component_ID;
+        if (compID !== null && compID !== undefined) return;
+        isArray = false;
+      } // let settingsSchemas = {};
       // for (let i in settingsSchema) {
       // 	let schema = settingsSchema[i];
       // 	settingsSchemas[schema.ID] = schema;
@@ -241,6 +291,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       // if (currentComp !== null && currentComp !== undefined) {
       // 	return;
       // }
+
 
       if (selectedComp === null || selectedComp === undefined) {
         this.setState({
@@ -295,7 +346,13 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       currentComps.push(selectedComp);
-      settingData.push(settingCompData);
+
+      if (isArray) {
+        settingData.push(settingCompData);
+      } else {
+        settingData = settingCompData;
+      }
+
       this.setState({
         //tmpSlots: tmpSlots,
         settingData: settingData,
@@ -484,10 +541,15 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       if (this.state.editing) {
         var settingsData = this.state.settingData;
         var settingData = null;
-        Object.keys(settingsData).forEach(function (settingIndex) {
-          var sett = settingsData[settingIndex];
-          if (sett.Component_ID === selectedComp.ID) settingData = sett;
-        });
+
+        if (Array.isArray(settingsData)) {
+          Object.keys(settingsData).forEach(function (settingIndex) {
+            var sett = settingsData[settingIndex];
+            if (sett.Component_ID === selectedComp.ID) settingData = sett;
+          });
+        } else {
+          settingData = settingsData;
+        }
 
         if (settingData === null) {
           console.log("Settings data not found in SettingComponentSelector-editing");
@@ -579,10 +641,15 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             var compSchema = compSchemas[schema_id];
             if (compSchema === null) return;
             var _settingData = null;
-            Object.keys(_settingsData).forEach(function (settingIndex) {
-              var sett = _settingsData[settingIndex];
-              if (sett.Component_ID === comp.ID) _settingData = sett;
-            });
+
+            if (Array.isArray(_settingsData)) {
+              Object.keys(_settingsData).forEach(function (settingIndex) {
+                var sett = _settingsData[settingIndex];
+                if (sett.Component_ID === selectedComp.ID) _settingData = sett;
+              });
+            } else {
+              _settingData = _settingsData;
+            }
 
             if (_settingData === null) {
               console.log("Settings data not found in SettingComponentSelector-display");

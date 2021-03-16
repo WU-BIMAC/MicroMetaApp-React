@@ -801,14 +801,14 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         onClick: function onClick() {
           return _this2.handleClick_additionalItemButton(category, index);
         }
-      }, image, "Add additional element");
+      }, image, "Add additional element(s)");
       var buttStyle = Object.assign({}, buttonStyle, {
         border: "none"
       });
       return /*#__PURE__*/_react.default.createElement("button", {
         style: buttStyle,
         disabled: true
-      }, image, "Add additional element");
+      }, image, "Add additional element(s)");
     }
   }, {
     key: "render",
@@ -1315,7 +1315,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         flexWrap: "wrap",
         justifyContent: "space-between",
         minHeight: "800px",
-        height: "800px"
+        height: "860px"
       };
       var gridRow = {
         display: "flex",
@@ -1323,7 +1323,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         flexWrap: "wrap",
         justifyContent: "space-between",
         width: "100%",
-        height: "130px",
+        height: "150px",
         alignItems: "center"
       };
       var gridRowAdd = {
@@ -1340,7 +1340,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         flexDirection: "column",
         flexWrap: "wrap",
         minWidth: "120px",
-        height: "120px",
+        height: "140px",
         width: "18%",
         justifyContent: "center",
         alignItems: "center",
@@ -1663,7 +1663,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
-      var objectiveButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_7_Objective_outline.svg", "Objective", slots, compSchemas, hasObjective ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_objective, this.handleDeleteComp, this.handleEditSettings, "Select Objective", hasObjective, valid);
+      var objectiveButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_7_Objective_outline.svg", "Objective", slots, compSchemas, hasObjective ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_objective, this.handleDeleteComp, this.handleEditSettings, "Objective", hasObjective, valid);
 
       var row1 = /*#__PURE__*/_react.default.createElement("div", {
         style: gridRow
@@ -1676,7 +1676,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }, lightSourceButton)), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-LightSource",
+        position: _constants.select_lightSource.position,
+        title: _constants.select_lightSource.title,
+        content: _constants.select_lightSource.content,
+        element: lightSourceButton
+      }))), /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
       }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "specimen",
@@ -1694,7 +1700,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         relations: []
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }, detectorButton)));
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Detector",
+        position: _constants.select_detector.position,
+        title: _constants.select_detector.title,
+        content: _constants.select_detector.content,
+        element: detectorButton
+      }))));
 
       var row2 = /*#__PURE__*/_react.default.createElement("div", {
         style: gridRowAdd
@@ -1707,7 +1719,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpaceAdd
-      }, additionalItemButton_1)), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Additional1",
+        position: _constants.select_additional_right.position,
+        title: _constants.select_additional_right.title,
+        content: _constants.select_additional_right.content,
+        element: additionalItemButton_1
+      }))), /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpaceAdd
       }), /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpaceAdd
@@ -1722,7 +1740,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpaceAdd
-      }, additionalItemButton_8)));
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Additional8",
+        position: _constants.select_additional_left.position,
+        title: _constants.select_additional_left.title,
+        content: _constants.select_additional_left.content,
+        element: additionalItemButton_8
+      }))));
 
       var row3 = /*#__PURE__*/_react.default.createElement("div", {
         style: gridRow
@@ -1735,7 +1759,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }, couplingLensButton)), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-CouplingLens",
+        position: _constants.select_couplingLens.position,
+        title: _constants.select_couplingLens.title,
+        content: _constants.select_couplingLens.content,
+        element: couplingLensButton
+      }))), /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
       }), /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
@@ -1750,7 +1780,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }, relayLensButton)));
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-RelayLens",
+        position: _constants.select_relayLens.position,
+        title: _constants.select_relayLens.title,
+        content: _constants.select_relayLens.content,
+        element: relayLensButton
+      }))));
 
       var row4 = /*#__PURE__*/_react.default.createElement("div", {
         style: gridRow
@@ -1763,7 +1799,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }, lightSourceCouplingButton)), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-LightSourceCoupling",
+        position: _constants.select_lightSourceCoupling.position,
+        title: _constants.select_lightSourceCoupling.title,
+        content: _constants.select_lightSourceCoupling.content,
+        element: lightSourceCouplingButton
+      }))), /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
       }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "objective",
@@ -1795,7 +1837,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpaceAdd
-      }, additionalItemButton_2)), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Additional2",
+        position: _constants.select_additional_right.position,
+        title: _constants.select_additional_right.title,
+        content: _constants.select_additional_right.content,
+        element: additionalItemButton_2
+      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "addButton_4",
         relations: [{
           targetId: "objective",
@@ -1804,7 +1852,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpaceAdd
-      }, additionalItemButton_4)), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Additional4",
+        position: _constants.select_additional_right.position,
+        title: _constants.select_additional_right.title,
+        content: _constants.select_additional_right.content,
+        element: additionalItemButton_4
+      }))), /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpaceAdd
       }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "addButton_5",
@@ -1815,7 +1869,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpaceAdd
-      }, additionalItemButton_5)), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Additional5",
+        position: _constants.select_additional_left.position,
+        title: _constants.select_additional_left.title,
+        content: _constants.select_additional_left.content,
+        element: additionalItemButton_5
+      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "addButton_7",
         relations: [{
           targetId: "relayLens",
@@ -1824,13 +1884,45 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpaceAdd
-      }, additionalItemButton_7)));
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Additional7",
+        position: _constants.select_additional_left.position,
+        title: _constants.select_additional_left.title,
+        content: _constants.select_additional_left.content,
+        element: additionalItemButton_7
+      }))));
 
-      var gridRowFilterSet = Object.assign({
-        border: "5px solid black"
-      }, gridRow);
+      var gridRowSpecial = {
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        height: "150px"
+      };
+      var gridRowFilterSet = Object.assign({}, gridRow, {
+        border: "5px solid black",
+        height: "100%",
+        position: "relative",
+        top: "-30px",
+        left: "0px"
+      });
+      var borderTitleStyle = {
+        display: "inline",
+        position: "relative",
+        top: "-10%",
+        left: "30%",
+        width: "160px",
+        height: "30px",
+        //display: "inline",
+        backgroundColor: "white",
+        zIndex: 2
+      };
 
       var row6 = /*#__PURE__*/_react.default.createElement("div", {
+        style: gridRowSpecial
+      }, /*#__PURE__*/_react.default.createElement("button", {
+        style: borderTitleStyle,
+        disabled: true
+      }, "Filter Set"), /*#__PURE__*/_react.default.createElement("div", {
         style: gridRowFilterSet
       }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "excitationFilter",
@@ -1841,7 +1933,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }, excitationButton)), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Excitation",
+        position: _constants.select_excitation.position,
+        title: _constants.select_excitation.title,
+        content: _constants.select_excitation.content,
+        element: excitationButton
+      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "addButton_3",
         relations: [{
           targetId: "dichroicFilter",
@@ -1850,7 +1948,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }, additionalItemButton_3)), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Additional3",
+        position: _constants.select_additional_right.position,
+        title: _constants.select_additional_right.title,
+        content: _constants.select_additional_right.content,
+        element: additionalItemButton_3
+      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "dichroicFilter",
         relations: [{
           targetId: "addButton_4",
@@ -1863,7 +1967,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }, dichroicButton)), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Dichroic",
+        position: _constants.select_dichroic.position,
+        title: _constants.select_dichroic.title,
+        content: _constants.select_dichroic.content,
+        element: dichroicButton
+      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "addButton_6",
         relations: [{
           targetId: "emissionFilter",
@@ -1872,7 +1982,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }, additionalItemButton_6)), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Additional6",
+        position: _constants.select_additional_left.position,
+        title: _constants.select_additional_left.title,
+        content: _constants.select_additional_left.content,
+        element: additionalItemButton_6
+      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "emissionFilter",
         relations: [{
           targetId: "addButton_7",
@@ -1881,7 +1997,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }]
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: gridSpace
-      }, emissionButton)));
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-Emission",
+        position: _constants.select_emission.position,
+        title: _constants.select_emission.title,
+        content: _constants.select_emission.content,
+        element: emissionButton
+      })))));
 
       valid = null;
 

@@ -1609,7 +1609,8 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           onClickLoadingOptionSelection: this.handleLoadingOptionSelection,
           onClickMicroscopeSelection: this.selectMicroscopeFromRepository,
           onClickConfirm: this.createOrUseMicroscope,
-          onClickBack: this.onClickBack
+          onClickBack: this.onClickBack,
+          isSettings: this.state.isLoadingMicroscope
         }));
       } //should be settingData instead of elementData
 

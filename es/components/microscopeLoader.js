@@ -201,6 +201,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var selectedManu = this.state.selectedManu;
       var isDropzoneActive = false;
       if (loadingMode === 1) isDropzoneActive = true;
+      var create_mode_tooltip = null;
+
+      if (this.props.isSettings) {
+        create_mode_tooltip = _constants.create_mode_selector_settings_tooltip;
+      } else {
+        create_mode_tooltip = _constants.create_mode_selector_tooltip;
+      }
+
       var list = [];
       list.push( /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
         key: "dropdown-loadingOption",
@@ -210,7 +218,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         inputData: this.props.loadingOptions,
         width: width,
         margin: margin,
-        tooltip: _constants.create_mode_selector_tooltip
+        tooltip: create_mode_tooltip
       }));
 
       if (loadingMode === 1) {
@@ -270,12 +278,20 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
+      var continue_tooltip = null;
+
+      if (this.props.isSettings) {
+        continue_tooltip = _constants.create_mode_continue_settings_tooltip;
+      } else {
+        continue_tooltip = _constants.create_mode_continue_tooltip;
+      }
+
       list.push( /*#__PURE__*/_react.default.createElement("div", {
         key: "buttons"
       }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        position: _constants.create_mode_continue_tooltip.position,
-        title: _constants.create_mode_continue_tooltip.title,
-        content: _constants.create_mode_continue_tooltip.content,
+        position: continue_tooltip.position,
+        title: continue_tooltip.title,
+        content: continue_tooltip.content,
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           onClick: isDropzoneActive && fileLoaded && !fileLoading || !isDropzoneActive ? this.props.onClickConfirm : null,
           style: buttonStyle,

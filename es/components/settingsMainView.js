@@ -470,10 +470,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             validated = validation.valid;
           }
 
-          if (validated) {
-            valid = isValid;
-          } else {
-            valid = isInvalid;
+          if (object !== null && object !== undefined && object.length > 0) {
+            if (validated) {
+              valid = isValid;
+            } else {
+              valid = isInvalid;
+            }
           }
 
           disabled = true;
@@ -516,10 +518,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
           valid = null;
 
-          if (validated) {
-            valid = isValid;
-          } else {
-            valid = isInvalid;
+          if (object !== null && object !== undefined && object.length > 0) {
+            if (validated) {
+              valid = isValid;
+            } else {
+              valid = isInvalid;
+            }
           }
 
           _category = categories[index];
@@ -565,10 +569,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
         valid = null;
 
-        if (validated) {
-          valid = isValid;
-        } else {
-          valid = isInvalid;
+        if (object !== null && object !== undefined && object.length > 0) {
+          if (validated) {
+            valid = isValid;
+          } else {
+            valid = isInvalid;
+          }
         }
 
         _category = categories[index];
@@ -618,10 +624,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
         valid = null;
 
-        if (validated) {
-          valid = isValid;
-        } else {
-          valid = isInvalid;
+        if (object !== null && object !== undefined && object.length > 0) {
+          if (validated) {
+            valid = isValid;
+          } else {
+            valid = isInvalid;
+          }
         }
 
         _category = categories[index];
@@ -752,10 +760,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
         valid = null;
 
-        if (validated) {
-          valid = isValid;
-        } else {
-          valid = isInvalid;
+        if (object !== null && object !== undefined && object.length > 0) {
+          if (validated) {
+            valid = isValid;
+          } else {
+            valid = isInvalid;
+          }
         }
 
         _category = categories[index];
@@ -803,10 +813,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
         valid = null;
 
-        if (validated) {
-          valid = isValid;
-        } else {
-          valid = isInvalid;
+        if (object !== null && object !== undefined && object.length > 0) {
+          if (validated) {
+            valid = isValid;
+          } else {
+            valid = isInvalid;
+          }
         }
 
         buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -852,10 +864,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
         valid = null;
 
-        if (validated) {
-          valid = isValid;
-        } else {
-          valid = isInvalid;
+        if (object !== null && object !== undefined && object.length > 0) {
+          if (validated) {
+            valid = isValid;
+          } else {
+            valid = isInvalid;
+          }
         }
 
         buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
