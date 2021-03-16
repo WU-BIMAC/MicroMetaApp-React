@@ -11,10 +11,12 @@ import {
 	number_logo_width,
 	number_logo_height,
 	create_mode_selector_tooltip,
+	create_mode_selector_settings_tooltip,
 	create_from_file_tooltip,
 	create_from_repo_manufacturer_tooltip,
 	create_from_repo_names_tooltip,
 	create_mode_continue_tooltip,
+	create_mode_continue_settings_tooltip,
 	back_tooltip,
 } from "../constants";
 
@@ -158,6 +160,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 		let isDropzoneActive = false;
 		if (loadingMode === 1) isDropzoneActive = true;
 
+		let create_mode_tooltip = null;
+		if (this.props.isSettings) {
+			create_mode_tooltip = create_mode_selector_settings_tooltip;
+		} else {
+			create_mode_tooltip = create_mode_selector_tooltip;
+		}
+
 		let list = [];
 		list.push(
 			<DropdownMenu
@@ -170,7 +179,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				inputData={this.props.loadingOptions}
 				width={width}
 				margin={margin}
-				tooltip={create_mode_selector_tooltip}
+				tooltip={create_mode_tooltip}
 			/>
 		);
 		if (loadingMode === 1) {
@@ -248,12 +257,19 @@ export default class MicroscopeLoader extends React.PureComponent {
 				);
 			}
 		}
+
+		let continue_tooltip = null;
+		if (this.props.isSettings) {
+			continue_tooltip = create_mode_continue_settings_tooltip;
+		} else {
+			continue_tooltip = create_mode_continue_tooltip;
+		}
 		list.push(
 			<div key="buttons">
 				<PopoverTooltip
-					position={create_mode_continue_tooltip.position}
-					title={create_mode_continue_tooltip.title}
-					content={create_mode_continue_tooltip.content}
+					position={continue_tooltip.position}
+					title={continue_tooltip.title}
+					content={continue_tooltip.content}
 					element={
 						<Button
 							onClick={
