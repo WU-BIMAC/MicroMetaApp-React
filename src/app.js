@@ -242,7 +242,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	handleCompleteLoadDimensions(newDimensions) {
-		console.log(newDimensions);
+		//console.log(newDimensions);
 		this.setState({ dimensions: newDimensions });
 	}
 
@@ -1115,7 +1115,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let uuid = uuidv4();
 		let uuid2 = uuidv4();
 		let microscope = this.state.microscope;
-		if(bool_isDebug) {
+		if (bool_isDebug) {
 			console.log("settings");
 			console.log(this.state.settings);
 			console.log("settingName");

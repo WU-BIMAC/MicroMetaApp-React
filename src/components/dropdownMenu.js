@@ -79,7 +79,6 @@ export default class DropdownMenu extends React.PureComponent {
 				{this.state.currentTitle}
 			</Dropdown.Toggle>
 		);
-		console.log("SHOWTOOLTIP:" + this.state.showTooltip);
 		let dropdownToggleWrapped = null;
 		if (
 			this.props.tooltip !== undefined &&
