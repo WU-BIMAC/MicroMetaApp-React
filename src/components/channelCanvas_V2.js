@@ -506,7 +506,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		let i = index;
 		if (selectedSlot.includes("AdditionalSlot_")) {
 			let tmpSlots = this.state.tmpSlots.slice();
-			console.log(tmpSlots);
 			tmpSlots.splice(i, 1);
 			let newTmpSlots = tmpSlots;
 			this.setState({ tmpSlots: newTmpSlots });
@@ -1307,7 +1306,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							if (settingDataObj !== null && settingDataObj !== undefined) {
 								let schema = settingsSchemas[settingDataObj.Schema_ID];
 								if (schema !== null && schema !== undefined) {
-									schemaHasProp = Object.keys(schema.properties).length > 0;
 									if (schemaHasProp) {
 										let validation = validate(settingDataObj, schema);
 										let validated = validation.valid;
