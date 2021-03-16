@@ -35,6 +35,16 @@ import {
 	channelPath_CouplingLens,
 	channelPath_LightSourceCoupling,
 	channelPath_Objective,
+	select_lightSource,
+	select_couplingLens,
+	select_lightSourceCoupling,
+	select_relayLens,
+	select_detector,
+	select_excitation,
+	select_dichroic,
+	select_emission,
+	select_additional_left,
+	select_additional_right,
 } from "../constants";
 import { bool } from "prop-types";
 
@@ -799,7 +809,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 					onClick={() => this.handleClick_additionalItemButton(category, index)}
 				>
 					{image}
-					Add additional element
+					Add additional element(s)
 				</button>
 			);
 
@@ -807,7 +817,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		return (
 			<button style={buttStyle} disabled>
 				{image}
-				Add additional element
+				Add additional element(s)
 			</button>
 		);
 	}
@@ -1472,7 +1482,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			flexWrap: "wrap",
 			justifyContent: "space-between",
 			minHeight: "800px",
-			height: "800px",
+			height: "860px",
 		};
 
 		const gridRow = {
@@ -1481,7 +1491,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			flexWrap: "wrap",
 			justifyContent: "space-between",
 			width: "100%",
-			height: "130px",
+			height: "150px",
 			alignItems: "center",
 		};
 
@@ -1500,7 +1510,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			flexDirection: "column",
 			flexWrap: "wrap",
 			minWidth: "120px",
-			height: "120px",
+			height: "140px",
 			width: "18%",
 			justifyContent: "center",
 			alignItems: "center",
@@ -2048,7 +2058,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			this.handleClick_objective,
 			this.handleDeleteComp,
 			this.handleEditSettings,
-			"Select Objective",
+			"Objective",
 			hasObjective,
 			valid
 		);
@@ -2065,7 +2075,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						},
 					]}
 				>
-					<div style={gridSpace}>{lightSourceButton}</div>
+					<div style={gridSpace}>
+						{
+							<PopoverTooltip
+								key={"TooltipButton-LightSource"}
+								position={select_lightSource.position}
+								title={select_lightSource.title}
+								content={select_lightSource.content}
+								element={lightSourceButton}
+							/>
+						}
+					</div>
 				</ArcherElement>
 				<div style={gridSpace}></div>
 				<ArcherElement
@@ -2082,7 +2102,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 				</ArcherElement>
 				<div style={gridSpace}></div>
 				<ArcherElement id="detectorButton" relations={[]}>
-					<div style={gridSpace}>{detectorButton}</div>
+					<div style={gridSpace}>
+						{
+							<PopoverTooltip
+								key={"TooltipButton-Detector"}
+								position={select_detector.position}
+								title={select_detector.title}
+								content={select_detector.content}
+								element={detectorButton}
+							/>
+						}
+					</div>
 				</ArcherElement>
 			</div>
 		);
@@ -2098,7 +2128,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						},
 					]}
 				>
-					<div style={gridSpaceAdd}>{additionalItemButton_1}</div>
+					<div style={gridSpaceAdd}>
+						{
+							<PopoverTooltip
+								key={"TooltipButton-Additional1"}
+								position={select_additional_right.position}
+								title={select_additional_right.title}
+								content={select_additional_right.content}
+								element={additionalItemButton_1}
+							/>
+						}
+					</div>
 				</ArcherElement>
 				<div style={gridSpaceAdd}></div>
 				<div style={gridSpaceAdd}></div>
@@ -2113,7 +2153,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						},
 					]}
 				>
-					<div style={gridSpaceAdd}>{additionalItemButton_8}</div>
+					<div style={gridSpaceAdd}>
+						{
+							<PopoverTooltip
+								key={"TooltipButton-Additional8"}
+								position={select_additional_left.position}
+								title={select_additional_left.title}
+								content={select_additional_left.content}
+								element={additionalItemButton_8}
+							/>
+						}
+					</div>
 				</ArcherElement>
 			</div>
 		);
@@ -2130,7 +2180,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						},
 					]}
 				>
-					<div style={gridSpace}>{couplingLensButton}</div>
+					<div style={gridSpace}>
+						{
+							<PopoverTooltip
+								key={"TooltipButton-CouplingLens"}
+								position={select_couplingLens.position}
+								title={select_couplingLens.title}
+								content={select_couplingLens.content}
+								element={couplingLensButton}
+							/>
+						}
+					</div>
 				</ArcherElement>
 				<div style={gridSpace}></div>
 				<div style={gridSpace}></div>
@@ -2145,7 +2205,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						},
 					]}
 				>
-					<div style={gridSpace}>{relayLensButton}</div>
+					<div style={gridSpace}>
+						{
+							<PopoverTooltip
+								key={"TooltipButton-RelayLens"}
+								position={select_relayLens.position}
+								title={select_relayLens.title}
+								content={select_relayLens.content}
+								element={relayLensButton}
+							/>
+						}
+					</div>
 				</ArcherElement>
 			</div>
 		);
@@ -2162,7 +2232,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						},
 					]}
 				>
-					<div style={gridSpace}>{lightSourceCouplingButton}</div>
+					<div style={gridSpace}>
+						{
+							<PopoverTooltip
+								key={"TooltipButton-LightSourceCoupling"}
+								position={select_lightSourceCoupling.position}
+								title={select_lightSourceCoupling.title}
+								content={select_lightSourceCoupling.content}
+								element={lightSourceCouplingButton}
+							/>
+						}
+					</div>
 				</ArcherElement>
 				<div style={gridSpace}></div>
 				<ArcherElement
@@ -2200,7 +2280,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						},
 					]}
 				>
-					<div style={gridSpaceAdd}>{additionalItemButton_2}</div>
+					<div style={gridSpaceAdd}>
+						{
+							<PopoverTooltip
+								key={"TooltipButton-Additional2"}
+								position={select_additional_right.position}
+								title={select_additional_right.title}
+								content={select_additional_right.content}
+								element={additionalItemButton_2}
+							/>
+						}
+					</div>
 				</ArcherElement>
 				<ArcherElement
 					id="addButton_4"
@@ -2212,7 +2302,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						},
 					]}
 				>
-					<div style={gridSpaceAdd}>{additionalItemButton_4}</div>
+					<div style={gridSpaceAdd}>
+						{
+							<PopoverTooltip
+								key={"TooltipButton-Additional4"}
+								position={select_additional_right.position}
+								title={select_additional_right.title}
+								content={select_additional_right.content}
+								element={additionalItemButton_4}
+							/>
+						}
+					</div>
 				</ArcherElement>
 				{/* <div style={gridSpaceAdd}></div> */}
 				<div style={gridSpaceAdd}></div>
@@ -2227,7 +2327,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						},
 					]}
 				>
-					<div style={gridSpaceAdd}>{additionalItemButton_5}</div>
+					<div style={gridSpaceAdd}>
+						{
+							<PopoverTooltip
+								key={"TooltipButton-Additional5"}
+								position={select_additional_left.position}
+								title={select_additional_left.title}
+								content={select_additional_left.content}
+								element={additionalItemButton_5}
+							/>
+						}
+					</div>
 				</ArcherElement>
 				<ArcherElement
 					id="addButton_7"
@@ -2239,81 +2349,166 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						},
 					]}
 				>
-					<div style={gridSpaceAdd}>{additionalItemButton_7}</div>
+					<div style={gridSpaceAdd}>
+						{
+							<PopoverTooltip
+								key={"TooltipButton-Additional7"}
+								position={select_additional_left.position}
+								title={select_additional_left.title}
+								content={select_additional_left.content}
+								element={additionalItemButton_7}
+							/>
+						}
+					</div>
 				</ArcherElement>
 			</div>
 		);
-		let gridRowFilterSet = Object.assign(
-			{ border: "5px solid black" },
-			gridRow
-		);
+		const gridRowSpecial = {
+			display: "flex",
+			flexDirection: "column",
+			width: "100%",
+			height: "150px",
+		};
+		let gridRowFilterSet = Object.assign({}, gridRow, {
+			border: "5px solid black",
+			height: "100%",
+			position: "relative",
+			top: "-30px",
+			left: "0px",
+		});
+		let borderTitleStyle = {
+			display: "inline",
+			position: "relative",
+			top: "-10%",
+			left: "30%",
+			width: "160px",
+			height: "30px",
+			//display: "inline",
+			backgroundColor: "white",
+			zIndex: 2,
+		};
 		let row6 = (
-			<div style={gridRowFilterSet}>
-				<ArcherElement
-					id="excitationFilter"
-					relations={[
-						{
-							targetId: "addButton_3",
-							targetAnchor: "left",
-							sourceAnchor: "right",
-						},
-					]}
-				>
-					<div style={gridSpace}>{excitationButton}</div>
-				</ArcherElement>
-				<ArcherElement
-					id="addButton_3"
-					relations={[
-						{
-							targetId: "dichroicFilter",
-							targetAnchor: "left",
-							sourceAnchor: "right",
-						},
-					]}
-				>
-					<div style={gridSpace}>{additionalItemButton_3}</div>
-				</ArcherElement>
-				<ArcherElement
-					id="dichroicFilter"
-					relations={[
-						{
-							targetId: "addButton_4",
-							targetAnchor: "right",
-							sourceAnchor: "top",
-						},
-						{
-							targetId: "addButton_6",
-							targetAnchor: "left",
-							sourceAnchor: "right",
-						},
-					]}
-				>
-					<div style={gridSpace}>{dichroicButton}</div>
-				</ArcherElement>
-				<ArcherElement
-					id="addButton_6"
-					relations={[
-						{
-							targetId: "emissionFilter",
-							targetAnchor: "left",
-							sourceAnchor: "right",
-						},
-					]}
-				>
-					<div style={gridSpace}>{additionalItemButton_6}</div>
-				</ArcherElement>
-				<ArcherElement
-					id="emissionFilter"
-					relations={[
-						{
-							targetId: "addButton_7",
-							targetAnchor: "bottom",
-							sourceAnchor: "top",
-						},
-					]}
-				>
-					<div style={gridSpace}>{emissionButton}</div>
-				</ArcherElement>
+			<div style={gridRowSpecial}>
+				<button style={borderTitleStyle} disabled>
+					Filter Set
+				</button>
+				<div style={gridRowFilterSet}>
+					<ArcherElement
+						id="excitationFilter"
+						relations={[
+							{
+								targetId: "addButton_3",
+								targetAnchor: "left",
+								sourceAnchor: "right",
+							},
+						]}
+					>
+						<div style={gridSpace}>
+							{
+								<PopoverTooltip
+									key={"TooltipButton-Excitation"}
+									position={select_excitation.position}
+									title={select_excitation.title}
+									content={select_excitation.content}
+									element={excitationButton}
+								/>
+							}
+						</div>
+					</ArcherElement>
+					<ArcherElement
+						id="addButton_3"
+						relations={[
+							{
+								targetId: "dichroicFilter",
+								targetAnchor: "left",
+								sourceAnchor: "right",
+							},
+						]}
+					>
+						<div style={gridSpace}>
+							{
+								<PopoverTooltip
+									key={"TooltipButton-Additional3"}
+									position={select_additional_right.position}
+									title={select_additional_right.title}
+									content={select_additional_right.content}
+									element={additionalItemButton_3}
+								/>
+							}
+						</div>
+					</ArcherElement>
+					<ArcherElement
+						id="dichroicFilter"
+						relations={[
+							{
+								targetId: "addButton_4",
+								targetAnchor: "right",
+								sourceAnchor: "top",
+							},
+							{
+								targetId: "addButton_6",
+								targetAnchor: "left",
+								sourceAnchor: "right",
+							},
+						]}
+					>
+						<div style={gridSpace}>
+							{
+								<PopoverTooltip
+									key={"TooltipButton-Dichroic"}
+									position={select_dichroic.position}
+									title={select_dichroic.title}
+									content={select_dichroic.content}
+									element={dichroicButton}
+								/>
+							}
+						</div>
+					</ArcherElement>
+					<ArcherElement
+						id="addButton_6"
+						relations={[
+							{
+								targetId: "emissionFilter",
+								targetAnchor: "left",
+								sourceAnchor: "right",
+							},
+						]}
+					>
+						<div style={gridSpace}>
+							{
+								<PopoverTooltip
+									key={"TooltipButton-Additional6"}
+									position={select_additional_left.position}
+									title={select_additional_left.title}
+									content={select_additional_left.content}
+									element={additionalItemButton_6}
+								/>
+							}
+						</div>
+					</ArcherElement>
+					<ArcherElement
+						id="emissionFilter"
+						relations={[
+							{
+								targetId: "addButton_7",
+								targetAnchor: "bottom",
+								sourceAnchor: "top",
+							},
+						]}
+					>
+						<div style={gridSpace}>
+							{
+								<PopoverTooltip
+									key={"TooltipButton-Emission"}
+									position={select_emission.position}
+									title={select_emission.title}
+									content={select_emission.content}
+									element={emissionButton}
+								/>
+							}
+						</div>
+					</ArcherElement>
+				</div>
 			</div>
 		);
 
