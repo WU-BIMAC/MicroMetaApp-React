@@ -479,10 +479,12 @@ export default class SettingMainView extends React.PureComponent {
 					validation = validate(object, schema);
 					validated = validation.valid;
 				}
-				if (validated) {
-					valid = isValid;
-				} else {
-					valid = isInvalid;
+				if (object !== null && object !== undefined && object.length > 0) {
+					if (validated) {
+						valid = isValid;
+					} else {
+						valid = isInvalid;
+					}
 				}
 				disabled = true;
 				if (schemaHasProp) disabled = false;
@@ -523,10 +525,12 @@ export default class SettingMainView extends React.PureComponent {
 					}
 				}
 				valid = null;
-				if (validated) {
-					valid = isValid;
-				} else {
-					valid = isInvalid;
+				if (object !== null && object !== undefined && object.length > 0) {
+					if (validated) {
+						valid = isValid;
+					} else {
+						valid = isInvalid;
+					}
 				}
 				category = categories[index];
 				disabled = true;
@@ -574,10 +578,12 @@ export default class SettingMainView extends React.PureComponent {
 				}
 			}
 			valid = null;
-			if (validated) {
-				valid = isValid;
-			} else {
-				valid = isInvalid;
+			if (object !== null && object !== undefined && object.length > 0) {
+				if (validated) {
+					valid = isValid;
+				} else {
+					valid = isInvalid;
+				}
 			}
 			category = categories[index];
 			disabled = true;
@@ -632,10 +638,12 @@ export default class SettingMainView extends React.PureComponent {
 				}
 			}
 			valid = null;
-			if (validated) {
-				valid = isValid;
-			} else {
-				valid = isInvalid;
+			if (object !== null && object !== undefined && object.length > 0) {
+				if (validated) {
+					valid = isValid;
+				} else {
+					valid = isInvalid;
+				}
 			}
 			category = categories[index];
 			disabled = true;
@@ -782,10 +790,12 @@ export default class SettingMainView extends React.PureComponent {
 				}
 			}
 			valid = null;
-			if (validated) {
-				valid = isValid;
-			} else {
-				valid = isInvalid;
+			if (object !== null && object !== undefined && object.length > 0) {
+				if (validated) {
+					valid = isValid;
+				} else {
+					valid = isInvalid;
+				}
 			}
 			category = categories[index];
 			disabled = true;
@@ -837,10 +847,12 @@ export default class SettingMainView extends React.PureComponent {
 				}
 			}
 			valid = null;
-			if (validated) {
-				valid = isValid;
-			} else {
-				valid = isInvalid;
+			if (object !== null && object !== undefined && object.length > 0) {
+				if (validated) {
+					valid = isValid;
+				} else {
+					valid = isInvalid;
+				}
 			}
 			buttons.push(
 				<PopoverTooltip
@@ -891,10 +903,12 @@ export default class SettingMainView extends React.PureComponent {
 				}
 			}
 			valid = null;
-			if (validated) {
-				valid = isValid;
-			} else {
-				valid = isInvalid;
+			if (object !== null && object !== undefined && object.length > 0) {
+				if (validated) {
+					valid = isValid;
+				} else {
+					valid = isInvalid;
+				}
 			}
 			buttons.push(
 				<PopoverTooltip
