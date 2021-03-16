@@ -1468,9 +1468,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		// 		//TODO
 		// 	}
 		// });
-		if (item.startsWith("Save setting")) {
+		if (item.startsWith("Save image setting")) {
 			this.props.onSaveSetting(setting, this.handleCompleteSaveSetting);
-		} else if (item.startsWith("Export setting")) {
+		} else if (item.startsWith("Export image setting")) {
 			this.handleExportSetting(setting);
 		}
 	}

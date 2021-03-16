@@ -1411,9 +1411,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       // 	}
       // });
 
-      if (item.startsWith("Save setting")) {
+      if (item.startsWith("Save image setting")) {
         this.props.onSaveSetting(setting, this.handleCompleteSaveSetting);
-      } else if (item.startsWith("Export setting")) {
+      } else if (item.startsWith("Export image setting")) {
         this.handleExportSetting(setting);
       }
     }
