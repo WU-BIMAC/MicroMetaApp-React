@@ -86,12 +86,12 @@ export default class SettingMainView extends React.PureComponent {
 			experiment: props.settingData.Experiment,
 			planes: props.settingData.Planes || [],
 			channels: props.settingData.Channels || [],
-			TIRFSettings: props.settingData.TIRFSettings,
-			imagingEnv: props.settingData.ImagingEnvironment,
+			TIRFSettings: props.settingData.TIRFSettings || [],
+			imagingEnv: props.settingData.ImagingEnvironment || [],
 			micSettings: props.settingData.MicroscopeStandSettings,
 			objSettings: props.settingData.ObjectiveSettings,
-			samplePosSettings: props.settingData.SamplePositioningSettings,
-			micTableSettings: props.settingData.MicroscopeTableSettings,
+			samplePosSettings: props.settingData.SamplePositioningSettings || [],
+			micTableSettings: props.settingData.MicroscopeTableSettings || [],
 
 			settingSchemas: {},
 			experimentalSchemas: {},
@@ -105,26 +105,13 @@ export default class SettingMainView extends React.PureComponent {
 			Object.keys(props.settingData).forEach((settIndex) => {
 				let sett = props.settingData[settIndex];
 				let schema_id = sett.Schema_ID;
-				if (schema_id === "TIRFSettings.json" && bool_hasAdvanced) {
-					this.state.TIRFSettings = sett;
-				} else if (schema_id === "ImagingEnvironment.json") {
-					this.state.imagingEnv = sett;
-				} else if (schema_id === "MicroscopeStandSettings.json") {
-					this.state.micSettings = sett;
-				} else if (schema_id === "ObjectiveSettings.json") {
+				if (schema_id === "ObjectiveSettings.json") {
 					this.state.objSettings = sett;
 					let compID = sett.Component_ID;
 					Object.keys(this.props.microscopeComponents).forEach((key) => {
 						let element = this.props.microscopeComponents[key];
 						if (element.ID === compID) this.state.objective = element;
 					});
-				} else if (schema_id === "SamplePositioningSettings.json") {
-					this.state.samplePosSettings = sett;
-				} else if (schema_id === "MicroscopeTableSettings.json") {
-					this.state.micTableSettings = sett;
-				}
-				if (schema_id === "Experiment.json" && bool_hasExperimental) {
-					this.state.experiment = sett;
 				}
 			});
 		}
@@ -217,20 +204,16 @@ export default class SettingMainView extends React.PureComponent {
 				channels: data,
 			});
 		} else if (id === elements.indexOf("tirfSettings")) {
-			let oldTIRFSettings = Object.assign({}, this.state.TIRFSettings);
-			let newTIRFSettings = Object.assign(oldTIRFSettings, data);
-			settingData.TIRFSettings = newTIRFSettings;
+			settingData.TIRFSettings = data;
 			this.setState({
 				editingElement: -1,
-				TIRFSettings: newTIRFSettings,
+				TIRFSettings: data,
 			});
 		} else if (id === elements.indexOf("imgEnv")) {
-			let oldImagingEnv = Object.assign({}, this.state.imagingEnv);
-			let newImagingEnv = Object.assign(oldImagingEnv, data);
-			settingData.ImagingEnvironment = newImagingEnv;
+			settingData.ImagingEnvironment = data;
 			this.setState({
 				editingElement: -1,
-				imagingEnv: newImagingEnv,
+				imagingEnv: data,
 			});
 		} else if (id === elements.indexOf("micSettings")) {
 			let oldMicSettings = Object.assign({}, this.state.micSettings);
@@ -256,25 +239,16 @@ export default class SettingMainView extends React.PureComponent {
 				objective: objective,
 			});
 		} else if (id === elements.indexOf("samplePosSettings")) {
-			let oldSamplePosSettings = Object.assign(
-				{},
-				this.state.samplePosSettings
-			);
-			let newSamplePosSettings = Object.assign(oldSamplePosSettings, data);
-			settingData.SamplePositioningSettings = newSamplePosSettings;
+			settingData.SamplePositioningSettings = data;
 			this.setState({
 				editingElement: -1,
-				samplePosSettings: newSamplePosSettings,
+				samplePosSettings: data,
 			});
 		} else if (id === elements.indexOf("micTableSettings")) {
-			let oldMicTableSettings = Object.assign({}, this.state.micTableSettings);
-			let newMicTableSettings = Object.assign(oldMicTableSettings, data);
-			console.log("newMicTableSettings");
-			console.log(newMicTableSettings);
-			settingData.MicroscopeTableSettings = newMicTableSettings;
+			settingData.MicroscopeTableSettings = data;
 			this.setState({
 				editingElement: -1,
-				micTableSettings: newMicTableSettings,
+				micTableSettings: data,
 			});
 		}
 
@@ -413,6 +387,10 @@ export default class SettingMainView extends React.PureComponent {
 				editingElement == elements.indexOf("samplePosSettings") ||
 				editingElement == elements.indexOf("micTableSettings")
 			) {
+				let maxNumberElement = -1;
+				if (editingElement == elements.indexOf("objSettings")) {
+					maxNumberElement = 1;
+				}
 				return (
 					<SettingComponentSelector
 						settingSchemas={this.props.settingSchemas}
@@ -430,6 +408,7 @@ export default class SettingMainView extends React.PureComponent {
 						onCancel={this.onElementDataCancel}
 						overlaysContainer={this.props.overlaysContainer}
 						elementByType={elementByType}
+						maxNumberElement={maxNumberElement}
 					/>
 				);
 			} else {
@@ -531,8 +510,17 @@ export default class SettingMainView extends React.PureComponent {
 			if (bool_hasAdvanced) {
 				validated = false;
 				if (object !== null && object !== undefined && schemaHasProp) {
-					validation = validate(object, schema);
-					validated = validation.valid;
+					if (Array.isArray(object)) {
+						validated = true;
+						for (let index in object) {
+							let obj = object[index];
+							validation = validate(obj, schema);
+							validated = validated && validation.valid;
+						}
+					} else {
+						validation = validate(object, schema);
+						validated = validation.valid;
+					}
 				}
 				valid = null;
 				if (validated) {
@@ -573,8 +561,17 @@ export default class SettingMainView extends React.PureComponent {
 				schemaHasProp = Object.keys(schema.properties).length > 0;
 			validated = false;
 			if (object !== null && object !== undefined && schemaHasProp) {
-				validation = validate(object, schema);
-				validated = validation.valid;
+				if (Array.isArray(object)) {
+					validated = true;
+					for (let index in object) {
+						let obj = object[index];
+						validation = validate(obj, schema);
+						validated = validated && validation.valid;
+					}
+				} else {
+					validation = validate(object, schema);
+					validated = validation.valid;
+				}
 			}
 			valid = null;
 			if (validated) {
@@ -622,8 +619,17 @@ export default class SettingMainView extends React.PureComponent {
 				schemaHasProp = Object.keys(schema.properties).length > 0;
 			validated = false;
 			if (object !== null && object !== undefined && schemaHasProp) {
-				validation = validate(object, schema);
-				validated = validation.valid;
+				if (Array.isArray(object)) {
+					validated = true;
+					for (let index in object) {
+						let obj = object[index];
+						validation = validate(obj, schema);
+						validated = validated && validation.valid;
+					}
+				} else {
+					validation = validate(object, schema);
+					validated = validation.valid;
+				}
 			}
 			valid = null;
 			if (validated) {
@@ -763,8 +769,17 @@ export default class SettingMainView extends React.PureComponent {
 				schemaHasProp = Object.keys(schema.properties).length > 0;
 			validated = false;
 			if (object !== null && object !== undefined && schemaHasProp) {
-				validation = validate(object, schema);
-				validated = validation.valid;
+				if (Array.isArray(object)) {
+					validated = true;
+					for (let index in object) {
+						let obj = object[index];
+						validation = validate(obj, schema);
+						validated = validated && validation.valid;
+					}
+				} else {
+					validation = validate(object, schema);
+					validated = validation.valid;
+				}
 			}
 			valid = null;
 			if (validated) {
@@ -804,6 +819,29 @@ export default class SettingMainView extends React.PureComponent {
 			);
 
 			index = elements.indexOf("planes");
+			schema_id = schemas[index];
+			object = this.state.planes;
+			schema = this.state.settingSchemas[schema_id];
+			validated = false;
+			if (object !== null && object !== undefined) {
+				if (Array.isArray(object)) {
+					validated = true;
+					for (let index in object) {
+						let obj = object[index];
+						validation = validate(obj, schema);
+						validated = validated && validation.valid;
+					}
+				} else {
+					validation = validate(object, schema);
+					validated = validation.valid;
+				}
+			}
+			valid = null;
+			if (validated) {
+				valid = isValid;
+			} else {
+				valid = isInvalid;
+			}
 			buttons.push(
 				<PopoverTooltip
 					key={"TooltipButton-Planes"}
@@ -819,6 +857,7 @@ export default class SettingMainView extends React.PureComponent {
 							style={styleButton}
 							size="lg"
 						>
+							{valid}
 							{"Edit Planes"}
 						</Button>
 					}
@@ -826,6 +865,37 @@ export default class SettingMainView extends React.PureComponent {
 			);
 
 			index = elements.indexOf("channels");
+			schema_id = schemas[index];
+			object = this.state.channels;
+			schema = this.state.settingSchemas[schema_id];
+			let lightPathSchema = this.state.settingSchemas["LightPath.json"];
+			let fluorophoreSchema = this.state.experimentalSchemas[
+				"Fluorophore.json"
+			];
+			validated = false;
+			if (object !== null && object !== undefined) {
+				if (Array.isArray(object)) {
+					validated = true;
+					for (let index in object) {
+						let obj = object[index];
+						validation = validate(obj, schema);
+						validated = validated && validation.valid;
+						let validation2 = validate(obj.LightPath, lightPathSchema);
+						validated = validated && validation2.valid;
+						let validation3 = validate(obj.Fluorophore, fluorophoreSchema);
+						validated = validated && validation3.valid;
+					}
+				} else {
+					validation = validate(object, schema);
+					validated = validation.valid;
+				}
+			}
+			valid = null;
+			if (validated) {
+				valid = isValid;
+			} else {
+				valid = isInvalid;
+			}
 			buttons.push(
 				<PopoverTooltip
 					key={"TooltipButton-Channels"}
@@ -841,6 +911,7 @@ export default class SettingMainView extends React.PureComponent {
 							style={styleButton}
 							size="lg"
 						>
+							{valid}
 							{"Edit Channels"}
 						</Button>
 					}
