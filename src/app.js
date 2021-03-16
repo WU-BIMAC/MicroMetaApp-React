@@ -1691,6 +1691,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
 						onClickConfirm={this.createOrUseMicroscope}
 						onClickBack={this.onClickBack}
+						isSettings={this.state.isLoadingMicroscope}
 					/>
 				</MicroscopyMetadataToolContainer>
 			);
