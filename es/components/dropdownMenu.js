@@ -106,7 +106,6 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
         size: "lg"
       }, this.state.currentTitle);
 
-      console.log("SHOWTOOLTIP:" + this.state.showTooltip);
       var dropdownToggleWrapped = null;
 
       if (this.props.tooltip !== undefined && this.props.tooltip !== null && this.props.tooltip.position !== undefined && this.props.position !== null && this.props.tooltip.title !== undefined && this.props.title !== null && this.props.tooltip.content !== undefined && this.props.content !== null && this.state.showTooltip) {

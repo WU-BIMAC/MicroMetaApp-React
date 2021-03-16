@@ -227,7 +227,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleCompleteLoadDimensions",
     value: function handleCompleteLoadDimensions(newDimensions) {
-      console.log(newDimensions);
+      //console.log(newDimensions);
       this.setState({
         dimensions: newDimensions
       });
