@@ -34,22 +34,42 @@ export default class SettingComponentSelector extends React.PureComponent {
 			selectedSchema: null,
 
 			currentComps: [],
-			settingData: props.inputData || [],
+			settingData: props.inputData || null,
 		};
+
+		if (this.state.settingData === null) {
+			if (this.props.maxNumberElement === 1) {
+				this.state.settingData = {};
+			} else {
+				this.state.settingData = [];
+			}
+		}
 
 		if (
 			this.state.settingData !== null &&
 			this.state.settingData !== undefined
 		) {
-			Object.keys(this.state.settingData).forEach((settingIndex) => {
-				let sett = this.state.settingData[settingIndex];
-				Object.keys(this.props.componentData).forEach((compIndex) => {
-					let comp = this.props.componentData[compIndex];
-					if (comp.ID === sett.Component_ID) {
-						this.state.currentComps.push(comp);
-					}
+			if (Array.isArray(this.state.settingData)) {
+				Object.keys(this.state.settingData).forEach((settingIndex) => {
+					let sett = this.state.settingData[settingIndex];
+					Object.keys(this.props.componentData).forEach((compIndex) => {
+						let comp = this.props.componentData[compIndex];
+						if (comp.ID === sett.Component_ID) {
+							this.state.currentComps.push(comp);
+						}
+					});
 				});
-			});
+			} else {
+				let compID = this.state.settingData.Component_ID;
+				if (compID !== null && compID !== undefined) {
+					Object.keys(this.props.componentData).forEach((compIndex) => {
+						let comp = this.props.componentData[compIndex];
+						if (comp.ID === compID) {
+							this.state.currentComps.push(comp);
+						}
+					});
+				}
+			}
 		}
 
 		this.handleSelectComp = this.handleSelectComp.bind(this);
@@ -138,17 +158,22 @@ export default class SettingComponentSelector extends React.PureComponent {
 		// let selectedSlot = this.state.selectedSlot;
 		// let category = this.state.category;
 		//let slots = this.state.slots;
-		let settingsData = this.state.settingData.slice();
+		let oldSettingsData = this.state.settingData;
+		let settingsData = null;
 		let settingData = null;
 		let index = null;
-
-		Object.keys(settingsData).forEach((settingIndex) => {
-			let sett = settingsData[settingIndex];
-			if (sett.Component_ID === selectedComp.ID) {
-				settingData = sett;
-				index = settingIndex;
-			}
-		});
+		if (Array.isArray(oldSettingData)) {
+			settingsData = oldSettingsData.slice();
+			Object.keys(settingsData).forEach((settingIndex) => {
+				let sett = settingsData[settingIndex];
+				if (sett.Component_ID === selectedComp.ID) {
+					settingData = sett;
+					index = settingIndex;
+				}
+			});
+		} else {
+			settingData = oldSettingsData;
+		}
 
 		if (settingData === null) {
 			console.log(
@@ -162,7 +187,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 		if (data.ImmersionLiquid !== null && data.ImmersionLiquid !== undefined) {
 			let oldImmersionLiquid = Object.assign(
 				{},
-				this.state.settingData.ImmersionLiquid
+				oldSettingsData.ImmersionLiquid
 			);
 			let immersionLiquid = Object.assign(
 				oldImmersionLiquid,
@@ -170,7 +195,15 @@ export default class SettingComponentSelector extends React.PureComponent {
 			);
 			newSettingData.ImmersionLiquid = immersionLiquid;
 		}
-		settingsData[index] = newSettingData;
+		if (settingsData !== null && index !== null) {
+			console.log("IM HERE");
+			settingsData[index] = newSettingData;
+		} else {
+			console.log("IM HERE2");
+			settingsData = newSettingData;
+		}
+		console.log("settingsData");
+		console.log(settingsData);
 		this.setState({ editing: false, settingData: settingsData });
 	}
 
@@ -194,7 +227,18 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 		// let settingsSchema = this.props.settingSchemas;
 		// let experimentalsSchema = this.props.experimentalSchemas;
-		let settingData = this.state.settingData.slice();
+		let oldSettingData = this.state.settingData;
+		let settingData = null;
+		let isArray = null;
+		if (Array.isArray(oldSettingData)) {
+			settingData = this.state.settingData.slice();
+			isArray = true;
+		} else {
+			settingData = this.state.settingData;
+			let compID = settingData.Component_ID;
+			if (compID !== null && compID !== undefined) return;
+			isArray = false;
+		}
 
 		// let settingsSchemas = {};
 		// for (let i in settingsSchema) {
@@ -264,7 +308,11 @@ export default class SettingComponentSelector extends React.PureComponent {
 		}
 
 		currentComps.push(selectedComp);
-		settingData.push(settingCompData);
+		if (isArray) {
+			settingData.push(settingCompData);
+		} else {
+			settingData = settingCompData;
+		}
 
 		this.setState({
 			//tmpSlots: tmpSlots,
@@ -452,10 +500,14 @@ export default class SettingComponentSelector extends React.PureComponent {
 			let settingsData = this.state.settingData;
 			let settingData = null;
 
-			Object.keys(settingsData).forEach((settingIndex) => {
-				let sett = settingsData[settingIndex];
-				if (sett.Component_ID === selectedComp.ID) settingData = sett;
-			});
+			if (Array.isArray(settingsData)) {
+				Object.keys(settingsData).forEach((settingIndex) => {
+					let sett = settingsData[settingIndex];
+					if (sett.Component_ID === selectedComp.ID) settingData = sett;
+				});
+			} else {
+				settingData = settingsData;
+			}
 
 			if (settingData === null) {
 				console.log(
@@ -566,10 +618,14 @@ export default class SettingComponentSelector extends React.PureComponent {
 					if (compSchema === null) return;
 
 					let settingData = null;
-					Object.keys(settingsData).forEach((settingIndex) => {
-						let sett = settingsData[settingIndex];
-						if (sett.Component_ID === comp.ID) settingData = sett;
-					});
+					if (Array.isArray(settingsData)) {
+						Object.keys(settingsData).forEach((settingIndex) => {
+							let sett = settingsData[settingIndex];
+							if (sett.Component_ID === selectedComp.ID) settingData = sett;
+						});
+					} else {
+						settingData = settingsData;
+					}
 
 					if (settingData === null) {
 						console.log(
