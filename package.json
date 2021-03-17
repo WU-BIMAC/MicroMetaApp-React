@@ -1,6 +1,6 @@
 {
 	"name": "4dn-microscopy-metadata-tool",
-	"version": "0.39.1-b1",
+	"version": "0.40.0-b1",
 	"main": "./dist/MicroscopyMetadataTool.min.js",
 	"unpkg": "./dist/MicroscopyMetadataTool.min.js",
 	"module": "./es/app.js",
@@ -14,7 +14,8 @@
 		"build-all": "npm run build && npm run build-es",
 		"build-es": "npx babel ./src --out-dir ./es --env-name esm --verbose",
 		"watch-es": "npx babel ./src --out-dir ./es --env-name esm --verbose --watch",
-		"build-css": "sass --no-source-map ./node_modules/react-resizable/css/styles.css ./public/assets/scss/react_resizable.scss && sass --no-source-map ./node_modules/rc-tabs/assets/index.css ./public/assets/scss/rc_tabs.scss && sass --no-source-map ./public/assets/scss/style-new.scss ./public/assets/css/style-new.css"
+		"build-css": "sass --no-source-map ./node_modules/react-resizable/css/styles.css ./public/assets/scss/react_resizable.scss && sass --no-source-map ./node_modules/rc-tabs/assets/index.css ./public/assets/scss/rc_tabs.scss && sass --no-source-map ./public/assets/scss/style-new.scss ./public/assets/css/style-new.css",
+		"build-css-2": "sass --no-source-map ./node_modules/react-resizable/css/styles.css ./public/assets/scss/react_resizable.scss && sass --no-source-map ./node_modules/react-tabs/style/react-tabs.css ./public/assets/scss/react_tabs.scss && sass --no-source-map ./public/assets/scss/style-new-2.scss ./public/assets/css/style-new.css"
 	},
 	"publishConfig": {
 		"access": "restricted"
@@ -40,6 +41,7 @@
 		"react-dropzone": "^11.2.4",
 		"react-resizable": "^1.11.0",
 		"react-simple-tree-menu": "^1.1.18",
+		"react-tabs": "^3.2.1",
 		"reactstrap": "^8.7.1",
 		"resolve": "^1.19.0",
 		"url-loader": "4.1.0",
