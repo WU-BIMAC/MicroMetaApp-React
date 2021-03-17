@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Suggest a new feature for Micro-Meta App
-title: NEW FEATURE --> concise description
+title: [NEW FEATURE] MANAGE INSTRUMENT/SETTINGS --> concise description
 labels: New feature
 assignees: Akramhar
 
