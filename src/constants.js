@@ -95,135 +95,128 @@ export const channelPath_Emission = [
 	"DiffractionGrating", //Advanced/
 ];
 
-export const channelPath_Additional_1_8 = [
+export const channelPath_Additional_1 = [
+	"Shutter",
+	"IrisDiaphragm",
+
 	"ExcitationFilter",
-	"EmissionFilter",
 	"NeutralDensityFilter",
 	"AdditionalFilter",
-
-	"BeamExpanderLens",
-	"CollimatorLens",
-	"BeamExpander",
-	"BeamCollimator",
-
-	"AdditionalDichroic",
+	"GenericDichroic",
 	"BeamSplitter",
 	"ReflectingMirror",
-	"StandardDichroic",
-
-	"Shutter",
+	"GenericLens",
+	"BeamExpander",
+	"BeamExpanderLens",
+	"BeamCollimator",
+	"BeamCollimatorLens",
 	"PolarizationOptics",
 	"Prism",
+
 	"DiffractionGrating", //Advanced/
 	"MaskingPlate", //Advanced/
 ];
 
 export const channelPath_Additional_2 = [
 	"ExcitationFilter",
-	"EmissionFilter",
 	"NeutralDensityFilter",
 	"AdditionalFilter",
-
-	"BeamExpanderLens",
-	"CollimatorLens",
+	"GenericDichroic",
+	"BeamSplitter",
+	"ReflectingMirror",
+	"GenericLens",
 	"CondenserLens",
-	"MagnificationChanger",
 	"TubeLens",
-
-	"AdditionalDichroic",
-	"BeamSplitter",
-	"ReflectingMirror",
-	"StandardDichroic",
-
-	"AdditionalDichroic",
-	"BeamSplitter",
-	"ReflectingMirror",
-	"StandardDichroic",
-
-	"PolarizationOptics",
-	"Prism",
-
+	"BeamExpanderLens",
+	"BeamCollimatorLens",
 	"DarkfieldStop",
 	"HoffmanSlitPlate",
 	"IrisDiaphragm",
 	"PhaseRing",
 	"VarelRing",
 	"Shutter",
-
 	"BeamExpander",
 	"BeamCollimator",
 	"Condenser",
+	"MicroscopeTube",
+	"PolarizationOptics",
+	"Prism",
 
 	"SpinningDisk", //Advanced/
 	"RasterScanner", //Advanced/
-	"DiffractionGrafting", //Advanced/
+	"DiffractionGrating", //Advanced/
 	"MaskingPlate", //Advanced/
 	"Pinhole", //Advanced
 ];
 
 export const channelPath_Additional_3_4_5_6 = [
+	"Shutter",
+	"DarkfieldStop",
+	"IrisDiaphragm",
 	"ExcitationFilter",
 	"EmissionFilter",
 	"NeutralDensityFilter",
 	"AdditionalFilter",
-
-	"MagnificationChanger",
-	"TubeLens",
-
-	"AdditionalDichroic",
-	"BeamSplitter",
-	"ReflectingMirror",
 	"StandardDichroic",
-
+	"GenericDichroic",
+	"GenericDichroic",
+	"BeamSplitter",
+	"GenericLens",
 	"PolarizationOptics",
 	"Prism",
 
-	"DarkfieldStop",
-	"HoffmanSlitPlate",
-	"IrisDiaphragm",
-	"Shutter",
+	"DiffractionGrating", //Advanced/
+	"MaskingPlate", //Advanced/
+	"Pinhole", //Advanced
+	"AcoustoOpticallTuneableFilter", //Advanced/
+	"LiquidCrystalTuneableFilter", //Advanced/
+	"AcoustoOpticalLBeamSplitter", //Advanced/
+];
 
+export const channelPath_Additional_7 = [
+	"Shutter",
+	"IrisDiaphragm",
+	"EmissionFilter",
+	"NeutralDensityFilter",
+	"AdditionalFilter",
+	"GenericDichroic",
+	"BeamSplitter",
+	"ReflectingMirror",
+	"GenericLens",
+	"CondenserLens",
+	"MagnificationChanger",
+	"MicroscopeTube",
+	"BeamExpanderLens",
+	"BeamCollimatorLens",
 	"BeamExpander",
 	"BeamCollimator",
+	"PolarizationOptics",
+	"Prism",
 
-	"SpinningDisk", //Advanced/
-	"RasterScanner", //Advanced/
-	"DiffractionGrafting", //Advanced/
+	"DiffractionGrating", //Advanced/
 	"MaskingPlate", //Advanced/
 	"Pinhole", //Advanced
 ];
 
-export const channelPath_Additional_7 = [
-	"ExcitationFilter",
+export const channelPath_Additional_8 = [
+	"Shutter",
+	"IrisDiaphragm",
 	"EmissionFilter",
 	"NeutralDensityFilter",
 	"AdditionalFilter",
-
-	"BeamExpanderLens",
-	"CollimatorLens",
-	"TubeLens",
-
-	"AdditionalDichroic",
+	"GenericDichroic",
 	"BeamSplitter",
 	"ReflectingMirror",
-	"StandardDichroic",
-
+	"GenericLens",
+	"BeamExpander",
+	"BeamExpanderLens",
+	"BeamCollimator",
+	"BeamCollimatorLens",
 	"PolarizationOptics",
 	"Prism",
 
-	"DarkfieldStop",
-	"HoffmanSlitPlate",
-	"IrisDiaphragm",
-	"Shutter",
-
-	"BeamExpander",
-	"BeamCollimator",
-
-	"SpinningDisk", //Advanced/
-	"RasterScanner", //Advanced/
-	"DiffractionGrafting", //Advanced/
+	"DiffractionGrating", //Advanced/
 	"MaskingPlate", //Advanced/
-	"Pinhole", //Advanced
 ];
 
 export const menu_order = [
@@ -649,14 +642,25 @@ export const edit_channel = {
 	position: "bottom",
 };
 
+export const edit_channel_settings = {
+	title: "Edit Channel Settings",
+	content: (
+		<p>
+			Click this button to enter or edit general information about this image
+			Channel.
+		</p>
+	),
+	position: "top",
+};
+
 export const select_lightSource = {
 	title: "Select Light Source",
 	content: (
 		<p>
 			Click this button to select the Light Source that was used for the
 			acquisition of this Channel. After confirming the selection, click on the
-			selected Light Source to enter or edit the settings that were applied to
-			it during acquisition.
+			selected Light Source one more time to enter or edit the settings that
+			were applied to it during acquisition.
 		</p>
 	),
 	position: "right",
@@ -701,8 +705,8 @@ export const select_detector = {
 		<p>
 			Click this button to select the Detector that was used for the acquisition
 			of this Channel. After confirming the selection, click on the selected
-			Detector to enter or edit the settings that were applied to it during
-			acquisition.
+			Detector one more time to enter or edit the settings that were applied to
+			it during acquisition.
 		</p>
 	),
 	position: "left",
