@@ -1750,6 +1750,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           settingSchemas: settingsSchema,
           experimentalSchemas: experimentalSchema,
           componentSchemas: componentsSchema,
+          setting: setting,
           settingData: settingData,
           experimentalData: experimentalData,
           componentData: elementData,

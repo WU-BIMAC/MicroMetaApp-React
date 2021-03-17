@@ -9,17 +9,13 @@ var _react = _interopRequireDefault(require("react"));
 
 var _bootstrap = _interopRequireDefault(require("@rjsf/bootstrap-4"));
 
-var _rcTabs = _interopRequireWildcard(require("rc-tabs"));
+var _reactTabs = require("react-tabs");
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
 var _constants = require("../constants");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -61,7 +57,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       minChildrenComponents: {},
       maxChildrenComponents: {},
       activeID: null,
-      activeKey: "0",
+      activeKey: 0,
+      //"0",
       partialInputData: {}
     };
 
@@ -269,7 +266,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         this.state.activeID = activeID;
-        this.state.activeKey = "0";
+        this.state.activeKey = 0; //"0";
+
         this.buttonsRefs = {};
         this.containerFormNames = {};
         this.formNames = {};
@@ -608,8 +606,9 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           if (currentErrors[i] !== null) {
             this.setState({
               activeID: currentID,
-              activeKey: "".concat(i)
-            });
+              activeKey: i
+            }); //`${i}` });
+
             return;
           }
         }
@@ -834,19 +833,22 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       this.formNames[id] = currentFormNames;
       this.formRefs[id] = currentFormRefs;
       return currentForms;
-    }
+    } //onContainerTabChange(key) {
+
   }, {
     key: "onContainerTabChange",
-    value: function onContainerTabChange(key) {
+    value: function onContainerTabChange(key, prevKey, evt) {
       var id = Object.keys(this.forms)[key];
       this.setState({
         activeID: id,
-        activeKey: "0"
+        activeKey: 0 //"0",
+
       });
-    }
+    } //onTabChange(key) {
+
   }, {
     key: "onTabChange",
-    value: function onTabChange(key) {
+    value: function onTabChange(key, prevKey, evt) {
       this.setState({
         activeKey: key
       });
@@ -1023,23 +1025,36 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }, "Cancel"))));
       }
 
+      var tabNames = {};
       var tabs = {};
 
-      var _loop5 = function _loop5(_id3) {
-        var currentForms = forms[_id3];
-        var currentTabs = currentForms.map(function (item, index) {
-          if (names[_id3][index] === "undefined") return null;
-          return /*#__PURE__*/_react.default.createElement(_rcTabs.TabPane, {
-            tab: names[_id3][index],
-            key: index,
-            forceRender: true
-          }, item);
-        });
-        tabs[_id3] = currentTabs;
-      };
-
       for (var _id3 in forms) {
-        _loop5(_id3);
+        var currentForms = forms[_id3];
+        var currentNames = names[_id3];
+        tabNames[_id3] = [];
+        tabs[_id3] = [];
+
+        for (var index in currentForms) {
+          var item = currentForms[index];
+
+          tabNames[_id3].push( /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
+            key: "ContainerTabName-" + currentNames[index]
+          }, currentNames[index]));
+
+          tabs[_id3].push( /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
+            key: "ContainerTab-" + currentNames[index],
+            forceRender: true
+          }, item));
+        } //let currentTabs = currentForms.map(function (item, index) {
+        //	if (names[id][index] === "undefined") return null;
+        //	return (
+        //		<TabPane tab={names[id][index]} key={index} forceRender={true}>
+        //			{item}
+        //		</TabPane>
+        //	);
+        //});
+        //tabs[id] = currentTabs;
+
       } // let title = "Selected Hardware";
       // if (this.props.schema !== null) {
       // 	title = this.props.schema.title;
@@ -1068,6 +1083,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }, "Cancel"));
       }
 
+      var containerFormNames = [];
       var containerForms = [];
 
       for (var _id4 in forms) {
@@ -1081,49 +1097,54 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           disabled: !hasEditableChildren[_id4]
         }, "Add/Remove wavelength range or sub-component");
         var localTabs = tabs[_id4];
-        var index = Object.keys(forms).indexOf(_id4); //<h3>{containerNames[id]}</h3>
+        var localTabNames = tabNames[_id4]; //let index = Object.keys(forms).indexOf(id);
+        //<h3>{containerNames[id]}</h3>
+        //<TabPane tab={containerNames[id]} key={index} forceRender={true}>
+        //</TabPane>
 
-        containerForms.push( /*#__PURE__*/_react.default.createElement(_rcTabs.TabPane, {
-          tab: containerNames[_id4],
-          key: index,
-          forceRender: true
-        }, /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren[_id4] ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement(_rcTabs.default, {
-          tabPosition: "top",
-          tabBarStyle: {
-            border: "none"
-          },
-          tabBarGutter: 10,
-          onChange: this.onTabChange,
-          animated: true,
-          style: {
-            border: "none"
-          } // renderTabBar={() => <ScrollableTabBar />}
+        containerFormNames.push( /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
+          key: "ContainerTabName-" + containerNames[_id4]
+        }, containerNames[_id4]));
+        containerForms.push( /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
+          forceRender: true,
+          key: "ContainerTab-" + containerNames[_id4]
+        }, /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren[_id4] ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs // tabPosition={"top"}
+        // tabBarStyle={{
+        // 	border: "none",
+        // }}
+        //tabBarGutter={10}
+        //onChange={this.onTabChange}
+        , {
+          onSelect: this.onTabChange //animated={true}
+          //style={{ border: "none" }}
+          // renderTabBar={() => <ScrollableTabBar />}
           // renderTabContent={() => <TabContent animated />}
+          //activeKey={this.state.activeKey}
           ,
-          activeKey: this.state.activeKey
-        }, localTabs), /*#__PURE__*/_react.default.createElement("div", {
+          selectedIndex: this.state.activeKey
+        }, /*#__PURE__*/_react.default.createElement(_reactTabs.TabList, null, localTabNames), localTabs), /*#__PURE__*/_react.default.createElement("div", {
           style: buttonContainerRow
         }, editChildrenCompButton)));
-      }
+      } //let containerIndex = this.state.activeID;
 
-      var containerIndex = Object.keys(forms).indexOf(this.state.activeID);
-      var activeContainerKey = "".concat(containerIndex);
 
-      var form = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.title), /*#__PURE__*/_react.default.createElement(_rcTabs.default, {
-        tabPosition: "top",
-        tabBarStyle: {
-          border: "none"
-        },
-        tabBarGutter: 10,
-        onChange: this.onContainerTabChange,
-        animated: true,
-        style: {
-          border: "none"
-        } // renderTabBar={() => <ScrollableTabBar />}
+      var containerIndex = Object.keys(forms).indexOf(this.state.activeID); //let activeContainerKey = `${containerIndex}`;
+
+      var form = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.title), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs // tabPosition={"top"}
+      // tabBarStyle={{
+      // 	border: "none",
+      // }}
+      // tabBarGutter={10}
+      //onChange={this.onContainerTabChange}
+      , {
+        onSelect: this.onContainerTabChange //animated={true}
+        //style={{ border: "none" }}
+        // renderTabBar={() => <ScrollableTabBar />}
         // renderTabContent={() => <TabContent animated />}
+        //activeKey={activeContainerKey}
         ,
-        activeKey: activeContainerKey
-      }, containerForms), /*#__PURE__*/_react.default.createElement("div", {
+        selectedIndex: containerIndex
+      }, /*#__PURE__*/_react.default.createElement(_reactTabs.TabList, null, containerFormNames), containerForms), /*#__PURE__*/_react.default.createElement("div", {
         style: buttonContainerRow
       }, buttons)); //<div>{this.props.schema.description}</div>
 

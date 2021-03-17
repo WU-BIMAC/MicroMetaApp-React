@@ -1244,7 +1244,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               var arrowItem = /*#__PURE__*/_react.default.createElement("div", {
                 key: id1,
                 style: {
-                  margin: "10px"
+                  marginLeft: "20px",
+                  marginRight: "20px"
                 }
               }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
                 key: "arrowItem" + id1,
@@ -1372,10 +1373,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         opacity: "0.4"
       }, addButtonImageStyle);
       var addButtonImage = url.resolve(this.props.imagesPath, "AddButton.svg");
-      var hasChannelPath_Additional_1_8 = false;
+      var hasChannelPath_Additional_1 = false;
       var hasChannelPath_Additional_2 = false;
       var hasChannelPath_Additional_3_4_5_6 = false;
       var hasChannelPath_Additional_7 = false;
+      var hasChannelPath_Additional_8 = false;
       var hasLightSource = false;
       var hasDetector = false;
       var hasRelayLens = false;
@@ -1385,7 +1387,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var hasDichroic = false;
       var hasEmission = false;
       var hasObjective = false;
-      var testCategory = [_constants.channelPath_Additional_1_8, _constants.channelPath_Additional_2, _constants.channelPath_Additional_3_4_5_6, _constants.channelPath_Additional_7, _constants.channelPath_LightSource, _constants.channelPath_Detector, _constants.channelPath_RelayLens, _constants.channelPath_CouplingLens, _constants.channelPath_LightSourceCoupling, _constants.channelPath_Excitation, _constants.channelPath_Dichroic, _constants.channelPath_Emission, _constants.channelPath_Objective];
+      var testCategory = [_constants.channelPath_Additional_1, _constants.channelPath_Additional_2, _constants.channelPath_Additional_3_4_5_6, _constants.channelPath_Additional_7, _constants.channelPath_Additional_8, _constants.channelPath_LightSource, _constants.channelPath_Detector, _constants.channelPath_RelayLens, _constants.channelPath_CouplingLens, _constants.channelPath_LightSourceCoupling, _constants.channelPath_Excitation, _constants.channelPath_Dichroic, _constants.channelPath_Emission, _constants.channelPath_Objective];
       Object.keys(this.props.componentData).forEach(function (compIndex) {
         var comp = _this3.props.componentData[compIndex];
         var schema_id = comp.Schema_ID;
@@ -1397,10 +1399,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           var category = testCategory[_index];
 
           if (category.includes(schema_id.replace(_constants.string_json_ext, "")) || category.includes(compSchemaCategory) || category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
-            if (category === _constants.channelPath_Additional_1_8) hasChannelPath_Additional_1_8 = true;
+            if (category === _constants.channelPath_Additional_1) hasChannelPath_Additional_1 = true;
             if (category === _constants.channelPath_Additional_2) hasChannelPath_Additional_2 = true;
             if (category === _constants.channelPath_Additional_3_4_5_6) hasChannelPath_Additional_3_4_5_6 = true;
             if (category === _constants.channelPath_Additional_7) hasChannelPath_Additional_7 = true;
+            if (category === _constants.channelPath_Additional_8) hasChannelPath_Additional_8 = true;
             if (category === _constants.channelPath_LightSource) hasLightSource = true;
             if (category === _constants.channelPath_Detector) hasDetector = true;
             if (category === _constants.channelPath_RelayLens) hasRelayLens = true;
@@ -1413,14 +1416,14 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           }
         }
       });
-      var additionalItemButton_1 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_1_8 ? addButtonImageStyle : opaqueAddButtonImageStyle, 1, _constants.channelPath_Additional_1_8, hasChannelPath_Additional_1_8);
+      var additionalItemButton_1 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_1 ? addButtonImageStyle : opaqueAddButtonImageStyle, 1, _constants.channelPath_Additional_1, hasChannelPath_Additional_1);
       var additionalItemButton_2 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_2 ? addButtonImageStyle : opaqueAddButtonImageStyle, 2, _constants.channelPath_Additional_2, hasChannelPath_Additional_2);
       var additionalItemButton_3 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 3, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
       var additionalItemButton_4 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 4, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
       var additionalItemButton_5 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 5, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
       var additionalItemButton_6 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 6, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
       var additionalItemButton_7 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_7 ? addButtonImageStyle : opaqueAddButtonImageStyle, 7, _constants.channelPath_Additional_7, hasChannelPath_Additional_7);
-      var additionalItemButton_8 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_1_8 ? addButtonImageStyle : opaqueAddButtonImageStyle, 8, _constants.channelPath_Additional_1_8, hasChannelPath_Additional_1_8);
+      var additionalItemButton_8 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_8 ? addButtonImageStyle : opaqueAddButtonImageStyle, 8, _constants.channelPath_Additional_8, hasChannelPath_Additional_8);
       var specButtStyle = Object.assign({}, buttonStyle, {
         border: "none"
       });
@@ -1910,7 +1913,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         position: "relative",
         top: "-10%",
         left: "30%",
-        width: "160px",
+        width: "200px",
         height: "30px",
         //display: "inline",
         backgroundColor: "white",
@@ -1922,7 +1925,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       }, /*#__PURE__*/_react.default.createElement("button", {
         style: borderTitleStyle,
         disabled: true
-      }, "Filter Set"), /*#__PURE__*/_react.default.createElement("div", {
+      }, "Fluorescence Light Path"), /*#__PURE__*/_react.default.createElement("div", {
         style: gridRowFilterSet
       }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
         id: "excitationFilter",
@@ -2047,11 +2050,17 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         style: button2,
         size: "lg",
         onClick: this.onConfirm
-      }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-        style: button2,
-        size: "lg",
-        onClick: this.onEditElement
-      }, valid, "Edit Channel Settings"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+      }, "Confirm"), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButton-EditChannelSettings",
+        position: _constants.edit_channel_settings.position,
+        title: _constants.edit_channel_settings.title,
+        content: _constants.edit_channel_settings.content,
+        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          style: button2,
+          size: "lg",
+          onClick: this.onEditElement
+        }, valid, _constants.edit_channel_settings.title)
+      }), /*#__PURE__*/_react.default.createElement(_Button.default, {
         style: button2,
         size: "lg",
         onClick: this.onCancel

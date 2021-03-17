@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.select_additional_right = exports.select_additional_left = exports.select_emission = exports.select_dichroic = exports.select_excitation = exports.select_detector = exports.select_relayLens = exports.select_lightSourceCoupling = exports.select_couplingLens = exports.select_lightSource = exports.edit_channel = exports.edit_plane = exports.remove_channel = exports.add_channel = exports.remove_plane = exports.add_plane = exports.add_multi_planes = exports.edit_mic_table_settings = exports.edit_sample_pos_settings = exports.edit_obj_settings = exports.edit_mic_settings = exports.edit_img_env_settings = exports.edit_channels = exports.edit_planes = exports.hardware_explorer_tooltip = exports.save_setting_tooltip = exports.save_microscope_tooltip = exports.save_component_tooltip = exports.validation_setting_tooltip = exports.validation_microscope_tooltip = exports.edit_setting_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.createSettings_mode_continue_tooltip = exports.create_mode_continue_settings_tooltip = exports.create_mode_continue_tooltip = exports.createSettings_from_repo_names_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.createSettings_from_file_tooltip = exports.create_from_file_tooltip = exports.createSettings_mode_selector_tooltip = exports.create_mode_selector_settings_tooltip = exports.create_mode_selector_tooltip = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_7 = exports.channelPath_Additional_3_4_5_6 = exports.channelPath_Additional_2 = exports.channelPath_Additional_1_8 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.channelPath_LightSource = exports.channelPath_Detector = exports.channelPath_RelayLens = exports.channelPath_CouplingLens = exports.channelPath_LightSourceCoupling = exports.channelPath_Objective = exports.matchSettings = exports.current_stands = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_width = exports.number_logo_height = exports.number_logo_width = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_hasExperimental = exports.bool_hasAdvanced = exports.bool_isSettings = exports.bool_isDebug = void 0;
+exports.select_additional_right = exports.select_additional_left = exports.select_emission = exports.select_dichroic = exports.select_excitation = exports.select_detector = exports.select_relayLens = exports.select_lightSourceCoupling = exports.select_couplingLens = exports.select_lightSource = exports.edit_channel_settings = exports.edit_channel = exports.edit_plane = exports.remove_channel = exports.add_channel = exports.remove_plane = exports.add_plane = exports.add_multi_planes = exports.edit_mic_table_settings = exports.edit_sample_pos_settings = exports.edit_obj_settings = exports.edit_mic_settings = exports.edit_img_env_settings = exports.edit_channels = exports.edit_planes = exports.hardware_explorer_tooltip = exports.save_setting_tooltip = exports.save_microscope_tooltip = exports.save_component_tooltip = exports.validation_setting_tooltip = exports.validation_microscope_tooltip = exports.edit_setting_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.createSettings_mode_continue_tooltip = exports.create_mode_continue_settings_tooltip = exports.create_mode_continue_tooltip = exports.createSettings_from_repo_names_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.createSettings_from_file_tooltip = exports.create_from_file_tooltip = exports.createSettings_mode_selector_tooltip = exports.create_mode_selector_settings_tooltip = exports.create_mode_selector_tooltip = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_8 = exports.channelPath_Additional_7 = exports.channelPath_Additional_3_4_5_6 = exports.channelPath_Additional_2 = exports.channelPath_Additional_1 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.channelPath_LightSource = exports.channelPath_Detector = exports.channelPath_RelayLens = exports.channelPath_CouplingLens = exports.channelPath_LightSourceCoupling = exports.channelPath_Objective = exports.matchSettings = exports.current_stands = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_width = exports.number_logo_height = exports.number_logo_width = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = exports.bool_hasExperimental = exports.bool_hasAdvanced = exports.bool_isSettings = exports.bool_isDebug = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -111,31 +111,34 @@ var channelPath_Emission = ["EmissionFilter", "AcoustoOpticalLTuneableFilter", /
 "DiffractionGrating" //Advanced/
 ];
 exports.channelPath_Emission = channelPath_Emission;
-var channelPath_Additional_1_8 = ["ExcitationFilter", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "BeamExpanderLens", "CollimatorLens", "BeamExpander", "BeamCollimator", "AdditionalDichroic", "BeamSplitter", "ReflectingMirror", "StandardDichroic", "Shutter", "PolarizationOptics", "Prism", "DiffractionGrating", //Advanced/
+var channelPath_Additional_1 = ["Shutter", "IrisDiaphragm", "ExcitationFilter", "NeutralDensityFilter", "AdditionalFilter", "GenericDichroic", "BeamSplitter", "ReflectingMirror", "GenericLens", "BeamExpander", "BeamExpanderLens", "BeamCollimator", "BeamCollimatorLens", "PolarizationOptics", "Prism", "DiffractionGrating", //Advanced/
 "MaskingPlate" //Advanced/
 ];
-exports.channelPath_Additional_1_8 = channelPath_Additional_1_8;
-var channelPath_Additional_2 = ["ExcitationFilter", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "BeamExpanderLens", "CollimatorLens", "CondenserLens", "MagnificationChanger", "TubeLens", "AdditionalDichroic", "BeamSplitter", "ReflectingMirror", "StandardDichroic", "AdditionalDichroic", "BeamSplitter", "ReflectingMirror", "StandardDichroic", "PolarizationOptics", "Prism", "DarkfieldStop", "HoffmanSlitPlate", "IrisDiaphragm", "PhaseRing", "VarelRing", "Shutter", "BeamExpander", "BeamCollimator", "Condenser", "SpinningDisk", //Advanced/
+exports.channelPath_Additional_1 = channelPath_Additional_1;
+var channelPath_Additional_2 = ["ExcitationFilter", "NeutralDensityFilter", "AdditionalFilter", "GenericDichroic", "BeamSplitter", "ReflectingMirror", "GenericLens", "CondenserLens", "TubeLens", "BeamExpanderLens", "BeamCollimatorLens", "DarkfieldStop", "HoffmanSlitPlate", "IrisDiaphragm", "PhaseRing", "VarelRing", "Shutter", "BeamExpander", "BeamCollimator", "Condenser", "MicroscopeTube", "PolarizationOptics", "Prism", "SpinningDisk", //Advanced/
 "RasterScanner", //Advanced/
-"DiffractionGrafting", //Advanced/
+"DiffractionGrating", //Advanced/
 "MaskingPlate", //Advanced/
 "Pinhole" //Advanced
 ];
 exports.channelPath_Additional_2 = channelPath_Additional_2;
-var channelPath_Additional_3_4_5_6 = ["ExcitationFilter", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "MagnificationChanger", "TubeLens", "AdditionalDichroic", "BeamSplitter", "ReflectingMirror", "StandardDichroic", "PolarizationOptics", "Prism", "DarkfieldStop", "HoffmanSlitPlate", "IrisDiaphragm", "Shutter", "BeamExpander", "BeamCollimator", "SpinningDisk", //Advanced/
-"RasterScanner", //Advanced/
-"DiffractionGrafting", //Advanced/
+var channelPath_Additional_3_4_5_6 = ["Shutter", "DarkfieldStop", "IrisDiaphragm", "ExcitationFilter", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "StandardDichroic", "GenericDichroic", "GenericDichroic", "BeamSplitter", "GenericLens", "PolarizationOptics", "Prism", "DiffractionGrating", //Advanced/
 "MaskingPlate", //Advanced/
-"Pinhole" //Advanced
+"Pinhole", //Advanced
+"AcoustoOpticallTuneableFilter", //Advanced/
+"LiquidCrystalTuneableFilter", //Advanced/
+"AcoustoOpticalLBeamSplitter" //Advanced/
 ];
 exports.channelPath_Additional_3_4_5_6 = channelPath_Additional_3_4_5_6;
-var channelPath_Additional_7 = ["ExcitationFilter", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "BeamExpanderLens", "CollimatorLens", "TubeLens", "AdditionalDichroic", "BeamSplitter", "ReflectingMirror", "StandardDichroic", "PolarizationOptics", "Prism", "DarkfieldStop", "HoffmanSlitPlate", "IrisDiaphragm", "Shutter", "BeamExpander", "BeamCollimator", "SpinningDisk", //Advanced/
-"RasterScanner", //Advanced/
-"DiffractionGrafting", //Advanced/
+var channelPath_Additional_7 = ["Shutter", "IrisDiaphragm", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "GenericDichroic", "BeamSplitter", "ReflectingMirror", "GenericLens", "CondenserLens", "MagnificationChanger", "MicroscopeTube", "BeamExpanderLens", "BeamCollimatorLens", "BeamExpander", "BeamCollimator", "PolarizationOptics", "Prism", "DiffractionGrating", //Advanced/
 "MaskingPlate", //Advanced/
 "Pinhole" //Advanced
 ];
 exports.channelPath_Additional_7 = channelPath_Additional_7;
+var channelPath_Additional_8 = ["Shutter", "IrisDiaphragm", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "GenericDichroic", "BeamSplitter", "ReflectingMirror", "GenericLens", "BeamExpander", "BeamExpanderLens", "BeamCollimator", "BeamCollimatorLens", "PolarizationOptics", "Prism", "DiffractionGrating", //Advanced/
+"MaskingPlate" //Advanced/
+];
+exports.channelPath_Additional_8 = channelPath_Additional_8;
 var menu_order = ["MicroscopyEssentials", "Software", "Transmitted_LightSource", "Fluorescence_LightSource", "Magnification", "LightSourceCoupling", "FluorescenceLightPath", "Stage", "Focusing", "OpticalAssembly", "OpticsHolder", "Aperture", "Filter", "MirroringDevice", "Lens", "AdditionalOptics", "Detector", "Detector.Camera", "Detector.PointDetector", "Calibration"];
 exports.menu_order = menu_order;
 var string_bandpass_warning = "If you modify the number of band-pass, the information not saved are going to be lost!";
@@ -374,9 +377,15 @@ var edit_channel = {
   position: "bottom"
 };
 exports.edit_channel = edit_channel;
+var edit_channel_settings = {
+  title: "Edit Channel Settings",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to enter or edit general information about this image Channel."),
+  position: "top"
+};
+exports.edit_channel_settings = edit_channel_settings;
 var select_lightSource = {
   title: "Select Light Source",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Light Source that was used for the acquisition of this Channel. After confirming the selection, click on the selected Light Source to enter or edit the settings that were applied to it during acquisition."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Light Source that was used for the acquisition of this Channel. After confirming the selection, click on the selected Light Source one more time to enter or edit the settings that were applied to it during acquisition."),
   position: "right"
 };
 exports.select_lightSource = select_lightSource;
@@ -400,7 +409,7 @@ var select_relayLens = {
 exports.select_relayLens = select_relayLens;
 var select_detector = {
   title: "Select Detector",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Detector that was used for the acquisition of this Channel. After confirming the selection, click on the selected Detector to enter or edit the settings that were applied to it during acquisition."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Detector that was used for the acquisition of this Channel. After confirming the selection, click on the selected Detector one more time to enter or edit the settings that were applied to it during acquisition."),
   position: "left"
 };
 exports.select_detector = select_detector;

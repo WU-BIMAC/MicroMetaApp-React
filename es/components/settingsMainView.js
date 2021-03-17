@@ -209,23 +209,33 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           imagingEnv: data
         });
       } else if (id === elements.indexOf("micSettings")) {
-        var oldMicSettings = Object.assign({}, this.state.micSettings);
-        var newMicSettings = Object.assign(oldMicSettings, data);
-        settingData.MicroscopeStandSettings = newMicSettings;
+        var newMicSettings = {};
+
+        if (Object.keys(data).length > 0) {
+          var oldMicSettings = Object.assign({}, this.state.micSettings);
+          newMicSettings = Object.assign(oldMicSettings, data);
+          settingData.MicroscopeStandSettings = newMicSettings;
+        }
+
         this.setState({
           editingElement: -1,
           micSettings: newMicSettings
         });
       } else if (id === elements.indexOf("objSettings")) {
-        var oldObjSettings = Object.assign({}, this.state.objSettings);
-        var newObjSettings = Object.assign(oldObjSettings, data);
-        settingData.ObjectiveSettings = newObjSettings;
-        var compID = data.Component_ID;
+        var newObjSettings = {};
         var objective = null;
-        Object.keys(this.props.microscopeComponents).forEach(function (key) {
-          var element = _this2.props.microscopeComponents[key];
-          if (element.ID === compID) objective = element;
-        });
+
+        if (Object.keys(data).length > 0) {
+          var oldObjSettings = Object.assign({}, this.state.objSettings);
+          newObjSettings = Object.assign(oldObjSettings, data);
+          settingData.ObjectiveSettings = newObjSettings;
+          var compID = data.Component_ID;
+          Object.keys(this.props.microscopeComponents).forEach(function (key) {
+            var element = _this2.props.microscopeComponents[key];
+            if (element.ID === compID) objective = element;
+          });
+        }
+
         this.setState({
           editingElement: -1,
           objSettings: newObjSettings,
@@ -428,6 +438,17 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           // marginRight: "5px",
 
         };
+        var containerStyle = {
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          height: "100%"
+        };
+        var infoStyle = {
+          position: "absolute",
+          left: "10px",
+          top: "70px"
+        };
         var styleValidation = {
           position: "absolute",
           verticalAlign: "middle",
@@ -452,6 +473,40 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         var buttons = [];
         var _category = null;
         var disabled = false;
+        var settingsInfo = [];
+        var localSettingInfo = this.props.setting;
+        console.log("localSettingInfo");
+        console.log(localSettingInfo);
+
+        if (localSettingInfo !== null && localSettingInfo !== undefined) {
+          if (localSettingInfo.Name !== undefined && localSettingInfo.Name !== null) {
+            settingsInfo.push("Image Name: ".concat(localSettingInfo.Name));
+            settingsInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+              key: "newline-1"
+            }));
+          }
+
+          if (localSettingInfo.Pixels !== undefined && localSettingInfo.Pixels !== null) {
+            var pixels = localSettingInfo.Pixels;
+
+            if (pixels.SizeX !== null && pixels.SizeX !== undefined && pixels.SizeY !== null && pixels.SizeY !== undefined) {
+              settingsInfo.push("Dimensions (XY): ".concat(pixels.SizeX, " x ").concat(pixels.SizeY));
+              settingsInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+                key: "newline-2"
+              }));
+            }
+
+            if (pixels.SizeC !== null && pixels.SizeC !== undefined && pixels.SizeT !== null && pixels.SizeT !== undefined && pixels.SizeZ !== null && pixels.SizeZ !== undefined) {
+              settingsInfo.push("Dimensions (CTZ): ".concat(pixels.SizeC, " x ").concat(pixels.SizeT, " x ").concat(pixels.SizeZ));
+              settingsInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+                key: "newline-3"
+              }));
+            }
+          }
+        }
+
+        console.log("settingsInfo");
+        console.log(settingsInfo);
         var index = elements.indexOf("exp");
         var _schema_id = schemas[index];
         var object = this.state.experiment;
@@ -694,15 +749,30 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         }));
         index = elements.indexOf("objSettings");
         _schema_id = schemas[index];
+        var immersionLiquidSchema = this.state.experimentalSchemas["ImmersionLiquid.json"];
         object = this.state.objSettings;
         _schema = this.state.settingSchemas[_schema_id];
         schemaHasProp = false;
-        if (_schema !== null && _schema !== undefined) schemaHasProp = Object.keys(_schema.properties).length > 0;
+
+        if (_schema !== null && _schema !== undefined) {
+          var schemaHasProp1 = Object.keys(_schema.properties).length > 0;
+          var schemaHasProp2 = Object.keys(immersionLiquidSchema.properties).length > 0;
+          schemaHasProp = schemaHasProp1 || schemaHasProp2;
+        }
+
         validated = false;
 
         if (object !== null && object !== undefined && schemaHasProp) {
           validation = validate(object, _schema);
-          validated = validation.valid;
+          var validated1 = validation.valid;
+          var validated2 = false;
+
+          if (object.ImmersionLiquid !== null && object.ImmersionLiquid !== undefined) {
+            var validation2 = validate(object.ImmersionLiquid, immersionLiquidSchema);
+            validated2 = validation2.valid;
+          }
+
+          validated = validated1 && validated2;
         }
 
         valid = null;
@@ -851,8 +921,10 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
               var _obj6 = object[_index6];
               validation = validate(_obj6, _schema);
               validated = validated && validation.valid;
-              var validation2 = validate(_obj6.LightPath, lightPathSchema);
-              validated = validated && validation2.valid;
+
+              var _validation = validate(_obj6.LightPath, lightPathSchema);
+
+              validated = validated && _validation.valid;
               var validation3 = validate(_obj6.Fluorophore, fluorophoreSchema);
               validated = validated && validation3.valid;
             }
@@ -887,8 +959,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           }, valid, "Edit Channels")
         }));
         return /*#__PURE__*/_react.default.createElement("div", {
+          style: containerStyle
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: infoStyle
+        }, /*#__PURE__*/_react.default.createElement("p", null, settingsInfo)), /*#__PURE__*/_react.default.createElement("div", {
           style: styleMainContainer
-        }, buttons);
+        }, buttons));
       }
     }
   }]);

@@ -77,6 +77,8 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
     }
 
     if (_this.state.settingData !== null && _this.state.settingData !== undefined) {
+      // console.log("input setting data");
+      // console.log(this.state.settingData);
       if (Array.isArray(_this.state.settingData)) {
         Object.keys(_this.state.settingData).forEach(function (settingIndex) {
           var sett = _this.state.settingData[settingIndex];
@@ -136,14 +138,30 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
     key: "handleDeleteComp",
     value: function handleDeleteComp(index) {
       var i = index;
+      var oldSettingData = this.state.settingData;
       var currentComps = this.state.currentComps.slice();
       currentComps.splice(i, 1);
-      var newCurrentComps = currentComps;
+      var newCurrentComps = currentComps; // console.log("newCurrentComps");
+      // console.log(newCurrentComps);
+
+      var newSettingData = null;
+
+      if (Array.isArray(oldSettingData)) {
+        newSettingData = oldSettingData.slice();
+        newSettingData.splice(i, 1);
+      } else {
+        newSettingData = {};
+      } // console.log("newCurrentComps");
+      // console.log(newCurrentComps);
+      // console.log("newSettingData");
+      // console.log(newSettingData);
+
+
       this.setState({
-        settingData: null,
+        settingData: newSettingData,
         selectedComp: null,
         selectedSchema: null,
-        currentComp: newCurrentComps
+        currentComps: newCurrentComps
       });
     }
   }, {
@@ -161,17 +179,22 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
     value: function onConfirm() {
       var settingData = this.state.settingData; //let slots = this.state.slots;
 
+      var newSettingData = null;
+
+      if (this.props.maxNumberElement === 1) {
+        newSettingData = {};
+      } else {
+        newSettingData = [];
+      }
+
       this.setState({
         editing: false,
         selectedSlot: null,
         selectedComp: null,
         currentComps: [],
-        settingData: []
-      }); // if (settingData === null || settingData === undefined) {
-      // 	this.props.onCancel();
-      // } else {
-      // 	this.props.onConfirm(this.props.id, settingData);
-      // }
+        settingData: newSettingData
+      }); // console.log("settingData");
+      // console.log(settingData);
 
       this.props.onConfirm(this.props.id, settingData);
     }
@@ -228,15 +251,13 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (settingsData !== null && index !== null) {
-        console.log("IM HERE");
         settingsData[index] = newSettingData;
       } else {
-        console.log("IM HERE2");
         settingsData = newSettingData;
-      }
+      } // console.log("settingsData");
+      // console.log(settingsData);
 
-      console.log("settingsData");
-      console.log(settingsData);
+
       this.setState({
         editing: false,
         settingData: settingsData
@@ -351,7 +372,11 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         settingData.push(settingCompData);
       } else {
         settingData = settingCompData;
-      }
+      } // console.log("currentComps");
+      // console.log(currentComps);
+      // console.log("settingData");
+      // console.log(settingData);
+
 
       this.setState({
         //tmpSlots: tmpSlots,
@@ -586,7 +611,11 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       } else {
         var itemList = [];
         var _settingsData = this.state.settingData;
-        var currentComps = this.state.currentComps;
+        var currentComps = this.state.currentComps; // console.log("currentComps");
+        // console.log(currentComps);
+        // console.log("settingsData");
+        // console.log(settingsData);
+
         Object.keys(this.props.componentData).forEach(function (compIndex) {
           var comp = _this2.props.componentData[compIndex];
           var schema_id = comp.Schema_ID;
@@ -634,7 +663,8 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         var slotList = [];
         Object.keys(currentComps).forEach(function (compIndex) {
           var comp = currentComps[compIndex];
-          var fullButt = null;
+          var fullButt = null; // console.log("comp");
+          // console.log(comp);
 
           if (comp !== null && comp !== undefined) {
             var schema_id = comp.Schema_ID;
@@ -645,7 +675,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             if (Array.isArray(_settingsData)) {
               Object.keys(_settingsData).forEach(function (settingIndex) {
                 var sett = _settingsData[settingIndex];
-                if (sett.Component_ID === selectedComp.ID) _settingData = sett;
+                if (sett.Component_ID === comp.ID) _settingData = sett;
               });
             } else {
               _settingData = _settingsData;
@@ -715,7 +745,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
 
             if (compSchema.modelSettings !== "NA" && schemaHasProp) {
               butt = /*#__PURE__*/_react.default.createElement("button", {
-                key: "button-" + comp.Name,
+                key: "editButton-" + comp.Name,
                 style: buttonStyleModified,
                 onClick: function onClick() {
                   return _this2.handleEditSettings(comp, compSchema);
@@ -723,14 +753,17 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
               }, compItemImage, comp.Name);
             } else {
               butt = /*#__PURE__*/_react.default.createElement("button", {
-                key: "button-" + comp.Name,
+                key: "editButton-" + comp.Name,
                 style: buttonStyleModified
               }, compItemImage, comp.Name);
             }
 
-            fullButt = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+            fullButt = /*#__PURE__*/_react.default.createElement("div", {
+              key: "fullButton-" + comp.Name
+            }, /*#__PURE__*/_react.default.createElement("div", {
               style: styleIcons
             }, /*#__PURE__*/_react.default.createElement("button", {
+              key: "deleteButton-" + comp.Name,
               type: "button",
               onClick: function onClick() {
                 return _this2.handleDeleteComp();
