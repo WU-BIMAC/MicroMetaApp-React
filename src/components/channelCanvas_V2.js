@@ -22,10 +22,11 @@ import {
 	string_minNumberOf_identifier,
 	string_maxNumberOf_identifier,
 	number_canvas_element_icons_height,
-	channelPath_Additional_1_8,
+	channelPath_Additional_1,
 	channelPath_Additional_2,
 	channelPath_Additional_3_4_5_6,
 	channelPath_Additional_7,
+	channelPath_Additional_8,
 	channelPath_Excitation,
 	channelPath_Dichroic,
 	channelPath_Emission,
@@ -45,6 +46,7 @@ import {
 	select_emission,
 	select_additional_left,
 	select_additional_right,
+	edit_channel_settings,
 } from "../constants";
 import { bool } from "prop-types";
 
@@ -1399,7 +1401,10 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							];
 						}
 						let arrowItem = (
-							<div key={id1} style={{ margin: "10px" }}>
+							<div
+								key={id1}
+								style={{ marginLeft: "20px", marginRight: "20px" }}
+							>
 								<ArcherElement
 									key={"arrowItem" + id1}
 									id={id1}
@@ -1551,10 +1556,11 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 
 		let addButtonImage = url.resolve(this.props.imagesPath, "AddButton.svg");
 
-		let hasChannelPath_Additional_1_8 = false;
+		let hasChannelPath_Additional_1 = false;
 		let hasChannelPath_Additional_2 = false;
 		let hasChannelPath_Additional_3_4_5_6 = false;
 		let hasChannelPath_Additional_7 = false;
+		let hasChannelPath_Additional_8 = false;
 		let hasLightSource = false;
 		let hasDetector = false;
 		let hasRelayLens = false;
@@ -1565,10 +1571,11 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		let hasEmission = false;
 		let hasObjective = false;
 		let testCategory = [
-			channelPath_Additional_1_8,
+			channelPath_Additional_1,
 			channelPath_Additional_2,
 			channelPath_Additional_3_4_5_6,
 			channelPath_Additional_7,
+			channelPath_Additional_8,
 			channelPath_LightSource,
 			channelPath_Detector,
 			channelPath_RelayLens,
@@ -1596,14 +1603,16 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						compSchemaCategory.substring(0, compSchemaCategory.indexOf("."))
 					)
 				) {
-					if (category === channelPath_Additional_1_8)
-						hasChannelPath_Additional_1_8 = true;
+					if (category === channelPath_Additional_1)
+						hasChannelPath_Additional_1 = true;
 					if (category === channelPath_Additional_2)
 						hasChannelPath_Additional_2 = true;
 					if (category === channelPath_Additional_3_4_5_6)
 						hasChannelPath_Additional_3_4_5_6 = true;
 					if (category === channelPath_Additional_7)
 						hasChannelPath_Additional_7 = true;
+					if (category === channelPath_Additional_8)
+						hasChannelPath_Additional_8 = true;
 
 					if (category === channelPath_LightSource) hasLightSource = true;
 					if (category === channelPath_Detector) hasDetector = true;
@@ -1624,12 +1633,12 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		let additionalItemButton_1 = this.createAddButton(
 			buttonStyle,
 			addButtonImage,
-			hasChannelPath_Additional_1_8
+			hasChannelPath_Additional_1
 				? addButtonImageStyle
 				: opaqueAddButtonImageStyle,
 			1,
-			channelPath_Additional_1_8,
-			hasChannelPath_Additional_1_8
+			channelPath_Additional_1,
+			hasChannelPath_Additional_1
 		);
 
 		let additionalItemButton_2 = this.createAddButton(
@@ -1695,12 +1704,12 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		let additionalItemButton_8 = this.createAddButton(
 			buttonStyle,
 			addButtonImage,
-			hasChannelPath_Additional_1_8
+			hasChannelPath_Additional_8
 				? addButtonImageStyle
 				: opaqueAddButtonImageStyle,
 			8,
-			channelPath_Additional_1_8,
-			hasChannelPath_Additional_1_8
+			channelPath_Additional_8,
+			hasChannelPath_Additional_8
 		);
 
 		let specButtStyle = Object.assign({}, buttonStyle, { border: "none" });
@@ -2381,7 +2390,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			position: "relative",
 			top: "-10%",
 			left: "30%",
-			width: "160px",
+			width: "200px",
 			height: "30px",
 			//display: "inline",
 			backgroundColor: "white",
@@ -2390,7 +2399,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		let row6 = (
 			<div style={gridRowSpecial}>
 				<button style={borderTitleStyle} disabled>
-					Filter Set
+					Fluorescence Light Path
 				</button>
 				<div style={gridRowFilterSet}>
 					<ArcherElement
@@ -2560,10 +2569,19 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 					<Button style={button2} size="lg" onClick={this.onConfirm}>
 						Confirm
 					</Button>
-					<Button style={button2} size="lg" onClick={this.onEditElement}>
-						{valid}
-						{"Edit Channel Settings"}
-					</Button>
+					<PopoverTooltip
+						key={"TooltipButton-EditChannelSettings"}
+						position={edit_channel_settings.position}
+						title={edit_channel_settings.title}
+						content={edit_channel_settings.content}
+						element={
+							<Button style={button2} size="lg" onClick={this.onEditElement}>
+								{valid}
+								{edit_channel_settings.title}
+							</Button>
+						}
+					/>
+
 					<Button style={button2} size="lg" onClick={this.onCancel}>
 						Cancel
 					</Button>
