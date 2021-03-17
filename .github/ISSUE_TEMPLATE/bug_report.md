@@ -1,7 +1,7 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
+about: Create a report for Micro-Meta App to help us improve
+title: "[BUG] MANAGE INSTRUMENT/SETTINGS --> concise description"
 labels: bug
 assignees: Akramhar
 
