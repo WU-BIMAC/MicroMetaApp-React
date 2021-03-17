@@ -63,227 +63,53 @@
   bottom: 0;
   transform: rotate(45deg);
 }
-#microscopy-app-container .rc-tabs-dropdown {
-  position: absolute;
-  background: #fefefe;
-  border: 1px solid black;
-  max-height: 200px;
-  overflow: auto;
+#microscopy-app-container .react-tabs {
+  -webkit-tap-highlight-color: transparent;
 }
-#microscopy-app-container .rc-tabs-dropdown-hidden {
+#microscopy-app-container .react-tabs__tab-list {
+  border-bottom: 1px solid #aaa;
+  margin: 0 0 10px;
+  padding: 0;
+}
+#microscopy-app-container .react-tabs__tab {
+  display: inline-block;
+  border: 1px solid transparent;
+  border-bottom: none;
+  bottom: -1px;
+  position: relative;
+  list-style: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+#microscopy-app-container .react-tabs__tab--selected {
+  background: #fff;
+  border-color: #aaa;
+  color: black;
+  border-radius: 5px 5px 0 0;
+}
+#microscopy-app-container .react-tabs__tab--disabled {
+  color: GrayText;
+  cursor: default;
+}
+#microscopy-app-container .react-tabs__tab:focus {
+  box-shadow: 0 0 5px #0188fe;
+  border-color: #0188fe;
+  outline: none;
+}
+#microscopy-app-container .react-tabs__tab:focus:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  left: -4px;
+  right: -4px;
+  bottom: -5px;
+  background: #fff;
+}
+#microscopy-app-container .react-tabs__tab-panel {
   display: none;
 }
-#microscopy-app-container .rc-tabs-dropdown-menu {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-#microscopy-app-container .rc-tabs-dropdown-menu-item {
-  padding: 4px 8px;
-}
-#microscopy-app-container .rc-tabs-dropdown-menu-item-selected {
-  background: red;
-}
-#microscopy-app-container .rc-tabs-dropdown-menu-item-disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-#microscopy-app-container .rc-tabs-content {
-  display: flex;
-  width: 100%;
-}
-#microscopy-app-container .rc-tabs-content-holder {
-  flex: auto;
-}
-#microscopy-app-container .rc-tabs-content-animated {
-  transition: margin 0.3s;
-}
-#microscopy-app-container .rc-tabs-tabpane {
-  width: 100%;
-  flex: none;
-}
-#microscopy-app-container .rc-tabs {
-  display: flex;
-}
-#microscopy-app-container .rc-tabs-top,
-#microscopy-app-container .rc-tabs-bottom {
-  flex-direction: column;
-}
-#microscopy-app-container .rc-tabs-top .rc-tabs-ink-bar,
-#microscopy-app-container .rc-tabs-bottom .rc-tabs-ink-bar {
-  height: 3px;
-}
-#microscopy-app-container .rc-tabs-top .rc-tabs-ink-bar {
-  bottom: 0;
-}
-#microscopy-app-container .rc-tabs-bottom .rc-tabs-nav {
-  order: 1;
-}
-#microscopy-app-container .rc-tabs-bottom .rc-tabs-content {
-  order: 0;
-}
-#microscopy-app-container .rc-tabs-bottom .rc-tabs-ink-bar {
-  top: 0;
-}
-#microscopy-app-container .rc-tabs-left.rc-tabs-editable .rc-tabs-tab,
-#microscopy-app-container .rc-tabs-right.rc-tabs-editable .rc-tabs-tab {
-  padding-right: 32px;
-}
-#microscopy-app-container .rc-tabs-left .rc-tabs-nav-wrap,
-#microscopy-app-container .rc-tabs-right .rc-tabs-nav-wrap {
-  flex-direction: column;
-}
-#microscopy-app-container .rc-tabs-left .rc-tabs-ink-bar,
-#microscopy-app-container .rc-tabs-right .rc-tabs-ink-bar {
-  width: 3px;
-}
-#microscopy-app-container .rc-tabs-left .rc-tabs-nav,
-#microscopy-app-container .rc-tabs-right .rc-tabs-nav {
-  flex-direction: column;
-  min-width: 50px;
-}
-#microscopy-app-container .rc-tabs-left .rc-tabs-nav-list,
-#microscopy-app-container .rc-tabs-right .rc-tabs-nav-list {
-  flex-direction: column;
-}
-#microscopy-app-container .rc-tabs-left .rc-tabs-nav-operations,
-#microscopy-app-container .rc-tabs-right .rc-tabs-nav-operations {
-  flex-direction: column;
-}
-#microscopy-app-container .rc-tabs-left .rc-tabs-ink-bar {
-  right: 0;
-}
-#microscopy-app-container .rc-tabs-right .rc-tabs-nav {
-  order: 1;
-}
-#microscopy-app-container .rc-tabs-right .rc-tabs-content {
-  order: 0;
-}
-#microscopy-app-container .rc-tabs-right .rc-tabs-ink-bar {
-  left: 0;
-}
-#microscopy-app-container .rc-tabs-rtl {
-  direction: rtl;
-}
-#microscopy-app-container .rc-tabs-dropdown-rtl {
-  direction: rtl;
-}
-#microscopy-app-container .rc-tabs {
-  border: 1px solid gray;
-  font-size: 14px;
-  overflow: hidden;
-}
-#microscopy-app-container .rc-tabs-nav {
-  display: flex;
-  flex: none;
-  position: relative;
-}
-#microscopy-app-container .rc-tabs-nav-measure,
-#microscopy-app-container .rc-tabs-nav-wrap {
-  transform: translate(0);
-  position: relative;
-  display: inline-block;
-  flex: auto;
-  white-space: nowrap;
-  overflow: hidden;
-  display: flex;
-}
-#microscopy-app-container .rc-tabs-nav-measure-ping-left::before,
-#microscopy-app-container .rc-tabs-nav-wrap-ping-left::before,
-#microscopy-app-container .rc-tabs-nav-measure-ping-right::after,
-#microscopy-app-container .rc-tabs-nav-wrap-ping-right::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-}
-#microscopy-app-container .rc-tabs-nav-measure-ping-left::before,
-#microscopy-app-container .rc-tabs-nav-wrap-ping-left::before {
-  left: 0;
-  border-left: 1px solid red;
-}
-#microscopy-app-container .rc-tabs-nav-measure-ping-right::after,
-#microscopy-app-container .rc-tabs-nav-wrap-ping-right::after {
-  right: 0;
-  border-right: 1px solid red;
-}
-#microscopy-app-container .rc-tabs-nav-measure-ping-top::before,
-#microscopy-app-container .rc-tabs-nav-wrap-ping-top::before,
-#microscopy-app-container .rc-tabs-nav-measure-ping-bottom::after,
-#microscopy-app-container .rc-tabs-nav-wrap-ping-bottom::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-}
-#microscopy-app-container .rc-tabs-nav-measure-ping-top::before,
-#microscopy-app-container .rc-tabs-nav-wrap-ping-top::before {
-  top: 0;
-  border-top: 1px solid red;
-}
-#microscopy-app-container .rc-tabs-nav-measure-ping-bottom::after,
-#microscopy-app-container .rc-tabs-nav-wrap-ping-bottom::after {
-  bottom: 0;
-  border-top: 1px solid red;
-}
-#microscopy-app-container .rc-tabs-nav-list {
-  display: flex;
-  position: relative;
-  transition: transform 0.3s;
-}
-#microscopy-app-container .rc-tabs-nav-operations {
-  display: flex;
-}
-#microscopy-app-container .rc-tabs-nav-operations-hidden {
-  position: absolute;
-  visibility: hidden;
-  pointer-events: none;
-}
-#microscopy-app-container .rc-tabs-nav-more {
-  border: 1px solid blue;
-  background: rgba(255, 0, 0, 0.1);
-}
-#microscopy-app-container .rc-tabs-nav-add {
-  border: 1px solid green;
-  background: rgba(0, 255, 0, 0.1);
-}
-#microscopy-app-container .rc-tabs-tab {
-  border: 0;
-  font-size: 20px;
-  background: rgba(255, 255, 255, 0.5);
-  margin: 0;
-  display: flex;
-  outline: none;
-  cursor: pointer;
-  position: relative;
-  font-weight: lighter;
-  align-items: center;
-}
-#microscopy-app-container .rc-tabs-tab-btn,
-#microscopy-app-container .rc-tabs-tab-remove {
-  border: 0;
-  background: transparent;
-}
-#microscopy-app-container .rc-tabs-tab-btn {
-  font-weight: inherit;
-  line-height: 32px;
-}
-#microscopy-app-container .rc-tabs-tab-remove:hover {
-  color: red;
-}
-#microscopy-app-container .rc-tabs-tab-active {
-  font-weight: bolder;
-}
-#microscopy-app-container .rc-tabs-ink-bar {
-  position: absolute;
-  background: red;
-  pointer-events: none;
-}
-#microscopy-app-container .rc-tabs-ink-bar-animated {
-  transition: all 0.3s;
-}
-#microscopy-app-container .rc-tabs-extra-content {
-  flex: none;
+#microscopy-app-container .react-tabs__tab-panel--selected {
+  display: block;
 }
 #microscopy-app-container .react-resizable-handle {
   right: -7px !important;
