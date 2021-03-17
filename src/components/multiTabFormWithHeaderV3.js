@@ -1,6 +1,7 @@
 import React from "react";
 import Form from "@rjsf/bootstrap-4";
-import Tabs, { TabPane } from "rc-tabs";
+//import Tabs, { TabPane } from "rc-tabs";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // import TabContent from "rc-tabs/lib/TabContent";
 // import ScrollableTabBar from "rc-tabs/lib/";
 //import "rc-tabs/assets/index.css"
@@ -30,7 +31,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			minChildrenComponents: {},
 			maxChildrenComponents: {},
 			activeID: null,
-			activeKey: "0",
+			activeKey: 0, //"0",
 			partialInputData: {},
 		};
 
@@ -288,7 +289,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				activeID = inputData.ID;
 			}
 			this.state.activeID = activeID;
-			this.state.activeKey = "0";
+			this.state.activeKey = 0; //"0";
 			this.buttonsRefs = {};
 			this.containerFormNames = {};
 			this.formNames = {};
@@ -647,7 +648,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				return;
 			for (let i = 0; i < currentErrors.length; i++) {
 				if (currentErrors[i] !== null) {
-					this.setState({ activeID: currentID, activeKey: `${i}` });
+					this.setState({ activeID: currentID, activeKey: i }); //`${i}` });
 					return;
 				}
 			}
@@ -1122,15 +1123,17 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		return currentForms;
 	}
 
-	onContainerTabChange(key) {
+	//onContainerTabChange(key) {
+	onContainerTabChange(key, prevKey, evt) {
 		let id = Object.keys(this.forms)[key];
 		this.setState({
 			activeID: id,
-			activeKey: "0",
+			activeKey: 0, //"0",
 		});
 	}
 
-	onTabChange(key) {
+	//onTabChange(key) {
+	onTabChange(key, prevKey, evt) {
 		this.setState({
 			activeKey: key,
 		});
@@ -1319,18 +1322,38 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			);
 		}
 
+		let tabNames = {};
 		let tabs = {};
 		for (let id in forms) {
 			let currentForms = forms[id];
-			let currentTabs = currentForms.map(function (item, index) {
-				if (names[id][index] === "undefined") return null;
-				return (
-					<TabPane tab={names[id][index]} key={index} forceRender={true}>
-						{item}
-					</TabPane>
+			let currentNames = names[id];
+			tabNames[id] = [];
+			tabs[id] = [];
+			for (let index in currentForms) {
+				let item = currentForms[index];
+				tabNames[id].push(
+					<Tab key={"ContainerTabName-" + currentNames[index]}>
+						{currentNames[index]}
+					</Tab>
 				);
-			});
-			tabs[id] = currentTabs;
+				tabs[id].push(
+					<TabPanel
+						key={"ContainerTab-" + currentNames[index]}
+						forceRender={true}
+					>
+						{item}
+					</TabPanel>
+				);
+			}
+			//let currentTabs = currentForms.map(function (item, index) {
+			//	if (names[id][index] === "undefined") return null;
+			//	return (
+			//		<TabPane tab={names[id][index]} key={index} forceRender={true}>
+			//			{item}
+			//		</TabPane>
+			//	);
+			//});
+			//tabs[id] = currentTabs;
 		}
 
 		// let title = "Selected Hardware";
@@ -1370,6 +1393,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			);
 		}
 
+		let containerFormNames = [];
 		let containerForms = [];
 		for (let id in forms) {
 			let editChildrenCompButton = null;
@@ -1387,49 +1411,64 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					</Button>
 				);
 			let localTabs = tabs[id];
-			let index = Object.keys(forms).indexOf(id);
+			let localTabNames = tabNames[id];
+			//let index = Object.keys(forms).indexOf(id);
 			//<h3>{containerNames[id]}</h3>
+			//<TabPane tab={containerNames[id]} key={index} forceRender={true}>
+			//</TabPane>
+			containerFormNames.push(
+				<Tab key={"ContainerTabName-" + containerNames[id]}>
+					{containerNames[id]}
+				</Tab>
+			);
 			containerForms.push(
-				<TabPane tab={containerNames[id]} key={index} forceRender={true}>
+				<TabPanel forceRender={true} key={"ContainerTab-" + containerNames[id]}>
 					<p>{hasEditableChildren[id] ? string_bandpass_warning : ""}</p>
 					<Tabs
-						tabPosition={"top"}
-						tabBarStyle={{
-							border: "none",
-						}}
-						tabBarGutter={10}
-						onChange={this.onTabChange}
-						animated={true}
-						style={{ border: "none" }}
+						// tabPosition={"top"}
+						// tabBarStyle={{
+						// 	border: "none",
+						// }}
+						//tabBarGutter={10}
+						//onChange={this.onTabChange}
+						onSelect={this.onTabChange}
+						//animated={true}
+						//style={{ border: "none" }}
 						// renderTabBar={() => <ScrollableTabBar />}
 						// renderTabContent={() => <TabContent animated />}
-						activeKey={this.state.activeKey}
+						//activeKey={this.state.activeKey}
+						selectedIndex={this.state.activeKey}
 					>
+						<TabList>{localTabNames}</TabList>
 						{localTabs}
 					</Tabs>
 					<div style={buttonContainerRow}>{editChildrenCompButton}</div>
-				</TabPane>
+				</TabPanel>
 			);
 		}
 
+		//let containerIndex = this.state.activeID;
 		let containerIndex = Object.keys(forms).indexOf(this.state.activeID);
-		let activeContainerKey = `${containerIndex}`;
+		//let activeContainerKey = `${containerIndex}`;
 		let form = (
 			<div>
 				<h3>{this.props.title}</h3>
 				<Tabs
-					tabPosition={"top"}
-					tabBarStyle={{
-						border: "none",
-					}}
-					tabBarGutter={10}
-					onChange={this.onContainerTabChange}
-					animated={true}
-					style={{ border: "none" }}
+					// tabPosition={"top"}
+					// tabBarStyle={{
+					// 	border: "none",
+					// }}
+					// tabBarGutter={10}
+					//onChange={this.onContainerTabChange}
+					onSelect={this.onContainerTabChange}
+					//animated={true}
+					//style={{ border: "none" }}
 					// renderTabBar={() => <ScrollableTabBar />}
 					// renderTabContent={() => <TabContent animated />}
-					activeKey={activeContainerKey}
+					//activeKey={activeContainerKey}
+					selectedIndex={containerIndex}
 				>
+					<TabList>{containerFormNames}</TabList>
 					{containerForms}
 				</Tabs>
 				<div style={buttonContainerRow}>{buttons}</div>
