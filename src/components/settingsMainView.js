@@ -216,23 +216,29 @@ export default class SettingMainView extends React.PureComponent {
 				imagingEnv: data,
 			});
 		} else if (id === elements.indexOf("micSettings")) {
-			let oldMicSettings = Object.assign({}, this.state.micSettings);
-			let newMicSettings = Object.assign(oldMicSettings, data);
-			settingData.MicroscopeStandSettings = newMicSettings;
+			let newMicSettings = {};
+			if (Object.keys(data).length > 0) {
+				let oldMicSettings = Object.assign({}, this.state.micSettings);
+				newMicSettings = Object.assign(oldMicSettings, data);
+				settingData.MicroscopeStandSettings = newMicSettings;
+			}
 			this.setState({
 				editingElement: -1,
 				micSettings: newMicSettings,
 			});
 		} else if (id === elements.indexOf("objSettings")) {
-			let oldObjSettings = Object.assign({}, this.state.objSettings);
-			let newObjSettings = Object.assign(oldObjSettings, data);
-			settingData.ObjectiveSettings = newObjSettings;
-			let compID = data.Component_ID;
+			let newObjSettings = {};
 			let objective = null;
-			Object.keys(this.props.microscopeComponents).forEach((key) => {
-				let element = this.props.microscopeComponents[key];
-				if (element.ID === compID) objective = element;
-			});
+			if (Object.keys(data).length > 0) {
+				let oldObjSettings = Object.assign({}, this.state.objSettings);
+				newObjSettings = Object.assign(oldObjSettings, data);
+				settingData.ObjectiveSettings = newObjSettings;
+				let compID = data.Component_ID;
+				Object.keys(this.props.microscopeComponents).forEach((key) => {
+					let element = this.props.microscopeComponents[key];
+					if (element.ID === compID) objective = element;
+				});
+			}
 			this.setState({
 				editingElement: -1,
 				objSettings: newObjSettings,
@@ -443,6 +449,17 @@ export default class SettingMainView extends React.PureComponent {
 				// marginLeft: "5px",
 				// marginRight: "5px",
 			};
+			const containerStyle = {
+				display: "flex",
+				flexDirection: "column",
+				width: "100%",
+				height: "100%",
+			};
+			const infoStyle = {
+				position: "absolute",
+				left: "10px",
+				top: "70px",
+			};
 			const styleValidation = {
 				position: "absolute",
 				verticalAlign: "middle",
@@ -462,6 +479,52 @@ export default class SettingMainView extends React.PureComponent {
 
 			let category = null;
 			let disabled = false;
+
+			let settingsInfo = [];
+			let localSettingInfo = this.props.setting;
+			console.log("localSettingInfo");
+			console.log(localSettingInfo);
+			if (localSettingInfo !== null && localSettingInfo !== undefined) {
+				if (
+					localSettingInfo.Name !== undefined &&
+					localSettingInfo.Name !== null
+				) {
+					settingsInfo.push(`Image Name: ${localSettingInfo.Name}`);
+					settingsInfo.push(<br key={"newline-1"} />);
+				}
+				if (
+					localSettingInfo.Pixels !== undefined &&
+					localSettingInfo.Pixels !== null
+				) {
+					let pixels = localSettingInfo.Pixels;
+					if (
+						pixels.SizeX !== null &&
+						pixels.SizeX !== undefined &&
+						pixels.SizeY !== null &&
+						pixels.SizeY !== undefined
+					) {
+						settingsInfo.push(
+							`Dimensions (XY): ${pixels.SizeX} x ${pixels.SizeY}`
+						);
+						settingsInfo.push(<br key={"newline-2"} />);
+					}
+					if (
+						pixels.SizeC !== null &&
+						pixels.SizeC !== undefined &&
+						pixels.SizeT !== null &&
+						pixels.SizeT !== undefined &&
+						pixels.SizeZ !== null &&
+						pixels.SizeZ !== undefined
+					) {
+						settingsInfo.push(
+							`Dimensions (CTZ): ${pixels.SizeC} x ${pixels.SizeT} x ${pixels.SizeZ}`
+						);
+						settingsInfo.push(<br key={"newline-3"} />);
+					}
+				}
+			}
+			console.log("settingsInfo");
+			console.log(settingsInfo);
 
 			let index = elements.indexOf("exp");
 			let schema_id = schemas[index];
@@ -721,15 +784,34 @@ export default class SettingMainView extends React.PureComponent {
 
 			index = elements.indexOf("objSettings");
 			schema_id = schemas[index];
+			let immersionLiquidSchema = this.state.experimentalSchemas[
+				"ImmersionLiquid.json"
+			];
 			object = this.state.objSettings;
 			schema = this.state.settingSchemas[schema_id];
 			schemaHasProp = false;
-			if (schema !== null && schema !== undefined)
-				schemaHasProp = Object.keys(schema.properties).length > 0;
+			if (schema !== null && schema !== undefined) {
+				let schemaHasProp1 = Object.keys(schema.properties).length > 0;
+				let schemaHasProp2 =
+					Object.keys(immersionLiquidSchema.properties).length > 0;
+				schemaHasProp = schemaHasProp1 || schemaHasProp2;
+			}
 			validated = false;
 			if (object !== null && object !== undefined && schemaHasProp) {
 				validation = validate(object, schema);
-				validated = validation.valid;
+				let validated1 = validation.valid;
+				let validated2 = false;
+				if (
+					object.ImmersionLiquid !== null &&
+					object.ImmersionLiquid !== undefined
+				) {
+					let validation2 = validate(
+						object.ImmersionLiquid,
+						immersionLiquidSchema
+					);
+					validated2 = validation2.valid;
+				}
+				validated = validated1 && validated2;
 			}
 			valid = null;
 			if (validated) {
@@ -932,7 +1014,14 @@ export default class SettingMainView extends React.PureComponent {
 				/>
 			);
 
-			return <div style={styleMainContainer}>{buttons}</div>;
+			return (
+				<div style={containerStyle}>
+					<div style={infoStyle}>
+						<p>{settingsInfo}</p>
+					</div>
+					<div style={styleMainContainer}>{buttons}</div>
+				</div>
+			);
 		}
 	}
 }
