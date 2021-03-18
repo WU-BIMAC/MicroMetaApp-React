@@ -30,14 +30,17 @@ your input here
 
 New Structure: __ <br/>
 
-Current Field description: __ <br/>
-New Field description: __
+Current Element/Field description: __ <br/>
+New Element/Field description: __
 
-Current Data type: __ <br/>
-New Data type: __
+Current Element/Field Tier: __ <br/>
+New Element/Field Tier: __
 
 Current Element cardinality: __ <br/>
 New Element cardinality: __
+
+Current Field Data type: __ <br/>
+New Field Data type: __
 
 Current Field requirement level: __ <br/>
 New Field requirement level: __
