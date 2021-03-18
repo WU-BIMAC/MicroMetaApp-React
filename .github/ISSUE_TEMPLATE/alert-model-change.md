@@ -8,8 +8,8 @@ assignees: Akramhar, strambc
 ---
 
 **Report an approved change to existing metadata model structure, elements, fields names, descriptions, data types, cardinality, requirement level, and/or enumeration values.**
-- Please complete the form below by entering the relevant Current Element and Field names. 
-- Enter only relevant changes while deleting all irrelevant bits.
+- Please complete the form below by entering the relevant Current Element, Field name, description of change and rationale for change.
+- Enter only relevant changes while deleting all irrelevant bits (e.g., if you are not suggesting to change the data type delete that section).
 - Delete these instructions.
 - Enter an issue title above following the pattern:
 
@@ -25,7 +25,7 @@ New Field name: __
 **Source of change (e.g., #XXX issue with change request):** <br/>
 your input here
 
-**Brief description of the change (short and compelling):** <br/>
+**Brief description of the change and its rationale (short and compelling):** <br/>
 your input here
 
 New Structure: __ <br/>
