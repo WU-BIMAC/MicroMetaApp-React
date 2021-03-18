@@ -28,7 +28,7 @@
         ],
         "quotes": [
             "error",
-            "double"
+            "prefer-double"
         ],
         "semi": [
             "error",

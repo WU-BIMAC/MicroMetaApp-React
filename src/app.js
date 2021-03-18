@@ -185,6 +185,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		this.handleMicroscopePreset = this.handleMicroscopePreset.bind(this);
 		//this.toDataUrl = this.toDataUrl.bind(this);
+
+		// Set up API
+		const {
+			public: api/*, destroy: apiDestroy, publish: apiPublish*/
+		} = createApi(this);
+		this.api = api;
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -564,8 +570,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	// }
 
 	applyPreviousVersionModification(originalMicroscope) {
+		originalMicroscope.components = originalMicroscope.components || [];
 		let schema = this.state.schema;
-		let oldVersion = originalMicroscope.Version;
+		let oldVersion = originalMicroscope.Version || "0";
 		let oldVersionString = oldVersion.split(".").join(""); //oldVersion.replaceAll(".", "");
 		let oldVersionNumber = Number(oldVersionString);
 		let microscopeSchema = {};
@@ -736,6 +743,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		if (modifiedMic.ValidationTier > activeTier) {
 			modifiedMic.ValidationTier = activeTier;
 		}
+		console.log('xxx modifiedMic:', modifiedMic);
 		modifiedMic = this.applyPreviousVersionModification(modifiedMic);
 		let standType = modifiedMic.MicroscopeStand.Schema_ID.replace(".json", "");
 		let adaptedSchemas = this.createAdaptedSchemas(
@@ -2085,3 +2093,26 @@ MicroscopyMetadataTool.defaultProps = {
 		});
 	},
 };
+
+const createApi = function api(context) {
+	const self = context;
+
+	return {
+		public: {
+			// saveMicroscope(){
+			// 	self.handleSaveMicroscope("Save microscope");
+			// },
+			exportMicroscopeConfString(){
+				let elementData = self.state.elementData;
+				let components = [];
+				Object.keys(elementData).forEach((item, index) => {
+					components[index] = elementData[item];
+				});
+				let comps = { components };
+				let microscope = Object.assign(self.state.microscope, comps);
+
+				return JSON.stringify(microscope, null, 2);
+			}
+		}
+	};
+}
