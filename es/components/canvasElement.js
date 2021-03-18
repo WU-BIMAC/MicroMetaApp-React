@@ -1,19 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.CanvasElementDeleteButton = exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactResizable = require("react-resizable");
-
-var _imageElement = _interopRequireDefault(require("./imageElement"));
-
-var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -23,17 +8,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+import React from "react";
+import { Resizable } from "react-resizable";
+import { ResizableBox } from "react-resizable";
+import ImageElement from "./imageElement";
+import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
 
 var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(CanvasElement, _React$PureComponent);
@@ -95,7 +86,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "updateMinMaxDimensions",
-    value: function updateMinMaxDimensions(id, originalImgWidth, originalImgHeight) {// if (
+    value: function updateMinMaxDimensions() {// if (
       // 	this.state.originalWidth == originalImgWidth &&
       // 	this.state.originalHeight == originalImgHeight
       // )
@@ -126,7 +117,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     key: "render",
     value: function render() {
       if (this.state.editing) {
-        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+        return /*#__PURE__*/React.createElement(MultiTabFormWithHeaderV3, {
           title: "Edit " + this.props.formTitle,
           schema: this.props.schema,
           inputData: this.props.inputData,
@@ -142,24 +133,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
         });
       }
 
-      var style = {
-        textAlign: "center",
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        backgroundColor: "transparent",
-        padding: "0px",
-        margin: "0px",
-        border: "0px",
-        font: "14px",
-        color: "inherit",
-        cursor: "pointer"
-      };
-      var resizableStyle = {
-        border: "none"
-      };
-      var play = false; // if (!this.props.validated) {
+      // if (!this.props.validated) {
       // 	resizableStyle = Object.assign(resizableStyle, {
       // 		border: "5px ridge red"
       // 	});
@@ -169,18 +143,13 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       // } else {
       // 	resizableStyle = Object.assign(resizableStyle, { border: "none" });
       // }
-
       var width = this.props.width;
       var height = this.props.height;
-      var styleImage = {
-        width: width,
-        height: height
-      };
       var minWidth = this.props.minWidth;
       var minHeight = this.props.minHeight;
       var maxWidth = this.props.maxWidth;
       var maxHeight = this.props.maxHeight;
-      return /*#__PURE__*/_react.default.createElement(_reactResizable.ResizableBox, {
+      return /*#__PURE__*/React.createElement(ResizableBox, {
         width: width,
         height: height,
         minConstraints: [minWidth, minHeight],
@@ -189,25 +158,43 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
         onResizeStart: this.handleResizeStart,
         onResize: this.handleResize,
         onResizeStop: this.handleResizeStop,
-        style: resizableStyle
-      }, /*#__PURE__*/_react.default.createElement("button", {
-        style: style,
+        style: {
+          border: "none"
+        }
+      }, /*#__PURE__*/React.createElement("button", {
+        style: {
+          textAlign: "center",
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          backgroundColor: "transparent",
+          padding: "0px",
+          margin: "0px",
+          border: "0px",
+          font: "14px",
+          color: "inherit",
+          cursor: "pointer"
+        },
         onClick: this.handleClick
-      }, /*#__PURE__*/_react.default.createElement(_imageElement.default, {
+      }, /*#__PURE__*/React.createElement(ImageElement, {
         updateMinMaxDimensions: this.updateMinMaxDimensions,
         id: this.props.id,
         rotate: this.props.rotate,
         image: this.props.image,
         name: this.props.schema.title,
-        style: styleImage
+        style: {
+          width: width,
+          height: height
+        }
       })));
     }
   }]);
 
   return CanvasElement;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
-exports.default = CanvasElement;
+export { CanvasElement as default };
 CanvasElement.defaultProps = {
   maxWidth: 200,
   maxHeight: 200,
@@ -216,8 +203,7 @@ CanvasElement.defaultProps = {
     console.log("Clicked!", e.clientX, e.clientY);
   }
 };
-
-var CanvasElementDeleteButton = /*#__PURE__*/function (_React$PureComponent2) {
+export var CanvasElementDeleteButton = /*#__PURE__*/function (_React$PureComponent2) {
   _inherits(CanvasElementDeleteButton, _React$PureComponent2);
 
   var _super2 = _createSuper(CanvasElementDeleteButton);
@@ -240,7 +226,7 @@ var CanvasElementDeleteButton = /*#__PURE__*/function (_React$PureComponent2) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/_react.default.createElement("button", {
+      return /*#__PURE__*/React.createElement("button", {
         type: "button",
         onClick: this.handleClick,
         style: this.props.myStyle
@@ -249,6 +235,4 @@ var CanvasElementDeleteButton = /*#__PURE__*/function (_React$PureComponent2) {
   }]);
 
   return CanvasElementDeleteButton;
-}(_react.default.PureComponent);
-
-exports.CanvasElementDeleteButton = CanvasElementDeleteButton;
+}(React.PureComponent);

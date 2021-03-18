@@ -1,25 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactCollapsible = _interopRequireDefault(require("react-collapsible"));
-
-var _reactDragDropContainer = require("react-drag-drop-container");
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
-var _imageElement = _interopRequireDefault(require("./imageElement"));
-
-var _constants = require("../constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -29,19 +8,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+import React from "react";
+import Collapsible from "react-collapsible";
+import { DragDropContainer } from "react-drag-drop-container";
+import Button from "react-bootstrap/Button";
+import PopoverTooltip from "./popoverTooltip";
+import ImageElement from "./imageElement";
 
 var url = require("url");
+
+import { bool_isDebug, string_toolbar, string_canvas, hardware_explorer_tooltip, menu_order } from "../constants";
 
 var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(Toolbar, _React$PureComponent);
@@ -86,7 +74,7 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
 
   _createClass(Toolbar, [{
     key: "updateMinMaxDimensions",
-    value: function updateMinMaxDimensions(id, width, height) {// let newImagesDimension = Object.assign({}, this.state.imagesDimension);
+    value: function updateMinMaxDimensions() {// let newImagesDimension = Object.assign({}, this.state.imagesDimension);
       // if (newImagesDimension[id] == null || newImagesDimension[id] == undefined) {
       // 	let scalingFactor = this.props.scalingFactor;
       // 	let scaledWidth = width * scalingFactor;
@@ -102,7 +90,7 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
 
       var elementList = this.state.elementList;
       var imageElements = [];
-      var imagesDimension = this.state.imagesDimension;
+      this.state.imagesDimension;
       var stylesContainer = {};
       var stylesImages = {};
       elementList[key].map(function (item) {
@@ -128,7 +116,7 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
         };
       });
       elementList[key].map(function (item) {
-        return imageElements.push( /*#__PURE__*/_react.default.createElement(_imageElement.default, {
+        return imageElements.push( /*#__PURE__*/React.createElement(ImageElement, {
           key: "ImageElement-".concat(item.ID),
           id: item.ID,
           image: url.resolve(_this2.props.imagesPath, item.schema.image),
@@ -139,35 +127,34 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
       });
       var categoryItems = [];
       elementList[key].map(function (item, index) {
-        return categoryItems.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        return categoryItems.push( /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipImageElement-".concat(item.ID),
           position: "bottom",
           title: item.schema.title,
-          content: /*#__PURE__*/_react.default.createElement("p", null, "Drag this component and drop it in the canvas to add a new", " ", item.schema.title),
-          element: /*#__PURE__*/_react.default.createElement("div", {
+          content: /*#__PURE__*/React.createElement("p", null, "Drag this component and drop it in the canvas to add a new", " ", item.schema.title),
+          element: /*#__PURE__*/React.createElement("div", {
             key: "div" + item.ID,
             style: stylesContainer[item.ID]
-          }, /*#__PURE__*/_react.default.createElement(_reactDragDropContainer.DragDropContainer, {
-            targetKey: _constants.string_canvas,
+          }, /*#__PURE__*/React.createElement(DragDropContainer, {
+            targetKey: string_canvas,
             key: "draggable" + item.ID,
             dragClone: true,
             dragData: {
-              source: _constants.string_toolbar,
+              source: string_toolbar,
               ID: item.ID,
               schema_ID: item.schema.ID
             }
           }, imageElements[index]))
         }));
       });
-      var styleContainer = {
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignItems: "center",
-        margin: "5px"
-      };
-      return /*#__PURE__*/_react.default.createElement("div", {
-        style: styleContainer
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "center",
+          margin: "5px"
+        }
       }, categoryItems);
     } // 	<Button className="collapse-btn" key={`Trigger${key}`} size="lg">
     // 	{key}
@@ -197,17 +184,16 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
       var elementList = this.state.elementList;
       var toolbar = [];
       var names = [];
-
-      var hardware_explorer = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      var hardware_explorer = /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "HardwareExplorerTooltip",
-        position: _constants.hardware_explorer_tooltip.position,
-        title: _constants.hardware_explorer_tooltip.title,
-        content: _constants.hardware_explorer_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement("div", {
+        position: hardware_explorer_tooltip.position,
+        title: hardware_explorer_tooltip.title,
+        content: hardware_explorer_tooltip.content,
+        element: /*#__PURE__*/React.createElement("div", {
           style: {
             width: "100%"
           }
-        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, /*#__PURE__*/React.createElement(Button, {
           key: "HardwareExplorer",
           variant: "secondary",
           size: "lg",
@@ -215,10 +201,8 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
           disabled: true
         }, "Hardware explorer"))
       });
-
       toolbar.push(hardware_explorer);
-
-      _constants.menu_order.forEach(function (key) {
+      menu_order.forEach(function (key) {
         var index = key.lastIndexOf(".");
         var simpleKey;
         if (index !== -1) simpleKey = key.substring(index + 1);else simpleKey = key;
@@ -232,27 +216,26 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
       // });
       //names.sort();
 
-
       names.forEach(function (name) {
         Object.keys(elementList).forEach(function (key) {
           var index = key.lastIndexOf(".");
           var simpleKey;
           if (index !== -1) simpleKey = key.substring(index + 1);else simpleKey = key;
           if (simpleKey !== name) return;
-          toolbar.push( /*#__PURE__*/_react.default.createElement(_reactCollapsible.default, {
+          toolbar.push( /*#__PURE__*/React.createElement(Collapsible, {
             key: "Collapsible-".concat(key),
-            trigger: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            trigger: /*#__PURE__*/React.createElement(Button, {
               key: "Trigger".concat(key),
               size: "lg",
               style: style
-            }, /*#__PURE__*/_react.default.createElement("div", null, simpleKey), /*#__PURE__*/_react.default.createElement("div", {
+            }, /*#__PURE__*/React.createElement("div", null, simpleKey), /*#__PURE__*/React.createElement("div", {
               style: styleTransitionClose
             }, "\u25C1")),
-            triggerWhenOpen: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            triggerWhenOpen: /*#__PURE__*/React.createElement(Button, {
               key: "Trigger".concat(key),
               size: "lg",
               style: style
-            }, /*#__PURE__*/_react.default.createElement("div", null, simpleKey), /*#__PURE__*/_react.default.createElement("div", {
+            }, /*#__PURE__*/React.createElement("div", null, simpleKey), /*#__PURE__*/React.createElement("div", {
               style: styleTransitionOpen
             }, "\u25C1"))
           }, _this3.createCategoryItems(key)));
@@ -285,13 +268,13 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
       };
       var toolbar = this.createCategories();
       this.cachedToolbar = toolbar;
-      return /*#__PURE__*/_react.default.createElement("div", {
+      return /*#__PURE__*/React.createElement("div", {
         style: style
       }, toolbar);
     }
   }]);
 
   return Toolbar;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
-exports.default = Toolbar;
+export { Toolbar as default };

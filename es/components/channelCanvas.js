@@ -1,27 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactDragDropContainer = require("react-drag-drop-container");
-
-var _canvasElement = _interopRequireWildcard(require("./canvasElement"));
-
-var _url = require("url");
-
-var _constants = require("../constants");
-
-var _propTypes = require("prop-types");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -31,23 +8,33 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+import React from "react";
+import { DropTarget } from "react-drag-drop-container";
+import { DragDropContainer } from "react-drag-drop-container";
+import CanvasElement from "./canvasElement";
+import { CanvasElementDeleteButton } from "./canvasElement";
+import { pathToFileURL } from "url";
 
 var url = require("url");
 
 var validate = require("jsonschema").validate;
 
 var uuidv4 = require("uuid/v4");
+
+import { bool_isDebug, string_na, string_object, string_array, string_toolbar, string_canvas, string_json_ext, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, number_canvas_width, number_canvas_height } from "../constants";
+import { bool } from "prop-types";
 
 var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(ChannelsCanvas, _React$PureComponent);
@@ -251,8 +238,6 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
       var ID = draggedItem.ID;
       var x = draggedItem.x;
       var y = draggedItem.y;
-      var l1_x = x;
-      var l1_y = y;
       var r1_x = x + draggedItem.width;
       var r1_y = y + draggedItem.height;
       var oldZ = draggedItem.z;
@@ -265,11 +250,11 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
         var r2_x = l2_x + item.width;
         var r2_y = l2_y + item.height;
 
-        if (l1_x > r2_x || r1_x < l2_x) {
+        if (x > r2_x || r1_x < l2_x) {
           continue;
         }
 
-        if (l1_y > r2_y || r1_y < l2_y) {
+        if (y > r2_y || r1_y < l2_y) {
           continue;
         }
 
@@ -298,7 +283,7 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
       x += offsetX - containerOffsetX;
       y += offsetY - containerOffsetY;
 
-      if (sourceElement.source !== _constants.string_toolbar) {
+      if (sourceElement.source !== string_toolbar) {
         x -= 5;
         y -= 15;
       }
@@ -309,7 +294,7 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
       var index = null;
       var ID = null;
 
-      if (sourceElement.source === _constants.string_toolbar) {
+      if (sourceElement.source === string_toolbar) {
         var uuid = uuidv4();
         var schema_ID = sourceElement.schema_ID;
         var schema = componentsSchema[schema_ID];
@@ -408,15 +393,15 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
     key: "addComponentsIndexesIfMissing",
     value: function addComponentsIndexesIfMissing(schema, newElementData) {
       Object.keys(schema.properties).forEach(function (key) {
-        var currentNumber = _constants.string_currentNumberOf_identifier + key;
-        var minNumber = _constants.string_minNumberOf_identifier + key;
-        var maxNumber = _constants.string_maxNumberOf_identifier + key;
+        var currentNumber = string_currentNumberOf_identifier + key;
+        var minNumber = string_minNumberOf_identifier + key;
+        var maxNumber = string_maxNumberOf_identifier + key;
 
         if (newElementData[currentNumber] !== undefined) {
           return;
         }
 
-        if (schema.properties[key].type === _constants.string_array) {
+        if (schema.properties[key].type === string_array) {
           if (schema.required.indexOf(key) != -1) {
             newElementData[currentNumber] = 1;
             newElementData[minNumber] = 1;
@@ -426,7 +411,7 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
             newElementData[minNumber] = 0;
             newElementData[maxNumber] = -1;
           }
-        } else if (schema.properties[key].type === _constants.string_object) {
+        } else if (schema.properties[key].type === string_object) {
           if (schema.required.indexOf(key) === -1) {
             newElementData[currentNumber] = 0;
             newElementData[minNumber] = 0;
@@ -447,9 +432,9 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
       if (elementList.length === 0) return;
       if (elementData.length === 0) return;
       var id = elementList[index].ID;
-      var name = elementList[index].name;
+      elementList[index].name;
       var schemaID = elementList[index].schema_ID;
-      var deletedSchema = schemaID.replace(_constants.string_json_ext, "");
+      var deletedSchema = schemaID.replace(string_json_ext, "");
       var deletedID = id.replace(deletedSchema, "");
       deletedID = deletedID.replace("_", "");
       var linkedFields = this.state.linkedFields;
@@ -464,7 +449,7 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
 
           if (link.value === deletedID) {
             if (elementData[key] !== undefined) {
-              elementData[key][field] = _constants.string_na;
+              elementData[key][field] = string_na;
             }
 
             fieldToDelete = field;
@@ -561,11 +546,6 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
       elementList.map(function (item) {
         var x = item.x;
         var y = item.y;
-        var style = {
-          position: "absolute",
-          left: x,
-          top: y
-        };
         var containerWidth = item.width;
         var containerHeight = item.height;
         if (containerWidth == -1) containerWidth = 100;
@@ -581,7 +561,11 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
         stylesContainer[item.ID] = Object.assign({
           width: "".concat(scaledContainerWidth + 10, "px"),
           height: "".concat(scaledContainerHeight + 7, "px")
-        }, style);
+        }, {
+          position: "absolute",
+          left: x,
+          top: y
+        });
         stylesImages[item.ID] = {
           width: item.width,
           height: item.height
@@ -592,7 +576,7 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
       var elementByType = {};
       Object.keys(elementData).forEach(function (key) {
         var element = elementData[key];
-        var schemaID = element.Schema_ID.replace(_constants.string_json_ext, "");
+        var schemaID = element.Schema_ID.replace(string_json_ext, "");
 
         if (elementByType[schemaID] === undefined) {
           elementByType[schemaID] = {};
@@ -601,7 +585,7 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
         elementByType[schemaID][element.Name] = element.ID;
       });
 
-      var _loop = function _loop(_k) {
+      var _loop = function (_k) {
         elementList.map(function (item, index) {
           if (item.z != _k) return;
           var schema_id = item.schema_ID;
@@ -616,38 +600,38 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
             styleName = styleNameRegular;
           }
 
-          droppableElement.push( /*#__PURE__*/_react.default.createElement("div", {
+          droppableElement.push( /*#__PURE__*/React.createElement("div", {
             style: stylesContainer[item.ID],
             key: "draggableWrapper" + index,
             onMouseEnter: function onMouseEnter() {
               return _this2.handleMouseIn(item.ID);
             },
             onMouseLeave: _this2.handleMouseOut
-          }, /*#__PURE__*/_react.default.createElement(_reactDragDropContainer.DragDropContainer, {
-            targetKey: _constants.string_canvas,
+          }, /*#__PURE__*/React.createElement(DragDropContainer, {
+            targetKey: string_canvas,
             key: "draggable" + index,
             dragClone: false,
             dragData: {
-              source: _constants.string_canvas,
+              source: string_canvas,
               index: index
             },
             onDragStart: _this2.dragged,
             dragHandleClassName: "grabber"
-          }, /*#__PURE__*/_react.default.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
             style: styleActionElementNameContainer
-          }, /*#__PURE__*/_react.default.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
             style: styleActionContainer
-          }, /*#__PURE__*/_react.default.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
             className: "grabber",
             style: styleGrabber
-          }, "\u2237"), /*#__PURE__*/_react.default.createElement(_canvasElement.CanvasElementDeleteButton, {
+          }, "\u2237"), /*#__PURE__*/React.createElement(CanvasElementDeleteButton, {
             index: index,
             handleDelete: _this2.onDelete,
             myStyle: styleCloser,
             isViewOnly: _this2.props.isViewOnly
-          })), /*#__PURE__*/_react.default.createElement("div", {
+          })), /*#__PURE__*/React.createElement("div", {
             style: styleElementNameContainer
-          }, /*#__PURE__*/_react.default.createElement(_canvasElement.default, {
+          }, /*#__PURE__*/React.createElement(CanvasElement, {
             activeTier: _this2.props.activeTier,
             id: item.ID,
             image: url.resolve(_this2.props.imagesPath, schema.image),
@@ -660,14 +644,14 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
             height: stylesImages[item.ID].height,
             validated: item.validated,
             dragged: item.dragged,
-            currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
-            minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
-            maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+            currentChildrenComponentIdentifier: string_currentNumberOf_identifier,
+            minChildrenComponentIdentifier: string_minNumberOf_identifier,
+            maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
             elementByType: elementByType,
             isViewOnly: _this2.props.isViewOnly,
             setEditingOnCanvas: _this2.setEditingOnCanvas,
             scalingFactor: scalingFactor
-          }), /*#__PURE__*/_react.default.createElement("div", {
+          }), /*#__PURE__*/React.createElement("div", {
             style: styleName
           }, item.name))))));
         });
@@ -692,7 +676,7 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
           microscope = _this$props$microscop === void 0 ? null : _this$props$microscop,
           _this$props$scalingFa = _this$props.scalingFactor,
           scalingFactor = _this$props$scalingFa === void 0 ? 1 : _this$props$scalingFa;
-      var linkedFields = this.state.linkedFields; // if (bool_isDebug) {
+      this.state.linkedFields; // if (bool_isDebug) {
       // 	console.log("LinkedFields");
       // 	console.log(linkedFields);
       // }
@@ -705,33 +689,13 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
         width: "".concat(width, "px"),
         height: "".concat(height, "px")
       };
-      var innerWidth = width - 2;
-      var innerHeight = height - 4;
       var dropTargetStyle = {
-        width: "".concat(innerWidth, "px"),
-        height: "".concat(innerHeight, "px")
+        width: "".concat(width - 2, "px"),
+        height: "".concat(height - 4, "px")
       };
-      var canvasContainerStyle = {
-        width: "100%",
-        height: "100%",
-        position: "relative",
-        overflow: "auto"
-      };
-      var scaledCanvasWidth = _constants.number_canvas_width * scalingFactor;
-      var scaledCanvasHeight = _constants.number_canvas_height * scalingFactor;
       var canvasInnerContainerStyle = {
-        width: "".concat(scaledCanvasWidth, "px"),
-        height: "".concat(scaledCanvasHeight, "px"),
-        position: "absolute",
-        left: 0,
-        top: 0
-      };
-      var imageStyle = {
-        width: "100%",
-        height: "100%",
-        margin: "auto"
-      };
-      var infoStyle = {
+        width: "".concat(number_canvas_width * scalingFactor, "px"),
+        height: "".concat(number_canvas_height * scalingFactor, "px"),
         position: "absolute",
         left: 0,
         top: 0
@@ -741,45 +705,58 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
       if (microscope !== null && microscope !== undefined) {
         if (microscope.Name) {
           micInfo.push("Name: ".concat(microscope.Name));
-          micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+          micInfo.push( /*#__PURE__*/React.createElement("br", {
             key: "newline-1"
           }));
         }
 
         if (microscope.Manufacturer !== null && microscope.Manufacturer !== undefined) {
           micInfo.push("Manufacturer: ".concat(microscope.Manufacturer));
-          micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+          micInfo.push( /*#__PURE__*/React.createElement("br", {
             key: "newline-2"
           }));
         }
 
         if (microscope.Model !== null && microscope.Model !== undefined) {
           micInfo.push("Model: ".concat(microscope.Model));
-          micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+          micInfo.push( /*#__PURE__*/React.createElement("br", {
             key: "newline-3"
           }));
         }
       }
 
-      return /*#__PURE__*/_react.default.createElement("div", {
+      return /*#__PURE__*/React.createElement("div", {
         style: styleContainer
-      }, /*#__PURE__*/_react.default.createElement(_reactDragDropContainer.DropTarget, {
+      }, /*#__PURE__*/React.createElement(DropTarget, {
         style: dropTargetStyle,
         onHit: this.dropped,
-        targetKey: _constants.string_canvas
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: canvasContainerStyle,
+        targetKey: string_canvas
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          width: "100%",
+          height: "100%",
+          position: "relative",
+          overflow: "auto"
+        },
         onScroll: this.handleScroll
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: canvasInnerContainerStyle
-      }, /*#__PURE__*/_react.default.createElement("img", {
+      }, /*#__PURE__*/React.createElement("img", {
         src: backgroundImage + (backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
         alt: backgroundImage,
-        style: imageStyle,
+        style: {
+          width: "100%",
+          height: "100%",
+          margin: "auto"
+        },
         onLoad: this.onImgLoad
-      })), /*#__PURE__*/_react.default.createElement("div", {
-        style: infoStyle
-      }, /*#__PURE__*/_react.default.createElement("p", null, micInfo)), this.createList())));
+      })), /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: "absolute",
+          left: 0,
+          top: 0
+        }
+      }, /*#__PURE__*/React.createElement("p", null, micInfo)), this.createList())));
     }
   }], [{
     key: "getDerivedStateFromProps",
@@ -813,6 +790,6 @@ var ChannelsCanvas = /*#__PURE__*/function (_React$PureComponent) {
   }]);
 
   return ChannelsCanvas;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
-exports.default = ChannelsCanvas;
+export { ChannelsCanvas as default };

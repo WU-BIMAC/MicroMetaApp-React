@@ -1,29 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _reactArcher = require("react-archer");
-
-var _modalWindow = _interopRequireDefault(require("./modalWindow"));
-
-var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
-var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
-
-var _url = require("url");
-
-var _uuid = require("uuid");
-
-var _constants = require("../constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -33,21 +8,32 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+import React from "react";
+import Button from "react-bootstrap/Button";
+import { ArcherContainer, ArcherElement } from "react-archer";
+import ModalWindow from "./modalWindow";
+import PopoverTooltip from "./popoverTooltip";
+import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
+import { pathToFileURL } from "url";
+import { v4 as uuidv4 } from "uuid";
 
 var url = require("url");
 
 var validate = require("jsonschema").validate;
+
+import { bool_isDebug, string_na, string_object, string_array, string_json_ext, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, number_canvas_element_icons_height } from "../constants";
 
 var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(SettingComponentSelector, _React$PureComponent);
@@ -141,9 +127,8 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var oldSettingData = this.state.settingData;
       var currentComps = this.state.currentComps.slice();
       currentComps.splice(i, 1);
-      var newCurrentComps = currentComps; // console.log("newCurrentComps");
+      // console.log("newCurrentComps");
       // console.log(newCurrentComps);
-
       var newSettingData = null;
 
       if (Array.isArray(oldSettingData)) {
@@ -161,7 +146,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         settingData: newSettingData,
         selectedComp: null,
         selectedSchema: null,
-        currentComps: newCurrentComps
+        currentComps: currentComps
       });
     }
   }, {
@@ -325,7 +310,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
 
 
       var currentSchema = this.props.schema;
-      var uuid = (0, _uuid.v4)();
+      var uuid = uuidv4();
       var settingCompData = null;
 
       if (selectedSchema.modelSettings === "NA") {
@@ -336,7 +321,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         };
       } else {
         if (selectedSchema.modelSettings === "ObjectiveSettings") {
-          var uuid2 = (0, _uuid.v4)();
+          var uuid2 = uuidv4();
           var objSettingsSchema = currentSchema[0];
           var immersionLiquidSchema = currentSchema[1];
           settingCompData = {
@@ -389,13 +374,6 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
     value: function render() {
       var _this2 = this;
 
-      var buttonContainerRow = {
-        display: "flex",
-        flexDirection: "row",
-        flexWap: "wrap",
-        justifyContent: "center",
-        padding: "5px"
-      };
       var button2 = {
         width: "250px",
         height: "50px",
@@ -407,15 +385,6 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         width: "80px",
         margin: "auto"
       };
-      var modalGridContainer = {
-        display: "flex",
-        flexDirection: "column",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        width: "100%",
-        height: "100%",
-        alignItems: "center"
-      };
       var modalGridPanel = {
         display: "flex",
         flexDirection: "row",
@@ -424,46 +393,6 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "90%",
         alignItems: "left"
-      };
-      var modalGrid = {
-        display: "flex",
-        flexDirection: "column",
-        //flexWrap: "wrap",
-        justifyContent: "flex-start",
-        overflow: "auto",
-        width: "20%",
-        height: "100%",
-        maxHeight: "100%" //alignItems: "center",
-
-      };
-      var modalTopListContainer = {
-        display: "flex",
-        flexDirection: "column",
-        flexWrap: "wrap",
-        justifyContent: "space-evenly",
-        overflow: "auto",
-        height: "250px",
-        maxHeight: "250px",
-        alignItems: "center"
-      };
-      var modalTopList = {
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "space-evenly",
-        alignItems: "center"
-      };
-      var multiTab = {
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        overflow: "auto",
-        maxHeight: "100%",
-        minWidth: "70%",
-        justifyContent: "flex-start",
-        width: "70%",
-        alignItems: "left",
-        marginLeft: "10px"
       };
       var buttonStyle = {
         textAlign: "center",
@@ -479,13 +408,11 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         color: "inherit",
         cursor: "pointer"
       };
-      var fontSize = _constants.number_canvas_element_icons_height + 2;
-      var grabberCloserSize = _constants.number_canvas_element_icons_height;
       var styleCloser = {
-        lineHeight: "".concat(grabberCloserSize, "px"),
+        lineHeight: "".concat(number_canvas_element_icons_height, "px"),
         padding: "0px",
         border: "none",
-        fontSize: "".concat(fontSize, "px"),
+        fontSize: "".concat(number_canvas_element_icons_height + 2, "px"),
         backgroundColor: "transparent",
         cursor: "pointer",
         color: "grey",
@@ -521,15 +448,12 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var styleNotValidated2 = Object.assign({}, styleValidation2, {
         color: "red"
       });
-
-      var isValid2 = /*#__PURE__*/_react.default.createElement("div", {
+      var isValid2 = /*#__PURE__*/React.createElement("div", {
         style: styleValidated2
       }, "\u25CF");
-
-      var isInvalid2 = /*#__PURE__*/_react.default.createElement("div", {
+      var isInvalid2 = /*#__PURE__*/React.createElement("div", {
         style: styleNotValidated2
       }, "\u25CF");
-
       var componentSchema = this.props.componentSchemas;
       var compSchemas = {};
 
@@ -595,16 +519,16 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         //let settings = settingsSchemas[settingsName];
 
         var settings = this.props.schema;
-        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+        return /*#__PURE__*/React.createElement(MultiTabFormWithHeaderV3, {
           schema: settings,
           inputData: settingsObj,
           id: id,
           onConfirm: this.onElementDataSave,
           onCancel: this.onElementDataCancel,
           overlaysContainer: this.props.overlaysContainer,
-          currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
-          minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
-          maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+          currentChildrenComponentIdentifier: string_currentNumberOf_identifier,
+          minChildrenComponentIdentifier: string_minNumberOf_identifier,
+          maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
           elementByType: this.props.elementByType,
           editable: true
         });
@@ -624,7 +548,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
           var compSchemaCategory = compSchema.category;
           var category = _this2.props.category;
 
-          if (category.includes(schema_id.replace(_constants.string_json_ext, "")) || category.includes(compSchemaCategory) || category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
+          if (category.includes(schema_id.replace(string_json_ext, "")) || category.includes(compSchemaCategory) || category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
             var found = false;
             Object.keys(currentComps).forEach(function (tmpCompIndex) {
               var tmpComp = currentComps[tmpCompIndex];
@@ -632,13 +556,11 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             });
             if (found) return;
             var compImage = url.resolve(_this2.props.imagesPath, compSchema.image);
-
-            var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
+            var compItemImage = /*#__PURE__*/React.createElement("img", {
               src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
               alt: comp.Name,
               style: regularImageStyle
             });
-
             var buttonStyleModified = null;
 
             if (comp === selectedComp) {
@@ -649,14 +571,13 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
               buttonStyleModified = buttonStyle;
             }
 
-            var compButton = /*#__PURE__*/_react.default.createElement("button", {
+            var compButton = /*#__PURE__*/React.createElement("button", {
               key: "button-" + comp.Name,
               style: buttonStyleModified,
               onClick: function onClick() {
                 return _this2.handleSelectComp(comp);
               }
             }, compItemImage, comp.Name);
-
             itemList.push(compButton);
           }
         });
@@ -687,13 +608,11 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             }
 
             var compImage = url.resolve(_this2.props.imagesPath, compSchema.image);
-
-            var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
+            var compItemImage = /*#__PURE__*/React.createElement("img", {
               src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
               alt: comp.Name,
               style: regularImageStyle
             });
-
             var buttonStyleModified = null;
 
             if (comp === selectedComp) {
@@ -744,7 +663,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             var butt = null;
 
             if (compSchema.modelSettings !== "NA" && schemaHasProp) {
-              butt = /*#__PURE__*/_react.default.createElement("button", {
+              butt = /*#__PURE__*/React.createElement("button", {
                 key: "editButton-" + comp.Name,
                 style: buttonStyleModified,
                 onClick: function onClick() {
@@ -752,17 +671,17 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
                 }
               }, compItemImage, comp.Name);
             } else {
-              butt = /*#__PURE__*/_react.default.createElement("button", {
+              butt = /*#__PURE__*/React.createElement("button", {
                 key: "editButton-" + comp.Name,
                 style: buttonStyleModified
               }, compItemImage, comp.Name);
             }
 
-            fullButt = /*#__PURE__*/_react.default.createElement("div", {
+            fullButt = /*#__PURE__*/React.createElement("div", {
               key: "fullButton-" + comp.Name
-            }, /*#__PURE__*/_react.default.createElement("div", {
+            }, /*#__PURE__*/React.createElement("div", {
               style: styleIcons
-            }, /*#__PURE__*/_react.default.createElement("button", {
+            }, /*#__PURE__*/React.createElement("button", {
               key: "deleteButton-" + comp.Name,
               type: "button",
               onClick: function onClick() {
@@ -780,49 +699,98 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         // 	items = slots[selectedSlot];
         //let comp = this.state.currentComp;
 
-        var topItems = /*#__PURE__*/_react.default.createElement("div", {
-          style: modalTopListContainer
-        }, /*#__PURE__*/_react.default.createElement("h5", null, "Current component in this slot"), /*#__PURE__*/_react.default.createElement("div", {
-          style: modalTopList
+        var topItems = /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
+            justifyContent: "space-evenly",
+            overflow: "auto",
+            height: "250px",
+            maxHeight: "250px",
+            alignItems: "center"
+          }
+        }, /*#__PURE__*/React.createElement("h5", null, "Current component in this slot"), /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-evenly",
+            alignItems: "center"
+          }
         }, slotList));
-
         Object.assign(modalGridPanel, {
           height: "60%"
         }); //}
 
         var multiTabPanel = null;
-        if (selectedComp !== null && selectedComp !== undefined) multiTabPanel = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+        if (selectedComp !== null && selectedComp !== undefined) multiTabPanel = /*#__PURE__*/React.createElement(MultiTabFormWithHeaderV3, {
           schema: selectedSchema,
           inputData: selectedComp,
           id: selectedComp.ID,
           onConfirm: this.onAddConfirm,
           onCancel: null,
           overlaysContainer: this.props.overlaysContainer,
-          currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
-          minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
-          maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+          currentChildrenComponentIdentifier: string_currentNumberOf_identifier,
+          minChildrenComponentIdentifier: string_minNumberOf_identifier,
+          maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
           elementByType: this.props.elementByType,
           notModal: true,
           editable: false
         });
-        return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+        return /*#__PURE__*/React.createElement(ModalWindow, {
           overlaysContainer: this.props.overlaysContainer
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: modalGridContainer
-        }, topItems, /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            width: "100%",
+            height: "100%",
+            alignItems: "center"
+          }
+        }, topItems, /*#__PURE__*/React.createElement("div", {
           style: modalGridPanel
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: modalGrid
-        }, itemList), /*#__PURE__*/_react.default.createElement("div", {
-          style: multiTab
-        }, multiTabPanel)), /*#__PURE__*/_react.default.createElement("div", {
-          style: buttonContainerRow
-        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            //flexWrap: "wrap",
+            justifyContent: "flex-start",
+            overflow: "auto",
+            width: "20%",
+            height: "100%",
+            maxHeight: "100%" //alignItems: "center",
+
+          }
+        }, itemList), /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            overflow: "auto",
+            maxHeight: "100%",
+            minWidth: "70%",
+            justifyContent: "flex-start",
+            width: "70%",
+            alignItems: "left",
+            marginLeft: "10px"
+          }
+        }, multiTabPanel)), /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "row",
+            flexWap: "wrap",
+            justifyContent: "center",
+            padding: "5px"
+          }
+        }, /*#__PURE__*/React.createElement(Button, {
           style: button2,
           size: "lg",
           onClick: this.onConfirm //this.onAddAdditionalConfirm
 
-        }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, "Confirm"), /*#__PURE__*/React.createElement(Button, {
           style: button2,
           size: "lg",
           onClick: this.onCancel //this.onAddAdditionalCancel
@@ -833,6 +801,6 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
   }]);
 
   return SettingComponentSelector;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
-exports.default = SettingComponentSelector;
+export { SettingComponentSelector as default };

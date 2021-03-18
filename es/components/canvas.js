@@ -1,31 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactDom = _interopRequireDefault(require("react-dom"));
-
-var _reactDragDropContainer = require("react-drag-drop-container");
-
-var _canvasElement = _interopRequireWildcard(require("./canvasElement"));
-
-var _url = require("url");
-
-var _uuid = require("uuid");
-
-var _constants = require("../constants");
-
-var _propTypes = require("prop-types");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -35,21 +8,33 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+import React from "react";
+import ReactDOM from "react-dom";
+import { DropTarget } from "react-drag-drop-container";
+import { DragDropContainer } from "react-drag-drop-container";
+import CanvasElement from "./canvasElement";
+import { CanvasElementDeleteButton } from "./canvasElement";
+import { pathToFileURL } from "url";
+import { v4 as uuidv4 } from "uuid";
 
 var url = require("url");
 
 var validate = require("jsonschema").validate;
+
+import { bool_isDebug, string_na, string_object, string_array, string_toolbar, string_canvas, string_json_ext, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, number_canvas_element_min_width, number_canvas_element_icons_height, number_canvas_element_offset_default, string_typeDimensionsGeneral } from "../constants";
+import { bool } from "prop-types";
 
 var Canvas = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(Canvas, _React$PureComponent);
@@ -296,21 +281,20 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var newElementList = this.state.elementList;
       var sourceElement = e.dragData;
       var schema_ID = null;
-      var id = null;
       var occupiedSpot = null;
 
-      if (sourceElement.source === _constants.string_toolbar) {
+      if (sourceElement.source === string_toolbar) {
         schema_ID = sourceElement.schema_ID;
       } else {
         schema_ID = newElementList[sourceElement.index].schema_ID;
         occupiedSpot = newElementList[sourceElement.index].occupiedSpot;
-        id = newElementList[sourceElement.index].id;
+        newElementList[sourceElement.index].id;
       } // console.log("occupiedSpot in drag");
       // console.log(occupiedSpot);
 
 
-      var x = e.x;
-      var y = e.y - this.state.headerOffset;
+      e.x;
+      e.y - this.state.headerOffset;
       var schema = componentsSchema[schema_ID];
       var spotsMap = {};
       var schemaCategory = schema.category;
@@ -334,8 +318,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         // 	console.log(spots);
         // }
       }
-
-      var showcasedSpot = null;
 
       if (occupiedSpot !== undefined && occupiedSpot !== null) {
         var indexOf = occupiedSpots.indexOf(occupiedSpot); // console.log("indexOf in drag");
@@ -367,13 +349,13 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       if (ns_IDs !== null && ns_IDs !== undefined && ns_IDs.length > 0) draggingID = ns_IDs;
       this.setState({
         draggingID: draggingID,
-        showcasedSpot: showcasedSpot,
+        showcasedSpot: null,
         occupiedSpots: occupiedSpots
       });
     }
   }, {
     key: "isNotDragging",
-    value: function isNotDragging(e) {
+    value: function isNotDragging() {
       this.setState({
         draggingID: null,
         showcasedSpot: null
@@ -390,8 +372,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var ID = draggedItem.ID;
       var x = draggedItem.x;
       var y = draggedItem.y;
-      var l1_x = x;
-      var l1_y = y;
       var r1_x = x + draggedItem.width;
       var r1_y = y + draggedItem.height;
       var oldZ = draggedItem.z;
@@ -404,11 +384,11 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         var r2_x = l2_x + item.width;
         var r2_y = l2_y + item.height;
 
-        if (l1_x > r2_x || r1_x < l2_x) {
+        if (x > r2_x || r1_x < l2_x) {
           continue;
         }
 
-        if (l1_y > r2_y || r1_y < l2_y) {
+        if (y > r2_y || r1_y < l2_y) {
           continue;
         }
 
@@ -459,7 +439,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var y = e.y - this.state.headerOffset;
       var schema_ID = null;
 
-      if (sourceElement.source === _constants.string_toolbar) {
+      if (sourceElement.source === string_toolbar) {
         schema_ID = sourceElement.schema_ID;
       } else {
         schema_ID = newElementList[sourceElement.index].schema_ID;
@@ -499,18 +479,18 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var occupiedSpot = null;
       var width = 100;
       var height = 100;
-      var defaultOffset = _constants.number_canvas_element_icons_height
+      var defaultOffset = number_canvas_element_icons_height
       /** scalingFactor*/
-      + _constants.number_canvas_element_offset_default;
+      + number_canvas_element_offset_default;
 
-      var _loop = function _loop(_index) {
+      var _loop = function (_index) {
         var ns_ID = Object.keys(spotsMap)[_index];
 
         var spots = spotsMap[ns_ID];
 
         if (spots !== undefined && spots !== null) {
-          var _loop2 = function _loop2(key) {
-            if (key === _constants.string_typeDimensionsGeneral) {
+          var _loop2 = function (key) {
+            if (key === string_typeDimensionsGeneral) {
               var keyMarkedSpots = spots[key];
 
               if (Array.isArray(keyMarkedSpots)) {
@@ -530,11 +510,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                     var yOff = spot.y * scalingFactor; // + containerOffsetY; // + (offsetY - containerOffsetY);
 
                     var x1 = xOff - spotW / 2;
-                    var x2 = xOff + spotW / 2;
                     var y1 = yOff - spotH / 2;
-                    var y2 = yOff + spotH / 2;
 
-                    if (x > x1 && x < x2 && y > y1 && y < y2) {
+                    if (x > x1 && x < xOff + spotW / 2 && y > y1 && y < yOff + spotH / 2) {
                       x = x1;
                       y = y1;
                       occupiedSpot = tmpID;
@@ -565,13 +543,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
                     var _x = _xOff - _spotW / 2;
 
-                    var _x2 = _xOff + _spotW / 2;
-
                     var _y = _yOff - _spotH / 2;
 
-                    var _y2 = _yOff + _spotH / 2;
-
-                    if (x > _x && x < _x2 && y > _y && y < _y2) {
+                    if (x > _x && x < _xOff + _spotW / 2 && y > _y && y < _yOff + _spotH / 2) {
                       x = _x;
                       y = _y;
                       occupiedSpot = _tmpID;
@@ -583,14 +557,14 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
               var _keyMarkedSpots = spots[key];
 
               if (Array.isArray(_keyMarkedSpots)) {
-                var _loop3 = function _loop3(_i) {
+                var _loop3 = function (_i) {
                   var spot = _keyMarkedSpots[_i];
                   var spotW = spot.w * scalingFactor;
                   var spotH = spot.h * scalingFactor;
                   width = spotW;
                   height = spotH;
                   rotate = spot.r;
-                  newElementList.map(function (item, index) {
+                  newElementList.map(function (item) {
                     var itemSchemaID = item.schema_ID;
                     var itemSchema = componentsSchema[itemSchemaID];
                     var item_ns_ID_1 = itemSchema.category;
@@ -604,11 +578,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                     var yOff = item.y + item.height / 2 + defaultOffset + spot.y * scalingFactor; // + containerOffsetY;
 
                     var x1 = xOff - spotW / 2;
-                    var x2 = xOff + spotW / 2;
                     var y1 = yOff - spotH / 2;
-                    var y2 = yOff + spotH / 2;
 
-                    if (x > x1 && x < x2 && y > y1 && y < y2) {
+                    if (x > x1 && x < xOff + spotW / 2 && y > y1 && y < yOff + spotH / 2) {
                       x = x1;
                       y = y1;
                       occupiedSpot = tmpID;
@@ -630,7 +602,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                 width = _spotW2;
                 height = _spotH2;
                 rotate = _spot2.r;
-                newElementList.map(function (item, index) {
+                newElementList.map(function (item) {
                   var itemSchemaID = item.schema_ID;
                   var itemSchema = componentsSchema[itemSchemaID];
                   var item_ns_ID_1 = itemSchema.category;
@@ -644,11 +616,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                   var yOff = item.y + item.height / 2 + defaultOffset + _spot2.y * scalingFactor; // + containerOffsetY;
 
                   var x1 = xOff - _spotW2 / 2;
-                  var x2 = xOff + _spotW2 / 2;
                   var y1 = yOff - _spotH2 / 2;
-                  var y2 = yOff + _spotH2 / 2;
 
-                  if (x > x1 && x < x2 && y > y1 && y < y2) {
+                  if (x > x1 && x < xOff + _spotW2 / 2 && y > y1 && y < yOff + _spotH2 / 2) {
                     x = x1;
                     y = y1;
                     occupiedSpot = tmpID;
@@ -674,7 +644,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       //console.log("DROPPED: r-" + rotate);
 
 
-      var minElementWidth = _constants.number_canvas_element_min_width * scalingFactor;
+      var minElementWidth = number_canvas_element_min_width * scalingFactor;
       var adjustedWidth = 0;
 
       if (width < minElementWidth) {
@@ -692,7 +662,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
       if (occupiedSpot !== null) {
         occupiedSpots.push(occupiedSpot);
-        y -= _constants.number_canvas_element_icons_height; // * scalingFactor;
+        y -= number_canvas_element_icons_height; // * scalingFactor;
       } else {
         y -= 5 * scalingFactor;
         x -= 5 * scalingFactor;
@@ -707,8 +677,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var ID = null; // console.log("occupiedSpot in drop to be set");
       // console.log(occupiedSpot);
 
-      if (sourceElement.source === _constants.string_toolbar) {
-        var uuid = (0, _uuid.v4)();
+      if (sourceElement.source === string_toolbar) {
+        var uuid = uuidv4();
         newElement = {
           //Schema is old version needs to be updated constantly
           //AKA needs to put schemas in canvas and retrieve them
@@ -850,15 +820,15 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         if (!isChildren) return;
-        var currentNumber = _constants.string_currentNumberOf_identifier + key;
-        var minNumber = _constants.string_minNumberOf_identifier + key;
-        var maxNumber = _constants.string_maxNumberOf_identifier + key;
+        var currentNumber = string_currentNumberOf_identifier + key;
+        var minNumber = string_minNumberOf_identifier + key;
+        var maxNumber = string_maxNumberOf_identifier + key;
 
         if (newElementData[currentNumber] !== undefined) {
           return;
         }
 
-        if (schema.properties[key].type === _constants.string_array) {
+        if (schema.properties[key].type === string_array) {
           if (schema.required.indexOf(key) != -1) {
             newElementData[currentNumber] = 1;
             newElementData[minNumber] = 1;
@@ -868,7 +838,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             newElementData[minNumber] = 0;
             newElementData[maxNumber] = -1;
           }
-        } else if (schema.properties[key].type === _constants.string_object) {
+        } else if (schema.properties[key].type === string_object) {
           if (schema.required.indexOf(key) === -1) {
             newElementData[currentNumber] = 0;
             newElementData[minNumber] = 0;
@@ -891,12 +861,12 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       if (elementList.length === 0) return;
       if (elementData.length === 0) return;
       var id = elementList[index].ID;
-      var name = elementList[index].name;
+      elementList[index].name;
       var schemaID = elementList[index].schema_ID;
-      var elementDimensions = this.props.canvasElementsDimensions;
+      this.props.canvasElementsDimensions;
       var componentsSchema = this.state.componentsSchema;
       var occupiedSpots = this.state.occupiedSpots.slice();
-      var schema = componentsSchema[schemaID];
+      componentsSchema[schemaID];
       var occupiedSpot = elementList[index].occupiedSpot; //let spotsMap = {};
       // let schemaCategory = schema.category;
       // if (
@@ -958,7 +928,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       // console.log("elementData");
       // console.log(elementData);
 
-      var deletedSchema = schemaID.replace(_constants.string_json_ext, "");
+      var deletedSchema = schemaID.replace(string_json_ext, "");
       var deletedID = id.replace(deletedSchema, "");
       deletedID = deletedID.replace("_", "");
       console.log("deletedID");
@@ -981,8 +951,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
               var _index2 = linkList.indexOf(deletedID);
 
               if (elementData[key] !== undefined) {
-                elementData[key][field][_index2] = _constants.string_na;
-                linkedFields[key][field].value[_index2] = _constants.string_na;
+                elementData[key][field][_index2] = string_na;
+                linkedFields[key][field].value[_index2] = string_na;
                 done = true;
                 break;
               }
@@ -990,8 +960,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           } else {
             if (linkList === deletedID) {
               if (elementData[key] !== undefined) {
-                elementData[key][field] = _constants.string_na;
-                linkedFields[key][field] = _constants.string_na;
+                elementData[key][field] = string_na;
+                linkedFields[key][field] = string_na;
                 done = true;
                 break;
               }
@@ -1045,8 +1015,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       // };
 
 
-      var fontSize = (_constants.number_canvas_element_icons_height + 2) * scalingFactor;
-      var grabberCloserSize = _constants.number_canvas_element_icons_height * scalingFactor; //console.log("fontSize - " + fontSize);
+      var fontSize = (number_canvas_element_icons_height + 2) * scalingFactor;
+      var grabberCloserSize = number_canvas_element_icons_height * scalingFactor; //console.log("fontSize - " + fontSize);
       //console.log("grabberCloserSize - " + grabberCloserSize);
 
       var styleGrabber = {
@@ -1069,7 +1039,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         verticalAlign: "middle"
       }; //justifyContent: "space-between"
 
-      var minElementWidth = _constants.number_canvas_element_min_width * scalingFactor; //	console.log("minElementWidth - " + minElementWidth);
+      var minElementWidth = number_canvas_element_min_width * scalingFactor; //	console.log("minElementWidth - " + minElementWidth);
 
       var styleActionContainer = {
         display: "flex",
@@ -1086,14 +1056,11 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         flexDirection: "column"
       }; //paddingLeft: "5px",
 
-      var hoverSize = 125; //* scalingFactor;
-
-      var hoverFontSize = 120 * scalingFactor;
       var styleNameHover = {
         overflow: "unset",
-        fontSize: "".concat(hoverFontSize, "%"),
+        fontSize: "".concat(120 * scalingFactor, "%"),
         textAlign: "left",
-        lineHeight: "".concat(hoverSize, "%"),
+        lineHeight: "".concat(125, "%"),
         color: "#0275d8"
       };
       var styleNameRegular = {
@@ -1104,11 +1071,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       elementList.map(function (item) {
         var x = item.x;
         var y = item.y;
-        var style = {
-          position: "absolute",
-          left: x,
-          top: y
-        };
         var containerWidth = item.width;
         var containerHeight = item.height; // if (containerWidth == -1) containerWidth = 100;
         // if (containerHeight == -1) containerHeight = 100;
@@ -1120,15 +1082,19 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         // }
 
         if (scaledContainerWidth <= minElementWidth) scaledContainerWidth = minElementWidth;
-        scaledContainerHeight += _constants.number_canvas_element_icons_height
+        scaledContainerHeight += number_canvas_element_icons_height
         /* * scalingFactor */
-        + _constants.number_canvas_element_offset_default; // console.log("SCW - " + scaledContainerWidth);
+        + number_canvas_element_offset_default; // console.log("SCW - " + scaledContainerWidth);
         // console.log("SCH - " + scaledContainerHeight);
 
         stylesContainer[item.ID] = Object.assign({
           width: "".concat(scaledContainerWidth, "px"),
           height: "".concat(scaledContainerHeight, "px")
-        }, style);
+        }, {
+          position: "absolute",
+          left: x,
+          top: y
+        });
         stylesImages[item.ID] = {
           width: item.width,
           height: item.height
@@ -1143,7 +1109,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         var element = elementData[key]; // console.log("element");
         // console.log(element);
 
-        var schemaID = element.Schema_ID.replace(_constants.string_json_ext, "");
+        var schemaID = element.Schema_ID.replace(string_json_ext, "");
         var itemSchema = componentsSchema[element.Schema_ID];
         var schemaCategory = itemSchema.category;
 
@@ -1159,7 +1125,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         elementByType[schemaCategory][element.ID] = element.Name;
       });
 
-      var _loop4 = function _loop4(_k) {
+      var _loop4 = function (_k) {
         elementList.map(function (item, index) {
           if (item.z != _k) return;
           var schema_id = item.schema_ID;
@@ -1193,50 +1159,50 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             var styleValidated = Object.assign({}, styleGrabber, {
               color: "green"
             });
-            validated = /*#__PURE__*/_react.default.createElement("div", {
+            validated = /*#__PURE__*/React.createElement("div", {
               style: styleValidated
             }, "\u25CF");
           } else {
             var styleNotValidated = Object.assign({}, styleGrabber, {
               color: "red"
             });
-            validated = /*#__PURE__*/_react.default.createElement("div", {
+            validated = /*#__PURE__*/React.createElement("div", {
               style: styleNotValidated
             }, "\u25CF");
           }
 
-          droppableElement.push( /*#__PURE__*/_react.default.createElement("div", {
+          droppableElement.push( /*#__PURE__*/React.createElement("div", {
             style: stylesContainer[item.ID],
             key: "draggableWrapper" + index,
             onMouseEnter: function onMouseEnter() {
               return _this3.handleMouseIn(item.ID);
             },
             onMouseLeave: _this3.handleMouseOut
-          }, /*#__PURE__*/_react.default.createElement(_reactDragDropContainer.DragDropContainer, {
-            targetKey: _constants.string_canvas,
+          }, /*#__PURE__*/React.createElement(DragDropContainer, {
+            targetKey: string_canvas,
             key: "draggable" + index,
             dragClone: false,
             dragData: {
-              source: _constants.string_canvas,
+              source: string_canvas,
               index: index
             },
             onDragStart: _this3.dragged,
             dragHandleClassName: "grabber"
-          }, /*#__PURE__*/_react.default.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
             style: styleActionElementNameContainer
-          }, /*#__PURE__*/_react.default.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
             style: styleActionContainer
-          }, /*#__PURE__*/_react.default.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
             className: "grabber",
             style: styleGrabber
-          }, "\u2237"), validated, /*#__PURE__*/_react.default.createElement(_canvasElement.CanvasElementDeleteButton, {
+          }, "\u2237"), validated, /*#__PURE__*/React.createElement(CanvasElementDeleteButton, {
             index: index,
             handleDelete: _this3.onDelete,
             myStyle: styleCloser,
             isViewOnly: _this3.props.isViewOnly
-          })), /*#__PURE__*/_react.default.createElement("div", {
+          })), /*#__PURE__*/React.createElement("div", {
             style: styleElementNameContainer
-          }, /*#__PURE__*/_react.default.createElement(_canvasElement.default, {
+          }, /*#__PURE__*/React.createElement(CanvasElement, {
             activeTier: _this3.props.activeTier,
             id: item.ID,
             rotate: item.rotate,
@@ -1254,14 +1220,14 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             maxHeight: maxHeight //validated={item.validated}
             ,
             dragged: item.dragged,
-            currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
-            minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
-            maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+            currentChildrenComponentIdentifier: string_currentNumberOf_identifier,
+            minChildrenComponentIdentifier: string_minNumberOf_identifier,
+            maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
             elementByType: elementByType,
             isViewOnly: _this3.props.isViewOnly,
             setEditingOnCanvas: _this3.setEditingOnCanvas,
             formTitle: item.name
-          }), /*#__PURE__*/_react.default.createElement("div", {
+          }), /*#__PURE__*/React.createElement("div", {
             style: styleName
           }, item.name))))));
         });
@@ -1288,7 +1254,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           microscope = _this$props$microscop === void 0 ? null : _this$props$microscop,
           _this$props$scalingFa = _this$props.scalingFactor,
           scalingFactor = _this$props$scalingFa === void 0 ? 1 : _this$props$scalingFa;
-      var linkedFields = this.state.linkedFields;
+      this.state.linkedFields;
       var occupiedSpots = this.state.occupiedSpots;
       var elementList = this.state.elementList; // if (bool_isDebug) {
       // 	console.log("LinkedFields");
@@ -1300,9 +1266,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var elementDimensions = this.props.canvasElementsDimensions;
       var stand = this.props.stand;
       var standSchemaID = stand.Schema_ID;
-
-      var standImageDimensions = elementDimensions[standSchemaID.replace(".json", "")][_constants.string_typeDimensionsGeneral];
-
+      var standImageDimensions = elementDimensions[standSchemaID.replace(".json", "")][string_typeDimensionsGeneral];
       var canvasWidth = standImageDimensions.w;
       var canvasHeight = standImageDimensions.h;
       var styleContainer = {
@@ -1313,43 +1277,23 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         width: "".concat(width, "px"),
         height: "".concat(height, "px")
       };
-      var innerWidth = width - 2;
-      var innerHeight = height - 4;
       var dropTargetStyle = {
-        width: "".concat(innerWidth, "px"),
-        height: "".concat(innerHeight, "px")
+        width: "".concat(width - 2, "px"),
+        height: "".concat(height - 4, "px")
       };
-      var canvasContainerStyle = {
-        width: "100%",
-        height: "100%",
-        position: "relative",
-        overflow: "auto"
-      };
-      var scaledCanvasWidth = canvasWidth * scalingFactor;
-      var scaledCanvasHeight = canvasHeight * scalingFactor;
       var canvasInnerContainerStyle = {
-        width: "".concat(scaledCanvasWidth, "px"),
-        height: "".concat(scaledCanvasHeight, "px"),
+        width: "".concat(canvasWidth * scalingFactor, "px"),
+        height: "".concat(canvasHeight * scalingFactor, "px"),
         position: "absolute",
         left: 0,
         top: 0
-      };
-      var imageStyle = {
-        width: "100%",
-        height: "100%",
-        margin: "auto"
-      };
-      var infoStyle = {
-        position: "absolute",
-        left: "10px",
-        top: "10px"
       };
       var micInfo = [];
 
       if (microscope !== null && microscope !== undefined) {
         if (microscope.Name !== undefined && microscope.Name !== null) {
           micInfo.push("Microscope Name: ".concat(microscope.Name));
-          micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+          micInfo.push( /*#__PURE__*/React.createElement("br", {
             key: "newline-1"
           }));
         }
@@ -1359,28 +1303,28 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
           if (_stand.Name !== null && _stand.Name !== undefined) {
             micInfo.push("MicroscopeStand Name: ".concat(_stand.Name));
-            micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+            micInfo.push( /*#__PURE__*/React.createElement("br", {
               key: "newline-2"
             }));
           }
 
           if (_stand.Manufacturer !== null && _stand.Manufacturer !== undefined) {
             micInfo.push("MicroscopeStand Manufacturer: ".concat(_stand.Manufacturer));
-            micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+            micInfo.push( /*#__PURE__*/React.createElement("br", {
               key: "newline-3"
             }));
           }
 
           if (_stand.Model !== null && _stand.Model !== undefined) {
             micInfo.push("MicroscopeStand Model: ".concat(_stand.Model));
-            micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+            micInfo.push( /*#__PURE__*/React.createElement("br", {
               key: "newline-4"
             }));
           }
 
           if (_stand.Type !== null && _stand.Type !== undefined) {
             micInfo.push("MicroscopeStand Type: ".concat(_stand.Type));
-            micInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+            micInfo.push( /*#__PURE__*/React.createElement("br", {
               key: "newline-5"
             }));
           }
@@ -1397,14 +1341,12 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           var offsetY = _this4.state.offsetY;
           var containerOffsetX = _this4.props.containerOffsetLeft;
           var containerOffsetY = _this4.props.containerOffsetTop;
-          var xOff = offsetX - containerOffsetX;
-          var yOff = offsetY - containerOffsetY;
-          var defaultOffset = _constants.number_canvas_element_icons_height
+          var defaultOffset = number_canvas_element_icons_height
           /* * scalingFactor*/
-          + _constants.number_canvas_element_offset_default; // console.log("draggingIDs");
+          + number_canvas_element_offset_default; // console.log("draggingIDs");
           // console.log(draggingIDs);
 
-          var _loop5 = function _loop5(index) {
+          var _loop5 = function (index) {
             var draggingID = draggingIDs[index];
             var markedSpots = elementDimensions[draggingID]; // console.log("draggingID");
             // console.log(draggingID);
@@ -1412,8 +1354,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             // console.log(occupiedSpots);
 
             if (markedSpots !== undefined && markedSpots !== null) {
-              var _loop6 = function _loop6(key) {
-                if (key === _constants.string_typeDimensionsGeneral) {
+              var _loop6 = function (key) {
+                if (key === string_typeDimensionsGeneral) {
                   var keyMarkedSpots = markedSpots[key];
 
                   if (Array.isArray(keyMarkedSpots)) {
@@ -1444,10 +1386,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                         spotStyleTmp.border = "2px ridge cornflowerBlue";
                       }
 
-                      var spotStyle = spotStyleTmp;
-                      showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
+                      showcasedSpots.push( /*#__PURE__*/React.createElement("div", {
                         key: tmpID,
-                        style: spotStyle
+                        style: spotStyleTmp
                       }));
                     }
                   } else {
@@ -1480,15 +1421,14 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                         _spotStyleTmp.border = "2px ridge cornflowerBlue";
                       }
 
-                      var _spotStyle = _spotStyleTmp;
-                      showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
+                      showcasedSpots.push( /*#__PURE__*/React.createElement("div", {
                         key: _tmpID2,
-                        style: _spotStyle
+                        style: _spotStyleTmp
                       }));
                     }
                   }
                 } else {
-                  elementList.map(function (item, index) {
+                  elementList.map(function (item) {
                     var itemSchemaID = item.schema_ID;
                     var itemSchema = componentsSchema[itemSchemaID];
                     var item_ns_ID_1 = itemSchema.category;
@@ -1528,10 +1468,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                           _spotStyleTmp2.border = "2px ridge cornflowerBlue";
                         }
 
-                        var _spotStyle2 = _spotStyleTmp2;
-                        showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
+                        showcasedSpots.push( /*#__PURE__*/React.createElement("div", {
                           key: _tmpID3,
-                          style: _spotStyle2
+                          style: _spotStyleTmp2
                         }));
                       }
                     } else {
@@ -1564,10 +1503,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
                         _spotStyleTmp3.border = "2px ridge cornflowerBlue";
                       }
 
-                      var _spotStyle3 = _spotStyleTmp3;
-                      showcasedSpots.push( /*#__PURE__*/_react.default.createElement("div", {
+                      showcasedSpots.push( /*#__PURE__*/React.createElement("div", {
                         key: _tmpID4,
-                        style: _spotStyle3
+                        style: _spotStyleTmp3
                       }));
                     }
                   });
@@ -1586,27 +1524,40 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         })();
       }
 
-      return /*#__PURE__*/_react.default.createElement("div", {
+      return /*#__PURE__*/React.createElement("div", {
         style: styleContainer
-      }, /*#__PURE__*/_react.default.createElement(_reactDragDropContainer.DropTarget, {
+      }, /*#__PURE__*/React.createElement(DropTarget, {
         style: dropTargetStyle,
         onHit: this.dropped,
         onDragEnter: this.isDragging,
         onDragLeave: this.isNotDragging,
-        targetKey: _constants.string_canvas
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: canvasContainerStyle,
+        targetKey: string_canvas
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          width: "100%",
+          height: "100%",
+          position: "relative",
+          overflow: "auto"
+        },
         onScroll: this.handleScroll
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: canvasInnerContainerStyle
-      }, /*#__PURE__*/_react.default.createElement("img", {
+      }, /*#__PURE__*/React.createElement("img", {
         src: backgroundImage + (backgroundImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
         alt: backgroundImage,
-        style: imageStyle //onLoad={this.onImgLoad}
+        style: {
+          width: "100%",
+          height: "100%",
+          margin: "auto"
+        } //onLoad={this.onImgLoad}
 
-      })), /*#__PURE__*/_react.default.createElement("div", {
-        style: infoStyle
-      }, /*#__PURE__*/_react.default.createElement("p", null, micInfo)), this.createList(), showcasedSpots)));
+      })), /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: "absolute",
+          left: "10px",
+          top: "10px"
+        }
+      }, /*#__PURE__*/React.createElement("p", null, micInfo)), this.createList(), showcasedSpots)));
     }
   }], [{
     key: "getDerivedStateFromProps",
@@ -1644,6 +1595,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
   }]);
 
   return Canvas;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
-exports.default = Canvas;
+export { Canvas as default };

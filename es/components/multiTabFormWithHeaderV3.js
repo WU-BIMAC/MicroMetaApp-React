@@ -1,23 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _bootstrap = _interopRequireDefault(require("@rjsf/bootstrap-4"));
-
-var _reactTabs = require("react-tabs");
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _modalWindow = _interopRequireDefault(require("./modalWindow"));
-
-var _constants = require("../constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27,17 +8,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+import React from "react";
+import Form from "@rjsf/bootstrap-4"; //import Tabs, { TabPane } from "rc-tabs";
+
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs"; // import TabContent from "rc-tabs/lib/TabContent";
+// import ScrollableTabBar from "rc-tabs/lib/";
+//import "rc-tabs/assets/index.css"
+
+import Button from "react-bootstrap/Button";
+import ModalWindow from "./modalWindow";
+import { string_na, string_not_assigned, string_default, string_enum, string_enumNames, string_object, string_array, string_bandpass_warning, save_component_tooltip } from "../constants";
 
 var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(MultiTabFormWithHeaderV3, _React$PureComponent);
@@ -64,7 +56,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
     if (props.inputData !== null && props.currentChildrenComponentIdentifier !== null && props.minChildrenComponentIdentifier !== null && props.maxChildrenComponentIdentifier !== null) {
       if (Array.isArray(props.inputData)) {
-        var _loop = function _loop(y) {
+        var _loop = function (y) {
           var inputData = props.inputData[y];
           var id = inputData.ID;
 
@@ -169,7 +161,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     key: "initializeForms",
     value: function initializeForms() {
       //console.log("INITIALIZE FORMS");
-      var counter = 0;
       var linkedFields = this.state.linkedFields;
       var currentChildrenComponents = this.state.currentChildrenComponents;
       var newActiveID = this.state.activeID;
@@ -281,7 +272,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
         if (Array.isArray(this.props.inputData)) {
           if (this.props.currentChildrenComponentIdentifier !== null && this.props.minChildrenComponentIdentifier !== null && this.props.maxChildrenComponentIdentifier !== null) {
-            var _loop2 = function _loop2(y) {
+            var _loop2 = function (y) {
               var inputData = _this2.props.inputData[y];
               var id = inputData.ID;
 
@@ -504,7 +495,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       // }
       //console.log("I SHOULD BE HERE1");
 
-      var _loop3 = function _loop3(currentID) {
+      var _loop3 = function (currentID) {
         var forms = localForms[currentID];
         var currentData = localData[currentID];
         var numberOfForms = forms.length;
@@ -523,8 +514,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         if (currentChildrenComponents !== null && currentChildrenComponents !== undefined) {
           var attrName = _this3.props.currentChildrenComponentIdentifier;
           Object.keys(currentChildrenComponents).forEach(function (key) {
-            var attr = attrName + key;
-            localConsolidatedData[attr] = currentChildrenComponents[key];
+            localConsolidatedData[attrName + key] = currentChildrenComponents[key];
           });
         }
 
@@ -534,7 +524,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       for (var currentID in localForms) {
         var _ret = _loop3(currentID);
 
-        if (typeof _ret === "object") return _ret.v;
+        if (_typeof(_ret) === "object") return _ret.v;
       } //console.log("I SHOULD BE HERE2");
 
 
@@ -563,7 +553,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var localConsolidatedData = partialConsolidatedData[id];
         var localPartialInputData = partialInputData[id];
         var schemaTitle = localPartialInputData.schemaTitle;
-        var schema = localPartialInputData.schema;
+        localPartialInputData.schema;
         var localSubComponents = [];
 
         if (subComponents[schemaTitle] !== null && subComponents[schemaTitle] !== undefined) {
@@ -598,7 +588,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       for (var currentID in localForms) {
         var forms = localForms[currentID];
         var currentErrors = this.errors[currentID];
-        var numberOfForms = forms.length;
+        forms.length;
         if (currentErrors === null || currentErrors === undefined //  ||currentErrors.length < numberOfForms
         ) return;
 
@@ -748,7 +738,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createForm",
     value: function createForm(schema, uiSchema, input, index, currentFormRefs, currentButtonsRefs) {
-      return /*#__PURE__*/_react.default.createElement(_bootstrap.default, {
+      return /*#__PURE__*/React.createElement(Form, {
         schema: schema,
         uiSchema: uiSchema,
         onSubmit: this.onSubmit,
@@ -766,7 +756,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         style: {
           overflow: "hidden"
         }
-      }, /*#__PURE__*/_react.default.createElement("button", {
+      }, /*#__PURE__*/React.createElement("button", {
         ref: function ref(btn) {
           if (index != -1) {
             currentButtonsRefs.splice(index, 0, btn);
@@ -793,7 +783,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var description = subCategoriesOrder[key];
         if (partialSchema[key] === undefined) return;
         partialSchema[key] = Object.assign(partialSchema[key], {
-          description
+          description: description
         });
         currentFormNames.splice(index, 0, key);
 
@@ -803,18 +793,18 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       });
       var schemaKeys = Object.keys(partialSchema);
 
-      var _loop4 = function _loop4(i) {
+      var _loop4 = function (i) {
         var key = schemaKeys[i];
         if (Object.keys(subCategoriesOrder).includes(key)) return "continue";
         var description = null;
-        Object.keys(subCategoriesOrder).forEach(function (subKey, index) {
+        Object.keys(subCategoriesOrder).forEach(function (subKey) {
           if (key.startsWith(subKey)) {
             description = subCategoriesOrder[subKey];
           }
         });
         if (description === null) description = "";
         partialSchema[key] = Object.assign(partialSchema[key], {
-          description
+          description: description
         });
         currentFormNames.push(key);
 
@@ -837,7 +827,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
   }, {
     key: "onContainerTabChange",
-    value: function onContainerTabChange(key, prevKey, evt) {
+    value: function onContainerTabChange(key) {
       var id = Object.keys(this.forms)[key];
       this.setState({
         activeID: id,
@@ -848,7 +838,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
   }, {
     key: "onTabChange",
-    value: function onTabChange(key, prevKey, evt) {
+    value: function onTabChange(key) {
       this.setState({
         activeKey: key
       });
@@ -901,9 +891,9 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var maxChildren = maxChildrenComponents[key];
         var isMinDisabled = minChildren === currentChildren;
         var isMaxDisabled = maxChildren === currentChildren;
-        buttons.push( /*#__PURE__*/_react.default.createElement("div", {
+        buttons.push( /*#__PURE__*/React.createElement("div", {
           key: "buttons-" + key
-        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, /*#__PURE__*/React.createElement(Button, {
           style: sideButtonLeftMargin,
           variant: isMinDisabled ? "secondary" : "danger",
           onClick: isMinDisabled ? null : function () {
@@ -911,12 +901,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           },
           disabled: isMinDisabled,
           value: key
-        }, "-"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, "-"), /*#__PURE__*/React.createElement(Button, {
           style: buttonNoMargin,
           size: "lg",
           variant: "secondary",
           disabled: true
-        }, key, " : ", currentChildren), /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, key, " : ", currentChildren), /*#__PURE__*/React.createElement(Button, {
           style: sideButtonRightMargin,
           variant: isMaxDisabled ? "secondary" : "success",
           onClick: isMaxDisabled ? null : function () {
@@ -940,22 +930,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         width: "510px",
         marginLeft: "5px",
         marginRight: "5px"
-      };
-      var buttonContainerColumnExternal = {
-        display: "flex",
-        flexDirection: "column",
-        flexWap: "wrap",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100%"
-      };
-      var buttonContainerColumn = {
-        display: "flex",
-        flexDirection: "column",
-        flexWap: "wrap",
-        justifyContent: "center",
-        alignItems: "center"
       };
       var buttonContainerRow = {
         display: "flex",
@@ -1006,19 +980,33 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       if (hasEditableChildren[activeID]) childrenButtons = this.createChildrenComponentsButton(activeID);
 
       if (!showForm) {
-        return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+        return /*#__PURE__*/React.createElement(ModalWindow, {
           overlaysContainer: this.props.overlaysContainer
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: buttonContainerColumnExternal
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: buttonContainerColumn
-        }, childrenButtons), /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            flexWap: "wrap",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%"
+          }
+        }, /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            flexWap: "wrap",
+            justifyContent: "center",
+            alignItems: "center"
+          }
+        }, childrenButtons), /*#__PURE__*/React.createElement("div", {
           style: buttonContainerRow
-        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, /*#__PURE__*/React.createElement(Button, {
           style: button,
           size: "lg",
           onClick: this.onEditComponentsConfirm
-        }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, "Confirm"), /*#__PURE__*/React.createElement(Button, {
           style: button,
           size: "lg",
           onClick: this.onEditComponentsCancel
@@ -1037,11 +1025,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         for (var index in currentForms) {
           var item = currentForms[index];
 
-          tabNames[_id3].push( /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
+          tabNames[_id3].push( /*#__PURE__*/React.createElement(Tab, {
             key: "ContainerTabName-" + currentNames[index]
           }, currentNames[index]));
 
-          tabs[_id3].push( /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
+          tabs[_id3].push( /*#__PURE__*/React.createElement(TabPanel, {
             key: "ContainerTab-" + currentNames[index],
             forceRender: true
           }, item));
@@ -1066,7 +1054,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       if (!this.props.notModal || this.props.notModal && this.props.onConfirm !== null) {
         var text = "Confirm";
         if (this.props.notModal && this.props.onConfirm !== null) text = "Add";
-        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
+        buttons.push( /*#__PURE__*/React.createElement(Button, {
           key: "button-confirm",
           style: button,
           size: "lg",
@@ -1075,7 +1063,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (!this.props.notModal) {
-        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
+        buttons.push( /*#__PURE__*/React.createElement(Button, {
           key: "button-cancel",
           style: button,
           size: "lg",
@@ -1088,7 +1076,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       for (var _id4 in forms) {
         var editChildrenCompButton = null;
-        if (hasEditableChildren[_id4] && !this.props.notModal) editChildrenCompButton = /*#__PURE__*/_react.default.createElement(_Button.default, {
+        if (hasEditableChildren[_id4] && !this.props.notModal) editChildrenCompButton = /*#__PURE__*/React.createElement(Button, {
           key: "button-addremove",
           style: button2,
           size: "lg",
@@ -1102,13 +1090,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         //<TabPane tab={containerNames[id]} key={index} forceRender={true}>
         //</TabPane>
 
-        containerFormNames.push( /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
+        containerFormNames.push( /*#__PURE__*/React.createElement(Tab, {
           key: "ContainerTabName-" + containerNames[_id4]
         }, containerNames[_id4]));
-        containerForms.push( /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
+        containerForms.push( /*#__PURE__*/React.createElement(TabPanel, {
           forceRender: true,
           key: "ContainerTab-" + containerNames[_id4]
-        }, /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren[_id4] ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs // tabPosition={"top"}
+        }, /*#__PURE__*/React.createElement("p", null, hasEditableChildren[_id4] ? string_bandpass_warning : ""), /*#__PURE__*/React.createElement(Tabs // tabPosition={"top"}
         // tabBarStyle={{
         // 	border: "none",
         // }}
@@ -1122,7 +1110,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           //activeKey={this.state.activeKey}
           ,
           selectedIndex: this.state.activeKey
-        }, /*#__PURE__*/_react.default.createElement(_reactTabs.TabList, null, localTabNames), localTabs), /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/React.createElement(TabList, null, localTabNames), localTabs), /*#__PURE__*/React.createElement("div", {
           style: buttonContainerRow
         }, editChildrenCompButton)));
       } //let containerIndex = this.state.activeID;
@@ -1130,7 +1118,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       var containerIndex = Object.keys(forms).indexOf(this.state.activeID); //let activeContainerKey = `${containerIndex}`;
 
-      var form = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.title), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs // tabPosition={"top"}
+      var form = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, this.props.title), /*#__PURE__*/React.createElement(Tabs // tabPosition={"top"}
       // tabBarStyle={{
       // 	border: "none",
       // }}
@@ -1144,12 +1132,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         //activeKey={activeContainerKey}
         ,
         selectedIndex: containerIndex
-      }, /*#__PURE__*/_react.default.createElement(_reactTabs.TabList, null, containerFormNames), containerForms), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement(TabList, null, containerFormNames), containerForms), /*#__PURE__*/React.createElement("div", {
         style: buttonContainerRow
       }, buttons)); //<div>{this.props.schema.description}</div>
 
-
-      if (!this.props.notModal) return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+      if (!this.props.notModal) return /*#__PURE__*/React.createElement(ModalWindow, {
         overlaysContainer: this.props.overlaysContainer
       }, form);else return form;
     }
@@ -1241,7 +1228,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var property = schema.properties[key];
 
         if (currentChildrenComponents !== undefined && currentChildrenComponents !== null && Object.keys(currentChildrenComponents).includes(key)) {
-          if (property.type === _constants.string_object) {
+          if (property.type === string_object) {
             var count = 0;
 
             for (var inputKey in currentChildrenComponents) {
@@ -1252,12 +1239,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
 
             for (var i = 0; i < count; i++) {
-              var localPartialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, _constants.string_object, linkedFields);
+              var localPartialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, string_object, linkedFields);
               partialSchema = Object.assign(partialSchema, localPartialSchema);
             }
 
             return;
-          } else if (property.type === _constants.string_array) {
+          } else if (property.type === string_array) {
             var _count = 0;
 
             for (var _inputKey in currentChildrenComponents) {
@@ -1268,7 +1255,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
 
             for (var _i2 = 0; _i2 < _count; _i2++) {
-              var _localPartialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, _i2, _constants.string_array, linkedFields);
+              var _localPartialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, _i2, string_array, linkedFields);
 
               partialSchema = Object.assign(partialSchema, _localPartialSchema);
             }
@@ -1286,7 +1273,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         if (keysForCategory === undefined || keysForCategory === null) {
           keysForCategory = {
             title: newCategory,
-            type: _constants.string_object,
+            type: string_object,
             subType: subType,
             container: category,
             counter: counter,
@@ -1298,14 +1285,14 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         // console.log(elementByType);
 
         if (property.linkTo !== undefined) {
-          newProperty[_constants.string_default] = _constants.string_na;
-          newProperty[_constants.string_enum] = [_constants.string_na];
-          newProperty[_constants.string_enumNames] = [_constants.string_not_assigned];
+          newProperty[string_default] = string_na;
+          newProperty[string_enum] = [string_na];
+          newProperty[string_enumNames] = [string_not_assigned];
 
           if (linkedFields[key] === undefined) {
             linkedFields[key] = {
               schemaType: schema.title,
-              value: _constants.string_not_assigned
+              value: string_not_assigned
             };
           }
 
@@ -1314,21 +1301,19 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             Object.keys(propElementByType).forEach(function (propElementByTypeID) {
               var propElementByTypeName = propElementByType[propElementByTypeID];
               if (inputDataIDs.includes(propElementByTypeID)) return;
-
-              newProperty[_constants.string_enum].push(property.linkTo + "/" + propElementByTypeID);
-
-              newProperty[_constants.string_enumNames].push(propElementByTypeName);
+              newProperty[string_enum].push(property.linkTo + "/" + propElementByTypeID);
+              newProperty[string_enumNames].push(propElementByTypeName);
             });
           }
         } else if (property.items !== undefined && property.items.linkTo !== undefined) {
-          newProperty.items[_constants.string_default] = _constants.string_na;
-          newProperty.items[_constants.string_enum] = [_constants.string_na];
-          newProperty.items[_constants.string_enumNames] = [_constants.string_not_assigned];
+          newProperty.items[string_default] = string_na;
+          newProperty.items[string_enum] = [string_na];
+          newProperty.items[string_enumNames] = [string_not_assigned];
 
           if (linkedFields[key] === undefined) {
             linkedFields[key] = {
               schemaType: schema.title,
-              value: _constants.string_not_assigned
+              value: string_not_assigned
             };
           } // console.log("elementByType");
           // console.log(elementByType);
@@ -1339,10 +1324,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             Object.keys(_propElementByType).forEach(function (propElementByTypeID) {
               var propElementByTypeName = _propElementByType[propElementByTypeID];
               if (inputDataIDs.includes(propElementByTypeID)) return;
-
-              newProperty.items[_constants.string_enum].push(property.items.linkTo + "/" + propElementByTypeID);
-
-              newProperty.items[_constants.string_enumNames].push(propElementByTypeName);
+              newProperty.items[string_enum].push(property.items.linkTo + "/" + propElementByTypeID);
+              newProperty.items[string_enumNames].push(propElementByTypeName);
             });
           }
         }
@@ -1366,13 +1349,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "transformSchema",
     value: function transformSchema(currentChildrenComponents, schema, elementByType, linkedFields, inputDataIDs) {
-      var partialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, _constants.string_default, linkedFields, inputDataIDs); //partialSchema = Object.assign(partialSchema, { type: "object" });
+      var partialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, string_default, linkedFields, inputDataIDs); //partialSchema = Object.assign(partialSchema, { type: "object" });
 
       return partialSchema;
     }
   }]);
 
   return MultiTabFormWithHeaderV3;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
-exports.default = MultiTabFormWithHeaderV3;
+export { MultiTabFormWithHeaderV3 as default };

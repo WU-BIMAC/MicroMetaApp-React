@@ -1,25 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _ButtonToolbar = _interopRequireDefault(require("react-bootstrap/ButtonToolbar"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _reactDropzone = _interopRequireDefault(require("react-dropzone"));
-
-var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
-
-var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
-var _constants = require("../constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -29,17 +8,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+import React from "react";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import Button from "react-bootstrap/Button";
+import Dropzone from "react-dropzone";
+import DropdownMenu from "./dropdownMenu";
+import PopoverTooltip from "./popoverTooltip";
+import { string_json_ext, number_logo_width, number_logo_height, createSettings_mode_selector_tooltip, createSettings_from_file_tooltip, createSettings_from_repo_names_tooltip, createSettings_mode_continue_tooltip, back_tooltip } from "../constants";
 
 var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(SettingLoader, _React$PureComponent);
@@ -83,14 +70,14 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "onFileReaderAbort",
-    value: function onFileReaderAbort(e) {
+    value: function onFileReaderAbort() {
       this.setState({
         fileLoaded: false
       });
     }
   }, {
     key: "onFileReaderError",
-    value: function onFileReaderError(e) {
+    value: function onFileReaderError() {
       this.setState({
         fileLoaded: false
       });
@@ -162,22 +149,6 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
         padding: "5px",
         margin: "5px"
       };
-      var windowExternalContainer = {
-        display: "flex",
-        justifyContent: "center",
-        flexFlow: "column",
-        width: "100%",
-        height: "100%",
-        alignItems: "center"
-      };
-      var windowInternalContainer = {
-        display: "flex",
-        justifyContent: "center",
-        flexFlow: "column",
-        width: "100%",
-        height: "100%",
-        alignItems: "center"
-      };
       var width = 410;
       var margin = 5;
       var inputData = this.props.settings;
@@ -187,13 +158,8 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "".concat(width, "px")
       };
       var styleImageContainer = {
-        width: "".concat(_constants.number_logo_width, "px"),
-        height: "".concat(_constants.number_logo_height, "px")
-      };
-      var styleImage = {
-        width: "100%",
-        height: "100%",
-        margin: "auto"
+        width: "".concat(number_logo_width, "px"),
+        height: "".concat(number_logo_height, "px")
       };
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
@@ -201,7 +167,7 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
       var isDropzoneActive = false;
       if (loadingMode === 1) isDropzoneActive = true;
       var list = [];
-      list.push( /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+      list.push( /*#__PURE__*/React.createElement(DropdownMenu, {
         key: "dropdown-loadingOption",
         title: "",
         handleMenuItemClick: this.props.onClickLoadingOptionSelection,
@@ -209,31 +175,31 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
         inputData: this.props.loadingOptions,
         width: width,
         margin: margin,
-        tooltip: _constants.createSettings_mode_selector_tooltip
+        tooltip: createSettings_mode_selector_tooltip
       }));
 
       if (loadingMode === 1) {
-        list.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        list.push( /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "dropzone-tooltip",
-          position: _constants.createSettings_from_file_tooltip.position,
-          title: _constants.createSettings_from_file_tooltip.title,
-          content: _constants.createSettings_from_file_tooltip.content,
-          element: /*#__PURE__*/_react.default.createElement(_reactDropzone.default, {
+          position: createSettings_from_file_tooltip.position,
+          title: createSettings_from_file_tooltip.title,
+          content: createSettings_from_file_tooltip.content,
+          element: /*#__PURE__*/React.createElement(Dropzone, {
             key: "dropzone",
             onFileDialogCancel: this.dropzoneDialogCancel,
             onDrop: this.dropzoneDrop,
             onDropAccepted: this.dropzoneDropAccepted,
             onDropRejected: this.dropzoneDropRejected,
-            accept: _constants.string_json_ext,
+            accept: string_json_ext,
             multiple: false
           }, function (_ref) {
             var getRootProps = _ref.getRootProps,
                 getInputProps = _ref.getInputProps;
-            return /*#__PURE__*/_react.default.createElement("section", {
+            return /*#__PURE__*/React.createElement("section", {
               style: dropzoneStyle
-            }, /*#__PURE__*/_react.default.createElement("div", getRootProps(), /*#__PURE__*/_react.default.createElement("input", getInputProps({
+            }, /*#__PURE__*/React.createElement("div", getRootProps(), /*#__PURE__*/React.createElement("input", getInputProps({
               onClick: _this2.dropzoneDialogOpen
-            })), /*#__PURE__*/_react.default.createElement("p", null, "Select an existing Settings file you want to work on.")));
+            })), /*#__PURE__*/React.createElement("p", null, "Select an existing Settings file you want to work on.")));
           })
         }));
       }
@@ -242,7 +208,7 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
         var selectedSettings = this.state.selectedSettings;
         var defaultMic = selectedSettings !== null && selectedSettings !== undefined ? inputData.indexOf(selectedSettings) : 0; //console.log(inputData);
 
-        list.push( /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+        list.push( /*#__PURE__*/React.createElement(DropdownMenu, {
           key: "dropdown-names",
           title: "",
           handleMenuItemClick: this.onClickSettingsSelection,
@@ -250,42 +216,60 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
           defaultValue: defaultMic,
           width: width,
           margin: margin,
-          tooltip: _constants.createSettings_from_repo_names_tooltip
+          tooltip: createSettings_from_repo_names_tooltip
         }));
       }
 
-      list.push( /*#__PURE__*/_react.default.createElement("div", {
+      list.push( /*#__PURE__*/React.createElement("div", {
         key: "buttons"
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        position: _constants.createSettings_mode_continue_tooltip.position,
-        title: _constants.createSettings_mode_continue_tooltip.title,
-        content: _constants.createSettings_mode_continue_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
+        position: createSettings_mode_continue_tooltip.position,
+        title: createSettings_mode_continue_tooltip.title,
+        content: createSettings_mode_continue_tooltip.content,
+        element: /*#__PURE__*/React.createElement(Button, {
           onClick: isDropzoneActive && fileLoaded && !fileLoading || !isDropzoneActive ? this.props.onClickConfirm : null,
           style: buttonStyle,
           size: "lg",
           disabled: isDropzoneActive && (!fileLoaded || fileLoading)
         }, isDropzoneActive && !fileLoaded && !fileLoading ? "Waiting for file" : isDropzoneActive && fileLoading ? "Loading file" : "Continue")
-      }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        position: _constants.back_tooltip.position,
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+      }), /*#__PURE__*/React.createElement(PopoverTooltip, {
+        position: back_tooltip.position,
+        title: back_tooltip.title,
+        content: back_tooltip.content,
+        element: /*#__PURE__*/React.createElement(Button, {
           onClick: this.props.onClickBack,
           style: buttonStyle,
           size: "lg"
         }, "Back")
       })));
-      return /*#__PURE__*/_react.default.createElement("div", {
-        style: windowExternalContainer
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: windowInternalContainer
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "100%",
+          height: "100%",
+          alignItems: "center"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "100%",
+          height: "100%",
+          alignItems: "center"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
         style: styleImageContainer
-      }, /*#__PURE__*/_react.default.createElement("img", {
+      }, /*#__PURE__*/React.createElement("img", {
         src: this.props.logoImg,
         alt: this.props.logoImg,
-        style: styleImage,
+        style: {
+          width: "100%",
+          height: "100%",
+          margin: "auto"
+        },
         onLoad: this.onImgLoad
       })), list));
     }
@@ -308,6 +292,6 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
   }]);
 
   return SettingLoader;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
-exports.default = SettingLoader;
+export { SettingLoader as default };

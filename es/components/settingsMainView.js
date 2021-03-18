@@ -1,29 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _settingComponentSelector = _interopRequireDefault(require("./settingComponentSelector"));
-
-var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
-
-var _planeView = _interopRequireDefault(require("./planeView"));
-
-var _channelView = _interopRequireDefault(require("./channelView"));
-
-var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
-var _uuid = require("uuid");
-
-var _constants = require("../constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -33,20 +8,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+import React from "react";
+import Button from "react-bootstrap/Button";
+import SettingComponentSelector from "./settingComponentSelector";
+import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
+import PlaneView from "./planeView";
+import ChannelView from "./channelView";
+import PopoverTooltip from "./popoverTooltip";
+import { v4 as uuidv4 } from "uuid";
 
 var validate = require("jsonschema").validate;
 
+import { bool_isDebug, bool_hasAdvanced, bool_hasExperimental, string_object, string_array, string_json_ext, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, edit_mic_table_settings, edit_sample_pos_settings, edit_obj_settings, edit_mic_settings, edit_img_env_settings, edit_channels, edit_planes, edit_channel } from "../constants";
 var schemas = ["Experiment.json", "Plane.json", "Channel.json", "TIRFSettings.json", //TIRFHardwareModule
 "ImagingEnvironment.json", //EnvironmentalControlDevice
 "MicroscopeStandSettings.json", //InvertedMicroscopeStand, UprightMicroscopeStand
@@ -108,7 +93,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
     if (props.settingSchemas !== undefined && props.settingSchemas !== null) {
       Object.keys(props.settingSchemas).forEach(function (schemaIndex) {
-        var uuid = (0, _uuid.v4)();
+        var uuid = uuidv4();
         var schema = props.settingSchemas[schemaIndex];
         var schema_id = schema.ID;
         _this.state.settingSchemas[schema_id] = schema;
@@ -131,12 +116,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
     if (props.experimentalSchemas !== undefined && props.experimentalSchemas !== null) {
       Object.keys(props.experimentalSchemas).forEach(function (schemaIndex) {
-        var uuid = (0, _uuid.v4)();
+        var uuid = uuidv4();
         var schema = props.experimentalSchemas[schemaIndex];
         var schema_id = schema.ID;
         _this.state.experimentalSchemas[schema_id] = schema;
 
-        if (schema_id === "Experiment.json" && _constants.bool_hasExperimental) {
+        if (schema_id === "Experiment.json" && bool_hasExperimental) {
           if (_this.state.experiment === null || _this.state.experiment === undefined) {
             var newElement = {
               Name: "".concat(schema.title),
@@ -280,7 +265,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
       var componentSchemas = this.state.componentSchemas;
       Object.keys(this.props.microscopeComponents).forEach(function (key) {
         var element = _this3.props.microscopeComponents[key];
-        var schemaID = element.Schema_ID.replace(_constants.string_json_ext, "");
+        var schemaID = element.Schema_ID.replace(string_json_ext, "");
         var itemSchema = componentSchemas[element.Schema_ID];
         var schemaCategory = itemSchema.category;
 
@@ -312,7 +297,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
       if (editingElement !== -1) {
         //let element = this.state.elementList[editingElement];
-        if (_constants.bool_isDebug) {//TODO debug stuff
+        if (bool_isDebug) {//TODO debug stuff
         }
 
         var obj = null;
@@ -353,9 +338,9 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         if (editingElement == elements.indexOf("planes")) {
-          return /*#__PURE__*/_react.default.createElement("div", {
+          return /*#__PURE__*/React.createElement("div", {
             style: styleMainContainer
-          }, /*#__PURE__*/_react.default.createElement(_planeView.default, {
+          }, /*#__PURE__*/React.createElement(PlaneView, {
             schema: schema,
             inputData: obj,
             id: editingElement,
@@ -364,7 +349,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             overlaysContainer: this.props.overlaysContainer
           }));
         } else if (editingElement == elements.indexOf("channels")) {
-          return /*#__PURE__*/_react.default.createElement(_channelView.default, {
+          return /*#__PURE__*/React.createElement(ChannelView, {
             settingSchemas: this.props.settingSchemas,
             componentSchemas: this.props.componentSchemas,
             experimentalSchemas: this.props.experimentalSchemas,
@@ -392,7 +377,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             maxNumberElement = 1;
           }
 
-          return /*#__PURE__*/_react.default.createElement(_settingComponentSelector.default, {
+          return /*#__PURE__*/React.createElement(SettingComponentSelector, {
             settingSchemas: this.props.settingSchemas,
             componentSchemas: this.props.componentSchemas,
             experimentalSchemas: this.props.experimentalSchemas,
@@ -411,9 +396,9 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             maxNumberElement: maxNumberElement
           });
         } else {
-          return /*#__PURE__*/_react.default.createElement("div", {
+          return /*#__PURE__*/React.createElement("div", {
             style: styleMainContainer
-          }, /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          }, /*#__PURE__*/React.createElement(MultiTabFormWithHeaderV3, {
             settings: this.props.settingSchemas,
             schema: schema,
             inputData: obj,
@@ -421,9 +406,9 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
             overlaysContainer: this.props.overlaysContainer,
-            currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
-            minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
-            maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+            currentChildrenComponentIdentifier: string_currentNumberOf_identifier,
+            minChildrenComponentIdentifier: string_minNumberOf_identifier,
+            maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
             elementByType: elementByType,
             editable: true
           }));
@@ -438,17 +423,6 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           // marginRight: "5px",
 
         };
-        var containerStyle = {
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          height: "100%"
-        };
-        var infoStyle = {
-          position: "absolute",
-          left: "10px",
-          top: "70px"
-        };
         var styleValidation = {
           position: "absolute",
           verticalAlign: "middle",
@@ -461,15 +435,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         var styleNotValidated = Object.assign({}, styleValidation, {
           color: "red"
         });
-
-        var isValid = /*#__PURE__*/_react.default.createElement("div", {
+        var isValid = /*#__PURE__*/React.createElement("div", {
           style: styleValidated
         }, "\u25CF");
-
-        var isInvalid = /*#__PURE__*/_react.default.createElement("div", {
+        var isInvalid = /*#__PURE__*/React.createElement("div", {
           style: styleNotValidated
         }, "\u25CF");
-
         var buttons = [];
         var _category = null;
         var disabled = false;
@@ -481,7 +452,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         if (localSettingInfo !== null && localSettingInfo !== undefined) {
           if (localSettingInfo.Name !== undefined && localSettingInfo.Name !== null) {
             settingsInfo.push("Image Name: ".concat(localSettingInfo.Name));
-            settingsInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+            settingsInfo.push( /*#__PURE__*/React.createElement("br", {
               key: "newline-1"
             }));
           }
@@ -491,14 +462,14 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
             if (pixels.SizeX !== null && pixels.SizeX !== undefined && pixels.SizeY !== null && pixels.SizeY !== undefined) {
               settingsInfo.push("Dimensions (XY): ".concat(pixels.SizeX, " x ").concat(pixels.SizeY));
-              settingsInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+              settingsInfo.push( /*#__PURE__*/React.createElement("br", {
                 key: "newline-2"
               }));
             }
 
             if (pixels.SizeC !== null && pixels.SizeC !== undefined && pixels.SizeT !== null && pixels.SizeT !== undefined && pixels.SizeZ !== null && pixels.SizeZ !== undefined) {
               settingsInfo.push("Dimensions (CTZ): ".concat(pixels.SizeC, " x ").concat(pixels.SizeT, " x ").concat(pixels.SizeZ));
-              settingsInfo.push( /*#__PURE__*/_react.default.createElement("br", {
+              settingsInfo.push( /*#__PURE__*/React.createElement("br", {
                 key: "newline-3"
               }));
             }
@@ -517,7 +488,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         var validated = null;
         var valid = null;
 
-        if (_constants.bool_hasExperimental) {
+        if (bool_hasExperimental) {
           validated = false;
 
           if (object !== null && object !== undefined && schemaHasProp) {
@@ -535,7 +506,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
           disabled = true;
           if (schemaHasProp) disabled = false;
-          buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
+          buttons.push( /*#__PURE__*/React.createElement(Button, {
             key: "Button-Experiment",
             onClick: function onClick() {
               return _this3.onClickEditSettings(elements.indexOf("exp"));
@@ -553,7 +524,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         schemaHasProp = false;
         if (_schema !== null && _schema !== undefined) schemaHasProp = Object.keys(_schema.properties).length > 0;
 
-        if (_constants.bool_hasAdvanced) {
+        if (bool_hasAdvanced) {
           validated = false;
 
           if (object !== null && object !== undefined && schemaHasProp) {
@@ -588,7 +559,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             var ele = elementByType[cat];
             if (ele !== null && ele !== undefined) disabled = false;
           }
-          buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
+          buttons.push( /*#__PURE__*/React.createElement(Button, {
             key: "Button-TIRF",
             onClick: function onClick() {
               return _this3.onClickEditSettings(elements.indexOf("tirfSettings"));
@@ -639,12 +610,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           var _ele = elementByType[_cat];
           if (_ele !== null && _ele !== undefined) disabled = false;
         }
-        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        buttons.push( /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipButton-ImgEnv",
-          position: _constants.edit_img_env_settings.position,
-          title: _constants.edit_img_env_settings.title,
-          content: _constants.edit_img_env_settings.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          position: edit_img_env_settings.position,
+          title: edit_img_env_settings.title,
+          content: edit_img_env_settings.content,
+          element: /*#__PURE__*/React.createElement(Button, {
             key: "Button-ImgEnv",
             onClick: function onClick() {
               return _this3.onClickEditSettings(elements.indexOf("imgEnv"));
@@ -694,12 +665,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           var _ele2 = elementByType[_cat2];
           if (_ele2 !== null && _ele2 !== undefined) disabled = false;
         }
-        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        buttons.push( /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipButton-MicTableSettings",
-          position: _constants.edit_mic_table_settings.position,
-          title: _constants.edit_mic_table_settings.title,
-          content: _constants.edit_mic_table_settings.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          position: edit_mic_table_settings.position,
+          title: edit_mic_table_settings.title,
+          content: edit_mic_table_settings.content,
+          element: /*#__PURE__*/React.createElement(Button, {
             key: "Button-MicTableSettings",
             onClick: function onClick() {
               return _this3.onClickEditSettings(elements.indexOf("micTableSettings"));
@@ -732,12 +703,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
         disabled = false;
         if (!schemaHasProp) disabled = true;
-        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        buttons.push( /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipButton-MicSettings",
-          position: _constants.edit_mic_settings.position,
-          title: _constants.edit_mic_settings.title,
-          content: _constants.edit_mic_settings.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          position: edit_mic_settings.position,
+          title: edit_mic_settings.title,
+          content: edit_mic_settings.content,
+          element: /*#__PURE__*/React.createElement(Button, {
             key: "Button-MicSettings",
             onClick: function onClick() {
               return _this3.onClickEditSettings(elements.indexOf("micSettings"));
@@ -790,12 +761,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           var _ele3 = elementByType[_cat3];
           if (_ele3 !== null && _ele3 !== undefined) disabled = false;
         }
-        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        buttons.push( /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipButton-ObjSettings",
-          position: _constants.edit_obj_settings.position,
-          title: _constants.edit_obj_settings.title,
-          content: _constants.edit_obj_settings.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          position: edit_obj_settings.position,
+          title: edit_obj_settings.title,
+          content: edit_obj_settings.content,
+          element: /*#__PURE__*/React.createElement(Button, {
             key: "Button-ObjSettings",
             onClick: function onClick() {
               return _this3.onClickEditSettings(elements.indexOf("objSettings"));
@@ -845,12 +816,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           var _ele4 = elementByType[_cat4];
           if (_ele4 !== null && _ele4 !== undefined) disabled = false;
         }
-        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        buttons.push( /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipButton-SamplePosSettings",
-          position: _constants.edit_sample_pos_settings.position,
-          title: _constants.edit_sample_pos_settings.title,
-          content: _constants.edit_sample_pos_settings.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          position: edit_sample_pos_settings.position,
+          title: edit_sample_pos_settings.title,
+          content: edit_sample_pos_settings.content,
+          element: /*#__PURE__*/React.createElement(Button, {
             key: "Button-SamplePosSettings",
             onClick: function onClick() {
               return _this3.onClickEditSettings(elements.indexOf("samplePosSettings"));
@@ -891,12 +862,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           }
         }
 
-        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        buttons.push( /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipButton-Planes",
-          position: _constants.edit_planes.position,
-          title: _constants.edit_planes.title,
-          content: _constants.edit_planes.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          position: edit_planes.position,
+          title: edit_planes.title,
+          content: edit_planes.content,
+          element: /*#__PURE__*/React.createElement(Button, {
             key: "Button-Planes",
             onClick: function onClick() {
               return _this3.onClickEditSettings(elements.indexOf("planes"));
@@ -944,12 +915,12 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           }
         }
 
-        buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        buttons.push( /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipButton-Channels",
-          position: _constants.edit_channels.position,
-          title: _constants.edit_channels.title,
-          content: _constants.edit_channels.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          position: edit_channels.position,
+          title: edit_channels.title,
+          content: edit_channels.content,
+          element: /*#__PURE__*/React.createElement(Button, {
             key: "Button-Channels",
             onClick: function onClick() {
               return _this3.onClickEditSettings(elements.indexOf("channels"));
@@ -958,11 +929,20 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             size: "lg"
           }, valid, "Edit Channels")
         }));
-        return /*#__PURE__*/_react.default.createElement("div", {
-          style: containerStyle
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: infoStyle
-        }, /*#__PURE__*/_react.default.createElement("p", null, settingsInfo)), /*#__PURE__*/_react.default.createElement("div", {
+        return /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            height: "100%"
+          }
+        }, /*#__PURE__*/React.createElement("div", {
+          style: {
+            position: "absolute",
+            left: "10px",
+            top: "70px"
+          }
+        }, /*#__PURE__*/React.createElement("p", null, settingsInfo)), /*#__PURE__*/React.createElement("div", {
           style: styleMainContainer
         }, buttons));
       }
@@ -970,6 +950,6 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
   }]);
 
   return SettingMainView;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
-exports.default = SettingMainView;
+export { SettingMainView as default };

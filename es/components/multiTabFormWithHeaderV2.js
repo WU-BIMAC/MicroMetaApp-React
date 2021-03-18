@@ -1,31 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _bootstrap = _interopRequireDefault(require("@rjsf/bootstrap-4"));
-
-var _rcTabs = _interopRequireWildcard(require("rc-tabs"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _reactSimpleTreeMenu = _interopRequireDefault(require("react-simple-tree-menu"));
-
-var _reactstrap = require("reactstrap");
-
-var _modalWindow = _interopRequireDefault(require("./modalWindow"));
-
-var _constants = require("../constants");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -35,17 +8,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -53,20 +26,31 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
+import React from "react";
+import Form from "@rjsf/bootstrap-4";
+import Tabs, { TabPane } from "rc-tabs"; // import TabContent from "rc-tabs/lib/TabContent";
+// import ScrollableTabBar from "rc-tabs/lib/TabBar";
+//import "rc-tabs/assets/index.css";
+
+import Button from "react-bootstrap/Button";
+import TreeMenu from "react-simple-tree-menu";
+import { ListGroupItem, ListGroup } from "reactstrap";
+import ModalWindow from "./modalWindow";
+import { string_na, string_not_assigned, string_default, string_enum, string_enumNames, string_object, string_array, string_bandpass_warning } from "../constants";
 var DEFAULT_PADDING = 16;
 var ICON_SIZE = 8;
 var LEVEL_SPACE = 16;
 
-var ToggleIcon = function ToggleIcon(_ref) {
+var ToggleIcon = function (_ref) {
   var on = _ref.on;
-  return /*#__PURE__*/_react.default.createElement("span", {
+  return /*#__PURE__*/React.createElement("span", {
     style: {
       marginRight: 8
     }
   }, on ? "-" : "+");
 };
 
-var ListItem = function ListItem(_ref2) {
+var ListItem = function (_ref2) {
   var _ref2$level = _ref2.level,
       level = _ref2$level === void 0 ? 0 : _ref2$level,
       hasNodes = _ref2.hasNodes,
@@ -79,7 +63,7 @@ var ListItem = function ListItem(_ref2) {
       focused = _ref2.focused,
       props = _objectWithoutProperties(_ref2, ["level", "hasNodes", "isOpen", "label", "searchTerm", "openNodes", "toggleNode", "matchSearch", "focused"]);
 
-  return /*#__PURE__*/_react.default.createElement(_reactstrap.ListGroupItem, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(ListGroupItem, _extends({}, props, {
     style: {
       paddingLeft: DEFAULT_PADDING + ICON_SIZE + level * LEVEL_SPACE,
       cursor: "pointer",
@@ -87,7 +71,7 @@ var ListItem = function ListItem(_ref2) {
       zIndex: focused ? 999 : "unset",
       position: "relative"
     }
-  }), hasNodes && /*#__PURE__*/_react.default.createElement("div", {
+  }), hasNodes && /*#__PURE__*/React.createElement("div", {
     style: {
       display: "inline-block"
     },
@@ -95,7 +79,7 @@ var ListItem = function ListItem(_ref2) {
       hasNodes && toggleNode && toggleNode();
       e.stopPropagation();
     }
-  }, /*#__PURE__*/_react.default.createElement(ToggleIcon, {
+  }, /*#__PURE__*/React.createElement(ToggleIcon, {
     on: isOpen
   })), label);
 };
@@ -229,7 +213,7 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
       console.log("IM HERE - createDataTree");
       if (schema === null) return;
       var key = schema.title;
-      var nodes = this.createDataTreeNodes(key, schemas, schema, -1, _constants.string_default);
+      var nodes = this.createDataTreeNodes(key, schemas, schema, -1, string_default);
       var dataTree = {};
       dataTree[key] = {
         label: key,
@@ -370,8 +354,7 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
       var currentChildrenComponents = this.state.currentChildrenComponents;
       var attrName = this.props.currentChildrenComponentIdentifier;
       Object.keys(currentChildrenComponents).forEach(function (key) {
-        var attr = attrName + key;
-        consolidatedData[attr] = currentChildrenComponents[key];
+        consolidatedData[attrName + key] = currentChildrenComponents[key];
       });
       var linkedFields = Object.assign({}, this.state.linkedFields);
       this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
@@ -485,7 +468,7 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createForm",
     value: function createForm(schema, uiSchema, input, index, currentFormRefs, currentButtonsRefs) {
-      return /*#__PURE__*/_react.default.createElement(_bootstrap.default, {
+      return /*#__PURE__*/React.createElement(Form, {
         schema: schema,
         uiSchema: uiSchema,
         onSubmit: this.onSubmit,
@@ -502,7 +485,7 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
         style: {
           overflow: "hidden"
         }
-      }, /*#__PURE__*/_react.default.createElement("button", {
+      }, /*#__PURE__*/React.createElement("button", {
         ref: function ref(btn) {
           if (index != -1) {
             currentButtonsRefs.splice(index, 0, btn);
@@ -529,7 +512,7 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
         var description = subCategoriesOrder[key];
         if (partialSchema[key] === undefined) return;
         partialSchema[key] = Object.assign(partialSchema[key], {
-          description
+          description: description
         });
         currentFormNames.splice(index, 0, key);
 
@@ -539,18 +522,18 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
       });
       var schemaKeys = Object.keys(partialSchema);
 
-      var _loop = function _loop(i) {
+      var _loop = function (i) {
         var key = schemaKeys[i];
         if (Object.keys(subCategoriesOrder).includes(key)) return "continue";
         var description = null;
-        Object.keys(subCategoriesOrder).forEach(function (subKey, index) {
+        Object.keys(subCategoriesOrder).forEach(function (subKey) {
           if (key.startsWith(subKey)) {
             description = subCategoriesOrder[subKey];
           }
         });
         if (description === null) description = "";
         partialSchema[key] = Object.assign(partialSchema[key], {
-          description
+          description: description
         });
         currentFormNames.push(key);
 
@@ -632,9 +615,9 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
         var maxChildren = maxChildrenComponents[key];
         var isMinDisabled = minChildren === currentChildren;
         var isMaxDisabled = maxChildren === currentChildren;
-        buttons.push( /*#__PURE__*/_react.default.createElement("div", {
+        buttons.push( /*#__PURE__*/React.createElement("div", {
           key: key
-        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, /*#__PURE__*/React.createElement(Button, {
           style: sideButtonLeftMargin,
           variant: isMinDisabled ? "secondary" : "danger",
           onClick: isMinDisabled ? null : function () {
@@ -642,12 +625,12 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
           },
           disabled: isMinDisabled,
           value: key
-        }, "-"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, "-"), /*#__PURE__*/React.createElement(Button, {
           style: buttonNoMargin,
           size: "lg",
           variant: "secondary",
           disabled: true
-        }, key, " : ", currentChildren), /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, key, " : ", currentChildren), /*#__PURE__*/React.createElement(Button, {
           style: sideButtonRightMargin,
           variant: isMaxDisabled ? "secondary" : "success",
           onClick: isMaxDisabled ? null : function () {
@@ -669,22 +652,6 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "5px",
         marginRight: "5px"
       };
-      var buttonContainerColumnExternal = {
-        display: "flex",
-        flexDirection: "column",
-        flexWap: "wrap",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100%"
-      };
-      var buttonContainerColumn = {
-        display: "flex",
-        flexDirection: "column",
-        flexWap: "wrap",
-        justifyContent: "center",
-        alignItems: "center"
-      };
       var buttonContainerRow = {
         display: "flex",
         flexDirection: "row",
@@ -698,24 +665,38 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
       var childrenButtons = this.createChildrenComponentsButton();
 
       if (!showForm) {
-        var _multiTabForm = /*#__PURE__*/_react.default.createElement("div", {
-          style: buttonContainerColumnExternal
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: buttonContainerColumn
-        }, childrenButtons), /*#__PURE__*/_react.default.createElement("div", {
+        var _multiTabForm = /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            flexWap: "wrap",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%"
+          }
+        }, /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            flexDirection: "column",
+            flexWap: "wrap",
+            justifyContent: "center",
+            alignItems: "center"
+          }
+        }, childrenButtons), /*#__PURE__*/React.createElement("div", {
           style: buttonContainerRow
-        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, /*#__PURE__*/React.createElement(Button, {
           style: button,
           size: "lg",
           onClick: this.onEditComponentsConfirm
-        }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, "Confirm"), /*#__PURE__*/React.createElement(Button, {
           style: button,
           size: "lg",
           onClick: this.onEditComponentsCancel
         }, "Cancel")));
 
         if (this.props.modalContainer) {
-          return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+          return /*#__PURE__*/React.createElement(ModalWindow, {
             overlaysContainer: this.props.overlaysContainer
           }, _multiTabForm);
         } else {
@@ -735,7 +716,7 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (forms !== null && forms !== undefined) {
         tabs = forms.map(function (item, index) {
-          return /*#__PURE__*/_react.default.createElement(_rcTabs.TabPane, {
+          return /*#__PURE__*/React.createElement(TabPane, {
             tab: names[index],
             key: index,
             forceRender: true
@@ -756,30 +737,20 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
-      var style = {
-        display: "flex",
-        flexFlow: "row"
-      };
-      var tabsStyle = {
-        overflow: "auto"
-      };
-      var treeStyle = {
-        marginRight: "10px"
-      };
       var buttons = null;
-      if (this.props.modalContainer) buttons = /*#__PURE__*/_react.default.createElement("div", {
+      if (this.props.modalContainer) buttons = /*#__PURE__*/React.createElement("div", {
         style: buttonContainerRow
-      }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+      }, /*#__PURE__*/React.createElement(Button, {
         style: button,
         size: "lg",
         variant: !hasEditableChildren ? "secondary" : "primary",
         onClick: !hasEditableChildren ? null : this.onEditComponents,
         disabled: !hasEditableChildren
-      }, "Add/Remove band-pass"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+      }, "Add/Remove band-pass"), /*#__PURE__*/React.createElement(Button, {
         style: button,
         size: "lg",
         onClick: this.onConfirm
-      }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+      }, "Confirm"), /*#__PURE__*/React.createElement(Button, {
         style: button,
         size: "lg",
         onClick: this.onCancel
@@ -787,12 +758,16 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
 
       var title = null;
       if (this.props.schema !== null) title = this.props.schema.title;
-
-      var multiTabForm = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, title), /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement("div", {
-        style: style
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: treeStyle
-      }, /*#__PURE__*/_react.default.createElement(_reactSimpleTreeMenu.default, {
+      var multiTabForm = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, title), /*#__PURE__*/React.createElement("p", null, hasEditableChildren ? string_bandpass_warning : ""), /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          flexFlow: "row"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          marginRight: "10px"
+        }
+      }, /*#__PURE__*/React.createElement(TreeMenu, {
         data: this.dataTree,
         onClickItem: function onClickItem(_ref3) {
           var key = _ref3.key,
@@ -813,12 +788,14 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
       }, function (_ref4) {
         var search = _ref4.search,
             items = _ref4.items;
-        return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactstrap.ListGroup, null, items.map(function (props) {
-          return /*#__PURE__*/_react.default.createElement(ListItem, props);
+        return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ListGroup, null, items.map(function (props) {
+          return /*#__PURE__*/React.createElement(ListItem, props);
         })));
-      })), /*#__PURE__*/_react.default.createElement("div", {
-        style: tabsStyle
-      }, /*#__PURE__*/_react.default.createElement(_rcTabs.default, {
+      })), /*#__PURE__*/React.createElement("div", {
+        style: {
+          overflow: "auto"
+        }
+      }, /*#__PURE__*/React.createElement(Tabs, {
         onChange: this.onTabChange // renderTabBar={() => <ScrollableTabBar />}
         // renderTabContent={() => <TabContent animatedWithMargin />}
         ,
@@ -826,7 +803,7 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
       }, tabs))), buttons);
 
       if (this.props.modalContainer) {
-        return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+        return /*#__PURE__*/React.createElement(ModalWindow, {
           overlaysContainer: this.props.overlaysContainer
         }, multiTabForm, ";");
       } else {
@@ -837,7 +814,7 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
     key: "getDerivedStateFromProps",
     value: function getDerivedStateFromProps(props, state) {
       return {
-        state
+        state: state
       };
     }
   }, {
@@ -906,7 +883,7 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
       Object.keys(schema.properties).forEach(function (key) {
         var property = schema.properties[key];
 
-        if (property.type === _constants.string_object) {
+        if (property.type === string_object) {
           var count = 0;
 
           for (var inputKey in currentChildrenComponents) {
@@ -917,12 +894,12 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
           }
 
           for (var i = 0; i < count; i++) {
-            var localPartialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, _constants.string_object, linkedFields);
+            var localPartialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, string_object, linkedFields);
             partialSchema = Object.assign(partialSchema, localPartialSchema);
           }
 
           return;
-        } else if (property.type === _constants.string_array) {
+        } else if (property.type === string_array) {
           var _count = 0;
 
           for (var _inputKey in currentChildrenComponents) {
@@ -933,7 +910,7 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
           }
 
           for (var _i = 0; _i < _count; _i++) {
-            var _localPartialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, _i, _constants.string_array, linkedFields);
+            var _localPartialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, _i, string_array, linkedFields);
 
             partialSchema = Object.assign(partialSchema, _localPartialSchema);
           }
@@ -949,7 +926,7 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
         if (keysForCategory === undefined || keysForCategory === null) {
           keysForCategory = {
             title: newCategory,
-            type: _constants.string_object,
+            type: string_object,
             subType: subType,
             container: category,
             counter: counter,
@@ -960,9 +937,9 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
         var newProperty = Object.assign({}, property);
 
         if (property.linkTo !== undefined) {
-          newProperty[_constants.string_default] = _constants.string_na;
-          newProperty[_constants.string_enum] = [_constants.string_na];
-          newProperty[_constants.string_enumNames] = [_constants.string_not_assigned];
+          newProperty[string_default] = string_na;
+          newProperty[string_enum] = [string_na];
+          newProperty[string_enumNames] = [string_not_assigned];
 
           if (elementByType[property.linkTo] !== undefined) {
             var propElementByType = elementByType[property.linkTo];
@@ -970,16 +947,14 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
             if (linkedFields[key] === undefined) {
               linkedFields[key] = {
                 schemaType: property.linkTo,
-                value: _constants.string_not_assigned
+                value: string_not_assigned
               };
             }
 
             Object.keys(propElementByType).forEach(function (propElementByTypeName) {
               var propElementByTypeID = propElementByType[propElementByTypeName];
-
-              newProperty[_constants.string_enum].push(property.linkTo + "/" + propElementByTypeID);
-
-              newProperty[_constants.string_enumNames].push(propElementByTypeName);
+              newProperty[string_enum].push(property.linkTo + "/" + propElementByTypeID);
+              newProperty[string_enumNames].push(propElementByTypeName);
             });
           }
         }
@@ -1003,16 +978,16 @@ var MultiTabFormWithHeaderV2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "transformSchema",
     value: function transformSchema(currentChildrenComponents, schema, elementByType, linkedFields) {
-      var partialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, _constants.string_default, linkedFields);
+      var partialSchema = MultiTabFormWithHeaderV2.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, string_default, linkedFields);
       return partialSchema;
     }
   }]);
 
   return MultiTabFormWithHeaderV2;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 /**
  * @todo Own file.
  */
 
 
-exports.default = MultiTabFormWithHeaderV2;
+export { MultiTabFormWithHeaderV2 as default };

@@ -1,27 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _Dropdown = _interopRequireDefault(require("react-bootstrap/Dropdown"));
-
-var _ButtonGroup = _interopRequireDefault(require("react-bootstrap/ButtonGroup"));
-
-var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
-
-var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
-
-var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
-var _constants = require("../constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -31,19 +8,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+import React from "react";
+import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
+import ButtonGroup from "react-bootstrap/ButtonGroup"; //import MultiTabFormWithHeader from "./multiTabFormWithHeader";
+
+import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
+import DropdownMenu from "./dropdownMenu";
+import PopoverTooltip from "./popoverTooltip";
 
 var url = require("url");
+
+import { bool_isDebug, string_validationTier, edit_microscope_tooltip, edit_setting_tooltip, validation_microscope_tooltip, validation_setting_tooltip, save_microscope_tooltip, save_setting_tooltip, back_tooltip } from "../constants";
 
 var Footer = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(Footer, _React$PureComponent);
@@ -101,7 +89,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       var height = this.props.dimensions.height;
 
       if (this.state.editing) {
-        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+        return /*#__PURE__*/React.createElement(MultiTabFormWithHeaderV3, {
           title: "Edit " + this.props.formTitle //schemas={this.props.componentSchemas}
           ,
           schema: this.props.schema,
@@ -115,18 +103,6 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         });
       }
 
-      var style = {
-        backgroundColor: "LightGray",
-        width: width,
-        height: height,
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "row",
-        flexWap: "wrap",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "5px"
-      };
       var styleButton = {
         width: "250px",
         minWidth: "250px",
@@ -146,7 +122,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         var styleValidated = Object.assign({}, styleValidation, {
           color: "green"
         });
-        validated = /*#__PURE__*/_react.default.createElement("div", {
+        validated = /*#__PURE__*/React.createElement("div", {
           style: styleValidated
         }, "\u25CF");
       } else {
@@ -154,28 +130,28 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
           color: "red"
         });
 
-        validated = /*#__PURE__*/_react.default.createElement("div", {
+        validated = /*#__PURE__*/React.createElement("div", {
           style: _styleValidated
         }, "\u25CF");
       }
 
-      var editTooltip = _constants.edit_microscope_tooltip;
-      var validationTooltip = _constants.validation_microscope_tooltip;
-      var saveTooltip = _constants.save_microscope_tooltip;
+      var editTooltip = edit_microscope_tooltip;
+      var validationTooltip = validation_microscope_tooltip;
+      var saveTooltip = save_microscope_tooltip;
 
       if (this.props.element === "image settings") {
-        editTooltip = _constants.edit_setting_tooltip;
-        validationTooltip = _constants.validation_setting_tooltip;
-        saveTooltip = _constants.save_setting_tooltip;
+        editTooltip = edit_setting_tooltip;
+        validationTooltip = validation_setting_tooltip;
+        saveTooltip = save_setting_tooltip;
       }
 
       var buttons = [];
-      buttons[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      buttons[0] = /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-0",
         position: editTooltip.position,
         title: editTooltip.title,
         content: editTooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+        element: /*#__PURE__*/React.createElement(Button, {
           key: "Button-0",
           onClick: this.onClickEdit,
           style: styleButton,
@@ -189,9 +165,9 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var defaultValidationTier = this.props.validationTier - 1;
-      buttons[1] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+      buttons[1] = /*#__PURE__*/React.createElement(DropdownMenu, {
         key: "Button-1",
-        title: _constants.string_validationTier,
+        title: string_validationTier,
         handleMenuItemClick: this.onClickChangeValidation,
         inputData: inputData,
         width: 250,
@@ -209,7 +185,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
 
       saveOptions.push("Export " + this.props.element); //Rethink this, maybe drop down split button with multi actions?
 
-      buttons[2] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+      buttons[2] = /*#__PURE__*/React.createElement(DropdownMenu, {
         key: "Button-2",
         title: "",
         handleMenuItemClick: this.props.onClickSave,
@@ -219,25 +195,36 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         direction: "up",
         tooltip: saveTooltip
       });
-      buttons[3] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      buttons[3] = /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-3",
-        position: _constants.back_tooltip.position,
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+        position: back_tooltip.position,
+        title: back_tooltip.title,
+        content: back_tooltip.content,
+        element: /*#__PURE__*/React.createElement(Button, {
           key: "Button-3",
           onClick: this.props.onClickBack,
           style: styleButton,
           size: "lg"
         }, "Back")
       });
-      return /*#__PURE__*/_react.default.createElement("div", {
-        style: style
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          backgroundColor: "LightGray",
+          width: width,
+          height: height,
+          boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "row",
+          flexWap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "5px"
+        }
       }, buttons);
     }
   }]);
 
   return Footer;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
-exports.default = Footer;
+export { Footer as default };

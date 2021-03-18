@@ -1,10 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.register = register;
-exports.unregister = unregister;
 // This optional code is used to register a service worker.
 // register() is not called by default.
 // This lets the app load faster on subsequent visits in production, and gives
@@ -17,8 +10,7 @@ exports.unregister = unregister;
 var isLocalhost = Boolean(window.location.hostname === "localhost" || // [::1] is the IPv6 localhost address.
 window.location.hostname === "[::1]" || // 127.0.0.1/8 is considered localhost for IPv4.
 window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/));
-
-function register(config) {
+export function register(config) {
   if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
     // The URL constructor is available in all browsers that support SW.
     var publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
@@ -82,7 +74,7 @@ function registerValidSW(swUrl, config) {
         }
       };
     };
-  }).catch(function (error) {
+  })["catch"](function (error) {
     console.error("Error during service worker registration:", error);
   });
 }
@@ -104,12 +96,12 @@ function checkValidServiceWorker(swUrl, config) {
       // Service worker found. Proceed as normal.
       registerValidSW(swUrl, config);
     }
-  }).catch(function () {
+  })["catch"](function () {
     console.log("No internet connection found. App is running in offline mode.");
   });
 }
 
-function unregister() {
+export function unregister() {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.ready.then(function (registration) {
       registration.unregister();

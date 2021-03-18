@@ -1,31 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _reactArcher = require("react-archer");
-
-var _modalWindow = _interopRequireDefault(require("./modalWindow"));
-
-var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
-var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
-
-var _url = require("url");
-
-var _uuid = require("uuid");
-
-var _constants = require("../constants");
-
-var _propTypes = require("prop-types");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -35,21 +8,33 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+import React from "react";
+import Button from "react-bootstrap/Button";
+import { ArcherContainer, ArcherElement } from "react-archer";
+import ModalWindow from "./modalWindow";
+import PopoverTooltip from "./popoverTooltip";
+import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
+import { pathToFileURL } from "url";
+import { v4 as uuidv4 } from "uuid";
 
 var url = require("url");
 
 var validate = require("jsonschema").validate;
+
+import { bool_isDebug, string_na, string_object, string_array, string_json_ext, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, number_canvas_element_icons_height, channelPath_Additional_1, channelPath_Additional_2, channelPath_Additional_3_4_5_6, channelPath_Additional_7, channelPath_Additional_8, channelPath_Excitation, channelPath_Dichroic, channelPath_Emission, channelPath_LightSource, channelPath_Detector, channelPath_RelayLens, channelPath_CouplingLens, channelPath_LightSourceCoupling, channelPath_Objective, select_lightSource, select_couplingLens, select_lightSourceCoupling, select_relayLens, select_detector, select_excitation, select_dichroic, select_emission, select_additional_left, select_additional_right, edit_channel_settings } from "../constants";
+import { bool } from "prop-types";
 
 var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(ChannelCanvas_V2, _React$PureComponent);
@@ -116,8 +101,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 _this.state.slots[slot] = partialSlots;
               }
             } else {
-              var _settingData = settingDatas;
-              var _compID = _settingData.Component_ID;
+              var _compID = settingDatas.Component_ID;
               _this.state.slots[slot] = components[_compID];
             }
           }
@@ -330,7 +314,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "onInnerElementDataSave",
-    value: function onInnerElementDataSave(id, data) {
+    value: function onInnerElementDataSave() {
       var selectedComp = this.state.selectedComp;
       var selectedSchema = this.state.selectedSchema;
       var selectedSlot = this.state.selectedSlot;
@@ -373,10 +357,10 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           }
 
           slots[selectedSlot] = selectedComp;
-          var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
+          var settingsName = selectedSchema.modelSettings + string_json_ext;
           var currentSchema = settingsSchemas[settingsName];
           var settingCompData = null;
-          var uuid = (0, _uuid.v4)();
+          var uuid = uuidv4();
 
           if (selectedSchema.modelSettings === "NA") {
             settingCompData = {
@@ -396,7 +380,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           }
 
           if (selectedComp.Schema_ID === "Objective.json") {
-            var uuid2 = (0, _uuid.v4)();
+            var uuid2 = uuidv4();
             var immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
 
             if (settingCompData.ImmersionLiquid !== null || settingCompData.ImmersionLiquid !== undefined) {
@@ -460,14 +444,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           });
         }
       } else {
-        var currentChannelData = data;
         var currentLightPath = data.LightPath;
         var currentFluorophore = data.Fluorophore;
         var objects = this.state.channelData.slice();
         var oldChannelData = Object.assign({}, objects[0]);
         var oldLightPath = Object.assign({}, objects[1]);
         var oldFluorophore = Object.assign({}, objects[2]);
-        var newChannelData = Object.assign(oldChannelData, currentChannelData);
+        var newChannelData = Object.assign(oldChannelData, data);
         var newLightPath = Object.assign(oldLightPath, currentLightPath);
         var newFluorophore = Object.assign(oldFluorophore, currentFluorophore);
         newChannelData.LightPath = newLightPath;
@@ -508,14 +491,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleDeleteComp",
     value: function handleDeleteComp(selectedSlot, index) {
-      var i = index;
-
       if (selectedSlot.includes("AdditionalSlot_")) {
         var tmpSlots = this.state.tmpSlots.slice();
-        tmpSlots.splice(i, 1);
-        var newTmpSlots = tmpSlots;
+        tmpSlots.splice(index, 1);
         this.setState({
-          tmpSlots: newTmpSlots
+          tmpSlots: tmpSlots
         });
       } else {
         var slots = Object.assign({}, this.state.slots);
@@ -587,9 +567,9 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
           var tmpSlots = this.state.tmpSlots.slice();
           tmpSlots.push(selectedComp);
-          var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
+          var settingsName = selectedSchema.modelSettings + string_json_ext;
           var currentSchema = settingsSchemas[settingsName];
-          var uuid = (0, _uuid.v4)();
+          var uuid = uuidv4();
           var settingCompData = null;
 
           if (selectedSchema.modelSettings === "NA") {
@@ -653,14 +633,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_lightSource",
     value: function handleClick_lightSource() {
-      var category = _constants.channelPath_LightSource;
       var selectedSlot = "LightSource";
       var slots = this.state.slots;
       var comp = null;
       if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
-        category: category,
+        category: channelPath_LightSource,
         selectedSlot: selectedSlot,
         selectedComp: comp
       });
@@ -668,14 +647,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_detector",
     value: function handleClick_detector() {
-      var category = _constants.channelPath_Detector;
       var selectedSlot = "Detector";
       var slots = this.state.slots;
       var comp = null;
       if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
-        category: category,
+        category: channelPath_Detector,
         selectedSlot: selectedSlot,
         selectedComp: comp
       });
@@ -683,14 +661,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_couplingLens",
     value: function handleClick_couplingLens() {
-      var category = _constants.channelPath_CouplingLens;
       var selectedSlot = "CouplingLens";
       var slots = this.state.slots;
       var comp = null;
       if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
-        category: category,
+        category: channelPath_CouplingLens,
         selectedSlot: selectedSlot,
         selectedComp: comp
       });
@@ -698,14 +675,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_relayLens",
     value: function handleClick_relayLens() {
-      var category = _constants.channelPath_RelayLens;
       var selectedSlot = "RelayLens";
       var slots = this.state.slots;
       var comp = null;
       if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
-        category: category,
+        category: channelPath_RelayLens,
         selectedSlot: selectedSlot,
         selectedComp: comp
       });
@@ -713,14 +689,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_lightSourceCoupling",
     value: function handleClick_lightSourceCoupling() {
-      var category = _constants.channelPath_LightSourceCoupling;
       var selectedSlot = "LightSourceCoupling";
       var slots = this.state.slots;
       var comp = null;
       if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
-        category: category,
+        category: channelPath_LightSourceCoupling,
         selectedSlot: selectedSlot,
         selectedComp: comp
       });
@@ -728,14 +703,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_excitation",
     value: function handleClick_excitation() {
-      var category = _constants.channelPath_Excitation;
       var selectedSlot = "ExcitationFilter";
       var slots = this.state.slots;
       var comp = null;
       if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
-        category: category,
+        category: channelPath_Excitation,
         selectedSlot: selectedSlot,
         selectedComp: comp
       });
@@ -743,14 +717,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_dichroic",
     value: function handleClick_dichroic() {
-      var category = _constants.channelPath_Dichroic;
       var selectedSlot = "Dichroic";
       var slots = this.state.slots;
       var comp = null;
       if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
-        category: category,
+        category: channelPath_Dichroic,
         selectedSlot: selectedSlot,
         selectedComp: comp
       });
@@ -758,14 +731,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_emission",
     value: function handleClick_emission() {
-      var category = _constants.channelPath_Emission;
       var selectedSlot = "EmissionFilter";
       var slots = this.state.slots;
       var comp = null;
       if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
-        category: category,
+        category: channelPath_Emission,
         selectedSlot: selectedSlot,
         selectedComp: comp
       });
@@ -773,14 +745,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleClick_objective",
     value: function handleClick_objective() {
-      var category = _constants.channelPath_Objective;
       var selectedSlot = "Objective";
       var slots = this.state.slots;
       var comp = null;
       if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) comp = slots[selectedSlot];
       this.setState({
         editing: true,
-        category: category,
+        category: channelPath_Objective,
         selectedSlot: selectedSlot,
         selectedComp: comp
       });
@@ -790,13 +761,12 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     value: function createAddButton(buttonStyle, addButtonImage, addButtonImageStyle, index, category, isEnabled) {
       var _this2 = this;
 
-      var image = /*#__PURE__*/_react.default.createElement("img", {
+      var image = /*#__PURE__*/React.createElement("img", {
         src: addButtonImage + (addButtonImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
         alt: "Add",
         style: addButtonImageStyle
       });
-
-      if (isEnabled) return /*#__PURE__*/_react.default.createElement("button", {
+      if (isEnabled) return /*#__PURE__*/React.createElement("button", {
         style: buttonStyle,
         onClick: function onClick() {
           return _this2.handleClick_additionalItemButton(category, index);
@@ -805,7 +775,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var buttStyle = Object.assign({}, buttonStyle, {
         border: "none"
       });
-      return /*#__PURE__*/_react.default.createElement("button", {
+      return /*#__PURE__*/React.createElement("button", {
         style: buttStyle,
         disabled: true
       }, image, "Add additional element(s)");
@@ -833,15 +803,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         width: "80px",
         margin: "auto"
       };
-      var modalGridContainer = {
-        display: "flex",
-        flexDirection: "column",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        width: "100%",
-        height: "100%",
-        alignItems: "center"
-      };
       var modalGridPanel = {
         display: "flex",
         flexDirection: "row",
@@ -850,46 +811,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "90%",
         alignItems: "left"
-      };
-      var modalGrid = {
-        display: "flex",
-        flexDirection: "column",
-        //flexWrap: "wrap",
-        justifyContent: "flex-start",
-        overflow: "auto",
-        width: "20%",
-        height: "100%",
-        maxHeight: "100%" //alignItems: "center",
-
-      };
-      var modalTopListContainer = {
-        display: "flex",
-        flexDirection: "column",
-        //flexWrap: "wrap",
-        justifyContent: "space-evenly",
-        overflow: "auto",
-        height: "250px",
-        maxHeight: "250px",
-        alignItems: "center"
-      };
-      var modalTopList = {
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "space-evenly",
-        alignItems: "center"
-      };
-      var multiTab = {
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        overflow: "auto",
-        maxHeight: "100%",
-        minWidth: "70%",
-        justifyContent: "flex-start",
-        width: "70%",
-        alignItems: "left",
-        marginLeft: "10px"
       };
       var buttonStyle = {
         textAlign: "center",
@@ -905,13 +826,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         color: "inherit",
         cursor: "pointer"
       };
-      var fontSize = _constants.number_canvas_element_icons_height + 2;
-      var grabberCloserSize = _constants.number_canvas_element_icons_height;
       var styleCloser = {
-        lineHeight: "".concat(grabberCloserSize, "px"),
+        lineHeight: "".concat(number_canvas_element_icons_height, "px"),
         padding: "0px",
         border: "none",
-        fontSize: "".concat(fontSize, "px"),
+        fontSize: "".concat(number_canvas_element_icons_height + 2, "px"),
         backgroundColor: "transparent",
         cursor: "pointer",
         color: "grey",
@@ -959,23 +878,18 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var styleNotValidated2 = Object.assign({}, styleValidation2, {
         color: "red"
       });
-
-      var isValid = /*#__PURE__*/_react.default.createElement("div", {
+      var isValid = /*#__PURE__*/React.createElement("div", {
         style: styleValidated
       }, "\u25CF");
-
-      var isInvalid = /*#__PURE__*/_react.default.createElement("div", {
+      var isInvalid = /*#__PURE__*/React.createElement("div", {
         style: styleNotValidated
       }, "\u25CF");
-
-      var isValid2 = /*#__PURE__*/_react.default.createElement("div", {
+      var isValid2 = /*#__PURE__*/React.createElement("div", {
         style: styleValidated2
       }, "\u25CF");
-
-      var isInvalid2 = /*#__PURE__*/_react.default.createElement("div", {
+      var isInvalid2 = /*#__PURE__*/React.createElement("div", {
         style: styleNotValidated2
       }, "\u25CF");
-
       var channelData = this.state.channelData;
       var settingData = this.state.settingData;
       var slots = this.state.slots;
@@ -1015,7 +929,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.state.editing) {
         if (this.state.editingSettings) {
-          var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
+          var settingsName = selectedSchema.modelSettings + string_json_ext;
           var settings = null;
           var comp = null;
           var id = null;
@@ -1050,30 +964,30 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             comp = _settingCompData;
           }
 
-          return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          return /*#__PURE__*/React.createElement(MultiTabFormWithHeaderV3, {
             schema: settings,
             inputData: comp,
             id: id,
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
             overlaysContainer: this.props.overlaysContainer,
-            currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
-            minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
-            maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+            currentChildrenComponentIdentifier: string_currentNumberOf_identifier,
+            minChildrenComponentIdentifier: string_minNumberOf_identifier,
+            maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
             elementByType: this.props.elementByType,
             editable: editable
           });
         } else if (this.state.category === null) {
-          return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          return /*#__PURE__*/React.createElement(MultiTabFormWithHeaderV3, {
             schema: this.props.schema,
             inputData: channelData,
             id: this.props.id,
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
             overlaysContainer: this.props.overlaysContainer,
-            currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
-            minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
-            maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+            currentChildrenComponentIdentifier: string_currentNumberOf_identifier,
+            minChildrenComponentIdentifier: string_minNumberOf_identifier,
+            maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
             elementByType: this.props.elementByType,
             editable: true
           });
@@ -1086,7 +1000,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             if (compSchema === null) return;
             var compSchemaCategory = compSchema.category;
 
-            if (_this3.state.category.includes(schema_id.replace(_constants.string_json_ext, "")) || _this3.state.category.includes(compSchemaCategory) || _this3.state.category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
+            if (_this3.state.category.includes(schema_id.replace(string_json_ext, "")) || _this3.state.category.includes(compSchemaCategory) || _this3.state.category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
               if (selectedSlot.includes("AdditionalSlot_")) {
                 var items = _this3.state.tmpSlots;
                 var found = false;
@@ -1098,13 +1012,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               }
 
               var compImage = url.resolve(_this3.props.imagesPath, compSchema.image);
-
-              var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
+              var compItemImage = /*#__PURE__*/React.createElement("img", {
                 src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
                 alt: comp.Name,
                 style: regularImageStyle
               });
-
               var buttonStyleModified = null;
 
               if (comp === selectedComp) {
@@ -1115,14 +1027,13 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 buttonStyleModified = buttonStyle;
               }
 
-              var compButton = /*#__PURE__*/_react.default.createElement("button", {
+              var compButton = /*#__PURE__*/React.createElement("button", {
                 key: "button-" + comp.Name,
                 style: buttonStyleModified,
                 onClick: function onClick() {
                   return _this3.handleSelectComp(comp);
                 }
               }, compItemImage, comp.Name);
-
               itemList.push(compButton);
             }
           });
@@ -1144,13 +1055,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               var compSchema = compSchemas[schema_id];
               if (compSchema === null) return;
               var compImage = url.resolve(_this3.props.imagesPath, compSchema.image);
-
-              var compItemImage = /*#__PURE__*/_react.default.createElement("img", {
+              var compItemImage = /*#__PURE__*/React.createElement("img", {
                 src: compImage + (compImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
                 alt: comp.Name,
                 style: regularImageStyle
               });
-
               var buttonStyleModified = null;
 
               if (comp === selectedComp) {
@@ -1166,34 +1075,20 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 buttonStyleModified = buttonStyle;
               }
 
-              var valid = null;
-              var schemaHasProp = false;
-
               if (settingDataSlot !== null && settingDataSlot !== undefined) {
                 var settingDataObj = settingDataSlot[compIndex];
 
                 if (settingDataObj !== null && settingDataObj !== undefined) {
                   var _schema4 = settingsSchemas[settingDataObj.Schema_ID];
 
-                  if (_schema4 !== null && _schema4 !== undefined) {
-                    if (schemaHasProp) {
-                      var validation = validate(settingDataObj, _schema4);
-                      var validated = validation.valid;
-
-                      if (validated) {
-                        valid = isValid2;
-                      } else {
-                        valid = isInvalid2;
-                      }
-                    }
-                  }
+                  if (_schema4 !== null && _schema4 !== undefined) {}
                 }
               }
 
               var butt = null;
 
-              if (compSchema.modelSettings !== "NA" && schemaHasProp) {
-                butt = /*#__PURE__*/_react.default.createElement("button", {
+              if (compSchema.modelSettings !== "NA" && false) {
+                butt = /*#__PURE__*/React.createElement("button", {
                   key: "button-" + comp.Name,
                   style: buttonStyleModified,
                   onClick: function onClick() {
@@ -1201,22 +1096,22 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                   }
                 }, compItemImage, comp.Name);
               } else {
-                butt = /*#__PURE__*/_react.default.createElement("button", {
+                butt = /*#__PURE__*/React.createElement("button", {
                   key: "button-" + comp.Name,
                   style: buttonStyleModified
                 }, compItemImage, comp.Name);
               }
 
               var len = slotList.length;
-              slotList.push( /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+              slotList.push( /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
                 style: styleIcons
-              }, /*#__PURE__*/_react.default.createElement("button", {
+              }, /*#__PURE__*/React.createElement("button", {
                 type: "button",
                 onClick: function onClick() {
                   return _this3.handleDeleteComp(selectedSlot, len);
                 },
                 style: styleCloser
-              }, "x"), valid), butt));
+              }, "x"), null), butt));
             });
             var arrowedSlotList = [];
 
@@ -1230,38 +1125,51 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               }
 
               var id1 = "button" + _i4;
-              var id2 = "button" + nextIndex;
               var relations = [];
 
               if (hasConnection) {
                 relations = [{
-                  targetId: "".concat(id2),
+                  targetId: "".concat("button" + nextIndex),
                   targetAnchor: "left",
                   sourceAnchor: "right"
                 }];
               }
 
-              var arrowItem = /*#__PURE__*/_react.default.createElement("div", {
+              var arrowItem = /*#__PURE__*/React.createElement("div", {
                 key: id1,
                 style: {
                   marginLeft: "20px",
                   marginRight: "20px"
                 }
-              }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+              }, /*#__PURE__*/React.createElement(ArcherElement, {
                 key: "arrowItem" + id1,
                 id: id1,
                 relations: relations
               }, button1));
-
               arrowedSlotList.push(arrowItem);
             }
 
-            topItems = /*#__PURE__*/_react.default.createElement("div", {
-              style: modalTopListContainer
-            }, /*#__PURE__*/_react.default.createElement("h5", null, "Current components in this slot"), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherContainer, {
+            topItems = /*#__PURE__*/React.createElement("div", {
+              style: {
+                display: "flex",
+                flexDirection: "column",
+                //flexWrap: "wrap",
+                justifyContent: "space-evenly",
+                overflow: "auto",
+                height: "250px",
+                maxHeight: "250px",
+                alignItems: "center"
+              }
+            }, /*#__PURE__*/React.createElement("h5", null, "Current components in this slot"), /*#__PURE__*/React.createElement(ArcherContainer, {
               strokeColor: "red"
-            }, /*#__PURE__*/_react.default.createElement("div", {
-              style: modalTopList
+            }, /*#__PURE__*/React.createElement("div", {
+              style: {
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                justifyContent: "space-evenly",
+                alignItems: "center"
+              }
             }, arrowedSlotList)));
             Object.assign(modalGridPanel, {
               height: "60%"
@@ -1270,38 +1178,67 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           }
 
           var multiTabPanel = null;
-          if (selectedComp !== null && selectedComp !== undefined) multiTabPanel = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          if (selectedComp !== null && selectedComp !== undefined) multiTabPanel = /*#__PURE__*/React.createElement(MultiTabFormWithHeaderV3, {
             schema: selectedSchema,
             inputData: selectedComp,
             id: selectedComp.ID,
             onConfirm: confirmCallback,
             onCancel: null,
             overlaysContainer: this.props.overlaysContainer,
-            currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
-            minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
-            maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
+            currentChildrenComponentIdentifier: string_currentNumberOf_identifier,
+            minChildrenComponentIdentifier: string_minNumberOf_identifier,
+            maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
             elementByType: this.props.elementByType,
             notModal: true,
             editable: false
           });
-          return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+          return /*#__PURE__*/React.createElement(ModalWindow, {
             overlaysContainer: this.props.overlaysContainer
-          }, /*#__PURE__*/_react.default.createElement("div", {
-            style: modalGridContainer
-          }, topItems, /*#__PURE__*/_react.default.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
+            style: {
+              display: "flex",
+              flexDirection: "column",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+              alignItems: "center"
+            }
+          }, topItems, /*#__PURE__*/React.createElement("div", {
             style: modalGridPanel
-          }, /*#__PURE__*/_react.default.createElement("div", {
-            style: modalGrid
-          }, itemList), /*#__PURE__*/_react.default.createElement("div", {
-            style: multiTab
-          }, multiTabPanel)), /*#__PURE__*/_react.default.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
+            style: {
+              display: "flex",
+              flexDirection: "column",
+              //flexWrap: "wrap",
+              justifyContent: "flex-start",
+              overflow: "auto",
+              width: "20%",
+              height: "100%",
+              maxHeight: "100%" //alignItems: "center",
+
+            }
+          }, itemList), /*#__PURE__*/React.createElement("div", {
+            style: {
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              overflow: "auto",
+              maxHeight: "100%",
+              minWidth: "70%",
+              justifyContent: "flex-start",
+              width: "70%",
+              alignItems: "left",
+              marginLeft: "10px"
+            }
+          }, multiTabPanel)), /*#__PURE__*/React.createElement("div", {
             style: buttonContainerRow
-          }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+          }, /*#__PURE__*/React.createElement(Button, {
             style: button2,
             size: "lg",
             onClick: this.onInnerElementDataSave //this.onAddAdditionalConfirm
 
-          }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          }, "Confirm"), /*#__PURE__*/React.createElement(Button, {
             style: button2,
             size: "lg",
             onClick: this.onInnerElementDataCancel //this.onAddAdditionalCancel
@@ -1310,14 +1247,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
-      var grid = {
-        display: "flex",
-        flexDirection: "column",
-        flexWrap: "wrap",
-        justifyContent: "space-between",
-        minHeight: "800px",
-        height: "860px"
-      };
       var gridRow = {
         display: "flex",
         flexDirection: "row",
@@ -1387,7 +1316,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var hasDichroic = false;
       var hasEmission = false;
       var hasObjective = false;
-      var testCategory = [_constants.channelPath_Additional_1, _constants.channelPath_Additional_2, _constants.channelPath_Additional_3_4_5_6, _constants.channelPath_Additional_7, _constants.channelPath_Additional_8, _constants.channelPath_LightSource, _constants.channelPath_Detector, _constants.channelPath_RelayLens, _constants.channelPath_CouplingLens, _constants.channelPath_LightSourceCoupling, _constants.channelPath_Excitation, _constants.channelPath_Dichroic, _constants.channelPath_Emission, _constants.channelPath_Objective];
+      var testCategory = [channelPath_Additional_1, channelPath_Additional_2, channelPath_Additional_3_4_5_6, channelPath_Additional_7, channelPath_Additional_8, channelPath_LightSource, channelPath_Detector, channelPath_RelayLens, channelPath_CouplingLens, channelPath_LightSourceCoupling, channelPath_Excitation, channelPath_Dichroic, channelPath_Emission, channelPath_Objective];
       Object.keys(this.props.componentData).forEach(function (compIndex) {
         var comp = _this3.props.componentData[compIndex];
         var schema_id = comp.Schema_ID;
@@ -1398,32 +1327,32 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         for (var _index in testCategory) {
           var category = testCategory[_index];
 
-          if (category.includes(schema_id.replace(_constants.string_json_ext, "")) || category.includes(compSchemaCategory) || category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
-            if (category === _constants.channelPath_Additional_1) hasChannelPath_Additional_1 = true;
-            if (category === _constants.channelPath_Additional_2) hasChannelPath_Additional_2 = true;
-            if (category === _constants.channelPath_Additional_3_4_5_6) hasChannelPath_Additional_3_4_5_6 = true;
-            if (category === _constants.channelPath_Additional_7) hasChannelPath_Additional_7 = true;
-            if (category === _constants.channelPath_Additional_8) hasChannelPath_Additional_8 = true;
-            if (category === _constants.channelPath_LightSource) hasLightSource = true;
-            if (category === _constants.channelPath_Detector) hasDetector = true;
-            if (category === _constants.channelPath_RelayLens) hasRelayLens = true;
-            if (category === _constants.channelPath_CouplingLens) hasCouplingLens = true;
-            if (category === _constants.channelPath_LightSourceCoupling) hasLightSourceCoupling = true;
-            if (category === _constants.channelPath_Excitation) hasExcitation = true;
-            if (category === _constants.channelPath_Dichroic) hasDichroic = true;
-            if (category === _constants.channelPath_Emission) hasEmission = true;
-            if (category === _constants.channelPath_Objective) hasObjective = true;
+          if (category.includes(schema_id.replace(string_json_ext, "")) || category.includes(compSchemaCategory) || category.includes(compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")))) {
+            if (category === channelPath_Additional_1) hasChannelPath_Additional_1 = true;
+            if (category === channelPath_Additional_2) hasChannelPath_Additional_2 = true;
+            if (category === channelPath_Additional_3_4_5_6) hasChannelPath_Additional_3_4_5_6 = true;
+            if (category === channelPath_Additional_7) hasChannelPath_Additional_7 = true;
+            if (category === channelPath_Additional_8) hasChannelPath_Additional_8 = true;
+            if (category === channelPath_LightSource) hasLightSource = true;
+            if (category === channelPath_Detector) hasDetector = true;
+            if (category === channelPath_RelayLens) hasRelayLens = true;
+            if (category === channelPath_CouplingLens) hasCouplingLens = true;
+            if (category === channelPath_LightSourceCoupling) hasLightSourceCoupling = true;
+            if (category === channelPath_Excitation) hasExcitation = true;
+            if (category === channelPath_Dichroic) hasDichroic = true;
+            if (category === channelPath_Emission) hasEmission = true;
+            if (category === channelPath_Objective) hasObjective = true;
           }
         }
       });
-      var additionalItemButton_1 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_1 ? addButtonImageStyle : opaqueAddButtonImageStyle, 1, _constants.channelPath_Additional_1, hasChannelPath_Additional_1);
-      var additionalItemButton_2 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_2 ? addButtonImageStyle : opaqueAddButtonImageStyle, 2, _constants.channelPath_Additional_2, hasChannelPath_Additional_2);
-      var additionalItemButton_3 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 3, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
-      var additionalItemButton_4 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 4, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
-      var additionalItemButton_5 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 5, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
-      var additionalItemButton_6 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 6, _constants.channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
-      var additionalItemButton_7 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_7 ? addButtonImageStyle : opaqueAddButtonImageStyle, 7, _constants.channelPath_Additional_7, hasChannelPath_Additional_7);
-      var additionalItemButton_8 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_8 ? addButtonImageStyle : opaqueAddButtonImageStyle, 8, _constants.channelPath_Additional_8, hasChannelPath_Additional_8);
+      var additionalItemButton_1 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_1 ? addButtonImageStyle : opaqueAddButtonImageStyle, 1, channelPath_Additional_1, hasChannelPath_Additional_1);
+      var additionalItemButton_2 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_2 ? addButtonImageStyle : opaqueAddButtonImageStyle, 2, channelPath_Additional_2, hasChannelPath_Additional_2);
+      var additionalItemButton_3 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 3, channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
+      var additionalItemButton_4 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 4, channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
+      var additionalItemButton_5 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 5, channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
+      var additionalItemButton_6 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_3_4_5_6 ? addButtonImageStyle : opaqueAddButtonImageStyle, 6, channelPath_Additional_3_4_5_6, hasChannelPath_Additional_3_4_5_6);
+      var additionalItemButton_7 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_7 ? addButtonImageStyle : opaqueAddButtonImageStyle, 7, channelPath_Additional_7, hasChannelPath_Additional_7);
+      var additionalItemButton_8 = this.createAddButton(buttonStyle, addButtonImage, hasChannelPath_Additional_8 ? addButtonImageStyle : opaqueAddButtonImageStyle, 8, channelPath_Additional_8, hasChannelPath_Additional_8);
       var specButtStyle = Object.assign({}, buttonStyle, {
         border: "none"
       });
@@ -1667,150 +1596,146 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var objectiveButton = ChannelCanvas_V2.createSlotButton(this.props.imagesPath, "LightPath_7_Objective_outline.svg", "Objective", slots, compSchemas, hasObjective ? regularImageStyle : regularOpaqueImageStyle, buttonStyle, styleCloser, styleIcons, this.handleClick_objective, this.handleDeleteComp, this.handleEditSettings, "Objective", hasObjective, valid);
-
-      var row1 = /*#__PURE__*/_react.default.createElement("div", {
+      var row1 = /*#__PURE__*/React.createElement("div", {
         style: gridRow
-      }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/React.createElement(ArcherElement, {
         id: "lightSource",
         relations: [{
           targetId: "addButton_1",
           targetAnchor: "top",
           sourceAnchor: "bottom"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-LightSource",
-        position: _constants.select_lightSource.position,
-        title: _constants.select_lightSource.title,
-        content: _constants.select_lightSource.content,
+        position: select_lightSource.position,
+        title: select_lightSource.title,
+        content: select_lightSource.content,
         element: lightSourceButton
-      }))), /*#__PURE__*/_react.default.createElement("div", {
+      }))), /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "specimen",
         relations: [{
           targetId: "objective",
           targetAnchor: "top",
           sourceAnchor: "bottom"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, specimenButton)), /*#__PURE__*/_react.default.createElement("div", {
+      }, specimenButton)), /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "detectorButton",
         relations: []
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Detector",
-        position: _constants.select_detector.position,
-        title: _constants.select_detector.title,
-        content: _constants.select_detector.content,
+        position: select_detector.position,
+        title: select_detector.title,
+        content: select_detector.content,
         element: detectorButton
       }))));
-
-      var row2 = /*#__PURE__*/_react.default.createElement("div", {
+      var row2 = /*#__PURE__*/React.createElement("div", {
         style: gridRowAdd
-      }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/React.createElement(ArcherElement, {
         id: "addButton_1",
         relations: [{
           targetId: "couplingLens",
           targetAnchor: "top",
           sourceAnchor: "bottom"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpaceAdd
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Additional1",
-        position: _constants.select_additional_right.position,
-        title: _constants.select_additional_right.title,
-        content: _constants.select_additional_right.content,
+        position: select_additional_right.position,
+        title: select_additional_right.title,
+        content: select_additional_right.content,
         element: additionalItemButton_1
-      }))), /*#__PURE__*/_react.default.createElement("div", {
+      }))), /*#__PURE__*/React.createElement("div", {
         style: gridSpaceAdd
-      }), /*#__PURE__*/_react.default.createElement("div", {
+      }), /*#__PURE__*/React.createElement("div", {
         style: gridSpaceAdd
-      }), /*#__PURE__*/_react.default.createElement("div", {
+      }), /*#__PURE__*/React.createElement("div", {
         style: gridSpaceAdd
-      }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "addButton_8",
         relations: [{
           targetId: "detectorButton",
           targetAnchor: "bottom",
           sourceAnchor: "top"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpaceAdd
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Additional8",
-        position: _constants.select_additional_left.position,
-        title: _constants.select_additional_left.title,
-        content: _constants.select_additional_left.content,
+        position: select_additional_left.position,
+        title: select_additional_left.title,
+        content: select_additional_left.content,
         element: additionalItemButton_8
       }))));
-
-      var row3 = /*#__PURE__*/_react.default.createElement("div", {
+      var row3 = /*#__PURE__*/React.createElement("div", {
         style: gridRow
-      }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/React.createElement(ArcherElement, {
         id: "couplingLens",
         relations: [{
           targetId: "lightSourceCoupling",
           targetAnchor: "top",
           sourceAnchor: "bottom"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-CouplingLens",
-        position: _constants.select_couplingLens.position,
-        title: _constants.select_couplingLens.title,
-        content: _constants.select_couplingLens.content,
+        position: select_couplingLens.position,
+        title: select_couplingLens.title,
+        content: select_couplingLens.content,
         element: couplingLensButton
-      }))), /*#__PURE__*/_react.default.createElement("div", {
+      }))), /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }), /*#__PURE__*/_react.default.createElement("div", {
+      }), /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }), /*#__PURE__*/_react.default.createElement("div", {
+      }), /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "relayLens",
         relations: [{
           targetId: "addButton_8",
           targetAnchor: "bottom",
           sourceAnchor: "top"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-RelayLens",
-        position: _constants.select_relayLens.position,
-        title: _constants.select_relayLens.title,
-        content: _constants.select_relayLens.content,
+        position: select_relayLens.position,
+        title: select_relayLens.title,
+        content: select_relayLens.content,
         element: relayLensButton
       }))));
-
-      var row4 = /*#__PURE__*/_react.default.createElement("div", {
+      var row4 = /*#__PURE__*/React.createElement("div", {
         style: gridRow
-      }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/React.createElement(ArcherElement, {
         id: "lightSourceCoupling",
         relations: [{
           targetId: "addButton_2",
           targetAnchor: "top",
           sourceAnchor: "bottom"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-LightSourceCoupling",
-        position: _constants.select_lightSourceCoupling.position,
-        title: _constants.select_lightSourceCoupling.title,
-        content: _constants.select_lightSourceCoupling.content,
+        position: select_lightSourceCoupling.position,
+        title: select_lightSourceCoupling.title,
+        content: select_lightSourceCoupling.content,
         element: lightSourceCouplingButton
-      }))), /*#__PURE__*/_react.default.createElement("div", {
+      }))), /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "objective",
         relations: [{
           targetId: "addButton_5",
@@ -1821,86 +1746,78 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           targetAnchor: "bottom",
           sourceAnchor: "top"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, objectiveButton)), /*#__PURE__*/_react.default.createElement("div", {
+      }, objectiveButton)), /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }), /*#__PURE__*/_react.default.createElement("div", {
+      }), /*#__PURE__*/React.createElement("div", {
         style: gridSpace
       }));
-
-      var row5 = /*#__PURE__*/_react.default.createElement("div", {
+      var row5 = /*#__PURE__*/React.createElement("div", {
         style: gridRowAdd
-      }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/React.createElement(ArcherElement, {
         id: "addButton_2",
         relations: [{
           targetId: "excitationFilter",
           targetAnchor: "top",
           sourceAnchor: "bottom"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpaceAdd
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Additional2",
-        position: _constants.select_additional_right.position,
-        title: _constants.select_additional_right.title,
-        content: _constants.select_additional_right.content,
+        position: select_additional_right.position,
+        title: select_additional_right.title,
+        content: select_additional_right.content,
         element: additionalItemButton_2
-      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }))), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "addButton_4",
         relations: [{
           targetId: "objective",
           targetAnchor: "left",
           sourceAnchor: "top"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpaceAdd
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Additional4",
-        position: _constants.select_additional_right.position,
-        title: _constants.select_additional_right.title,
-        content: _constants.select_additional_right.content,
+        position: select_additional_right.position,
+        title: select_additional_right.title,
+        content: select_additional_right.content,
         element: additionalItemButton_4
-      }))), /*#__PURE__*/_react.default.createElement("div", {
+      }))), /*#__PURE__*/React.createElement("div", {
         style: gridSpaceAdd
-      }), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "addButton_5",
         relations: [{
           targetId: "dichroicFilter",
           targetAnchor: "top",
           sourceAnchor: "left"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpaceAdd
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Additional5",
-        position: _constants.select_additional_left.position,
-        title: _constants.select_additional_left.title,
-        content: _constants.select_additional_left.content,
+        position: select_additional_left.position,
+        title: select_additional_left.title,
+        content: select_additional_left.content,
         element: additionalItemButton_5
-      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }))), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "addButton_7",
         relations: [{
           targetId: "relayLens",
           targetAnchor: "bottom",
           sourceAnchor: "top"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpaceAdd
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Additional7",
-        position: _constants.select_additional_left.position,
-        title: _constants.select_additional_left.title,
-        content: _constants.select_additional_left.content,
+        position: select_additional_left.position,
+        title: select_additional_left.title,
+        content: select_additional_left.content,
         element: additionalItemButton_7
       }))));
-
-      var gridRowSpecial = {
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        height: "150px"
-      };
       var gridRowFilterSet = Object.assign({}, gridRow, {
         border: "5px solid black",
         height: "100%",
@@ -1908,56 +1825,59 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         top: "-30px",
         left: "0px"
       });
-      var borderTitleStyle = {
-        display: "inline",
-        position: "relative",
-        top: "-10%",
-        left: "30%",
-        width: "200px",
-        height: "30px",
-        //display: "inline",
-        backgroundColor: "white",
-        zIndex: 2
-      };
-
-      var row6 = /*#__PURE__*/_react.default.createElement("div", {
-        style: gridRowSpecial
-      }, /*#__PURE__*/_react.default.createElement("button", {
-        style: borderTitleStyle,
+      var row6 = /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          height: "150px"
+        }
+      }, /*#__PURE__*/React.createElement("button", {
+        style: {
+          display: "inline",
+          position: "relative",
+          top: "-10%",
+          left: "30%",
+          width: "200px",
+          height: "30px",
+          //display: "inline",
+          backgroundColor: "white",
+          zIndex: 2
+        },
         disabled: true
-      }, "Fluorescence Light Path"), /*#__PURE__*/_react.default.createElement("div", {
+      }, "Fluorescence Light Path"), /*#__PURE__*/React.createElement("div", {
         style: gridRowFilterSet
-      }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }, /*#__PURE__*/React.createElement(ArcherElement, {
         id: "excitationFilter",
         relations: [{
           targetId: "addButton_3",
           targetAnchor: "left",
           sourceAnchor: "right"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Excitation",
-        position: _constants.select_excitation.position,
-        title: _constants.select_excitation.title,
-        content: _constants.select_excitation.content,
+        position: select_excitation.position,
+        title: select_excitation.title,
+        content: select_excitation.content,
         element: excitationButton
-      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }))), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "addButton_3",
         relations: [{
           targetId: "dichroicFilter",
           targetAnchor: "left",
           sourceAnchor: "right"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Additional3",
-        position: _constants.select_additional_right.position,
-        title: _constants.select_additional_right.title,
-        content: _constants.select_additional_right.content,
+        position: select_additional_right.position,
+        title: select_additional_right.title,
+        content: select_additional_right.content,
         element: additionalItemButton_3
-      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }))), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "dichroicFilter",
         relations: [{
           targetId: "addButton_4",
@@ -1968,46 +1888,45 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           targetAnchor: "left",
           sourceAnchor: "right"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Dichroic",
-        position: _constants.select_dichroic.position,
-        title: _constants.select_dichroic.title,
-        content: _constants.select_dichroic.content,
+        position: select_dichroic.position,
+        title: select_dichroic.title,
+        content: select_dichroic.content,
         element: dichroicButton
-      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }))), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "addButton_6",
         relations: [{
           targetId: "emissionFilter",
           targetAnchor: "left",
           sourceAnchor: "right"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Additional6",
-        position: _constants.select_additional_left.position,
-        title: _constants.select_additional_left.title,
-        content: _constants.select_additional_left.content,
+        position: select_additional_left.position,
+        title: select_additional_left.title,
+        content: select_additional_left.content,
         element: additionalItemButton_6
-      }))), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherElement, {
+      }))), /*#__PURE__*/React.createElement(ArcherElement, {
         id: "emissionFilter",
         relations: [{
           targetId: "addButton_7",
           targetAnchor: "bottom",
           sourceAnchor: "top"
         }]
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
         style: gridSpace
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-Emission",
-        position: _constants.select_emission.position,
-        title: _constants.select_emission.title,
-        content: _constants.select_emission.content,
+        position: select_emission.position,
+        title: select_emission.title,
+        content: select_emission.content,
         element: emissionButton
       })))));
-
       valid = null;
 
       if (this.props.schema !== undefined && this.props.schema !== null && this.state.channelData !== undefined && this.state.channelData !== null) {
@@ -2038,29 +1957,36 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         valid = isInvalid;
       }
 
-      return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+      return /*#__PURE__*/React.createElement(ModalWindow, {
         overlaysContainer: this.props.overlaysContainer
-      }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema[0].title)), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherContainer, {
+      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, this.props.schema[0].title)), /*#__PURE__*/React.createElement(ArcherContainer, {
         strokeColor: "red"
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: grid
-      }, row1, row2, row3, row4, " ", row5, " ", row6)), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          minHeight: "800px",
+          height: "860px"
+        }
+      }, row1, row2, row3, row4, " ", row5, " ", row6)), /*#__PURE__*/React.createElement("div", {
         style: buttonContainerRow
-      }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+      }, /*#__PURE__*/React.createElement(Button, {
         style: button2,
         size: "lg",
         onClick: this.onConfirm
-      }, "Confirm"), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      }, "Confirm"), /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-EditChannelSettings",
-        position: _constants.edit_channel_settings.position,
-        title: _constants.edit_channel_settings.title,
-        content: _constants.edit_channel_settings.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+        position: edit_channel_settings.position,
+        title: edit_channel_settings.title,
+        content: edit_channel_settings.content,
+        element: /*#__PURE__*/React.createElement(Button, {
           style: button2,
           size: "lg",
           onClick: this.onEditElement
-        }, valid, _constants.edit_channel_settings.title)
-      }), /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, valid, edit_channel_settings.title)
+      }), /*#__PURE__*/React.createElement(Button, {
         style: button2,
         size: "lg",
         onClick: this.onCancel
@@ -2093,19 +2019,18 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         if (imageSlot === "Objective") isObjective = true;
       }
 
-      var itemImage = /*#__PURE__*/_react.default.createElement("img", {
+      var itemImage = /*#__PURE__*/React.createElement("img", {
         src: image + (image.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
         alt: imageSlot,
         style: style
       });
-
       var button = null;
 
       if (needDelete) {
         var butt = null;
 
         if (isEnabled && hasSettings) {
-          butt = /*#__PURE__*/_react.default.createElement("button", {
+          butt = /*#__PURE__*/React.createElement("button", {
             style: buttonStyle,
             onClick: function onClick() {
               return editCallback(element, compSchemas[element.Schema_ID], imageSlot);
@@ -2115,7 +2040,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           var buttStyle = Object.assign({}, buttonStyle, {
             border: "none"
           });
-          butt = /*#__PURE__*/_react.default.createElement("button", {
+          butt = /*#__PURE__*/React.createElement("button", {
             style: buttStyle,
             disabled: true
           }, itemImage, name);
@@ -2124,7 +2049,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         var deleteButt = null;
 
         if (!isObjective) {
-          deleteButt = /*#__PURE__*/_react.default.createElement("button", {
+          deleteButt = /*#__PURE__*/React.createElement("button", {
             type: "button",
             onClick: function onClick() {
               return deleteCallback(imageSlot);
@@ -2133,12 +2058,12 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           }, "x");
         }
 
-        button = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+        button = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
           style: styleIcons
         }, deleteButt, valid), butt);
       } else {
         if (isEnabled && !isObjective) {
-          button = /*#__PURE__*/_react.default.createElement("button", {
+          button = /*#__PURE__*/React.createElement("button", {
             style: buttonStyle,
             onClick: callback
           }, itemImage, name);
@@ -2147,7 +2072,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             border: "none"
           });
 
-          button = /*#__PURE__*/_react.default.createElement("button", {
+          button = /*#__PURE__*/React.createElement("button", {
             style: _buttStyle,
             disabled: true
           }, itemImage, name);
@@ -2159,6 +2084,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }]);
 
   return ChannelCanvas_V2;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
-exports.default = ChannelCanvas_V2;
+export { ChannelCanvas_V2 as default };

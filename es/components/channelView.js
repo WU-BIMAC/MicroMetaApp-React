@@ -1,29 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactDom = _interopRequireDefault(require("react-dom"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _ListGroup = _interopRequireDefault(require("react-bootstrap/ListGroup"));
-
-var _channelCanvas_V = _interopRequireDefault(require("./channelCanvas_V2"));
-
-var _modalWindow = _interopRequireDefault(require("./modalWindow"));
-
-var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
-var _uuid = require("uuid");
-
-var _constants = require("../constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -33,19 +8,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+import React from "react";
+import ReactDOM from "react-dom"; //import "rc-tabs/assets/index.css";
+
+import Button from "react-bootstrap/Button";
+import ListGroup from "react-bootstrap/ListGroup";
+import ChannelCanvas_V2 from "./channelCanvas_V2";
+import ModalWindow from "./modalWindow";
+import PopoverTooltip from "./popoverTooltip";
+import { v4 as uuidv4 } from "uuid";
 
 var validate = require("jsonschema").validate;
+
+import { bool_isDebug, string_object, string_array, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, edit_channel, add_channel, remove_channel, remove_plane } from "../constants";
 
 var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(ChannelView, _React$PureComponent);
@@ -97,9 +84,9 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
   _createClass(ChannelView, [{
     key: "onAddElement",
     value: function onAddElement() {
-      var uuid = (0, _uuid.v4)();
-      var uuid2 = (0, _uuid.v4)();
-      var uuid3 = (0, _uuid.v4)();
+      var uuid = uuidv4();
+      var uuid2 = uuidv4();
+      var uuid3 = uuidv4();
       var channelSchema = this.props.schema;
       var fluorophoreSchema = this.state.fluorophoreSchema;
       var lightPathSchema = this.state.lightPathSchema;
@@ -112,10 +99,10 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
         Version: channelSchema.version
       };
       Object.keys(channelSchema.properties).forEach(function (key) {
-        if (channelSchema.properties[key].type === _constants.string_array) {
-          var currentNumber = _constants.string_currentNumberOf_identifier + key;
-          var minNumber = _constants.string_minNumberOf_identifier + key;
-          var maxNumber = _constants.string_maxNumberOf_identifier + key;
+        if (channelSchema.properties[key].type === string_array) {
+          var currentNumber = string_currentNumberOf_identifier + key;
+          var minNumber = string_minNumberOf_identifier + key;
+          var maxNumber = string_maxNumberOf_identifier + key;
 
           if (channelSchema.required.indexOf(key) != -1) {
             newChannelElementData[currentNumber] = 1;
@@ -126,17 +113,11 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
             newChannelElementData[minNumber] = 0;
             newChannelElementData[maxNumber] = -1;
           }
-        } else if (channelSchema.properties[key].type === _constants.string_object) {
-          var _currentNumber = _constants.string_currentNumberOf_identifier + key;
-
-          var _minNumber = _constants.string_minNumberOf_identifier + key;
-
-          var _maxNumber = _constants.string_maxNumberOf_identifier + key;
-
+        } else if (channelSchema.properties[key].type === string_object) {
           if (channelSchema.required.indexOf(key) === -1) {
-            newChannelElementData[_currentNumber] = 0;
-            newChannelElementData[_minNumber] = 0;
-            newChannelElementData[_maxNumber] = 1;
+            newChannelElementData[string_currentNumberOf_identifier + key] = 0;
+            newChannelElementData[string_minNumberOf_identifier + key] = 0;
+            newChannelElementData[string_maxNumberOf_identifier + key] = 1;
           }
         }
       });
@@ -148,10 +129,10 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
         Version: fluorophoreSchema.version
       };
       Object.keys(fluorophoreSchema.properties).forEach(function (key) {
-        if (fluorophoreSchema.properties[key].type === _constants.string_array) {
-          var currentNumber = _constants.string_currentNumberOf_identifier + key;
-          var minNumber = _constants.string_minNumberOf_identifier + key;
-          var maxNumber = _constants.string_maxNumberOf_identifier + key;
+        if (fluorophoreSchema.properties[key].type === string_array) {
+          var currentNumber = string_currentNumberOf_identifier + key;
+          var minNumber = string_minNumberOf_identifier + key;
+          var maxNumber = string_maxNumberOf_identifier + key;
 
           if (fluorophoreSchema.required.indexOf(key) != -1) {
             newFluorophoreElementData[currentNumber] = 1;
@@ -162,17 +143,11 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
             newFluorophoreElementData[minNumber] = 0;
             newFluorophoreElementData[maxNumber] = -1;
           }
-        } else if (fluorophoreSchema.properties[key].type === _constants.string_object) {
-          var _currentNumber2 = _constants.string_currentNumberOf_identifier + key;
-
-          var _minNumber2 = _constants.string_minNumberOf_identifier + key;
-
-          var _maxNumber2 = _constants.string_maxNumberOf_identifier + key;
-
+        } else if (fluorophoreSchema.properties[key].type === string_object) {
           if (fluorophoreSchema.required.indexOf(key) === -1) {
-            newFluorophoreElementData[_currentNumber2] = 0;
-            newFluorophoreElementData[_minNumber2] = 0;
-            newFluorophoreElementData[_maxNumber2] = 1;
+            newFluorophoreElementData[string_currentNumberOf_identifier + key] = 0;
+            newFluorophoreElementData[string_minNumberOf_identifier + key] = 0;
+            newFluorophoreElementData[string_maxNumberOf_identifier + key] = 1;
           }
         }
       });
@@ -184,10 +159,10 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
         Version: lightPathSchema.version
       };
       Object.keys(lightPathSchema.properties).forEach(function (key) {
-        if (lightPathSchema.properties[key].type === _constants.string_array) {
-          var currentNumber = _constants.string_currentNumberOf_identifier + key;
-          var minNumber = _constants.string_minNumberOf_identifier + key;
-          var maxNumber = _constants.string_maxNumberOf_identifier + key;
+        if (lightPathSchema.properties[key].type === string_array) {
+          var currentNumber = string_currentNumberOf_identifier + key;
+          var minNumber = string_minNumberOf_identifier + key;
+          var maxNumber = string_maxNumberOf_identifier + key;
 
           if (lightPathSchema.required.indexOf(key) != -1) {
             newLightPathElementData[currentNumber] = 1;
@@ -198,17 +173,11 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
             newLightPathElementData[minNumber] = 0;
             newLightPathElementData[maxNumber] = -1;
           }
-        } else if (lightPathSchema.properties[key].type === _constants.string_object) {
-          var _currentNumber3 = _constants.string_currentNumberOf_identifier + key;
-
-          var _minNumber3 = _constants.string_minNumberOf_identifier + key;
-
-          var _maxNumber3 = _constants.string_maxNumberOf_identifier + key;
-
+        } else if (lightPathSchema.properties[key].type === string_object) {
           if (lightPathSchema.required.indexOf(key) === -1) {
-            newLightPathElementData[_currentNumber3] = 0;
-            newLightPathElementData[_minNumber3] = 0;
-            newLightPathElementData[_maxNumber3] = 1;
+            newLightPathElementData[string_currentNumberOf_identifier + key] = 0;
+            newLightPathElementData[string_minNumberOf_identifier + key] = 0;
+            newLightPathElementData[string_maxNumberOf_identifier + key] = 1;
           }
         }
       });
@@ -233,9 +202,9 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       var channels = this.state.channels.slice();
 
       if (index !== -1) {
-        var removed = channels.splice(index, 1);
+        channels.splice(index, 1);
       } else {
-        var _removed = channels.pop();
+        channels.pop();
       }
 
       this.setState({
@@ -258,11 +227,10 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       var index = this.state.selectedIndex;
       var channels = this.state.channels.slice();
       channels[index] = data;
-      var objective = null;
       this.setState({
         editing: false,
         channels: channels,
-        objective: objective
+        objective: null
       });
     }
   }, {
@@ -310,15 +278,12 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       var styleNotValidated = Object.assign({}, styleValidation, {
         color: "red"
       });
-
-      var isValid = /*#__PURE__*/_react.default.createElement("div", {
+      var isValid = /*#__PURE__*/React.createElement("div", {
         style: styleValidated
       }, "\u25CF");
-
-      var isInvalid = /*#__PURE__*/_react.default.createElement("div", {
+      var isInvalid = /*#__PURE__*/React.createElement("div", {
         style: styleNotValidated
       }, "\u25CF");
-
       var index = this.state.selectedIndex;
       var channels = this.state.channels;
 
@@ -334,7 +299,7 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
         objects[0] = channel;
         objects[1] = lightPath;
         objects[2] = fluorophore;
-        return /*#__PURE__*/_react.default.createElement(_channelCanvas_V.default, {
+        return /*#__PURE__*/React.createElement(ChannelCanvas_V2, {
           activeTier: this.state.activeTier,
           imagesPath: this.props.imagesPath,
           id: channel.ID,
@@ -417,63 +382,63 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
           }
 
           var channelName = _channel.Name;
-          list.push( /*#__PURE__*/_react.default.createElement(_ListGroup.default.Item, {
+          list.push( /*#__PURE__*/React.createElement(ListGroup.Item, {
             action: true,
             variant: variant,
             onClick: this.onSelectElement,
             key: "Channel-" + i,
             "data-id": i
-          }, /*#__PURE__*/_react.default.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
             style: nameStyle
-          }, /*#__PURE__*/_react.default.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
             style: {
               width: "24px"
             }
-          }, valid), /*#__PURE__*/_react.default.createElement("div", null, channelName))));
+          }, valid), /*#__PURE__*/React.createElement("div", null, channelName))));
         }
 
-        return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+        return /*#__PURE__*/React.createElement(ModalWindow, {
           overlaysContainer: this.props.overlaysContainer
-        }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title + "s")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_ListGroup.default, null, list)), /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, this.props.schema.title + "s")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ListGroup, null, list)), /*#__PURE__*/React.createElement("div", {
           style: buttonContainerRow
-        }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        }, /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipButton-Add",
-          position: _constants.add_channel.position,
-          title: _constants.add_channel.title,
-          content: _constants.add_channel.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          position: add_channel.position,
+          title: add_channel.title,
+          content: add_channel.content,
+          element: /*#__PURE__*/React.createElement(Button, {
             style: button1,
             size: "lg",
             onClick: this.onAddElement
           }, "+")
-        }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        }), /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipButton-Edit",
-          position: _constants.edit_channel.position,
-          title: _constants.edit_channel.title,
-          content: _constants.edit_channel.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          position: edit_channel.position,
+          title: edit_channel.title,
+          content: edit_channel.content,
+          element: /*#__PURE__*/React.createElement(Button, {
             style: button2,
             size: "lg",
             onClick: this.onEditElement,
             disabled: index === -1
           }, "Edit selected")
-        }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        }), /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipButton-Remove",
-          position: _constants.remove_channel.position,
-          title: _constants.remove_channel.title,
-          content: _constants.remove_channel.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          position: remove_channel.position,
+          title: remove_channel.title,
+          content: remove_channel.content,
+          element: /*#__PURE__*/React.createElement(Button, {
             style: button1,
             size: "lg",
             onClick: this.onRemoveElement
           }, "-")
-        })), /*#__PURE__*/_react.default.createElement("div", {
+        })), /*#__PURE__*/React.createElement("div", {
           style: buttonContainerRow
-        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, /*#__PURE__*/React.createElement(Button, {
           style: button2,
           size: "lg",
           onClick: this.onConfirm
-        }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+        }, "Confirm"), /*#__PURE__*/React.createElement(Button, {
           style: button2,
           size: "lg",
           onClick: this.onCancel
@@ -483,6 +448,6 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
   }]);
 
   return ChannelView;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
-exports.default = ChannelView;
+export { ChannelView as default };
