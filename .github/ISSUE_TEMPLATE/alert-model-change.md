@@ -9,7 +9,8 @@ assignees: Akramhar, strambc
 
 **Report an approved change to existing metadata model structure, elements, fields names, descriptions, data types, cardinality, requirement level, and/or enumeration values.**
 - Please complete the form below by entering the relevant Current Element and Field names. 
-- Enter only relevant changes while leaving all unchanged items blank
+- Enter only relevant changes while deleting all irrelevant bits.
+- Delete these instructions.
 - Enter an issue title above following the pattern:
 
 > ALERT MODEL CHANGE --> summary statement <br/>
@@ -34,9 +35,6 @@ New Field description: __
 
 Current Data type: __ <br/>
 New Data type: __
-
-Current Element cardinality: __ <br/>
-New Element cardinality: __
 
 Current Element cardinality: __ <br/>
 New Element cardinality: __
