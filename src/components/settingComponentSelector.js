@@ -106,6 +106,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 	handleDeleteComp(index) {
 		let i = index;
+
 		let oldSettingData = this.state.settingData;
 		let currentComps = this.state.currentComps.slice();
 		currentComps.splice(i, 1);
@@ -183,7 +184,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 		let settingsData = null;
 		let settingData = null;
 		let index = null;
-		if (Array.isArray(oldSettingData)) {
+		if (Array.isArray(oldSettingsData)) {
 			settingsData = oldSettingsData.slice();
 			Object.keys(settingsData).forEach((settingIndex) => {
 				let sett = settingsData[settingIndex];
@@ -203,13 +204,9 @@ export default class SettingComponentSelector extends React.PureComponent {
 			return;
 		}
 
-		let oldSettingData = Object.assign({}, settingData);
-		let newSettingData = Object.assign(oldSettingData, data);
+		let newSettingData = Object.assign({}, settingData, data);
 		if (data.ImmersionLiquid !== null && data.ImmersionLiquid !== undefined) {
-			let oldImmersionLiquid = Object.assign(
-				{},
-				oldSettingsData.ImmersionLiquid
-			);
+			let oldImmersionLiquid = Object.assign({}, settingData.ImmersionLiquid);
 			let immersionLiquid = Object.assign(
 				oldImmersionLiquid,
 				data.ImmersionLiquid
@@ -792,13 +789,14 @@ export default class SettingComponentSelector extends React.PureComponent {
 							</button>
 						);
 					}
+
 					fullButt = (
 						<div key={"fullButton-" + comp.Name}>
 							<div style={styleIcons}>
 								<button
 									key={"deleteButton-" + comp.Name}
 									type="button"
-									onClick={() => this.handleDeleteComp()}
+									onClick={() => this.handleDeleteComp(compIndex)}
 									style={styleCloser}
 								>
 									x
