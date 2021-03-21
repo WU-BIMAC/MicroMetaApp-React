@@ -92,15 +92,23 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
       });
     }
   }, {
+    key: "handleLoadMetadataComplete",
+    value: function handleLoadMetadataComplete(imageMetadata) {
+      if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
+        window.alert("Error " + imageMetadata.Error);
+      } else {
+        this.setState({
+          fileLoaded: true
+        });
+        this.props.handleLoadMetadataComplete(imageMetadata);
+      }
+    }
+  }, {
     key: "onFileReaderLoad",
     value: function onFileReaderLoad(e) {
-      console.log(e);
-      var binaryStr = e.target.result; //let microscope = JSON.parse(binaryStr);
-
-      this.props.onFileDrop();
-      this.setState({
-        fileLoaded: true
-      });
+      console.log(e.path); //let binaryStr = e.target.result;
+      //let microscope = JSON.parse(binaryStr);
+      //this.props.onLoadMetadata(imgPath, this.handleLoadMetadataComplete);
     }
   }, {
     key: "dropzoneDrop",

@@ -159,7 +159,6 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     _this.setLoadMicroscope = _this.setLoadMicroscope.bind(_assertThisInitialized(_this));
     _this.uploadMicroscopeFromDropzone = _this.uploadMicroscopeFromDropzone.bind(_assertThisInitialized(_this));
     _this.uploadSettingFromDropzone = _this.uploadSettingFromDropzone.bind(_assertThisInitialized(_this));
-    _this.uploadMetadataFromDropzone = _this.uploadMetadataFromDropzone.bind(_assertThisInitialized(_this));
     _this.handleLoadMetadataComplete = _this.handleLoadMetadataComplete.bind(_assertThisInitialized(_this));
     _this.handleLoadingOptionSelection = _this.handleLoadingOptionSelection.bind(_assertThisInitialized(_this));
     _this.selectMicroscopeFromRepository = _this.selectMicroscopeFromRepository.bind(_assertThisInitialized(_this));
@@ -369,20 +368,11 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       });
     }
   }, {
-    key: "uploadMetadataFromDropzone",
-    value: function uploadMetadataFromDropzone(imgPath) {
-      this.props.onLoadMetadata(imgPath, this.handleLoadMetadataComplete);
-    }
-  }, {
     key: "handleLoadMetadataComplete",
     value: function handleLoadMetadataComplete(imageMetadata) {
-      if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
-        window.alert("Error " + imageMetadata.Error);
-      } else {
-        this.setState({
-          imageMetadata: imageMetadata
-        });
-      }
+      this.setState({
+        imageMetadata: imageMetadata
+      });
     } // setMicroscopeScale(scale) {
     // 	this.state.microscope.scale = scale;
     // }
@@ -1088,9 +1078,16 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createOrUseMetadata",
     value: function createOrUseMetadata() {
-      this.setState({
-        isLoadingImage: false
-      });
+      if (this.state.loadingOption === _constants.string_createFromFile) {
+        this.setState({
+          isLoadingImage: false
+        });
+      } else {
+        this.setState({
+          isLoadingImage: false,
+          imageMetadata: null
+        });
+      }
     }
   }, {
     key: "onClickBack",
@@ -1560,7 +1557,8 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement(_imageLoader.default, {
           logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_micro_bk),
           loadingOptions: _loadingOptions,
-          onFileDrop: this.uploadMetadataFromDropzone,
+          onLoadMetadata: this.onLoadMetadata,
+          onFileDrop: this.handleLoadMetadataComplete,
           loadingOption: this.state.loadingOption,
           loadingMode: this.state.loadingMode,
           onClickLoadingOptionSelection: this.handleLoadingOptionSelection,

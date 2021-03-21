@@ -71,12 +71,22 @@ export default class ImageLoader extends React.PureComponent {
 		this.setState({ fileLoaded: false });
 	}
 
+	handleLoadMetadataComplete(imageMetadata) {
+		if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
+			window.alert("Error " + imageMetadata.Error);
+		} else {
+			this.setState({ fileLoaded: true });
+			this.props.handleLoadMetadataComplete(imageMetadata);
+		}
+	}
+
 	onFileReaderLoad(e) {
-		console.log(e);
-		let binaryStr = e.target.result;
+		console.log(e.path);
+
+		//let binaryStr = e.target.result;
 		//let microscope = JSON.parse(binaryStr);
-		this.props.onFileDrop();
-		this.setState({ fileLoaded: true });
+
+		//this.props.onLoadMetadata(imgPath, this.handleLoadMetadataComplete);
 	}
 
 	dropzoneDrop() {
