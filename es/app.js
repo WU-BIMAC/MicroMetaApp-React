@@ -682,7 +682,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         elementData: {},
         validationTier: microscope.ValidationTier,
         typeDimensions: typeDimensions,
-        standType: standType
+        standType: standType,
+        loadingOption: _constants.string_createFromFile,
+        loadingMode: 1
       });
     }
   }, {
@@ -740,7 +742,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         validationTier: modifiedMic.ValidationTier,
         isMicroscopeValidated: validated,
         typeDimensions: typeDimensions,
-        standType: standType
+        standType: standType,
+        loadingOption: _constants.string_createFromFile,
+        loadingMode: 1
       });
     }
   }, {
@@ -799,7 +803,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         validationTier: modifiedMic.ValidationTier,
         isMicroscopeValidated: validated,
         typeDimensions: typeDimensions,
-        standType: standType
+        standType: standType,
+        loadingOption: _constants.string_createFromFile,
+        loadingMode: 1
       });
     }
   }, {
@@ -920,7 +926,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         validationTier: setting.ValidationTier,
         typeDimensions: typeDimensions,
         standType: standType,
-        isLoadingSettings: false
+        isLoadingSettings: false,
+        loadingOption: _constants.string_createFromFile,
+        loadingMode: 1
       });
     }
   }, {
@@ -993,7 +1001,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         settingData: newSettingData,
         validationTier: mergedSettings.ValidationTier,
         isSettingValidated: validated,
-        isLoadingSettings: false
+        isLoadingSettings: false,
+        loadingOption: _constants.string_createFromFile,
+        loadingMode: 1
       });
     }
   }, {
@@ -1075,7 +1085,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         settingData: newSettingData,
         validationTier: mergedSettings.ValidationTier,
         isSettingValidated: validated,
-        isLoadingSettings: false
+        isLoadingSettings: false,
+        loadingOption: _constants.string_createFromFile,
+        loadingMode: 1
       });
     }
   }, {
@@ -1097,12 +1109,14 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       if (this.state.loadingOption === _constants.string_createFromFile) {
         this.setState({
           isLoadingImage: false,
+          loadingOption: _constants.string_createFromFile,
           loadingMode: 1
         });
       } else {
         this.setState({
           isLoadingImage: false,
           imageMetadata: null,
+          loadingOption: _constants.string_createFromFile,
           loadingMode: 1
         });
       }
@@ -1125,6 +1139,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         isCreatingNewMicroscope: null,
         isLoadingMicroscope: null,
         isLoadingImage: null,
+        isLoadingSettings: null,
         loadingOption: null,
         micName: null,
         schema: null,

@@ -743,6 +743,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			validationTier: microscope.ValidationTier,
 			typeDimensions: typeDimensions,
 			standType: standType,
+			loadingOption: string_createFromFile,
+			loadingMode: 1,
 		});
 	}
 
@@ -806,6 +808,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			isMicroscopeValidated: validated,
 			typeDimensions: typeDimensions,
 			standType: standType,
+			loadingOption: string_createFromFile,
+			loadingMode: 1,
 		});
 	}
 
@@ -871,6 +875,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			isMicroscopeValidated: validated,
 			typeDimensions: typeDimensions,
 			standType: standType,
+			loadingOption: string_createFromFile,
+			loadingMode: 1,
 		});
 	}
 
@@ -991,6 +997,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			typeDimensions: typeDimensions,
 			standType: standType,
 			isLoadingSettings: false,
+			loadingOption: string_createFromFile,
+			loadingMode: 1,
 		});
 	}
 
@@ -1069,6 +1077,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			validationTier: mergedSettings.ValidationTier,
 			isSettingValidated: validated,
 			isLoadingSettings: false,
+			loadingOption: string_createFromFile,
+			loadingMode: 1,
 		});
 	}
 
@@ -1154,6 +1164,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			validationTier: mergedSettings.ValidationTier,
 			isSettingValidated: validated,
 			isLoadingSettings: false,
+			loadingOption: string_createFromFile,
+			loadingMode: 1,
 		});
 	}
 
@@ -1172,12 +1184,14 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		if (this.state.loadingOption === string_createFromFile) {
 			this.setState({
 				isLoadingImage: false,
+				loadingOption: string_createFromFile,
 				loadingMode: 1,
 			});
 		} else {
 			this.setState({
 				isLoadingImage: false,
 				imageMetadata: null,
+				loadingOption: string_createFromFile,
 				loadingMode: 1,
 			});
 		}
@@ -1197,6 +1211,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			isCreatingNewMicroscope: null,
 			isLoadingMicroscope: null,
 			isLoadingImage: null,
+			isLoadingSettings: null,
 			loadingOption: null,
 			micName: null,
 			schema: null,
