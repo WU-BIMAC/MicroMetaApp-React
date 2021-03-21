@@ -106,7 +106,8 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onFileReaderLoad",
     value: function onFileReaderLoad(e) {
-      console.log(e.path); //let binaryStr = e.target.result;
+      console.log(e);
+      console.log(e.target); //let binaryStr = e.target.result;
       //let microscope = JSON.parse(binaryStr);
       //this.props.onLoadMetadata(imgPath, this.handleLoadMetadataComplete);
     }

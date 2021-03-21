@@ -81,7 +81,8 @@ export default class ImageLoader extends React.PureComponent {
 	}
 
 	onFileReaderLoad(e) {
-		console.log(e.path);
+		console.log(e);
+		console.log(e.target);
 
 		//let binaryStr = e.target.result;
 		//let microscope = JSON.parse(binaryStr);
