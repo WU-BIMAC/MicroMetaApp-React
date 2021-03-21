@@ -58,7 +58,7 @@ export default class ChannelView extends React.PureComponent {
 			this.props.imageMetadata.Channels !== undefined
 		) {
 			let channels = this.props.imageMetadata.Channels;
-			for (let i = 0; channels.length; i++) {
+			for (let i = 0; i < channels.length; i++) {
 				let channelSchema = this.props.schema;
 				let fluorophoreSchema = this.state.fluorophoreSchema;
 				let lightPathSchema = this.state.lightPathSchema;

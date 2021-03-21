@@ -204,7 +204,7 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
         _this.state.channels[i].Fluorophore = Object.assign({}, newFluorophoreElementData, oldChannel.Fluorophore);
       };
 
-      for (var i = 0; channels.length; i++) {
+      for (var i = 0; i < channels.length; i++) {
         _loop(i);
       }
     }
