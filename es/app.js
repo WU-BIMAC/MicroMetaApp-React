@@ -97,6 +97,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       validationTier: 1,
       isCreatingNewMicroscope: null,
       isLoadingMicroscope: null,
+      isLoadingSettings: null,
       isLoadingImage: null,
       loadingOption: null,
       micName: null,
@@ -311,6 +312,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     value: function setCreateNewMicroscope() {
       this.setState({
         isCreatingNewMicroscope: true,
+        isLoadingMicroscope: false,
+        isLoadingSettings: false,
+        isLoadingImage: false,
         loadingOption: Object.keys(this.state.standTypes)[0],
         loadingMode: 0
       }); //this.handleLoadingOptionSelection(createFromScratch);
@@ -321,6 +325,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         isCreatingNewMicroscope: false,
         isLoadingMicroscope: true,
+        isLoadingSettings: true,
         isLoadingImage: true,
         loadingOption: _constants.string_createFromFile,
         loadingMode: 1
@@ -911,6 +916,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createOrUseSettingFromDroppedFile",
     value: function createOrUseSettingFromDroppedFile() {
+      var imageMetadata = this.state.imageMetadata;
       var modifiedSetting = this.state.setting;
       var activeTier = this.state.activeTier;
 
@@ -983,8 +989,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createOrUseSettingFromSelectedFile",
     value: function createOrUseSettingFromSelectedFile() {
-      var uuid = (0, _uuid.v4)();
-      var uuid2 = (0, _uuid.v4)();
+      var imageMetadata = this.state.imageMetadata;
       var microscope = this.state.microscope;
 
       if (_constants.bool_isDebug) {

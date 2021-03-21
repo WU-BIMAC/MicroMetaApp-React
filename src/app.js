@@ -58,6 +58,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			validationTier: 1,
 			isCreatingNewMicroscope: null,
 			isLoadingMicroscope: null,
+			isLoadingSettings: null,
 			isLoadingImage: null,
 			loadingOption: null,
 			micName: null,
@@ -307,6 +308,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	setCreateNewMicroscope() {
 		this.setState({
 			isCreatingNewMicroscope: true,
+			isLoadingMicroscope: false,
+			isLoadingSettings: false,
+			isLoadingImage: false,
 			loadingOption: Object.keys(this.state.standTypes)[0],
 			loadingMode: 0,
 		});
@@ -317,6 +321,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		this.setState({
 			isCreatingNewMicroscope: false,
 			isLoadingMicroscope: true,
+			isLoadingSettings: true,
 			isLoadingImage: true,
 			loadingOption: string_createFromFile,
 			loadingMode: 1,
@@ -980,6 +985,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	createOrUseSettingFromDroppedFile() {
+		let imageMetadata = this.state.imageMetadata;
 		let modifiedSetting = this.state.setting;
 		let activeTier = this.state.activeTier;
 		if (activeTier !== this.state.microscope.Tier) {
@@ -1057,8 +1063,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	createOrUseSettingFromSelectedFile() {
-		let uuid = uuidv4();
-		let uuid2 = uuidv4();
+		let imageMetadata = this.state.imageMetadata;
 		let microscope = this.state.microscope;
 		if (bool_isDebug) {
 			console.log("settings");
