@@ -222,7 +222,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var settingData = null;
       var index = null;
 
-      if (Array.isArray(oldSettingData)) {
+      if (Array.isArray(oldSettingsData)) {
         settingsData = oldSettingsData.slice();
         Object.keys(settingsData).forEach(function (settingIndex) {
           var sett = settingsData[settingIndex];
@@ -241,11 +241,10 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         return;
       }
 
-      var oldSettingData = Object.assign({}, settingData);
-      var newSettingData = Object.assign(oldSettingData, data);
+      var newSettingData = Object.assign({}, settingData, data);
 
       if (data.ImmersionLiquid !== null && data.ImmersionLiquid !== undefined) {
-        var oldImmersionLiquid = Object.assign({}, oldSettingsData.ImmersionLiquid);
+        var oldImmersionLiquid = Object.assign({}, settingData.ImmersionLiquid);
         var immersionLiquid = Object.assign(oldImmersionLiquid, data.ImmersionLiquid);
         newSettingData.ImmersionLiquid = immersionLiquid;
       }
@@ -347,13 +346,36 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             Schema_ID: objSettingsSchema.ID,
             Version: objSettingsSchema.version
           };
-          settingCompData.ImmersionLiquid = {
+          var immersionLiquid = {
             Name: "".concat(immersionLiquidSchema.title),
             ID: uuid2,
             Tier: immersionLiquidSchema.tier,
             Schema_ID: immersionLiquidSchema.ID,
             Version: immersionLiquidSchema.version
           };
+          settingCompData.ImmersionLiquid = immersionLiquid; // if (
+          // 	this.props.imageMetadata !== null &&
+          // 	this.props.imageMetadata !== undefined &&
+          // 	this.props.imageMetadata.ObjectiveSettings !== null &&
+          // 	this.props.ObjectiveSettings !== undefined
+          // ) {
+          // 	let imageMetadataObjSettings = this.props.imageMetadata
+          // 		.ObjectiveSettings;
+          // 	let newSettingsCompData = Object.assign(
+          // 		{},
+          // 		settingCompData,
+          // 		imageMetadataObjSettings
+          // 	);
+          // 	if (
+          // 		imageMetadataObjSettings.ImmersionLiquid !== null &&
+          // 		imageMetadataObjSettings.ImmersionLiquid !== undefined
+          // 	) {
+          // 		let imageMetadataImmersionLiquid =
+          // 			imageMetadataObjSettings.ImmersionLiquid;
+          // 		newSettingsCompData.ImmersionLiquid = imageMetadataImmersionLiquid;
+          // 	}
+          // 	settingCompData = newSettingsCompData;
+          // }
         } else {
           settingCompData = {
             Name: "".concat(currentSchema.title),
@@ -362,7 +384,23 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             Tier: currentSchema.tier,
             Schema_ID: currentSchema.ID,
             Version: currentSchema.version
-          };
+          }; // if (selectedSchema.modelSettings === "ImagingEnvironment.json") {
+          // 	if (
+          // 		this.props.imageMetadata !== null &&
+          // 		this.props.imageMetadata !== undefined &&
+          // 		this.props.imageMetadata.ImagingEnvironment !== null &&
+          // 		this.props.ImagingEnvironment !== undefined
+          // 	) {
+          // 		let imageMetadataImgEnv = this.props.imageMetadata
+          // 			.ImagingEnvironment;
+          // 		let newSettingsCompData = Object.assign(
+          // 			{},
+          // 			settingCompData,
+          // 			imageMetadataImgEnv
+          // 		);
+          // 		settingCompData = newSettingsCompData;
+          // 	}
+          // }
         }
       }
 
@@ -766,7 +804,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
               key: "deleteButton-" + comp.Name,
               type: "button",
               onClick: function onClick() {
-                return _this2.handleDeleteComp();
+                return _this2.handleDeleteComp(compIndex);
               },
               style: styleCloser
             }, "x"), valid), butt);

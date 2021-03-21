@@ -113,19 +113,26 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
     };
 
     if (_this.props.imageMetadata !== null && _this.props.imageMetadata !== undefined && _this.props.imageMetadata.Planes !== null && _this.props.imageMetadata.Planes !== undefined) {
+      var newPlanes = [];
       var planes = _this.props.imageMetadata.Planes;
 
-      for (var i = 0; i < planes.length; i++) {
-        var schema = _this.props.schema;
-        var oldPlane = planes[i];
-        var newPlane = {
-          //Name: `${schema.title} ${planes.length}`,
-          ID: (0, _uuid.v4)(),
-          Tier: schema.tier,
-          Schema_ID: schema.ID,
-          Version: schema.version
-        };
-        _this.state.planes[i] = Object.assign({}, newPlane, oldPlane);
+      if (_this.state.planes.length === planes.length || _this.state.planes.length === 0) {
+        for (var i = 0; i < planes.length; i++) {
+          var schema = _this.props.schema;
+          var oldPlane = planes[i];
+          var newPlane = {
+            //Name: `${schema.title} ${planes.length}`,
+            ID: (0, _uuid.v4)(),
+            Tier: schema.tier,
+            Schema_ID: schema.ID,
+            Version: schema.version
+          };
+          newPlane = PlaneView.addIdentifiersToNewObject(newPlane, schema);
+          var mergedPlane = Object.assign({}, newPlane, oldPlane);
+          newPlanes[i] = Object.assign({}, mergedPlane, _this.state.planes[i]);
+        }
+
+        _this.state.planes = newPlanes;
       }
     }
 
@@ -154,35 +161,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
         Schema_ID: schema.ID,
         Version: schema.version
       };
-      Object.keys(schema.properties).forEach(function (key) {
-        if (schema.properties[key].type === _constants.string_array) {
-          var currentNumber = _constants.string_currentNumberOf_identifier + key;
-          var minNumber = _constants.string_minNumberOf_identifier + key;
-          var maxNumber = _constants.string_maxNumberOf_identifier + key;
-
-          if (schema.required.indexOf(key) != -1) {
-            newElementData[currentNumber] = 1;
-            newElementData[minNumber] = 1;
-            newElementData[maxNumber] = -1;
-          } else {
-            newElementData[currentNumber] = 0;
-            newElementData[minNumber] = 0;
-            newElementData[maxNumber] = -1;
-          }
-        } else if (schema.properties[key].type === _constants.string_object) {
-          var _currentNumber = _constants.string_currentNumberOf_identifier + key;
-
-          var _minNumber = _constants.string_minNumberOf_identifier + key;
-
-          var _maxNumber = _constants.string_maxNumberOf_identifier + key;
-
-          if (schema.required.indexOf(key) === -1) {
-            newElementData[_currentNumber] = 0;
-            newElementData[_minNumber] = 0;
-            newElementData[_maxNumber] = 1;
-          }
-        }
-      });
+      newElementData = PlaneView.addIdentifiersToNewObject(newElementData, schema);
       planes.push(newElementData);
       this.setState({
         planes: planes
@@ -274,16 +253,16 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
                 newElementData[maxNumber] = -1;
               }
             } else if (schema.properties[key].type === _constants.string_object) {
-              var _currentNumber2 = _constants.string_currentNumberOf_identifier + key;
+              var _currentNumber = _constants.string_currentNumberOf_identifier + key;
 
-              var _minNumber2 = _constants.string_minNumberOf_identifier + key;
+              var _minNumber = _constants.string_minNumberOf_identifier + key;
 
-              var _maxNumber2 = _constants.string_maxNumberOf_identifier + key;
+              var _maxNumber = _constants.string_maxNumberOf_identifier + key;
 
               if (schema.required.indexOf(key) === -1) {
-                newElementData[_currentNumber2] = 0;
-                newElementData[_minNumber2] = 0;
-                newElementData[_maxNumber2] = 1;
+                newElementData[_currentNumber] = 0;
+                newElementData[_minNumber] = 0;
+                newElementData[_maxNumber] = 1;
               }
             }
           });
@@ -575,6 +554,41 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           onClick: this.onCancel
         }, "Cancel")));
       }
+    }
+  }], [{
+    key: "addIdentifiersToNewObject",
+    value: function addIdentifiersToNewObject(object, schema) {
+      var newObject = Object.assign({}, object);
+      Object.keys(schema.properties).forEach(function (key) {
+        if (schema.properties[key].type === _constants.string_array) {
+          var currentNumber = _constants.string_currentNumberOf_identifier + key;
+          var minNumber = _constants.string_minNumberOf_identifier + key;
+          var maxNumber = _constants.string_maxNumberOf_identifier + key;
+
+          if (schema.required.indexOf(key) != -1) {
+            newObject[currentNumber] = 1;
+            newObject[minNumber] = 1;
+            newObject[maxNumber] = -1;
+          } else {
+            newObject[currentNumber] = 0;
+            newObject[minNumber] = 0;
+            newObject[maxNumber] = -1;
+          }
+        } else if (schema.properties[key].type === _constants.string_object) {
+          var _currentNumber2 = _constants.string_currentNumberOf_identifier + key;
+
+          var _minNumber2 = _constants.string_minNumberOf_identifier + key;
+
+          var _maxNumber2 = _constants.string_maxNumberOf_identifier + key;
+
+          if (schema.required.indexOf(key) === -1) {
+            newObject[_currentNumber2] = 0;
+            newObject[_minNumber2] = 0;
+            newObject[_maxNumber2] = 1;
+          }
+        }
+      });
+      return newObject;
     }
   }]);
 
