@@ -75,7 +75,7 @@ export default class ImageLoader extends React.PureComponent {
 		console.log(e);
 		let binaryStr = e.target.result;
 		//let microscope = JSON.parse(binaryStr);
-		this.props.onFileDrop(microscope);
+		this.props.onFileDrop();
 		this.setState({ fileLoaded: true });
 	}
 
@@ -185,7 +185,6 @@ export default class ImageLoader extends React.PureComponent {
 							onDrop={this.dropzoneDrop}
 							onDropAccepted={this.dropzoneDropAccepted}
 							onDropRejected={this.dropzoneDropRejected}
-							accept={string_json_ext}
 							multiple={false}
 						>
 							{({ getRootProps, getInputProps }) => (

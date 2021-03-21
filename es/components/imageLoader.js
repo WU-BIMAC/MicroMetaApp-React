@@ -97,7 +97,7 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
       console.log(e);
       var binaryStr = e.target.result; //let microscope = JSON.parse(binaryStr);
 
-      this.props.onFileDrop(microscope);
+      this.props.onFileDrop();
       this.setState({
         fileLoaded: true
       });
@@ -221,7 +221,6 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
             onDrop: this.dropzoneDrop,
             onDropAccepted: this.dropzoneDropAccepted,
             onDropRejected: this.dropzoneDropRejected,
-            accept: _constants.string_json_ext,
             multiple: false
           }, function (_ref) {
             var getRootProps = _ref.getRootProps,
