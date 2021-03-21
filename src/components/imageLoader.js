@@ -75,7 +75,7 @@ export default class ImageLoader extends React.PureComponent {
 
 		acceptedFiles.forEach((file) => {
 			console.log(file);
-			//this.props.onLoadMetadata(imgPath, this.handleLoadMetadataComplete);
+			this.props.onLoadMetadata(file.path, this.handleLoadMetadataComplete);
 		});
 
 		this.setState({ fileLoading: false });

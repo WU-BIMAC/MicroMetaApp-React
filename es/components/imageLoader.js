@@ -108,12 +108,16 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "dropzoneDropAccepted",
     value: function dropzoneDropAccepted(acceptedFiles) {
+      var _this2 = this;
+
       // const reader = new FileReader();
       // reader.onabort = this.onFileReaderAbort;
       // reader.onerror = this.onFileReaderError;
       // reader.onload = this.onFileReaderLoad;
       acceptedFiles.forEach(function (file) {
-        console.log(file); //this.props.onLoadMetadata(imgPath, this.handleLoadMetadataComplete);
+        console.log(file);
+
+        _this2.props.onLoadMetadata(file.path, _this2.handleLoadMetadataComplete);
       });
       this.setState({
         fileLoading: false
@@ -138,7 +142,7 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var buttonStyle = {
         width: "200px",
@@ -215,7 +219,7 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
             return /*#__PURE__*/_react.default.createElement("section", {
               style: dropzoneStyle
             }, /*#__PURE__*/_react.default.createElement("div", getRootProps(), /*#__PURE__*/_react.default.createElement("input", getInputProps({
-              onClick: _this2.dropzoneDialogOpen
+              onClick: _this3.dropzoneDialogOpen
             })), /*#__PURE__*/_react.default.createElement("p", null, "Select an existing Image file you want to work on.")));
           })
         }));
