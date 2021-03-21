@@ -33,9 +33,9 @@ export default class ImageLoader extends React.PureComponent {
 		this.dropzoneDialogOpen = this.dropzoneDialogOpen.bind(this);
 		this.dropzoneDialogCancel = this.dropzoneDialogCancel.bind(this);
 
-		this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
-		this.onFileReaderError = this.onFileReaderError.bind(this);
-		this.onFileReaderLoad = this.onFileReaderLoad.bind(this);
+		// this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
+		// this.onFileReaderError = this.onFileReaderError.bind(this);
+		// this.onFileReaderLoad = this.onFileReaderLoad.bind(this);
 
 		//this.onClickSettingsSelection = this.onClickSettingsSelection.bind(this);
 	}

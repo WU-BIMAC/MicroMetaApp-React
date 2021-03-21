@@ -63,10 +63,10 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
     _this.dropzoneDropRejected = _this.dropzoneDropRejected.bind(_assertThisInitialized(_this));
     _this.dropzoneDrop = _this.dropzoneDrop.bind(_assertThisInitialized(_this));
     _this.dropzoneDialogOpen = _this.dropzoneDialogOpen.bind(_assertThisInitialized(_this));
-    _this.dropzoneDialogCancel = _this.dropzoneDialogCancel.bind(_assertThisInitialized(_this));
-    _this.onFileReaderAbort = _this.onFileReaderAbort.bind(_assertThisInitialized(_this));
-    _this.onFileReaderError = _this.onFileReaderError.bind(_assertThisInitialized(_this));
-    _this.onFileReaderLoad = _this.onFileReaderLoad.bind(_assertThisInitialized(_this)); //this.onClickSettingsSelection = this.onClickSettingsSelection.bind(this);
+    _this.dropzoneDialogCancel = _this.dropzoneDialogCancel.bind(_assertThisInitialized(_this)); // this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
+    // this.onFileReaderError = this.onFileReaderError.bind(this);
+    // this.onFileReaderLoad = this.onFileReaderLoad.bind(this);
+    //this.onClickSettingsSelection = this.onClickSettingsSelection.bind(this);
 
     return _this;
   }
