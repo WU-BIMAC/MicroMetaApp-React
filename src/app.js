@@ -353,7 +353,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 	}
 
 	handleLoadMetadataComplete(imageMetadata) {
-		if(imageMetadata.Error != null && imageMetadata.Error !== undefined) {
+		if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
 			window.alert("Error " + imageMetadata.Error);
 		} else {
 			this.setState({ imageMetadata: imageMetadata });
@@ -1643,7 +1643,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			);
 		}
 
-		if (!this.state.isCreatingNewMicroscope && this.state.isLoadingImage) {
+		if (
+			!this.state.isCreatingNewMicroscope &&
+			this.state.isLoadingImage &&
+			this.props.onLoadMetadata !== null &&
+			this.props.onLoadMetadata !== undefined
+		) {
 			console.log("IMAGE LOADER");
 			//let modifiedCreateString = string_createFromScratch.replace("# ", "");
 			let loadingOptions = [string_noImageLoad, string_createFromFile];
