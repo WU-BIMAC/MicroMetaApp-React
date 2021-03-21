@@ -51,6 +51,127 @@ export default class ChannelView extends React.PureComponent {
 				this.state.fluorophoreSchema = schema;
 			}
 		}
+		if (this.props.imageMetadata !== null) {
+			let channels = this.props.imageMetadata.Channels;
+			for (let i = 0; channels.length; i++) {
+				let channelSchema = this.props.schema;
+				let fluorophoreSchema = this.state.fluorophoreSchema;
+				let lightPathSchema = this.state.lightPathSchema;
+				let oldChannel = channels[i];
+				let newChannelElementData = {
+					Name: `${channelSchema.title} ${channels.length}`,
+					ID: uuidv4(),
+					Tier: channelSchema.tier,
+					Schema_ID: channelSchema.ID,
+					Version: channelSchema.version,
+				};
+				Object.keys(channelSchema.properties).forEach((key) => {
+					if (channelSchema.properties[key].type === string_array) {
+						let currentNumber = string_currentNumberOf_identifier + key;
+						let minNumber = string_minNumberOf_identifier + key;
+						let maxNumber = string_maxNumberOf_identifier + key;
+						if (channelSchema.required.indexOf(key) != -1) {
+							newChannelElementData[currentNumber] = 1;
+							newChannelElementData[minNumber] = 1;
+							newChannelElementData[maxNumber] = -1;
+						} else {
+							newChannelElementData[currentNumber] = 0;
+							newChannelElementData[minNumber] = 0;
+							newChannelElementData[maxNumber] = -1;
+						}
+					} else if (channelSchema.properties[key].type === string_object) {
+						let currentNumber = string_currentNumberOf_identifier + key;
+						let minNumber = string_minNumberOf_identifier + key;
+						let maxNumber = string_maxNumberOf_identifier + key;
+						if (channelSchema.required.indexOf(key) === -1) {
+							newChannelElementData[currentNumber] = 0;
+							newChannelElementData[minNumber] = 0;
+							newChannelElementData[maxNumber] = 1;
+						}
+					}
+				});
+				let newFluorophoreElementData = {
+					Name: `${fluorophoreSchema.title} ${channels.length}`,
+					ID: uuidv4(),
+					Tier: fluorophoreSchema.tier,
+					Schema_ID: fluorophoreSchema.ID,
+					Version: fluorophoreSchema.version,
+				};
+				Object.keys(fluorophoreSchema.properties).forEach((key) => {
+					if (fluorophoreSchema.properties[key].type === string_array) {
+						let currentNumber = string_currentNumberOf_identifier + key;
+						let minNumber = string_minNumberOf_identifier + key;
+						let maxNumber = string_maxNumberOf_identifier + key;
+						if (fluorophoreSchema.required.indexOf(key) != -1) {
+							newFluorophoreElementData[currentNumber] = 1;
+							newFluorophoreElementData[minNumber] = 1;
+							newFluorophoreElementData[maxNumber] = -1;
+						} else {
+							newFluorophoreElementData[currentNumber] = 0;
+							newFluorophoreElementData[minNumber] = 0;
+							newFluorophoreElementData[maxNumber] = -1;
+						}
+					} else if (fluorophoreSchema.properties[key].type === string_object) {
+						let currentNumber = string_currentNumberOf_identifier + key;
+						let minNumber = string_minNumberOf_identifier + key;
+						let maxNumber = string_maxNumberOf_identifier + key;
+						if (fluorophoreSchema.required.indexOf(key) === -1) {
+							newFluorophoreElementData[currentNumber] = 0;
+							newFluorophoreElementData[minNumber] = 0;
+							newFluorophoreElementData[maxNumber] = 1;
+						}
+					}
+				});
+
+				let newLightPathElementData = {
+					Name: `${lightPathSchema.title} ${channels.length}`,
+					ID: uuidv4(),
+					Tier: lightPathSchema.tier,
+					Schema_ID: lightPathSchema.ID,
+					Version: lightPathSchema.version,
+				};
+				Object.keys(lightPathSchema.properties).forEach((key) => {
+					if (lightPathSchema.properties[key].type === string_array) {
+						let currentNumber = string_currentNumberOf_identifier + key;
+						let minNumber = string_minNumberOf_identifier + key;
+						let maxNumber = string_maxNumberOf_identifier + key;
+						if (lightPathSchema.required.indexOf(key) != -1) {
+							newLightPathElementData[currentNumber] = 1;
+							newLightPathElementData[minNumber] = 1;
+							newLightPathElementData[maxNumber] = -1;
+						} else {
+							newLightPathElementData[currentNumber] = 0;
+							newLightPathElementData[minNumber] = 0;
+							newLightPathElementData[maxNumber] = -1;
+						}
+					} else if (lightPathSchema.properties[key].type === string_object) {
+						let currentNumber = string_currentNumberOf_identifier + key;
+						let minNumber = string_minNumberOf_identifier + key;
+						let maxNumber = string_maxNumberOf_identifier + key;
+						if (lightPathSchema.required.indexOf(key) === -1) {
+							newLightPathElementData[currentNumber] = 0;
+							newLightPathElementData[minNumber] = 0;
+							newLightPathElementData[maxNumber] = 1;
+						}
+					}
+				});
+				this.state.channels[i] = Object.assign(
+					{},
+					newChannelElementData,
+					oldChannel
+				);
+				this.state.channels[i].LightPath = Object.assign(
+					{},
+					newLightPathElementData,
+					oldChannel.LightPath
+				);
+				this.state.channels[i].Fluorophore = Object.assign(
+					{},
+					newFluorophoreElementData,
+					oldChannel.Fluorophore
+				);
+			}
+		}
 
 		this.onAddElement = this.onAddElement.bind(this);
 		this.onEditElement = this.onEditElement.bind(this);

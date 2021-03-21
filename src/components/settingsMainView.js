@@ -355,6 +355,7 @@ export default class SettingMainView extends React.PureComponent {
 						<PlaneView
 							schema={schema}
 							inputData={obj}
+							imageMetadata={this.props.imageMetadata}
 							id={editingElement}
 							onConfirm={this.onElementDataSave}
 							onCancel={this.onElementDataCancel}
@@ -370,6 +371,7 @@ export default class SettingMainView extends React.PureComponent {
 						experimentalSchemas={this.props.experimentalSchemas}
 						schema={schema}
 						inputData={obj}
+						imageMetadata={this.props.imageMetadata}
 						id={editingElement}
 						imagesPath={this.props.imagesPath}
 						settingData={this.props.settingData}
@@ -404,6 +406,7 @@ export default class SettingMainView extends React.PureComponent {
 						experimentalSchemas={this.props.experimentalSchemas}
 						schema={schema}
 						inputData={obj}
+						imageMetadata={this.props.imageMetadata}
 						id={editingElement}
 						category={category}
 						imagesPath={this.props.imagesPath}

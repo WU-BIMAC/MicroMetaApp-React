@@ -358,6 +358,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/_react.default.createElement(_planeView.default, {
             schema: schema,
             inputData: obj,
+            imageMetadata: this.props.imageMetadata,
             id: editingElement,
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
@@ -370,6 +371,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             experimentalSchemas: this.props.experimentalSchemas,
             schema: schema,
             inputData: obj,
+            imageMetadata: this.props.imageMetadata,
             id: editingElement,
             imagesPath: this.props.imagesPath,
             settingData: this.props.settingData,
@@ -398,6 +400,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             experimentalSchemas: this.props.experimentalSchemas,
             schema: schema,
             inputData: obj,
+            imageMetadata: this.props.imageMetadata,
             id: editingElement,
             category: category,
             imagesPath: this.props.imagesPath,

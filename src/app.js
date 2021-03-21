@@ -905,6 +905,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let typeDimensions = this.state.dimensions[standType];
 		let uuid = uuidv4();
 		let uuid2 = uuidv4();
+		let uuid3 = uuidv4();
 		let activeTier = this.state.activeTier;
 		let adaptedSchemas = this.createAdaptedSchemas(activeTier, standType);
 		let imageSchema = adaptedSchemas[3];
@@ -912,10 +913,16 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		//console.log(settingsSchema);
 		let pixelsSchema = null;
+		let planeSchema = null;
+		let channelSchema = null;
 		for (let i in settingsSchema) {
 			let localSchema = settingsSchema[i];
 			if (localSchema.ID === "Pixels.json") {
 				pixelsSchema = localSchema;
+			} else if (localSchema.ID === "Plane.json") {
+				planeSchema = localSchema;
+			} else if (localSchema.ID === "Channel.json") {
+				channelSchema = localSchema;
 			}
 		}
 
@@ -939,11 +946,12 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			ValidationTier: activeTier,
 			Version: pixelsSchema.version,
 		};
-		setting.Pixels = pixels;
 
 		let mergedSettings = null;
 		if (imageMetadata !== null && imageMetadata !== undefined) {
 			mergedSettings = Object.assign({}, setting, imageMetadata);
+			let mergedPixels = Object.assign({}, pixels, imageMetadata.Pixels);
+			mergedSettings.Pixels = mergedPixels;
 		} else {
 			mergedSettings = setting;
 		}
@@ -1767,6 +1775,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			}
 		}
 
+		let imageMetadata = this.state.imageMetadata;
 		let footerMicroscopeSchemas = [microscopeSchema, microscopeStandSchema];
 		let footerMicroscopeInput = [microscope, microscope.MicroscopeStand];
 
@@ -1830,6 +1839,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						componentSchemas={componentsSchema}
 						setting={setting}
 						settingData={settingData}
+						imageMetadata={imageMetadata}
 						experimentalData={experimentalData}
 						componentData={elementData}
 						linkedFields={linkedFields}

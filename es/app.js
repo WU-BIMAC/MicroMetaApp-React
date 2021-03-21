@@ -841,18 +841,25 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var typeDimensions = this.state.dimensions[standType];
       var uuid = (0, _uuid.v4)();
       var uuid2 = (0, _uuid.v4)();
+      var uuid3 = (0, _uuid.v4)();
       var activeTier = this.state.activeTier;
       var adaptedSchemas = this.createAdaptedSchemas(activeTier, standType);
       var imageSchema = adaptedSchemas[3];
       var settingsSchema = adaptedSchemas[4]; //console.log(settingsSchema);
 
       var pixelsSchema = null;
+      var planeSchema = null;
+      var channelSchema = null;
 
       for (var i in settingsSchema) {
         var localSchema = settingsSchema[i];
 
         if (localSchema.ID === "Pixels.json") {
           pixelsSchema = localSchema;
+        } else if (localSchema.ID === "Plane.json") {
+          planeSchema = localSchema;
+        } else if (localSchema.ID === "Channel.json") {
+          channelSchema = localSchema;
         }
       }
 
@@ -876,11 +883,12 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         ValidationTier: activeTier,
         Version: pixelsSchema.version
       };
-      setting.Pixels = pixels;
       var mergedSettings = null;
 
       if (imageMetadata !== null && imageMetadata !== undefined) {
         mergedSettings = Object.assign({}, setting, imageMetadata);
+        var mergedPixels = Object.assign({}, pixels, imageMetadata.Pixels);
+        mergedSettings.Pixels = mergedPixels;
       } else {
         mergedSettings = setting;
       }
@@ -1654,6 +1662,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
+      var imageMetadata = this.state.imageMetadata;
       var footerMicroscopeSchemas = [microscopeSchema, microscopeStandSchema];
       var footerMicroscopeInput = [microscope, microscope.MicroscopeStand];
       var comps = {};
@@ -1711,6 +1720,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           componentSchemas: componentsSchema,
           setting: setting,
           settingData: settingData,
+          imageMetadata: imageMetadata,
           experimentalData: experimentalData,
           componentData: elementData,
           linkedFields: linkedFields,

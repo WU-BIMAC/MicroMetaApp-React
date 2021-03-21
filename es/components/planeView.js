@@ -111,6 +111,25 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       addingMultiplePlanes2: false,
       addingMultiplePlanesSetup: null
     };
+
+    if (_this.props.imageMetadata !== null) {
+      var planes = _this.props.imageMetadata.Planes;
+
+      for (var i = 0; planes.length; i++) {
+        var uuid = (0, _uuid.v4)();
+        var schema = _this.props.schema;
+        var oldPlane = planes[i];
+        var newPlane = {
+          //Name: `${schema.title} ${planes.length}`,
+          ID: uuid,
+          Tier: schema.tier,
+          Schema_ID: schema.ID,
+          Version: schema.version
+        };
+        _this.state.planes[i] = Object.assign({}, newPlane, oldPlane);
+      }
+    }
+
     _this.onAddElement = _this.onAddElement.bind(_assertThisInitialized(_this));
     _this.onEditElement = _this.onEditElement.bind(_assertThisInitialized(_this));
     _this.onRemoveElement = _this.onRemoveElement.bind(_assertThisInitialized(_this));

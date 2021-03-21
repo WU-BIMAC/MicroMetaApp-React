@@ -94,6 +94,22 @@ export default class PlaneView extends React.PureComponent {
 			addingMultiplePlanes2: false,
 			addingMultiplePlanesSetup: null,
 		};
+		if (this.props.imageMetadata !== null) {
+			let planes = this.props.imageMetadata.Planes;
+			for (let i = 0; planes.length; i++) {
+				let uuid = uuidv4();
+				let schema = this.props.schema;
+				let oldPlane = planes[i];
+				let newPlane = {
+					//Name: `${schema.title} ${planes.length}`,
+					ID: uuid,
+					Tier: schema.tier,
+					Schema_ID: schema.ID,
+					Version: schema.version,
+				};
+				this.state.planes[i] = Object.assign({}, newPlane, oldPlane);
+			}
+		}
 
 		this.onAddElement = this.onAddElement.bind(this);
 		this.onEditElement = this.onEditElement.bind(this);
