@@ -1547,7 +1547,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         }));
       }
 
-      if (!this.state.isCreatingNewMicroscope && this.state.isLoadingImage) {
+      if (!this.state.isCreatingNewMicroscope && this.state.isLoadingImage && this.props.onLoadMetadata !== null && this.props.onLoadMetadata !== undefined) {
         console.log("IMAGE LOADER"); //let modifiedCreateString = string_createFromScratch.replace("# ", "");
 
         var _loadingOptions = [_constants.string_noImageLoad, _constants.string_createFromFile];
