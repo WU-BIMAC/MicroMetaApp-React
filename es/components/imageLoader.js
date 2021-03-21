@@ -79,6 +79,8 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleImageSelection(item) {
       var imageMap = this.state.imageMap;
       var image = imageMap[item];
+      console.log("image");
+      console.log(image);
       this.props.handleLoadMetadataComplete(image);
     }
   }, {
@@ -98,16 +100,21 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
           imageMap[name] = image;
         }
 
+        console.log("image");
+        console.log(firstImage);
         this.props.handleLoadMetadataComplete(firstImage);
         this.setState({
           imageMap: imageMap,
           fileLoaded: true
         });
       } else {
+        var _image = imageMetadata.Image;
+        console.log("image");
+        console.log(_image);
+        this.props.handleLoadMetadataComplete(_image);
         this.setState({
           fileLoaded: true
         });
-        this.props.handleLoadMetadataComplete(imageMetadata.Image);
       }
     }
   }, {

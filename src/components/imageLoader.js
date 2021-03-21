@@ -54,6 +54,8 @@ export default class ImageLoader extends React.PureComponent {
 	handleImageSelection(item) {
 		let imageMap = this.state.imageMap;
 		let image = imageMap[item];
+		console.log("image");
+		console.log(image);
 		this.props.handleLoadMetadataComplete(image);
 	}
 
@@ -73,11 +75,16 @@ export default class ImageLoader extends React.PureComponent {
 				let name = image.Name;
 				imageMap[name] = image;
 			}
+			console.log("image");
+			console.log(firstImage);
 			this.props.handleLoadMetadataComplete(firstImage);
 			this.setState({ imageMap: imageMap, fileLoaded: true });
 		} else {
+			let image = imageMetadata.Image;
+			console.log("image");
+			console.log(image);
+			this.props.handleLoadMetadataComplete(image);
 			this.setState({ fileLoaded: true });
-			this.props.handleLoadMetadataComplete(imageMetadata.Image);
 		}
 	}
 
