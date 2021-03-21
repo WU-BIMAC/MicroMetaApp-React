@@ -56,14 +56,17 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
       fileLoaded: false,
       fileLoading: false,
       //selectedManu: null,
-      selectedSettings: null //settingsNames: null,
-
+      selectedSettings: null,
+      //settingsNames: null,
+      imageMap: null
     };
     _this.dropzoneDropAccepted = _this.dropzoneDropAccepted.bind(_assertThisInitialized(_this));
     _this.dropzoneDropRejected = _this.dropzoneDropRejected.bind(_assertThisInitialized(_this));
     _this.dropzoneDrop = _this.dropzoneDrop.bind(_assertThisInitialized(_this));
     _this.dropzoneDialogOpen = _this.dropzoneDialogOpen.bind(_assertThisInitialized(_this));
-    _this.dropzoneDialogCancel = _this.dropzoneDialogCancel.bind(_assertThisInitialized(_this)); // this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
+    _this.dropzoneDialogCancel = _this.dropzoneDialogCancel.bind(_assertThisInitialized(_this));
+    _this.handleLoadMetadataComplete = _this.handleLoadMetadataComplete.bind(_assertThisInitialized(_this));
+    _this.handleImageSelection = _this.handleImageSelection.bind(_assertThisInitialized(_this)); // this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
     // this.onFileReaderError = this.onFileReaderError.bind(this);
     // this.onFileReaderLoad = this.onFileReaderLoad.bind(this);
     //this.onClickSettingsSelection = this.onClickSettingsSelection.bind(this);
@@ -72,15 +75,39 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
   }
 
   _createClass(ImageLoader, [{
+    key: "handleImageSelection",
+    value: function handleImageSelection(item) {
+      var imageMap = this.state.imageMap;
+      var image = imageMap[item];
+      this.props.handleLoadMetadataComplete(image);
+    }
+  }, {
     key: "handleLoadMetadataComplete",
     value: function handleLoadMetadataComplete(imageMetadata) {
       if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
         window.alert("Error " + imageMetadata.Error);
+      } else if (imageMetadata.Images !== null && imageMetadata.Images !== undefined) {
+        var images = imageMetadata.Images;
+        var firstImage = null;
+        var imageMap = {};
+
+        for (var index in images) {
+          var image = images[index];
+          if (firstImage === null) firstImage = image;
+          var name = image.Name;
+          imageMap[name] = image;
+        }
+
+        this.props.handleLoadMetadataComplete(firstImage);
+        this.setState({
+          imageMap: imageMap,
+          fileLoaded: true
+        });
       } else {
         this.setState({
           fileLoaded: true
         });
-        this.props.handleLoadMetadataComplete(imageMetadata);
+        this.props.handleLoadMetadataComplete(imageMetadata.Image);
       }
     }
   }, {
@@ -183,6 +210,7 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
         height: "100%",
         margin: "auto"
       };
+      var imageMap = this.state.imageMap;
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
       var fileLoaded = this.state.fileLoaded;
@@ -223,27 +251,20 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
             })), /*#__PURE__*/_react.default.createElement("p", null, "Select an existing Image file you want to work on.")));
           })
         }));
-      } // if (loadingMode === 2) {
-      // 	let selectedSettings = this.state.selectedSettings;
-      // 	let defaultMic =
-      // 		selectedSettings !== null && selectedSettings !== undefined
-      // 			? inputData.indexOf(selectedSettings)
-      // 			: 0;
-      // 	//console.log(inputData);
-      // 	list.push(
-      // 		<DropdownMenu
-      // 			key={"dropdown-names"}
-      // 			title={""}
-      // 			handleMenuItemClick={this.onClickSettingsSelection}
-      // 			inputData={inputData}
-      // 			defaultValue={defaultMic}
-      // 			width={width}
-      // 			margin={margin}
-      // 			tooltip={createSettings_from_repo_names_tooltip}
-      // 		/>
-      // 	);
-      // }
+      }
 
+      if (imageMap !== null) {
+        list.push( /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+          key: "dropdown-names",
+          title: "",
+          handleMenuItemClick: this.handleImageSelection,
+          inputData: Object.keys(imageMap) //defaultValue={defaultMic}
+          ,
+          width: width,
+          margin: margin,
+          tooltip: _constants.loadImage_from_repo_names_tooltip
+        }));
+      }
 
       list.push( /*#__PURE__*/_react.default.createElement("div", {
         key: "buttons"

@@ -12,6 +12,7 @@ import {
 	number_logo_height,
 	loadImage_mode_selector_tooltip,
 	loadImage_from_file_tooltip,
+	loadImage_from_repo_names_tooltip,
 	loadImage_mode_continue_tooltip,
 	back_tooltip,
 } from "../constants";
@@ -25,6 +26,7 @@ export default class ImageLoader extends React.PureComponent {
 			//selectedManu: null,
 			selectedSettings: null,
 			//settingsNames: null,
+			imageMap: null,
 		};
 
 		this.dropzoneDropAccepted = this.dropzoneDropAccepted.bind(this);
@@ -32,6 +34,11 @@ export default class ImageLoader extends React.PureComponent {
 		this.dropzoneDrop = this.dropzoneDrop.bind(this);
 		this.dropzoneDialogOpen = this.dropzoneDialogOpen.bind(this);
 		this.dropzoneDialogCancel = this.dropzoneDialogCancel.bind(this);
+
+		this.handleLoadMetadataComplete = this.handleLoadMetadataComplete.bind(
+			this
+		);
+		this.handleImageSelection = this.handleImageSelection.bind(this);
 
 		// this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
 		// this.onFileReaderError = this.onFileReaderError.bind(this);
@@ -44,12 +51,33 @@ export default class ImageLoader extends React.PureComponent {
 		return null;
 	}
 
+	handleImageSelection(item) {
+		let imageMap = this.state.imageMap;
+		let image = imageMap[item];
+		this.props.handleLoadMetadataComplete(image);
+	}
+
 	handleLoadMetadataComplete(imageMetadata) {
 		if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
 			window.alert("Error " + imageMetadata.Error);
+		} else if (
+			imageMetadata.Images !== null &&
+			imageMetadata.Images !== undefined
+		) {
+			let images = imageMetadata.Images;
+			let firstImage = null;
+			let imageMap = {};
+			for (let index in images) {
+				let image = images[index];
+				if (firstImage === null) firstImage = image;
+				let name = image.Name;
+				imageMap[name] = image;
+			}
+			this.props.handleLoadMetadataComplete(firstImage);
+			this.setState({ imageMap: imageMap, fileLoaded: true });
 		} else {
 			this.setState({ fileLoaded: true });
-			this.props.handleLoadMetadataComplete(imageMetadata);
+			this.props.handleLoadMetadataComplete(imageMetadata.Image);
 		}
 	}
 
@@ -132,6 +160,8 @@ export default class ImageLoader extends React.PureComponent {
 			height: "100%",
 			margin: "auto",
 		};
+		let imageMap = this.state.imageMap;
+
 		let loadingMode = this.props.loadingMode;
 		let fileLoading = this.state.fileLoading;
 		let fileLoaded = this.state.fileLoaded;
@@ -185,27 +215,20 @@ export default class ImageLoader extends React.PureComponent {
 				/>
 			);
 		}
-
-		// if (loadingMode === 2) {
-		// 	let selectedSettings = this.state.selectedSettings;
-		// 	let defaultMic =
-		// 		selectedSettings !== null && selectedSettings !== undefined
-		// 			? inputData.indexOf(selectedSettings)
-		// 			: 0;
-		// 	//console.log(inputData);
-		// 	list.push(
-		// 		<DropdownMenu
-		// 			key={"dropdown-names"}
-		// 			title={""}
-		// 			handleMenuItemClick={this.onClickSettingsSelection}
-		// 			inputData={inputData}
-		// 			defaultValue={defaultMic}
-		// 			width={width}
-		// 			margin={margin}
-		// 			tooltip={createSettings_from_repo_names_tooltip}
-		// 		/>
-		// 	);
-		// }
+		if (imageMap !== null) {
+			list.push(
+				<DropdownMenu
+					key={"dropdown-names"}
+					title={""}
+					handleMenuItemClick={this.handleImageSelection}
+					inputData={Object.keys(imageMap)}
+					//defaultValue={defaultMic}
+					width={width}
+					margin={margin}
+					tooltip={loadImage_from_repo_names_tooltip}
+				/>
+			);
+		}
 		list.push(
 			<div key="buttons">
 				<PopoverTooltip

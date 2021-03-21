@@ -378,6 +378,12 @@ export const createSettings_from_repo_names_tooltip = {
 	position: "top",
 };
 
+export const loadImage_from_repo_names_tooltip = {
+	title: "Load from multi file",
+	content: <p>Select the Image entry you want to load.</p>,
+	position: "top",
+};
+
 export const create_mode_continue_tooltip = {
 	title: "Continue",
 	content: <p>Create a microscope using the mode selected above.</p>,
