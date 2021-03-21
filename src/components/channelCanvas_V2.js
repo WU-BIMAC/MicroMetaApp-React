@@ -169,142 +169,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		//this.props.updateElementData(this.state.elementData, true);
 	}
 
-	//static getDerivedStateFromProps(props, state) {
-	// if (props.componentsSchema !== null) {
-	// 	let componentsSchema = {};
-	// 	Object.keys(props.componentSchemas).forEach((schemaIndex) => {
-	// 		let schema = props.componentSchemas[schemaIndex];
-	// 		let schema_id = schema.ID;
-	// 		componentsSchema[schema_id] = schema;
-	// 	});
-	// 	let elementList = state.elementList;
-	// 	for (let i = 0; i < elementList.length; i++) {
-	// 		let element = elementList[i];
-	// 		let schema_id = element.schema_ID;
-	// 		let schema = componentsSchema[schema_id];
-	// 		let object = element.obj;
-	// 		let validation = validate(object, schema);
-	// 		let validated = validation.valid;
-	// 		element.validated = validated;
-	// 	}
-	// 	return {
-	// 		componentsSchema: componentsSchema,
-	// 	};
-	// }
-	// return null;
-	//}
-
-	// updatedDimensions(id, width, height, isResize) {
-	// 	let element = null;
-	// 	this.state.elementList.forEach((item) => {
-	// 		if (item.ID === id) element = item;
-	// 	});
-
-	// 	let newElementDataList = Object.assign({}, this.state.elementData);
-	// 	let obj = newElementDataList[id];
-
-	// 	if (element === null || obj === undefined) return;
-
-	// 	if (element.width !== -1 && element.height !== -1 && !isResize) {
-	// 		return;
-	// 	}
-
-	// 	element.width = width;
-	// 	element.height = height;
-	// 	obj.Width = width;
-	// 	obj.Height = height;
-
-	// 	let validated = this.areAllElementsValidated();
-	// 	this.props.updateElementData(newElementDataList, validated);
-	// }
-
-	// onImgLoad({ target: img }) {
-	// 	let oldHeight = this.state.imgHeight;
-	// 	let oldWidth = this.state.imgWidth;
-	// 	if (oldWidth !== null && oldHeight !== null) return;
-	// 	let newHeight = img.height;
-	// 	let newWidth = img.width;
-	// 	this.setState({
-	// 		imgHeight: newHeight,
-	// 		imgWidth: newWidth,
-	// 	});
-	// }
-
-	// areAllElementsValidated() {
-	// 	let elementList = this.state.elementList;
-	// 	for (let i = 0; i < elementList.length; i++) {
-	// 		if (!elementList[i].validated) {
-	// 			return false;
-	// 		}
-	// 	}
-	// 	return true;
-	// }
-
-	// onCanvasElementDataSave(id, data, dataLinkedFields) {
-	// 	let linkedFields = this.state.linkedFields;
-	// 	if (
-	// 		dataLinkedFields !== undefined &&
-	// 		Object.keys(dataLinkedFields).length > 0
-	// 	) {
-	// 		linkedFields[id] = dataLinkedFields;
-	// 	}
-
-	// 	// let elementList = this.state.elementList;
-	// 	// for (let i = 0; i < elementList.length; i++) {
-	// 	// 	if (elementList[i].ID === id) {
-	// 	// 		elementList[i].validated = true;
-	// 	// 		elementList[i].name = data.Name;
-	// 	// 		break;
-	// 	// 	}
-	// 	// }
-	// 	let currentElementData = Object.assign({}, this.state.elementData);
-	// 	currentElementData[id] = Object.assign(currentElementData[id], data);
-	// 	this.setState({
-	// 		elementData: currentElementData,
-	// 		linkedFields: linkedFields,
-	// 	});
-
-	// 	let validated = this.areAllElementsValidated();
-	// 	this.props.updateElementData(currentElementData, validated);
-	// 	this.props.updateLinkedFields(linkedFields);
-	// }
-
-	// getElementData() {
-	// 	return Object.assign({}, this.state.elementData);
-	// }
-
-	// addComponentsIndexesIfMissing(schema, newElementData) {
-	// 	Object.keys(schema.properties).forEach((key) => {
-	// 		let currentNumber = string_currentNumberOf_identifier + key;
-	// 		let minNumber = string_minNumberOf_identifier + key;
-	// 		let maxNumber = string_maxNumberOf_identifier + key;
-	// 		if (newElementData[currentNumber] !== undefined) {
-	// 			return;
-	// 		}
-	// 		if (schema.properties[key].type === string_array) {
-	// 			if (schema.required.indexOf(key) != -1) {
-	// 				newElementData[currentNumber] = 1;
-	// 				newElementData[minNumber] = 1;
-	// 				newElementData[maxNumber] = -1;
-	// 			} else {
-	// 				newElementData[currentNumber] = 0;
-	// 				newElementData[minNumber] = 0;
-	// 				newElementData[maxNumber] = -1;
-	// 			}
-	// 		} else if (schema.properties[key].type === string_object) {
-	// 			if (schema.required.indexOf(key) === -1) {
-	// 				newElementData[currentNumber] = 0;
-	// 				newElementData[minNumber] = 0;
-	// 				newElementData[maxNumber] = 1;
-	// 			} else {
-	// 				newElementData[currentNumber] = 1;
-	// 				newElementData[minNumber] = 1;
-	// 				newElementData[maxNumber] = 1;
-	// 			}
-	// 		}
-	// 	});
-	// }
-
 	onConfirm() {
 		let channelData = this.state.channelData[0];
 		let settingData = this.state.settingData;
@@ -321,6 +185,9 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			settingData: {},
 			channelData: {},
 		});
+
+		// console.log("channelData");
+		// console.log(channelData);
 		this.props.onConfirm(this.props.id, channelData);
 	}
 
@@ -377,6 +244,24 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			if (selectedSlot.includes("AdditionalSlot_")) {
 				let tmpSlots = this.state.tmpSlots;
 				slots[selectedSlot] = tmpSlots;
+
+				let newSelectedSettingData = [];
+				for (let index1 = 0; index1 < tmpSlots.length; index1++) {
+					let tmp = tmpSlots[index1];
+					let compID = tmp.ID;
+					for (
+						let index2 = 0;
+						index2 < settingData[selectedSlot].length;
+						index2++
+					) {
+						let sett = settingData[selectedSlot][index2];
+						let settID = sett.Component_ID;
+						if (compID === settID) {
+							newSelectedSettingData.push(sett);
+						}
+					}
+				}
+				settingData[selectedSlot] = newSelectedSettingData;
 			} else {
 				if (selectedComp === null || selectedComp === undefined) {
 					this.setState({
@@ -522,9 +407,8 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	handleDeleteComp(selectedSlot, index) {
 		let i = index;
 		if (selectedSlot.includes("AdditionalSlot_")) {
-			let tmpSlots = this.state.tmpSlots.slice();
-			tmpSlots.splice(i, 1);
-			let newTmpSlots = tmpSlots;
+			let newTmpSlots = this.state.tmpSlots.slice();
+			newTmpSlots.splice(i, 1);
 			this.setState({ tmpSlots: newTmpSlots });
 		} else {
 			let slots = Object.assign({}, this.state.slots);
@@ -1359,13 +1243,14 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							);
 						}
 
-						let len = slotList.length;
 						slotList.push(
 							<div>
 								<div style={styleIcons}>
 									<button
 										type="button"
-										onClick={() => this.handleDeleteComp(selectedSlot, len)}
+										onClick={() =>
+											this.handleDeleteComp(selectedSlot, compIndex)
+										}
 										style={styleCloser}
 									>
 										x
