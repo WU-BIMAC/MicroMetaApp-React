@@ -1159,7 +1159,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		} else {
 			this.setState({
 				isLoadingImage: false,
-				imageMetadata:null,
+				imageMetadata: null,
 			});
 		}
 	}
@@ -1658,7 +1658,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					<ImageLoader
 						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
 						loadingOptions={loadingOptions}
-						onLoadMetadata={this.onLoadMetadata}
+						onLoadMetadata={this.props.onLoadMetadata}
 						onFileDrop={this.handleLoadMetadataComplete}
 						loadingOption={this.state.loadingOption}
 						loadingMode={this.state.loadingMode}

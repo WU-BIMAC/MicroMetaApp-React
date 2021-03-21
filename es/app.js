@@ -1557,7 +1557,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement(_imageLoader.default, {
           logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_micro_bk),
           loadingOptions: _loadingOptions,
-          onLoadMetadata: this.onLoadMetadata,
+          onLoadMetadata: this.props.onLoadMetadata,
           onFileDrop: this.handleLoadMetadataComplete,
           loadingOption: this.state.loadingOption,
           loadingMode: this.state.loadingMode,
