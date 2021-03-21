@@ -333,7 +333,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		let loadingMode = 0;
 		if (item === string_createFromFile) {
 			loadingMode = 1;
-		} else if (item === string_loadFromRepository) loadingMode = 2;
+		} else if (item === string_loadFromRepository) {
+			loadingMode = 2;
+		}
 		this.setState({ loadingOption: item, loadingMode: loadingMode });
 	}
 
@@ -1170,11 +1172,13 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		if (this.state.loadingOption === string_createFromFile) {
 			this.setState({
 				isLoadingImage: false,
+				loadingMode: 1,
 			});
 		} else {
 			this.setState({
 				isLoadingImage: false,
 				imageMetadata: null,
+				loadingMode: 1,
 			});
 		}
 	}

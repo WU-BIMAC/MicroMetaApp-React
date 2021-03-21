@@ -338,7 +338,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
 
       if (item === _constants.string_createFromFile) {
         loadingMode = 1;
-      } else if (item === _constants.string_loadFromRepository) loadingMode = 2;
+      } else if (item === _constants.string_loadFromRepository) {
+        loadingMode = 2;
+      }
 
       this.setState({
         loadingOption: item,
@@ -1094,12 +1096,14 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     value: function createOrUseMetadata() {
       if (this.state.loadingOption === _constants.string_createFromFile) {
         this.setState({
-          isLoadingImage: false
+          isLoadingImage: false,
+          loadingMode: 1
         });
       } else {
         this.setState({
           isLoadingImage: false,
-          imageMetadata: null
+          imageMetadata: null,
+          loadingMode: 1
         });
       }
     }
