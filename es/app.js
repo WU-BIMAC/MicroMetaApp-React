@@ -173,6 +173,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     _this.createNewSettingFromScratch = _this.createNewSettingFromScratch.bind(_assertThisInitialized(_this));
     _this.createOrUseSettingFromDroppedFile = _this.createOrUseSettingFromDroppedFile.bind(_assertThisInitialized(_this));
     _this.createOrUseSettingFromSelectedFile = _this.createOrUseSettingFromSelectedFile.bind(_assertThisInitialized(_this));
+    _this.createOrUseMetadata = _this.createOrUseMetadata.bind(_assertThisInitialized(_this));
     _this.onClickBack = _this.onClickBack.bind(_assertThisInitialized(_this));
     _this.createAdaptedSchemas = _this.createAdaptedSchemas.bind(_assertThisInitialized(_this));
     _this.createAdaptedSchema = _this.createAdaptedSchema.bind(_assertThisInitialized(_this));

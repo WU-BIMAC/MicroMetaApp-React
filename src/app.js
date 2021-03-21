@@ -173,6 +173,8 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			this
 		);
 
+		this.createOrUseMetadata = this.createOrUseMetadata.bind(this);
+
 		this.onClickBack = this.onClickBack.bind(this);
 
 		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
