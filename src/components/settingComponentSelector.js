@@ -308,13 +308,37 @@ export default class SettingComponentSelector extends React.PureComponent {
 					Schema_ID: objSettingsSchema.ID,
 					Version: objSettingsSchema.version,
 				};
-				settingCompData.ImmersionLiquid = {
+				let immersionLiquid = {
 					Name: `${immersionLiquidSchema.title}`,
 					ID: uuid2,
 					Tier: immersionLiquidSchema.tier,
 					Schema_ID: immersionLiquidSchema.ID,
 					Version: immersionLiquidSchema.version,
 				};
+				settingCompData.ImmersionLiquid = immersionLiquid;
+				// if (
+				// 	this.props.imageMetadata !== null &&
+				// 	this.props.imageMetadata !== undefined &&
+				// 	this.props.imageMetadata.ObjectiveSettings !== null &&
+				// 	this.props.ObjectiveSettings !== undefined
+				// ) {
+				// 	let imageMetadataObjSettings = this.props.imageMetadata
+				// 		.ObjectiveSettings;
+				// 	let newSettingsCompData = Object.assign(
+				// 		{},
+				// 		settingCompData,
+				// 		imageMetadataObjSettings
+				// 	);
+				// 	if (
+				// 		imageMetadataObjSettings.ImmersionLiquid !== null &&
+				// 		imageMetadataObjSettings.ImmersionLiquid !== undefined
+				// 	) {
+				// 		let imageMetadataImmersionLiquid =
+				// 			imageMetadataObjSettings.ImmersionLiquid;
+				// 		newSettingsCompData.ImmersionLiquid = imageMetadataImmersionLiquid;
+				// 	}
+				// 	settingCompData = newSettingsCompData;
+				// }
 			} else {
 				settingCompData = {
 					Name: `${currentSchema.title}`,
@@ -324,6 +348,23 @@ export default class SettingComponentSelector extends React.PureComponent {
 					Schema_ID: currentSchema.ID,
 					Version: currentSchema.version,
 				};
+				// if (selectedSchema.modelSettings === "ImagingEnvironment.json") {
+				// 	if (
+				// 		this.props.imageMetadata !== null &&
+				// 		this.props.imageMetadata !== undefined &&
+				// 		this.props.imageMetadata.ImagingEnvironment !== null &&
+				// 		this.props.ImagingEnvironment !== undefined
+				// 	) {
+				// 		let imageMetadataImgEnv = this.props.imageMetadata
+				// 			.ImagingEnvironment;
+				// 		let newSettingsCompData = Object.assign(
+				// 			{},
+				// 			settingCompData,
+				// 			imageMetadataImgEnv
+				// 		);
+				// 		settingCompData = newSettingsCompData;
+				// 	}
+				// }
 			}
 		}
 

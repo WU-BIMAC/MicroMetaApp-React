@@ -34,6 +34,9 @@ import {
 	string_createFromFile,
 	string_loadFromRepository,
 	string_noImageLoad,
+	string_currentNumberOf_identifier,
+	string_maxNumberOf_identifier,
+	string_minNumberOf_identifier
 } from "./constants";
 import { isUndefined } from "util";
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
