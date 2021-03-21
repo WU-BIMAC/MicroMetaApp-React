@@ -31,6 +31,8 @@ var _microscopeLoader = _interopRequireDefault(require("./components/microscopeL
 
 var _settingLoader = _interopRequireDefault(require("./components/settingLoader"));
 
+var _imageLoader = _interopRequireDefault(require("./components/imageLoader"));
+
 var _uuid = require("uuid");
 
 var _html2canvas = _interopRequireDefault(require("html2canvas"));
@@ -1555,7 +1557,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
-        }, /*#__PURE__*/_react.default.createElement(ImageLoader, {
+        }, /*#__PURE__*/_react.default.createElement(_imageLoader.default, {
           logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_micro_bk),
           loadingOptions: _loadingOptions,
           onFileDrop: this.uploadMetadataFromDropzone,

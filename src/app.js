@@ -12,6 +12,7 @@ import DataLoader from "./components/dataLoader";
 import MicroscopePreLoader from "./components/microscopePreLoader";
 import MicroscopeLoader from "./components/microscopeLoader";
 import SettingLoader from "./components/settingLoader";
+import ImageLoader from "./components/imageLoader";
 
 import { v4 as uuidv4 } from "uuid";
 
