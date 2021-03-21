@@ -395,9 +395,22 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
           }, valid), /*#__PURE__*/_react.default.createElement("div", null, channelName))));
         }
 
+        var channelListStyle = {
+          overflow: "auto",
+          maxHeight: "0%",
+          height: "0%"
+        };
+
+        if (channels.length > 0) {
+          channelListStyle.maxHeight = "80%";
+          channelListStyle.height = "80%";
+        }
+
         return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
           overlaysContainer: this.props.overlaysContainer
-        }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title + "s")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_ListGroup.default, null, list)), /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title + "s")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+          style: channelListStyle
+        }, /*#__PURE__*/_react.default.createElement(_ListGroup.default, null, list)), /*#__PURE__*/_react.default.createElement("div", {
           style: buttonContainerRow
         }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           key: "TooltipButton-Add",

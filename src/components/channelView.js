@@ -411,13 +411,22 @@ export default class ChannelView extends React.PureComponent {
 					</ListGroup.Item>
 				);
 			}
+			let channelListStyle = {
+				overflow: "auto",
+				maxHeight: "0%",
+				height: "0%",
+			};
+			if (channels.length > 0) {
+				channelListStyle.maxHeight = "80%";
+				channelListStyle.height = "80%";
+			}
 			return (
 				<ModalWindow overlaysContainer={this.props.overlaysContainer}>
 					<div>
 						<h3>{this.props.schema.title + "s"}</h3>
 					</div>
 					<div>
-						<div>
+						<div style={channelListStyle}>
 							<ListGroup>{list}</ListGroup>
 						</div>
 						<div style={buttonContainerRow}>
