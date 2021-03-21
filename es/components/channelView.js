@@ -83,7 +83,7 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
       }
     }
 
-    if (_this.props.imageMetadata !== null) {
+    if (_this.props.imageMetadata !== null && _this.props.imageMetadata !== undefined && _this.props.imageMetadata.Channels !== null && _this.props.imageMetadata.Channels !== undefined) {
       var channels = _this.props.imageMetadata.Channels;
 
       var _loop = function _loop(i) {

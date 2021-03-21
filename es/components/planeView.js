@@ -112,8 +112,9 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       addingMultiplePlanesSetup: null
     };
     console.log("IM HERE");
+    console.log(_this.props.imageMetadata);
 
-    if (_this.props.imageMetadata !== null) {
+    if (_this.props.imageMetadata !== null && _this.props.imageMetadata !== undefined && _this.props.imageMetadata.Planes !== null && _this.props.imageMetadata.Planes !== undefined) {
       var planes = _this.props.imageMetadata.Planes;
 
       for (var i = 0; planes.length; i++) {

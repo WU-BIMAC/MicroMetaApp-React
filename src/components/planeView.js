@@ -95,7 +95,13 @@ export default class PlaneView extends React.PureComponent {
 			addingMultiplePlanesSetup: null,
 		};
 		console.log("IM HERE");
-		if (this.props.imageMetadata !== null) {
+		console.log(this.props.imageMetadata);
+		if (
+			this.props.imageMetadata !== null &&
+			this.props.imageMetadata !== undefined &&
+			this.props.imageMetadata.Planes !== null &&
+			this.props.imageMetadata.Planes !== undefined
+		) {
 			let planes = this.props.imageMetadata.Planes;
 			for (let i = 0; planes.length; i++) {
 				console.log("IM HERE" + i);
