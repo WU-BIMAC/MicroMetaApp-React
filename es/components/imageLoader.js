@@ -72,26 +72,6 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
   }
 
   _createClass(ImageLoader, [{
-    key: "onFileReaderAbort",
-    // onClickSettingsSelection(item) {
-    // 	if (item !== null && item !== undefined) {
-    // 		this.setState({ selectedSettings: item });
-    // 		this.props.onClickSettingsSelection(item);
-    // 	}
-    // }
-    value: function onFileReaderAbort(e) {
-      this.setState({
-        fileLoaded: false
-      });
-    }
-  }, {
-    key: "onFileReaderError",
-    value: function onFileReaderError(e) {
-      this.setState({
-        fileLoaded: false
-      });
-    }
-  }, {
     key: "handleLoadMetadataComplete",
     value: function handleLoadMetadataComplete(imageMetadata) {
       if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
@@ -102,14 +82,6 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
         });
         this.props.handleLoadMetadataComplete(imageMetadata);
       }
-    }
-  }, {
-    key: "onFileReaderLoad",
-    value: function onFileReaderLoad(e) {
-      console.log(e);
-      console.log(e.target); //let binaryStr = e.target.result;
-      //let microscope = JSON.parse(binaryStr);
-      //this.props.onLoadMetadata(imgPath, this.handleLoadMetadataComplete);
     }
   }, {
     key: "dropzoneDrop",
@@ -128,14 +100,20 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
       });
     }
   }, {
+    key: "processFile",
+    value: function processFile() {//let binaryStr = e.target.result;
+      //let microscope = JSON.parse(binaryStr);
+      //
+    }
+  }, {
     key: "dropzoneDropAccepted",
     value: function dropzoneDropAccepted(acceptedFiles) {
-      var reader = new FileReader();
-      reader.onabort = this.onFileReaderAbort;
-      reader.onerror = this.onFileReaderError;
-      reader.onload = this.onFileReaderLoad;
+      // const reader = new FileReader();
+      // reader.onabort = this.onFileReaderAbort;
+      // reader.onerror = this.onFileReaderError;
+      // reader.onload = this.onFileReaderLoad;
       acceptedFiles.forEach(function (file) {
-        return reader.readAsText(file);
+        console.log(file); //this.props.onLoadMetadata(imgPath, this.handleLoadMetadataComplete);
       });
       this.setState({
         fileLoading: false
@@ -300,19 +278,8 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
     }
   }], [{
     key: "getDerivedStateFromProps",
-    value: function getDerivedStateFromProps(props, state) {// if (props.loadingMode === 2) {
-      // 	if (props.settings !== null && props.settings !== undefined) {
-      // 		if (
-      // 			state.selectedSettings === null ||
-      // 			state.selectedSettings === undefined
-      // 		) {
-      // 			let selectedSettings = props.settings[0];
-      // 			props.onClickSettingsSelection(selectedSettings);
-      // 		}
-      // 		return null;
-      // 	}
-      // }
-      // return null;
+    value: function getDerivedStateFromProps(props, state) {
+      return null;
     }
   }]);
 

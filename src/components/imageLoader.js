@@ -41,34 +41,7 @@ export default class ImageLoader extends React.PureComponent {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		// if (props.loadingMode === 2) {
-		// 	if (props.settings !== null && props.settings !== undefined) {
-		// 		if (
-		// 			state.selectedSettings === null ||
-		// 			state.selectedSettings === undefined
-		// 		) {
-		// 			let selectedSettings = props.settings[0];
-		// 			props.onClickSettingsSelection(selectedSettings);
-		// 		}
-		// 		return null;
-		// 	}
-		// }
-		// return null;
-	}
-
-	// onClickSettingsSelection(item) {
-	// 	if (item !== null && item !== undefined) {
-	// 		this.setState({ selectedSettings: item });
-	// 		this.props.onClickSettingsSelection(item);
-	// 	}
-	// }
-
-	onFileReaderAbort(e) {
-		this.setState({ fileLoaded: false });
-	}
-
-	onFileReaderError(e) {
-		this.setState({ fileLoaded: false });
+		return null;
 	}
 
 	handleLoadMetadataComplete(imageMetadata) {
@@ -80,16 +53,6 @@ export default class ImageLoader extends React.PureComponent {
 		}
 	}
 
-	onFileReaderLoad(e) {
-		console.log(e);
-		console.log(e.target);
-
-		//let binaryStr = e.target.result;
-		//let microscope = JSON.parse(binaryStr);
-
-		//this.props.onLoadMetadata(imgPath, this.handleLoadMetadataComplete);
-	}
-
 	dropzoneDrop() {
 		this.setState({ fileLoading: true, fileLoaded: false });
 	}
@@ -98,13 +61,22 @@ export default class ImageLoader extends React.PureComponent {
 		this.setState({ fileLoading: false, fileLoaded: false });
 	}
 
-	dropzoneDropAccepted(acceptedFiles) {
-		const reader = new FileReader();
-		reader.onabort = this.onFileReaderAbort;
-		reader.onerror = this.onFileReaderError;
-		reader.onload = this.onFileReaderLoad;
+	processFile() {
+		//let binaryStr = e.target.result;
+		//let microscope = JSON.parse(binaryStr);
+		//
+	}
 
-		acceptedFiles.forEach((file) => reader.readAsText(file));
+	dropzoneDropAccepted(acceptedFiles) {
+		// const reader = new FileReader();
+		// reader.onabort = this.onFileReaderAbort;
+		// reader.onerror = this.onFileReaderError;
+		// reader.onload = this.onFileReaderLoad;
+
+		acceptedFiles.forEach((file) => {
+			console.log(file);
+			//this.props.onLoadMetadata(imgPath, this.handleLoadMetadataComplete);
+		});
 
 		this.setState({ fileLoading: false });
 	}
