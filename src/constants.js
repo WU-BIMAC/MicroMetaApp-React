@@ -31,6 +31,7 @@ export const string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_2.png";
 export const string_createFromScratch = "Create # from scratch";
 export const string_createFromFile = "Load from file";
 export const string_loadFromRepository = "Load from repository";
+export const string_noImageLoad = "Skip load Image";
 
 export const string_validationTier = "Validate @ tier: ";
 
@@ -333,6 +334,14 @@ export const createSettings_mode_selector_tooltip = {
 	position: "top",
 };
 
+export const loadImage_mode_selector_tooltip = {
+	title: "Open Image file selector",
+	content: (
+		<p>Choose the source of the Image file you want to use or continue.</p>
+	),
+	position: "top",
+};
+
 export const create_from_file_tooltip = {
 	title: "Create from file",
 	content: <p>Select an existing Microscope file you want to work on.</p>,
@@ -342,6 +351,12 @@ export const create_from_file_tooltip = {
 export const createSettings_from_file_tooltip = {
 	title: "Load from file",
 	content: <p>Select an existing Settings file you want to work on.</p>,
+	position: "top",
+};
+
+export const loadImage_from_file_tooltip = {
+	title: "Load from file",
+	content: <p>Select an existing Image file you want to work on.</p>,
 	position: "top",
 };
 
@@ -386,6 +401,17 @@ export const createSettings_mode_continue_tooltip = {
 		<p>
 			Click this button to create a new Settings file or edit an existing one
 			using the modality chosen above.
+		</p>
+	),
+	position: "left",
+};
+
+export const loadImage_mode_continue_tooltip = {
+	title: "Continue",
+	content: (
+		<p>
+			Click this button to create a new Settings file or load metadata from an
+			Image using the modality chosen above.
 		</p>
 	),
 	position: "left",
