@@ -425,64 +425,62 @@ export default class ChannelView extends React.PureComponent {
 					<div>
 						<h3>{this.props.schema.title + "s"}</h3>
 					</div>
-					<div>
-						<div style={channelListStyle}>
-							<ListGroup>{list}</ListGroup>
-						</div>
-						<div style={buttonContainerRow}>
-							<PopoverTooltip
-								key={"TooltipButton-Add"}
-								position={add_channel.position}
-								title={add_channel.title}
-								content={add_channel.content}
-								element={
-									<Button style={button1} size="lg" onClick={this.onAddElement}>
-										+
-									</Button>
-								}
-							/>
+					<div style={channelListStyle}>
+						<ListGroup>{list}</ListGroup>
+					</div>
+					<div style={buttonContainerRow}>
+						<PopoverTooltip
+							key={"TooltipButton-Add"}
+							position={add_channel.position}
+							title={add_channel.title}
+							content={add_channel.content}
+							element={
+								<Button style={button1} size="lg" onClick={this.onAddElement}>
+									+
+								</Button>
+							}
+						/>
 
-							<PopoverTooltip
-								key={"TooltipButton-Edit"}
-								position={edit_channel.position}
-								title={edit_channel.title}
-								content={edit_channel.content}
-								element={
-									<Button
-										style={button2}
-										size="lg"
-										onClick={this.onEditElement}
-										disabled={index === -1}
-									>
-										Edit selected
-									</Button>
-								}
-							/>
+						<PopoverTooltip
+							key={"TooltipButton-Edit"}
+							position={edit_channel.position}
+							title={edit_channel.title}
+							content={edit_channel.content}
+							element={
+								<Button
+									style={button2}
+									size="lg"
+									onClick={this.onEditElement}
+									disabled={index === -1}
+								>
+									Edit selected
+								</Button>
+							}
+						/>
 
-							<PopoverTooltip
-								key={"TooltipButton-Remove"}
-								position={remove_channel.position}
-								title={remove_channel.title}
-								content={remove_channel.content}
-								element={
-									<Button
-										style={button1}
-										size="lg"
-										onClick={this.onRemoveElement}
-									>
-										-
-									</Button>
-								}
-							/>
-						</div>
-						<div style={buttonContainerRow}>
-							<Button style={button2} size="lg" onClick={this.onConfirm}>
-								Confirm
-							</Button>
-							<Button style={button2} size="lg" onClick={this.onCancel}>
-								Cancel
-							</Button>
-						</div>
+						<PopoverTooltip
+							key={"TooltipButton-Remove"}
+							position={remove_channel.position}
+							title={remove_channel.title}
+							content={remove_channel.content}
+							element={
+								<Button
+									style={button1}
+									size="lg"
+									onClick={this.onRemoveElement}
+								>
+									-
+								</Button>
+							}
+						/>
+					</div>
+					<div style={buttonContainerRow}>
+						<Button style={button2} size="lg" onClick={this.onConfirm}>
+							Confirm
+						</Button>
+						<Button style={button2} size="lg" onClick={this.onCancel}>
+							Cancel
+						</Button>
 					</div>
 				</ModalWindow>
 			);

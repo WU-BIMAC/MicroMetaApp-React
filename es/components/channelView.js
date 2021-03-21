@@ -408,7 +408,7 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
 
         return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
           overlaysContainer: this.props.overlaysContainer
-        }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title + "s")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, this.props.schema.title + "s")), /*#__PURE__*/_react.default.createElement("div", {
           style: channelListStyle
         }, /*#__PURE__*/_react.default.createElement(_ListGroup.default, null, list)), /*#__PURE__*/_react.default.createElement("div", {
           style: buttonContainerRow
@@ -453,7 +453,7 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
           style: button2,
           size: "lg",
           onClick: this.onCancel
-        }, "Cancel"))));
+        }, "Cancel")));
       }
     }
   }], [{
