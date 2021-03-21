@@ -1659,7 +1659,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
 						loadingOptions={loadingOptions}
 						onLoadMetadata={this.props.onLoadMetadata}
-						onFileDrop={this.handleLoadMetadataComplete}
+						handleLoadMetadataComplete={this.handleLoadMetadataComplete}
 						loadingOption={this.state.loadingOption}
 						loadingMode={this.state.loadingMode}
 						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
