@@ -474,9 +474,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         var _category = null;
         var disabled = false;
         var settingsInfo = [];
-        var localSettingInfo = this.props.setting;
-        console.log("localSettingInfo");
-        console.log(localSettingInfo);
+        var localSettingInfo = this.props.setting; //console.log("localSettingInfo");
+        //console.log(localSettingInfo);
 
         if (localSettingInfo !== null && localSettingInfo !== undefined) {
           if (localSettingInfo.Name !== undefined && localSettingInfo.Name !== null) {
@@ -503,10 +502,10 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
               }));
             }
           }
-        }
+        } //console.log("settingsInfo");
+        //console.log(settingsInfo);
 
-        console.log("settingsInfo");
-        console.log(settingsInfo);
+
         var index = elements.indexOf("exp");
         var _schema_id = schemas[index];
         var object = this.state.experiment;

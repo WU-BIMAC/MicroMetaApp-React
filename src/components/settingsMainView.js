@@ -482,8 +482,8 @@ export default class SettingMainView extends React.PureComponent {
 
 			let settingsInfo = [];
 			let localSettingInfo = this.props.setting;
-			console.log("localSettingInfo");
-			console.log(localSettingInfo);
+			//console.log("localSettingInfo");
+			//console.log(localSettingInfo);
 			if (localSettingInfo !== null && localSettingInfo !== undefined) {
 				if (
 					localSettingInfo.Name !== undefined &&
@@ -523,8 +523,8 @@ export default class SettingMainView extends React.PureComponent {
 					}
 				}
 			}
-			console.log("settingsInfo");
-			console.log(settingsInfo);
+			//console.log("settingsInfo");
+			//console.log(settingsInfo);
 
 			let index = elements.indexOf("exp");
 			let schema_id = schemas[index];

@@ -880,7 +880,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var mergedSettings = null;
 
       if (imageMetadata !== null && imageMetadata !== undefined) {
-        mergedSettings = Object.assign({}, imageMetadata, setting);
+        mergedSettings = Object.assign({}, setting, imageMetadata);
       } else {
         mergedSettings = setting;
       }
@@ -946,9 +946,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var mergedSettings = null;
 
       if (imageMetadata !== null && imageMetadata !== undefined) {
-        mergedSettings = Object.assign({}, imageMetadata, setting);
+        mergedSettings = Object.assign({}, imageMetadata, modifiedSetting);
       } else {
-        mergedSettings = setting;
+        mergedSettings = modifiedSetting;
       }
 
       var newSettingData = {};
@@ -973,9 +973,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       // console.log(newSettingData);
       //let linkedFields = Object.assign({}, modifiedSetting.linkedFields);
 
-      var validationSetting = validate(modifiedSetting, imageSchema);
+      var validationSetting = validate(mergedSettings, imageSchema);
       var validatedSetting = validationSetting.valid;
-      var validationPixels = validate(modifiedSetting.Pixels, pixelsSchema);
+      var validationPixels = validate(mergedSettings.Pixels, pixelsSchema);
       var validatedPixels = validationPixels.valid;
       var validated = validatedSetting && validatedPixels;
       this.setState({
@@ -1030,9 +1030,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var mergedSettings = null;
 
       if (imageMetadata !== null && imageMetadata !== undefined) {
-        mergedSettings = Object.assign({}, imageMetadata, setting);
+        mergedSettings = Object.assign({}, imageMetadata, modifiedSetting);
       } else {
-        mergedSettings = setting;
+        mergedSettings = modifiedSetting;
       }
 
       var newSettingData = {};
@@ -1055,9 +1055,9 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var tirf = mergedSettings.TIRFSettings;
       if (tirf !== null && tirf !== undefined) newSettingData.TIRFSettings = tirf; //let linkedFields = Object.assign({}, modifiedMic.linkedFields);
 
-      var validationSetting = validate(modifiedSetting, imageSchema);
+      var validationSetting = validate(mergedSettings, imageSchema);
       var validatedSetting = validationSetting.valid;
-      var validationPixels = validate(modifiedSetting.Pixels, pixelsSchema);
+      var validationPixels = validate(mergedSettings.Pixels, pixelsSchema);
       var validatedPixels = validationPixels.valid;
       var validated = validatedSetting && validatedPixels;
       this.setState({

@@ -943,7 +943,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		let mergedSettings = null;
 		if (imageMetadata !== null && imageMetadata !== undefined) {
-			mergedSettings = Object.assign({}, imageMetadata, setting);
+			mergedSettings = Object.assign({}, setting, imageMetadata);
 		} else {
 			mergedSettings = setting;
 		}
@@ -1013,9 +1013,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		let mergedSettings = null;
 		if (imageMetadata !== null && imageMetadata !== undefined) {
-			mergedSettings = Object.assign({}, imageMetadata, setting);
+			mergedSettings = Object.assign({}, imageMetadata, modifiedSetting);
 		} else {
-			mergedSettings = setting;
+			mergedSettings = modifiedSetting;
 		}
 
 		let newSettingData = {};
@@ -1048,9 +1048,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		// console.log(newSettingData);
 
 		//let linkedFields = Object.assign({}, modifiedSetting.linkedFields);
-		let validationSetting = validate(modifiedSetting, imageSchema);
+		let validationSetting = validate(mergedSettings, imageSchema);
 		let validatedSetting = validationSetting.valid;
-		let validationPixels = validate(modifiedSetting.Pixels, pixelsSchema);
+		let validationPixels = validate(mergedSettings.Pixels, pixelsSchema);
 		let validatedPixels = validationPixels.valid;
 		let validated = validatedSetting && validatedPixels;
 		this.setState({
@@ -1101,9 +1101,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		let mergedSettings = null;
 		if (imageMetadata !== null && imageMetadata !== undefined) {
-			mergedSettings = Object.assign({}, imageMetadata, setting);
+			mergedSettings = Object.assign({}, imageMetadata, modifiedSetting);
 		} else {
-			mergedSettings = setting;
+			mergedSettings = modifiedSetting;
 		}
 
 		let newSettingData = {};
@@ -1133,9 +1133,9 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		if (tirf !== null && tirf !== undefined) newSettingData.TIRFSettings = tirf;
 
 		//let linkedFields = Object.assign({}, modifiedMic.linkedFields);
-		let validationSetting = validate(modifiedSetting, imageSchema);
+		let validationSetting = validate(mergedSettings, imageSchema);
 		let validatedSetting = validationSetting.valid;
-		let validationPixels = validate(modifiedSetting.Pixels, pixelsSchema);
+		let validationPixels = validate(mergedSettings.Pixels, pixelsSchema);
 		let validatedPixels = validationPixels.valid;
 		let validated = validatedSetting && validatedPixels;
 		this.setState({
