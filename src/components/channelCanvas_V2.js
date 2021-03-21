@@ -1373,6 +1373,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			justifyContent: "space-between",
 			minHeight: "800px",
 			height: "860px",
+			overflow: "auto",
 		};
 
 		const gridRow = {

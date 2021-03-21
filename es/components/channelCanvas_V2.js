@@ -1211,7 +1211,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         flexWrap: "wrap",
         justifyContent: "space-between",
         minHeight: "800px",
-        height: "860px"
+        height: "860px",
+        overflow: "auto"
       };
       var gridRow = {
         display: "flex",
