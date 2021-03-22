@@ -69,15 +69,15 @@ var url = require("url");
 
 var validate = require("jsonschema").validate;
 
-var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
-  _inherits(MicroscopyMetadataTool, _React$PureComponent);
+var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
+  _inherits(MicroMetaAppReact, _React$PureComponent);
 
-  var _super = _createSuper(MicroscopyMetadataTool);
+  var _super = _createSuper(MicroMetaAppReact);
 
-  function MicroscopyMetadataTool(props) {
+  function MicroMetaAppReact(props) {
     var _this;
 
-    _classCallCheck(this, MicroscopyMetadataTool);
+    _classCallCheck(this, MicroMetaAppReact);
 
     _this = _super.call(this, props);
     _this.state = {
@@ -190,7 +190,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     return _this;
   }
 
-  _createClass(MicroscopyMetadataTool, [{
+  _createClass(MicroMetaAppReact, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.setState({
@@ -732,7 +732,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var validationStand = validate(modifiedMic.MicroscopeStand, microscopeStandSchema);
       var validatedStand = validationStand.valid;
       var validated = validatedMicroscope && validatedStand;
-      MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(modifiedMic, newElementData, this.props.scalingFactor);
+      MicroMetaAppReact.checkScalingFactorAndRescaleIfNeeded(modifiedMic, newElementData, this.props.scalingFactor);
       this.setState({
         microscope: modifiedMic,
         setting: null,
@@ -793,7 +793,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       var validationStand = validate(modifiedMic.MicroscopeStand, microscopeStandSchema);
       var validatedStand = validationStand.valid;
       var validated = validatedMicroscope && validatedStand;
-      MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(modifiedMic, newElementData, this.props.scalingFactor);
+      MicroMetaAppReact.checkScalingFactorAndRescaleIfNeeded(modifiedMic, newElementData, this.props.scalingFactor);
       this.setState({
         microscope: modifiedMic,
         setting: null,
@@ -1461,7 +1461,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       if (schema === null && microscopes === null
       /*&& microscope === null*/
       ) {
-          return /*#__PURE__*/_react.default.createElement(MicroscopyMetadataToolContainer, {
+          return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
             forwardedRef: this.overlaysContainerRef
@@ -1475,7 +1475,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         }
 
       if (microscope === null && this.state.isCreatingNewMicroscope === null) {
-        return /*#__PURE__*/_react.default.createElement(MicroscopyMetadataToolContainer, {
+        return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
@@ -1511,7 +1511,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
           height: "100%",
           alignItems: "center"
         };
-        return /*#__PURE__*/_react.default.createElement(MicroscopyMetadataToolContainer, {
+        return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
@@ -1560,7 +1560,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         if (microscopeNames !== null && microscopeNames !== undefined && Object.keys(microscopeNames).length > 0) loadingOptions.push(_constants.string_loadFromRepository);
-        return /*#__PURE__*/_react.default.createElement(MicroscopyMetadataToolContainer, {
+        return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
@@ -1583,7 +1583,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         console.log("IMAGE LOADER"); //let modifiedCreateString = string_createFromScratch.replace("# ", "");
 
         var _loadingOptions = [_constants.string_noImageLoad, _constants.string_createFromFile];
-        return /*#__PURE__*/_react.default.createElement(MicroscopyMetadataToolContainer, {
+        return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
@@ -1622,7 +1622,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         if (settingsNames !== null && settingsNames !== undefined && Object.keys(settingsNames).length > 0) _loadingOptions2.push(_constants.string_loadFromRepository);
-        return /*#__PURE__*/_react.default.createElement(MicroscopyMetadataToolContainer, {
+        return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
@@ -1721,7 +1721,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
       if (!this.state.isCreatingNewMicroscope) {
         var footerSettingsSchemas = [imageSchema, pixelsSchema];
         var footerSettingsInput = [setting, setting.Pixels];
-        return /*#__PURE__*/_react.default.createElement(MicroscopyMetadataToolContainer, {
+        return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
@@ -1776,7 +1776,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
             width: width,
             height: canvasHeight + headerFooterHeight
           };
-          return /*#__PURE__*/_react.default.createElement(MicroscopyMetadataToolContainer, {
+          return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
             forwardedRef: this.overlaysContainerRef
@@ -1811,7 +1811,7 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
             isViewOnly: this.state.isViewOnly
           })));
         } else {
-          return /*#__PURE__*/_react.default.createElement(MicroscopyMetadataToolContainer, {
+          return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
             forwardedRef: this.overlaysContainerRef
@@ -1947,23 +1947,23 @@ var MicroscopyMetadataTool = /*#__PURE__*/function (_React$PureComponent) {
     }
   }]);
 
-  return MicroscopyMetadataTool;
+  return MicroMetaAppReact;
 }(_react.default.PureComponent);
 
-exports.default = MicroscopyMetadataTool;
+exports.default = MicroMetaAppReact;
 
-var MicroscopyMetadataToolContainer = /*#__PURE__*/function (_React$PureComponent2) {
-  _inherits(MicroscopyMetadataToolContainer, _React$PureComponent2);
+var MicroMetaAppReactContainer = /*#__PURE__*/function (_React$PureComponent2) {
+  _inherits(MicroMetaAppReactContainer, _React$PureComponent2);
 
-  var _super2 = _createSuper(MicroscopyMetadataToolContainer);
+  var _super2 = _createSuper(MicroMetaAppReactContainer);
 
-  function MicroscopyMetadataToolContainer() {
-    _classCallCheck(this, MicroscopyMetadataToolContainer);
+  function MicroMetaAppReactContainer() {
+    _classCallCheck(this, MicroMetaAppReactContainer);
 
     return _super2.apply(this, arguments);
   }
 
-  _createClass(MicroscopyMetadataToolContainer, [{
+  _createClass(MicroMetaAppReactContainer, [{
     key: "render",
     value: function render() {
       var _this$props2 = this.props,
@@ -1987,10 +1987,10 @@ var MicroscopyMetadataToolContainer = /*#__PURE__*/function (_React$PureComponen
     }
   }]);
 
-  return MicroscopyMetadataToolContainer;
+  return MicroMetaAppReactContainer;
 }(_react.default.PureComponent);
 
-MicroscopyMetadataTool.propTypes = {
+MicroMetaAppReact.propTypes = {
   //TODO need to be added here and in all subclasses
   height: _propTypes.default.number,
   width: _propTypes.default.number,
@@ -1998,7 +1998,7 @@ MicroscopyMetadataTool.propTypes = {
   microscopes: _propTypes.default.object,
   microscope: _propTypes.default.object
 };
-MicroscopyMetadataTool.defaultProps = {
+MicroMetaAppReact.defaultProps = {
   height: 600,
   width: 600,
   schema: null,

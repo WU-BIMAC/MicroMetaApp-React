@@ -38,7 +38,7 @@ import {
 import { isUndefined } from "util";
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
-export default class MicroscopyMetadataTool extends React.PureComponent {
+export default class MicroMetaAppReact extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -793,7 +793,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		);
 		let validatedStand = validationStand.valid;
 		let validated = validatedMicroscope && validatedStand;
-		MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(
+		MicroMetaAppReact.checkScalingFactorAndRescaleIfNeeded(
 			modifiedMic,
 			newElementData,
 			this.props.scalingFactor
@@ -860,7 +860,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 		);
 		let validatedStand = validationStand.valid;
 		let validated = validatedMicroscope && validatedStand;
-		MicroscopyMetadataTool.checkScalingFactorAndRescaleIfNeeded(
+		MicroMetaAppReact.checkScalingFactorAndRescaleIfNeeded(
 			modifiedMic,
 			newElementData,
 			this.props.scalingFactor
@@ -1523,7 +1523,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 
 		if (schema === null && microscopes === null /*&& microscope === null*/) {
 			return (
-				<MicroscopyMetadataToolContainer
+				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
@@ -1535,13 +1535,13 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
 						onClickLoadSettings={this.handleLoadSettings}
 					/>
-				</MicroscopyMetadataToolContainer>
+				</MicroMetaAppReactContainer>
 			);
 		}
 
 		if (microscope === null && this.state.isCreatingNewMicroscope === null) {
 			return (
-				<MicroscopyMetadataToolContainer
+				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
@@ -1553,7 +1553,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
 						onClickLoadMicroscope={this.setLoadMicroscope}
 					/>
-				</MicroscopyMetadataToolContainer>
+				</MicroMetaAppReactContainer>
 			);
 		}
 
@@ -1585,7 +1585,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 				alignItems: "center",
 			};
 			return (
-				<MicroscopyMetadataToolContainer
+				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
@@ -1600,7 +1600,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 							</Button>
 						</div>
 					</div>
-				</MicroscopyMetadataToolContainer>
+				</MicroMetaAppReactContainer>
 			);
 		}
 
@@ -1652,7 +1652,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			)
 				loadingOptions.push(string_loadFromRepository);
 			return (
-				<MicroscopyMetadataToolContainer
+				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
@@ -1670,7 +1670,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						onClickBack={this.onClickBack}
 						isSettings={this.state.isLoadingMicroscope}
 					/>
-				</MicroscopyMetadataToolContainer>
+				</MicroMetaAppReactContainer>
 			);
 		}
 
@@ -1684,7 +1684,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			//let modifiedCreateString = string_createFromScratch.replace("# ", "");
 			let loadingOptions = [string_noImageLoad, string_createFromFile];
 			return (
-				<MicroscopyMetadataToolContainer
+				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
@@ -1700,7 +1700,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						onClickConfirm={this.createOrUseMetadata}
 						onClickBack={this.onClickBack}
 					/>
-				</MicroscopyMetadataToolContainer>
+				</MicroMetaAppReactContainer>
 			);
 		}
 
@@ -1727,7 +1727,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			)
 				loadingOptions.push(string_loadFromRepository);
 			return (
-				<MicroscopyMetadataToolContainer
+				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
@@ -1744,7 +1744,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						onClickConfirm={this.createOrUseSetting}
 						onClickBack={this.onClickBack}
 					/>
-				</MicroscopyMetadataToolContainer>
+				</MicroMetaAppReactContainer>
 			);
 		}
 
@@ -1838,7 +1838,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 			let footerSettingsSchemas = [imageSchema, pixelsSchema];
 			let footerSettingsInput = [setting, setting.Pixels];
 			return (
-				<MicroscopyMetadataToolContainer
+				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
@@ -1890,7 +1890,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 						imagesPath={imagesPathSVG}
 						elementByType={elementByType}
 					/>
-				</MicroscopyMetadataToolContainer>
+				</MicroMetaAppReactContainer>
 			);
 		} else {
 			if (this.state.isViewOnly) {
@@ -1899,7 +1899,7 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 					height: canvasHeight + headerFooterHeight,
 				};
 				return (
-					<MicroscopyMetadataToolContainer
+					<MicroMetaAppReactContainer
 						width={width}
 						height={height}
 						forwardedRef={this.overlaysContainerRef}
@@ -1938,11 +1938,11 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 								isViewOnly={this.state.isViewOnly}
 							/>
 						</div>
-					</MicroscopyMetadataToolContainer>
+					</MicroMetaAppReactContainer>
 				);
 			} else {
 				return (
-					<MicroscopyMetadataToolContainer
+					<MicroMetaAppReactContainer
 						width={width}
 						height={height}
 						forwardedRef={this.overlaysContainerRef}
@@ -2007,14 +2007,14 @@ export default class MicroscopyMetadataTool extends React.PureComponent {
 							imagesPath={imagesPathSVG}
 							elementByType={elementByType}
 						/>
-					</MicroscopyMetadataToolContainer>
+					</MicroMetaAppReactContainer>
 				);
 			}
 		}
 	}
 }
 
-class MicroscopyMetadataToolContainer extends React.PureComponent {
+class MicroMetaAppReactContainer extends React.PureComponent {
 	render() {
 		var { height, width, forwardedRef } = this.props;
 		var style = { height, width, boxSizing: "border-box" };
@@ -2029,7 +2029,7 @@ class MicroscopyMetadataToolContainer extends React.PureComponent {
 	}
 }
 
-MicroscopyMetadataTool.propTypes = {
+MicroMetaAppReact.propTypes = {
 	//TODO need to be added here and in all subclasses
 	height: PropTypes.number,
 	width: PropTypes.number,
@@ -2038,7 +2038,7 @@ MicroscopyMetadataTool.propTypes = {
 	microscope: PropTypes.object,
 };
 
-MicroscopyMetadataTool.defaultProps = {
+MicroMetaAppReact.defaultProps = {
 	height: 600,
 	width: 600,
 	schema: null,

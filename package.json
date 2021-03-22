@@ -1,8 +1,8 @@
 {
-	"name": "4dn-microscopy-metadata-tool",
+	"name": "4dn-MicroMetaAppReact",
 	"version": "0.42.0-b1",
-	"main": "./dist/MicroscopyMetadataTool.min.js",
-	"unpkg": "./dist/MicroscopyMetadataTool.min.js",
+	"main": "./dist/MicroMetaAppReact.min.js",
+	"unpkg": "./dist/MicroMetaAppReact.min.js",
 	"module": "./es/app.js",
 	"private": true,
 	"scripts": {
