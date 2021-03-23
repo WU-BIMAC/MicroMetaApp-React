@@ -16,8 +16,6 @@ import ImageLoader from "./components/imageLoader";
 
 import { v4 as uuidv4 } from "uuid";
 
-import html2canvas from "html2canvas";
-
 const url = require("url");
 const validate = require("jsonschema").validate;
 
@@ -962,6 +960,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			mergedSettings.Pixels = mergedPixels;
 		} else {
 			mergedSettings = setting;
+			mergedSettings.Pixels = pixels;
 		}
 
 		let newSettingData = {};
