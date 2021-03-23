@@ -337,7 +337,10 @@ export const createSettings_mode_selector_tooltip = {
 export const loadImage_mode_selector_tooltip = {
 	title: "Open Image file selector",
 	content: (
-		<p>Choose the source of the Image file you want to use or continue.</p>
+		<p>
+			Choose the source of the Image file you wish to work with or select 'Skip
+			load image' to continue without an Image.
+		</p>
 	),
 	position: "top",
 };
@@ -565,6 +568,11 @@ export const edit_img_env_settings = {
 			Click this button to select the Imaging Environmental Control Device that
 			was used, and enter or edit information about the environment in which the
 			biological sample was maintained during the acquisition of this Image.
+			NOTE: Any hardware components that are not validated at the current
+			validation Tier, will not be available to add from the available items
+			list. Please either change validation Tier or go back to Manage Instrument
+			to make sure any Hardware Component you wish to manage here is validated
+			at the desired Tier level.
 		</p>
 	),
 	position: "bottom",
@@ -586,7 +594,11 @@ export const edit_obj_settings = {
 	content: (
 		<p>
 			Click this button to select the Objective and edit the settings that were
-			used for the acquisition of this Image.
+			used for the acquisition of this Image. NOTE: Any hardware components that
+			are not validated at the current validation Tier, will not be available to
+			add from the available items list. Please either change validation Tier or
+			go back to Manage Instrument to make sure any Hardware Component you wish
+			to manage here is validated at the desired Tier level.
 		</p>
 	),
 	position: "bottom",
@@ -598,7 +610,11 @@ export const edit_sample_pos_settings = {
 		<p>
 			Click this button to select one or more Sample Positioning devices, and
 			enter or edit the settings that were applied to them during the
-			acquisition of this Image.
+			acquisition of this Image. NOTE: Any hardware components that are not
+			validated at the current validation Tier, will not be available to add
+			from the available items list. Please either change validation Tier or go
+			back to Manage Instrument to make sure any Hardware Component you wish to
+			manage here is validated at the desired Tier level.
 		</p>
 	),
 	position: "bottom",
@@ -610,7 +626,11 @@ export const edit_mic_table_settings = {
 		<p>
 			Click this button to select the Microscope Table, and enter or edit the
 			settings that were applied to the Microscope Table for the acquisition of
-			this Image.
+			this Image. NOTE: Any hardware components that are not validated at the
+			current validation Tier, will not be available to add from the available
+			items list. Please either change validation Tier or go back to Manage
+			Instrument to make sure any Hardware Component you wish to manage here is
+			validated at the desired Tier level.
 		</p>
 	),
 	position: "bottom",
@@ -692,7 +712,11 @@ export const select_lightSource = {
 			Click this button to select the Light Source that was used for the
 			acquisition of this Channel. After confirming the selection, click on the
 			selected Light Source one more time to enter or edit the settings that
-			were applied to it during acquisition.
+			were applied to it during acquisition. NOTE: Any hardware components that
+			are not validated at the current validation Tier, will not be available to
+			add from the available items list. Please either change validation Tier or
+			go back to Manage Instrument to make sure any Hardware Component you wish
+			to manage here is validated at the desired Tier level.
 		</p>
 	),
 	position: "right",
@@ -703,7 +727,11 @@ export const select_couplingLens = {
 	content: (
 		<p>
 			If applicable, click this button to select the Coupling Lens that was used
-			for the acquisition of this Channel.
+			for the acquisition of this Channel. NOTE: Any hardware components that
+			are not validated at the current validation Tier, will not be available to
+			add from the available items list. Please either change validation Tier or
+			go back to Manage Instrument to make sure any Hardware Component you wish
+			to manage here is validated at the desired Tier level.
 		</p>
 	),
 	position: "right",
@@ -714,7 +742,12 @@ export const select_lightSourceCoupling = {
 	content: (
 		<p>
 			If applicable, click this button to select the Light Source Coupling
-			device that was used for the acquisition of this Channel.
+			device that was used for the acquisition of this Channel. NOTE: Any
+			hardware components that are not validated at the current validation Tier,
+			will not be available to add from the available items list. Please either
+			change validation Tier or go back to Manage Instrument to make sure any
+			Hardware Component you wish to manage here is validated at the desired
+			Tier level.
 		</p>
 	),
 	position: "right",
@@ -725,7 +758,11 @@ export const select_relayLens = {
 	content: (
 		<p>
 			If applicable, click this button to select the Relay Lens that was used
-			for the acquisition of this Channel.
+			for the acquisition of this Channel. NOTE: Any hardware components that
+			are not validated at the current validation Tier, will not be available to
+			add from the available items list. Please either change validation Tier or
+			go back to Manage Instrument to make sure any Hardware Component you wish
+			to manage here is validated at the desired Tier level.
 		</p>
 	),
 	position: "left",
@@ -738,7 +775,11 @@ export const select_detector = {
 			Click this button to select the Detector that was used for the acquisition
 			of this Channel. After confirming the selection, click on the selected
 			Detector one more time to enter or edit the settings that were applied to
-			it during acquisition.
+			it during acquisition. NOTE: Any hardware components that are not
+			validated at the current validation Tier, will not be available to add
+			from the available items list. Please either change validation Tier or go
+			back to Manage Instrument to make sure any Hardware Component you wish to
+			manage here is validated at the desired Tier level.
 		</p>
 	),
 	position: "left",
@@ -749,7 +790,11 @@ export const select_excitation = {
 	content: (
 		<p>
 			Click this button to select the Excitation Filter used for the acquisition
-			of this Channel.
+			of this Channel. NOTE: Any hardware components that are not validated at
+			the current validation Tier, will not be available to add from the
+			available items list. Please either change validation Tier or go back to
+			Manage Instrument to make sure any Hardware Component you wish to manage
+			here is validated at the desired Tier level.
 		</p>
 	),
 	position: "right",
@@ -762,7 +807,12 @@ export const select_dichroic = {
 			Click this button to select the Dichroic (or Beamsplitter) that was used
 			for the acquisition of this Channel. After confirming the selection, click
 			on the selected Dichroic or (Beamsplitter) one more time to enter or edit
-			the settings that were applied to it during acquisition.
+			the settings that were applied to it during acquisition. NOTE: Any
+			hardware components that are not validated at the current validation Tier,
+			will not be available to add from the available items list. Please either
+			change validation Tier or go back to Manage Instrument to make sure any
+			Hardware Component you wish to manage here is validated at the desired
+			Tier level.
 		</p>
 	),
 	position: "top",
@@ -773,7 +823,11 @@ export const select_emission = {
 	content: (
 		<p>
 			Click this button to select the Emission Filter used for the acquisition
-			of this Channel.
+			of this Channel. NOTE: Any hardware components that are not validated at
+			the current validation Tier, will not be available to add from the
+			available items list. Please either change validation Tier or go back to
+			Manage Instrument to make sure any Hardware Component you wish to manage
+			here is validated at the desired Tier level.
 		</p>
 	),
 	position: "left",
@@ -785,7 +839,11 @@ export const select_additional_left = {
 		<p>
 			If applicable, click this button to select one or more additional optical
 			element or device that was used in this position to build the light path
-			for this Channel.
+			for this Channel. NOTE: Any hardware components that are not validated at
+			the current validation Tier, will not be available to add from the
+			available items list. Please either change validation Tier or go back to
+			Manage Instrument to make sure any Hardware Component you wish to manage
+			here is validated at the desired Tier level.
 		</p>
 	),
 	position: "left",
@@ -797,7 +855,11 @@ export const select_additional_right = {
 		<p>
 			If applicable, click this button to select one or more additional optical
 			element or device that was used in this position to build the light path
-			for this Channel.
+			for this Channel. NOTE: Any hardware components that are not validated at
+			the current validation Tier, will not be available to add from the
+			available items list. Please either change validation Tier or go back to
+			Manage Instrument to make sure any Hardware Component you wish to manage
+			here is validated at the desired Tier level.
 		</p>
 	),
 	position: "right",

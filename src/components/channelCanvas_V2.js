@@ -263,7 +263,17 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 				}
 				settingData[selectedSlot] = newSelectedSettingData;
 			} else {
+				let earlyReturn = false;
 				if (selectedComp === null || selectedComp === undefined) {
+					earlyReturn = true;
+				} else {
+					let validation = validate(comp, compSchema);
+					let validated = validation.valid;
+					if(!validated) {
+						earlyReturn = true;
+					}
+				}
+				if(earlyReturn) {
 					this.setState({
 						editing: false,
 						editingSettings: false,
@@ -274,7 +284,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 					});
 					return;
 				}
-
 				slots[selectedSlot] = selectedComp;
 				let settingsName = selectedSchema.modelSettings + string_json_ext;
 				let currentSchema = settingsSchemas[settingsName];
@@ -329,6 +338,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	onElementDataSave(id, data) {
+		console.log("onElementDataSave");
 		let selectedComp = this.state.selectedComp;
 		let selectedSlot = this.state.selectedSlot;
 		//let category = this.state.category;
@@ -944,6 +954,14 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			fontWeight: "bold",
 			textAlign: "center",
 		};
+		const styleValidation1 = {
+			position: "relative",
+			verticalAlign: "middle",
+			fontWeight: "bold",
+			textAlign: "center",
+			left: "22px",
+			top: "2px",
+		};
 		const styleValidation2 = {
 			//position: "relative",
 			verticalAlign: "middle",
@@ -970,6 +988,12 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		const styleNotValidated = Object.assign({}, styleValidation, {
 			color: "red",
 		});
+		const styleValidated1 = Object.assign({}, styleValidation1, {
+			color: "green",
+		});
+		const styleNotValidated1 = Object.assign({}, styleValidation1, {
+			color: "red",
+		});
 		const styleValidated2 = Object.assign({}, styleValidation2, {
 			color: "green",
 		});
@@ -978,6 +1002,8 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		});
 		let isValid = <div style={styleValidated}>&#9679;</div>;
 		let isInvalid = <div style={styleNotValidated}>&#9679;</div>;
+		let isValid1 = <div style={styleValidated1}>&#9679;</div>;
+		let isInvalid1 = <div style={styleNotValidated1}>&#9679;</div>;
 		let isValid2 = <div style={styleValidated2}>&#9679;</div>;
 		let isInvalid2 = <div style={styleNotValidated2}>&#9679;</div>;
 
@@ -1129,24 +1155,36 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							/>
 						);
 
-						let buttonStyleModified = null;
+						let buttonStyleModified = Object.assign({}, buttonStyle, {
+							width: "100%",
+						});
 						if (comp === selectedComp) {
-							buttonStyleModified = Object.assign({}, buttonStyle, {
+							buttonStyleModified = Object.assign({}, buttonStyleModified, {
 								border: "2px solid cyan",
 							});
 						} else {
-							buttonStyleModified = buttonStyle;
+							buttonStyleModified = buttonStyleModified;
 						}
-
+						let validation = validate(comp, compSchema);
+						let validated = validation.valid;
+						let valid = null;
+						if (validated) {
+							valid = isValid1;
+						} else {
+							valid = isInvalid1;
+						}
 						let compButton = (
-							<button
-								key={"button-" + comp.Name}
-								style={buttonStyleModified}
-								onClick={() => this.handleSelectComp(comp)}
-							>
-								{compItemImage}
-								{comp.Name}
-							</button>
+							<div key={"div-" + comp.Name} style={{ display: "flex", width: "100%"}}>
+								{valid}
+								<button
+									key={"button-" + comp.Name}
+									style={buttonStyleModified}
+									onClick={() => this.handleSelectComp(comp)}
+								>
+									{compItemImage}
+									{comp.Name}
+								</button>
+							</div>
 						);
 						itemList.push(compButton);
 					}

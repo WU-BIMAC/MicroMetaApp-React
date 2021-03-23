@@ -535,6 +535,14 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         //top: "5px",
 
       };
+      var styleValidation1 = {
+        position: "relative",
+        verticalAlign: "middle",
+        fontWeight: "bold",
+        textAlign: "center",
+        left: "22px",
+        top: "2px"
+      };
       var styleValidation2 = {
         //position: "relative",
         verticalAlign: "middle",
@@ -555,6 +563,21 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         width: "90%",
         height: "24px"
       };
+      var styleValidated1 = Object.assign({}, styleValidation1, {
+        color: "green"
+      });
+      var styleNotValidated1 = Object.assign({}, styleValidation1, {
+        color: "red"
+      });
+
+      var isValid1 = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleValidated1
+      }, "\u25CF");
+
+      var isInvalid1 = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleNotValidated1
+      }, "\u25CF");
+
       var styleValidated2 = Object.assign({}, styleValidation2, {
         color: "green"
       });
@@ -679,23 +702,41 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
               style: regularImageStyle
             });
 
-            var buttonStyleModified = null;
+            var buttonStyleModified = Object.assign({}, buttonStyle, {
+              width: "100%"
+            });
 
             if (comp === selectedComp) {
-              buttonStyleModified = Object.assign({}, buttonStyle, {
+              buttonStyleModified = Object.assign({}, buttonStyleModified, {
                 border: "2px solid cyan"
               });
             } else {
-              buttonStyleModified = buttonStyle;
+              buttonStyleModified = buttonStyleModified;
             }
 
-            var compButton = /*#__PURE__*/_react.default.createElement("button", {
+            var validation = validate(comp, compSchema);
+            var validated = validation.valid;
+            var valid = null;
+
+            if (validated) {
+              valid = isValid1;
+            } else {
+              valid = isInvalid1;
+            }
+
+            var compButton = /*#__PURE__*/_react.default.createElement("div", {
+              key: "div-" + comp.Name,
+              style: {
+                display: "flex",
+                width: "100%"
+              }
+            }, valid, /*#__PURE__*/_react.default.createElement("button", {
               key: "button-" + comp.Name,
               style: buttonStyleModified,
               onClick: function onClick() {
                 return _this2.handleSelectComp(comp);
               }
-            }, compItemImage, comp.Name);
+            }, compItemImage, comp.Name));
 
             itemList.push(compButton);
           }

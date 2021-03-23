@@ -497,6 +497,14 @@ export default class SettingComponentSelector extends React.PureComponent {
 			//left: "5px",
 			//top: "5px",
 		};
+		const styleValidation1 = {
+			position: "relative",
+			verticalAlign: "middle",
+			fontWeight: "bold",
+			textAlign: "center",
+			left: "22px",
+			top: "2px",
+		};
 		const styleValidation2 = {
 			//position: "relative",
 			verticalAlign: "middle",
@@ -517,6 +525,14 @@ export default class SettingComponentSelector extends React.PureComponent {
 			width: "90%",
 			height: "24px",
 		};
+		const styleValidated1 = Object.assign({}, styleValidation1, {
+			color: "green",
+		});
+		const styleNotValidated1 = Object.assign({}, styleValidation1, {
+			color: "red",
+		});
+		let isValid1 = <div style={styleValidated1}>&#9679;</div>;
+		let isInvalid1 = <div style={styleNotValidated1}>&#9679;</div>;
 
 		const styleValidated2 = Object.assign({}, styleValidation2, {
 			color: "green",
@@ -653,24 +669,40 @@ export default class SettingComponentSelector extends React.PureComponent {
 						/>
 					);
 
-					let buttonStyleModified = null;
+					let buttonStyleModified = Object.assign({}, buttonStyle, {
+						width: "100%",
+					});
 					if (comp === selectedComp) {
-						buttonStyleModified = Object.assign({}, buttonStyle, {
+						buttonStyleModified = Object.assign({}, buttonStyleModified, {
 							border: "2px solid cyan",
 						});
 					} else {
-						buttonStyleModified = buttonStyle;
+						buttonStyleModified = buttonStyleModified;
 					}
 
+					let validation = validate(comp, compSchema);
+					let validated = validation.valid;
+					let valid = null;
+					if (validated) {
+						valid = isValid1;
+					} else {
+						valid = isInvalid1;
+					}
 					let compButton = (
-						<button
-							key={"button-" + comp.Name}
-							style={buttonStyleModified}
-							onClick={() => this.handleSelectComp(comp)}
+						<div
+							key={"div-" + comp.Name}
+							style={{ display: "flex", width: "100%" }}
 						>
-							{compItemImage}
-							{comp.Name}
-						</button>
+							{valid}
+							<button
+								key={"button-" + comp.Name}
+								style={buttonStyleModified}
+								onClick={() => this.handleSelectComp(comp)}
+							>
+								{compItemImage}
+								{comp.Name}
+							</button>
+						</div>
 					);
 					itemList.push(compButton);
 				}

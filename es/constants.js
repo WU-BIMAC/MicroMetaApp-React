@@ -188,7 +188,7 @@ var createSettings_mode_selector_tooltip = {
 exports.createSettings_mode_selector_tooltip = createSettings_mode_selector_tooltip;
 var loadImage_mode_selector_tooltip = {
   title: "Open Image file selector",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the source of the Image file you want to use or continue."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the source of the Image file you wish to work with or select 'Skip load image' to continue without an Image."),
   position: "top"
 };
 exports.loadImage_mode_selector_tooltip = loadImage_mode_selector_tooltip;
@@ -334,7 +334,7 @@ var edit_channels = {
 exports.edit_channels = edit_channels;
 var edit_img_env_settings = {
   title: "Edit Imaging Environment",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Imaging Environmental Control Device that was used, and enter or edit information about the environment in which the biological sample was maintained during the acquisition of this Image."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Imaging Environmental Control Device that was used, and enter or edit information about the environment in which the biological sample was maintained during the acquisition of this Image. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "bottom"
 };
 exports.edit_img_env_settings = edit_img_env_settings;
@@ -346,19 +346,19 @@ var edit_mic_settings = {
 exports.edit_mic_settings = edit_mic_settings;
 var edit_obj_settings = {
   title: "Edit Objective Settings",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Objective and edit the settings that were used for the acquisition of this Image."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Objective and edit the settings that were used for the acquisition of this Image. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "bottom"
 };
 exports.edit_obj_settings = edit_obj_settings;
 var edit_sample_pos_settings = {
   title: "Edit Sample Positioning Settings",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select one or more Sample Positioning devices, and enter or edit the settings that were applied to them during the acquisition of this Image."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select one or more Sample Positioning devices, and enter or edit the settings that were applied to them during the acquisition of this Image. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "bottom"
 };
 exports.edit_sample_pos_settings = edit_sample_pos_settings;
 var edit_mic_table_settings = {
   title: "Edit Microscope Table Settings",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Microscope Table, and enter or edit the settings that were applied to the Microscope Table for the acquisition of this Image."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Microscope Table, and enter or edit the settings that were applied to the Microscope Table for the acquisition of this Image. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "bottom"
 };
 exports.edit_mic_table_settings = edit_mic_table_settings;
@@ -412,61 +412,61 @@ var edit_channel_settings = {
 exports.edit_channel_settings = edit_channel_settings;
 var select_lightSource = {
   title: "Select Light Source",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Light Source that was used for the acquisition of this Channel. After confirming the selection, click on the selected Light Source one more time to enter or edit the settings that were applied to it during acquisition."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Light Source that was used for the acquisition of this Channel. After confirming the selection, click on the selected Light Source one more time to enter or edit the settings that were applied to it during acquisition. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "right"
 };
 exports.select_lightSource = select_lightSource;
 var select_couplingLens = {
   title: "Select Coupling Lens",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "If applicable, click this button to select the Coupling Lens that was used for the acquisition of this Channel."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "If applicable, click this button to select the Coupling Lens that was used for the acquisition of this Channel. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "right"
 };
 exports.select_couplingLens = select_couplingLens;
 var select_lightSourceCoupling = {
   title: "Select Light Source Coupling",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "If applicable, click this button to select the Light Source Coupling device that was used for the acquisition of this Channel."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "If applicable, click this button to select the Light Source Coupling device that was used for the acquisition of this Channel. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "right"
 };
 exports.select_lightSourceCoupling = select_lightSourceCoupling;
 var select_relayLens = {
   title: "Select Relay Lens",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "If applicable, click this button to select the Relay Lens that was used for the acquisition of this Channel."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "If applicable, click this button to select the Relay Lens that was used for the acquisition of this Channel. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "left"
 };
 exports.select_relayLens = select_relayLens;
 var select_detector = {
   title: "Select Detector",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Detector that was used for the acquisition of this Channel. After confirming the selection, click on the selected Detector one more time to enter or edit the settings that were applied to it during acquisition."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Detector that was used for the acquisition of this Channel. After confirming the selection, click on the selected Detector one more time to enter or edit the settings that were applied to it during acquisition. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "left"
 };
 exports.select_detector = select_detector;
 var select_excitation = {
   title: "Select Excitation Wavelength",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Excitation Filter used for the acquisition of this Channel."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Excitation Filter used for the acquisition of this Channel. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "right"
 };
 exports.select_excitation = select_excitation;
 var select_dichroic = {
   title: "Select Dichroic",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Dichroic (or Beamsplitter) that was used for the acquisition of this Channel. After confirming the selection, click on the selected Dichroic or (Beamsplitter) one more time to enter or edit the settings that were applied to it during acquisition."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Dichroic (or Beamsplitter) that was used for the acquisition of this Channel. After confirming the selection, click on the selected Dichroic or (Beamsplitter) one more time to enter or edit the settings that were applied to it during acquisition. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "top"
 };
 exports.select_dichroic = select_dichroic;
 var select_emission = {
   title: "Select Emission Wavelength",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Emission Filter used for the acquisition of this Channel."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the Emission Filter used for the acquisition of this Channel. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "left"
 };
 exports.select_emission = select_emission;
 var select_additional_left = {
   title: "Add additional element(s)",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "If applicable, click this button to select one or more additional optical element or device that was used in this position to build the light path for this Channel."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "If applicable, click this button to select one or more additional optical element or device that was used in this position to build the light path for this Channel. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "left"
 };
 exports.select_additional_left = select_additional_left;
 var select_additional_right = {
   title: "Add additional element(s)",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "If applicable, click this button to select one or more additional optical element or device that was used in this position to build the light path for this Channel."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "If applicable, click this button to select one or more additional optical element or device that was used in this position to build the light path for this Channel. NOTE: Any hardware components that are not validated at the current validation Tier, will not be available to add from the available items list. Please either change validation Tier or go back to Manage Instrument to make sure any Hardware Component you wish to manage here is validated at the desired Tier level."),
   position: "right"
 };
 exports.select_additional_right = select_additional_right;

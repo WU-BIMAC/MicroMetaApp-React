@@ -259,7 +259,20 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
           settingData[selectedSlot] = newSelectedSettingData;
         } else {
+          var earlyReturn = false;
+
           if (selectedComp === null || selectedComp === undefined) {
+            earlyReturn = true;
+          } else {
+            var validation = validate(comp, compSchema);
+            var validated = validation.valid;
+
+            if (!validated) {
+              earlyReturn = true;
+            }
+          }
+
+          if (earlyReturn) {
             this.setState({
               editing: false,
               editingSettings: false,
@@ -327,6 +340,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onElementDataSave",
     value: function onElementDataSave(id, data) {
+      console.log("onElementDataSave");
       var selectedComp = this.state.selectedComp;
       var selectedSlot = this.state.selectedSlot; //let category = this.state.category;
 
@@ -825,6 +839,14 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         fontWeight: "bold",
         textAlign: "center"
       };
+      var styleValidation1 = {
+        position: "relative",
+        verticalAlign: "middle",
+        fontWeight: "bold",
+        textAlign: "center",
+        left: "22px",
+        top: "2px"
+      };
       var styleValidation2 = {
         //position: "relative",
         verticalAlign: "middle",
@@ -851,6 +873,12 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var styleNotValidated = Object.assign({}, styleValidation, {
         color: "red"
       });
+      var styleValidated1 = Object.assign({}, styleValidation1, {
+        color: "green"
+      });
+      var styleNotValidated1 = Object.assign({}, styleValidation1, {
+        color: "red"
+      });
       var styleValidated2 = Object.assign({}, styleValidation2, {
         color: "green"
       });
@@ -864,6 +892,14 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
       var isInvalid = /*#__PURE__*/_react.default.createElement("div", {
         style: styleNotValidated
+      }, "\u25CF");
+
+      var isValid1 = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleValidated1
+      }, "\u25CF");
+
+      var isInvalid1 = /*#__PURE__*/_react.default.createElement("div", {
+        style: styleNotValidated1
       }, "\u25CF");
 
       var isValid2 = /*#__PURE__*/_react.default.createElement("div", {
@@ -915,7 +951,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         if (this.state.editingSettings) {
           var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
           var settings = null;
-          var comp = null;
+          var _comp = null;
           var id = null;
           var editable = true;
 
@@ -925,9 +961,9 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             id = settingCompData.ID;
             var immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
             var immersionLiquid = settingCompData.ImmersionLiquid;
-            comp = [];
-            comp[0] = settingCompData;
-            comp[1] = immersionLiquid;
+            _comp = [];
+            _comp[0] = settingCompData;
+            _comp[1] = immersionLiquid;
             settings = [];
             settings[0] = settingsSchemas[settingsName];
             settings[1] = immersionLiquidSchema;
@@ -945,12 +981,12 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
             id = _settingCompData.ID;
             settings = settingsSchemas[settingsName];
-            comp = _settingCompData;
+            _comp = _settingCompData;
           }
 
           return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
             schema: settings,
-            inputData: comp,
+            inputData: _comp,
             id: id,
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
@@ -1003,23 +1039,41 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 style: regularImageStyle
               });
 
-              var buttonStyleModified = null;
+              var buttonStyleModified = Object.assign({}, buttonStyle, {
+                width: "100%"
+              });
 
               if (comp === selectedComp) {
-                buttonStyleModified = Object.assign({}, buttonStyle, {
+                buttonStyleModified = Object.assign({}, buttonStyleModified, {
                   border: "2px solid cyan"
                 });
               } else {
-                buttonStyleModified = buttonStyle;
+                buttonStyleModified = buttonStyleModified;
               }
 
-              var compButton = /*#__PURE__*/_react.default.createElement("button", {
+              var validation = validate(comp, compSchema);
+              var validated = validation.valid;
+              var _valid = null;
+
+              if (validated) {
+                _valid = isValid1;
+              } else {
+                _valid = isInvalid1;
+              }
+
+              var compButton = /*#__PURE__*/_react.default.createElement("div", {
+                key: "div-" + comp.Name,
+                style: {
+                  display: "flex",
+                  width: "100%"
+                }
+              }, _valid, /*#__PURE__*/_react.default.createElement("button", {
                 key: "button-" + comp.Name,
                 style: buttonStyleModified,
                 onClick: function onClick() {
                   return _this3.handleSelectComp(comp);
                 }
-              }, compItemImage, comp.Name);
+              }, compItemImage, comp.Name));
 
               itemList.push(compButton);
             }
