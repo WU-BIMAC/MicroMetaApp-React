@@ -444,12 +444,12 @@ export default class SettingComponentSelector extends React.PureComponent {
 			height: "250px",
 			maxHeight: "250px",
 			alignItems: "center",
+			width: "80%",
 		};
 
 		const modalTopList = {
 			display: "flex",
 			flexDirection: "row",
-			flexWrap: "wrap",
 			justifyContent: "space-evenly",
 			alignItems: "center",
 		};
@@ -849,11 +849,14 @@ export default class SettingComponentSelector extends React.PureComponent {
 			// 	items = slots[selectedSlot];
 
 			//let comp = this.state.currentComp;
-
+			let width = slotList.length * 150;
+			let modalTopListModified = Object.assign({}, modalTopList, {width: `${width}px`});
 			let topItems = (
 				<div style={modalTopListContainer}>
 					<h5>Current component in this slot</h5>
-					<div style={modalTopList}>{slotList}</div>
+					<div style={{ overflow: "auto", width: "100%", maxWidth: "100%" }}>
+						<div style={modalTopListModified}>{slotList}</div>
+					</div>
 				</div>
 			);
 
