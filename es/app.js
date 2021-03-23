@@ -37,8 +37,6 @@ var _imageLoader = _interopRequireDefault(require("./components/imageLoader"));
 
 var _uuid = require("uuid");
 
-var _html2canvas = _interopRequireDefault(require("html2canvas"));
-
 var _constants = require("./constants");
 
 var _util = require("util");
@@ -901,6 +899,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         mergedSettings.Pixels = mergedPixels;
       } else {
         mergedSettings = setting;
+        mergedSettings.Pixels = pixels;
       }
 
       var newSettingData = {};

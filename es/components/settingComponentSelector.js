@@ -484,12 +484,12 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         overflow: "auto",
         height: "250px",
         maxHeight: "250px",
-        alignItems: "center"
+        alignItems: "center",
+        width: "80%"
       };
       var modalTopList = {
         display: "flex",
         flexDirection: "row",
-        flexWrap: "wrap",
         justifyContent: "space-evenly",
         alignItems: "center"
       };
@@ -861,11 +861,22 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         // 	items = slots[selectedSlot];
         //let comp = this.state.currentComp;
 
+        var width = slotList.length * 150;
+        var modalTopListModified = Object.assign({}, modalTopList, {
+          width: "".concat(width, "px")
+        });
+
         var topItems = /*#__PURE__*/_react.default.createElement("div", {
           style: modalTopListContainer
         }, /*#__PURE__*/_react.default.createElement("h5", null, "Current component in this slot"), /*#__PURE__*/_react.default.createElement("div", {
-          style: modalTopList
-        }, slotList));
+          style: {
+            overflow: "auto",
+            width: "100%",
+            maxWidth: "100%"
+          }
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: modalTopListModified
+        }, slotList)));
 
         Object.assign(modalGridPanel, {
           height: "60%"

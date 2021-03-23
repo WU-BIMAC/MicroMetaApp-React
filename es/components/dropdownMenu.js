@@ -97,7 +97,7 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
       };
       var dropdownMenuStyle = {
         overflow: "auto",
-        maxHeight: "100px",
+        maxHeight: "120px",
         maxWidth: "".concat(width, "px"),
         width: "".concat(width, "px")
       };

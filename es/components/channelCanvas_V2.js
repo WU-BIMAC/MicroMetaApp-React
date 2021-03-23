@@ -213,6 +213,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onInnerElementDataSave",
     value: function onInnerElementDataSave(id, data) {
+      //console.log("onElementDataSave");
       var selectedComp = this.state.selectedComp;
       var selectedSchema = this.state.selectedSchema;
       var selectedSlot = this.state.selectedSlot;
@@ -264,7 +265,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           if (selectedComp === null || selectedComp === undefined) {
             earlyReturn = true;
           } else {
-            var validation = validate(comp, compSchema);
+            var validation = validate(selectedComp, selectedSchema);
             var validated = validation.valid;
 
             if (!validated) {
@@ -273,14 +274,14 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           }
 
           if (earlyReturn) {
-            this.setState({
-              editing: false,
-              editingSettings: false,
-              category: null,
-              selectedSlot: null,
-              selectedComp: null,
-              selectedSchema: null
-            });
+            // this.setState({
+            // 	editing: faltruese,
+            // 	editingSettings: false,
+            // 	category: null,
+            // 	selectedSlot: null,
+            // 	selectedComp: null,
+            // 	selectedSchema: null,
+            // });
             return;
           }
 
@@ -340,7 +341,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onElementDataSave",
     value: function onElementDataSave(id, data) {
-      console.log("onElementDataSave");
+      //console.log("onElementDataSave");
       var selectedComp = this.state.selectedComp;
       var selectedSlot = this.state.selectedSlot; //let category = this.state.category;
 
@@ -782,12 +783,12 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         overflow: "auto",
         height: "250px",
         maxHeight: "250px",
-        alignItems: "center"
+        alignItems: "center",
+        width: "80%"
       };
       var modalTopList = {
         display: "flex",
         flexDirection: "row",
-        flexWrap: "wrap",
         justifyContent: "space-evenly",
         alignItems: "center"
       };
@@ -951,7 +952,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         if (this.state.editingSettings) {
           var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
           var settings = null;
-          var _comp = null;
+          var comp = null;
           var id = null;
           var editable = true;
 
@@ -961,9 +962,9 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             id = settingCompData.ID;
             var immersionLiquidSchema = expSchemas["ImmersionLiquid.json"];
             var immersionLiquid = settingCompData.ImmersionLiquid;
-            _comp = [];
-            _comp[0] = settingCompData;
-            _comp[1] = immersionLiquid;
+            comp = [];
+            comp[0] = settingCompData;
+            comp[1] = immersionLiquid;
             settings = [];
             settings[0] = settingsSchemas[settingsName];
             settings[1] = immersionLiquidSchema;
@@ -981,12 +982,12 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
 
             id = _settingCompData.ID;
             settings = settingsSchemas[settingsName];
-            _comp = _settingCompData;
+            comp = _settingCompData;
           }
 
           return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
             schema: settings,
-            inputData: _comp,
+            inputData: comp,
             id: id,
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
@@ -1128,6 +1129,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                   var _schema4 = settingsSchemas[settingDataObj.Schema_ID];
 
                   if (_schema4 !== null && _schema4 !== undefined) {
+                    schemaHasProp = Object.keys(_schema4.properties).length > 0;
+
                     if (schemaHasProp) {
                       var validation = validate(settingDataObj, _schema4);
                       var validated = validation.valid;
@@ -1145,6 +1148,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               var butt = null;
 
               if (compSchema.modelSettings !== "NA" && schemaHasProp) {
+                console.log(comp.Name + " has settings");
                 butt = /*#__PURE__*/_react.default.createElement("button", {
                   key: "button-" + comp.Name,
                   style: buttonStyleModified,
@@ -1153,6 +1157,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                   }
                 }, compItemImage, comp.Name);
               } else {
+                console.log(comp.Name + " not has settings");
                 butt = /*#__PURE__*/_react.default.createElement("button", {
                   key: "button-" + comp.Name,
                   style: buttonStyleModified
@@ -1207,13 +1212,27 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               arrowedSlotList.push(arrowItem);
             }
 
+            var width = 150 * arrowedSlotList.length;
+            var modalTopListModified = Object.assign({}, modalTopList, {
+              width: "".concat(width, "px")
+            });
             topItems = /*#__PURE__*/_react.default.createElement("div", {
               style: modalTopListContainer
-            }, /*#__PURE__*/_react.default.createElement("h5", null, "Current components in this slot"), /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherContainer, {
+            }, /*#__PURE__*/_react.default.createElement("h5", null, "Current components in this slot"), /*#__PURE__*/_react.default.createElement("div", {
+              style: {
+                overflow: "auto",
+                width: "100%",
+                maxWidth: "100%"
+              }
+            }, /*#__PURE__*/_react.default.createElement(_reactArcher.ArcherContainer, {
+              svgContainerStyle: {
+                overflow: "auto",
+                width: "".concat(width, "px")
+              },
               strokeColor: "red"
             }, /*#__PURE__*/_react.default.createElement("div", {
-              style: modalTopList
-            }, arrowedSlotList)));
+              style: modalTopListModified
+            }, arrowedSlotList))));
             Object.assign(modalGridPanel, {
               height: "60%"
             });
@@ -1865,7 +1884,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         position: "relative",
         top: "-10%",
         left: "30%",
-        width: "200px",
+        minWidth: "240px",
+        width: "240px",
         height: "30px",
         //display: "inline",
         backgroundColor: "white",
