@@ -218,6 +218,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	onInnerElementDataSave(id, data) {
+		//console.log("onElementDataSave");
 		let selectedComp = this.state.selectedComp;
 		let selectedSchema = this.state.selectedSchema;
 		let selectedSlot = this.state.selectedSlot;
@@ -267,21 +268,21 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 				if (selectedComp === null || selectedComp === undefined) {
 					earlyReturn = true;
 				} else {
-					let validation = validate(comp, compSchema);
+					let validation = validate(selectedComp, selectedSchema);
 					let validated = validation.valid;
-					if(!validated) {
+					if (!validated) {
 						earlyReturn = true;
 					}
 				}
-				if(earlyReturn) {
-					this.setState({
-						editing: false,
-						editingSettings: false,
-						category: null,
-						selectedSlot: null,
-						selectedComp: null,
-						selectedSchema: null,
-					});
+				if (earlyReturn) {
+					// this.setState({
+					// 	editing: faltruese,
+					// 	editingSettings: false,
+					// 	category: null,
+					// 	selectedSlot: null,
+					// 	selectedComp: null,
+					// 	selectedSchema: null,
+					// });
 					return;
 				}
 				slots[selectedSlot] = selectedComp;
@@ -338,7 +339,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	onElementDataSave(id, data) {
-		console.log("onElementDataSave");
+		//console.log("onElementDataSave");
 		let selectedComp = this.state.selectedComp;
 		let selectedSlot = this.state.selectedSlot;
 		//let category = this.state.category;
@@ -895,12 +896,12 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			height: "250px",
 			maxHeight: "250px",
 			alignItems: "center",
+			width: "80%",
 		};
 
 		const modalTopList = {
 			display: "flex",
 			flexDirection: "row",
-			flexWrap: "wrap",
 			justifyContent: "space-evenly",
 			alignItems: "center",
 		};
@@ -1174,7 +1175,10 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							valid = isInvalid1;
 						}
 						let compButton = (
-							<div key={"div-" + comp.Name} style={{ display: "flex", width: "100%"}}>
+							<div
+								key={"div-" + comp.Name}
+								style={{ display: "flex", width: "100%" }}
+							>
 								{valid}
 								<button
 									key={"button-" + comp.Name}
@@ -1245,6 +1249,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							if (settingDataObj !== null && settingDataObj !== undefined) {
 								let schema = settingsSchemas[settingDataObj.Schema_ID];
 								if (schema !== null && schema !== undefined) {
+									schemaHasProp = Object.keys(schema.properties).length > 0;
 									if (schemaHasProp) {
 										let validation = validate(settingDataObj, schema);
 										let validated = validation.valid;
@@ -1260,6 +1265,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 
 						let butt = null;
 						if (compSchema.modelSettings !== "NA" && schemaHasProp) {
+							console.log(comp.Name + " has settings");
 							butt = (
 								<button
 									key={"button-" + comp.Name}
@@ -1273,6 +1279,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 								</button>
 							);
 						} else {
+							console.log(comp.Name + " not has settings");
 							butt = (
 								<button key={"button-" + comp.Name} style={buttonStyleModified}>
 									{compItemImage}
@@ -1339,13 +1346,26 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						);
 						arrowedSlotList.push(arrowItem);
 					}
-
+					let width = 150 * arrowedSlotList.length;
+					let modalTopListModified = Object.assign({}, modalTopList, {
+						width: `${width}px`,
+					});
 					topItems = (
 						<div style={modalTopListContainer}>
 							<h5>Current components in this slot</h5>
-							<ArcherContainer strokeColor="red">
-								<div style={modalTopList}>{arrowedSlotList}</div>
-							</ArcherContainer>
+							<div
+								style={{ overflow: "auto", width: "100%", maxWidth: "100%" }}
+							>
+								<ArcherContainer
+									svgContainerStyle={{
+										overflow: "auto",
+										width: `${width}px`,
+									}}
+									strokeColor="red"
+								>
+									<div style={modalTopListModified}>{arrowedSlotList}</div>
+								</ArcherContainer>
+							</div>
 						</div>
 					);
 
@@ -2314,7 +2334,8 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			position: "relative",
 			top: "-10%",
 			left: "30%",
-			width: "200px",
+			minWidth: "240px",
+			width: "240px",
 			height: "30px",
 			//display: "inline",
 			backgroundColor: "white",
