@@ -142,6 +142,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var i = index;
       var oldSettingData = this.state.settingData;
       var currentComps = this.state.currentComps.slice();
+      var compToDelete = currentComps[i];
       currentComps.splice(i, 1);
       var newCurrentComps = currentComps; // console.log("newCurrentComps");
       // console.log(newCurrentComps);
@@ -149,8 +150,19 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var newSettingData = null;
 
       if (Array.isArray(oldSettingData)) {
+        var indexToDelete = -1;
+
+        for (var y = 0; y < oldSettingData.length; y++) {
+          var sett = oldSettingData[y];
+
+          if (sett.Component_ID === compToDelete.ID) {
+            indexToDelete = y;
+            break;
+          }
+        }
+
         newSettingData = oldSettingData.slice();
-        newSettingData.splice(i, 1);
+        if (indexToDelete !== -1) newSettingData.splice(indexToDelete, 1);
       } else {
         newSettingData = {};
       } // console.log("newCurrentComps");
@@ -179,14 +191,16 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onConfirm",
     value: function onConfirm() {
-      var settingData = this.state.settingData; //let slots = this.state.slots;
-
+      //let slots = this.state.slots;
       var newSettingData = null;
+      var settingData = null;
 
       if (this.props.maxNumberElement === 1) {
         newSettingData = {};
+        settingData = Object.assign({}, this.state.settingData);
       } else {
         newSettingData = [];
+        settingData = this.state.settingData.slice();
       }
 
       this.setState({

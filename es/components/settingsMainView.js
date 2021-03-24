@@ -226,11 +226,26 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
       } else if (id === elements.indexOf("objSettings")) {
         var newObjSettings = {};
         var objective = null;
+        console.log("data");
+        console.log(data);
 
         if (Object.keys(data).length > 0) {
-          var oldObjSettings = Object.assign({}, this.state.objSettings);
-          newObjSettings = Object.assign(oldObjSettings, data);
-          settingData.ObjectiveSettings = newObjSettings;
+          var oldObjSettings = this.state.objSettings;
+
+          if (oldObjSettings !== null && oldObjSettings !== undefined) {
+            var _oldObjSettings = Object.assign({}, _oldObjSettings);
+
+            newObjSettings = Object.assign(_oldObjSettings, data);
+
+            if (_oldObjSettings.ImmersionLiquid !== null && _oldObjSettings.ImmersionLiquid !== undefined) {
+              var oldImmersionLiquid = Object.assign({}, _oldObjSettings.ImmersionLiquid);
+              var newImmersionLiquid = Object.assign(oldImmersionLiquid, data.ImmersionLiquid);
+              newObjSettings.ImmersionLiquid = newImmersionLiquid;
+            }
+          } else {
+            newObjSettings = data;
+          }
+
           var compID = data.Component_ID;
           Object.keys(this.props.microscopeComponents).forEach(function (key) {
             var element = _this2.props.microscopeComponents[key];
@@ -238,6 +253,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           });
         }
 
+        settingData.ObjectiveSettings = newObjSettings;
         this.setState({
           editingElement: -1,
           objSettings: newObjSettings,

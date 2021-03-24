@@ -423,18 +423,41 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     key: "handleDeleteComp",
     value: function handleDeleteComp(selectedSlot, index) {
       var i = index;
+      var settingsData = Object.assign({}, this.state.settingData);
 
       if (selectedSlot.includes("AdditionalSlot_")) {
+        var settingData = settingsData[selectedSlot];
         var newTmpSlots = this.state.tmpSlots.slice();
+        var compToDelete = newTmpSlots[i];
         newTmpSlots.splice(i, 1);
+        var indexToDelete = -1;
+
+        if (settingData !== null && settingData !== undefined) {
+          for (var y = 0; y < settingData.length; y++) {
+            var sett = settingData[y];
+
+            if (sett.Component_ID === compToDelete.ID) {
+              indexToDelete = y;
+              break;
+            }
+          }
+
+          var newSettingData = settingData.slice();
+          if (indexToDelete !== -1) newSettingData.splice(indexToDelete, 1);
+          settingsData[selectedSlot] = newSettingData;
+        }
+
         this.setState({
-          tmpSlots: newTmpSlots
+          tmpSlots: newTmpSlots,
+          settingData: settingsData
         });
       } else {
         var slots = Object.assign({}, this.state.slots);
         delete slots[selectedSlot];
+        if (settingsData[selectedSlot] !== null && settingsData[selectedSlot] !== undefined) delete settingsData[selectedSlot];
         this.setState({
-          slots: slots
+          slots: slots,
+          settingData: settingsData
         });
       }
     }
@@ -1148,7 +1171,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               var butt = null;
 
               if (compSchema.modelSettings !== "NA" && schemaHasProp) {
-                console.log(comp.Name + " has settings");
                 butt = /*#__PURE__*/_react.default.createElement("button", {
                   key: "button-" + comp.Name,
                   style: buttonStyleModified,
@@ -1157,7 +1179,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                   }
                 }, compItemImage, comp.Name);
               } else {
-                console.log(comp.Name + " not has settings");
                 butt = /*#__PURE__*/_react.default.createElement("button", {
                   key: "button-" + comp.Name,
                   style: buttonStyleModified
