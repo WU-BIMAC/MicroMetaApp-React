@@ -109,6 +109,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 		let oldSettingData = this.state.settingData;
 		let currentComps = this.state.currentComps.slice();
+		let compToDelete = currentComps[i];
 		currentComps.splice(i, 1);
 		let newCurrentComps = currentComps;
 
@@ -117,8 +118,16 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 		let newSettingData = null;
 		if (Array.isArray(oldSettingData)) {
+			let indexToDelete = -1;
+			for (let y = 0; y < oldSettingData.length; y++) {
+				let sett = oldSettingData[y];
+				if (sett.Component_ID === compToDelete.ID) {
+					indexToDelete = y;
+					break;
+				}
+			}
 			newSettingData = oldSettingData.slice();
-			newSettingData.splice(i, 1);
+			if (indexToDelete !== -1) newSettingData.splice(indexToDelete, 1);
 		} else {
 			newSettingData = {};
 		}
@@ -144,13 +153,15 @@ export default class SettingComponentSelector extends React.PureComponent {
 	}
 
 	onConfirm() {
-		let settingData = this.state.settingData;
 		//let slots = this.state.slots;
 		let newSettingData = null;
+		let settingData = null;
 		if (this.props.maxNumberElement === 1) {
 			newSettingData = {};
+			settingData = Object.assign({}, this.state.settingData);
 		} else {
 			newSettingData = [];
+			settingData = this.state.settingData.slice();
 		}
 		this.setState({
 			editing: false,
@@ -850,7 +861,9 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 			//let comp = this.state.currentComp;
 			let width = slotList.length * 150;
-			let modalTopListModified = Object.assign({}, modalTopList, {width: `${width}px`});
+			let modalTopListModified = Object.assign({}, modalTopList, {
+				width: `${width}px`,
+			});
 			let topItems = (
 				<div style={modalTopListContainer}>
 					<h5>Current component in this slot</h5>

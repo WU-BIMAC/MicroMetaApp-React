@@ -417,14 +417,35 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 
 	handleDeleteComp(selectedSlot, index) {
 		let i = index;
+		let settingsData = Object.assign({}, this.state.settingData);
 		if (selectedSlot.includes("AdditionalSlot_")) {
+			let settingData = settingsData[selectedSlot];
 			let newTmpSlots = this.state.tmpSlots.slice();
+			let compToDelete = newTmpSlots[i];
 			newTmpSlots.splice(i, 1);
-			this.setState({ tmpSlots: newTmpSlots });
+			let indexToDelete = -1;
+			if (settingData !== null && settingData !== undefined) {
+				for (let y = 0; y < settingData.length; y++) {
+					let sett = settingData[y];
+					if (sett.Component_ID === compToDelete.ID) {
+						indexToDelete = y;
+						break;
+					}
+				}
+				let newSettingData = settingData.slice();
+				if (indexToDelete !== -1) newSettingData.splice(indexToDelete, 1);
+				settingsData[selectedSlot] = newSettingData;
+			}
+			this.setState({ tmpSlots: newTmpSlots, settingData: settingsData });
 		} else {
 			let slots = Object.assign({}, this.state.slots);
 			delete slots[selectedSlot];
-			this.setState({ slots: slots });
+			if (
+				settingsData[selectedSlot] !== null &&
+				settingsData[selectedSlot] !== undefined
+			)
+				delete settingsData[selectedSlot];
+			this.setState({ slots: slots, settingData: settingsData });
 		}
 	}
 
@@ -1265,7 +1286,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 
 						let butt = null;
 						if (compSchema.modelSettings !== "NA" && schemaHasProp) {
-							console.log(comp.Name + " has settings");
 							butt = (
 								<button
 									key={"button-" + comp.Name}
@@ -1279,7 +1299,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 								</button>
 							);
 						} else {
-							console.log(comp.Name + " not has settings");
 							butt = (
 								<button key={"button-" + comp.Name} style={buttonStyleModified}>
 									{compItemImage}
