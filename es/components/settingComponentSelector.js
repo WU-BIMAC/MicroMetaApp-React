@@ -446,9 +446,8 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.props.imageMetadata !== null && this.props.imageMetadata !== undefined) {
         var imageMetadata = this.props.imageMetadata;
-        var propsSchema = this.props.schema;
 
-        if (Array.isArray(propsSchema) && propsSchema[0] === "ObjectiveSettings.json" && imageMetadata.ObjectiveSettings !== null && imageMetadata.ObjectiveSettings !== null) {
+        if (selectedSchema.modelSettings === "ObjectiveSettings" && imageMetadata.ObjectiveSettings !== null && imageMetadata.ObjectiveSettings !== undefined) {
           var imageObjSettings = imageMetadata.ObjectiveSettings;
           newSettingCompData = Object.assign({}, imageObjSettings, settingCompData);
           var newImmersionLiquid = null;
@@ -459,7 +458,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             newImmersionLiquid = settingCompData.ImmersionLiquid;
           }
 
-          newSettingCompData.newImmersionLiquid;
+          newSettingCompData.ImmersionLiquid = newImmersionLiquid;
         }
       } else {
         newSettingCompData = settingCompData;
