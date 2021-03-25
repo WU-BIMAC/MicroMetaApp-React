@@ -454,7 +454,8 @@ export default class SettingComponentSelector extends React.PureComponent {
 				}
 				newSettingCompData.ImmersionLiquid = newImmersionLiquid;
 			}
-		} else {
+		}
+		if (newSettingCompData === null || newSettingCompData === undefined) {
 			newSettingCompData = settingCompData;
 		}
 
