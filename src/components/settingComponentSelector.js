@@ -430,7 +430,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 			let imageMetadata = this.props.imageMetadata;
 			let propsSchema = this.props.schema;
 			if (
-				Array.isArray(props.schema) &&
+				Array.isArray(propsSchema) &&
 				propsSchema[0] === "ObjectiveSettings.json" &&
 				imageMetadata.ObjectiveSettings !== null &&
 				imageMetadata.ObjectiveSettings !== null
