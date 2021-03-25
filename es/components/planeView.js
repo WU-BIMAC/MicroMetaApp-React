@@ -131,7 +131,12 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           };
           newPlane = PlaneView.addIdentifiersToNewObject(newPlane, schema);
           var mergedPlane = Object.assign({}, newPlane, oldPlane);
-          newPlanes[i] = Object.assign({}, mergedPlane, _this.state.planes[i]);
+
+          if (_this.state.planes[i] !== null && _this.state.planes[i] !== undefined) {
+            newPlanes[i] = Object.assign({}, mergedPlane, _this.state.planes[i]);
+          } else {
+            newPlanes[i] = mergedPlane;
+          }
         }
 
         _this.state.planes = newPlanes;

@@ -122,9 +122,26 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
           var mergedChannel = Object.assign({}, newChannelElementData, oldChannel);
           var mergedLightPath = Object.assign({}, newLightPathElementData, oldChannel.LightPath);
           var mergedFluorophore = Object.assign({}, newFluorophoreElementData, oldChannel.Fluorophore);
-          newChannels[i] = Object.assign({}, mergedChannel, _this.state.channels[i]);
-          newChannels[i].LightPath = Object.assign({}, mergedLightPath, _this.state.channels[i].LightPath);
-          newChannels[i].Fluorophore = Object.assign({}, mergedFluorophore, _this.state.channels[i].Fluorophore);
+
+          if (_this.state.channels[i] !== null && _this.state.channels[i] !== undefined) {
+            newChannels[i] = Object.assign({}, mergedChannel, _this.state.channels[i]);
+
+            if (_this.state.channels[i].LightPath !== null && _this.state.channels[i].LightPath !== undefined) {
+              newChannels[i].LightPath = Object.assign({}, mergedLightPath, _this.state.channels[i].LightPath);
+            } else {
+              newChannels[i].LightPath = mergedLightPath;
+            }
+
+            if (_this.state.channels[i].Fluorophore !== null && _this.state.channels[i].Fluorophore !== undefined) {
+              newChannels[i].Fluorophore = Object.assign({}, mergedFluorophore, _this.state.channels[i].Fluorophore);
+            } else {
+              newChannels[i].Fluorophore = mergedFluorophore;
+            }
+          } else {
+            newChannels[i] = mergedChannel;
+            newChannels[i].LightPath = mergedLightPath;
+            newChannels[i].Fluorophore = mergedFluorophore;
+          }
         }
       }
 
