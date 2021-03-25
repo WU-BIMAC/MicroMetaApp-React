@@ -81,25 +81,37 @@ export default class SettingComponentSelector extends React.PureComponent {
 			let imageMetadata = this.props.imageMetadata;
 			let propsSchema = this.props.schema;
 			if (
-				Array.isArray(props.schema) &&
-				propsSchema[0] === "ObjectiveSettings.json" &&
+				Array.isArray(propsSchema) &&
+				propsSchema[0].ID === "ObjectiveSettings.json" &&
 				imageMetadata.ObjectiveSettings !== null &&
 				imageMetadata.ObjectiveSettings !== null
 			) {
 				let imageObjSettings = imageMetadata.ObjectiveSettings;
 				newSettingCompData = Object.assign(
-					this.state.settingData,
-					imageObjSettings
+					{},
+					imageObjSettings,
+					this.state.settingData
 				);
 				let newImmersionLiquid = null;
 				if (
 					imageObjSettings.ImmersionLiquid !== null &&
 					imageObjSettings.ImmersionLiquid !== undefined
 				) {
-					newImmersionLiquid = Object.assign(
-						this.state.settingData.ImmersionLiquid,
-						imageObjSettings.ImmersionLiquid
-					);
+					if (
+						this.state.settingData.ImmersionLiquid !== null &&
+						this.state.settingData.ImmersionLiquid !== undefined
+					) {
+						newImmersionLiquid = Object.assign(
+							{},
+							imageObjSettings.ImmersionLiquid,
+							this.state.settingData.ImmersionLiquid
+						);
+					} else {
+						newImmersionLiquid = Object.assign(
+							{},
+							imageObjSettings.ImmersionLiquid
+						);
+					}
 				} else {
 					newImmersionLiquid = settingCompData.ImmersionLiquid;
 				}
@@ -424,15 +436,20 @@ export default class SettingComponentSelector extends React.PureComponent {
 				imageMetadata.ObjectiveSettings !== null
 			) {
 				let imageObjSettings = imageMetadata.ObjectiveSettings;
-				newSettingCompData = Object.assign(settingCompData, imageObjSettings);
+				newSettingCompData = Object.assign(
+					{},
+					imageObjSettings,
+					settingCompData
+				);
 				let newImmersionLiquid = null;
 				if (
 					imageObjSettings.ImmersionLiquid !== null &&
 					imageObjSettings.ImmersionLiquid !== undefined
 				) {
 					newImmersionLiquid = Object.assign(
-						settingCompData.ImmersionLiquid,
-						imageObjSettings.ImmersionLiquid
+						{},
+						imageObjSettings.ImmersionLiquid,
+						settingCompData.ImmersionLiquid
 					);
 				} else {
 					newImmersionLiquid = settingCompData.ImmersionLiquid;
