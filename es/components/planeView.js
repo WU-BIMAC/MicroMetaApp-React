@@ -225,17 +225,17 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           newElementData.ID = (0, _uuid.v4)();
 
           if (tIncrement) {
-            newElementData.TheZ = String(theZ);
-            newElementData.TheT = String(theT + i);
-            newElementData.TheC = String(theC);
+            newElementData.TheZ = theZ;
+            newElementData.TheT = theT + i;
+            newElementData.TheC = theC;
           } else if (zIncrement) {
-            newElementData.TheZ = String(theZ + i);
-            newElementData.TheT = String(theT);
-            newElementData.TheC = String(theC);
+            newElementData.TheZ = theZ + i;
+            newElementData.TheT = theT;
+            newElementData.TheC = theC;
           } else if (cIncrement) {
-            newElementData.TheZ = String(theZ);
-            newElementData.TheT = String(theT);
-            newElementData.TheC = String(theC + i);
+            newElementData.TheZ = theZ;
+            newElementData.TheT = theT;
+            newElementData.TheC = theC + i;
           }
 
           newElementData.Timestamp = timeStamp + timeStampIncrement * i;

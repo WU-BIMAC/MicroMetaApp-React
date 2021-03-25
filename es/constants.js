@@ -144,7 +144,7 @@ var channelPath_Additional_8 = ["Shutter", "IrisDiaphragm", "EmissionFilter", "N
 exports.channelPath_Additional_8 = channelPath_Additional_8;
 var menu_order = ["MicroscopyEssentials", "Software", "Transmitted_LightSource", "Fluorescence_LightSource", "Magnification", "LightSourceCoupling", "FluorescenceLightPath", "Stage", "Focusing", "OpticalAssembly", "OpticsHolder", "Aperture", "Filter", "MirroringDevice", "Lens", "AdditionalOptics", "Detector", "Detector.Camera", "Detector.PointDetector", "Calibration"];
 exports.menu_order = menu_order;
-var string_bandpass_warning = "If you modify the number of band-pass, the information not saved are going to be lost!";
+var string_bandpass_warning = "PLEASE NOTE: If the number of WavelengthRange modules or sub-components (e.g., LEDModule) is changed, all values entered but not yet confirmed will be lost.";
 exports.string_bandpass_warning = string_bandpass_warning;
 var tier_selector_tooltip = {
   title: "Tier Selector",

@@ -70,40 +70,58 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       settingData: props.inputData || null
     };
 
-    if (_this.state.settingData === null) {
+    if (_this.state.settingData === null || _this.state.settingData === undefined) {
       if (_this.props.maxNumberElement === 1) {
         _this.state.settingData = {};
       } else {
         _this.state.settingData = [];
       }
+    } // console.log("input setting data");
+    // console.log(this.state.settingData);
+
+
+    if (Array.isArray(_this.state.settingData)) {
+      Object.keys(_this.state.settingData).forEach(function (settingIndex) {
+        var sett = _this.state.settingData[settingIndex];
+        Object.keys(_this.props.componentData).forEach(function (compIndex) {
+          var comp = _this.props.componentData[compIndex];
+
+          if (comp.ID === sett.Component_ID) {
+            _this.state.currentComps.push(comp);
+          }
+        });
+      });
+    } else {
+      var compID = _this.state.settingData.Component_ID;
+
+      if (compID !== null && compID !== undefined) {
+        Object.keys(_this.props.componentData).forEach(function (compIndex) {
+          var comp = _this.props.componentData[compIndex];
+
+          if (comp.ID === compID) {
+            _this.state.currentComps.push(comp);
+          }
+        });
+      }
     }
 
-    if (_this.state.settingData !== null && _this.state.settingData !== undefined) {
-      // console.log("input setting data");
-      // console.log(this.state.settingData);
-      if (Array.isArray(_this.state.settingData)) {
-        Object.keys(_this.state.settingData).forEach(function (settingIndex) {
-          var sett = _this.state.settingData[settingIndex];
-          Object.keys(_this.props.componentData).forEach(function (compIndex) {
-            var comp = _this.props.componentData[compIndex];
+    if (_this.props.imageMetadata !== null && _this.props.imageMetadata !== undefined && _this.props.inputData !== null && _this.props.inputData !== undefined) {
+      var imageMetadata = _this.props.imageMetadata;
+      var propsSchema = _this.props.schema;
 
-            if (comp.ID === sett.Component_ID) {
-              _this.state.currentComps.push(comp);
-            }
-          });
-        });
-      } else {
-        var compID = _this.state.settingData.Component_ID;
+      if (Array.isArray(props.schema) && propsSchema[0] === "ObjectiveSettings.json" && imageMetadata.ObjectiveSettings !== null && imageMetadata.ObjectiveSettings !== null) {
+        var imageObjSettings = imageMetadata.ObjectiveSettings;
+        newSettingCompData = Object.assign(_this.state.settingData, imageObjSettings);
+        var newImmersionLiquid = null;
 
-        if (compID !== null && compID !== undefined) {
-          Object.keys(_this.props.componentData).forEach(function (compIndex) {
-            var comp = _this.props.componentData[compIndex];
-
-            if (comp.ID === compID) {
-              _this.state.currentComps.push(comp);
-            }
-          });
+        if (imageObjSettings.ImmersionLiquid !== null && imageObjSettings.ImmersionLiquid !== undefined) {
+          newImmersionLiquid = Object.assign(_this.state.settingData.ImmersionLiquid, imageObjSettings.ImmersionLiquid);
+        } else {
+          newImmersionLiquid = settingCompData.ImmersionLiquid;
         }
+
+        newSettingCompData.newImmersionLiquid;
+        _this.state.settingData = newSettingCompData;
       }
     }
 
@@ -420,12 +438,35 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
+      var newSettingCompData = null;
+
+      if (this.props.imageMetadata !== null && this.props.imageMetadata !== undefined) {
+        var imageMetadata = this.props.imageMetadata;
+        var propsSchema = this.props.schema;
+
+        if (Array.isArray(props.schema) && propsSchema[0] === "ObjectiveSettings.json" && imageMetadata.ObjectiveSettings !== null && imageMetadata.ObjectiveSettings !== null) {
+          var imageObjSettings = imageMetadata.ObjectiveSettings;
+          newSettingCompData = Object.assign(settingCompData, imageObjSettings);
+          var newImmersionLiquid = null;
+
+          if (imageObjSettings.ImmersionLiquid !== null && imageObjSettings.ImmersionLiquid !== undefined) {
+            newImmersionLiquid = Object.assign(settingCompData.ImmersionLiquid, imageObjSettings.ImmersionLiquid);
+          } else {
+            newImmersionLiquid = settingCompData.ImmersionLiquid;
+          }
+
+          newSettingCompData.newImmersionLiquid;
+        }
+      } else {
+        newSettingCompData = settingCompData;
+      }
+
       currentComps.push(selectedComp);
 
       if (isArray) {
-        settingData.push(settingCompData);
+        settingData.push(newSettingCompData);
       } else {
-        settingData = settingCompData;
+        settingData = newSettingCompData;
       } // console.log("currentComps");
       // console.log(currentComps);
       // console.log("settingData");

@@ -864,10 +864,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
         if (localSchema.ID === "Pixels.json") {
           pixelsSchema = localSchema;
-        } else if (localSchema.ID === "Plane.json") {
-          planeSchema = localSchema;
-        } else if (localSchema.ID === "Channel.json") {
-          channelSchema = localSchema;
         }
       }
 
@@ -894,39 +890,62 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var mergedSettings = null;
 
       if (imageMetadata !== null && imageMetadata !== undefined) {
-        mergedSettings = Object.assign({}, setting, imageMetadata);
-        var mergedPixels = Object.assign({}, pixels, imageMetadata.Pixels);
+        var newImageMetadata = Object.assign({}, imageMetadata);
+        delete newImageMetadata.ImagingEnvironment;
+        delete newImageMetadata.MicroscopeStandSettings;
+        delete newImageMetadata.MicroscopeStandSettings;
+        delete newImageMetadata.MicroscopeTableSettings;
+        delete newImageMetadata.ObjectiveSettings;
+        delete newImageMetadata.SamplePositioningSettings;
+        delete newImageMetadata.Channels;
+        delete newImageMetadata.Planes;
+        delete newImageMetadata.Experiment;
+        delete newImageMetadata.TIRFSettings;
+        mergedSettings = Object.assign({}, setting, newImageMetadata);
+        var mergedPixels = Object.assign({}, pixels, newImageMetadata.Pixels);
         mergedSettings.Pixels = mergedPixels;
       } else {
         mergedSettings = setting;
         mergedSettings.Pixels = pixels;
-      }
+      } // let newSettingData = {};
+      // let imgEnv = mergedSettings.ImagingEnvironment;
+      // if (imgEnv !== null && imgEnv !== undefined)
+      // 	newSettingData.ImagingEnvironment = imgEnv;
+      // let micStandSet = mergedSettings.MicroscopeStandSettings;
+      // if (micStandSet !== null && micStandSet !== undefined)
+      // 	newSettingData.MicroscopeStandSettings = micStandSet;
+      // let micTableSet = mergedSettings.MicroscopeTableSettings;
+      // if (micTableSet !== null && micTableSet !== undefined)
+      // 	newSettingData.MicroscopeTableSettings = micTableSet;
+      // let objSet = mergedSettings.ObjectiveSettings;
+      // if (objSet !== null && objSet !== undefined)
+      // 	newSettingData.ObjectiveSettings = objSet;
+      // let samPosSet = mergedSettings.SamplePositioningSettings;
+      // if (samPosSet !== null && samPosSet !== undefined)
+      // 	newSettingData.SamplePositioningSettings = samPosSet;
+      // let channels = mergedSettings.Channels;
+      // if (channels !== null && channels !== undefined)
+      // 	newSettingData.Channels = channels;
+      // let planes = mergedSettings.Planes;
+      // if (planes !== null && planes !== undefined) newSettingData.Planes = planes;
+      // let exp = mergedSettings.Experiment;
+      // if (exp !== null && exp !== undefined) newSettingData.Experiment = exp;
+      // let tirf = mergedSettings.TIRFSettings;
+      // if (tirf !== null && tirf !== undefined) newSettingData.TIRFSettings = tirf;
 
-      var newSettingData = {};
-      var imgEnv = mergedSettings.ImagingEnvironment;
-      if (imgEnv !== null && imgEnv !== undefined) newSettingData.ImagingEnvironment = imgEnv;
-      var micStandSet = mergedSettings.MicroscopeStandSettings;
-      if (micStandSet !== null && micStandSet !== undefined) newSettingData.MicroscopeStandSettings = micStandSet;
-      var micTableSet = mergedSettings.MicroscopeTableSettings;
-      if (micTableSet !== null && micTableSet !== undefined) newSettingData.MicroscopeTableSettings = micTableSet;
-      var objSet = mergedSettings.ObjectiveSettings;
-      if (objSet !== null && objSet !== undefined) newSettingData.ObjectiveSettings = objSet;
-      var samPosSet = mergedSettings.SamplePositioningSettings;
-      if (samPosSet !== null && samPosSet !== undefined) newSettingData.SamplePositioningSettings = samPosSet;
-      var channels = mergedSettings.Channels;
-      if (channels !== null && channels !== undefined) newSettingData.Channels = channels;
-      var planes = mergedSettings.Planes;
-      if (planes !== null && planes !== undefined) newSettingData.Planes = planes;
-      var exp = mergedSettings.Experiment;
-      if (exp !== null && exp !== undefined) newSettingData.Experiment = exp;
-      var tirf = mergedSettings.TIRFSettings;
-      if (tirf !== null && tirf !== undefined) newSettingData.TIRFSettings = tirf;
+
+      var validationSetting = validate(mergedSettings, imageSchema);
+      var validatedSetting = validationSetting.valid;
+      var validationPixels = validate(mergedSettings.Pixels, pixelsSchema);
+      var validatedPixels = validationPixels.valid;
+      var validated = validatedSetting && validatedPixels;
       this.setState({
         setting: mergedSettings,
         settingData: newSettingData,
         validationTier: setting.ValidationTier,
         typeDimensions: typeDimensions,
         standType: standType,
+        isSettingValidated: validated,
         isLoadingSettings: false,
         loadingOption: _constants.string_createFromFile,
         loadingMode: 1
@@ -965,32 +984,49 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var mergedSettings = null;
 
       if (imageMetadata !== null && imageMetadata !== undefined) {
-        mergedSettings = Object.assign({}, imageMetadata, modifiedSetting);
+        var newImageMetadata = Object.assign({}, imageMetadata);
+        delete newImageMetadata.ImagingEnvironment;
+        delete newImageMetadata.MicroscopeStandSettings;
+        delete newImageMetadata.MicroscopeStandSettings;
+        delete newImageMetadata.MicroscopeTableSettings;
+        delete newImageMetadata.ObjectiveSettings;
+        delete newImageMetadata.SamplePositioningSettings;
+        delete newImageMetadata.Channels;
+        delete newImageMetadata.Planes;
+        delete newImageMetadata.Experiment;
+        delete newImageMetadata.TIRFSettings;
+        mergedSettings = Object.assign({}, newImageMetadata, modifiedSetting);
       } else {
         mergedSettings = modifiedSetting;
-      }
-
-      var newSettingData = {};
-      var imgEnv = mergedSettings.ImagingEnvironment;
-      if (imgEnv !== null && imgEnv !== undefined) newSettingData.ImagingEnvironment = imgEnv;
-      var micStandSet = mergedSettings.MicroscopeStandSettings;
-      if (micStandSet !== null && micStandSet !== undefined) newSettingData.MicroscopeStandSettings = micStandSet;
-      var micTableSet = mergedSettings.MicroscopeTableSettings;
-      if (micTableSet !== null && micTableSet !== undefined) newSettingData.MicroscopeTableSettings = micTableSet;
-      var objSet = mergedSettings.ObjectiveSettings;
-      if (objSet !== null && objSet !== undefined) newSettingData.ObjectiveSettings = objSet;
-      var samPosSet = mergedSettings.SamplePositioningSettings;
-      if (samPosSet !== null && samPosSet !== undefined) newSettingData.SamplePositioningSettings = samPosSet;
-      var channels = mergedSettings.Channels;
-      if (channels !== null && channels !== undefined) newSettingData.Channels = channels;
-      var planes = mergedSettings.Planes;
-      if (planes !== null && planes !== undefined) newSettingData.Planes = planes;
-      var exp = mergedSettings.Experiment;
-      if (exp !== null && exp !== undefined) newSettingData.Experiment = exp;
-      var tirf = mergedSettings.TIRFSettings;
-      if (tirf !== null && tirf !== undefined) newSettingData.TIRFSettings = tirf; // console.log("settingData");
+      } // let newSettingData = {};
+      // let imgEnv = mergedSettings.ImagingEnvironment;
+      // if (imgEnv !== null && imgEnv !== undefined)
+      // 	newSettingData.ImagingEnvironment = imgEnv;
+      // let micStandSet = mergedSettings.MicroscopeStandSettings;
+      // if (micStandSet !== null && micStandSet !== undefined)
+      // 	newSettingData.MicroscopeStandSettings = micStandSet;
+      // let micTableSet = mergedSettings.MicroscopeTableSettings;
+      // if (micTableSet !== null && micTableSet !== undefined)
+      // 	newSettingData.MicroscopeTableSettings = micTableSet;
+      // let objSet = mergedSettings.ObjectiveSettings;
+      // if (objSet !== null && objSet !== undefined)
+      // 	newSettingData.ObjectiveSettings = objSet;
+      // let samPosSet = mergedSettings.SamplePositioningSettings;
+      // if (samPosSet !== null && samPosSet !== undefined)
+      // 	newSettingData.SamplePositioningSettings = samPosSet;
+      // let channels = mergedSettings.Channels;
+      // if (channels !== null && channels !== undefined)
+      // 	newSettingData.Channels = channels;
+      // let planes = mergedSettings.Planes;
+      // if (planes !== null && planes !== undefined) newSettingData.Planes = planes;
+      // let exp = mergedSettings.Experiment;
+      // if (exp !== null && exp !== undefined) newSettingData.Experiment = exp;
+      // let tirf = mergedSettings.TIRFSettings;
+      // if (tirf !== null && tirf !== undefined) newSettingData.TIRFSettings = tirf;
+      // console.log("settingData");
       // console.log(newSettingData);
       //let linkedFields = Object.assign({}, modifiedSetting.linkedFields);
+
 
       var validationSetting = validate(mergedSettings, imageSchema);
       var validatedSetting = validationSetting.valid;
@@ -1051,30 +1087,47 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var mergedSettings = null;
 
       if (imageMetadata !== null && imageMetadata !== undefined) {
-        mergedSettings = Object.assign({}, imageMetadata, modifiedSetting);
+        var newImageMetadata = Object.assign({}, imageMetadata);
+        delete newImageMetadata.ImagingEnvironment;
+        delete newImageMetadata.MicroscopeStandSettings;
+        delete newImageMetadata.MicroscopeStandSettings;
+        delete newImageMetadata.MicroscopeTableSettings;
+        delete newImageMetadata.ObjectiveSettings;
+        delete newImageMetadata.SamplePositioningSettings;
+        delete newImageMetadata.Channels;
+        delete newImageMetadata.Planes;
+        delete newImageMetadata.Experiment;
+        delete newImageMetadata.TIRFSettings;
+        mergedSettings = Object.assign({}, newImageMetadata, modifiedSetting);
       } else {
         mergedSettings = modifiedSetting;
-      }
+      } // let newSettingData = {};
+      // let imgEnv = mergedSettings.ImagingEnvironment;
+      // if (imgEnv !== null && imgEnv !== undefined)
+      // 	newSettingData.ImagingEnvironment = imgEnv;
+      // let micStandSet = mergedSettings.MicroscopeStandSettings;
+      // if (micStandSet !== null && micStandSet !== undefined)
+      // 	newSettingData.MicroscopeStandSettings = micStandSet;
+      // let micTableSet = mergedSettings.MicroscopeTableSettings;
+      // if (micTableSet !== null && micTableSet !== undefined)
+      // 	newSettingData.MicroscopeTableSettings = micTableSet;
+      // let objSet = mergedSettings.ObjectiveSettings;
+      // if (objSet !== null && objSet !== undefined)
+      // 	newSettingData.ObjectiveSettings = objSet;
+      // let samPosSet = mergedSettings.SamplePositioningSettings;
+      // if (samPosSet !== null && samPosSet !== undefined)
+      // 	newSettingData.SamplePositioningSettings = samPosSet;
+      // let channels = mergedSettings.Channels;
+      // if (channels !== null && channels !== undefined)
+      // 	newSettingData.Channels = channels;
+      // let planes = mergedSettings.Planes;
+      // if (planes !== null && planes !== undefined) newSettingData.Planes = planes;
+      // let exp = mergedSettings.Experiment;
+      // if (exp !== null && exp !== undefined) newSettingData.Experiment = exp;
+      // let tirf = mergedSettings.TIRFSettings;
+      // if (tirf !== null && tirf !== undefined) newSettingData.TIRFSettings = tirf;
+      //let linkedFields = Object.assign({}, modifiedMic.linkedFields);
 
-      var newSettingData = {};
-      var imgEnv = mergedSettings.ImagingEnvironment;
-      if (imgEnv !== null && imgEnv !== undefined) newSettingData.ImagingEnvironment = imgEnv;
-      var micStandSet = mergedSettings.MicroscopeStandSettings;
-      if (micStandSet !== null && micStandSet !== undefined) newSettingData.MicroscopeStandSettings = micStandSet;
-      var micTableSet = mergedSettings.MicroscopeTableSettings;
-      if (micTableSet !== null && micTableSet !== undefined) newSettingData.MicroscopeTableSettings = micTableSet;
-      var objSet = mergedSettings.ObjectiveSettings;
-      if (objSet !== null && objSet !== undefined) newSettingData.ObjectiveSettings = objSet;
-      var samPosSet = mergedSettings.SamplePositioningSettings;
-      if (samPosSet !== null && samPosSet !== undefined) newSettingData.SamplePositioningSettings = samPosSet;
-      var channels = mergedSettings.Channels;
-      if (channels !== null && channels !== undefined) newSettingData.Channels = channels;
-      var planes = mergedSettings.Planes;
-      if (planes !== null && planes !== undefined) newSettingData.Planes = planes;
-      var exp = mergedSettings.Experiment;
-      if (exp !== null && exp !== undefined) newSettingData.Experiment = exp;
-      var tirf = mergedSettings.TIRFSettings;
-      if (tirf !== null && tirf !== undefined) newSettingData.TIRFSettings = tirf; //let linkedFields = Object.assign({}, modifiedMic.linkedFields);
 
       var validationSetting = validate(mergedSettings, imageSchema);
       var validatedSetting = validationSetting.valid;
