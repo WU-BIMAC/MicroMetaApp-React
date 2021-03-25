@@ -118,7 +118,14 @@ export default class PlaneView extends React.PureComponent {
 					};
 					newPlane = PlaneView.addIdentifiersToNewObject(newPlane, schema);
 					let mergedPlane = Object.assign({}, newPlane, oldPlane);
-					newPlanes[i] = Object.assign({}, mergedPlane, this.state.planes[i]);
+					if (
+						this.state.planes[i] !== null &&
+						this.state.planes[i] !== undefined
+					) {
+						newPlanes[i] = Object.assign({}, mergedPlane, this.state.planes[i]);
+					} else {
+						newPlanes[i] = mergedPlane;
+					}
 				}
 				this.state.planes = newPlanes;
 			}

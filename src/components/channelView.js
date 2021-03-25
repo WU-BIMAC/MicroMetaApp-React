@@ -116,21 +116,46 @@ export default class ChannelView extends React.PureComponent {
 						newFluorophoreElementData,
 						oldChannel.Fluorophore
 					);
-					newChannels[i] = Object.assign(
-						{},
-						mergedChannel,
-						this.state.channels[i]
-					);
-					newChannels[i].LightPath = Object.assign(
-						{},
-						mergedLightPath,
-						this.state.channels[i].LightPath
-					);
-					newChannels[i].Fluorophore = Object.assign(
-						{},
-						mergedFluorophore,
-						this.state.channels[i].Fluorophore
-					);
+
+					if (
+						this.state.channels[i] !== null &&
+						this.state.channels[i] !== undefined
+					) {
+						newChannels[i] = Object.assign(
+							{},
+							mergedChannel,
+							this.state.channels[i]
+						);
+						if (
+							this.state.channels[i].LightPath !== null &&
+							this.state.channels[i].LightPath !== undefined
+						) {
+							newChannels[i].LightPath = Object.assign(
+								{},
+								mergedLightPath,
+								this.state.channels[i].LightPath
+							);
+						} else {
+							newChannels[i].LightPath = mergedLightPath;
+						}
+
+						if (
+							this.state.channels[i].Fluorophore !== null &&
+							this.state.channels[i].Fluorophore !== undefined
+						) {
+							newChannels[i].Fluorophore = Object.assign(
+								{},
+								mergedFluorophore,
+								this.state.channels[i].Fluorophore
+							);
+						} else {
+							newChannels[i].Fluorophore = mergedFluorophore;
+						}
+					} else {
+						newChannels[i] = mergedChannel;
+						newChannels[i].LightPath = mergedLightPath;
+						newChannels[i].Fluorophore = mergedFluorophore;
+					}
 				}
 			}
 			this.state.channels = newChannels;
