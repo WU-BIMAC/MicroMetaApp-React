@@ -87,19 +87,19 @@ export default class SettingComponentSelector extends React.PureComponent {
 				imageMetadata.ObjectiveSettings !== null
 			) {
 				let imageObjSettings = imageMetadata.ObjectiveSettings;
-				newSettingCompData = Object.assign(
+				let newSettingCompData = Object.assign(
 					{},
 					imageObjSettings,
 					this.state.settingData
 				);
 				let newImmersionLiquid = null;
 				if (
-					imageObjSettings.ImmersionLiquid !== null &&
-					imageObjSettings.ImmersionLiquid !== undefined
+					this.state.settingData.ImmersionLiquid !== null &&
+					this.state.settingData.ImmersionLiquid !== undefined
 				) {
 					if (
-						this.state.settingData.ImmersionLiquid !== null &&
-						this.state.settingData.ImmersionLiquid !== undefined
+						imageObjSettings.ImmersionLiquid !== null &&
+						imageObjSettings.ImmersionLiquid !== undefined
 					) {
 						newImmersionLiquid = Object.assign(
 							{},
@@ -107,15 +107,12 @@ export default class SettingComponentSelector extends React.PureComponent {
 							this.state.settingData.ImmersionLiquid
 						);
 					} else {
-						newImmersionLiquid = Object.assign(
-							{},
-							imageObjSettings.ImmersionLiquid
-						);
+						newImmersionLiquid = this.state.settingData.ImmersionLiquid;
 					}
+					newSettingCompData.ImmersionLiquid = newImmersionLiquid;
 				} else {
-					newImmersionLiquid = settingCompData.ImmersionLiquid;
+					//SHOULD I CREATE A NEW ONE HERE?
 				}
-				newSettingCompData.newImmersionLiquid;
 				this.state.settingData = newSettingCompData;
 			}
 		}
