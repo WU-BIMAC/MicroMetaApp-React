@@ -111,20 +111,20 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
 
       if (Array.isArray(propsSchema) && propsSchema[0].ID === "ObjectiveSettings.json" && imageMetadata.ObjectiveSettings !== null && imageMetadata.ObjectiveSettings !== null) {
         var imageObjSettings = imageMetadata.ObjectiveSettings;
-        newSettingCompData = Object.assign({}, imageObjSettings, _this.state.settingData);
+        var newSettingCompData = Object.assign({}, imageObjSettings, _this.state.settingData);
         var newImmersionLiquid = null;
 
-        if (imageObjSettings.ImmersionLiquid !== null && imageObjSettings.ImmersionLiquid !== undefined) {
-          if (_this.state.settingData.ImmersionLiquid !== null && _this.state.settingData.ImmersionLiquid !== undefined) {
+        if (_this.state.settingData.ImmersionLiquid !== null && _this.state.settingData.ImmersionLiquid !== undefined) {
+          if (imageObjSettings.ImmersionLiquid !== null && imageObjSettings.ImmersionLiquid !== undefined) {
             newImmersionLiquid = Object.assign({}, imageObjSettings.ImmersionLiquid, _this.state.settingData.ImmersionLiquid);
           } else {
-            newImmersionLiquid = Object.assign({}, imageObjSettings.ImmersionLiquid);
+            newImmersionLiquid = _this.state.settingData.ImmersionLiquid;
           }
-        } else {
-          newImmersionLiquid = settingCompData.ImmersionLiquid;
+
+          newSettingCompData.ImmersionLiquid = newImmersionLiquid;
+        } else {//SHOULD I CREATE A NEW ONE HERE?
         }
 
-        newSettingCompData.newImmersionLiquid;
         _this.state.settingData = newSettingCompData;
       }
     }
@@ -460,7 +460,9 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
 
           newSettingCompData.ImmersionLiquid = newImmersionLiquid;
         }
-      } else {
+      }
+
+      if (newSettingCompData === null || newSettingCompData === undefined) {
         newSettingCompData = settingCompData;
       }
 
