@@ -58,7 +58,7 @@ export default class ChannelView extends React.PureComponent {
 			this.props.imageMetadata.Channels !== undefined
 		) {
 			let newChannels = [];
-			let channels = this.props.imageMetadata.Channels;
+			let channels = this.props.imageMetadata.Channels.slice();
 			if (
 				this.state.channels.length === channels.length ||
 				this.state.channels.length === 0
@@ -106,16 +106,33 @@ export default class ChannelView extends React.PureComponent {
 						newChannelElementData,
 						oldChannel
 					);
-					let mergedLightPath = Object.assign(
-						{},
-						newLightPathElementData,
-						oldChannel.LightPath
-					);
-					let mergedFluorophore = Object.assign(
-						{},
-						newFluorophoreElementData,
-						oldChannel.Fluorophore
-					);
+					let mergedLightPath = null;
+					if (
+						oldChannel.LightPath !== null &&
+						oldChannel.LightPath !== undefined
+					) {
+						delete oldChannel.LightPath.ComponentSettings;
+						mergedLightPath = Object.assign(
+							{},
+							newLightPathElementData,
+							oldChannel.LightPath
+						);
+					} else {
+						mergedLightPath = newLightPathElementData;
+					}
+					let mergedFluorophore = null;
+					if (
+						oldChannel.Fluorophore !== null &&
+						oldChannel.Fluorophore !== undefined
+					) {
+						mergedFluorophore = Object.assign(
+							{},
+							newFluorophoreElementData,
+							oldChannel.Fluorophore
+						);
+					} else {
+						mergedFluorophore = newFluorophoreElementData;
+					}
 
 					if (
 						this.state.channels[i] !== null &&

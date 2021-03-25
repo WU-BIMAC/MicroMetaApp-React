@@ -101,7 +101,7 @@ export default class PlaneView extends React.PureComponent {
 			this.props.imageMetadata.Planes !== undefined
 		) {
 			let newPlanes = [];
-			let planes = this.props.imageMetadata.Planes;
+			let planes = this.props.imageMetadata.Planes.slice();
 			if (
 				this.state.planes.length === planes.length ||
 				this.state.planes.length === 0
