@@ -37,7 +37,10 @@ export default class SettingComponentSelector extends React.PureComponent {
 			settingData: props.inputData || null,
 		};
 
-		if (this.state.settingData === null) {
+		if (
+			this.state.settingData === null ||
+			this.state.settingData === undefined
+		) {
 			if (this.props.maxNumberElement === 1) {
 				this.state.settingData = {};
 			} else {
@@ -45,32 +48,63 @@ export default class SettingComponentSelector extends React.PureComponent {
 			}
 		}
 
-		if (
-			this.state.settingData !== null &&
-			this.state.settingData !== undefined
-		) {
-			// console.log("input setting data");
-			// console.log(this.state.settingData);
-			if (Array.isArray(this.state.settingData)) {
-				Object.keys(this.state.settingData).forEach((settingIndex) => {
-					let sett = this.state.settingData[settingIndex];
-					Object.keys(this.props.componentData).forEach((compIndex) => {
-						let comp = this.props.componentData[compIndex];
-						if (comp.ID === sett.Component_ID) {
-							this.state.currentComps.push(comp);
-						}
-					});
+		// console.log("input setting data");
+		// console.log(this.state.settingData);
+		if (Array.isArray(this.state.settingData)) {
+			Object.keys(this.state.settingData).forEach((settingIndex) => {
+				let sett = this.state.settingData[settingIndex];
+				Object.keys(this.props.componentData).forEach((compIndex) => {
+					let comp = this.props.componentData[compIndex];
+					if (comp.ID === sett.Component_ID) {
+						this.state.currentComps.push(comp);
+					}
 				});
-			} else {
-				let compID = this.state.settingData.Component_ID;
-				if (compID !== null && compID !== undefined) {
-					Object.keys(this.props.componentData).forEach((compIndex) => {
-						let comp = this.props.componentData[compIndex];
-						if (comp.ID === compID) {
-							this.state.currentComps.push(comp);
-						}
-					});
+			});
+		} else {
+			let compID = this.state.settingData.Component_ID;
+			if (compID !== null && compID !== undefined) {
+				Object.keys(this.props.componentData).forEach((compIndex) => {
+					let comp = this.props.componentData[compIndex];
+					if (comp.ID === compID) {
+						this.state.currentComps.push(comp);
+					}
+				});
+			}
+		}
+
+		if (
+			this.props.imageMetadata !== null &&
+			this.props.imageMetadata !== undefined &&
+			this.props.inputData !== null &&
+			this.props.inputData !== undefined
+		) {
+			let imageMetadata = this.props.imageMetadata;
+			let propsSchema = this.props.schema;
+			if (
+				Array.isArray(props.schema) &&
+				propsSchema[0] === "ObjectiveSettings.json" &&
+				imageMetadata.ObjectiveSettings !== null &&
+				imageMetadata.ObjectiveSettings !== null
+			) {
+				let imageObjSettings = imageMetadata.ObjectiveSettings;
+				newSettingCompData = Object.assign(
+					this.state.settingData,
+					imageObjSettings
+				);
+				let newImmersionLiquid = null;
+				if (
+					imageObjSettings.ImmersionLiquid !== null &&
+					imageObjSettings.ImmersionLiquid !== undefined
+				) {
+					newImmersionLiquid = Object.assign(
+						this.state.settingData.ImmersionLiquid,
+						imageObjSettings.ImmersionLiquid
+					);
+				} else {
+					newImmersionLiquid = settingCompData.ImmersionLiquid;
 				}
+				newSettingCompData.newImmersionLiquid;
+				this.state.settingData = newSettingCompData;
 			}
 		}
 
@@ -376,11 +410,44 @@ export default class SettingComponentSelector extends React.PureComponent {
 			}
 		}
 
+		let newSettingCompData = null;
+		if (
+			this.props.imageMetadata !== null &&
+			this.props.imageMetadata !== undefined
+		) {
+			let imageMetadata = this.props.imageMetadata;
+			let propsSchema = this.props.schema;
+			if (
+				Array.isArray(props.schema) &&
+				propsSchema[0] === "ObjectiveSettings.json" &&
+				imageMetadata.ObjectiveSettings !== null &&
+				imageMetadata.ObjectiveSettings !== null
+			) {
+				let imageObjSettings = imageMetadata.ObjectiveSettings;
+				newSettingCompData = Object.assign(settingCompData, imageObjSettings);
+				let newImmersionLiquid = null;
+				if (
+					imageObjSettings.ImmersionLiquid !== null &&
+					imageObjSettings.ImmersionLiquid !== undefined
+				) {
+					newImmersionLiquid = Object.assign(
+						settingCompData.ImmersionLiquid,
+						imageObjSettings.ImmersionLiquid
+					);
+				} else {
+					newImmersionLiquid = settingCompData.ImmersionLiquid;
+				}
+				newSettingCompData.newImmersionLiquid;
+			}
+		} else {
+			newSettingCompData = settingCompData;
+		}
+
 		currentComps.push(selectedComp);
 		if (isArray) {
-			settingData.push(settingCompData);
+			settingData.push(newSettingCompData);
 		} else {
-			settingData = settingCompData;
+			settingData = newSettingCompData;
 		}
 
 		// console.log("currentComps");
