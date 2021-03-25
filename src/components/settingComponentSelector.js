@@ -428,12 +428,10 @@ export default class SettingComponentSelector extends React.PureComponent {
 			this.props.imageMetadata !== undefined
 		) {
 			let imageMetadata = this.props.imageMetadata;
-			let propsSchema = this.props.schema;
 			if (
-				Array.isArray(propsSchema) &&
-				propsSchema[0] === "ObjectiveSettings.json" &&
+				selectedSchema.modelSettings === "ObjectiveSettings" &&
 				imageMetadata.ObjectiveSettings !== null &&
-				imageMetadata.ObjectiveSettings !== null
+				imageMetadata.ObjectiveSettings !== undefined
 			) {
 				let imageObjSettings = imageMetadata.ObjectiveSettings;
 				newSettingCompData = Object.assign(
@@ -454,7 +452,9 @@ export default class SettingComponentSelector extends React.PureComponent {
 				} else {
 					newImmersionLiquid = settingCompData.ImmersionLiquid;
 				}
-				newSettingCompData.newImmersionLiquid;
+				newSettingCompData.ImmersionLiquid = newImmersionLiquid;
+				console.log("newSettingCompData");
+				console.log(newSettingCompData);
 			}
 		} else {
 			newSettingCompData = settingCompData;
