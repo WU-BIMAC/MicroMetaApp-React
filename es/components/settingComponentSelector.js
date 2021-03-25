@@ -448,7 +448,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         var imageMetadata = this.props.imageMetadata;
         var propsSchema = this.props.schema;
 
-        if (Array.isArray(props.schema) && propsSchema[0] === "ObjectiveSettings.json" && imageMetadata.ObjectiveSettings !== null && imageMetadata.ObjectiveSettings !== null) {
+        if (Array.isArray(propsSchema) && propsSchema[0] === "ObjectiveSettings.json" && imageMetadata.ObjectiveSettings !== null && imageMetadata.ObjectiveSettings !== null) {
           var imageObjSettings = imageMetadata.ObjectiveSettings;
           newSettingCompData = Object.assign({}, imageObjSettings, settingCompData);
           var newImmersionLiquid = null;
