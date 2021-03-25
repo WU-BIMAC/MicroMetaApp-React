@@ -244,7 +244,7 @@ export const menu_order = [
 ];
 
 export const string_bandpass_warning =
-	"If you modify the number of band-pass, the information not saved are going to be lost!";
+	"PLEASE NOTE: If the number of WavelengthRange modules or sub-components (e.g., LEDModule) is changed, all values entered but not yet confirmed will be lost.";
 
 export const tier_selector_tooltip = {
 	title: "Tier Selector",
