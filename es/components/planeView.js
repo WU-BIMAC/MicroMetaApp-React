@@ -116,7 +116,8 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
 
     if (_this.props.imageMetadata !== null && _this.props.imageMetadata !== undefined && _this.props.imageMetadata.Planes !== null && _this.props.imageMetadata.Planes !== undefined) {
       var newPlanes = [];
-      var planes = _this.props.imageMetadata.Planes;
+
+      var planes = _this.props.imageMetadata.Planes.slice();
 
       if (_this.state.planes.length === planes.length || _this.state.planes.length === 0) {
         for (var i = 0; i < planes.length; i++) {
