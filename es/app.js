@@ -524,9 +524,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     // 	return rawData;
     // }
     value: function applyPreviousVersionModification(originalMicroscope) {
-      originalMicroscope.components = originalMicroscope.components || [];
       var schema = this.state.schema;
-      var oldVersion = originalMicroscope.Version || "0";
+      var oldVersion = originalMicroscope.Version;
       var oldVersionString = oldVersion.split(".").join(""); //oldVersion.replaceAll(".", "");
 
       var oldVersionNumber = Number(oldVersionString);
@@ -681,7 +680,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         modifiedMic.ValidationTier = activeTier;
       }
 
-      console.log('xxx modifiedMic:', modifiedMic);
       modifiedMic = this.applyPreviousVersionModification(modifiedMic);
       var standType = modifiedMic.MicroscopeStand.Schema_ID.replace(".json", "");
       var adaptedSchemas = this.createAdaptedSchemas(modifiedMic.ValidationTier, standType);

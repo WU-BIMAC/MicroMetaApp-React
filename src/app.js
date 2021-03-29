@@ -589,9 +589,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	// }
 
 	applyPreviousVersionModification(originalMicroscope) {
-		originalMicroscope.components = originalMicroscope.components || [];
 		let schema = this.state.schema;
-		let oldVersion = originalMicroscope.Version || "0";
+		let oldVersion = originalMicroscope.Version;
 		let oldVersionString = oldVersion.split(".").join(""); //oldVersion.replaceAll(".", "");
 		let oldVersionNumber = Number(oldVersionString);
 		let microscopeSchema = {};
@@ -763,7 +762,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		if (modifiedMic.ValidationTier > activeTier) {
 			modifiedMic.ValidationTier = activeTier;
 		}
-		console.log('xxx modifiedMic:', modifiedMic);
 		modifiedMic = this.applyPreviousVersionModification(modifiedMic);
 		let standType = modifiedMic.MicroscopeStand.Schema_ID.replace(".json", "");
 		let adaptedSchemas = this.createAdaptedSchemas(
