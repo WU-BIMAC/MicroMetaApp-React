@@ -209,11 +209,26 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
       } else if (id === elements.indexOf("objSettings")) {
         var newObjSettings = {};
         var objective = null;
+        console.log("data");
+        console.log(data);
 
         if (Object.keys(data).length > 0) {
-          var oldObjSettings = Object.assign({}, this.state.objSettings);
-          newObjSettings = Object.assign(oldObjSettings, data);
-          settingData.ObjectiveSettings = newObjSettings;
+          var oldObjSettings = this.state.objSettings;
+
+          if (oldObjSettings !== null && oldObjSettings !== undefined) {
+            var _oldObjSettings = Object.assign({}, _oldObjSettings);
+
+            newObjSettings = Object.assign(_oldObjSettings, data);
+
+            if (_oldObjSettings.ImmersionLiquid !== null && _oldObjSettings.ImmersionLiquid !== undefined) {
+              var oldImmersionLiquid = Object.assign({}, _oldObjSettings.ImmersionLiquid);
+              var newImmersionLiquid = Object.assign(oldImmersionLiquid, data.ImmersionLiquid);
+              newObjSettings.ImmersionLiquid = newImmersionLiquid;
+            }
+          } else {
+            newObjSettings = data;
+          }
+
           var compID = data.Component_ID;
           Object.keys(this.props.microscopeComponents).forEach(function (key) {
             var element = _this2.props.microscopeComponents[key];
@@ -221,6 +236,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           });
         }
 
+        settingData.ObjectiveSettings = newObjSettings;
         this.setState({
           editingElement: -1,
           objSettings: newObjSettings,
@@ -343,6 +359,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/React.createElement(PlaneView, {
             schema: schema,
             inputData: obj,
+            imageMetadata: this.props.imageMetadata,
             id: editingElement,
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
@@ -355,6 +372,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             experimentalSchemas: this.props.experimentalSchemas,
             schema: schema,
             inputData: obj,
+            imageMetadata: this.props.imageMetadata,
             id: editingElement,
             imagesPath: this.props.imagesPath,
             settingData: this.props.settingData,
@@ -383,6 +401,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             experimentalSchemas: this.props.experimentalSchemas,
             schema: schema,
             inputData: obj,
+            imageMetadata: this.props.imageMetadata,
             id: editingElement,
             category: category,
             imagesPath: this.props.imagesPath,
@@ -445,9 +464,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         var _category = null;
         var disabled = false;
         var settingsInfo = [];
-        var localSettingInfo = this.props.setting;
-        console.log("localSettingInfo");
-        console.log(localSettingInfo);
+        var localSettingInfo = this.props.setting; //console.log("localSettingInfo");
+        //console.log(localSettingInfo);
 
         if (localSettingInfo !== null && localSettingInfo !== undefined) {
           if (localSettingInfo.Name !== undefined && localSettingInfo.Name !== null) {
@@ -474,10 +492,10 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
               }));
             }
           }
-        }
+        } //console.log("settingsInfo");
+        //console.log(settingsInfo);
 
-        console.log("settingsInfo");
-        console.log(settingsInfo);
+
         var index = elements.indexOf("exp");
         var _schema_id = schemas[index];
         var object = this.state.experiment;

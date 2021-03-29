@@ -54,40 +54,61 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       settingData: props.inputData || null
     };
 
-    if (_this.state.settingData === null) {
+    if (_this.state.settingData === null || _this.state.settingData === undefined) {
       if (_this.props.maxNumberElement === 1) {
         _this.state.settingData = {};
       } else {
         _this.state.settingData = [];
       }
+    } // console.log("input setting data");
+    // console.log(this.state.settingData);
+
+
+    if (Array.isArray(_this.state.settingData)) {
+      Object.keys(_this.state.settingData).forEach(function (settingIndex) {
+        var sett = _this.state.settingData[settingIndex];
+        Object.keys(_this.props.componentData).forEach(function (compIndex) {
+          var comp = _this.props.componentData[compIndex];
+
+          if (comp.ID === sett.Component_ID) {
+            _this.state.currentComps.push(comp);
+          }
+        });
+      });
+    } else {
+      var compID = _this.state.settingData.Component_ID;
+
+      if (compID !== null && compID !== undefined) {
+        Object.keys(_this.props.componentData).forEach(function (compIndex) {
+          var comp = _this.props.componentData[compIndex];
+
+          if (comp.ID === compID) {
+            _this.state.currentComps.push(comp);
+          }
+        });
+      }
     }
 
-    if (_this.state.settingData !== null && _this.state.settingData !== undefined) {
-      // console.log("input setting data");
-      // console.log(this.state.settingData);
-      if (Array.isArray(_this.state.settingData)) {
-        Object.keys(_this.state.settingData).forEach(function (settingIndex) {
-          var sett = _this.state.settingData[settingIndex];
-          Object.keys(_this.props.componentData).forEach(function (compIndex) {
-            var comp = _this.props.componentData[compIndex];
+    if (_this.props.imageMetadata !== null && _this.props.imageMetadata !== undefined && _this.props.inputData !== null && _this.props.inputData !== undefined) {
+      var imageMetadata = _this.props.imageMetadata;
+      var propsSchema = _this.props.schema;
 
-            if (comp.ID === sett.Component_ID) {
-              _this.state.currentComps.push(comp);
-            }
-          });
-        });
-      } else {
-        var compID = _this.state.settingData.Component_ID;
+      if (Array.isArray(propsSchema) && propsSchema[0].ID === "ObjectiveSettings.json" && imageMetadata.ObjectiveSettings !== null && imageMetadata.ObjectiveSettings !== undefined) {
+        var imageObjSettings = imageMetadata.ObjectiveSettings;
+        var newSettingCompData = Object.assign({}, imageObjSettings, _this.state.settingData);
+        var newImmersionLiquid = null;
 
-        if (compID !== null && compID !== undefined) {
-          Object.keys(_this.props.componentData).forEach(function (compIndex) {
-            var comp = _this.props.componentData[compIndex];
+        if (_this.state.settingData.ImmersionLiquid !== null && _this.state.settingData.ImmersionLiquid !== undefined) {
+          if (imageObjSettings.ImmersionLiquid !== null && imageObjSettings.ImmersionLiquid !== undefined) {
+            newImmersionLiquid = Object.assign({}, imageObjSettings.ImmersionLiquid, _this.state.settingData.ImmersionLiquid);
+          } else {
+            newImmersionLiquid = _this.state.settingData.ImmersionLiquid;
+          }
 
-            if (comp.ID === compID) {
-              _this.state.currentComps.push(comp);
-            }
-          });
+          newSettingCompData.ImmersionLiquid = newImmersionLiquid;
         }
+
+        _this.state.settingData = newSettingCompData;
       }
     }
 
@@ -126,14 +147,26 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var i = index;
       var oldSettingData = this.state.settingData;
       var currentComps = this.state.currentComps.slice();
+      var compToDelete = currentComps[i];
       currentComps.splice(i, 1);
       // console.log("newCurrentComps");
       // console.log(newCurrentComps);
       var newSettingData = null;
 
       if (Array.isArray(oldSettingData)) {
+        var indexToDelete = -1;
+
+        for (var y = 0; y < oldSettingData.length; y++) {
+          var sett = oldSettingData[y];
+
+          if (sett.Component_ID === compToDelete.ID) {
+            indexToDelete = y;
+            break;
+          }
+        }
+
         newSettingData = oldSettingData.slice();
-        newSettingData.splice(i, 1);
+        if (indexToDelete !== -1) newSettingData.splice(indexToDelete, 1);
       } else {
         newSettingData = {};
       } // console.log("newCurrentComps");
@@ -162,14 +195,16 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onConfirm",
     value: function onConfirm() {
-      var settingData = this.state.settingData; //let slots = this.state.slots;
-
+      //let slots = this.state.slots;
       var newSettingData = null;
+      var settingData = null;
 
       if (this.props.maxNumberElement === 1) {
         newSettingData = {};
+        settingData = Object.assign({}, this.state.settingData);
       } else {
         newSettingData = [];
+        settingData = this.state.settingData.slice();
       }
 
       this.setState({
@@ -207,7 +242,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var settingData = null;
       var index = null;
 
-      if (Array.isArray(oldSettingData)) {
+      if (Array.isArray(oldSettingsData)) {
         settingsData = oldSettingsData.slice();
         Object.keys(settingsData).forEach(function (settingIndex) {
           var sett = settingsData[settingIndex];
@@ -226,11 +261,10 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         return;
       }
 
-      var oldSettingData = Object.assign({}, settingData);
-      var newSettingData = Object.assign(oldSettingData, data);
+      var newSettingData = Object.assign({}, settingData, data);
 
       if (data.ImmersionLiquid !== null && data.ImmersionLiquid !== undefined) {
-        var oldImmersionLiquid = Object.assign({}, oldSettingsData.ImmersionLiquid);
+        var oldImmersionLiquid = Object.assign({}, settingData.ImmersionLiquid);
         var immersionLiquid = Object.assign(oldImmersionLiquid, data.ImmersionLiquid);
         newSettingData.ImmersionLiquid = immersionLiquid;
       }
@@ -332,13 +366,36 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             Schema_ID: objSettingsSchema.ID,
             Version: objSettingsSchema.version
           };
-          settingCompData.ImmersionLiquid = {
+          var immersionLiquid = {
             Name: "".concat(immersionLiquidSchema.title),
             ID: uuid2,
             Tier: immersionLiquidSchema.tier,
             Schema_ID: immersionLiquidSchema.ID,
             Version: immersionLiquidSchema.version
           };
+          settingCompData.ImmersionLiquid = immersionLiquid; // if (
+          // 	this.props.imageMetadata !== null &&
+          // 	this.props.imageMetadata !== undefined &&
+          // 	this.props.imageMetadata.ObjectiveSettings !== null &&
+          // 	this.props.ObjectiveSettings !== undefined
+          // ) {
+          // 	let imageMetadataObjSettings = this.props.imageMetadata
+          // 		.ObjectiveSettings;
+          // 	let newSettingsCompData = Object.assign(
+          // 		{},
+          // 		settingCompData,
+          // 		imageMetadataObjSettings
+          // 	);
+          // 	if (
+          // 		imageMetadataObjSettings.ImmersionLiquid !== null &&
+          // 		imageMetadataObjSettings.ImmersionLiquid !== undefined
+          // 	) {
+          // 		let imageMetadataImmersionLiquid =
+          // 			imageMetadataObjSettings.ImmersionLiquid;
+          // 		newSettingsCompData.ImmersionLiquid = imageMetadataImmersionLiquid;
+          // 	}
+          // 	settingCompData = newSettingsCompData;
+          // }
         } else {
           settingCompData = {
             Name: "".concat(currentSchema.title),
@@ -347,16 +404,56 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             Tier: currentSchema.tier,
             Schema_ID: currentSchema.ID,
             Version: currentSchema.version
-          };
+          }; // if (selectedSchema.modelSettings === "ImagingEnvironment.json") {
+          // 	if (
+          // 		this.props.imageMetadata !== null &&
+          // 		this.props.imageMetadata !== undefined &&
+          // 		this.props.imageMetadata.ImagingEnvironment !== null &&
+          // 		this.props.ImagingEnvironment !== undefined
+          // 	) {
+          // 		let imageMetadataImgEnv = this.props.imageMetadata
+          // 			.ImagingEnvironment;
+          // 		let newSettingsCompData = Object.assign(
+          // 			{},
+          // 			settingCompData,
+          // 			imageMetadataImgEnv
+          // 		);
+          // 		settingCompData = newSettingsCompData;
+          // 	}
+          // }
         }
+      }
+
+      var newSettingCompData = null;
+
+      if (this.props.imageMetadata !== null && this.props.imageMetadata !== undefined) {
+        var imageMetadata = this.props.imageMetadata;
+
+        if (selectedSchema.modelSettings === "ObjectiveSettings" && imageMetadata.ObjectiveSettings !== null && imageMetadata.ObjectiveSettings !== undefined) {
+          var imageObjSettings = imageMetadata.ObjectiveSettings;
+          newSettingCompData = Object.assign({}, imageObjSettings, settingCompData);
+          var newImmersionLiquid = null;
+
+          if (imageObjSettings.ImmersionLiquid !== null && imageObjSettings.ImmersionLiquid !== undefined) {
+            newImmersionLiquid = Object.assign({}, imageObjSettings.ImmersionLiquid, settingCompData.ImmersionLiquid);
+          } else {
+            newImmersionLiquid = settingCompData.ImmersionLiquid;
+          }
+
+          newSettingCompData.ImmersionLiquid = newImmersionLiquid;
+        }
+      }
+
+      if (newSettingCompData === null || newSettingCompData === undefined) {
+        newSettingCompData = settingCompData;
       }
 
       currentComps.push(selectedComp);
 
       if (isArray) {
-        settingData.push(settingCompData);
+        settingData.push(newSettingCompData);
       } else {
-        settingData = settingCompData;
+        settingData = newSettingCompData;
       } // console.log("currentComps");
       // console.log(currentComps);
       // console.log("settingData");
@@ -422,6 +519,14 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         //top: "5px",
 
       };
+      var styleValidation1 = {
+        position: "relative",
+        verticalAlign: "middle",
+        fontWeight: "bold",
+        textAlign: "center",
+        left: "22px",
+        top: "2px"
+      };
       var styleValidation2 = {
         //position: "relative",
         verticalAlign: "middle",
@@ -442,6 +547,18 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         width: "90%",
         height: "24px"
       };
+      var styleValidated1 = Object.assign({}, styleValidation1, {
+        color: "green"
+      });
+      var styleNotValidated1 = Object.assign({}, styleValidation1, {
+        color: "red"
+      });
+      var isValid1 = /*#__PURE__*/React.createElement("div", {
+        style: styleValidated1
+      }, "\u25CF");
+      var isInvalid1 = /*#__PURE__*/React.createElement("div", {
+        style: styleNotValidated1
+      }, "\u25CF");
       var styleValidated2 = Object.assign({}, styleValidation2, {
         color: "green"
       });
@@ -561,23 +678,41 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
               alt: comp.Name,
               style: regularImageStyle
             });
-            var buttonStyleModified = null;
+            var buttonStyleModified = Object.assign({}, buttonStyle, {
+              width: "100%"
+            });
 
             if (comp === selectedComp) {
-              buttonStyleModified = Object.assign({}, buttonStyle, {
+              buttonStyleModified = Object.assign({}, buttonStyleModified, {
                 border: "2px solid cyan"
               });
             } else {
-              buttonStyleModified = buttonStyle;
+              buttonStyleModified = buttonStyleModified;
             }
 
-            var compButton = /*#__PURE__*/React.createElement("button", {
+            var validation = validate(comp, compSchema);
+            var validated = validation.valid;
+            var valid = null;
+
+            if (validated) {
+              valid = isValid1;
+            } else {
+              valid = isInvalid1;
+            }
+
+            var compButton = /*#__PURE__*/React.createElement("div", {
+              key: "div-" + comp.Name,
+              style: {
+                display: "flex",
+                width: "100%"
+              }
+            }, valid, /*#__PURE__*/React.createElement("button", {
               key: "button-" + comp.Name,
               style: buttonStyleModified,
               onClick: function onClick() {
                 return _this2.handleSelectComp(comp);
               }
-            }, compItemImage, comp.Name);
+            }, compItemImage, comp.Name));
             itemList.push(compButton);
           }
         });
@@ -685,7 +820,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
               key: "deleteButton-" + comp.Name,
               type: "button",
               onClick: function onClick() {
-                return _this2.handleDeleteComp();
+                return _this2.handleDeleteComp(compIndex);
               },
               style: styleCloser
             }, "x"), valid), butt);
@@ -699,6 +834,15 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         // 	items = slots[selectedSlot];
         //let comp = this.state.currentComp;
 
+        var width = slotList.length * 150;
+        var modalTopListModified = Object.assign({}, {
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          alignItems: "center"
+        }, {
+          width: "".concat(width, "px")
+        });
         var topItems = /*#__PURE__*/React.createElement("div", {
           style: {
             display: "flex",
@@ -708,17 +852,18 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             overflow: "auto",
             height: "250px",
             maxHeight: "250px",
-            alignItems: "center"
+            alignItems: "center",
+            width: "80%"
           }
         }, /*#__PURE__*/React.createElement("h5", null, "Current component in this slot"), /*#__PURE__*/React.createElement("div", {
           style: {
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-evenly",
-            alignItems: "center"
+            overflow: "auto",
+            width: "100%",
+            maxWidth: "100%"
           }
-        }, slotList));
+        }, /*#__PURE__*/React.createElement("div", {
+          style: modalTopListModified
+        }, slotList)));
         Object.assign(modalGridPanel, {
           height: "60%"
         }); //}

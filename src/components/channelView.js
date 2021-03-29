@@ -51,6 +51,132 @@ export default class ChannelView extends React.PureComponent {
 				this.state.fluorophoreSchema = schema;
 			}
 		}
+		if (
+			this.props.imageMetadata !== null &&
+			this.props.imageMetadata !== undefined &&
+			this.props.imageMetadata.Channels !== null &&
+			this.props.imageMetadata.Channels !== undefined
+		) {
+			let newChannels = [];
+			let channels = this.props.imageMetadata.Channels.slice();
+			if (
+				this.state.channels.length === channels.length ||
+				this.state.channels.length === 0
+			) {
+				for (let i = 0; i < channels.length; i++) {
+					let channelSchema = this.props.schema;
+					let fluorophoreSchema = this.state.fluorophoreSchema;
+					let lightPathSchema = this.state.lightPathSchema;
+					let oldChannel = channels[i];
+					let newChannelElementData = {
+						Name: `${channelSchema.title} ${i}`,
+						ID: uuidv4(),
+						Tier: channelSchema.tier,
+						Schema_ID: channelSchema.ID,
+						Version: channelSchema.version,
+					};
+					newChannelElementData = ChannelView.addIdentifiersToNewObject(
+						newChannelElementData,
+						channelSchema
+					);
+					let newFluorophoreElementData = {
+						Name: `${fluorophoreSchema.title} ${i}`,
+						ID: uuidv4(),
+						Tier: fluorophoreSchema.tier,
+						Schema_ID: fluorophoreSchema.ID,
+						Version: fluorophoreSchema.version,
+					};
+					newFluorophoreElementData = ChannelView.addIdentifiersToNewObject(
+						newFluorophoreElementData,
+						fluorophoreSchema
+					);
+					let newLightPathElementData = {
+						Name: `${lightPathSchema.title} ${i}`,
+						ID: uuidv4(),
+						Tier: lightPathSchema.tier,
+						Schema_ID: lightPathSchema.ID,
+						Version: lightPathSchema.version,
+					};
+					newLightPathElementData = ChannelView.addIdentifiersToNewObject(
+						newLightPathElementData,
+						lightPathSchema
+					);
+					let mergedChannel = Object.assign(
+						{},
+						newChannelElementData,
+						oldChannel
+					);
+					let mergedLightPath = null;
+					if (
+						oldChannel.LightPath !== null &&
+						oldChannel.LightPath !== undefined
+					) {
+						delete oldChannel.LightPath.ComponentSettings;
+						mergedLightPath = Object.assign(
+							{},
+							newLightPathElementData,
+							oldChannel.LightPath
+						);
+					} else {
+						mergedLightPath = newLightPathElementData;
+					}
+					let mergedFluorophore = null;
+					if (
+						oldChannel.Fluorophore !== null &&
+						oldChannel.Fluorophore !== undefined
+					) {
+						mergedFluorophore = Object.assign(
+							{},
+							newFluorophoreElementData,
+							oldChannel.Fluorophore
+						);
+					} else {
+						mergedFluorophore = newFluorophoreElementData;
+					}
+
+					if (
+						this.state.channels[i] !== null &&
+						this.state.channels[i] !== undefined
+					) {
+						newChannels[i] = Object.assign(
+							{},
+							mergedChannel,
+							this.state.channels[i]
+						);
+						if (
+							this.state.channels[i].LightPath !== null &&
+							this.state.channels[i].LightPath !== undefined
+						) {
+							newChannels[i].LightPath = Object.assign(
+								{},
+								mergedLightPath,
+								this.state.channels[i].LightPath
+							);
+						} else {
+							newChannels[i].LightPath = mergedLightPath;
+						}
+
+						if (
+							this.state.channels[i].Fluorophore !== null &&
+							this.state.channels[i].Fluorophore !== undefined
+						) {
+							newChannels[i].Fluorophore = Object.assign(
+								{},
+								mergedFluorophore,
+								this.state.channels[i].Fluorophore
+							);
+						} else {
+							newChannels[i].Fluorophore = mergedFluorophore;
+						}
+					} else {
+						newChannels[i] = mergedChannel;
+						newChannels[i].LightPath = mergedLightPath;
+						newChannels[i].Fluorophore = mergedFluorophore;
+					}
+				}
+			}
+			this.state.channels = newChannels;
+		}
 
 		this.onAddElement = this.onAddElement.bind(this);
 		this.onEditElement = this.onEditElement.bind(this);
@@ -62,6 +188,36 @@ export default class ChannelView extends React.PureComponent {
 
 		this.onConfirm = this.onConfirm.bind(this);
 		this.onCancel = this.onCancel.bind(this);
+	}
+
+	static addIdentifiersToNewObject(object, schema) {
+		let newObject = Object.assign({}, object);
+		Object.keys(schema.properties).forEach((key) => {
+			if (schema.properties[key].type === string_array) {
+				let currentNumber = string_currentNumberOf_identifier + key;
+				let minNumber = string_minNumberOf_identifier + key;
+				let maxNumber = string_maxNumberOf_identifier + key;
+				if (schema.required.indexOf(key) != -1) {
+					newObject[currentNumber] = 1;
+					newObject[minNumber] = 1;
+					newObject[maxNumber] = -1;
+				} else {
+					newObject[currentNumber] = 0;
+					newObject[minNumber] = 0;
+					newObject[maxNumber] = -1;
+				}
+			} else if (schema.properties[key].type === string_object) {
+				let currentNumber = string_currentNumberOf_identifier + key;
+				let minNumber = string_minNumberOf_identifier + key;
+				let maxNumber = string_maxNumberOf_identifier + key;
+				if (schema.required.indexOf(key) === -1) {
+					newObject[currentNumber] = 0;
+					newObject[minNumber] = 0;
+					newObject[maxNumber] = 1;
+				}
+			}
+		});
+		return newObject;
 	}
 
 	onAddElement() {
@@ -79,31 +235,10 @@ export default class ChannelView extends React.PureComponent {
 			Schema_ID: channelSchema.ID,
 			Version: channelSchema.version,
 		};
-		Object.keys(channelSchema.properties).forEach((key) => {
-			if (channelSchema.properties[key].type === string_array) {
-				let currentNumber = string_currentNumberOf_identifier + key;
-				let minNumber = string_minNumberOf_identifier + key;
-				let maxNumber = string_maxNumberOf_identifier + key;
-				if (channelSchema.required.indexOf(key) != -1) {
-					newChannelElementData[currentNumber] = 1;
-					newChannelElementData[minNumber] = 1;
-					newChannelElementData[maxNumber] = -1;
-				} else {
-					newChannelElementData[currentNumber] = 0;
-					newChannelElementData[minNumber] = 0;
-					newChannelElementData[maxNumber] = -1;
-				}
-			} else if (channelSchema.properties[key].type === string_object) {
-				let currentNumber = string_currentNumberOf_identifier + key;
-				let minNumber = string_minNumberOf_identifier + key;
-				let maxNumber = string_maxNumberOf_identifier + key;
-				if (channelSchema.required.indexOf(key) === -1) {
-					newChannelElementData[currentNumber] = 0;
-					newChannelElementData[minNumber] = 0;
-					newChannelElementData[maxNumber] = 1;
-				}
-			}
-		});
+		newChannelElementData = ChannelView.addIdentifiersToNewObject(
+			newChannelElementData,
+			channelSchema
+		);
 		let newFluorophoreElementData = {
 			Name: `${fluorophoreSchema.title} ${channels.length}`,
 			ID: uuid2,
@@ -111,32 +246,10 @@ export default class ChannelView extends React.PureComponent {
 			Schema_ID: fluorophoreSchema.ID,
 			Version: fluorophoreSchema.version,
 		};
-		Object.keys(fluorophoreSchema.properties).forEach((key) => {
-			if (fluorophoreSchema.properties[key].type === string_array) {
-				let currentNumber = string_currentNumberOf_identifier + key;
-				let minNumber = string_minNumberOf_identifier + key;
-				let maxNumber = string_maxNumberOf_identifier + key;
-				if (fluorophoreSchema.required.indexOf(key) != -1) {
-					newFluorophoreElementData[currentNumber] = 1;
-					newFluorophoreElementData[minNumber] = 1;
-					newFluorophoreElementData[maxNumber] = -1;
-				} else {
-					newFluorophoreElementData[currentNumber] = 0;
-					newFluorophoreElementData[minNumber] = 0;
-					newFluorophoreElementData[maxNumber] = -1;
-				}
-			} else if (fluorophoreSchema.properties[key].type === string_object) {
-				let currentNumber = string_currentNumberOf_identifier + key;
-				let minNumber = string_minNumberOf_identifier + key;
-				let maxNumber = string_maxNumberOf_identifier + key;
-				if (fluorophoreSchema.required.indexOf(key) === -1) {
-					newFluorophoreElementData[currentNumber] = 0;
-					newFluorophoreElementData[minNumber] = 0;
-					newFluorophoreElementData[maxNumber] = 1;
-				}
-			}
-		});
-
+		newFluorophoreElementData = ChannelView.addIdentifiersToNewObject(
+			newFluorophoreElementData,
+			fluorophoreSchema
+		);
 		let newLightPathElementData = {
 			Name: `${lightPathSchema.title} ${channels.length}`,
 			ID: uuid3,
@@ -144,31 +257,10 @@ export default class ChannelView extends React.PureComponent {
 			Schema_ID: lightPathSchema.ID,
 			Version: lightPathSchema.version,
 		};
-		Object.keys(lightPathSchema.properties).forEach((key) => {
-			if (lightPathSchema.properties[key].type === string_array) {
-				let currentNumber = string_currentNumberOf_identifier + key;
-				let minNumber = string_minNumberOf_identifier + key;
-				let maxNumber = string_maxNumberOf_identifier + key;
-				if (lightPathSchema.required.indexOf(key) != -1) {
-					newLightPathElementData[currentNumber] = 1;
-					newLightPathElementData[minNumber] = 1;
-					newLightPathElementData[maxNumber] = -1;
-				} else {
-					newLightPathElementData[currentNumber] = 0;
-					newLightPathElementData[minNumber] = 0;
-					newLightPathElementData[maxNumber] = -1;
-				}
-			} else if (lightPathSchema.properties[key].type === string_object) {
-				let currentNumber = string_currentNumberOf_identifier + key;
-				let minNumber = string_minNumberOf_identifier + key;
-				let maxNumber = string_maxNumberOf_identifier + key;
-				if (lightPathSchema.required.indexOf(key) === -1) {
-					newLightPathElementData[currentNumber] = 0;
-					newLightPathElementData[minNumber] = 0;
-					newLightPathElementData[maxNumber] = 1;
-				}
-			}
-		});
+		newLightPathElementData = ChannelView.addIdentifiersToNewObject(
+			newLightPathElementData,
+			lightPathSchema
+		);
 
 		newChannelElementData.LightPath = newLightPathElementData;
 		newChannelElementData.Fluorophore = newFluorophoreElementData;
@@ -271,6 +363,7 @@ export default class ChannelView extends React.PureComponent {
 					componentSchemas={this.props.componentSchemas}
 					experimentalSchemas={this.props.experimentalSchemas}
 					channelData={objects}
+					imageMetadata={this.props.imageMetadata}
 					settingData={this.props.settingData}
 					componentData={this.props.componentData}
 					linkedFields={this.props.linkedFields}
@@ -360,69 +453,76 @@ export default class ChannelView extends React.PureComponent {
 					</ListGroup.Item>
 				);
 			}
+			let channelListStyle = {
+				overflow: "auto",
+				maxHeight: "0%",
+				height: "0%",
+			};
+			if (channels.length > 0) {
+				channelListStyle.maxHeight = "80%";
+				channelListStyle.height = "80%";
+			}
 			return (
 				<ModalWindow overlaysContainer={this.props.overlaysContainer}>
 					<div>
 						<h3>{this.props.schema.title + "s"}</h3>
 					</div>
-					<div>
-						<div>
-							<ListGroup>{list}</ListGroup>
-						</div>
-						<div style={buttonContainerRow}>
-							<PopoverTooltip
-								key={"TooltipButton-Add"}
-								position={add_channel.position}
-								title={add_channel.title}
-								content={add_channel.content}
-								element={
-									<Button style={button1} size="lg" onClick={this.onAddElement}>
-										+
-									</Button>
-								}
-							/>
+					<div style={channelListStyle}>
+						<ListGroup>{list}</ListGroup>
+					</div>
+					<div style={buttonContainerRow}>
+						<PopoverTooltip
+							key={"TooltipButton-Add"}
+							position={add_channel.position}
+							title={add_channel.title}
+							content={add_channel.content}
+							element={
+								<Button style={button1} size="lg" onClick={this.onAddElement}>
+									+
+								</Button>
+							}
+						/>
 
-							<PopoverTooltip
-								key={"TooltipButton-Edit"}
-								position={edit_channel.position}
-								title={edit_channel.title}
-								content={edit_channel.content}
-								element={
-									<Button
-										style={button2}
-										size="lg"
-										onClick={this.onEditElement}
-										disabled={index === -1}
-									>
-										Edit selected
-									</Button>
-								}
-							/>
+						<PopoverTooltip
+							key={"TooltipButton-Edit"}
+							position={edit_channel.position}
+							title={edit_channel.title}
+							content={edit_channel.content}
+							element={
+								<Button
+									style={button2}
+									size="lg"
+									onClick={this.onEditElement}
+									disabled={index === -1}
+								>
+									Edit selected
+								</Button>
+							}
+						/>
 
-							<PopoverTooltip
-								key={"TooltipButton-Remove"}
-								position={remove_channel.position}
-								title={remove_channel.title}
-								content={remove_channel.content}
-								element={
-									<Button
-										style={button1}
-										size="lg"
-										onClick={this.onRemoveElement}
-									>
-										-
-									</Button>
-								}
-							/>
-						</div>
-						<div style={buttonContainerRow}>
-							<Button style={button2} size="lg" onClick={this.onConfirm}>
-								Confirm
-							</Button>
-							<Button style={button2} size="lg" onClick={this.onCancel}>
-								Cancel
-							</Button>
-						</div>
+						<PopoverTooltip
+							key={"TooltipButton-Remove"}
+							position={remove_channel.position}
+							title={remove_channel.title}
+							content={remove_channel.content}
+							element={
+								<Button
+									style={button1}
+									size="lg"
+									onClick={this.onRemoveElement}
+								>
+									-
+								</Button>
+							}
+						/>
+					</div>
+					<div style={buttonContainerRow}>
+						<Button style={button2} size="lg" onClick={this.onConfirm}>
+							Confirm
+						</Button>
+						<Button style={button2} size="lg" onClick={this.onCancel}>
+							Cancel
+						</Button>
 					</div>
 				</ModalWindow>
 			);

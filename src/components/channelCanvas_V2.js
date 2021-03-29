@@ -169,142 +169,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		//this.props.updateElementData(this.state.elementData, true);
 	}
 
-	//static getDerivedStateFromProps(props, state) {
-	// if (props.componentsSchema !== null) {
-	// 	let componentsSchema = {};
-	// 	Object.keys(props.componentSchemas).forEach((schemaIndex) => {
-	// 		let schema = props.componentSchemas[schemaIndex];
-	// 		let schema_id = schema.ID;
-	// 		componentsSchema[schema_id] = schema;
-	// 	});
-	// 	let elementList = state.elementList;
-	// 	for (let i = 0; i < elementList.length; i++) {
-	// 		let element = elementList[i];
-	// 		let schema_id = element.schema_ID;
-	// 		let schema = componentsSchema[schema_id];
-	// 		let object = element.obj;
-	// 		let validation = validate(object, schema);
-	// 		let validated = validation.valid;
-	// 		element.validated = validated;
-	// 	}
-	// 	return {
-	// 		componentsSchema: componentsSchema,
-	// 	};
-	// }
-	// return null;
-	//}
-
-	// updatedDimensions(id, width, height, isResize) {
-	// 	let element = null;
-	// 	this.state.elementList.forEach((item) => {
-	// 		if (item.ID === id) element = item;
-	// 	});
-
-	// 	let newElementDataList = Object.assign({}, this.state.elementData);
-	// 	let obj = newElementDataList[id];
-
-	// 	if (element === null || obj === undefined) return;
-
-	// 	if (element.width !== -1 && element.height !== -1 && !isResize) {
-	// 		return;
-	// 	}
-
-	// 	element.width = width;
-	// 	element.height = height;
-	// 	obj.Width = width;
-	// 	obj.Height = height;
-
-	// 	let validated = this.areAllElementsValidated();
-	// 	this.props.updateElementData(newElementDataList, validated);
-	// }
-
-	// onImgLoad({ target: img }) {
-	// 	let oldHeight = this.state.imgHeight;
-	// 	let oldWidth = this.state.imgWidth;
-	// 	if (oldWidth !== null && oldHeight !== null) return;
-	// 	let newHeight = img.height;
-	// 	let newWidth = img.width;
-	// 	this.setState({
-	// 		imgHeight: newHeight,
-	// 		imgWidth: newWidth,
-	// 	});
-	// }
-
-	// areAllElementsValidated() {
-	// 	let elementList = this.state.elementList;
-	// 	for (let i = 0; i < elementList.length; i++) {
-	// 		if (!elementList[i].validated) {
-	// 			return false;
-	// 		}
-	// 	}
-	// 	return true;
-	// }
-
-	// onCanvasElementDataSave(id, data, dataLinkedFields) {
-	// 	let linkedFields = this.state.linkedFields;
-	// 	if (
-	// 		dataLinkedFields !== undefined &&
-	// 		Object.keys(dataLinkedFields).length > 0
-	// 	) {
-	// 		linkedFields[id] = dataLinkedFields;
-	// 	}
-
-	// 	// let elementList = this.state.elementList;
-	// 	// for (let i = 0; i < elementList.length; i++) {
-	// 	// 	if (elementList[i].ID === id) {
-	// 	// 		elementList[i].validated = true;
-	// 	// 		elementList[i].name = data.Name;
-	// 	// 		break;
-	// 	// 	}
-	// 	// }
-	// 	let currentElementData = Object.assign({}, this.state.elementData);
-	// 	currentElementData[id] = Object.assign(currentElementData[id], data);
-	// 	this.setState({
-	// 		elementData: currentElementData,
-	// 		linkedFields: linkedFields,
-	// 	});
-
-	// 	let validated = this.areAllElementsValidated();
-	// 	this.props.updateElementData(currentElementData, validated);
-	// 	this.props.updateLinkedFields(linkedFields);
-	// }
-
-	// getElementData() {
-	// 	return Object.assign({}, this.state.elementData);
-	// }
-
-	// addComponentsIndexesIfMissing(schema, newElementData) {
-	// 	Object.keys(schema.properties).forEach((key) => {
-	// 		let currentNumber = string_currentNumberOf_identifier + key;
-	// 		let minNumber = string_minNumberOf_identifier + key;
-	// 		let maxNumber = string_maxNumberOf_identifier + key;
-	// 		if (newElementData[currentNumber] !== undefined) {
-	// 			return;
-	// 		}
-	// 		if (schema.properties[key].type === string_array) {
-	// 			if (schema.required.indexOf(key) != -1) {
-	// 				newElementData[currentNumber] = 1;
-	// 				newElementData[minNumber] = 1;
-	// 				newElementData[maxNumber] = -1;
-	// 			} else {
-	// 				newElementData[currentNumber] = 0;
-	// 				newElementData[minNumber] = 0;
-	// 				newElementData[maxNumber] = -1;
-	// 			}
-	// 		} else if (schema.properties[key].type === string_object) {
-	// 			if (schema.required.indexOf(key) === -1) {
-	// 				newElementData[currentNumber] = 0;
-	// 				newElementData[minNumber] = 0;
-	// 				newElementData[maxNumber] = 1;
-	// 			} else {
-	// 				newElementData[currentNumber] = 1;
-	// 				newElementData[minNumber] = 1;
-	// 				newElementData[maxNumber] = 1;
-	// 			}
-	// 		}
-	// 	});
-	// }
-
 	onConfirm() {
 		let channelData = this.state.channelData[0];
 		let settingData = this.state.settingData;
@@ -321,6 +185,9 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			settingData: {},
 			channelData: {},
 		});
+
+		// console.log("channelData");
+		// console.log(channelData);
 		this.props.onConfirm(this.props.id, channelData);
 	}
 
@@ -351,6 +218,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	onInnerElementDataSave(id, data) {
+		//console.log("onElementDataSave");
 		let selectedComp = this.state.selectedComp;
 		let selectedSchema = this.state.selectedSchema;
 		let selectedSlot = this.state.selectedSlot;
@@ -377,19 +245,46 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			if (selectedSlot.includes("AdditionalSlot_")) {
 				let tmpSlots = this.state.tmpSlots;
 				slots[selectedSlot] = tmpSlots;
+
+				let newSelectedSettingData = [];
+				for (let index1 = 0; index1 < tmpSlots.length; index1++) {
+					let tmp = tmpSlots[index1];
+					let compID = tmp.ID;
+					for (
+						let index2 = 0;
+						index2 < settingData[selectedSlot].length;
+						index2++
+					) {
+						let sett = settingData[selectedSlot][index2];
+						let settID = sett.Component_ID;
+						if (compID === settID) {
+							newSelectedSettingData.push(sett);
+						}
+					}
+				}
+				settingData[selectedSlot] = newSelectedSettingData;
 			} else {
+				let earlyReturn = false;
 				if (selectedComp === null || selectedComp === undefined) {
-					this.setState({
-						editing: false,
-						editingSettings: false,
-						category: null,
-						selectedSlot: null,
-						selectedComp: null,
-						selectedSchema: null,
-					});
+					earlyReturn = true;
+				} else {
+					let validation = validate(selectedComp, selectedSchema);
+					let validated = validation.valid;
+					if (!validated) {
+						earlyReturn = true;
+					}
+				}
+				if (earlyReturn) {
+					// this.setState({
+					// 	editing: faltruese,
+					// 	editingSettings: false,
+					// 	category: null,
+					// 	selectedSlot: null,
+					// 	selectedComp: null,
+					// 	selectedSchema: null,
+					// });
 					return;
 				}
-
 				slots[selectedSlot] = selectedComp;
 				let settingsName = selectedSchema.modelSettings + string_json_ext;
 				let currentSchema = settingsSchemas[settingsName];
@@ -444,6 +339,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	onElementDataSave(id, data) {
+		//console.log("onElementDataSave");
 		let selectedComp = this.state.selectedComp;
 		let selectedSlot = this.state.selectedSlot;
 		//let category = this.state.category;
@@ -521,15 +417,35 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 
 	handleDeleteComp(selectedSlot, index) {
 		let i = index;
+		let settingsData = Object.assign({}, this.state.settingData);
 		if (selectedSlot.includes("AdditionalSlot_")) {
-			let tmpSlots = this.state.tmpSlots.slice();
-			tmpSlots.splice(i, 1);
-			let newTmpSlots = tmpSlots;
-			this.setState({ tmpSlots: newTmpSlots });
+			let settingData = settingsData[selectedSlot];
+			let newTmpSlots = this.state.tmpSlots.slice();
+			let compToDelete = newTmpSlots[i];
+			newTmpSlots.splice(i, 1);
+			let indexToDelete = -1;
+			if (settingData !== null && settingData !== undefined) {
+				for (let y = 0; y < settingData.length; y++) {
+					let sett = settingData[y];
+					if (sett.Component_ID === compToDelete.ID) {
+						indexToDelete = y;
+						break;
+					}
+				}
+				let newSettingData = settingData.slice();
+				if (indexToDelete !== -1) newSettingData.splice(indexToDelete, 1);
+				settingsData[selectedSlot] = newSettingData;
+			}
+			this.setState({ tmpSlots: newTmpSlots, settingData: settingsData });
 		} else {
 			let slots = Object.assign({}, this.state.slots);
 			delete slots[selectedSlot];
-			this.setState({ slots: slots });
+			if (
+				settingsData[selectedSlot] !== null &&
+				settingsData[selectedSlot] !== undefined
+			)
+				delete settingsData[selectedSlot];
+			this.setState({ slots: slots, settingData: settingsData });
 		}
 	}
 
@@ -1001,12 +917,12 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			height: "250px",
 			maxHeight: "250px",
 			alignItems: "center",
+			width: "80%",
 		};
 
 		const modalTopList = {
 			display: "flex",
 			flexDirection: "row",
-			flexWrap: "wrap",
 			justifyContent: "space-evenly",
 			alignItems: "center",
 		};
@@ -1060,6 +976,14 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			fontWeight: "bold",
 			textAlign: "center",
 		};
+		const styleValidation1 = {
+			position: "relative",
+			verticalAlign: "middle",
+			fontWeight: "bold",
+			textAlign: "center",
+			left: "22px",
+			top: "2px",
+		};
 		const styleValidation2 = {
 			//position: "relative",
 			verticalAlign: "middle",
@@ -1086,6 +1010,12 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		const styleNotValidated = Object.assign({}, styleValidation, {
 			color: "red",
 		});
+		const styleValidated1 = Object.assign({}, styleValidation1, {
+			color: "green",
+		});
+		const styleNotValidated1 = Object.assign({}, styleValidation1, {
+			color: "red",
+		});
 		const styleValidated2 = Object.assign({}, styleValidation2, {
 			color: "green",
 		});
@@ -1094,6 +1024,8 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		});
 		let isValid = <div style={styleValidated}>&#9679;</div>;
 		let isInvalid = <div style={styleNotValidated}>&#9679;</div>;
+		let isValid1 = <div style={styleValidated1}>&#9679;</div>;
+		let isInvalid1 = <div style={styleNotValidated1}>&#9679;</div>;
 		let isValid2 = <div style={styleValidated2}>&#9679;</div>;
 		let isInvalid2 = <div style={styleNotValidated2}>&#9679;</div>;
 
@@ -1245,24 +1177,39 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							/>
 						);
 
-						let buttonStyleModified = null;
+						let buttonStyleModified = Object.assign({}, buttonStyle, {
+							width: "100%",
+						});
 						if (comp === selectedComp) {
-							buttonStyleModified = Object.assign({}, buttonStyle, {
+							buttonStyleModified = Object.assign({}, buttonStyleModified, {
 								border: "2px solid cyan",
 							});
 						} else {
-							buttonStyleModified = buttonStyle;
+							buttonStyleModified = buttonStyleModified;
 						}
-
+						let validation = validate(comp, compSchema);
+						let validated = validation.valid;
+						let valid = null;
+						if (validated) {
+							valid = isValid1;
+						} else {
+							valid = isInvalid1;
+						}
 						let compButton = (
-							<button
-								key={"button-" + comp.Name}
-								style={buttonStyleModified}
-								onClick={() => this.handleSelectComp(comp)}
+							<div
+								key={"div-" + comp.Name}
+								style={{ display: "flex", width: "100%" }}
 							>
-								{compItemImage}
-								{comp.Name}
-							</button>
+								{valid}
+								<button
+									key={"button-" + comp.Name}
+									style={buttonStyleModified}
+									onClick={() => this.handleSelectComp(comp)}
+								>
+									{compItemImage}
+									{comp.Name}
+								</button>
+							</div>
 						);
 						itemList.push(compButton);
 					}
@@ -1323,6 +1270,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							if (settingDataObj !== null && settingDataObj !== undefined) {
 								let schema = settingsSchemas[settingDataObj.Schema_ID];
 								if (schema !== null && schema !== undefined) {
+									schemaHasProp = Object.keys(schema.properties).length > 0;
 									if (schemaHasProp) {
 										let validation = validate(settingDataObj, schema);
 										let validated = validation.valid;
@@ -1359,13 +1307,14 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							);
 						}
 
-						let len = slotList.length;
 						slotList.push(
 							<div>
 								<div style={styleIcons}>
 									<button
 										type="button"
-										onClick={() => this.handleDeleteComp(selectedSlot, len)}
+										onClick={() =>
+											this.handleDeleteComp(selectedSlot, compIndex)
+										}
 										style={styleCloser}
 									>
 										x
@@ -1416,13 +1365,26 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						);
 						arrowedSlotList.push(arrowItem);
 					}
-
+					let width = 150 * arrowedSlotList.length;
+					let modalTopListModified = Object.assign({}, modalTopList, {
+						width: `${width}px`,
+					});
 					topItems = (
 						<div style={modalTopListContainer}>
 							<h5>Current components in this slot</h5>
-							<ArcherContainer strokeColor="red">
-								<div style={modalTopList}>{arrowedSlotList}</div>
-							</ArcherContainer>
+							<div
+								style={{ overflow: "auto", width: "100%", maxWidth: "100%" }}
+							>
+								<ArcherContainer
+									svgContainerStyle={{
+										overflow: "auto",
+										width: `${width}px`,
+									}}
+									strokeColor="red"
+								>
+									<div style={modalTopListModified}>{arrowedSlotList}</div>
+								</ArcherContainer>
+							</div>
 						</div>
 					);
 
@@ -1488,6 +1450,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			justifyContent: "space-between",
 			minHeight: "800px",
 			height: "860px",
+			overflow: "auto",
 		};
 
 		const gridRow = {
@@ -2390,7 +2353,8 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			position: "relative",
 			top: "-10%",
 			left: "30%",
-			width: "200px",
+			minWidth: "240px",
+			width: "240px",
 			height: "30px",
 			//display: "inline",
 			backgroundColor: "white",

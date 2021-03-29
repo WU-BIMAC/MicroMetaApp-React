@@ -97,6 +97,37 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       addingMultiplePlanes2: false,
       addingMultiplePlanesSetup: null
     };
+
+    if (_this.props.imageMetadata !== null && _this.props.imageMetadata !== undefined && _this.props.imageMetadata.Planes !== null && _this.props.imageMetadata.Planes !== undefined) {
+      var newPlanes = [];
+
+      var planes = _this.props.imageMetadata.Planes.slice();
+
+      if (_this.state.planes.length === planes.length || _this.state.planes.length === 0) {
+        for (var i = 0; i < planes.length; i++) {
+          var schema = _this.props.schema;
+          var oldPlane = planes[i];
+          var newPlane = {
+            //Name: `${schema.title} ${planes.length}`,
+            ID: uuidv4(),
+            Tier: schema.tier,
+            Schema_ID: schema.ID,
+            Version: schema.version
+          };
+          newPlane = PlaneView.addIdentifiersToNewObject(newPlane, schema);
+          var mergedPlane = Object.assign({}, newPlane, oldPlane);
+
+          if (_this.state.planes[i] !== null && _this.state.planes[i] !== undefined) {
+            newPlanes[i] = Object.assign({}, mergedPlane, _this.state.planes[i]);
+          } else {
+            newPlanes[i] = mergedPlane;
+          }
+        }
+
+        _this.state.planes = newPlanes;
+      }
+    }
+
     _this.onAddElement = _this.onAddElement.bind(_assertThisInitialized(_this));
     _this.onEditElement = _this.onEditElement.bind(_assertThisInitialized(_this));
     _this.onRemoveElement = _this.onRemoveElement.bind(_assertThisInitialized(_this));
@@ -122,29 +153,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
         Schema_ID: schema.ID,
         Version: schema.version
       };
-      Object.keys(schema.properties).forEach(function (key) {
-        if (schema.properties[key].type === string_array) {
-          var currentNumber = string_currentNumberOf_identifier + key;
-          var minNumber = string_minNumberOf_identifier + key;
-          var maxNumber = string_maxNumberOf_identifier + key;
-
-          if (schema.required.indexOf(key) != -1) {
-            newElementData[currentNumber] = 1;
-            newElementData[minNumber] = 1;
-            newElementData[maxNumber] = -1;
-          } else {
-            newElementData[currentNumber] = 0;
-            newElementData[minNumber] = 0;
-            newElementData[maxNumber] = -1;
-          }
-        } else if (schema.properties[key].type === string_object) {
-          if (schema.required.indexOf(key) === -1) {
-            newElementData[string_currentNumberOf_identifier + key] = 0;
-            newElementData[string_minNumberOf_identifier + key] = 0;
-            newElementData[string_maxNumberOf_identifier + key] = 1;
-          }
-        }
-      });
+      newElementData = PlaneView.addIdentifiersToNewObject(newElementData, schema);
       planes.push(newElementData);
       this.setState({
         planes: planes
@@ -206,17 +215,17 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           newElementData.ID = uuidv4();
 
           if (tIncrement) {
-            newElementData.TheZ = String(theZ);
-            newElementData.TheT = String(theT + i);
-            newElementData.TheC = String(theC);
+            newElementData.TheZ = theZ;
+            newElementData.TheT = theT + i;
+            newElementData.TheC = theC;
           } else if (zIncrement) {
-            newElementData.TheZ = String(theZ + i);
-            newElementData.TheT = String(theT);
-            newElementData.TheC = String(theC);
+            newElementData.TheZ = theZ + i;
+            newElementData.TheT = theT;
+            newElementData.TheC = theC;
           } else if (cIncrement) {
-            newElementData.TheZ = String(theZ);
-            newElementData.TheT = String(theT);
-            newElementData.TheC = String(theC + i);
+            newElementData.TheZ = theZ;
+            newElementData.TheT = theT;
+            newElementData.TheC = theC + i;
           }
 
           newElementData.Timestamp = timeStamp + timeStampIncrement * i;
@@ -528,6 +537,35 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           onClick: this.onCancel
         }, "Cancel")));
       }
+    }
+  }], [{
+    key: "addIdentifiersToNewObject",
+    value: function addIdentifiersToNewObject(object, schema) {
+      var newObject = Object.assign({}, object);
+      Object.keys(schema.properties).forEach(function (key) {
+        if (schema.properties[key].type === string_array) {
+          var currentNumber = string_currentNumberOf_identifier + key;
+          var minNumber = string_minNumberOf_identifier + key;
+          var maxNumber = string_maxNumberOf_identifier + key;
+
+          if (schema.required.indexOf(key) != -1) {
+            newObject[currentNumber] = 1;
+            newObject[minNumber] = 1;
+            newObject[maxNumber] = -1;
+          } else {
+            newObject[currentNumber] = 0;
+            newObject[minNumber] = 0;
+            newObject[maxNumber] = -1;
+          }
+        } else if (schema.properties[key].type === string_object) {
+          if (schema.required.indexOf(key) === -1) {
+            newObject[string_currentNumberOf_identifier + key] = 0;
+            newObject[string_minNumberOf_identifier + key] = 0;
+            newObject[string_maxNumberOf_identifier + key] = 1;
+          }
+        }
+      });
+      return newObject;
     }
   }]);
 

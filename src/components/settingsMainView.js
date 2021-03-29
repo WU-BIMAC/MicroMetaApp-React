@@ -229,16 +229,37 @@ export default class SettingMainView extends React.PureComponent {
 		} else if (id === elements.indexOf("objSettings")) {
 			let newObjSettings = {};
 			let objective = null;
+			console.log("data");
+			console.log(data);
 			if (Object.keys(data).length > 0) {
-				let oldObjSettings = Object.assign({}, this.state.objSettings);
-				newObjSettings = Object.assign(oldObjSettings, data);
-				settingData.ObjectiveSettings = newObjSettings;
+				let oldObjSettings = this.state.objSettings;
+				if (oldObjSettings !== null && oldObjSettings !== undefined) {
+					let oldObjSettings = Object.assign({}, oldObjSettings);
+					newObjSettings = Object.assign(oldObjSettings, data);
+					if (
+						oldObjSettings.ImmersionLiquid !== null &&
+						oldObjSettings.ImmersionLiquid !== undefined
+					) {
+						let oldImmersionLiquid = Object.assign(
+							{},
+							oldObjSettings.ImmersionLiquid
+						);
+						let newImmersionLiquid = Object.assign(
+							oldImmersionLiquid,
+							data.ImmersionLiquid
+						);
+						newObjSettings.ImmersionLiquid = newImmersionLiquid;
+					}
+				} else {
+					newObjSettings = data;
+				}
 				let compID = data.Component_ID;
 				Object.keys(this.props.microscopeComponents).forEach((key) => {
 					let element = this.props.microscopeComponents[key];
 					if (element.ID === compID) objective = element;
 				});
 			}
+			settingData.ObjectiveSettings = newObjSettings;
 			this.setState({
 				editingElement: -1,
 				objSettings: newObjSettings,
@@ -355,6 +376,7 @@ export default class SettingMainView extends React.PureComponent {
 						<PlaneView
 							schema={schema}
 							inputData={obj}
+							imageMetadata={this.props.imageMetadata}
 							id={editingElement}
 							onConfirm={this.onElementDataSave}
 							onCancel={this.onElementDataCancel}
@@ -370,6 +392,7 @@ export default class SettingMainView extends React.PureComponent {
 						experimentalSchemas={this.props.experimentalSchemas}
 						schema={schema}
 						inputData={obj}
+						imageMetadata={this.props.imageMetadata}
 						id={editingElement}
 						imagesPath={this.props.imagesPath}
 						settingData={this.props.settingData}
@@ -404,6 +427,7 @@ export default class SettingMainView extends React.PureComponent {
 						experimentalSchemas={this.props.experimentalSchemas}
 						schema={schema}
 						inputData={obj}
+						imageMetadata={this.props.imageMetadata}
 						id={editingElement}
 						category={category}
 						imagesPath={this.props.imagesPath}
@@ -482,8 +506,8 @@ export default class SettingMainView extends React.PureComponent {
 
 			let settingsInfo = [];
 			let localSettingInfo = this.props.setting;
-			console.log("localSettingInfo");
-			console.log(localSettingInfo);
+			//console.log("localSettingInfo");
+			//console.log(localSettingInfo);
 			if (localSettingInfo !== null && localSettingInfo !== undefined) {
 				if (
 					localSettingInfo.Name !== undefined &&
@@ -523,8 +547,8 @@ export default class SettingMainView extends React.PureComponent {
 					}
 				}
 			}
-			console.log("settingsInfo");
-			console.log(settingsInfo);
+			//console.log("settingsInfo");
+			//console.log(settingsInfo);
 
 			let index = elements.indexOf("exp");
 			let schema_id = schemas[index];

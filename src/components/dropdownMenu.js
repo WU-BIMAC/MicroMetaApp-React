@@ -54,6 +54,7 @@ export default class DropdownMenu extends React.PureComponent {
 		let width = this.props.width || 250;
 		let margin = this.props.margin || 0;
 		let direction = this.props.direction || "down";
+
 		let dropdownItems = inputData.map((item) => (
 			<Dropdown.Item key={item} onClick={this.handleMenuItemClick} id={item}>
 				{item}
@@ -66,7 +67,7 @@ export default class DropdownMenu extends React.PureComponent {
 		};
 		const dropdownMenuStyle = {
 			overflow: "auto",
-			maxHeight: "100px",
+			maxHeight: "120px",
 			maxWidth: `${width}px`,
 			width: `${width}px`,
 		};

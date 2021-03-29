@@ -140,129 +140,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     //this.props.updateElementData(this.state.elementData, true);
 
     return _this;
-  } //static getDerivedStateFromProps(props, state) {
-  // if (props.componentsSchema !== null) {
-  // 	let componentsSchema = {};
-  // 	Object.keys(props.componentSchemas).forEach((schemaIndex) => {
-  // 		let schema = props.componentSchemas[schemaIndex];
-  // 		let schema_id = schema.ID;
-  // 		componentsSchema[schema_id] = schema;
-  // 	});
-  // 	let elementList = state.elementList;
-  // 	for (let i = 0; i < elementList.length; i++) {
-  // 		let element = elementList[i];
-  // 		let schema_id = element.schema_ID;
-  // 		let schema = componentsSchema[schema_id];
-  // 		let object = element.obj;
-  // 		let validation = validate(object, schema);
-  // 		let validated = validation.valid;
-  // 		element.validated = validated;
-  // 	}
-  // 	return {
-  // 		componentsSchema: componentsSchema,
-  // 	};
-  // }
-  // return null;
-  //}
-  // updatedDimensions(id, width, height, isResize) {
-  // 	let element = null;
-  // 	this.state.elementList.forEach((item) => {
-  // 		if (item.ID === id) element = item;
-  // 	});
-  // 	let newElementDataList = Object.assign({}, this.state.elementData);
-  // 	let obj = newElementDataList[id];
-  // 	if (element === null || obj === undefined) return;
-  // 	if (element.width !== -1 && element.height !== -1 && !isResize) {
-  // 		return;
-  // 	}
-  // 	element.width = width;
-  // 	element.height = height;
-  // 	obj.Width = width;
-  // 	obj.Height = height;
-  // 	let validated = this.areAllElementsValidated();
-  // 	this.props.updateElementData(newElementDataList, validated);
-  // }
-  // onImgLoad({ target: img }) {
-  // 	let oldHeight = this.state.imgHeight;
-  // 	let oldWidth = this.state.imgWidth;
-  // 	if (oldWidth !== null && oldHeight !== null) return;
-  // 	let newHeight = img.height;
-  // 	let newWidth = img.width;
-  // 	this.setState({
-  // 		imgHeight: newHeight,
-  // 		imgWidth: newWidth,
-  // 	});
-  // }
-  // areAllElementsValidated() {
-  // 	let elementList = this.state.elementList;
-  // 	for (let i = 0; i < elementList.length; i++) {
-  // 		if (!elementList[i].validated) {
-  // 			return false;
-  // 		}
-  // 	}
-  // 	return true;
-  // }
-  // onCanvasElementDataSave(id, data, dataLinkedFields) {
-  // 	let linkedFields = this.state.linkedFields;
-  // 	if (
-  // 		dataLinkedFields !== undefined &&
-  // 		Object.keys(dataLinkedFields).length > 0
-  // 	) {
-  // 		linkedFields[id] = dataLinkedFields;
-  // 	}
-  // 	// let elementList = this.state.elementList;
-  // 	// for (let i = 0; i < elementList.length; i++) {
-  // 	// 	if (elementList[i].ID === id) {
-  // 	// 		elementList[i].validated = true;
-  // 	// 		elementList[i].name = data.Name;
-  // 	// 		break;
-  // 	// 	}
-  // 	// }
-  // 	let currentElementData = Object.assign({}, this.state.elementData);
-  // 	currentElementData[id] = Object.assign(currentElementData[id], data);
-  // 	this.setState({
-  // 		elementData: currentElementData,
-  // 		linkedFields: linkedFields,
-  // 	});
-  // 	let validated = this.areAllElementsValidated();
-  // 	this.props.updateElementData(currentElementData, validated);
-  // 	this.props.updateLinkedFields(linkedFields);
-  // }
-  // getElementData() {
-  // 	return Object.assign({}, this.state.elementData);
-  // }
-  // addComponentsIndexesIfMissing(schema, newElementData) {
-  // 	Object.keys(schema.properties).forEach((key) => {
-  // 		let currentNumber = string_currentNumberOf_identifier + key;
-  // 		let minNumber = string_minNumberOf_identifier + key;
-  // 		let maxNumber = string_maxNumberOf_identifier + key;
-  // 		if (newElementData[currentNumber] !== undefined) {
-  // 			return;
-  // 		}
-  // 		if (schema.properties[key].type === string_array) {
-  // 			if (schema.required.indexOf(key) != -1) {
-  // 				newElementData[currentNumber] = 1;
-  // 				newElementData[minNumber] = 1;
-  // 				newElementData[maxNumber] = -1;
-  // 			} else {
-  // 				newElementData[currentNumber] = 0;
-  // 				newElementData[minNumber] = 0;
-  // 				newElementData[maxNumber] = -1;
-  // 			}
-  // 		} else if (schema.properties[key].type === string_object) {
-  // 			if (schema.required.indexOf(key) === -1) {
-  // 				newElementData[currentNumber] = 0;
-  // 				newElementData[minNumber] = 0;
-  // 				newElementData[maxNumber] = 1;
-  // 			} else {
-  // 				newElementData[currentNumber] = 1;
-  // 				newElementData[minNumber] = 1;
-  // 				newElementData[maxNumber] = 1;
-  // 			}
-  // 		}
-  // 	});
-  // }
-
+  }
 
   _createClass(ChannelCanvas_V2, [{
     key: "onConfirm",
@@ -281,7 +159,9 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         tmpSlots: [],
         settingData: {},
         channelData: {}
-      });
+      }); // console.log("channelData");
+      // console.log(channelData);
+
       this.props.onConfirm(this.props.id, channelData);
     }
   }, {
@@ -315,6 +195,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onInnerElementDataSave",
     value: function onInnerElementDataSave() {
+      //console.log("onElementDataSave");
       var selectedComp = this.state.selectedComp;
       var selectedSchema = this.state.selectedSchema;
       var selectedSlot = this.state.selectedSlot;
@@ -343,16 +224,46 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         if (selectedSlot.includes("AdditionalSlot_")) {
           var tmpSlots = this.state.tmpSlots;
           slots[selectedSlot] = tmpSlots;
+          var newSelectedSettingData = [];
+
+          for (var index1 = 0; index1 < tmpSlots.length; index1++) {
+            var tmp = tmpSlots[index1];
+            var compID = tmp.ID;
+
+            for (var index2 = 0; index2 < settingData[selectedSlot].length; index2++) {
+              var sett = settingData[selectedSlot][index2];
+              var settID = sett.Component_ID;
+
+              if (compID === settID) {
+                newSelectedSettingData.push(sett);
+              }
+            }
+          }
+
+          settingData[selectedSlot] = newSelectedSettingData;
         } else {
+          var earlyReturn = false;
+
           if (selectedComp === null || selectedComp === undefined) {
-            this.setState({
-              editing: false,
-              editingSettings: false,
-              category: null,
-              selectedSlot: null,
-              selectedComp: null,
-              selectedSchema: null
-            });
+            earlyReturn = true;
+          } else {
+            var validation = validate(selectedComp, selectedSchema);
+            var validated = validation.valid;
+
+            if (!validated) {
+              earlyReturn = true;
+            }
+          }
+
+          if (earlyReturn) {
+            // this.setState({
+            // 	editing: faltruese,
+            // 	editingSettings: false,
+            // 	category: null,
+            // 	selectedSlot: null,
+            // 	selectedComp: null,
+            // 	selectedSchema: null,
+            // });
             return;
           }
 
@@ -412,6 +323,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onElementDataSave",
     value: function onElementDataSave(id, data) {
+      //console.log("onElementDataSave");
       var selectedComp = this.state.selectedComp;
       var selectedSlot = this.state.selectedSlot; //let category = this.state.category;
 
@@ -491,17 +403,42 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleDeleteComp",
     value: function handleDeleteComp(selectedSlot, index) {
+      var i = index;
+      var settingsData = Object.assign({}, this.state.settingData);
+
       if (selectedSlot.includes("AdditionalSlot_")) {
-        var tmpSlots = this.state.tmpSlots.slice();
-        tmpSlots.splice(index, 1);
+        var settingData = settingsData[selectedSlot];
+        var newTmpSlots = this.state.tmpSlots.slice();
+        var compToDelete = newTmpSlots[i];
+        newTmpSlots.splice(i, 1);
+        var indexToDelete = -1;
+
+        if (settingData !== null && settingData !== undefined) {
+          for (var y = 0; y < settingData.length; y++) {
+            var sett = settingData[y];
+
+            if (sett.Component_ID === compToDelete.ID) {
+              indexToDelete = y;
+              break;
+            }
+          }
+
+          var newSettingData = settingData.slice();
+          if (indexToDelete !== -1) newSettingData.splice(indexToDelete, 1);
+          settingsData[selectedSlot] = newSettingData;
+        }
+
         this.setState({
-          tmpSlots: tmpSlots
+          tmpSlots: newTmpSlots,
+          settingData: settingsData
         });
       } else {
         var slots = Object.assign({}, this.state.slots);
         delete slots[selectedSlot];
+        if (settingsData[selectedSlot] !== null && settingsData[selectedSlot] !== undefined) delete settingsData[selectedSlot];
         this.setState({
-          slots: slots
+          slots: slots,
+          settingData: settingsData
         });
       }
     }
@@ -846,6 +783,14 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         fontWeight: "bold",
         textAlign: "center"
       };
+      var styleValidation1 = {
+        position: "relative",
+        verticalAlign: "middle",
+        fontWeight: "bold",
+        textAlign: "center",
+        left: "22px",
+        top: "2px"
+      };
       var styleValidation2 = {
         //position: "relative",
         verticalAlign: "middle",
@@ -872,6 +817,12 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var styleNotValidated = Object.assign({}, styleValidation, {
         color: "red"
       });
+      var styleValidated1 = Object.assign({}, styleValidation1, {
+        color: "green"
+      });
+      var styleNotValidated1 = Object.assign({}, styleValidation1, {
+        color: "red"
+      });
       var styleValidated2 = Object.assign({}, styleValidation2, {
         color: "green"
       });
@@ -883,6 +834,12 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       }, "\u25CF");
       var isInvalid = /*#__PURE__*/React.createElement("div", {
         style: styleNotValidated
+      }, "\u25CF");
+      var isValid1 = /*#__PURE__*/React.createElement("div", {
+        style: styleValidated1
+      }, "\u25CF");
+      var isInvalid1 = /*#__PURE__*/React.createElement("div", {
+        style: styleNotValidated1
       }, "\u25CF");
       var isValid2 = /*#__PURE__*/React.createElement("div", {
         style: styleValidated2
@@ -1017,23 +974,41 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 alt: comp.Name,
                 style: regularImageStyle
               });
-              var buttonStyleModified = null;
+              var buttonStyleModified = Object.assign({}, buttonStyle, {
+                width: "100%"
+              });
 
               if (comp === selectedComp) {
-                buttonStyleModified = Object.assign({}, buttonStyle, {
+                buttonStyleModified = Object.assign({}, buttonStyleModified, {
                   border: "2px solid cyan"
                 });
               } else {
-                buttonStyleModified = buttonStyle;
+                buttonStyleModified = buttonStyleModified;
               }
 
-              var compButton = /*#__PURE__*/React.createElement("button", {
+              var validation = validate(comp, compSchema);
+              var validated = validation.valid;
+              var _valid = null;
+
+              if (validated) {
+                _valid = isValid1;
+              } else {
+                _valid = isInvalid1;
+              }
+
+              var compButton = /*#__PURE__*/React.createElement("div", {
+                key: "div-" + comp.Name,
+                style: {
+                  display: "flex",
+                  width: "100%"
+                }
+              }, _valid, /*#__PURE__*/React.createElement("button", {
                 key: "button-" + comp.Name,
                 style: buttonStyleModified,
                 onClick: function onClick() {
                   return _this3.handleSelectComp(comp);
                 }
-              }, compItemImage, comp.Name);
+              }, compItemImage, comp.Name));
               itemList.push(compButton);
             }
           });
@@ -1075,19 +1050,35 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 buttonStyleModified = buttonStyle;
               }
 
+              var valid = null;
+              var schemaHasProp = false;
+
               if (settingDataSlot !== null && settingDataSlot !== undefined) {
                 var settingDataObj = settingDataSlot[compIndex];
 
                 if (settingDataObj !== null && settingDataObj !== undefined) {
                   var _schema4 = settingsSchemas[settingDataObj.Schema_ID];
 
-                  if (_schema4 !== null && _schema4 !== undefined) {}
+                  if (_schema4 !== null && _schema4 !== undefined) {
+                    schemaHasProp = Object.keys(_schema4.properties).length > 0;
+
+                    if (schemaHasProp) {
+                      var validation = validate(settingDataObj, _schema4);
+                      var validated = validation.valid;
+
+                      if (validated) {
+                        valid = isValid2;
+                      } else {
+                        valid = isInvalid2;
+                      }
+                    }
+                  }
                 }
               }
 
               var butt = null;
 
-              if (compSchema.modelSettings !== "NA" && false) {
+              if (compSchema.modelSettings !== "NA" && schemaHasProp) {
                 butt = /*#__PURE__*/React.createElement("button", {
                   key: "button-" + comp.Name,
                   style: buttonStyleModified,
@@ -1102,16 +1093,15 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 }, compItemImage, comp.Name);
               }
 
-              var len = slotList.length;
               slotList.push( /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
                 style: styleIcons
               }, /*#__PURE__*/React.createElement("button", {
                 type: "button",
                 onClick: function onClick() {
-                  return _this3.handleDeleteComp(selectedSlot, len);
+                  return _this3.handleDeleteComp(selectedSlot, compIndex);
                 },
                 style: styleCloser
-              }, "x"), null), butt));
+              }, "x"), valid), butt));
             });
             var arrowedSlotList = [];
 
@@ -1149,6 +1139,15 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               arrowedSlotList.push(arrowItem);
             }
 
+            var width = 150 * arrowedSlotList.length;
+            var modalTopListModified = Object.assign({}, {
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              alignItems: "center"
+            }, {
+              width: "".concat(width, "px")
+            });
             topItems = /*#__PURE__*/React.createElement("div", {
               style: {
                 display: "flex",
@@ -1158,19 +1157,24 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 overflow: "auto",
                 height: "250px",
                 maxHeight: "250px",
-                alignItems: "center"
+                alignItems: "center",
+                width: "80%"
               }
-            }, /*#__PURE__*/React.createElement("h5", null, "Current components in this slot"), /*#__PURE__*/React.createElement(ArcherContainer, {
+            }, /*#__PURE__*/React.createElement("h5", null, "Current components in this slot"), /*#__PURE__*/React.createElement("div", {
+              style: {
+                overflow: "auto",
+                width: "100%",
+                maxWidth: "100%"
+              }
+            }, /*#__PURE__*/React.createElement(ArcherContainer, {
+              svgContainerStyle: {
+                overflow: "auto",
+                width: "".concat(width, "px")
+              },
               strokeColor: "red"
             }, /*#__PURE__*/React.createElement("div", {
-              style: {
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                justifyContent: "space-evenly",
-                alignItems: "center"
-              }
-            }, arrowedSlotList)));
+              style: modalTopListModified
+            }, arrowedSlotList))));
             Object.assign(modalGridPanel, {
               height: "60%"
             });
@@ -1838,7 +1842,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           position: "relative",
           top: "-10%",
           left: "30%",
-          width: "200px",
+          minWidth: "240px",
+          width: "240px",
           height: "30px",
           //display: "inline",
           backgroundColor: "white",
@@ -1968,7 +1973,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           flexWrap: "wrap",
           justifyContent: "space-between",
           minHeight: "800px",
-          height: "860px"
+          height: "860px",
+          overflow: "auto"
         }
       }, row1, row2, row3, row4, " ", row5, " ", row6)), /*#__PURE__*/React.createElement("div", {
         style: buttonContainerRow

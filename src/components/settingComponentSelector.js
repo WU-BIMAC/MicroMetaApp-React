@@ -37,7 +37,10 @@ export default class SettingComponentSelector extends React.PureComponent {
 			settingData: props.inputData || null,
 		};
 
-		if (this.state.settingData === null) {
+		if (
+			this.state.settingData === null ||
+			this.state.settingData === undefined
+		) {
 			if (this.props.maxNumberElement === 1) {
 				this.state.settingData = {};
 			} else {
@@ -45,32 +48,72 @@ export default class SettingComponentSelector extends React.PureComponent {
 			}
 		}
 
-		if (
-			this.state.settingData !== null &&
-			this.state.settingData !== undefined
-		) {
-			// console.log("input setting data");
-			// console.log(this.state.settingData);
-			if (Array.isArray(this.state.settingData)) {
-				Object.keys(this.state.settingData).forEach((settingIndex) => {
-					let sett = this.state.settingData[settingIndex];
-					Object.keys(this.props.componentData).forEach((compIndex) => {
-						let comp = this.props.componentData[compIndex];
-						if (comp.ID === sett.Component_ID) {
-							this.state.currentComps.push(comp);
-						}
-					});
+		// console.log("input setting data");
+		// console.log(this.state.settingData);
+		if (Array.isArray(this.state.settingData)) {
+			Object.keys(this.state.settingData).forEach((settingIndex) => {
+				let sett = this.state.settingData[settingIndex];
+				Object.keys(this.props.componentData).forEach((compIndex) => {
+					let comp = this.props.componentData[compIndex];
+					if (comp.ID === sett.Component_ID) {
+						this.state.currentComps.push(comp);
+					}
 				});
-			} else {
-				let compID = this.state.settingData.Component_ID;
-				if (compID !== null && compID !== undefined) {
-					Object.keys(this.props.componentData).forEach((compIndex) => {
-						let comp = this.props.componentData[compIndex];
-						if (comp.ID === compID) {
-							this.state.currentComps.push(comp);
-						}
-					});
+			});
+		} else {
+			let compID = this.state.settingData.Component_ID;
+			if (compID !== null && compID !== undefined) {
+				Object.keys(this.props.componentData).forEach((compIndex) => {
+					let comp = this.props.componentData[compIndex];
+					if (comp.ID === compID) {
+						this.state.currentComps.push(comp);
+					}
+				});
+			}
+		}
+
+		if (
+			this.props.imageMetadata !== null &&
+			this.props.imageMetadata !== undefined &&
+			this.props.inputData !== null &&
+			this.props.inputData !== undefined
+		) {
+			let imageMetadata = this.props.imageMetadata;
+			let propsSchema = this.props.schema;
+			if (
+				Array.isArray(propsSchema) &&
+				propsSchema[0].ID === "ObjectiveSettings.json" &&
+				imageMetadata.ObjectiveSettings !== null &&
+				imageMetadata.ObjectiveSettings !== undefined
+			) {
+				let imageObjSettings = imageMetadata.ObjectiveSettings;
+				let newSettingCompData = Object.assign(
+					{},
+					imageObjSettings,
+					this.state.settingData
+				);
+				let newImmersionLiquid = null;
+				if (
+					this.state.settingData.ImmersionLiquid !== null &&
+					this.state.settingData.ImmersionLiquid !== undefined
+				) {
+					if (
+						imageObjSettings.ImmersionLiquid !== null &&
+						imageObjSettings.ImmersionLiquid !== undefined
+					) {
+						newImmersionLiquid = Object.assign(
+							{},
+							imageObjSettings.ImmersionLiquid,
+							this.state.settingData.ImmersionLiquid
+						);
+					} else {
+						newImmersionLiquid = this.state.settingData.ImmersionLiquid;
+					}
+					newSettingCompData.ImmersionLiquid = newImmersionLiquid;
+				} else {
+					//SHOULD I CREATE A NEW ONE HERE?
 				}
+				this.state.settingData = newSettingCompData;
 			}
 		}
 
@@ -106,8 +149,10 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 	handleDeleteComp(index) {
 		let i = index;
+
 		let oldSettingData = this.state.settingData;
 		let currentComps = this.state.currentComps.slice();
+		let compToDelete = currentComps[i];
 		currentComps.splice(i, 1);
 		let newCurrentComps = currentComps;
 
@@ -116,8 +161,16 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 		let newSettingData = null;
 		if (Array.isArray(oldSettingData)) {
+			let indexToDelete = -1;
+			for (let y = 0; y < oldSettingData.length; y++) {
+				let sett = oldSettingData[y];
+				if (sett.Component_ID === compToDelete.ID) {
+					indexToDelete = y;
+					break;
+				}
+			}
 			newSettingData = oldSettingData.slice();
-			newSettingData.splice(i, 1);
+			if (indexToDelete !== -1) newSettingData.splice(indexToDelete, 1);
 		} else {
 			newSettingData = {};
 		}
@@ -143,13 +196,15 @@ export default class SettingComponentSelector extends React.PureComponent {
 	}
 
 	onConfirm() {
-		let settingData = this.state.settingData;
 		//let slots = this.state.slots;
 		let newSettingData = null;
+		let settingData = null;
 		if (this.props.maxNumberElement === 1) {
 			newSettingData = {};
+			settingData = Object.assign({}, this.state.settingData);
 		} else {
 			newSettingData = [];
+			settingData = this.state.settingData.slice();
 		}
 		this.setState({
 			editing: false,
@@ -183,7 +238,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 		let settingsData = null;
 		let settingData = null;
 		let index = null;
-		if (Array.isArray(oldSettingData)) {
+		if (Array.isArray(oldSettingsData)) {
 			settingsData = oldSettingsData.slice();
 			Object.keys(settingsData).forEach((settingIndex) => {
 				let sett = settingsData[settingIndex];
@@ -203,13 +258,9 @@ export default class SettingComponentSelector extends React.PureComponent {
 			return;
 		}
 
-		let oldSettingData = Object.assign({}, settingData);
-		let newSettingData = Object.assign(oldSettingData, data);
+		let newSettingData = Object.assign({}, settingData, data);
 		if (data.ImmersionLiquid !== null && data.ImmersionLiquid !== undefined) {
-			let oldImmersionLiquid = Object.assign(
-				{},
-				oldSettingsData.ImmersionLiquid
-			);
+			let oldImmersionLiquid = Object.assign({}, settingData.ImmersionLiquid);
 			let immersionLiquid = Object.assign(
 				oldImmersionLiquid,
 				data.ImmersionLiquid
@@ -308,13 +359,37 @@ export default class SettingComponentSelector extends React.PureComponent {
 					Schema_ID: objSettingsSchema.ID,
 					Version: objSettingsSchema.version,
 				};
-				settingCompData.ImmersionLiquid = {
+				let immersionLiquid = {
 					Name: `${immersionLiquidSchema.title}`,
 					ID: uuid2,
 					Tier: immersionLiquidSchema.tier,
 					Schema_ID: immersionLiquidSchema.ID,
 					Version: immersionLiquidSchema.version,
 				};
+				settingCompData.ImmersionLiquid = immersionLiquid;
+				// if (
+				// 	this.props.imageMetadata !== null &&
+				// 	this.props.imageMetadata !== undefined &&
+				// 	this.props.imageMetadata.ObjectiveSettings !== null &&
+				// 	this.props.ObjectiveSettings !== undefined
+				// ) {
+				// 	let imageMetadataObjSettings = this.props.imageMetadata
+				// 		.ObjectiveSettings;
+				// 	let newSettingsCompData = Object.assign(
+				// 		{},
+				// 		settingCompData,
+				// 		imageMetadataObjSettings
+				// 	);
+				// 	if (
+				// 		imageMetadataObjSettings.ImmersionLiquid !== null &&
+				// 		imageMetadataObjSettings.ImmersionLiquid !== undefined
+				// 	) {
+				// 		let imageMetadataImmersionLiquid =
+				// 			imageMetadataObjSettings.ImmersionLiquid;
+				// 		newSettingsCompData.ImmersionLiquid = imageMetadataImmersionLiquid;
+				// 	}
+				// 	settingCompData = newSettingsCompData;
+				// }
 			} else {
 				settingCompData = {
 					Name: `${currentSchema.title}`,
@@ -324,14 +399,68 @@ export default class SettingComponentSelector extends React.PureComponent {
 					Schema_ID: currentSchema.ID,
 					Version: currentSchema.version,
 				};
+				// if (selectedSchema.modelSettings === "ImagingEnvironment.json") {
+				// 	if (
+				// 		this.props.imageMetadata !== null &&
+				// 		this.props.imageMetadata !== undefined &&
+				// 		this.props.imageMetadata.ImagingEnvironment !== null &&
+				// 		this.props.ImagingEnvironment !== undefined
+				// 	) {
+				// 		let imageMetadataImgEnv = this.props.imageMetadata
+				// 			.ImagingEnvironment;
+				// 		let newSettingsCompData = Object.assign(
+				// 			{},
+				// 			settingCompData,
+				// 			imageMetadataImgEnv
+				// 		);
+				// 		settingCompData = newSettingsCompData;
+				// 	}
+				// }
 			}
+		}
+
+		let newSettingCompData = null;
+		if (
+			this.props.imageMetadata !== null &&
+			this.props.imageMetadata !== undefined
+		) {
+			let imageMetadata = this.props.imageMetadata;
+			if (
+				selectedSchema.modelSettings === "ObjectiveSettings" &&
+				imageMetadata.ObjectiveSettings !== null &&
+				imageMetadata.ObjectiveSettings !== undefined
+			) {
+				let imageObjSettings = imageMetadata.ObjectiveSettings;
+				newSettingCompData = Object.assign(
+					{},
+					imageObjSettings,
+					settingCompData
+				);
+				let newImmersionLiquid = null;
+				if (
+					imageObjSettings.ImmersionLiquid !== null &&
+					imageObjSettings.ImmersionLiquid !== undefined
+				) {
+					newImmersionLiquid = Object.assign(
+						{},
+						imageObjSettings.ImmersionLiquid,
+						settingCompData.ImmersionLiquid
+					);
+				} else {
+					newImmersionLiquid = settingCompData.ImmersionLiquid;
+				}
+				newSettingCompData.ImmersionLiquid = newImmersionLiquid;
+			}
+		}
+		if (newSettingCompData === null || newSettingCompData === undefined) {
+			newSettingCompData = settingCompData;
 		}
 
 		currentComps.push(selectedComp);
 		if (isArray) {
-			settingData.push(settingCompData);
+			settingData.push(newSettingCompData);
 		} else {
-			settingData = settingCompData;
+			settingData = newSettingCompData;
 		}
 
 		// console.log("currentComps");
@@ -406,12 +535,12 @@ export default class SettingComponentSelector extends React.PureComponent {
 			height: "250px",
 			maxHeight: "250px",
 			alignItems: "center",
+			width: "80%",
 		};
 
 		const modalTopList = {
 			display: "flex",
 			flexDirection: "row",
-			flexWrap: "wrap",
 			justifyContent: "space-evenly",
 			alignItems: "center",
 		};
@@ -459,6 +588,14 @@ export default class SettingComponentSelector extends React.PureComponent {
 			//left: "5px",
 			//top: "5px",
 		};
+		const styleValidation1 = {
+			position: "relative",
+			verticalAlign: "middle",
+			fontWeight: "bold",
+			textAlign: "center",
+			left: "22px",
+			top: "2px",
+		};
 		const styleValidation2 = {
 			//position: "relative",
 			verticalAlign: "middle",
@@ -479,6 +616,14 @@ export default class SettingComponentSelector extends React.PureComponent {
 			width: "90%",
 			height: "24px",
 		};
+		const styleValidated1 = Object.assign({}, styleValidation1, {
+			color: "green",
+		});
+		const styleNotValidated1 = Object.assign({}, styleValidation1, {
+			color: "red",
+		});
+		let isValid1 = <div style={styleValidated1}>&#9679;</div>;
+		let isInvalid1 = <div style={styleNotValidated1}>&#9679;</div>;
 
 		const styleValidated2 = Object.assign({}, styleValidation2, {
 			color: "green",
@@ -615,24 +760,40 @@ export default class SettingComponentSelector extends React.PureComponent {
 						/>
 					);
 
-					let buttonStyleModified = null;
+					let buttonStyleModified = Object.assign({}, buttonStyle, {
+						width: "100%",
+					});
 					if (comp === selectedComp) {
-						buttonStyleModified = Object.assign({}, buttonStyle, {
+						buttonStyleModified = Object.assign({}, buttonStyleModified, {
 							border: "2px solid cyan",
 						});
 					} else {
-						buttonStyleModified = buttonStyle;
+						buttonStyleModified = buttonStyleModified;
 					}
 
+					let validation = validate(comp, compSchema);
+					let validated = validation.valid;
+					let valid = null;
+					if (validated) {
+						valid = isValid1;
+					} else {
+						valid = isInvalid1;
+					}
 					let compButton = (
-						<button
-							key={"button-" + comp.Name}
-							style={buttonStyleModified}
-							onClick={() => this.handleSelectComp(comp)}
+						<div
+							key={"div-" + comp.Name}
+							style={{ display: "flex", width: "100%" }}
 						>
-							{compItemImage}
-							{comp.Name}
-						</button>
+							{valid}
+							<button
+								key={"button-" + comp.Name}
+								style={buttonStyleModified}
+								onClick={() => this.handleSelectComp(comp)}
+							>
+								{compItemImage}
+								{comp.Name}
+							</button>
+						</div>
 					);
 					itemList.push(compButton);
 				}
@@ -751,13 +912,14 @@ export default class SettingComponentSelector extends React.PureComponent {
 							</button>
 						);
 					}
+
 					fullButt = (
 						<div key={"fullButton-" + comp.Name}>
 							<div style={styleIcons}>
 								<button
 									key={"deleteButton-" + comp.Name}
 									type="button"
-									onClick={() => this.handleDeleteComp()}
+									onClick={() => this.handleDeleteComp(compIndex)}
 									style={styleCloser}
 								>
 									x
@@ -778,11 +940,16 @@ export default class SettingComponentSelector extends React.PureComponent {
 			// 	items = slots[selectedSlot];
 
 			//let comp = this.state.currentComp;
-
+			let width = slotList.length * 150;
+			let modalTopListModified = Object.assign({}, modalTopList, {
+				width: `${width}px`,
+			});
 			let topItems = (
 				<div style={modalTopListContainer}>
 					<h5>Current component in this slot</h5>
-					<div style={modalTopList}>{slotList}</div>
+					<div style={{ overflow: "auto", width: "100%", maxWidth: "100%" }}>
+						<div style={modalTopListModified}>{slotList}</div>
+					</div>
 				</div>
 			);
 

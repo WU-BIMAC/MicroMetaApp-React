@@ -17,13 +17,13 @@ module.exports = {
 	mode: mode,
 	entry: "./src/app.js",
 	output: {
-		library: "MicroscopyMetadataTool", // Unsure if best naming convention
+		library: "MicroMetaAppReact", // Unsure if best naming convention
 		libraryTarget: "umd",
 		path: path.resolve("./dist"),
 		filename:
 			mode === "production"
-				? "MicroscopyMetadataTool.min.js"
-				: "MicroscopyMetadataTool.dev.js",
+				? "MicroMetaAppReact.min.js"
+				: "MicroMetaAppReact.dev.js",
 	},
 	module: {
 		rules: [

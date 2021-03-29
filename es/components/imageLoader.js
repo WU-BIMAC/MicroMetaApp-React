@@ -1,27 +1,4 @@
-"use strict";
-
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _ButtonToolbar = _interopRequireDefault(require("react-bootstrap/ButtonToolbar"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _reactDropzone = _interopRequireDefault(require("react-dropzone"));
-
-var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
-
-var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
-var _constants = require("../constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -39,7 +16,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -49,71 +26,83 @@ import Button from "react-bootstrap/Button";
 import Dropzone from "react-dropzone";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
-import { string_json_ext, number_logo_width, number_logo_height, createSettings_mode_selector_tooltip, createSettings_from_file_tooltip, createSettings_from_repo_names_tooltip, createSettings_mode_continue_tooltip, back_tooltip } from "../constants";
+import { string_json_ext, number_logo_width, number_logo_height, loadImage_mode_selector_tooltip, loadImage_from_file_tooltip, loadImage_from_repo_names_tooltip, loadImage_mode_continue_tooltip, back_tooltip } from "../constants";
 
-var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
-  _inherits(SettingLoader, _React$PureComponent);
+var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
+  _inherits(ImageLoader, _React$PureComponent);
 
-  var _super = _createSuper(SettingLoader);
+  var _super = _createSuper(ImageLoader);
 
-  function SettingLoader(props) {
+  function ImageLoader(props) {
     var _this;
 
-    _classCallCheck(this, SettingLoader);
+    _classCallCheck(this, ImageLoader);
 
     _this = _super.call(this, props);
     _this.state = {
       fileLoaded: false,
       fileLoading: false,
       //selectedManu: null,
-      selectedSettings: null //settingsNames: null,
-
+      selectedSettings: null,
+      //settingsNames: null,
+      imageMap: null
     };
     _this.dropzoneDropAccepted = _this.dropzoneDropAccepted.bind(_assertThisInitialized(_this));
     _this.dropzoneDropRejected = _this.dropzoneDropRejected.bind(_assertThisInitialized(_this));
     _this.dropzoneDrop = _this.dropzoneDrop.bind(_assertThisInitialized(_this));
     _this.dropzoneDialogOpen = _this.dropzoneDialogOpen.bind(_assertThisInitialized(_this));
     _this.dropzoneDialogCancel = _this.dropzoneDialogCancel.bind(_assertThisInitialized(_this));
-    _this.onFileReaderAbort = _this.onFileReaderAbort.bind(_assertThisInitialized(_this));
-    _this.onFileReaderError = _this.onFileReaderError.bind(_assertThisInitialized(_this));
-    _this.onFileReaderLoad = _this.onFileReaderLoad.bind(_assertThisInitialized(_this));
-    _this.onClickSettingsSelection = _this.onClickSettingsSelection.bind(_assertThisInitialized(_this));
+    _this.handleLoadMetadataComplete = _this.handleLoadMetadataComplete.bind(_assertThisInitialized(_this));
+    _this.handleImageSelection = _this.handleImageSelection.bind(_assertThisInitialized(_this)); // this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
+    // this.onFileReaderError = this.onFileReaderError.bind(this);
+    // this.onFileReaderLoad = this.onFileReaderLoad.bind(this);
+    //this.onClickSettingsSelection = this.onClickSettingsSelection.bind(this);
+
     return _this;
   }
 
-  _createClass(SettingLoader, [{
-    key: "onClickSettingsSelection",
-    value: function onClickSettingsSelection(item) {
-      if (item !== null && item !== undefined) {
+  _createClass(ImageLoader, [{
+    key: "handleImageSelection",
+    value: function handleImageSelection(item) {
+      var imageMap = this.state.imageMap;
+      var image = imageMap[item];
+      console.log("image");
+      console.log(image);
+      this.props.handleLoadMetadataComplete(image);
+    }
+  }, {
+    key: "handleLoadMetadataComplete",
+    value: function handleLoadMetadataComplete(imageMetadata) {
+      if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
+        window.alert("Error " + imageMetadata.Error);
+      } else if (imageMetadata.Images !== null && imageMetadata.Images !== undefined) {
+        var images = imageMetadata.Images;
+        var firstImage = null;
+        var imageMap = {};
+
+        for (var index in images) {
+          var image = images[index];
+          if (firstImage === null) firstImage = image;
+          var name = image.Name;
+          imageMap[name] = image;
+        }
+
+        console.log("image");
+        console.log(firstImage);
+        this.props.handleLoadMetadataComplete(firstImage);
         this.setState({
-          selectedSettings: item
+          imageMap: imageMap,
+          fileLoaded: true
         });
-        this.props.onClickSettingsSelection(item);
+      } else {
+        var _image = imageMetadata.Image;
+        console.log("image");
+        console.log(_image);
+        this.props.handleLoadMetadataComplete(_image);
+        this.setState({
+          fileLoaded: true
+        });
       }
-    }
-  }, {
-    key: "onFileReaderAbort",
-    value: function onFileReaderAbort() {
-      this.setState({
-        fileLoaded: false
-      });
-    }
-  }, {
-    key: "onFileReaderError",
-    value: function onFileReaderError() {
-      this.setState({
-        fileLoaded: false
-      });
-    }
-  }, {
-    key: "onFileReaderLoad",
-    value: function onFileReaderLoad(e) {
-      var binaryStr = e.target.result;
-      var microscope = JSON.parse(binaryStr);
-      this.props.onFileDrop(microscope);
-      this.setState({
-        fileLoaded: true
-      });
     }
   }, {
     key: "dropzoneDrop",
@@ -132,14 +121,24 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
       });
     }
   }, {
+    key: "processFile",
+    value: function processFile() {//let binaryStr = e.target.result;
+      //let microscope = JSON.parse(binaryStr);
+      //
+    }
+  }, {
     key: "dropzoneDropAccepted",
     value: function dropzoneDropAccepted(acceptedFiles) {
-      var reader = new FileReader();
-      reader.onabort = this.onFileReaderAbort;
-      reader.onerror = this.onFileReaderError;
-      reader.onload = this.onFileReaderLoad;
+      var _this2 = this;
+
+      // const reader = new FileReader();
+      // reader.onabort = this.onFileReaderAbort;
+      // reader.onerror = this.onFileReaderError;
+      // reader.onload = this.onFileReaderLoad;
       acceptedFiles.forEach(function (file) {
-        return reader.readAsText(file);
+        console.log(file);
+
+        _this2.props.onLoadMetadata(file.path, _this2.handleLoadMetadataComplete);
       });
       this.setState({
         fileLoading: false
@@ -164,7 +163,7 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var buttonStyle = {
         width: "200px",
@@ -173,8 +172,8 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
         margin: "5px"
       };
       var width = 410;
-      var margin = 5;
-      var inputData = this.props.settings;
+      var margin = 5; //let inputData = this.props.settings;
+
       var dropzoneStyle = {
         borderStyle: "dashed",
         borderWidth: "thin",
@@ -184,6 +183,7 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "".concat(number_logo_width, "px"),
         height: "".concat(number_logo_height, "px")
       };
+      var imageMap = this.state.imageMap;
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
       var fileLoaded = this.state.fileLoaded;
@@ -198,22 +198,21 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
         inputData: this.props.loadingOptions,
         width: width,
         margin: margin,
-        tooltip: createSettings_mode_selector_tooltip
+        tooltip: loadImage_mode_selector_tooltip
       }));
 
       if (loadingMode === 1) {
         list.push( /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "dropzone-tooltip",
-          position: createSettings_from_file_tooltip.position,
-          title: createSettings_from_file_tooltip.title,
-          content: createSettings_from_file_tooltip.content,
+          position: loadImage_from_file_tooltip.position,
+          title: loadImage_from_file_tooltip.title,
+          content: loadImage_from_file_tooltip.content,
           element: /*#__PURE__*/React.createElement(Dropzone, {
             key: "dropzone",
             onFileDialogCancel: this.dropzoneDialogCancel,
             onDrop: this.dropzoneDrop,
             onDropAccepted: this.dropzoneDropAccepted,
             onDropRejected: this.dropzoneDropRejected,
-            accept: string_json_ext,
             multiple: false
           }, function (_ref) {
             var getRootProps = _ref.getRootProps,
@@ -221,34 +220,31 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
             return /*#__PURE__*/React.createElement("section", {
               style: dropzoneStyle
             }, /*#__PURE__*/React.createElement("div", getRootProps(), /*#__PURE__*/React.createElement("input", getInputProps({
-              onClick: _this2.dropzoneDialogOpen
-            })), /*#__PURE__*/React.createElement("p", null, "Select an existing Settings file you want to work on.")));
+              onClick: _this3.dropzoneDialogOpen
+            })), /*#__PURE__*/React.createElement("p", null, "Select an existing Image file you want to work on.")));
           })
         }));
       }
 
-      if (loadingMode === 2) {
-        var selectedSettings = this.state.selectedSettings;
-        var defaultMic = selectedSettings !== null && selectedSettings !== undefined ? inputData.indexOf(selectedSettings) : 0; //console.log(inputData);
-
+      if (imageMap !== null) {
         list.push( /*#__PURE__*/React.createElement(DropdownMenu, {
           key: "dropdown-names",
           title: "",
-          handleMenuItemClick: this.onClickSettingsSelection,
-          inputData: inputData,
-          defaultValue: defaultMic,
+          handleMenuItemClick: this.handleImageSelection,
+          inputData: Object.keys(imageMap) //defaultValue={defaultMic}
+          ,
           width: width,
           margin: margin,
-          tooltip: createSettings_from_repo_names_tooltip
+          tooltip: loadImage_from_repo_names_tooltip
         }));
       }
 
       list.push( /*#__PURE__*/React.createElement("div", {
         key: "buttons"
       }, /*#__PURE__*/React.createElement(PopoverTooltip, {
-        position: createSettings_mode_continue_tooltip.position,
-        title: createSettings_mode_continue_tooltip.title,
-        content: createSettings_mode_continue_tooltip.content,
+        position: loadImage_mode_continue_tooltip.position,
+        title: loadImage_mode_continue_tooltip.title,
+        content: loadImage_mode_continue_tooltip.content,
         element: /*#__PURE__*/React.createElement(Button, {
           onClick: isDropzoneActive && fileLoaded && !fileLoading || !isDropzoneActive ? this.props.onClickConfirm : null,
           style: buttonStyle,
@@ -298,23 +294,12 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
     }
   }], [{
     key: "getDerivedStateFromProps",
-    value: function getDerivedStateFromProps(props, state) {
-      if (props.loadingMode === 2) {
-        if (props.settings !== null && props.settings !== undefined) {
-          if (state.selectedSettings === null || state.selectedSettings === undefined) {
-            var selectedSettings = props.settings[0];
-            props.onClickSettingsSelection(selectedSettings);
-          }
-
-          return null;
-        }
-      }
-
+    value: function getDerivedStateFromProps() {
       return null;
     }
   }]);
 
-  return SettingLoader;
+  return ImageLoader;
 }(React.PureComponent);
 
-export { SettingLoader as default };
+export { ImageLoader as default };

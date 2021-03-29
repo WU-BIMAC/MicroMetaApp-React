@@ -94,6 +94,42 @@ export default class PlaneView extends React.PureComponent {
 			addingMultiplePlanes2: false,
 			addingMultiplePlanesSetup: null,
 		};
+		if (
+			this.props.imageMetadata !== null &&
+			this.props.imageMetadata !== undefined &&
+			this.props.imageMetadata.Planes !== null &&
+			this.props.imageMetadata.Planes !== undefined
+		) {
+			let newPlanes = [];
+			let planes = this.props.imageMetadata.Planes.slice();
+			if (
+				this.state.planes.length === planes.length ||
+				this.state.planes.length === 0
+			) {
+				for (let i = 0; i < planes.length; i++) {
+					let schema = this.props.schema;
+					let oldPlane = planes[i];
+					let newPlane = {
+						//Name: `${schema.title} ${planes.length}`,
+						ID: uuidv4(),
+						Tier: schema.tier,
+						Schema_ID: schema.ID,
+						Version: schema.version,
+					};
+					newPlane = PlaneView.addIdentifiersToNewObject(newPlane, schema);
+					let mergedPlane = Object.assign({}, newPlane, oldPlane);
+					if (
+						this.state.planes[i] !== null &&
+						this.state.planes[i] !== undefined
+					) {
+						newPlanes[i] = Object.assign({}, mergedPlane, this.state.planes[i]);
+					} else {
+						newPlanes[i] = mergedPlane;
+					}
+				}
+				this.state.planes = newPlanes;
+			}
+		}
 
 		this.onAddElement = this.onAddElement.bind(this);
 		this.onEditElement = this.onEditElement.bind(this);
@@ -109,6 +145,36 @@ export default class PlaneView extends React.PureComponent {
 		this.onAddMultiplePlanes = this.onAddMultiplePlanes.bind(this);
 	}
 
+	static addIdentifiersToNewObject(object, schema) {
+		let newObject = Object.assign({}, object);
+		Object.keys(schema.properties).forEach((key) => {
+			if (schema.properties[key].type === string_array) {
+				let currentNumber = string_currentNumberOf_identifier + key;
+				let minNumber = string_minNumberOf_identifier + key;
+				let maxNumber = string_maxNumberOf_identifier + key;
+				if (schema.required.indexOf(key) != -1) {
+					newObject[currentNumber] = 1;
+					newObject[minNumber] = 1;
+					newObject[maxNumber] = -1;
+				} else {
+					newObject[currentNumber] = 0;
+					newObject[minNumber] = 0;
+					newObject[maxNumber] = -1;
+				}
+			} else if (schema.properties[key].type === string_object) {
+				let currentNumber = string_currentNumberOf_identifier + key;
+				let minNumber = string_minNumberOf_identifier + key;
+				let maxNumber = string_maxNumberOf_identifier + key;
+				if (schema.required.indexOf(key) === -1) {
+					newObject[currentNumber] = 0;
+					newObject[minNumber] = 0;
+					newObject[maxNumber] = 1;
+				}
+			}
+		});
+		return newObject;
+	}
+
 	onAddElement() {
 		let uuid = uuidv4();
 		let schema = this.props.schema;
@@ -120,32 +186,10 @@ export default class PlaneView extends React.PureComponent {
 			Schema_ID: schema.ID,
 			Version: schema.version,
 		};
-		Object.keys(schema.properties).forEach((key) => {
-			if (schema.properties[key].type === string_array) {
-				let currentNumber = string_currentNumberOf_identifier + key;
-				let minNumber = string_minNumberOf_identifier + key;
-				let maxNumber = string_maxNumberOf_identifier + key;
-				if (schema.required.indexOf(key) != -1) {
-					newElementData[currentNumber] = 1;
-					newElementData[minNumber] = 1;
-					newElementData[maxNumber] = -1;
-				} else {
-					newElementData[currentNumber] = 0;
-					newElementData[minNumber] = 0;
-					newElementData[maxNumber] = -1;
-				}
-			} else if (schema.properties[key].type === string_object) {
-				let currentNumber = string_currentNumberOf_identifier + key;
-				let minNumber = string_minNumberOf_identifier + key;
-				let maxNumber = string_maxNumberOf_identifier + key;
-				if (schema.required.indexOf(key) === -1) {
-					newElementData[currentNumber] = 0;
-					newElementData[minNumber] = 0;
-					newElementData[maxNumber] = 1;
-				}
-			}
-		});
-
+		newElementData = PlaneView.addIdentifiersToNewObject(
+			newElementData,
+			schema
+		);
 		planes.push(newElementData);
 		this.setState({ planes: planes });
 		if (bool_isDebug) console.log("added plane");
@@ -194,17 +238,17 @@ export default class PlaneView extends React.PureComponent {
 				let theT = Number(data.TheT);
 				newElementData.ID = uuidv4();
 				if (tIncrement) {
-					newElementData.TheZ = String(theZ);
-					newElementData.TheT = String(theT + i);
-					newElementData.TheC = String(theC);
+					newElementData.TheZ = theZ;
+					newElementData.TheT = theT + i;
+					newElementData.TheC = theC;
 				} else if (zIncrement) {
-					newElementData.TheZ = String(theZ + i);
-					newElementData.TheT = String(theT);
-					newElementData.TheC = String(theC);
+					newElementData.TheZ = theZ + i;
+					newElementData.TheT = theT;
+					newElementData.TheC = theC;
 				} else if (cIncrement) {
-					newElementData.TheZ = String(theZ);
-					newElementData.TheT = String(theT);
-					newElementData.TheC = String(theC + i);
+					newElementData.TheZ = theZ;
+					newElementData.TheT = theT;
+					newElementData.TheC = theC + i;
 				}
 				newElementData.Timestamp = timeStamp + timeStampIncrement * i;
 				Object.keys(schema.properties).forEach((key) => {
