@@ -312,7 +312,12 @@ export default class PlaneView extends React.PureComponent {
 	}
 
 	onElementDataCancel() {
-		this.setState({ addingMultiplePlanes: false, editing: false });
+		this.setState({
+			addingMultiplePlanes: false,
+			addingMultiplePlanes2: false,
+			editing: false,
+			addingMultiplePlanesSetup: null,
+		});
 	}
 
 	onSelectElement(e) {
