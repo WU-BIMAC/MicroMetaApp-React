@@ -114,7 +114,10 @@ export default class PlaneView extends React.PureComponent {
 						ID: uuidv4(),
 						Tier: schema.tier,
 						Schema_ID: schema.ID,
-						Version: schema.version,
+						ModelVersion: schema.modelVersion,
+						Extension: schema.extension,
+						Domain: schema.domain,
+						Category: schema.category,
 					};
 					newPlane = PlaneView.addIdentifiersToNewObject(newPlane, schema);
 					let mergedPlane = Object.assign({}, newPlane, oldPlane);
@@ -184,7 +187,10 @@ export default class PlaneView extends React.PureComponent {
 			ID: uuid,
 			Tier: schema.tier,
 			Schema_ID: schema.ID,
-			Version: schema.version,
+			ModelVersion: schema.modelVersion,
+			Extension: schema.extension,
+			Domain: schema.domain,
+			Category: schema.category,
 		};
 		newElementData = PlaneView.addIdentifiersToNewObject(
 			newElementData,
@@ -237,6 +243,12 @@ export default class PlaneView extends React.PureComponent {
 				let theC = Number(data.TheC);
 				let theT = Number(data.TheT);
 				newElementData.ID = uuidv4();
+				newElementData.Schema_ID = schema.ID;
+				newElementData.Tier = schema.tier;
+				newElementData.ModelVersion = schema.modelVersion;
+				newElementData.Extension = schema.extension;
+				newElementData.Domain = schema.domain;
+				newElementData.Category = schema.category;
 				if (tIncrement) {
 					newElementData.TheZ = theZ;
 					newElementData.TheT = theT + i;
@@ -369,7 +381,10 @@ export default class PlaneView extends React.PureComponent {
 						ID: "Not assigned",
 						Tier: schema.tier,
 						Schema_ID: schema.ID,
-						Version: schema.version,
+						ModelVersion: schema.modelVersion,
+						Extension: schema.extension,
+						Domain: schema.domain,
+						Category: schema.category,
 					}}
 					id={"Not assigned"}
 					onConfirm={this.onElementDataSave}

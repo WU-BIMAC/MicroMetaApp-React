@@ -303,7 +303,10 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						Component_ID: selectedComp.ID,
 						Tier: currentSchema.tier,
 						Schema_ID: currentSchema.ID,
-						Version: currentSchema.version,
+						ModelVersion: currentSchema.modelVersion,
+						Extension: currentSchema.extension,
+						Domain: currentSchema.domain,
+						Category: currentSchema.category,
 					};
 				}
 				if (selectedComp.Schema_ID === "Objective.json") {
@@ -318,7 +321,10 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							ID: uuid2,
 							Tier: immersionLiquidSchema.tier,
 							Schema_ID: immersionLiquidSchema.ID,
-							Version: immersionLiquidSchema.version,
+							ModelVersion: immersionLiquidSchema.modelVersion,
+						Extension: immersionLiquidSchema.extension,
+						Domain: immersionLiquidSchema.domain,
+						Category: immersionLiquidSchema.category,
 						};
 					}
 				}
@@ -520,7 +526,10 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						Component_ID: selectedComp.ID,
 						Tier: currentSchema.tier,
 						Schema_ID: currentSchema.ID,
-						Version: currentSchema.version,
+						ModelVersion: currentSchema.modelVersion,
+						Extension: currentSchema.extension,
+						Domain: currentSchema.domain,
+						Category: currentSchema.category,
 					};
 				}
 				let slotSettings = [];

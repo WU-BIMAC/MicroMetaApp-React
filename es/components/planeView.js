@@ -112,7 +112,10 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
             ID: uuidv4(),
             Tier: schema.tier,
             Schema_ID: schema.ID,
-            Version: schema.version
+            ModelVersion: schema.modelVersion,
+            Extension: schema.extension,
+            Domain: schema.domain,
+            Category: schema.category
           };
           newPlane = PlaneView.addIdentifiersToNewObject(newPlane, schema);
           var mergedPlane = Object.assign({}, newPlane, oldPlane);
@@ -151,7 +154,10 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
         ID: uuid,
         Tier: schema.tier,
         Schema_ID: schema.ID,
-        Version: schema.version
+        ModelVersion: schema.modelVersion,
+        Extension: schema.extension,
+        Domain: schema.domain,
+        Category: schema.category
       };
       newElementData = PlaneView.addIdentifiersToNewObject(newElementData, schema);
       planes.push(newElementData);
@@ -212,7 +218,13 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           var theZ = Number(data.TheZ);
           var theC = Number(data.TheC);
           var theT = Number(data.TheT);
-          newElementData.ID = uuidv4();
+          newElementData.ID = (0, _uuid.v4)();
+          newElementData.Schema_ID = schema.ID;
+          newElementData.Tier = schema.tier;
+          newElementData.ModelVersion = schema.modelVersion;
+          newElementData.Extension = schema.extension;
+          newElementData.Domain = schema.domain;
+          newElementData.Category = schema.category;
 
           if (tIncrement) {
             newElementData.TheZ = theZ;
@@ -378,7 +390,10 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
             ID: "Not assigned",
             Tier: schema.tier,
             Schema_ID: schema.ID,
-            Version: schema.version
+            ModelVersion: schema.modelVersion,
+            Extension: schema.extension,
+            Domain: schema.domain,
+            Category: schema.category
           },
           id: "Not assigned",
           onConfirm: this.onElementDataSave,

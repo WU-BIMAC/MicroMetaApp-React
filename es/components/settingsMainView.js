@@ -105,7 +105,10 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
               ID: uuid,
               Tier: schema.tier,
               Schema_ID: schema.ID,
-              Version: schema.version
+              ModelVersion: schema.modelVersion,
+              Extension: schema.extension,
+              Domain: schema.domain,
+              Category: schema.category
             };
             _this.state.micSettings = newElement;
             settingData.MicroscopeStandSettings = newElement;
@@ -128,7 +131,10 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
               ID: uuid,
               Tier: schema.tier,
               Schema_ID: schema.ID,
-              Version: schema.version
+              ModelVersion: schema.modelVersion,
+              Extension: schema.extension,
+              Domain: schema.domain,
+              Category: schema.category
             };
             _this.state.experiment = newElement;
             settingData.Experiment = newElement;

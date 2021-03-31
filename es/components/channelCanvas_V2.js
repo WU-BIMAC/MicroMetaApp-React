@@ -286,7 +286,10 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               Component_ID: selectedComp.ID,
               Tier: currentSchema.tier,
               Schema_ID: currentSchema.ID,
-              Version: currentSchema.version
+              ModelVersion: currentSchema.modelVersion,
+              Extension: currentSchema.extension,
+              Domain: currentSchema.domain,
+              Category: currentSchema.category
             };
           }
 
@@ -300,7 +303,10 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
                 ID: uuid2,
                 Tier: immersionLiquidSchema.tier,
                 Schema_ID: immersionLiquidSchema.ID,
-                Version: immersionLiquidSchema.version
+                ModelVersion: immersionLiquidSchema.modelVersion,
+                Extension: immersionLiquidSchema.extension,
+                Domain: immersionLiquidSchema.domain,
+                Category: immersionLiquidSchema.category
               };
             }
           }
@@ -522,7 +528,10 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
               Component_ID: selectedComp.ID,
               Tier: currentSchema.tier,
               Schema_ID: currentSchema.ID,
-              Version: currentSchema.version
+              ModelVersion: currentSchema.modelVersion,
+              Extension: currentSchema.extension,
+              Domain: currentSchema.domain,
+              Category: currentSchema.category
             };
           }
 
