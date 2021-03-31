@@ -659,12 +659,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         return newSetting;
       }
 
-      return modifiedSetting;
+      return originalSetting;
     }
   }, {
     key: "applyPreviousModelVersionModificationToSetting",
-    value: function applyPreviousModelVersionModificationToSetting(modifiedSetting) {
-      return modifiedSetting;
+    value: function applyPreviousModelVersionModificationToSetting(originalSetting) {
+      return originalSetting;
     }
   }, {
     key: "applyPreviousVersionModificationToMicroscope",

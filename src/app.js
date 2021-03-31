@@ -1048,11 +1048,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			}
 			return newSetting;
 		}
-		return modifiedSetting;
+		return originalSetting;
 	}
 
-	applyPreviousModelVersionModificationToSetting(modifiedSetting) {
-		return modifiedSetting;
+	applyPreviousModelVersionModificationToSetting(originalSetting) {
+		return originalSetting;
 	}
 
 	applyPreviousVersionModificationToMicroscope(originalMicroscope) {
