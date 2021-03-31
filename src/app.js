@@ -1988,12 +1988,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			encodeURIComponent(JSON.stringify(microscope));
 		a.target = "_blank";
 		document.body.appendChild(a);
-		browser.downloads.onChanged.addListener((evt) => {
+		downloads.onChanged.addListener((evt) => {
 			console.log(evt);
 		});
+
 		a.click();
 
-		// document.body.removeChild(a);
+		document.body.removeChild(a);
 		// complete(micName);
 	}
 
@@ -2008,10 +2009,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			"data:" + contentType + "," + encodeURIComponent(JSON.stringify(setting));
 		a.target = "_blank";
 		document.body.appendChild(a);
-		new Promise(() => a.click()).then(() => {
-			document.body.removeChild(a);
-			complete(settingName);
-		});
+
+		a.click();
+
+		document.body.removeChild(a);
+		// 	complete(settingName);
 	}
 
 	handleExportMicroscopeImage(microscope, img /*, dataUrl*/) {
