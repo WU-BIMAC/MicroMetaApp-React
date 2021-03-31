@@ -1071,7 +1071,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var isLoadingMicroscope = this.state.isLoadingMicroscope;
       var microscope = this.state.microscope;
 
-      if (microscope === null && microscope === undefined && !isCreateNewScratch && loadingOption !== _constants.string_createFromFile) {
+      if (!isCreateNewScratch && loadingOption !== _constants.string_createFromFile) {
         microscope = this.state.microscopes[this.state.micName];
       }
 
@@ -1434,7 +1434,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       var modifiedCreateString = _constants.string_createFromScratch.replace("# ", "");
 
-      if (setting === null && setting === undefined && loadingOptions !== modifiedCreateString && loadingOptions !== _constants.string_createFromFile) {
+      if (loadingOptions !== modifiedCreateString && loadingOptions !== _constants.string_createFromFile) {
         setting = this.state.settings[this.state.settingName];
       }
 

@@ -1511,12 +1511,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 		let isLoadingMicroscope = this.state.isLoadingMicroscope;
 		let microscope = this.state.microscope;
-		if (
-			microscope === null &&
-			microscope === undefined &&
-			!isCreateNewScratch &&
-			loadingOption !== string_createFromFile
-		) {
+		if (!isCreateNewScratch && loadingOption !== string_createFromFile) {
 			microscope = this.state.microscopes[this.state.micName];
 		}
 		if (
@@ -1896,8 +1891,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let setting = this.state.setting;
 		let modifiedCreateString = string_createFromScratch.replace("# ", "");
 		if (
-			setting === null &&
-			setting === undefined &&
 			loadingOptions !== modifiedCreateString &&
 			loadingOptions !== string_createFromFile
 		) {
