@@ -555,7 +555,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var oldAppVersion = originalSetting.AppVersion;
 
       if (oldAppVersion !== undefined && oldAppVersion !== null) {
-        var oldAppVersionSplit = oldVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+        var oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
 
         oldMainVersion = Number(oldAppVersionSplit[0]);
         oldSubVersion = Number(oldAppVersionSplit[1]);
@@ -1104,7 +1104,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         console.log(appVersionSplit);
 
         if (!hasAppVersion || oldMainVersion < appMainVersion || oldSubVersion < appSubVersion || oldPatchVersion < appPatchVersion || oldBetaVersion < appBetaVersion) {
-          window.alert("The microscope you are trying to use was saved with an older version of this software, please save the microscope with the current version to be able to use it.");
+          window.alert("The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again.");
           return;
         }
       }
@@ -1433,7 +1433,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         var instrumentName = setting.InstrumentName;
 
         if (micID !== instrumentID || micName !== instrumentName) {
-          if (!window.confirm("Instrument ID & Name don't match those saved in the Image Acquisition Settings you are trying to load. If you continue the Image Acquisition Settings value are going to be overrided, are you sure?")) {
+          if (!window.confirm("The unique ID & Name of the Microscope file you have selected do not match those that has been saved in the Settings file you are trying to load. If you continue the Microscope ID and Name stored in the Settings file will be overwritten. Are you sure?")) {
             return;
           }
         }
@@ -1866,7 +1866,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }));
       }
 
-      if (!this.state.isCreatingNewMicroscope && this.state.isLoadingImage && this.props.onLoadMetadata !== null && this.props.onLoadMetadata !== undefined && imageMetadata === null) {
+      if (!this.state.isCreatingNewMicroscope && this.state.isLoadingImage && this.props.onLoadMetadata !== null && this.props.onLoadMetadata !== undefined) {
         console.log("IMAGE LOADER"); //let modifiedCreateString = string_createFromScratch.replace("# ", "");
 
         var _loadingOptions = [_constants.string_noImageLoad, _constants.string_createFromFile];
