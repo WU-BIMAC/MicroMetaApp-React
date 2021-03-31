@@ -164,9 +164,11 @@ export default class Footer extends React.PureComponent {
 		let saveOptions = [];
 		if (this.props.hasSaveOption) {
 			saveOptions.push("Save " + this.props.element);
+			saveOptions.push("Save as new " + this.props.element);
 		}
 		//saveOptions.push("Export " + this.props.element + " image");
 		saveOptions.push("Export " + this.props.element);
+		saveOptions.push("Export as new " + this.props.element);
 		//Rethink this, maybe drop down split button with multi actions?
 		buttons[2] = (
 			<DropdownMenu

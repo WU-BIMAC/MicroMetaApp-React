@@ -73,7 +73,10 @@ export default class ChannelView extends React.PureComponent {
 						ID: uuidv4(),
 						Tier: channelSchema.tier,
 						Schema_ID: channelSchema.ID,
-						Version: channelSchema.version,
+						ModelVersion: channelSchema.modelVersion,
+						Extension: channelSchema.extension,
+						Domain: channelSchema.domain,
+						Category: channelSchema.category,
 					};
 					newChannelElementData = ChannelView.addIdentifiersToNewObject(
 						newChannelElementData,
@@ -84,7 +87,10 @@ export default class ChannelView extends React.PureComponent {
 						ID: uuidv4(),
 						Tier: fluorophoreSchema.tier,
 						Schema_ID: fluorophoreSchema.ID,
-						Version: fluorophoreSchema.version,
+						ModelVersion: fluorophoreSchema.modelVersion,
+						Extension: fluorophoreSchema.extension,
+						Domain: fluorophoreSchema.domain,
+						Category: fluorophoreSchema.category,
 					};
 					newFluorophoreElementData = ChannelView.addIdentifiersToNewObject(
 						newFluorophoreElementData,
@@ -95,7 +101,10 @@ export default class ChannelView extends React.PureComponent {
 						ID: uuidv4(),
 						Tier: lightPathSchema.tier,
 						Schema_ID: lightPathSchema.ID,
-						Version: lightPathSchema.version,
+						ModelVersion: lightPathSchema.modelVersion,
+						Extension: lightPathSchema.extension,
+						Domain: lightPathSchema.domain,
+						Category: lightPathSchema.category,
 					};
 					newLightPathElementData = ChannelView.addIdentifiersToNewObject(
 						newLightPathElementData,
@@ -233,7 +242,10 @@ export default class ChannelView extends React.PureComponent {
 			ID: uuid,
 			Tier: channelSchema.tier,
 			Schema_ID: channelSchema.ID,
-			Version: channelSchema.version,
+			ModelVersion: channelSchema.modelVersion,
+			Extension: channelSchema.extension,
+			Domain: channelSchema.domain,
+			Category: channelSchema.category,
 		};
 		newChannelElementData = ChannelView.addIdentifiersToNewObject(
 			newChannelElementData,
@@ -244,7 +256,10 @@ export default class ChannelView extends React.PureComponent {
 			ID: uuid2,
 			Tier: fluorophoreSchema.tier,
 			Schema_ID: fluorophoreSchema.ID,
-			Version: fluorophoreSchema.version,
+			ModelVersion: fluorophoreSchema.modelVersion,
+			Extension: fluorophoreSchema.extension,
+			Domain: fluorophoreSchema.domain,
+			Category: fluorophoreSchema.category,
 		};
 		newFluorophoreElementData = ChannelView.addIdentifiersToNewObject(
 			newFluorophoreElementData,
@@ -255,7 +270,10 @@ export default class ChannelView extends React.PureComponent {
 			ID: uuid3,
 			Tier: lightPathSchema.tier,
 			Schema_ID: lightPathSchema.ID,
-			Version: lightPathSchema.version,
+			ModelVersion: lightPathSchema.modelVersion,
+			Extension: lightPathSchema.extension,
+			Domain: lightPathSchema.domain,
+			Category: lightPathSchema.category,
 		};
 		newLightPathElementData = ChannelView.addIdentifiersToNewObject(
 			newLightPathElementData,

@@ -131,7 +131,10 @@ export default class SettingMainView extends React.PureComponent {
 							ID: uuid,
 							Tier: schema.tier,
 							Schema_ID: schema.ID,
-							Version: schema.version,
+							ModelVersion: schema.modelVersion,
+							Extension: schema.extension,
+							Domain: schema.domain,
+							Category: schema.category,
 						};
 						this.state.micSettings = newElement;
 						settingData.MicroscopeStandSettings = newElement;
@@ -159,7 +162,10 @@ export default class SettingMainView extends React.PureComponent {
 							ID: uuid,
 							Tier: schema.tier,
 							Schema_ID: schema.ID,
-							Version: schema.version,
+							ModelVersion: schema.modelVersion,
+							Extension: schema.extension,
+							Domain: schema.domain,
+							Category: schema.category,
 						};
 						this.state.experiment = newElement;
 						settingData.Experiment = newElement;
