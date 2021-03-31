@@ -1492,6 +1492,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	createOrUseMicroscope() {
+		let loadingOption = this.state.loadingOption;
 		let isCreateNewScratch = false;
 		let standType = null;
 		for (let typeString in this.state.standTypes) {
@@ -1510,6 +1511,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 		let isLoadingMicroscope = this.state.isLoadingMicroscope;
 		let microscope = this.state.microscope;
+		if (
+			microscope === null &&
+			microscope === undefined &&
+			!isCreateNewScratch &&
+			loadingOption !== string_createFromFile
+		) {
+			microscope = this.state.microscopes[this.state.micName];
+		}
 		if (
 			microscope !== null &&
 			microscope !== undefined &&
@@ -1556,7 +1565,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 		if (isCreateNewScratch) {
 			this.createNewMicroscopeFromScratch(standType);
-		} else if (this.state.loadingOption === string_createFromFile) {
+		} else if (loadingOption === string_createFromFile) {
 			this.createOrUseMicroscopeFromDroppedFile();
 		} else {
 			this.createOrUseMicroscopeFromSelectedFile();
@@ -1882,8 +1891,18 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	createOrUseSetting() {
+		let loadingOption = this.state.loadingOption;
 		let microscope = this.state.microscope;
 		let setting = this.state.setting;
+		let modifiedCreateString = string_createFromScratch.replace("# ", "");
+		if (
+			setting === null &&
+			setting === undefined &&
+			loadingOptions !== modifiedCreateString &&
+			loadingOptions !== string_createFromFile
+		) {
+			setting = this.state.settings[this.state.settingName];
+		}
 		if (setting !== null && setting !== undefined) {
 			let micID = microscope.ID;
 			let micName = microscope.Name;
@@ -1899,10 +1918,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				}
 			}
 		}
-		let modifiedCreateString = string_createFromScratch.replace("# ", "");
-		if (this.state.loadingOption === modifiedCreateString) {
+		if (loadingOptions === modifiedCreateString) {
 			this.createNewSettingFromScratch();
-		} else if (this.state.loadingOption === string_createFromFile) {
+		} else if (loadingOptions === string_createFromFile) {
 			this.createOrUseSettingFromDroppedFile();
 		} else {
 			this.createOrUseSettingFromSelectedFile();
@@ -2120,7 +2138,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	handleCompleteSave(name) {
 		//console.log(micName + " saved");
 		//WARN Microscope save
-		window.alert(name + " savedd");
+		window.alert(name + " saved");
 	}
 
 	handleCompleteExport(name) {
