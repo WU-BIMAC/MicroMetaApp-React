@@ -206,10 +206,12 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.props.hasSaveOption) {
         saveOptions.push("Save " + this.props.element);
+        saveOptions.push("Save as new " + this.props.element);
       } //saveOptions.push("Export " + this.props.element + " image");
 
 
-      saveOptions.push("Export " + this.props.element); //Rethink this, maybe drop down split button with multi actions?
+      saveOptions.push("Export " + this.props.element);
+      saveOptions.push("Export as new " + this.props.element); //Rethink this, maybe drop down split button with multi actions?
 
       buttons[2] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
         key: "Button-2",

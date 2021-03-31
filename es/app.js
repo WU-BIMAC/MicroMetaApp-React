@@ -35,6 +35,8 @@ var _settingLoader = _interopRequireDefault(require("./components/settingLoader"
 
 var _imageLoader = _interopRequireDefault(require("./components/imageLoader"));
 
+var _package = require("../package.json");
+
 var _uuid = require("uuid");
 
 var _constants = require("./constants");
@@ -164,7 +166,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleLoadingOptionSelection = _this.handleLoadingOptionSelection.bind(_assertThisInitialized(_this));
     _this.selectMicroscopeFromRepository = _this.selectMicroscopeFromRepository.bind(_assertThisInitialized(_this));
     _this.selectSettingFromRepository = _this.selectSettingFromRepository.bind(_assertThisInitialized(_this));
-    _this.applyPreviousVersionModification = _this.applyPreviousVersionModification.bind(_assertThisInitialized(_this));
+    _this.applyPreviousVersionModificationToMicroscope = _this.applyPreviousVersionModificationToMicroscope.bind(_assertThisInitialized(_this));
+    _this.applyPreviousModelVersionModificationToMicroscope = _this.applyPreviousModelVersionModificationToMicroscope.bind(_assertThisInitialized(_this));
+    _this.applyPreviousAppVersionModificationToMicroscope = _this.applyPreviousAppVersionModificationToMicroscope.bind(_assertThisInitialized(_this));
+    _this.applyPreviousVersionModificationToSetting = _this.applyPreviousVersionModificationToSetting.bind(_assertThisInitialized(_this));
+    _this.applyPreviousModelVersionModificationToSetting = _this.applyPreviousModelVersionModificationToSetting.bind(_assertThisInitialized(_this));
+    _this.applyPreviousAppVersionModificationToSetting = _this.applyPreviousAppVersionModificationToSetting.bind(_assertThisInitialized(_this));
     _this.createOrUseMicroscope = _this.createOrUseMicroscope.bind(_assertThisInitialized(_this));
     _this.createNewMicroscopeFromScratch = _this.createNewMicroscopeFromScratch.bind(_assertThisInitialized(_this));
     _this.createOrUseMicroscopeFromDroppedFile = _this.createOrUseMicroscopeFromDroppedFile.bind(_assertThisInitialized(_this));
@@ -183,8 +190,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleExportMicroscopeImage = _this.handleExportMicroscopeImage.bind(_assertThisInitialized(_this));
     _this.handleSaveMicroscope = _this.handleSaveMicroscope.bind(_assertThisInitialized(_this));
     _this.handleSaveSetting = _this.handleSaveSetting.bind(_assertThisInitialized(_this));
-    _this.handleCompleteSaveMicroscope = _this.handleCompleteSaveMicroscope.bind(_assertThisInitialized(_this));
-    _this.handleCompleteSaveSetting = _this.handleCompleteSaveSetting.bind(_assertThisInitialized(_this));
+    _this.handleCompleteSave = _this.handleCompleteSave.bind(_assertThisInitialized(_this));
+    _this.handleCompleteExport = _this.handleCompleteExport.bind(_assertThisInitialized(_this));
     _this.handleMicroscopePreset = _this.handleMicroscopePreset.bind(_assertThisInitialized(_this)); //this.toDataUrl = this.toDataUrl.bind(this);
 
     return _this;
@@ -530,40 +537,180 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       return [microscopeSchema, microscopeStandSchema, componentsSchema, imageSchema, settingsSchema, childrenSchema];
     }
   }, {
-    key: "applyPreviousVersionModification",
-    value: // static readTextFile(file) {
-    // 	let rawFile = new XMLHttpRequest();
-    // 	let rawData = null;
-    // 	rawFile.open("GET", file, false);
-    // 	rawFile.onreadystatechange = () => {
-    // 		if (rawFile.readyState === 4) {
-    // 			if (rawFile.status === 200 || rawFile.status == 0) {
-    // 				rawData = rawFile.responseText;
-    // 			}
-    // 		}
-    // 	};
-    // 	rawFile.send(null);
-    // 	return rawData;
-    // }
-    function applyPreviousVersionModification(originalMicroscope) {
+    key: "applyPreviousVersionModificationToSetting",
+    value: function applyPreviousVersionModificationToSetting(originalSetting) {
+      var modifiedSetting = Object.assign({}, originalSetting);
+      modifiedSetting = this.applyPreviousAppVersionModificationToSetting(modifiedSetting);
+      modifiedSetting = this.applyPreviousModelVersionModificationToSetting(modifiedSetting);
+      return modifiedSetting;
+    }
+  }, {
+    key: "applyPreviousAppVersionModificationToSetting",
+    value: function applyPreviousAppVersionModificationToSetting(originalSetting) {
       var schema = this.state.schema;
-      var oldVersion = originalMicroscope.Version;
-      var oldVersionString = oldVersion.split(".").join(""); //oldVersion.replaceAll(".", "");
+      var oldMainVersion = 0;
+      var oldSubVersion = 0.44;
+      var oldPatchVersion = 0;
+      var oldBetaVersion = 1;
+      var oldAppVersion = originalSetting.AppVersion;
 
-      var oldVersionNumber = Number(oldVersionString);
+      if (oldAppVersion !== undefined && oldAppVersion !== null) {
+        var oldAppVersionSplit = oldVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+
+        oldMainVersion = Number(oldAppVersionSplit[0]);
+        oldSubVersion = Number(oldAppVersionSplit[1]);
+        oldPatchVersion = Number(oldAppVersionSplit[2]);
+        oldBetaVersion = Number(oldAppVersionSplit[3].replace("b", ""));
+      }
+
+      var imageSchema = {};
+      var pixelsSchema = {};
+      var settingsSchema = {};
+      var experimentalSchema = {};
+      Object.keys(schema).forEach(function (schemaIndex) {
+        var singleSchemaOriginal = schema[schemaIndex];
+
+        if (singleSchemaOriginal.title === "Image") {
+          imageSchema = Object.assign(imageSchema, singleSchemaOriginal);
+        } else if (singleSchemaOriginal.title === "Pixels") {
+          pixelsSchema = Object.assign(pixelsSchema, singleSchemaOriginal);
+        } else if (singleSchemaOriginal.domain === "ImageAcquisitionSettings") {
+          var schemaID = singleSchemaOriginal.ID;
+          settingsSchema[schemaID] = singleSchemaOriginal;
+        } else if (singleSchemaOriginal.domain === "Experimental") {
+          var _schemaID = singleSchemaOriginal.ID;
+          experimentalSchema[_schemaID] = singleSchemaOriginal;
+        }
+      });
+
+      if (originalSetting.AppVersion === null || originalSetting.AppVersion === undefined || originalSetting.AppVersion !== _package.version) {
+        originalSetting.AppVersion = _package.version;
+      }
+
+      if (oldMainVersion === 0 && oldSubVersion < 45) {
+        var newSetting = Object.assign({}, originalSetting);
+
+        if (originalSetting.ModelVersion === undefined || originalSetting.ModelVersion === null) {
+          newSetting.ModelVersion = imageSchema.modelVersion;
+
+          if (newSetting.Version !== null && newSetting.Version !== undefined) {
+            delete newSetting.Version;
+          }
+        }
+
+        var originalPixels = originalSetting.Pixels;
+
+        if (originalPixels !== null && originalPixels !== undefined) {
+          var newPixels = Object.assign({}, originalPixels);
+
+          if (originalPixels.ModelVersion === undefined || originalPixels.ModelVersion === null) {
+            newPixels.ModelVersion = pixelsSchema.modelVersion;
+
+            if (newPixels.Version !== null && newPixels.Version !== undefined) {
+              delete newPixels.Version;
+            }
+          }
+
+          newSetting.Pixels = newPixels;
+        }
+
+        if (originalSetting.Planes !== null && originalSetting.Planes !== undefined) {
+          var newPlanes = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(originalSetting.Planes, true, true, settingsSchema, experimentalSchema);
+          newSetting.Planes = newPlanes;
+        }
+
+        if (originalSetting.Channels !== null && originalSetting.Channels !== undefined) {
+          var newChannels = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(originalSetting.Channels, true, true, settingsSchema, experimentalSchema);
+          newSetting.Channels = newChannels;
+        }
+
+        if (originalSetting.TIRFSettings !== null && originalSetting.TIRFSettings !== undefined) {
+          var newTIRFSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(originalSetting.TIRFSettings, true, true, settingsSchema, experimentalSchema);
+          newSetting.TIRFSettings = newTIRFSettings;
+        }
+
+        if (originalSetting.ImagingEnvironment !== null && originalSetting.ImagingEnvironment !== undefined) {
+          var newImagingEnvironment = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(originalSetting.ImagingEnvironment, true, true, settingsSchema, experimentalSchema);
+          newSetting.ImagingEnvironment = newImagingEnvironment;
+        }
+
+        if (originalSetting.SamplePositioningSettings !== null && originalSetting.SamplePositioningSettings !== undefined) {
+          var newSamplePositioningSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(originalSetting.SamplePositioningSettings, true, true, settingsSchema, experimentalSchema);
+          newSetting.SamplePositioningSettings = newSamplePositioningSettings;
+        }
+
+        if (originalSetting.MicroscopeTableSettings !== null && originalSetting.MicroscopeTableSettings !== undefined) {
+          var newMicroscopeTableSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(originalSetting.MicroscopeTableSettings, true, true, settingsSchema, experimentalSchema);
+          newSetting.MicroscopeTableSettings = newMicroscopeTableSettings;
+        }
+
+        if (originalSetting.ObjectiveSettings !== null && originalSetting.ObjectiveSettings !== undefined) {
+          var originalObjSett = originalSetting.ObjectiveSettings;
+          var objSchema = settingsSchema[originalObjSett.Schema_ID];
+          var newObjectiveSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(originalObjSett, true, true, settingsSchema, experimentalSchema);
+          newSetting.ObjectiveSettings = newObjectiveSettings;
+        }
+
+        if (originalSetting.MicroscopeStandSettings !== null && originalSetting.MicroscopeStandSettings !== undefined) {
+          var newMicroscopeStandSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(originalSetting.MicroscopeStandSettings, true, true, settingsSchema, experimentalSchema);
+          newSetting.MicroscopeStandSettings = newMicroscopeStandSettings;
+        }
+
+        return newSetting;
+      }
+
+      return modifiedSetting;
+    }
+  }, {
+    key: "applyPreviousModelVersionModificationToSetting",
+    value: function applyPreviousModelVersionModificationToSetting(modifiedSetting) {
+      return modifiedSetting;
+    }
+  }, {
+    key: "applyPreviousVersionModificationToMicroscope",
+    value: function applyPreviousVersionModificationToMicroscope(originalMicroscope) {
+      if (this.state.isLoadingMicroscope) return originalMicroscope;
+      var modifiedMic = Object.assign({}, originalMicroscope);
+      modifiedMic = this.applyPreviousAppVersionModificationToMicroscope(modifiedMic);
+      modifiedMic = this.applyPreviousModelVersionModificationToMicroscope(modifiedMic);
+      return modifiedMic;
+    }
+  }, {
+    key: "applyPreviousAppVersionModificationToMicroscope",
+    value: function applyPreviousAppVersionModificationToMicroscope(originalMicroscope) {
+      var schema = this.state.schema;
+      var oldMainVersion = 0;
+      var oldSubVersion = 0.44;
+      var oldPatchVersion = 0;
+      var oldBetaVersion = 1;
+      var oldAppVersion = originalMicroscope.AppVersion;
+
+      if (oldAppVersion !== undefined && oldAppVersion !== null) {
+        var oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+
+        oldMainVersion = Number(oldAppVersionSplit[0]);
+        oldSubVersion = Number(oldAppVersionSplit[1]);
+        oldPatchVersion = Number(oldAppVersionSplit[2]);
+        oldBetaVersion = Number(oldAppVersionSplit[3].replace("b", ""));
+      }
+
       var microscopeSchema = {};
-      var microscopeStandSchema = {}; //In theory these should never be needed because settings shouldn't be re-edited
-      //let imageSchema = {};
-      //let settingsSchema = {};
-
+      var microscopeStandSchema = {};
       var componentsSchema = {};
       var experimentalSchema = {};
+      var standType = "InvertedMicroscopeStand";
+      var originalMicroscopeStand = originalMicroscope.MicroscopeStand;
+
+      if (originalMicroscopeStand !== null && originalMicroscopeStand !== undefined) {
+        standType = originalMicroscopeStand.Schema_ID.replace(".json", "");
+      }
+
       Object.keys(schema).forEach(function (schemaIndex) {
         var singleSchemaOriginal = schema[schemaIndex];
 
         if (singleSchemaOriginal.title === "Instrument") {
           microscopeSchema = Object.assign(microscopeSchema, singleSchemaOriginal);
-        } else if (singleSchemaOriginal.title === "InvertedMicroscopeStand") {
+        } else if (singleSchemaOriginal.title === standType) {
           microscopeStandSchema = Object.assign(microscopeStandSchema, singleSchemaOriginal);
         }
         /* else if (singleSchemaOriginal.title === "Image") {
@@ -576,17 +723,101 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             var schemaID = singleSchemaOriginal.ID;
             componentsSchema[schemaID] = singleSchemaOriginal;
           } else if (singleSchemaOriginal.domain === "Experimental") {
-            var _schemaID = singleSchemaOriginal.ID;
-            experimentalSchema[_schemaID] = singleSchemaOriginal;
+            var _schemaID2 = singleSchemaOriginal.ID;
+            experimentalSchema[_schemaID2] = singleSchemaOriginal;
           }
       });
 
-      if (originalMicroscope.Version !== microscopeSchema.version) {
-        originalMicroscope.Version = microscopeSchema.version;
+      if (originalMicroscope.AppVersion === undefined || originalMicroscope.AppVersion === null || originalMicroscope.AppVersion !== _package.version) {
+        originalMicroscope.AppVersion = _package.version;
       }
 
-      if (originalMicroscope.MicroscopeStand !== undefined && originalMicroscope.MicroscopeStand !== null && originalMicroscope.MicroscopeStand.Version !== microscopeStandSchema.version) {
-        originalMicroscope.MicroscopeStand.Version = microscopeStandSchema.version;
+      if (oldMainVersion === 0 && oldSubVersion < 45) {
+        var newMicroscope = Object.assign({}, originalMicroscope);
+
+        if (originalMicroscope.ModelVersion === undefined || originalMicroscope.ModelVersion === null) {
+          newMicroscope.ModelVersion = microscopeSchema.modelVersion;
+
+          if (newMicroscope.Version !== null && newMicroscope.Version !== undefined) {
+            delete newMicroscope.Version;
+          }
+        }
+
+        if (originalMicroscopeStand !== null && originalMicroscopeStand !== undefined) {
+          var newMicroscopeStand = Object.assign({}, originalMicroscopeStand);
+
+          if (originalMicroscopeStand.ModelVersion === undefined || originalMicroscopeStand.ModelVersion === null) {
+            newMicroscopeStand.ModelVersion = microscopeStandSchema.modelVersion;
+
+            if (newMicroscopeStand.Version !== null && newMicroscopeStand.Version !== undefined) {
+              delete newMicroscopeStand.Version;
+            }
+          }
+
+          newMicroscope.MicroscopeStand = newMicroscopeStand;
+        }
+
+        if (originalMicroscope.components !== null && originalMicroscope.components !== undefined) {
+          var newComponents = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(originalMicroscope.components, true, true, componentsSchema, experimentalSchema);
+          newMicroscope.components = newComponents;
+        }
+
+        return newMicroscope;
+      }
+
+      return originalMicroscope;
+    }
+  }, {
+    key: "applyPreviousModelVersionModificationToMicroscope",
+    value: function applyPreviousModelVersionModificationToMicroscope(originalMicroscope) {
+      var schema = this.state.schema;
+      var oldVersion = originalMicroscope.ModelVersion;
+      var oldVersionString = oldVersion.split(".").join(""); //oldVersion.replaceAll(".", "");
+
+      var oldVersionNumber = Number(oldVersionString);
+      var microscopeSchema = {};
+      var microscopeStandSchema = {}; //In theory these should never be needed because settings shouldn't be re-edited
+      //let imageSchema = {};
+      //let settingsSchema = {};
+
+      var componentsSchema = {};
+      var experimentalSchema = {};
+      var standType = "InvertedMicroscopeStand";
+      var originalMicroscopeStand = originalMicroscope.MicroscopeStand;
+
+      if (originalMicroscopeStand !== null && originalMicroscopeStand !== undefined) {
+        standType = originalMicroscopeStand.Schema_ID.replace(".json", "");
+      }
+
+      Object.keys(schema).forEach(function (schemaIndex) {
+        var singleSchemaOriginal = schema[schemaIndex];
+
+        if (singleSchemaOriginal.title === "Instrument") {
+          microscopeSchema = Object.assign(microscopeSchema, singleSchemaOriginal);
+        } else if (singleSchemaOriginal.title === standType) {
+          microscopeStandSchema = Object.assign(microscopeStandSchema, singleSchemaOriginal);
+        }
+        /* else if (singleSchemaOriginal.title === "Image") {
+        imageSchema = Object.assign(imageSchema, singleSchemaOriginal);
+        }  else if (singleSchemaOriginal.domain === "ImageAcquisitionSettings") {
+        let schemaID = singleSchemaOriginal.ID;
+        settingsSchema[schemaID] = singleSchemaOriginal;
+        }*/
+        else if (singleSchemaOriginal.domain === "MicroscopeHardwareSpecifications" || singleSchemaOriginal.domain === "MicroscopeSpecifications") {
+            var schemaID = singleSchemaOriginal.ID;
+            componentsSchema[schemaID] = singleSchemaOriginal;
+          } else if (singleSchemaOriginal.domain === "Experimental") {
+            var _schemaID3 = singleSchemaOriginal.ID;
+            experimentalSchema[_schemaID3] = singleSchemaOriginal;
+          }
+      });
+
+      if (originalMicroscope.ModelVersion !== microscopeSchema.modelVersion) {
+        originalMicroscope.ModelVersion = microscopeSchema.modelVersion;
+      }
+
+      if (originalMicroscopeStand !== undefined && originalMicroscopeStand !== null && originalMicroscopeStand.ModelVersion !== microscopeStandSchema.modelVersion) {
+        originalMicroscopeStand.ModelVersion = microscopeStandSchema.modelVersion;
       } //FIXME me update experimental here?
 
 
@@ -595,8 +826,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         var compSchemaID = comp.Schema_ID;
         var compSchema = componentsSchema[compSchemaID];
 
-        if (compSchema !== undefined && compSchema !== null && comp.Version !== compSchema.version) {
-          comp.Version = compSchema.version;
+        if (compSchema !== undefined && compSchema !== null && comp.ModelVersion !== compSchema.modelVersion) {
+          comp.ModelVersion = compSchema.modelVersion;
         } else if (compSchema === undefined || compSchema === null) {
           //Adjustment case for renamed Schemas
           console.log(compSchemaID + " not found - OLD NAME");
@@ -632,8 +863,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           Schema_ID: microscopeStandSchema.ID,
           ID: uuid2,
           Tier: microscopeStandSchema.tier,
-          ValidationTier: activeTier,
-          Version: microscopeStandSchema.version,
+          ModelVersion: microscopeStandSchema.modelVersion,
           Manufacturer: originalMicroscope.Manufacturer,
           Model: originalMicroscope.Model,
           CatalogNumber: originalMicroscope.SerialNumber,
@@ -666,7 +896,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         ID: uuid,
         Tier: activeTier,
         ValidationTier: activeTier,
-        Version: microscopeSchema.version
+        ModelVersion: microscopeSchema.modelVersion,
+        AppVersion: _package.version,
+        Extension: microscopeSchema.extension,
+        Domain: microscopeSchema.domain,
+        Category: microscopeSchema.category
       };
       var uuid2 = (0, _uuid.v4)();
       microscope.MicroscopeStand = {
@@ -674,8 +908,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         Schema_ID: microscopeStandSchema.ID,
         ID: uuid2,
         Tier: microscopeStandSchema.tier,
-        ValidationTier: activeTier,
-        Version: microscopeStandSchema.version
+        ModelVersion: microscopeStandSchema.modelVersion,
+        Extension: microscopeStandSchema.extension,
+        Domain: microscopeStandSchema.domain,
+        Category: microscopeStandSchema.category
       };
       this.setState({
         microscope: microscope,
@@ -693,7 +929,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var modifiedMic = this.state.microscope;
       var activeTier = this.state.activeTier;
 
-      if (activeTier !== this.state.microscope.Tier) {
+      if (activeTier !== modifiedMic.Tier) {
         //TODO warning tier is different ask if continue?
         modifiedMic.Tier = activeTier;
       }
@@ -702,7 +938,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         modifiedMic.ValidationTier = activeTier;
       }
 
-      modifiedMic = this.applyPreviousVersionModification(modifiedMic);
+      modifiedMic = this.applyPreviousVersionModificationToMicroscope(modifiedMic);
       var standType = modifiedMic.MicroscopeStand.Schema_ID.replace(".json", "");
       var adaptedSchemas = this.createAdaptedSchemas(modifiedMic.ValidationTier, standType);
       var typeDimensions = this.state.dimensions[standType];
@@ -710,7 +946,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var microscopeStandSchema = adaptedSchemas[1];
       var componentsSchema = adaptedSchemas[2];
       var settingsSchema = adaptedSchemas[4];
-      var components = this.state.microscope.components;
+      var components = modifiedMic.components;
       var newElementData = {};
 
       if (components !== undefined) {
@@ -750,11 +986,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createOrUseMicroscopeFromSelectedFile",
     value: function createOrUseMicroscopeFromSelectedFile() {
-      var microscope = this.state.microscopes[this.state.micName];
-      var modifiedMic = microscope;
+      var modifiedMic = this.state.microscopes[this.state.micName];
       var activeTier = this.state.activeTier;
 
-      if (activeTier !== microscope.Tier) {
+      if (activeTier !== modifiedMic.Tier) {
         //TODO warning tier is different ask if continue?
         modifiedMic.Tier = activeTier;
       }
@@ -763,7 +998,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         modifiedMic.ValidationTier = activeTier;
       }
 
-      modifiedMic = this.applyPreviousVersionModification(modifiedMic);
+      modifiedMic = this.applyPreviousVersionModificationToMicroscope(modifiedMic);
       var standType = modifiedMic.MicroscopeStand.Schema_ID.replace(".json", "");
       var adaptedSchemas = this.createAdaptedSchemas(modifiedMic.ValidationTier, standType);
       var typeDimensions = this.state.dimensions[standType];
@@ -771,7 +1006,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var microscopeStandSchema = adaptedSchemas[1];
       var componentsSchema = adaptedSchemas[2];
       var settingsSchema = adaptedSchemas[4];
-      var components = microscope.components;
+      var components = modifiedMic.components;
       var newElementData = {};
 
       if (components !== undefined) {
@@ -832,6 +1067,48 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
+      var isLoadingMicroscope = this.state.isLoadingMicroscope;
+      var microscope = this.state.microscope;
+
+      if (microscope !== null && microscope !== undefined && isLoadingMicroscope) {
+        var oldAppVersion = microscope.AppVersion;
+        var oldMainVersion = null;
+        var oldSubVersion = null;
+        var oldPatchVersion = null;
+        var oldBetaVersion = null;
+        var hasAppVersion = true;
+
+        if (oldAppVersion !== undefined && oldAppVersion !== null) {
+          var oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+
+          oldMainVersion = Number(oldAppVersionSplit[0]);
+          oldSubVersion = Number(oldAppVersionSplit[1]);
+          oldPatchVersion = Number(oldAppVersionSplit[2]);
+          oldBetaVersion = Number(oldAppVersionSplit[3].replace("b", "")); //let appVersionSplit = appVersion.split(/[\.,]+/);
+
+          console.log("oldAppVersionSplit");
+          console.log(oldAppVersionSplit);
+        } else {
+          hasAppVersion = false;
+        }
+
+        var appVersionSplit = _package.version.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+
+
+        var appMainVersion = Number(appVersionSplit[0]);
+        var appSubVersion = Number(appVersionSplit[1]);
+        var appPatchVersion = Number(appVersionSplit[2]);
+        var appBetaVersion = Number(appVersionSplit[3].replace("b", "")); //let appVersionSplit = appVersion.split(/[\.,]+/);
+
+        console.log("appVersionSplit");
+        console.log(appVersionSplit);
+
+        if (!hasAppVersion || oldMainVersion < appMainVersion || oldSubVersion < appSubVersion || oldPatchVersion < appPatchVersion || oldBetaVersion < appBetaVersion) {
+          window.alert("The microscope you are trying to use was saved with an older version of this software, please save the microscope with the current version to be able to use it.");
+          return;
+        }
+      }
+
       if (isCreateNewScratch) {
         this.createNewMicroscopeFromScratch(standType);
       } else if (this.state.loadingOption === _constants.string_createFromFile) {
@@ -875,17 +1152,23 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         ID: uuid,
         Tier: activeTier,
         ValidationTier: activeTier,
-        Version: imageSchema.version,
+        ModelVersion: imageSchema.modelVersion,
+        AppVersion: _package.version,
         InstrumentName: microscope.Name,
-        InstrumentID: microscope.ID
+        InstrumentID: microscope.ID,
+        Extension: imageSchema.extension,
+        Domain: imageSchema.domain,
+        Category: imageSchema.category
       };
       var pixels = {
         Name: "New ".concat(pixelsSchema.title),
         Schema_ID: pixelsSchema.ID,
         ID: uuid2,
         Tier: activeTier,
-        ValidationTier: activeTier,
-        Version: pixelsSchema.version
+        ModelVersion: pixelsSchema.modelVersion,
+        Extension: pixelsSchema.extension,
+        Domain: pixelsSchema.domain,
+        Category: pixelsSchema.category
       };
       var mergedSettings = null;
 
@@ -955,6 +1238,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     key: "createOrUseSettingFromDroppedFile",
     value: function createOrUseSettingFromDroppedFile() {
       var imageMetadata = this.state.imageMetadata;
+      var microscope = this.state.microscope;
       var modifiedSetting = this.state.setting;
       var activeTier = this.state.activeTier;
 
@@ -965,9 +1249,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (modifiedSetting.ValidationTier > activeTier) {
         modifiedSetting.ValidationTier = activeTier;
-      } //modifiedSetting = this.applyPreviousVersionModification(modifiedSetting);
+      }
 
-
+      modifiedSetting.InstrumentID = microscope.ID;
+      modifiedSetting.InstrumentName = microscope.Name;
+      modifiedSetting = this.applyPreviousVersionModificationToSetting(modifiedSetting);
       var adaptedSchemas = this.createAdaptedSchemas(modifiedSetting.ValidationTier, this.state.standType);
       var imageSchema = adaptedSchemas[3];
       var settingsSchema = adaptedSchemas[4];
@@ -1061,9 +1347,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (modifiedSetting.ValidationTier > activeTier) {
         modifiedSetting.ValidationTier = activeTier;
-      } //modifiedSetting = this.applyPreviousVersionModification(modifiedSetting);
+      }
 
-
+      modifiedSetting.InstrumentID = microscope.ID;
+      modifiedSetting.InstrumentName = microscope.Name;
+      modifiedSetting = this.applyPreviousVersionModificationToSetting(modifiedSetting);
       var adaptedSchemas = this.createAdaptedSchemas(modifiedSetting.ValidationTier, this.state.standType);
       var imageSchema = adaptedSchemas[3];
       var settingsSchema = adaptedSchemas[4];
@@ -1135,6 +1423,22 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createOrUseSetting",
     value: function createOrUseSetting() {
+      var microscope = this.state.microscope;
+      var setting = this.state.setting;
+
+      if (setting !== null && setting !== undefined) {
+        var micID = microscope.ID;
+        var micName = microscope.Name;
+        var instrumentID = setting.InstrumentID;
+        var instrumentName = setting.InstrumentName;
+
+        if (micID !== instrumentID || micName !== instrumentName) {
+          if (!window.confirm("Instrument ID & Name don't match those saved in the Image Acquisition Settings you are trying to load. If you continue the Image Acquisition Settings value are going to be overrided, are you sure?")) {
+            return;
+          }
+        }
+      }
+
       var modifiedCreateString = _constants.string_createFromScratch.replace("# ", "");
 
       if (this.state.loadingOption === modifiedCreateString) {
@@ -1219,7 +1523,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleExportMicroscope",
-    value: function handleExportMicroscope(microscope) {
+    value: function handleExportMicroscope(microscope, complete) {
       var micName = microscope.Name;
       micName = micName.replace(/\s+/g, "_").toLowerCase();
       var filename = "".concat(micName, ".json");
@@ -1229,12 +1533,15 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       a.href = "data:" + contentType + "," + encodeURIComponent(JSON.stringify(microscope));
       a.target = "_blank";
       document.body.appendChild(a);
+      downloads.onChanged.addListener(function (evt) {
+        console.log(evt);
+      });
       a.click();
-      document.body.removeChild(a);
+      document.body.removeChild(a); // complete(micName);
     }
   }, {
     key: "handleExportSetting",
-    value: function handleExportSetting(setting) {
+    value: function handleExportSetting(setting, complete) {
       var settingName = setting.Name;
       settingName = settingName.replace(/\s+/g, "_").toLowerCase();
       var filename = "".concat(settingName, ".json");
@@ -1245,7 +1552,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       a.target = "_blank";
       document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
+      document.body.removeChild(a); // 	complete(settingName);
     }
   }, {
     key: "handleExportMicroscopeImage",
@@ -1267,47 +1574,17 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       a.target = "_blank";
       a.click();
       document.body.removeChild(a);
-    } // toDataUrl(src, callback, outputFormat, microscope, completeCallback) {
-    // 	var img = new Image();
-    // 	img.crossOrigin = "Anonymous";
-    // 	img.onload = function() {
-    // 		var canvas = document.createElement("CANVAS");
-    // 		var ctx = canvas.getContext("2d");
-    // 		var dataURL;
-    // 		canvas.height = this.height;
-    // 		canvas.width = this.width;
-    // 		ctx.drawImage(this, 0, 0);
-    // 		dataURL = canvas.toDataURL(outputFormat);
-    // 		callback(microscope, dataURL, completeCallback);
-    // 	};
-    // 	img.src = src.toDataURL();
-    // 	console.log("dataurl1:");
-    // 	console.log(img.src);
-    // 	if (img.complete || img.complete === undefined) {
-    // 		img.src = "data:image/gif;base64,";
-    // 		//R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="//
-    // 		img.src += src.toDataURL();
-    // 	}
-    // 	console.log("dataurl2:");
-    // 	console.log(img.src);
-    // }
-
+    }
   }, {
     key: "handleSaveMicroscope",
     value: function handleSaveMicroscope(item) {
       var validated = true;
 
       if (!this.state.isMicroscopeValidated) {
-        this.setState({
-          isMicroscopeValidated: false
-        });
         validated = false;
       }
 
       if (!this.state.areComponentsValidated) {
-        this.setState({
-          areComponentsValidated: false
-        });
         validated = false;
       }
 
@@ -1323,51 +1600,26 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var comps = {
         components: components
       };
-      var microscope = Object.assign(this.state.microscope, comps);
-      microscope.linkedFields = this.state.linkedFields; // let node = ReactDOM.findDOMNode(this.canvasRef.current);
-      // html2canvas(node, {
-      // 	allowTaint: true,
-      // 	foreignObjectRendering: true,
-      // 	logging: true,
-      // 	letterRendering: 1,
-      // 	useCORS: true,
-      // }).then((canvas) => {
-      // 	//var myImage = canvas.toDataURL("image/png");
-      // 	//window.open(myImage);
-      // 	//document.body.appendChild(canvas);
-      // 	if (item.startsWith("Save microscope")) {
-      // 		console.log(microscope);
-      // 		this.props.onSaveMicroscope(
-      // 			microscope,
-      // 			this.handleCompleteSaveMicroscope
-      // 			//canvas
-      // 		);
-      // 		// this.toDataUrl(
-      // 		// 	canvas,
-      // 		// 	this.props.onSaveMicroscope,
-      // 		// 	"image/png",
-      // 		// 	microscope,
-      // 		// 	this.handleCompleteSaveMicroscope
-      // 		// );
-      // 	} else if (item.startsWith("Export microscope")) {
-      // 		this.handleExportMicroscope(microscope);
-      // 	} else if (item.startsWith("Export image")) {
-      // 		this.handleExportMicroscopeImage(microscope, canvas);
-      // 		// this.toDataUrl(
-      // 		// 	canvas,
-      // 		// 	this.handleExportMicroscopeImage,
-      // 		// 	"image/png",
-      // 		// 	microscope
-      // 		// );
-      // 	}
-      // 	//document.body.removeChild(canvas);
-      // });
+      var microscope = Object.assign({}, this.state.microscope, comps);
+      microscope.linkedFields = this.state.linkedFields;
+      var lowerCaseItem = item.toLowerCase();
 
-      if (item.startsWith("Save microscope")) {
-        console.log(microscope);
-        this.props.onSaveMicroscope(microscope, this.handleCompleteSaveMicroscope);
-      } else if (item.startsWith("Export microscope")) {
-        this.handleExportMicroscope(microscope);
+      if (lowerCaseItem.includes("as new")) {
+        microscope.ID = (0, _uuid.v4)();
+
+        if (microscope.MicroscopeStand !== null && microscope.MicroscopeStand !== undefined) {
+          microscope.MicroscopeStand.ID = (0, _uuid.v4)();
+        }
+      }
+
+      this.setState({
+        microscope: microscope
+      });
+
+      if (lowerCaseItem.includes("save")) {
+        this.props.onSaveMicroscope(microscope, this.handleCompleteSave);
+      } else if (lowerCaseItem.includes("export")) {
+        this.handleExportMicroscope(microscope, this.handleCompleteExport);
       }
     }
   }, {
@@ -1376,16 +1628,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var validated = true;
 
       if (!this.state.isSettingValidated) {
-        this.setState({
-          isSettingValidated: false
-        });
         validated = false;
       }
 
       if (!this.state.areSettingComponentsValidated) {
-        this.setState({
-          areSettingComponentsValidated: false
-        });
         validated = false;
       }
 
@@ -1399,44 +1645,42 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       // });
       //let comps = { components };
 
-      var setting = Object.assign(this.state.setting, settingData);
-      console.log("setting");
-      console.log(setting); // let node = ReactDOM.findDOMNode(this.canvasRef.current);
-      // html2canvas(node, {
-      // 	allowTaint: true,
-      // 	foreignObjectRendering: true,
-      // 	logging: true,
-      // 	letterRendering: 1,
-      // 	useCORS: true,
-      // }).then((canvas) => {
-      // 	if (item.startsWith("Save setting")) {
-      // 		this.props.onSaveSetting(setting, this.handleCompleteSaveSetting);
-      // 	} else if (item.startsWith("Export setting")) {
-      // 		this.handleExportSetting(setting);
-      // 	} else if (item.startsWith("Export image")) {
-      // 		//TODO
-      // 	}
-      // });
+      var setting = Object.assign({}, this.state.setting, settingData);
+      var lowerCaseItem = item.toLowerCase();
 
-      if (item.startsWith("Save image setting")) {
-        this.props.onSaveSetting(setting, this.handleCompleteSaveSetting);
-      } else if (item.startsWith("Export image setting")) {
-        this.handleExportSetting(setting);
+      if (lowerCaseItem.includes("as new")) {
+        setting.ID = (0, _uuid.v4)();
+
+        if (setting.Pixels !== null && setting.Pixels !== undefined) {
+          setting.Pixels.ID = (0, _uuid.v4)();
+        }
+      }
+
+      this.setState({
+        setting: setting
+      });
+      console.log("setting");
+      console.log(setting);
+
+      if (lowerCaseItem.includes("save")) {
+        this.props.onSaveSetting(setting, this.handleCompleteSave);
+      } else if (lowerCaseItem.includes("export")) {
+        this.handleExportSetting(setting, this.handleCompleteExport);
       }
     }
   }, {
-    key: "handleCompleteSaveMicroscope",
-    value: function handleCompleteSaveMicroscope(micName) {
+    key: "handleCompleteSave",
+    value: function handleCompleteSave(name) {
       //console.log(micName + " saved");
       //WARN Microscope save
-      window.alert(micName + " saved");
+      window.alert(name + " savedd");
     }
   }, {
-    key: "handleCompleteSaveSetting",
-    value: function handleCompleteSaveSetting(settingName) {
+    key: "handleCompleteExport",
+    value: function handleCompleteExport(name) {
       //console.log(micName + " saved");
       //WARN Microscope save
-      window.alert(settingName + " saved");
+      window.alert(name + " exported");
     }
   }, {
     key: "onMicroscopeDataSave",
@@ -1462,7 +1706,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       newSetting.Pixels = newPixels;
       this.setState({
         setting: newSetting,
-        isSettingsValidated: true
+        isSettingValidated: true
       }); //this.isMicroscopeValidated = true;
     }
   }, {
@@ -1481,6 +1725,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var setting = this.state.setting;
       var settings = this.state.settings;
       var settingData = this.state.settingData;
+      var imageMetadata = this.state.imageMetadata;
       var experimental = this.state.experimental;
       var experimentalData = this.state.experimentalData;
       var linkedFields = this.state.linkedFields;
@@ -1621,7 +1866,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }));
       }
 
-      if (!this.state.isCreatingNewMicroscope && this.state.isLoadingImage && this.props.onLoadMetadata !== null && this.props.onLoadMetadata !== undefined) {
+      if (!this.state.isCreatingNewMicroscope && this.state.isLoadingImage && this.props.onLoadMetadata !== null && this.props.onLoadMetadata !== undefined && imageMetadata === null) {
         console.log("IMAGE LOADER"); //let modifiedCreateString = string_createFromScratch.replace("# ", "");
 
         var _loadingOptions = [_constants.string_noImageLoad, _constants.string_createFromFile];
@@ -1723,7 +1968,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
-      var imageMetadata = this.state.imageMetadata;
       var footerMicroscopeSchemas = [microscopeSchema, microscopeStandSchema];
       var footerMicroscopeInput = [microscope, microscope.MicroscopeStand];
       var comps = {};
@@ -1805,7 +2049,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           onClickChangeValidation: this.createAdaptedSchemas,
           overlaysContainer: this.overlaysContainerRef.current,
           inputData: footerSettingsInput,
-          isSchemaValidated: this.state.isSettingsValidated,
+          isSchemaValidated: this.state.isSettingValidated,
           dimensions: headerFooterDims,
           element: "image settings",
           formTitle: setting.Name,
@@ -1960,32 +2204,175 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       modifiedMic.ScalingFactor = scalingFactor; //console.log("SC: " + newScalingFactor);
 
       for (var key in elementData) {
-        var element = elementData[key]; // console.log("ID: " + key);
-        // console.log(
-        // 	" W: " +
-        // 		element.Width +
-        // 		" H: " +
-        // 		element.Height +
-        // 		" X: " +
-        // 		element.PositionX +
-        // 		" Y: " +
-        // 		element.PositionY
-        // );
-
+        var element = elementData[key];
         element.Width *= newScalingFactor;
         element.Height *= newScalingFactor;
         element.PositionX *= newScalingFactor;
-        element.PositionY *= newScalingFactor; // console.log(
-        // 	" W: " +
-        // 		element.Width +
-        // 		" H: " +
-        // 		element.Height +
-        // 		" X: " +
-        // 		element.PositionX +
-        // 		" Y: " +
-        // 		element.PositionY
-        // );
+        element.PositionY *= newScalingFactor;
       }
+    }
+  }, {
+    key: "applyPreviousAppVersionModificationToObj",
+    value: function applyPreviousAppVersionModificationToObj(originalObj, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2) {
+      var objSchemaID = originalObj.Schema_ID;
+
+      if (objSchemaID === null || objSchemaID === undefined) {
+        //NO SCHEMA CASE IN SETTINGS
+        return originalObj;
+      }
+
+      var obj = Object.assign({}, originalObj);
+      var objSchema = objSchemas[objSchemaID];
+
+      if (objSchema === undefined || objSchema === null) {
+        objSchema = objSchemas2[objSchemaID];
+      }
+
+      if (objSchema !== undefined && objSchema !== null) {
+        if (isAddModelVersion) {
+          obj.ModelVersion = objSchema.modelVersion;
+
+          if (obj.Version !== null && obj.Version !== undefined) {
+            delete obj.Version;
+          }
+        }
+
+        if (isAddExtDomCat) {
+          obj.Extension = objSchema.extension;
+          obj.Domain = objSchema.domain;
+          obj.Category = objSchema.category;
+        }
+
+        if (obj.LightPath !== null && obj.LightPath !== undefined) {
+          var newLightPath = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(obj.LightPath, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+          obj.LightPath = newLightPath;
+        }
+
+        if (obj.ComponentSettings !== null && obj.ComponentSettings !== undefined) {
+          var compSettings = obj.ComponentSettings;
+
+          if (compSettings.LightSource !== null && compSettings.LightSource !== undefined) {
+            var sett = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(compSettings.LightSource, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+            compSettings.LightSource = sett;
+          }
+
+          if (compSettings.CouplingLens !== null && compSettings.CouplingLens !== undefined) {
+            var _sett = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(compSettings.CouplingLens, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.CouplingLens = _sett;
+          }
+
+          if (compSettings.LightSourceCoupling !== null && compSettings.LightSourceCoupling !== undefined) {
+            var _sett2 = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(compSettings.LightSourceCoupling, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.LightSourceCoupling = _sett2;
+          }
+
+          if (compSettings.ExcitationFilter !== null && compSettings.ExcitationFilter !== undefined) {
+            var _sett3 = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(compSettings.ExcitationFilter, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.ExcitationFilter = _sett3;
+          }
+
+          if (compSettings.Dichroic !== null && compSettings.Dichroic !== undefined) {
+            var _sett4 = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(compSettings.Dichroic, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.Dichroic = _sett4;
+          }
+
+          if (compSettings.EmissionFilter !== null && compSettings.EmissionFilter !== undefined) {
+            var _sett5 = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(compSettings.EmissionFilter, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.EmissionFilter = _sett5;
+          }
+
+          if (compSettings.RelayLens !== null && compSettings.RelayLens !== undefined) {
+            var _sett6 = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(compSettings.RelayLens, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.RelayLens = _sett6;
+          }
+
+          if (compSettings.Detector !== null && compSettings.Detector !== undefined) {
+            var _sett7 = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(compSettings.Detector, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.Detector = _sett7;
+          }
+
+          if (compSettings.AdditionalSlot_1 !== null && compSettings.AdditionalSlot_1 !== undefined) {
+            var setts = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(compSettings.AdditionalSlot_1, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+            compSettings.AdditionalSlot_1 = setts;
+          }
+
+          if (compSettings.AdditionalSlot_2 !== null && compSettings.AdditionalSlot_2 !== undefined) {
+            var _setts = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(compSettings.AdditionalSlot_2, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.AdditionalSlot_2 = _setts;
+          }
+
+          if (compSettings.AdditionalSlot_3 !== null && compSettings.AdditionalSlot_3 !== undefined) {
+            var _setts2 = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(compSettings.AdditionalSlot_3, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.AdditionalSlot_3 = _setts2;
+          }
+
+          if (compSettings.AdditionalSlot_4 !== null && compSettings.AdditionalSlot_4 !== undefined) {
+            var _setts3 = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(compSettings.AdditionalSlot_4, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.AdditionalSlot_4 = _setts3;
+          }
+
+          if (compSettings.AdditionalSlot_5 !== null && compSettings.AdditionalSlot_5 !== undefined) {
+            var _setts4 = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(compSettings.AdditionalSlot_5, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.AdditionalSlot_5 = _setts4;
+          }
+
+          if (compSettings.AdditionalSlot_6 !== null && compSettings.AdditionalSlot_6 !== undefined) {
+            var _setts5 = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(compSettings.AdditionalSlot_6, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.AdditionalSlot_6 = _setts5;
+          }
+
+          if (compSettings.AdditionalSlot_7 !== null && compSettings.AdditionalSlot_7 !== undefined) {
+            var _setts6 = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(compSettings.AdditionalSlot_7, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.AdditionalSlot_7 = _setts6;
+          }
+
+          if (compSettings.AdditionalSlot_8 !== null && compSettings.AdditionalSlot_8 !== undefined) {
+            var _setts7 = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(compSettings.AdditionalSlot_8, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+
+            compSettings.AdditionalSlot_8 = _setts7;
+          }
+        }
+
+        if (obj.Fluorophore !== null && obj.Fluorophore !== undefined) {
+          var newFluorophore = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(obj.Fluorophore, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+          obj.Fluorophore = newFluorophore;
+        }
+
+        if (obj.ImmersionLiquid !== null && obj.ImmersionLiquid !== undefined) {
+          var newImmersionLiquid = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(obj.ImmersionLiquid, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+          obj.ImmersionLiquid = newImmersionLiquid;
+        }
+      } else {
+        console.log("Error: applyPreviousAppVersionModificationToObj : schema not found for " + objSchemaID);
+      }
+
+      return obj;
+    }
+  }, {
+    key: "applyPreviousAppVersionModificationToArray",
+    value: function applyPreviousAppVersionModificationToArray(originalArray, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2) {
+      var newArray = [];
+
+      for (var i = 0; i < originalArray.length; i++) {
+        var obj = originalArray[i];
+        var newObj = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(obj, isAddModelVersion, isAddExtDomCat, objSchemas, objSchemas2);
+        newArray[i] = newObj;
+      }
+
+      return newArray;
     }
   }]);
 

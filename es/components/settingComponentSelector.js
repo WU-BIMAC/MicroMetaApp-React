@@ -382,14 +382,20 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             Component_ID: selectedComp.ID,
             Tier: objSettingsSchema.tier,
             Schema_ID: objSettingsSchema.ID,
-            Version: objSettingsSchema.version
+            ModelVersion: objSettingsSchema.modelVersion,
+            Extension: objSettingsSchema.extension,
+            Domain: objSettingsSchema.domain,
+            Category: objSettingsSchema.category
           };
           var immersionLiquid = {
             Name: "".concat(immersionLiquidSchema.title),
             ID: uuid2,
             Tier: immersionLiquidSchema.tier,
             Schema_ID: immersionLiquidSchema.ID,
-            Version: immersionLiquidSchema.version
+            ModelVersion: immersionLiquidSchema.modelVersion,
+            Extension: immersionLiquidSchema.extension,
+            Domain: immersionLiquidSchema.domain,
+            Category: immersionLiquidSchema.category
           };
           settingCompData.ImmersionLiquid = immersionLiquid; // if (
           // 	this.props.imageMetadata !== null &&
@@ -421,7 +427,10 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             Component_ID: selectedComp.ID,
             Tier: currentSchema.tier,
             Schema_ID: currentSchema.ID,
-            Version: currentSchema.version
+            ModelVersion: currentSchema.modelVersion,
+            Extension: currentSchema.extension,
+            Domain: currentSchema.domain,
+            Category: currentSchema.category
           }; // if (selectedSchema.modelSettings === "ImagingEnvironment.json") {
           // 	if (
           // 		this.props.imageMetadata !== null &&
