@@ -884,7 +884,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let oldBetaVersion = 1;
 		let oldAppVersion = originalSetting.AppVersion;
 		if (oldAppVersion !== undefined && oldAppVersion !== null) {
-			let oldAppVersionSplit = oldVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+			let oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
 			oldMainVersion = Number(oldAppVersionSplit[0]);
 			oldSubVersion = Number(oldAppVersionSplit[1]);
 			oldPatchVersion = Number(oldAppVersionSplit[2]);
@@ -1549,7 +1549,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				oldBetaVersion < appBetaVersion
 			) {
 				window.alert(
-					"The microscope you are trying to use was saved with an older version of this software, please save the microscope with the current version to be able to use it."
+					"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again."
 				);
 				return;
 			}
@@ -1892,7 +1892,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			if (micID !== instrumentID || micName !== instrumentName) {
 				if (
 					!window.confirm(
-						"Instrument ID & Name don't match those saved in the Image Acquisition Settings you are trying to load. If you continue the Image Acquisition Settings value are going to be overrided, are you sure?"
+						"The unique ID & Name of the Microscope file you have selected do not match those that has been saved in the Settings file you are trying to load. If you continue the Microscope ID and Name stored in the Settings file will be overwritten. Are you sure?"
 					)
 				) {
 					return;
@@ -2345,8 +2345,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			!this.state.isCreatingNewMicroscope &&
 			this.state.isLoadingImage &&
 			this.props.onLoadMetadata !== null &&
-			this.props.onLoadMetadata !== undefined &&
-			imageMetadata === null
+			this.props.onLoadMetadata !== undefined
 		) {
 			console.log("IMAGE LOADER");
 			//let modifiedCreateString = string_createFromScratch.replace("# ", "");
