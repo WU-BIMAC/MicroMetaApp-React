@@ -1897,8 +1897,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let setting = this.state.setting;
 		let modifiedCreateString = string_createFromScratch.replace("# ", "");
 		if (
-			loadingOptions !== modifiedCreateString &&
-			loadingOptions !== string_createFromFile
+			loadingOption !== modifiedCreateString &&
+			loadingOption !== string_createFromFile
 		) {
 			setting = this.state.settings[this.state.settingName];
 		}
@@ -1917,9 +1917,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				}
 			}
 		}
-		if (loadingOptions === modifiedCreateString) {
+		if (loadingOption === modifiedCreateString) {
 			this.createNewSettingFromScratch();
-		} else if (loadingOptions === string_createFromFile) {
+		} else if (loadingOption === string_createFromFile) {
 			this.createOrUseSettingFromDroppedFile();
 		} else {
 			this.createOrUseSettingFromSelectedFile();
