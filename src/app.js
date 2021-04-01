@@ -563,8 +563,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	static applyPreviousAppVersionModificationToObj(
 		originalObj,
+		isUpdateModelVersion,
 		isAddModelVersion,
 		isAddExtDomCat,
+		fieldsToDelete,
+		fieldsToNameChange,
 		objSchemas,
 		objSchemas2
 	) {
@@ -579,9 +582,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			objSchema = objSchemas2[objSchemaID];
 		}
 		if (objSchema !== undefined && objSchema !== null) {
-			if (isAddModelVersion) {
+			if (isAddModelVersion || isUpdateModelVersion) {
 				obj.ModelVersion = objSchema.modelVersion;
-				if (obj.Version !== null && obj.Version !== undefined) {
+				if (
+					isAddModelVersion &&
+					obj.Version !== null &&
+					obj.Version !== undefined
+				) {
 					delete obj.Version;
 				}
 			}
@@ -590,11 +597,34 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				obj.Domain = objSchema.domain;
 				obj.Category = objSchema.category;
 			}
+			for (let i = 0; i < fieldsToDelete.length; i++) {
+				let toDelete = fieldsToDelete[i];
+				let key = toDelete.key;
+				let field = toDelete.field;
+				if (objSchema.title !== key && objSchema.category !== key) continue;
+				delete obj[field];
+			}
+			for (let i = 0; i < fieldsToNameChange.length; i++) {
+				let toNameChange = fieldsToNameChange[i];
+				let key = toNameChange.key;
+				let field = toNameChange.field;
+				let newField = toNameChange.newField;
+				if (objSchema.title !== key && objSchema.category !== key) continue;
+				let fieldValue = obj[field];
+				if (fieldValue !== null && fieldValue !== undefined) {
+					obj[newField] = fieldValue;
+					delete obj[field];
+				}
+			}
+
 			if (obj.LightPath !== null && obj.LightPath !== undefined) {
 				let newLightPath = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 					obj.LightPath,
+					isUpdateModelVersion,
 					isAddModelVersion,
 					isAddExtDomCat,
+					fieldsToDelete,
+					fieldsToNameChange,
 					objSchemas,
 					objSchemas2
 				);
@@ -611,8 +641,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let sett = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 						compSettings.LightSource,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -624,8 +657,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let sett = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 						compSettings.CouplingLens,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -637,8 +673,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let sett = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 						compSettings.LightSourceCoupling,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -650,8 +689,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let sett = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 						compSettings.ExcitationFilter,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -663,8 +705,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let sett = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 						compSettings.Dichroic,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -676,8 +721,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let sett = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 						compSettings.EmissionFilter,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -689,8 +737,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let sett = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 						compSettings.RelayLens,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -702,8 +753,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let sett = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 						compSettings.Detector,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -715,8 +769,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let setts = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
 						compSettings.AdditionalSlot_1,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -728,8 +785,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let setts = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
 						compSettings.AdditionalSlot_2,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -741,8 +801,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let setts = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
 						compSettings.AdditionalSlot_3,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -754,8 +817,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let setts = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
 						compSettings.AdditionalSlot_4,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -767,8 +833,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let setts = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
 						compSettings.AdditionalSlot_5,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -780,8 +849,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let setts = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
 						compSettings.AdditionalSlot_6,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -793,8 +865,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let setts = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
 						compSettings.AdditionalSlot_7,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -806,8 +881,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				) {
 					let setts = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
 						compSettings.AdditionalSlot_8,
+						isUpdateModelVersion,
 						isAddModelVersion,
 						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
 						objSchemas,
 						objSchemas2
 					);
@@ -817,8 +895,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			if (obj.Fluorophore !== null && obj.Fluorophore !== undefined) {
 				let newFluorophore = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 					obj.Fluorophore,
+					isUpdateModelVersion,
 					isAddModelVersion,
 					isAddExtDomCat,
+					fieldsToDelete,
+					fieldsToNameChange,
 					objSchemas,
 					objSchemas2
 				);
@@ -827,8 +908,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			if (obj.ImmersionLiquid !== null && obj.ImmersionLiquid !== undefined) {
 				let newImmersionLiquid = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 					obj.ImmersionLiquid,
+					isUpdateModelVersion,
 					isAddModelVersion,
 					isAddExtDomCat,
+					fieldsToDelete,
+					fieldsToNameChange,
 					objSchemas,
 					objSchemas2
 				);
@@ -845,8 +929,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	static applyPreviousAppVersionModificationToArray(
 		originalArray,
+		isUpdateModelVersion,
 		isAddModelVersion,
 		isAddExtDomCat,
+		fieldsToDelete,
+		fieldsToNameChange,
 		objSchemas,
 		objSchemas2
 	) {
@@ -855,8 +942,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let obj = originalArray[i];
 			let newObj = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
 				obj,
+				isUpdateModelVersion,
 				isAddModelVersion,
 				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
 				objSchemas,
 				objSchemas2
 			);
@@ -883,6 +973,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let oldPatchVersion = 0;
 		let oldBetaVersion = 1;
 		let oldAppVersion = originalSetting.AppVersion;
+
+		if (oldAppVersion === appVersion) return originalSetting;
+
 		if (oldAppVersion !== undefined && oldAppVersion !== null) {
 			let oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
 			oldMainVersion = Number(oldAppVersionSplit[0]);
@@ -915,144 +1008,378 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		) {
 			originalSetting.AppVersion = appVersion;
 		}
+
+		let hasModification = false;
+		let isUpdateModelVersion = false;
+		let isAddModelVersion = false;
+		let isAddExtDomCat = false;
+		let fieldsToDelete = [];
+		let fieldsToNameChange = [];
 		if (oldMainVersion === 0 && oldSubVersion < 45) {
-			let newSetting = Object.assign({}, originalSetting);
-			if (
-				originalSetting.ModelVersion === undefined ||
-				originalSetting.ModelVersion === null
-			) {
-				newSetting.ModelVersion = imageSchema.modelVersion;
-				if (newSetting.Version !== null && newSetting.Version !== undefined) {
-					delete newSetting.Version;
-				}
+			isAddModelVersion = true;
+			isAddExtDomCat = true;
+			hasModification = true;
+		}
+		if (oldMainVersion === 0 && oldSubVersion < 46) {
+			isAddModelVersion = true;
+			isAddExtDomCat = true;
+			fieldsToDelete = [
+				{ key: "Channel", field: "ImagingMethod" },
+				{ key: "GenericDetectorSettings", field: "Zoom" },
+				{ key: "PointDetectorSettings", field: "Zoom" },
+				{ key: "CameraSettings", field: "Zoom" },
+				{ key: "LightSourceSettings", field: "Wavelenght" },
+			];
+			fieldsToNameChange = [
+				{
+					key: "Channel",
+					field: "ImagingMethodTermAccession",
+					newField: "IlluminationTypeTermAccession",
+				},
+				{
+					key: "GenericDetectorSettings",
+					field: "DigitizerBitDepth",
+					newField: "EffectiveBitDepth",
+				},
+				{
+					key: "PointDetectorSettings",
+					field: "DigitizerBitDepth",
+					newField: "EffectiveBitDepth",
+				},
+				{
+					key: "CameraSettings",
+					field: "DigitizerBitDepth",
+					newField: "EffectiveBitDepth",
+				},
+			];
+			hasModification = true;
+		}
+
+		if (!hasModification) {
+			return originalSetting;
+		}
+
+		let newSetting = Object.assign({}, originalSetting);
+		if (isAddModelVersion) {
+			newSetting.ModelVersion = imageSchema.modelVersion;
+			if (newSetting.Version !== null && newSetting.Version !== undefined) {
+				delete newSetting.Version;
 			}
-			let originalPixels = originalSetting.Pixels;
-			if (originalPixels !== null && originalPixels !== undefined) {
+		}
+		let originalPixels = originalSetting.Pixels;
+		if (originalPixels !== null && originalPixels !== undefined) {
+			if (isAddModelVersion) {
 				let newPixels = Object.assign({}, originalPixels);
-				if (
-					originalPixels.ModelVersion === undefined ||
-					originalPixels.ModelVersion === null
-				) {
-					newPixels.ModelVersion = pixelsSchema.modelVersion;
-					if (newPixels.Version !== null && newPixels.Version !== undefined) {
-						delete newPixels.Version;
-					}
+				newPixels.ModelVersion = pixelsSchema.modelVersion;
+				if (newPixels.Version !== null && newPixels.Version !== undefined) {
+					delete newPixels.Version;
 				}
 				newSetting.Pixels = newPixels;
 			}
-			if (
-				originalSetting.Planes !== null &&
-				originalSetting.Planes !== undefined
-			) {
-				let newPlanes = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
-					originalSetting.Planes,
-					true,
-					true,
-					settingsSchema,
-					experimentalSchema
-				);
-				newSetting.Planes = newPlanes;
-			}
-			if (
-				originalSetting.Channels !== null &&
-				originalSetting.Channels !== undefined
-			) {
-				let newChannels = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
-					originalSetting.Channels,
-					true,
-					true,
-					settingsSchema,
-					experimentalSchema
-				);
-				newSetting.Channels = newChannels;
-			}
-			if (
-				originalSetting.TIRFSettings !== null &&
-				originalSetting.TIRFSettings !== undefined
-			) {
-				let newTIRFSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
-					originalSetting.TIRFSettings,
-					true,
-					true,
-					settingsSchema,
-					experimentalSchema
-				);
-				newSetting.TIRFSettings = newTIRFSettings;
-			}
-			if (
-				originalSetting.ImagingEnvironment !== null &&
-				originalSetting.ImagingEnvironment !== undefined
-			) {
-				let newImagingEnvironment = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
-					originalSetting.ImagingEnvironment,
-					true,
-					true,
-					settingsSchema,
-					experimentalSchema
-				);
-				newSetting.ImagingEnvironment = newImagingEnvironment;
-			}
-			if (
-				originalSetting.SamplePositioningSettings !== null &&
-				originalSetting.SamplePositioningSettings !== undefined
-			) {
-				let newSamplePositioningSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
-					originalSetting.SamplePositioningSettings,
-					true,
-					true,
-					settingsSchema,
-					experimentalSchema
-				);
-				newSetting.SamplePositioningSettings = newSamplePositioningSettings;
-			}
-			if (
-				originalSetting.MicroscopeTableSettings !== null &&
-				originalSetting.MicroscopeTableSettings !== undefined
-			) {
-				let newMicroscopeTableSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
-					originalSetting.MicroscopeTableSettings,
-					true,
-					true,
-					settingsSchema,
-					experimentalSchema
-				);
-				newSetting.MicroscopeTableSettings = newMicroscopeTableSettings;
-			}
-			if (
-				originalSetting.ObjectiveSettings !== null &&
-				originalSetting.ObjectiveSettings !== undefined
-			) {
-				let originalObjSett = originalSetting.ObjectiveSettings;
-				let objSchema = settingsSchema[originalObjSett.Schema_ID];
-				let newObjectiveSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
-					originalObjSett,
-					true,
-					true,
-					settingsSchema,
-					experimentalSchema
-				);
-				newSetting.ObjectiveSettings = newObjectiveSettings;
-			}
-			if (
-				originalSetting.MicroscopeStandSettings !== null &&
-				originalSetting.MicroscopeStandSettings !== undefined
-			) {
-				let newMicroscopeStandSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
-					originalSetting.MicroscopeStandSettings,
-					true,
-					true,
-					settingsSchema,
-					experimentalSchema
-				);
-				newSetting.MicroscopeStandSettings = newMicroscopeStandSettings;
-			}
-			return newSetting;
 		}
-		return originalSetting;
+		if (
+			originalSetting.Planes !== null &&
+			originalSetting.Planes !== undefined
+		) {
+			let newPlanes = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.Planes,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.Planes = newPlanes;
+		}
+		if (
+			originalSetting.Channels !== null &&
+			originalSetting.Channels !== undefined
+		) {
+			let newChannels = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.Channels,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.Channels = newChannels;
+		}
+		if (
+			originalSetting.TIRFSettings !== null &&
+			originalSetting.TIRFSettings !== undefined
+		) {
+			let newTIRFSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.TIRFSettings,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.TIRFSettings = newTIRFSettings;
+		}
+		if (
+			originalSetting.ImagingEnvironment !== null &&
+			originalSetting.ImagingEnvironment !== undefined
+		) {
+			let newImagingEnvironment = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.ImagingEnvironment,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.ImagingEnvironment = newImagingEnvironment;
+		}
+		if (
+			originalSetting.SamplePositioningSettings !== null &&
+			originalSetting.SamplePositioningSettings !== undefined
+		) {
+			let newSamplePositioningSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.SamplePositioningSettings,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.SamplePositioningSettings = newSamplePositioningSettings;
+		}
+		if (
+			originalSetting.MicroscopeTableSettings !== null &&
+			originalSetting.MicroscopeTableSettings !== undefined
+		) {
+			let newMicroscopeTableSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.MicroscopeTableSettings,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.MicroscopeTableSettings = newMicroscopeTableSettings;
+		}
+		if (
+			originalSetting.ObjectiveSettings !== null &&
+			originalSetting.ObjectiveSettings !== undefined
+		) {
+			let originalObjSett = originalSetting.ObjectiveSettings;
+			let objSchema = settingsSchema[originalObjSett.Schema_ID];
+			let newObjectiveSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
+				originalObjSett,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.ObjectiveSettings = newObjectiveSettings;
+		}
+		if (
+			originalSetting.MicroscopeStandSettings !== null &&
+			originalSetting.MicroscopeStandSettings !== undefined
+		) {
+			let newMicroscopeStandSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
+				originalSetting.MicroscopeStandSettings,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.MicroscopeStandSettings = newMicroscopeStandSettings;
+		}
+		return newSetting;
 	}
 
 	applyPreviousModelVersionModificationToSetting(originalSetting) {
-		return originalSetting;
+		let schema = this.state.schema;
+		let imageSchema = {};
+		let pixelsSchema = {};
+		let settingsSchema = {};
+		let experimentalSchema = {};
+		Object.keys(schema).forEach((schemaIndex) => {
+			let singleSchemaOriginal = schema[schemaIndex];
+			if (singleSchemaOriginal.title === "Image") {
+				imageSchema = Object.assign(imageSchema, singleSchemaOriginal);
+			} else if (singleSchemaOriginal.title === "Pixels") {
+				pixelsSchema = Object.assign(pixelsSchema, singleSchemaOriginal);
+			} else if (singleSchemaOriginal.domain === "ImageAcquisitionSettings") {
+				let schemaID = singleSchemaOriginal.ID;
+				settingsSchema[schemaID] = singleSchemaOriginal;
+			} else if (singleSchemaOriginal.domain === "Experimental") {
+				let schemaID = singleSchemaOriginal.ID;
+				experimentalSchema[schemaID] = singleSchemaOriginal;
+			}
+		});
+		let hasModification = false;
+		let isUpdateModelVersion = true;
+		let isAddModelVersion = false;
+		let isAddExtDomCat = false;
+		let fieldsToDelete = [];
+		let fieldsToNameChange = [];
+
+		let newSetting = Object.assign({}, originalSetting);
+		if (isUpdateModelVersion) {
+			newSetting.ModelVersion = imageSchema.modelVersion;
+		}
+		let originalPixels = originalSetting.Pixels;
+		if (originalPixels !== null && originalPixels !== undefined) {
+			if (isUpdateModelVersion) {
+				let newPixels = Object.assign({}, originalPixels);
+				newPixels.ModelVersion = pixelsSchema.modelVersion;
+				newSetting.Pixels = newPixels;
+			}
+		}
+		if (
+			originalSetting.Planes !== null &&
+			originalSetting.Planes !== undefined
+		) {
+			let newPlanes = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.Planes,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.Planes = newPlanes;
+		}
+		if (
+			originalSetting.Channels !== null &&
+			originalSetting.Channels !== undefined
+		) {
+			let newChannels = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.Channels,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.Channels = newChannels;
+		}
+		if (
+			originalSetting.TIRFSettings !== null &&
+			originalSetting.TIRFSettings !== undefined
+		) {
+			let newTIRFSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.TIRFSettings,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.TIRFSettings = newTIRFSettings;
+		}
+		if (
+			originalSetting.ImagingEnvironment !== null &&
+			originalSetting.ImagingEnvironment !== undefined
+		) {
+			let newImagingEnvironment = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.ImagingEnvironment,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.ImagingEnvironment = newImagingEnvironment;
+		}
+		if (
+			originalSetting.SamplePositioningSettings !== null &&
+			originalSetting.SamplePositioningSettings !== undefined
+		) {
+			let newSamplePositioningSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.SamplePositioningSettings,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.SamplePositioningSettings = newSamplePositioningSettings;
+		}
+		if (
+			originalSetting.MicroscopeTableSettings !== null &&
+			originalSetting.MicroscopeTableSettings !== undefined
+		) {
+			let newMicroscopeTableSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalSetting.MicroscopeTableSettings,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.MicroscopeTableSettings = newMicroscopeTableSettings;
+		}
+		if (
+			originalSetting.ObjectiveSettings !== null &&
+			originalSetting.ObjectiveSettings !== undefined
+		) {
+			let originalObjSett = originalSetting.ObjectiveSettings;
+			let objSchema = settingsSchema[originalObjSett.Schema_ID];
+			let newObjectiveSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
+				originalObjSett,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.ObjectiveSettings = newObjectiveSettings;
+		}
+		if (
+			originalSetting.MicroscopeStandSettings !== null &&
+			originalSetting.MicroscopeStandSettings !== undefined
+		) {
+			let newMicroscopeStandSettings = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
+				originalSetting.MicroscopeStandSettings,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				settingsSchema,
+				experimentalSchema
+			);
+			newSetting.MicroscopeStandSettings = newMicroscopeStandSettings;
+		}
+		return newSetting;
 	}
 
 	applyPreviousVersionModificationToMicroscope(originalMicroscope) {
@@ -1074,6 +1401,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let oldPatchVersion = 0;
 		let oldBetaVersion = 1;
 		let oldAppVersion = originalMicroscope.AppVersion;
+
+		if (oldAppVersion === appVersion) return originalMicroscope;
+
 		if (oldAppVersion !== undefined && oldAppVersion !== null) {
 			let oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
 			oldMainVersion = Number(oldAppVersionSplit[0]);
@@ -1105,12 +1435,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					microscopeStandSchema,
 					singleSchemaOriginal
 				);
-			} /* else if (singleSchemaOriginal.title === "Image") {
-				imageSchema = Object.assign(imageSchema, singleSchemaOriginal);
-			}  else if (singleSchemaOriginal.domain === "ImageAcquisitionSettings") {
-				let schemaID = singleSchemaOriginal.ID;
-				settingsSchema[schemaID] = singleSchemaOriginal;
-			}*/ else if (
+			} else if (
 				singleSchemaOriginal.domain === "MicroscopeHardwareSpecifications" ||
 				singleSchemaOriginal.domain === "MicroscopeSpecifications"
 			) {
@@ -1128,63 +1453,142 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		) {
 			originalMicroscope.AppVersion = appVersion;
 		}
+
+		let hasModification = false;
+		let isUpdateModelVersion = false;
+		let isAddModelVersion = false;
+		let isAddExtDomCat = false;
+		let fieldsToDelete = [];
+		let fieldsToNameChange = [];
 		if (oldMainVersion === 0 && oldSubVersion < 45) {
-			let newMicroscope = Object.assign({}, originalMicroscope);
-			if (
-				originalMicroscope.ModelVersion === undefined ||
-				originalMicroscope.ModelVersion === null
-			) {
-				newMicroscope.ModelVersion = microscopeSchema.modelVersion;
-				if (
-					newMicroscope.Version !== null &&
-					newMicroscope.Version !== undefined
-				) {
-					delete newMicroscope.Version;
-				}
-			}
-			if (
-				originalMicroscopeStand !== null &&
-				originalMicroscopeStand !== undefined
-			) {
-				let newMicroscopeStand = Object.assign({}, originalMicroscopeStand);
-				if (
-					originalMicroscopeStand.ModelVersion === undefined ||
-					originalMicroscopeStand.ModelVersion === null
-				) {
-					newMicroscopeStand.ModelVersion = microscopeStandSchema.modelVersion;
-					if (
-						newMicroscopeStand.Version !== null &&
-						newMicroscopeStand.Version !== undefined
-					) {
-						delete newMicroscopeStand.Version;
-					}
-				}
-				newMicroscope.MicroscopeStand = newMicroscopeStand;
-			}
-			if (
-				originalMicroscope.components !== null &&
-				originalMicroscope.components !== undefined
-			) {
-				let newComponents = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
-					originalMicroscope.components,
-					true,
-					true,
-					componentsSchema,
-					experimentalSchema
-				);
-				newMicroscope.components = newComponents;
-			}
-			return newMicroscope;
+			isAddModelVersion = true;
+			isAddExtDomCat = true;
+			hasModification = true;
+		}
+		if (oldMainVersion === 0 && oldSubVersion < 46) {
+			isAddModelVersion = true;
+			isAddExtDomCat = true;
+			fieldsToDelete = [
+				{ key: "Lens", field: "ObjectDistance" },
+				{ key: "Objective", field: "ObjectDistance" },
+				{ key: "StandardDichroic", field: "FilterHolderPosition" },
+				{ key: "GenericDichroic", field: "FilterHolderPosition" },
+				{ key: "SamplePositioning.Stage", field: "RepetabilityUnit" },
+				{ key: "SamplePositioning.Stage", field: "Repetability" },
+				{ key: "SamplePositioning.Stage", field: "SettingTime" },
+				{ key: "SamplePositioning.Focusing", field: "RepetabilityUnit" },
+				{ key: "SamplePositioning.Focusing", field: "Repetability" },
+				{ key: "SamplePositioning.Focusing", field: "SettingTime" },
+			];
+			fieldsToNameChange = [
+				{
+					key: "Fluorescence_LightSource",
+					field: "PowerMode",
+					newField: "IlluminationPowerReportingStatistic",
+				},
+				{
+					key: "Transmitted_LightSource",
+					field: "PowerMode",
+					newField: "IlluminationPowerReportingStatistic",
+				},
+				{ key: "Lens", field: "Type", newField: "Shape" },
+				{
+					key: "SamplePositioning.Stage",
+					field: "ZRepetability",
+					newField: "ZRepeatability",
+				},
+				{
+					key: "SamplePositioning.Stage",
+					field: "ZRepetabilityUnit",
+					newField: "ZRepeatabilityUnit",
+				},
+				{
+					key: "SamplePositioning.Stage",
+					field: "XYRepetability",
+					newField: "XYRepeatability",
+				},
+				{
+					key: "SamplePositioning.Stage",
+					field: "XYRepeatability",
+					newField: "XYRepeatabilityUnit",
+				},
+				{
+					key: "SamplePositioning.Focusing",
+					field: "ZRepetability",
+					newField: "ZRepeatability",
+				},
+				{
+					key: "SamplePositioning.Focusing",
+					field: "ZRepetabilityUnit",
+					newField: "ZRepeatabilityUnit",
+				},
+				{
+					key: "SamplePositioning.Focusing",
+					field: "XYRepetability",
+					newField: "XYRepeatability",
+				},
+				{
+					key: "SamplePositioning.Focusing",
+					field: "XYRepeatability",
+					newField: "XYRepeatabilityUnit",
+				},
+			];
+			hasModification = true;
 		}
 
-		return originalMicroscope;
+		if (!hasModification) {
+			return originalMicroscope;
+		}
+
+		let newMicroscope = Object.assign({}, originalMicroscope);
+
+		if (isAddModelVersion) {
+			newMicroscope.ModelVersion = microscopeSchema.modelVersion;
+			if (
+				newMicroscope.Version !== null &&
+				newMicroscope.Version !== undefined
+			) {
+				delete newMicroscope.Version;
+			}
+		}
+		if (
+			originalMicroscopeStand !== null &&
+			originalMicroscopeStand !== undefined
+		) {
+			let newMicroscopeStand = Object.assign({}, originalMicroscopeStand);
+			if (isAddModelVersion) {
+				newMicroscopeStand.ModelVersion = microscopeStandSchema.modelVersion;
+				if (
+					newMicroscopeStand.Version !== null &&
+					newMicroscopeStand.Version !== undefined
+				) {
+					delete newMicroscopeStand.Version;
+				}
+			}
+			newMicroscope.MicroscopeStand = newMicroscopeStand;
+		}
+		if (
+			originalMicroscope.components !== null &&
+			originalMicroscope.components !== undefined
+		) {
+			let newComponents = MicroMetaAppReact.applyPreviousAppVersionModificationToArray(
+				originalMicroscope.components,
+				isUpdateModelVersion,
+				isAddModelVersion,
+				isAddExtDomCat,
+				fieldsToDelete,
+				fieldsToNameChange,
+				componentsSchema,
+				experimentalSchema
+			);
+			newMicroscope.components = newComponents;
+		}
+
+		return newMicroscope;
 	}
 
 	applyPreviousModelVersionModificationToMicroscope(originalMicroscope) {
 		let schema = this.state.schema;
-		let oldVersion = originalMicroscope.ModelVersion;
-		let oldVersionString = oldVersion.split(".").join(""); //oldVersion.replaceAll(".", "");
-		let oldVersionNumber = Number(oldVersionString);
 		let microscopeSchema = {};
 		let microscopeStandSchema = {};
 		//In theory these should never be needed because settings shouldn't be re-edited
@@ -1212,12 +1616,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					microscopeStandSchema,
 					singleSchemaOriginal
 				);
-			} /* else if (singleSchemaOriginal.title === "Image") {
-				imageSchema = Object.assign(imageSchema, singleSchemaOriginal);
-			}  else if (singleSchemaOriginal.domain === "ImageAcquisitionSettings") {
-				let schemaID = singleSchemaOriginal.ID;
-				settingsSchema[schemaID] = singleSchemaOriginal;
-			}*/ else if (
+			} else if (
 				singleSchemaOriginal.domain === "MicroscopeHardwareSpecifications" ||
 				singleSchemaOriginal.domain === "MicroscopeSpecifications"
 			) {
@@ -1228,8 +1627,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				experimentalSchema[schemaID] = singleSchemaOriginal;
 			}
 		});
+
+		let oldMicModelVersion = originalMicroscope.ModelVersion;
+		let oldMicModelVersionString = oldMicModelVersion.split(".").join(""); //oldVersion.replaceAll(".", "");
+		let oldMicModelVersionNumber = Number(oldMicModelVersionString);
+
+		let newMicroscope = Object.assign({}, originalMicroscope);
+
 		if (originalMicroscope.ModelVersion !== microscopeSchema.modelVersion) {
-			originalMicroscope.ModelVersion = microscopeSchema.modelVersion;
+			newMicroscope.ModelVersion = microscopeSchema.modelVersion;
 		}
 		if (
 			originalMicroscopeStand !== undefined &&
@@ -1237,54 +1643,18 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			originalMicroscopeStand.ModelVersion !==
 				microscopeStandSchema.modelVersion
 		) {
-			originalMicroscopeStand.ModelVersion = microscopeStandSchema.modelVersion;
-		}
-		//FIXME me update experimental here?
-		for (let i = 0; i < originalMicroscope.components.length; i++) {
-			let comp = originalMicroscope.components[i];
-			let compSchemaID = comp.Schema_ID;
-			let compSchema = componentsSchema[compSchemaID];
-			if (
-				compSchema !== undefined &&
-				compSchema !== null &&
-				comp.ModelVersion !== compSchema.modelVersion
-			) {
-				comp.ModelVersion = compSchema.modelVersion;
-			} else if (compSchema === undefined || compSchema === null) {
-				//Adjustment case for renamed Schemas
-				console.log(compSchemaID + " not found - OLD NAME");
-				let newCompSchemaID = null;
-				if (compSchemaID === "AutoFocus.json")
-					newCompSchemaID = "FocusStabilizationDevice.json";
-				else if (compSchemaID === "Direct.json")
-					newCompSchemaID = "FreeBeam.json";
-				else if (compSchemaID === "FilterSet.json")
-					newCompSchemaID = "FilterCube.json";
-				else if (compSchemaID === "Optovar.json")
-					newCompSchemaID = "MagnificationChanger.json";
-				else if (compSchemaID === "SampleHolder.json")
-					newCompSchemaID = "StageInsert.json";
-				else if (compSchemaID === "ObjectiveTurretFocus.json")
-					newCompSchemaID = "TurretObjectiveFocusing.json";
-				else if (compSchemaID === "PiezoElectricObjectiveFocus.json")
-					newCompSchemaID = "IndividualObjectiveFocusing.json";
-				let compSchema = componentsSchema[newCompSchemaID];
-				if (compSchema === undefined || compSchema === null) {
-					console.log(newCompSchemaID + " not found - NEW NAME");
-				} else {
-					comp.Schema_ID = newCompSchemaID;
-				}
-			}
+			newMicroscope.MicroscopeStand.ModelVersion =
+				microscopeStandSchema.modelVersion;
 		}
 
-		if (oldVersionNumber < 2000) {
+		if (oldMicModelVersionNumber < 2000) {
+			console.log("PRE 2.00 MICROSCOPE");
+			console.log(originalMicroscope);
+			//FIXME me update experimental here?
 			//Need to add stand and move fields from microscope to stand
 			//Manufacturer, Model, SerialNumber -> CatalogNumber, LotNumber, EyePieceFieldNumber
 			let activeTier = this.state.activeTier;
 			let uuid2 = uuidv4();
-			console.log("OLD MICROSCOPE");
-			console.log(originalMicroscope);
-			let newMicroscope = Object.assign({}, originalMicroscope);
 			delete newMicroscope.Manufacturer;
 			delete newMicroscope.Model;
 			delete newMicroscope.SerialNumber;
@@ -1306,11 +1676,82 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				SpecsFile: originalMicroscope.SpecsFile,
 			};
 			newMicroscope.Schema_ID = "Instrument.json";
-			console.log("newMicroscope");
+			console.log("UPDATED MICROSCOPE");
 			console.log(newMicroscope);
-			return newMicroscope;
 		}
-		return originalMicroscope;
+
+		let hasModification = false;
+		let isUpdateModelVersion = true;
+		let isAddModelVersion = false;
+		let isAddExtDomCat = false;
+		let fieldsToDelete = [];
+		let fieldsToNameChange = [];
+
+		if (
+			originalMicroscope.components !== null &&
+			originalMicroscope.components !== undefined
+		) {
+			let newComponents = [];
+			for (let i = 0; i < originalMicroscope.components.length; i++) {
+				let comp = Object.assign({}, originalMicroscope.components[i]);
+				let compSchemaID = comp.Schema_ID;
+				let compSchema = componentsSchema[compSchemaID];
+				if (
+					compSchema !== undefined &&
+					compSchema !== null &&
+					comp.ModelVersion !== compSchema.modelVersion
+				) {
+					comp = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
+						comp,
+						isUpdateModelVersion,
+						isAddModelVersion,
+						isAddExtDomCat,
+						fieldsToDelete,
+						fieldsToNameChange,
+						settingsSchema,
+						experimentalSchema
+					);
+				} else if (compSchema === undefined || compSchema === null) {
+					//Adjustment case for renamed Schemas
+					console.log(compSchemaID + " not found - OLD NAME");
+					let newCompSchemaID = null;
+					if (compSchemaID === "AutoFocus.json")
+						newCompSchemaID = "FocusStabilizationDevice.json";
+					else if (compSchemaID === "Direct.json")
+						newCompSchemaID = "FreeBeam.json";
+					else if (compSchemaID === "FilterSet.json")
+						newCompSchemaID = "FilterCube.json";
+					else if (compSchemaID === "Optovar.json")
+						newCompSchemaID = "MagnificationChanger.json";
+					else if (compSchemaID === "SampleHolder.json")
+						newCompSchemaID = "StageInsert.json";
+					else if (compSchemaID === "ObjectiveTurretFocus.json")
+						newCompSchemaID = "TurretObjectiveFocusing.json";
+					else if (compSchemaID === "PiezoElectricObjectiveFocus.json")
+						newCompSchemaID = "IndividualObjectiveFocusing.json";
+					let compSchema = componentsSchema[newCompSchemaID];
+					if (compSchema === undefined || compSchema === null) {
+						console.log(newCompSchemaID + " not found - NEW NAME");
+					} else {
+						comp.Schema_ID = newCompSchemaID;
+						comp = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(
+							comp,
+							isUpdateModelVersion,
+							isAddModelVersion,
+							isAddExtDomCat,
+							fieldsToDelete,
+							fieldsToNameChange,
+							settingsSchema,
+							experimentalSchema
+						);
+					}
+				}
+				newComponents[i] = comp;
+			}
+			newMicroscope.components = newComponents;
+		}
+
+		return newMicroscope;
 	}
 
 	createNewMicroscopeFromScratch(standType) {
@@ -1999,12 +2440,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			encodeURIComponent(JSON.stringify(microscope));
 		a.target = "_blank";
 		document.body.appendChild(a);
-		downloads.onChanged.addListener((evt) => {
-			console.log(evt);
-		});
-
 		a.click();
-
 		document.body.removeChild(a);
 		// complete(micName);
 	}
