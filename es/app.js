@@ -602,8 +602,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (oldMainVersion === 0 && oldSubVersion < 46) {
-        isAddModelVersion = true;
-        isAddExtDomCat = true;
+        isAddModelVersion = false;
+        isAddExtDomCat = false;
         fieldsToDelete = [{
           key: "Channel",
           field: "ImagingMethod"
@@ -876,8 +876,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (oldMainVersion === 0 && oldSubVersion < 46) {
-        isAddModelVersion = true;
-        isAddExtDomCat = true;
+        isAddModelVersion = false;
+        isAddExtDomCat = false;
         fieldsToDelete = [{
           key: "Lens",
           field: "ObjectDistance"
@@ -935,7 +935,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           newField: "XYRepeatability"
         }, {
           key: "SamplePositioning.Stage",
-          field: "XYRepeatability",
+          field: "XYRepetabilityUnit",
           newField: "XYRepeatabilityUnit"
         }, {
           key: "SamplePositioning.Focusing",
@@ -945,14 +945,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           key: "SamplePositioning.Focusing",
           field: "ZRepetabilityUnit",
           newField: "ZRepeatabilityUnit"
-        }, {
-          key: "SamplePositioning.Focusing",
-          field: "XYRepetability",
-          newField: "XYRepeatability"
-        }, {
-          key: "SamplePositioning.Focusing",
-          field: "XYRepeatability",
-          newField: "XYRepeatabilityUnit"
         }];
         hasModification = true;
       }

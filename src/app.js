@@ -1021,8 +1021,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			hasModification = true;
 		}
 		if (oldMainVersion === 0 && oldSubVersion < 46) {
-			isAddModelVersion = true;
-			isAddExtDomCat = true;
+			isAddModelVersion = false;
+			isAddExtDomCat = false;
 			fieldsToDelete = [
 				{ key: "Channel", field: "ImagingMethod" },
 				{ key: "GenericDetectorSettings", field: "Zoom" },
@@ -1466,8 +1466,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			hasModification = true;
 		}
 		if (oldMainVersion === 0 && oldSubVersion < 46) {
-			isAddModelVersion = true;
-			isAddExtDomCat = true;
+			isAddModelVersion = false;
+			isAddExtDomCat = false;
 			fieldsToDelete = [
 				{ key: "Lens", field: "ObjectDistance" },
 				{ key: "Objective", field: "ObjectDistance" },
@@ -1509,7 +1509,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				},
 				{
 					key: "SamplePositioning.Stage",
-					field: "XYRepeatability",
+					field: "XYRepetabilityUnit",
 					newField: "XYRepeatabilityUnit",
 				},
 				{
@@ -1521,17 +1521,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					key: "SamplePositioning.Focusing",
 					field: "ZRepetabilityUnit",
 					newField: "ZRepeatabilityUnit",
-				},
-				{
-					key: "SamplePositioning.Focusing",
-					field: "XYRepetability",
-					newField: "XYRepeatability",
-				},
-				{
-					key: "SamplePositioning.Focusing",
-					field: "XYRepeatability",
-					newField: "XYRepeatabilityUnit",
-				},
+				}
 			];
 			hasModification = true;
 		}
