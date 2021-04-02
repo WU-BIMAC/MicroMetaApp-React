@@ -1698,7 +1698,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						isAddExtDomCat,
 						fieldsToDelete,
 						fieldsToNameChange,
-						settingsSchema,
+						componentsSchema,
 						experimentalSchema
 					);
 				} else if (compSchema === undefined || compSchema === null) {
@@ -1731,7 +1731,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							isAddExtDomCat,
 							fieldsToDelete,
 							fieldsToNameChange,
-							settingsSchema,
+							componentsSchema,
 							experimentalSchema
 						);
 					}

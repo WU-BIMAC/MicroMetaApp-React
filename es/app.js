@@ -1080,7 +1080,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           var compSchema = componentsSchema[compSchemaID];
 
           if (compSchema !== undefined && compSchema !== null && comp.ModelVersion !== compSchema.modelVersion) {
-            comp = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(comp, isUpdateModelVersion, isAddModelVersion, isAddExtDomCat, fieldsToDelete, fieldsToNameChange, settingsSchema, experimentalSchema);
+            comp = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(comp, isUpdateModelVersion, isAddModelVersion, isAddExtDomCat, fieldsToDelete, fieldsToNameChange, componentsSchema, experimentalSchema);
           } else if (compSchema === undefined || compSchema === null) {
             //Adjustment case for renamed Schemas
             console.log(compSchemaID + " not found - OLD NAME");
@@ -1092,7 +1092,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
               console.log(newCompSchemaID + " not found - NEW NAME");
             } else {
               comp.Schema_ID = newCompSchemaID;
-              comp = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(comp, isUpdateModelVersion, isAddModelVersion, isAddExtDomCat, fieldsToDelete, fieldsToNameChange, settingsSchema, experimentalSchema);
+              comp = MicroMetaAppReact.applyPreviousAppVersionModificationToObj(comp, isUpdateModelVersion, isAddModelVersion, isAddExtDomCat, fieldsToDelete, fieldsToNameChange, componentsSchema, experimentalSchema);
             }
           }
 
