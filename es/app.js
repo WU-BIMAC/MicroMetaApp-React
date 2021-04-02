@@ -602,8 +602,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (oldMainVersion === 0 && oldSubVersion < 46) {
-        isAddModelVersion = false;
-        isAddExtDomCat = false;
+        // isAddModelVersion = false;
+        // isAddExtDomCat = false;
         fieldsToDelete = [{
           key: "Channel",
           field: "ImagingMethod"
@@ -876,8 +876,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (oldMainVersion === 0 && oldSubVersion < 46) {
-        isAddModelVersion = false;
-        isAddExtDomCat = false;
+        // isAddModelVersion = false;
+        // isAddExtDomCat = false;
         fieldsToDelete = [{
           key: "Lens",
           field: "ObjectDistance"

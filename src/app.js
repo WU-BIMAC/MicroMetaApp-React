@@ -1021,8 +1021,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			hasModification = true;
 		}
 		if (oldMainVersion === 0 && oldSubVersion < 46) {
-			isAddModelVersion = false;
-			isAddExtDomCat = false;
+			// isAddModelVersion = false;
+			// isAddExtDomCat = false;
 			fieldsToDelete = [
 				{ key: "Channel", field: "ImagingMethod" },
 				{ key: "GenericDetectorSettings", field: "Zoom" },
@@ -1466,8 +1466,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			hasModification = true;
 		}
 		if (oldMainVersion === 0 && oldSubVersion < 46) {
-			isAddModelVersion = false;
-			isAddExtDomCat = false;
+			// isAddModelVersion = false;
+			// isAddExtDomCat = false;
 			fieldsToDelete = [
 				{ key: "Lens", field: "ObjectDistance" },
 				{ key: "Objective", field: "ObjectDistance" },
