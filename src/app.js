@@ -583,13 +583,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 		if (objSchema !== undefined && objSchema !== null) {
 			if (isAddModelVersion || isUpdateModelVersion) {
-				obj.ModelVersion = objSchema.modelVersion;
 				if (
 					isAddModelVersion &&
 					obj.Version !== null &&
 					obj.Version !== undefined
 				) {
+					obj.ModelVersion = obj.Version;
 					delete obj.Version;
+				} else {
+					obj.ModelVersion = objSchema.modelVersion;
 				}
 			}
 			if (isAddExtDomCat) {
@@ -1061,18 +1063,22 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		let newSetting = Object.assign({}, originalSetting);
 		if (isAddModelVersion) {
-			newSetting.ModelVersion = imageSchema.modelVersion;
 			if (newSetting.Version !== null && newSetting.Version !== undefined) {
+				newSetting.ModelVersion = newSetting.Version;
 				delete newSetting.Version;
+			} else {
+				newSetting.ModelVersion = imageSchema.modelVersion;
 			}
 		}
 		let originalPixels = originalSetting.Pixels;
 		if (originalPixels !== null && originalPixels !== undefined) {
 			if (isAddModelVersion) {
 				let newPixels = Object.assign({}, originalPixels);
-				newPixels.ModelVersion = pixelsSchema.modelVersion;
 				if (newPixels.Version !== null && newPixels.Version !== undefined) {
+					newPixels.ModelVersion = newPixels.Version;
 					delete newPixels.Version;
+				} else {
+					newPixels.ModelVersion = pixelsSchema.modelVersion;
 				}
 				newSetting.Pixels = newPixels;
 			}
@@ -1385,6 +1391,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	applyPreviousVersionModificationToMicroscope(originalMicroscope) {
 		if (this.state.isLoadingMicroscope) return originalMicroscope;
 		let modifiedMic = Object.assign({}, originalMicroscope);
+		let originalMicVersion = modifiedMic.ModelVersion;
 		modifiedMic = this.applyPreviousAppVersionModificationToMicroscope(
 			modifiedMic
 		);
@@ -1521,7 +1528,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					key: "SamplePositioning.Focusing",
 					field: "ZRepetabilityUnit",
 					newField: "ZRepeatabilityUnit",
-				}
+				},
 			];
 			hasModification = true;
 		}
@@ -1533,12 +1540,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let newMicroscope = Object.assign({}, originalMicroscope);
 
 		if (isAddModelVersion) {
-			newMicroscope.ModelVersion = microscopeSchema.modelVersion;
 			if (
 				newMicroscope.Version !== null &&
 				newMicroscope.Version !== undefined
 			) {
+				newMicroscope.ModelVersion = newMicroscope.Version;
 				delete newMicroscope.Version;
+			} else {
+				newMicroscope.ModelVersion = microscopeSchema.modelVersion;
 			}
 		}
 		if (
@@ -1547,12 +1556,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		) {
 			let newMicroscopeStand = Object.assign({}, originalMicroscopeStand);
 			if (isAddModelVersion) {
-				newMicroscopeStand.ModelVersion = microscopeStandSchema.modelVersion;
 				if (
 					newMicroscopeStand.Version !== null &&
 					newMicroscopeStand.Version !== undefined
 				) {
+					newMicroscopeStand.ModelVersion = newMicroscopeStand.Version;
 					delete newMicroscopeStand.Version;
+				} else {
+					newMicroscopeStand.ModelVersion = microscopeStandSchema.modelVersion;
 				}
 			}
 			newMicroscope.MicroscopeStand = newMicroscopeStand;
@@ -1636,6 +1647,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			newMicroscope.MicroscopeStand.ModelVersion =
 				microscopeStandSchema.modelVersion;
 		}
+
+		console.log("oldMicModelVersionNumber");
+		console.log(oldMicModelVersionNumber);
 
 		if (oldMicModelVersionNumber < 2000) {
 			console.log("PRE 2.00 MICROSCOPE");
