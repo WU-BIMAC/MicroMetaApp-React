@@ -8,7 +8,7 @@ authors:
     affiliation: Program in Molecular Medicine, UMass Medical School, Worcester MA 01605, USA
     family-names: Rigano
     given-names: Alessandro
-    email: alessandro.rigano@umassmed.edu
+    email: alex.rigano@umassmed.edu
   -
     affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
     family-names: Balashov
@@ -58,7 +58,7 @@ references:
       - family-names: Rigano
         given-names: Alessandro
         affiliation: University of Massachusetts Medical School
-        email: alessandro.rigano@umassmed.edu
+        email: alex.rigano@umassmed.edu
       - family-names: Balashov
         given-names: Alexander
         affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
@@ -96,7 +96,7 @@ references:
       - family-names: Faklaris
         given-names: Orestis
         affiliation: Biocampus, CNRS UMS 3426, Montpellier 34293, France
-        orcid:
+        orcid: https://orcid.org/0000-0001-5965-5405
       - family-names: Gaudreault
         given-names: Nathalie
         affiliation: Allen Institute for Cell Science, Seattle, WA 98109, USA
