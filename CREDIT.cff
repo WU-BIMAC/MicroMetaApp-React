@@ -1,0 +1,148 @@
+abstract: Micro-Meta App is an intuitive Graphical User Interface (GUI)-based open-source software that helps scientists to interactively build graphical representations of microscope hardware by dragging-and-dropping individual components onto the workspace and entering the relevant attribute values based on the 4D Nucleome (4DN) - BioImaging North America (BINA) Microscopy Metadata guidelines that scale experimental complexity. From this, Micro-Meta App automatically generates structured Microscope-files that can be saved locally, consumed by existing data-portals, shared with other scientists and used repeatedly whenever the same microscope is used to produce image data. Thus, when the image acquisition settings utilized to produce a given image dataset needs to be recorded, the user selects the desired image data alongside the relevant Microscope-file. Then, Micro-Meta App imports the relevant metadata from the header of image data files to be annotated and interactively guides the user through the collection of all missing attributes. Finally, the App generates a Settings-file, which coupled with the Microscope-file contains comprehensive descriptions of the conditions utilized to produce individual microscopy datasets.
+  - 
+authors: 
+  -
+    affiliation: Program in Molecular Medicine, UMass Medical School, Worcester MA 01605, USA
+    family-names: Rigano
+    given-names: Alessandro
+    email: alessandro.rigano@umassmed.edu
+  -
+    affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+    family-names: Balashov
+    given-names: Alexander
+  -
+    affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+    family-names: Ehmsen
+    given-names: Shannon
+  -
+    affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+    family-names: Ozturk
+    given-names: Serkan Utku
+    orcid: https://orcid.org/0000-0001-8835-787X
+  -
+    affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+    family-names: Alver
+    given-names: Burak
+    orcid: https://orcid.org/https://orcid.org/0000-0002-5019-7652
+  -
+    affiliation:  Program in Molecular Medicine, UMass Medical School, Worcester MA 01605, USA
+    family-names: Strambio-De-Castillia
+    given-names: Caterina
+    email: caterina.strambio@umassmed.edu
+    orcid: https://orcid.org/https://orcid.org/0000-0002-1069-1816
+cff-version: 1.1.3
+date-released: 2021-04-20
+keywords: 
+  - metadata
+  - microscopy
+  - standards
+  - data model
+  - OME
+  - open science
+  - reproducibility
+  - quality control
+  - data provenance
+license: GNU General Public License v.3
+message: If you use this software please cite both the software using the metadata indicated below, and the papers as indicated in the scope of each reference.
+repository-code: https://github.com/WU-BIMAC/MicroMetaApp-Electron
+title: Micro-Meta App - Electron implementation
+version: 0.46.5-b1-0 stable beta
+  - 
+references:
+  - type: article
+    scope: Cite this paper every time you use the software
+    authors:
+      - family-names: Rigano
+        given-names: Alessandro
+        affiliation: University of Massachusetts Medical School
+        email: alessandro.rigano@umassmed.edu
+      - family-names: Balashov
+        given-names: Alexander
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Ozturk
+        given-names: Serkan Utku
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+        orcid: https://orcid.org/0000-0001-8835-787
+      - family-names: Ehmsen
+        given-names: Shannon
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Ryan
+        given-names: Joel
+        affiliation: Advanced BioImaging Facility (ABIF), McGill University, Montreal, Quebec, H3G 0B1, Canada
+      - family-names: Hammer
+        given-names: Mathias
+        affiliation: RNA Therapeutics Institute, UMass Medical School, Worcester MA 01605, USA
+      - family-names: Kirli
+        given-names: Koray
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Boehm
+        given-names: Ulrike
+        affiliation: Janelia Research Campus, Howard Hughes Medical Institute, Ashburn, VA 20147, USA
+        orcid: https://orcid.org/0000-0001-7471-2244
+      - family-names: Brown
+        given-names: Claire M. 
+        affiliation: Advanced BioImaging Facility (ABIF), McGill University, Montreal, Quebec, H3G 0B1, Canada
+        orcid: https://orcid.org/0000-0003-1622-663X
+      - family-names: Chambers
+        given-names: James
+        affiliation: Institute for Applied Life Sciences, University of Massachusetts, Amherst, MA 01003, USA
+        orcid: https://orcid.org/0000-0003-3883-8215
+      - family-names: Coleman
+        given-names: Robert
+        affiliation: Gruss-Lipper Biophotonics Center, Department of Anatomy and Structural Biology, Albert Einstein College of Medicine, Bronx, NY 10461
+      - family-names: Faklaris
+        given-names: Orestis
+        affiliation: Biocampus, CNRS UMS 3426, Montpellier 34293, France
+        orcid:
+      - family-names: Gaudreault
+        given-names: Nathalie
+        affiliation: Allen Institute for Cell Science, Seattle, WA 98109, USA
+      - family-names: Guilbert
+        given-names: Thomas
+        affiliation:  Plateforme IMAG'IC, Institut Cochin, Inserm U1016-CNRS UMR8104-Université de Paris, 75014 Paris
+      - family-names: Itano
+        given-names: Michelle
+        affiliation: UNC Neuroscience Microscopy Core Facility, Chapel Hill, NC 27599-7250
+      - family-names: Lacoste
+        given-names: Judith
+        affiliation: MIA Cellavie Inc., Montreal, Quebec, H1K 4G6, Canada
+      - family-names: Laude
+        given-names: Alex
+        affiliation: Bioimaging Unit, Newcastle University, Newcastle upon Tyne, NE2 4HH, UK
+        orcid: https://orcid.org/0000-0002-3853-1187
+      - family-names: Montero-Llopis
+        given-names: Paula
+        affiliation: Microscopy Resources of the North Quad, University of Harvard Medical School, Boston, MA 02115
+        orcid: https://orcid.org/0000-0002-5983-2296
+      - family-names: Nelson
+        given-names: Glyn
+        affiliation: Bioimaging Unit, Newcastle University, Newcastle upon Tyne, NE2 4HH, UK
+        orcid: http://orcid.org/0000-0002-1895-4772
+      - family-names: Nitschke
+        given-names: Roland
+        affiliation: Life Imaging Center and BIOSS Centre for Biological Signaling Studies, Albert-Ludwigs-University Freiburg, Freiburg, 79104, Germany
+        orcid: https://orcid.org/0000-0002-9397-8475
+      - family-names: Pimentel
+        given-names: Arturo
+        affiliation: Instituto de Biotecnologıa, Universidad Nacional Autonoma de Mexico, Cuernavaca, Morelos, 62210, México
+        orcid: https://orcid.org/0000-0001-8569-0466
+      - family-names: Park
+        given-names: Peter
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Alver
+        given-names: Burak
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+        orcid: https://orcid.org/https://orcid.org/0000-0002-5019-7652
+      - family-names: Grunwald
+        given-names: David
+        affiliation: RNA Therapeutics Institute, UMass Medical School, Worcester MA 01605, USA
+      - family-names: Strambio-De-Castillia
+        given-names: Caterina
+        affiliation: University of Massachusetts Medical School
+        email: caterina.strambio@umassmed.edu
+        orcid: https://orcid.org/0000-0002-1069-1816
+    title: Micro-Meta App: an interactive software tool to facilitate the collection of microscopy metadata based on community-driven specifications.
+    year: 2021
+    journal: ArXiv.org
+    doi: 
+    url: 
