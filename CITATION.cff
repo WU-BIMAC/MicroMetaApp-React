@@ -46,7 +46,7 @@ license: GNU General Public License v.3
 message: If you use this software please cite both the software using the metadata indicated below, and the papers as indicated in the scope of each reference.
 repository-code: https://github.com/WU-BIMAC/MicroMetaApp-React
 title: Micro-Meta App - React implementation
-version: 0.46.5-b1-0 stable beta
+version: 0.46.5-b1
 doi: 
   - 
 references:
