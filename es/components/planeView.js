@@ -306,7 +306,9 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
     value: function onElementDataCancel() {
       this.setState({
         addingMultiplePlanes: false,
-        editing: false
+        addingMultiplePlanes2: false,
+        editing: false,
+        addingMultiplePlanesSetup: null
       });
     }
   }, {

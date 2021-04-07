@@ -183,8 +183,8 @@ export default class ChannelView extends React.PureComponent {
 						newChannels[i].Fluorophore = mergedFluorophore;
 					}
 				}
+				this.state.channels = newChannels;
 			}
-			this.state.channels = newChannels;
 		}
 
 		this.onAddElement = this.onAddElement.bind(this);

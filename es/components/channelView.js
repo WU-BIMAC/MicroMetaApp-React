@@ -152,9 +152,9 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
             newChannels[i].Fluorophore = mergedFluorophore;
           }
         }
-      }
 
-      _this.state.channels = newChannels;
+        _this.state.channels = newChannels;
+      }
     }
 
     _this.onAddElement = _this.onAddElement.bind(_assertThisInitialized(_this));
