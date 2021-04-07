@@ -16,7 +16,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -218,7 +218,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           var theZ = Number(data.TheZ);
           var theC = Number(data.TheC);
           var theT = Number(data.TheT);
-          newElementData.ID = (0, _uuid.v4)();
+          newElementData.ID = uuidv4();
           newElementData.Schema_ID = schema.ID;
           newElementData.Tier = schema.tier;
           newElementData.ModelVersion = schema.modelVersion;
