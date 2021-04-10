@@ -6,6 +6,8 @@ import Dropzone from "react-dropzone";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
+import { validateMicroscope } from "../genericUtilities";
+
 import {
 	string_json_ext,
 	number_logo_width,
@@ -70,9 +72,25 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 	onFileReaderLoad(e) {
 		let binaryStr = e.target.result;
-		let microscope = JSON.parse(binaryStr);
-		this.props.onFileDrop(microscope);
-		this.setState({ fileLoaded: true });
+		let microscope = null;
+		let errorMsg = null;
+		try {
+			microscope = JSON.parse(binaryStr);
+			if (validateMicroscope(microscope, this.props.schema)) {
+				this.props.onFileDrop(microscope);
+				this.setState({ fileLoaded: true });
+			} else {
+				errorMsg =
+					"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
+			}
+		} catch (exception) {
+			errorMsg = "The file you are trying to load is not a proper json file";
+		}
+
+		if (errorMsg !== null) {
+			window.alert(errorMsg);
+			this.setState({ fileLoaded: false });
+		}
 	}
 
 	dropzoneDrop() {
@@ -242,7 +260,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					selectedMic !== null && selectedMic !== undefined
 						? inputData[selectedManu].indexOf(selectedMic)
 						: 0;
-				console.log(this.state.micNames);
+				//console.log(this.state.micNames);
 				list.push(
 					<DropdownMenu
 						key={"dropdown-names"}
