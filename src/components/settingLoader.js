@@ -6,6 +6,8 @@ import Dropzone from "react-dropzone";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
+import { validateAcquisitionSettings } from "../genericUtilities";
+
 import {
 	string_json_ext,
 	number_logo_width,
@@ -74,9 +76,25 @@ export default class SettingLoader extends React.PureComponent {
 
 	onFileReaderLoad(e) {
 		let binaryStr = e.target.result;
-		let microscope = JSON.parse(binaryStr);
-		this.props.onFileDrop(microscope);
-		this.setState({ fileLoaded: true });
+
+		let errorMsg = null;
+		try {
+			let settings = JSON.parse(binaryStr);
+			if (validateAcquisitionSettings(settings, this.props.schema)) {
+				this.props.onFileDrop(settings);
+				this.setState({ fileLoaded: true });
+			} else {
+				errorMsg =
+					"The file you are trying to load does not contain a proper MicroMetaApp ImageAcquisitionSettings";
+			}
+		} catch (exception) {
+			errorMsg = "The file you are trying to load is not a proper json file";
+		}
+
+		if (errorMsg !== null) {
+			window.alert(errorMsg);
+			this.setState({ fileLoaded: false });
+		}
 	}
 
 	dropzoneDrop() {
