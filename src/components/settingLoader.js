@@ -17,6 +17,7 @@ import {
 	createSettings_from_repo_names_tooltip,
 	createSettings_mode_continue_tooltip,
 	back_tooltip,
+	bool_isDebug,
 } from "../constants";
 
 export default class SettingLoader extends React.PureComponent {
@@ -88,6 +89,7 @@ export default class SettingLoader extends React.PureComponent {
 					"The file you are trying to load does not contain a proper MicroMetaApp ImageAcquisitionSettings";
 			}
 		} catch (exception) {
+			if (bool_isDebug) console.log(exception);
 			errorMsg = "The file you are trying to load is not a proper json file";
 		}
 
@@ -101,7 +103,15 @@ export default class SettingLoader extends React.PureComponent {
 		this.setState({ fileLoading: true, fileLoaded: false });
 	}
 
-	dropzoneDropRejected() {
+	dropzoneDropRejected(rejectedFiles) {
+		let fileRejectedNames = "";
+		rejectedFiles.forEach((rejected) => {
+			fileRejectedNames += rejected.file.name + "\n";
+		});
+		window.alert(
+			"The following file you tried to load is not a json file:\n" +
+				fileRejectedNames
+		);
 		this.setState({ fileLoading: false, fileLoaded: false });
 	}
 
