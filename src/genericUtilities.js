@@ -1,18 +1,58 @@
 import React from "react";
 
+import { version as appVersion } from "../package.json";
+
+const validate = require("jsonschema").validate;
+
 export function isDefined(object) {
 	if (object !== null && object !== undefined) return true;
 	return false;
 }
 
-const validate = require("jsonschema").validate;
+export function verifyAppVersion(microscope) {
+	let oldAppVersion = microscope.AppVersion;
+	let oldMainVersion = null;
+	let oldSubVersion = null;
+	let oldPatchVersion = null;
+	let oldBetaVersion = null;
+	let hasAppVersion = true;
+	if (oldAppVersion !== undefined && oldAppVersion !== null) {
+		let oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+		oldMainVersion = Number(oldAppVersionSplit[0]);
+		oldSubVersion = Number(oldAppVersionSplit[1]);
+		oldPatchVersion = Number(oldAppVersionSplit[2]);
+		oldBetaVersion = Number(oldAppVersionSplit[3].replace("b", ""));
+		//let appVersionSplit = appVersion.split(/[\.,]+/);
+		// console.log("oldAppVersionSplit");
+		// console.log(oldAppVersionSplit);
+	} else {
+		hasAppVersion = false;
+	}
+	let appVersionSplit = appVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+	let appMainVersion = Number(appVersionSplit[0]);
+	let appSubVersion = Number(appVersionSplit[1]);
+	let appPatchVersion = Number(appVersionSplit[2]);
+	let appBetaVersion = Number(appVersionSplit[3].replace("b", ""));
+	//let appVersionSplit = appVersion.split(/[\.,]+/);
+	// console.log("appVersionSplit");
+	// console.log(appVersionSplit);
+	if (
+		!hasAppVersion ||
+		oldMainVersion < appMainVersion ||
+		oldSubVersion < appSubVersion ||
+		oldPatchVersion < appPatchVersion ||
+		oldBetaVersion < appBetaVersion
+	) {
+		return false;
+	}
+	return true;
+}
 
 export function validateAcquisitionSettings(settings, schemas) {
 	let imageSchema = null;
 	let pixelsSchema = null;
-	for (let i = 0; i < Object.keys(schemas); i++) {
-		let key = Object.keys(schemas)[i];
-		let schema = schemas[key];
+	for (let i = 0; i < schemas.length; i++) {
+		let schema = schemas[i];
 		if (schema.title === "Image") {
 			imageSchema = schema;
 		} else if (schema.title === "Pixels") {
@@ -35,40 +75,38 @@ export function validateMicroscope(
 	checkForMicroscopeStand
 ) {
 	let micStandSchemaName = null;
-	if (checkForMicroscopeStand) {
-		if (isDefined(microscope.MicroscopeStand))
-			micStandSchemaName = microscope.MicroscopeStand.Schema_ID.replace(
-				".json",
-				""
-			);
-	}
-
 	let microscopeSchema = null;
-	let microscopeStandSchema = null;
-	for (let i = 0; i < Object.keys(schemas); i++) {
-		let key = Object.keys(schemas)[i];
-		let schema = schemas[key];
+	for (let i = 0; i < schemas.length; i++) {
+		let schema = schemas[i];
 		if (schema.title === "Instrument") {
 			microscopeSchema = schema;
-		} else if (
-			isDefined(micStandSchemaName) &&
-			schema.title === micStandSchemaName
-		) {
-			microscopeStandSchema = schema;
 		}
 	}
 
 	let microscopeValidation = validate(microscope, microscopeSchema);
 	let microscopeValidated = microscopeValidation.valid;
 
-	let validated = microscopeValidated;
+	let hasModelAppVersion = false;
+	if (isDefined(microscope.ModelVersion) && isDefined(microscope.AppVersion)) {
+		hasModelAppVersion = true;
+	}
+
+	let validated = hasModelAppVersion && microscopeValidated;
 	if (checkForMicroscopeStand) {
-		let microscopeStandValidation = validate(
-			microscope.MicroscopeStand,
-			microscopeStandSchema
-		);
-		let microscopeStandValidated = microscopeStandValidation.valid;
-		validated = microscopeStandValidated && microscopeValidated;
+		let hasMicroscopeStand = false;
+		if (isDefined(microscope.MicroscopeStand)) {
+			if (
+				isDefined(microscope.MicroscopeStand.Name) &&
+				isDefined(microscope.MicroscopeStand.Schema_ID) &&
+				isDefined(microscope.MicroscopeStand.ID) &&
+				isDefined(microscope.MicroscopeStand.Tier) &&
+				isDefined(microscope.MicroscopeStand.ModelVersion)
+			) {
+				hasMicroscopeStand = true;
+			}
+		}
+
+		validated = hasMicroscopeStand && hasModelAppVersion && microscopeValidated;
 	}
 
 	return validated;
