@@ -16,6 +16,7 @@ import ImageLoader from "./components/imageLoader";
 
 import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
+import { verifyAppVersion } from "./genericUtilities"
 
 const url = require("url");
 const validate = require("jsonschema").validate;
@@ -1975,38 +1976,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			microscope !== undefined &&
 			isLoadingMicroscope
 		) {
-			let oldAppVersion = microscope.AppVersion;
-			let oldMainVersion = null;
-			let oldSubVersion = null;
-			let oldPatchVersion = null;
-			let oldBetaVersion = null;
-			let hasAppVersion = true;
-			if (oldAppVersion !== undefined && oldAppVersion !== null) {
-				let oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
-				oldMainVersion = Number(oldAppVersionSplit[0]);
-				oldSubVersion = Number(oldAppVersionSplit[1]);
-				oldPatchVersion = Number(oldAppVersionSplit[2]);
-				oldBetaVersion = Number(oldAppVersionSplit[3].replace("b", ""));
-				//let appVersionSplit = appVersion.split(/[\.,]+/);
-				// console.log("oldAppVersionSplit");
-				// console.log(oldAppVersionSplit);
-			} else {
-				hasAppVersion = false;
-			}
-			let appVersionSplit = appVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
-			let appMainVersion = Number(appVersionSplit[0]);
-			let appSubVersion = Number(appVersionSplit[1]);
-			let appPatchVersion = Number(appVersionSplit[2]);
-			let appBetaVersion = Number(appVersionSplit[3].replace("b", ""));
-			//let appVersionSplit = appVersion.split(/[\.,]+/);
-			// console.log("appVersionSplit");
-			// console.log(appVersionSplit);
 			if (
-				!hasAppVersion ||
-				oldMainVersion < appMainVersion ||
-				oldSubVersion < appSubVersion ||
-				oldPatchVersion < appPatchVersion ||
-				oldBetaVersion < appBetaVersion
+				!verifyAppVersion(microscope)
 			) {
 				window.alert(
 					"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again."
