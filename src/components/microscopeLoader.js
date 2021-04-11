@@ -20,6 +20,7 @@ import {
 	create_mode_continue_tooltip,
 	create_mode_continue_settings_tooltip,
 	back_tooltip,
+	bool_isDebug,
 } from "../constants";
 
 export default class MicroscopeLoader extends React.PureComponent {
@@ -76,7 +77,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		let errorMsg = null;
 		try {
 			microscope = JSON.parse(binaryStr);
-			if (validateMicroscope(microscope, this.props.schema)) {
+			if (validateMicroscope(microscope, this.props.schema, true)) {
 				this.props.onFileDrop(microscope);
 				this.setState({ fileLoaded: true });
 			} else {
@@ -84,6 +85,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
 			}
 		} catch (exception) {
+			if (bool_isDebug) console.log(exception);
 			errorMsg = "The file you are trying to load is not a proper json file";
 		}
 
@@ -97,7 +99,15 @@ export default class MicroscopeLoader extends React.PureComponent {
 		this.setState({ fileLoading: true, fileLoaded: false });
 	}
 
-	dropzoneDropRejected() {
+	dropzoneDropRejected(rejectedFiles) {
+		let fileRejectedNames = "";
+		rejectedFiles.forEach((rejected) => {
+			fileRejectedNames += rejected.file.name + "\n";
+		});
+		window.alert(
+			"The following file you tried to load is not a json file:\n" +
+				fileRejectedNames
+		);
 		this.setState({ fileLoading: false, fileLoaded: false });
 	}
 
