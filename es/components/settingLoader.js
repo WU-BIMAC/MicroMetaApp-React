@@ -19,6 +19,8 @@ var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
 
 var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
 
+var _genericUtilities = require("../genericUtilities");
+
 var _constants = require("../constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -101,11 +103,30 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
     key: "onFileReaderLoad",
     value: function onFileReaderLoad(e) {
       var binaryStr = e.target.result;
-      var microscope = JSON.parse(binaryStr);
-      this.props.onFileDrop(microscope);
-      this.setState({
-        fileLoaded: true
-      });
+      var errorMsg = null;
+
+      try {
+        var settings = JSON.parse(binaryStr);
+
+        if ((0, _genericUtilities.validateAcquisitionSettings)(settings, this.props.schema)) {
+          this.props.onFileDrop(settings);
+          this.setState({
+            fileLoaded: true
+          });
+        } else {
+          errorMsg = "The file you are trying to load does not contain a proper MicroMetaApp ImageAcquisitionSettings";
+        }
+      } catch (exception) {
+        if (_constants.bool_isDebug) console.log(exception);
+        errorMsg = "The file you are trying to load is not a proper json file";
+      }
+
+      if (errorMsg !== null) {
+        window.alert(errorMsg);
+        this.setState({
+          fileLoaded: false
+        });
+      }
     }
   }, {
     key: "dropzoneDrop",
@@ -117,7 +138,12 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "dropzoneDropRejected",
-    value: function dropzoneDropRejected() {
+    value: function dropzoneDropRejected(rejectedFiles) {
+      var fileRejectedNames = "";
+      rejectedFiles.forEach(function (rejected) {
+        fileRejectedNames += rejected.file.name + "\n";
+      });
+      window.alert("The following file you tried to load is not a json file:\n" + fileRejectedNames);
       this.setState({
         fileLoading: false,
         fileLoaded: false

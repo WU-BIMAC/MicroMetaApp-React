@@ -233,7 +233,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
           onClick: this.props.onClickBack,
           style: styleButton,
           size: "lg"
-        }, "Back")
+        }, this.props.backString)
       });
       return /*#__PURE__*/_react.default.createElement("div", {
         style: style

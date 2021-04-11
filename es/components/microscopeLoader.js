@@ -19,6 +19,8 @@ var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
 
 var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
 
+var _genericUtilities = require("../genericUtilities");
+
 var _constants = require("../constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -91,11 +93,31 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     key: "onFileReaderLoad",
     value: function onFileReaderLoad(e) {
       var binaryStr = e.target.result;
-      var microscope = JSON.parse(binaryStr);
-      this.props.onFileDrop(microscope);
-      this.setState({
-        fileLoaded: true
-      });
+      var microscope = null;
+      var errorMsg = null;
+
+      try {
+        microscope = JSON.parse(binaryStr);
+
+        if ((0, _genericUtilities.validateMicroscope)(microscope, this.props.schema, true)) {
+          this.props.onFileDrop(microscope);
+          this.setState({
+            fileLoaded: true
+          });
+        } else {
+          errorMsg = "The file you are trying to load does not contain a proper MicroMetaApp Microscope";
+        }
+      } catch (exception) {
+        if (_constants.bool_isDebug) console.log(exception);
+        errorMsg = "The file you are trying to load is not a proper json file";
+      }
+
+      if (errorMsg !== null) {
+        window.alert(errorMsg);
+        this.setState({
+          fileLoaded: false
+        });
+      }
     }
   }, {
     key: "dropzoneDrop",
@@ -107,7 +129,12 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "dropzoneDropRejected",
-    value: function dropzoneDropRejected() {
+    value: function dropzoneDropRejected(rejectedFiles) {
+      var fileRejectedNames = "";
+      rejectedFiles.forEach(function (rejected) {
+        fileRejectedNames += rejected.file.name + "\n";
+      });
+      window.alert("The following file you tried to load is not a json file:\n" + fileRejectedNames);
       this.setState({
         fileLoading: false,
         fileLoaded: false
@@ -265,8 +292,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
         if (selectedManu !== null && selectedManu !== undefined) {
           var selectedMic = this.state.selectedMic;
-          var defaultMic = selectedMic !== null && selectedMic !== undefined ? inputData[selectedManu].indexOf(selectedMic) : 0;
-          console.log(this.state.micNames);
+          var defaultMic = selectedMic !== null && selectedMic !== undefined ? inputData[selectedManu].indexOf(selectedMic) : 0; //console.log(this.state.micNames);
+
           list.push( /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
             key: "dropdown-names",
             title: "",
