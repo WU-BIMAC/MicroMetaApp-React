@@ -38,7 +38,7 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
     _this.state = {
       inputData: props.inputData,
       title: props.title,
-      currentTitle: "".concat(props.title, " ").concat(props.inputData[_this.props.defaultValue || 0]),
+      currentTitle: "".concat(props.title, " ").concat(props.inputData[props.defaultValue || 0]),
       showTooltip: true
     };
     _this.handleMenuItemClick = _this.handleMenuItemClick.bind(_assertThisInitialized(_this));
@@ -90,11 +90,17 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
         maxWidth: "".concat(width, "px"),
         width: "".concat(width, "px")
       };
+      var title = this.state.currentTitle;
+
+      if (this.props.hasFixedTitle) {
+        title = this.state.title;
+      }
+
       var dropdownToggle = /*#__PURE__*/React.createElement(Dropdown.Toggle, {
         id: "dropdown-basic-button",
         style: dropdownStyle,
         size: "lg"
-      }, this.state.currentTitle);
+      }, title);
       var dropdownToggleWrapped = null;
 
       if (this.props.tooltip !== undefined && this.props.tooltip !== null && this.props.tooltip.position !== undefined && this.props.position !== null && this.props.tooltip.title !== undefined && this.props.title !== null && this.props.tooltip.content !== undefined && this.props.content !== null && this.state.showTooltip) {
