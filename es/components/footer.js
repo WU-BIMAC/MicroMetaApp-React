@@ -223,18 +223,36 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         direction: "up",
         tooltip: saveTooltip
       });
-      buttons[3] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        key: "TooltipButton-3",
-        position: _constants.back_tooltip.position,
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+
+      if (this.props.is4DNPortal) {
+        var backOptions = [];
+        saveOptions.push("Back to list");
+        if (this.props.hasImport) saveOptions.push("Import from file");
+        buttons[3] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
           key: "Button-3",
-          onClick: this.props.onClickBack,
-          style: styleButton,
-          size: "lg"
-        }, this.props.backString)
-      });
+          title: "",
+          handleMenuItemClick: this.props.onClickBack,
+          inputData: backOptions,
+          width: 250,
+          margin: 5,
+          direction: "up",
+          tooltip: _constants.back_tooltip
+        });
+      } else {
+        buttons[3] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-3",
+          position: _constants.back_tooltip.position,
+          title: _constants.back_tooltip.title,
+          content: _constants.back_tooltip.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-3",
+            onClick: this.props.onClickBack,
+            style: styleButton,
+            size: "lg"
+          }, "Back")
+        });
+      }
+
       return /*#__PURE__*/_react.default.createElement("div", {
         style: style
       }, buttons);

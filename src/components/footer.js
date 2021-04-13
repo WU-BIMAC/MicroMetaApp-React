@@ -182,24 +182,43 @@ export default class Footer extends React.PureComponent {
 				tooltip={saveTooltip}
 			/>
 		);
-		buttons[3] = (
-			<PopoverTooltip
-				key={"TooltipButton-3"}
-				position={back_tooltip.position}
-				title={back_tooltip.title}
-				content={back_tooltip.content}
-				element={
-					<Button
-						key={"Button-3"}
-						onClick={this.props.onClickBack}
-						style={styleButton}
-						size="lg"
-					>
-						{this.props.backString}
-					</Button>
-				}
-			/>
-		);
+
+		if (this.props.is4DNPortal) {
+			let backOptions = [];
+			saveOptions.push("Back to list");
+			if (this.props.hasImport) saveOptions.push("Import from file");
+			buttons[3] = (
+				<DropdownMenu
+					key={"Button-3"}
+					title={""}
+					handleMenuItemClick={this.props.onClickBack}
+					inputData={backOptions}
+					width={250}
+					margin={5}
+					direction={"up"}
+					tooltip={back_tooltip}
+				/>
+			);
+		} else {
+			buttons[3] = (
+				<PopoverTooltip
+					key={"TooltipButton-3"}
+					position={back_tooltip.position}
+					title={back_tooltip.title}
+					content={back_tooltip.content}
+					element={
+						<Button
+							key={"Button-3"}
+							onClick={this.props.onClickBack}
+							style={styleButton}
+							size="lg"
+						>
+							Back
+						</Button>
+					}
+				/>
+			);
+		}
 		return <div style={style}>{buttons}</div>;
 	}
 }
