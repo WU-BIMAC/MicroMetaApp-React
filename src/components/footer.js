@@ -199,6 +199,7 @@ export default class Footer extends React.PureComponent {
 					margin={5}
 					direction={"up"}
 					tooltip={back_tooltip}
+					hasFixedTitle={true}
 				/>
 			);
 		} else {

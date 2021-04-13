@@ -11,7 +11,7 @@ export default class DropdownMenu extends React.PureComponent {
 			inputData: props.inputData,
 			title: props.title,
 			currentTitle: `${props.title} ${
-				props.inputData[this.props.defaultValue || 0]
+				props.inputData[props.defaultValue || 0]
 			}`,
 			showTooltip: true,
 		};
@@ -71,13 +71,17 @@ export default class DropdownMenu extends React.PureComponent {
 			maxWidth: `${width}px`,
 			width: `${width}px`,
 		};
+		let title = this.state.currentTitle;
+		if(this.props.hasFixedTitle) {
+			title = this.state.title;
+		}
 		const dropdownToggle = (
 			<Dropdown.Toggle
 				id="dropdown-basic-button"
 				style={dropdownStyle}
 				size="lg"
 			>
-				{this.state.currentTitle}
+				{title}
 			</Dropdown.Toggle>
 		);
 		let dropdownToggleWrapped = null;

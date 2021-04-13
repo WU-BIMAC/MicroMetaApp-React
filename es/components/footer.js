@@ -240,7 +240,8 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
           width: 250,
           margin: 5,
           direction: "up",
-          tooltip: _constants.back_tooltip
+          tooltip: _constants.back_tooltip,
+          hasFixedTitle: true
         });
       } else {
         buttons[3] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {

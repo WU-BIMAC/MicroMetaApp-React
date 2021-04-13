@@ -191,6 +191,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.createOrUseMetadata = this.createOrUseMetadata.bind(this);
 
 		this.onClickBack = this.onClickBack.bind(this);
+		this.onSpecialImporterBack = this.onSpecialImporterBack.bind(this);
 
 		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
 		this.createAdaptedSchema = this.createAdaptedSchema.bind(this);
@@ -2363,30 +2364,48 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 	}
 
+	onSpecialImporterBack() {
+		this.setState({
+			microscope: this.state.oldMicroscope,
+			setting: this.state.oldElementData,
+			elementData: this.state.oldElementData,
+			settingData: this.state.oldSettingData,
+			imageMetadata: this.state.imageMetadata,
+		});
+	}
+
 	onClickBack(item) {
 		let isCreatingNewMicroscope = null;
 		let isLoadingMicroscope = null;
 		let isLoadingImage = null;
 		let isLoadingSettings = null;
+		let schema = null;
 		if (this.state.is4DNPortal) {
 			isCreatingNewMicroscope = this.state.isCreatingNewMicroscope;
 			isLoadingMicroscope = this.stateisLoadingMicroscope;
 			isLoadingImage = this.state.isLoadingImage;
 			isLoadingSettings = this.state.isLoadingSettings;
+			schema = this.state.schema;
 		}
+		let oldMicroscope = this.state.microscope;
+		let oldElementData = this.state.elementData;
+		let oldSetting = this.state.setting;
+		let oldSettingData = this.state.settingData;
+		let imageMetadata = this.state.imageMetadata;
 		//activeTier: 1,
 		//validationTier: 1,
 		this.setState({
 			microscope: null,
 			microscopes: null,
 			setting: null,
+			settings: null,
 			isCreatingNewMicroscope: isCreatingNewMicroscope,
 			isLoadingMicroscope: isLoadingMicroscope,
 			isLoadingImage: isLoadingImage,
 			isLoadingSettings: isLoadingSettings,
 			loadingOption: null,
 			micName: null,
-			schema: null,
+			schema: schema,
 			elementData: null,
 			settingData: null,
 			loadingMode: 0,
@@ -2399,10 +2418,16 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			) {
 				this.props.onReturnToMicroscopeList();
 			} else if (
-				item === "Import from file" &&
-				isDefined(this.props.onImportFromFile)
+				item === "Import from file" /*&& isDefined(this.props.onImportFromFile*/
 			) {
-				this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
+				//this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
+				this.setState({
+					oldMicroscope: oldMicroscope,
+					oldElementData: oldElementData,
+					oldSetting: oldSetting,
+					oldSettingData: oldSettingData,
+					imageMetadata: imageMetadata,
+				});
 			}
 		}
 	}
@@ -2673,7 +2698,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			);
 		}
 
-		if (this.state.is4DNPortal && microscope !== null && elementData === null) {
+		if (
+			this.state.is4DNPortal &&
+			(microscope === null || elementData === null)
+		) {
 			const buttonStyle = {
 				width: "400px",
 				height: "50px",
@@ -2696,24 +2724,51 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				height: "100%",
 				alignItems: "center",
 			};
-			return (
+			if (microscope === null) {
+				let loadingOptions = [];
+				loadingOptions.push(string_createFromFile);
+				let loadingOption = string_createFromFile;
+				let loadingMode = 1;
 				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
-					<div style={windowExternalContainer}>
-						<div>
-							logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
+					<MicroscopeLoader
+						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
+						loadingOptions={loadingOptions}
+						//microscopes={microscopeNames}
+						onFileDrop={this.uploadMicroscopeFromDropzone}
+						loadingOption={this.state.loadingOption}
+						loadingMode={this.state.loadingMode}
+						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
+						//onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
+						onClickConfirm={this.createOrUseMicroscope}
+						onClickBack={this.onSpecialImporterBack}
+						isSettings={this.state.isLoadingMicroscope}
+						schema={this.state.schema}
+					/>
+				</MicroMetaAppReactContainer>;
+			} else if (microscope !== null && elementData === null) {
+				return (
+					<MicroMetaAppReactContainer
+						width={width}
+						height={height}
+						forwardedRef={this.overlaysContainerRef}
+					>
+						<div style={windowExternalContainer}>
+							<div>
+								logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
+							</div>
+							<div style={windowInternalContainer}>
+								<Button style={buttonStyle} size="lg">
+									{"Loading " + microscope.Name}
+								</Button>
+							</div>
 						</div>
-						<div style={windowInternalContainer}>
-							<Button style={buttonStyle} size="lg">
-								{"Loading " + microscope.Name}
-							</Button>
-						</div>
-					</div>
-				</MicroMetaAppReactContainer>
-			);
+					</MicroMetaAppReactContainer>
+				);
+			}
 		}
 
 		if (
