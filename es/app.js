@@ -36,7 +36,7 @@ import SettingLoader from "./components/settingLoader";
 import ImageLoader from "./components/imageLoader";
 import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
-import { verifyAppVersion } from "./genericUtilities";
+import { isDefined, verifyAppVersion } from "./genericUtilities";
 
 var url = require("url");
 
@@ -1686,9 +1686,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       });
 
       if (this.state.is4DNPortal) {
-        if (item === "Back to list" && (0, _genericUtilities.isDefined)(this.props.onReturnToMicroscopeList)) {
+        if (item === "Back to list" && isDefined(this.props.onReturnToMicroscopeList)) {
           this.props.onReturnToMicroscopeList();
-        } else if (item === "Import from file" && (0, _genericUtilities.isDefined)(this.props.onImportFromFile)) {
+        } else if (item === "Import from file" && isDefined(this.props.onImportFromFile)) {
           this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
         }
       }
