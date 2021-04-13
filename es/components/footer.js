@@ -226,11 +226,15 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.props.is4DNPortal) {
         var backOptions = [];
-        saveOptions.push("Back to list");
-        if (this.props.hasImport) saveOptions.push("Import from file");
+        backOptions.push("Back to list");
+
+        if (this.props.hasImport) {
+          backOptions.push("Import from file");
+        }
+
         buttons[3] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
           key: "Button-3",
-          title: "",
+          title: "Back options",
           handleMenuItemClick: this.props.onClickBack,
           inputData: backOptions,
           width: 250,

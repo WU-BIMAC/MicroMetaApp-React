@@ -185,12 +185,14 @@ export default class Footer extends React.PureComponent {
 
 		if (this.props.is4DNPortal) {
 			let backOptions = [];
-			saveOptions.push("Back to list");
-			if (this.props.hasImport) saveOptions.push("Import from file");
+			backOptions.push("Back to list");
+			if (this.props.hasImport) {
+				backOptions.push("Import from file");
+			}
 			buttons[3] = (
 				<DropdownMenu
 					key={"Button-3"}
-					title={""}
+					title={"Back options"}
 					handleMenuItemClick={this.props.onClickBack}
 					inputData={backOptions}
 					width={250}
