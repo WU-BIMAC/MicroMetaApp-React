@@ -536,7 +536,7 @@ export const hardware_explorer_tooltip = {
 			on Confirm to save the information you have entered.
 		</p>
 	),
-	position: "bottom",
+	position: "left",
 };
 
 export const edit_planes = {

@@ -44,6 +44,8 @@ export default class Toolbar extends React.PureComponent {
 		this.cachedToolbar = null;
 
 		this.updateMinMaxDimensions = this.updateMinMaxDimensions.bind(this);
+
+		this.onHideToolbar = this.onHideToolbar.bind(this);
 	}
 
 	updateMinMaxDimensions(id, width, height) {
@@ -55,6 +57,11 @@ export default class Toolbar extends React.PureComponent {
 		// 	newImagesDimension[id] = { width: scaledWidth, height: scaledHeight };
 		// 	this.setState({ imagesDimension: newImagesDimension });
 		// }
+	}
+
+	onHideToolbar() {
+		this.cachedToolbar = null;
+		this.props.onHideToolbar();
 	}
 
 	createCategoryItems(key) {
@@ -146,9 +153,22 @@ export default class Toolbar extends React.PureComponent {
 		const style = {
 			width: "100%",
 			display: "flex",
+			flexDirection: "row",
 			justifyContent: "space-between",
 		};
-		const explorerStyle = Object.assign(style, { pointerEvents: "none" });
+		//pointerEvents: "none"
+		let explorerStyle = null;
+		if (this.props.isToolbarHidden) {
+			explorerStyle = Object.assign({}, style, {
+				flexDirection: "column",
+				justifyContent: "start",
+				height: "100%",
+				//transform: "rotateZ(90deg)",
+			});
+		} else {
+			explorerStyle = Object.assign({}, style, {});
+		}
+
 		const styleTransitionClose = {
 			transition: "transform 300ms",
 			transform: "rotateZ(0deg)",
@@ -158,30 +178,71 @@ export default class Toolbar extends React.PureComponent {
 			transform: "rotateZ(-90deg)",
 		};
 		let elementList = this.state.elementList;
+		let isHidden = this.state.isHidden;
 		let toolbar = [];
 		let names = [];
+		let explorerButton = null;
+		let explorerContainerStyle = { width: "100%" };
+		let hardwareExplorerText = "Hardware explorer";
+		if (this.props.isToolbarHidden) {
+			const styleTransitionCloseExplorer = Object.assign(
+				{},
+				styleTransitionClose,
+				{ transform: "rotateZ(0deg)" }
+			);
+			let hardwareExplorerHideButtonClose = (
+				<div style={styleTransitionCloseExplorer}>&#9665;</div>
+			);
+			explorerContainerStyle = Object.assign({}, explorerContainerStyle, {
+				height: "100%",
+			});
+			hardwareExplorerText = hardwareExplorerText.replace(" ", "");
+			hardwareExplorerText = hardwareExplorerText.split("").join("\n");
+			hardwareExplorerText = hardwareExplorerText.replace("e\ne", "e\n \n \ne");
+			explorerButton = (
+				<Button
+					key={"HardwareExplorer"}
+					variant="secondary"
+					size="lg"
+					style={explorerStyle}
+					onClick={this.onHideToolbar}
+				>
+					<div>{hardwareExplorerHideButtonClose}</div>
+				</Button>
+			);
+		} else {
+			const styleTransitionOpenExplorer = Object.assign(
+				{},
+				styleTransitionOpen,
+				{ transform: "rotateZ(180deg)" }
+			);
+			let hardwareExplorerHideButtonOpen = (
+				<div style={styleTransitionOpenExplorer}>&#9665;</div>
+			);
+			explorerButton = (
+				<Button
+					key={"HardwareExplorer"}
+					variant="secondary"
+					size="lg"
+					style={explorerStyle}
+					onClick={this.onHideToolbar}
+				>
+					<div>{hardwareExplorerText}</div>
+					<div>{hardwareExplorerHideButtonOpen}</div>
+				</Button>
+			);
+		}
 		const hardware_explorer = (
 			<PopoverTooltip
 				key={"HardwareExplorerTooltip"}
 				position={hardware_explorer_tooltip.position}
 				title={hardware_explorer_tooltip.title}
 				content={hardware_explorer_tooltip.content}
-				element={
-					<div style={{ width: "100%" }}>
-						<Button
-							key={"HardwareExplorer"}
-							variant="secondary"
-							size="lg"
-							style={explorerStyle}
-							disabled
-						>
-							Hardware explorer
-						</Button>
-					</div>
-				}
+				element={<div style={explorerContainerStyle}>{explorerButton}</div>}
 			/>
 		);
 		toolbar.push(hardware_explorer);
+		if (this.props.isToolbarHidden) return toolbar;
 		menu_order.forEach((key) => {
 			let index = key.lastIndexOf(".");
 			let simpleKey;
@@ -248,9 +309,13 @@ export default class Toolbar extends React.PureComponent {
 			width: `${width}px`,
 			height: `${height}px`,
 			overflow: "auto",
-			textAlign: "center",
-			verticalAlign: "middle",
 		};
+		if (!this.props.isToolbarHidden) {
+			style = Object.assign({}, style, {
+				textAlign: "center",
+				verticalAlign: "middle",
+			});
+		}
 		let toolbar = this.createCategories();
 		this.cachedToolbar = toolbar;
 		return <div style={style}>{toolbar}</div>;

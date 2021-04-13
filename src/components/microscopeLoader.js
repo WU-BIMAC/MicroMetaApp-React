@@ -6,6 +6,8 @@ import Dropzone from "react-dropzone";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
+import { validateMicroscope } from "../genericUtilities";
+
 import {
 	string_json_ext,
 	number_logo_width,
@@ -18,6 +20,7 @@ import {
 	create_mode_continue_tooltip,
 	create_mode_continue_settings_tooltip,
 	back_tooltip,
+	bool_isDebug,
 } from "../constants";
 
 export default class MicroscopeLoader extends React.PureComponent {
@@ -70,16 +73,41 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 	onFileReaderLoad(e) {
 		let binaryStr = e.target.result;
-		let microscope = JSON.parse(binaryStr);
-		this.props.onFileDrop(microscope);
-		this.setState({ fileLoaded: true });
+		let microscope = null;
+		let errorMsg = null;
+		try {
+			microscope = JSON.parse(binaryStr);
+			if (validateMicroscope(microscope, this.props.schema, true)) {
+				this.props.onFileDrop(microscope);
+				this.setState({ fileLoaded: true });
+			} else {
+				errorMsg =
+					"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
+			}
+		} catch (exception) {
+			if (bool_isDebug) console.log(exception);
+			errorMsg = "The file you are trying to load is not a proper json file";
+		}
+
+		if (errorMsg !== null) {
+			window.alert(errorMsg);
+			this.setState({ fileLoaded: false });
+		}
 	}
 
 	dropzoneDrop() {
 		this.setState({ fileLoading: true, fileLoaded: false });
 	}
 
-	dropzoneDropRejected() {
+	dropzoneDropRejected(rejectedFiles) {
+		let fileRejectedNames = "";
+		rejectedFiles.forEach((rejected) => {
+			fileRejectedNames += rejected.file.name + "\n";
+		});
+		window.alert(
+			"The following file you tried to load is not a json file:\n" +
+				fileRejectedNames
+		);
 		this.setState({ fileLoading: false, fileLoaded: false });
 	}
 
@@ -242,7 +270,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					selectedMic !== null && selectedMic !== undefined
 						? inputData[selectedManu].indexOf(selectedMic)
 						: 0;
-				console.log(this.state.micNames);
+				//console.log(this.state.micNames);
 				list.push(
 					<DropdownMenu
 						key={"dropdown-names"}

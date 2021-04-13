@@ -16,6 +16,7 @@ import ImageLoader from "./components/imageLoader";
 
 import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
+import { verifyAppVersion } from "./genericUtilities"
 
 const url = require("url");
 const validate = require("jsonschema").validate;
@@ -55,10 +56,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			mounted: false,
 			activeTier: 1,
 			validationTier: 1,
-			isCreatingNewMicroscope: null,
-			isLoadingMicroscope: null,
-			isLoadingSettings: null,
-			isLoadingImage: null,
+			isCreatingNewMicroscope: props.isCreatingNewMicroscope || null,
+			isLoadingMicroscope: props.isLoadingMicroscope || null,
+			isLoadingSettings: props.isLoadingSettings || null,
+			isLoadingImage: props.isLoadingImage || null,
 			loadingOption: null,
 			micName: null,
 			settingName: null,
@@ -71,10 +72,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			areComponentsValidated: false,
 			areSettingComponentsValidated: false,
 			isViewOnly: props.isViewOnly || false,
-			isPreset: false,
 			standTypes: {},
 			standType: null,
 			imageMetadata: null,
+			isToolbarHidden: false,
+			is4DNPortal: props.is4DNPortal || false,
 		};
 
 		for (let i = 0; i < current_stands.length; i++) {
@@ -83,9 +85,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let modifiedCreateString = string_createFromScratch.replace("#", name);
 			this.state.standTypes[modifiedCreateString] = name;
 		}
-
-		if (this.state.microscope !== null && this.state.microscope !== undefined)
-			this.state.isPreset = true;
 
 		//this.isMicroscopeValidated = false;
 		this.toolbarRef = React.createRef();
@@ -207,6 +206,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.handleCompleteExport = this.handleCompleteExport.bind(this);
 
 		this.handleMicroscopePreset = this.handleMicroscopePreset.bind(this);
+
+		this.onHideToolbar = this.onHideToolbar.bind(this);
 		//this.toDataUrl = this.toDataUrl.bind(this);
 
 		// Set up API
@@ -290,13 +291,21 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleCompleteLoadSchema(newSchema) {
-		if (this.state.isPreset) {
+		if (this.state.is4DNPortal) {
 			this.setState({ schema: newSchema }, () => {
-				this.handleMicroscopePreset();
+				if (this.isCreatingNewMicroscope) {
+					this.handleMicroscopePreset();
+				} else {
+				}
 			});
 		} else {
 			this.setState({ schema: newSchema });
 		}
+	}
+
+	onHideToolbar() {
+		let isToolbarHidden = this.state.isToolbarHidden;
+		this.setState({ isToolbarHidden: !isToolbarHidden });
 	}
 
 	//HAVE TO DO THE SAME FOR SETTINGS?
@@ -310,6 +319,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				activeTier: tier,
 				validationTier: vTier,
 				isCreatingNewMicroscope: true,
+				isLoadingMicroscope: false,
+				isLoadingSettings: false,
+				isLoadingImage: false,
 				loadingOption: string_createFromFile,
 				loadingMode: 1,
 			},
@@ -1654,8 +1666,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				microscopeStandSchema.modelVersion;
 		}
 
-		console.log("oldMicModelVersionNumber");
-		console.log(oldMicModelVersionNumber);
+		// console.log("oldMicModelVersionNumber");
+		// console.log(oldMicModelVersionNumber);
 
 		if (oldMicModelVersionNumber < 2000) {
 			console.log("PRE 2.00 MICROSCOPE");
@@ -1970,38 +1982,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			microscope !== undefined &&
 			isLoadingMicroscope
 		) {
-			let oldAppVersion = microscope.AppVersion;
-			let oldMainVersion = null;
-			let oldSubVersion = null;
-			let oldPatchVersion = null;
-			let oldBetaVersion = null;
-			let hasAppVersion = true;
-			if (oldAppVersion !== undefined && oldAppVersion !== null) {
-				let oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
-				oldMainVersion = Number(oldAppVersionSplit[0]);
-				oldSubVersion = Number(oldAppVersionSplit[1]);
-				oldPatchVersion = Number(oldAppVersionSplit[2]);
-				oldBetaVersion = Number(oldAppVersionSplit[3].replace("b", ""));
-				//let appVersionSplit = appVersion.split(/[\.,]+/);
-				console.log("oldAppVersionSplit");
-				console.log(oldAppVersionSplit);
-			} else {
-				hasAppVersion = false;
-			}
-			let appVersionSplit = appVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
-			let appMainVersion = Number(appVersionSplit[0]);
-			let appSubVersion = Number(appVersionSplit[1]);
-			let appPatchVersion = Number(appVersionSplit[2]);
-			let appBetaVersion = Number(appVersionSplit[3].replace("b", ""));
-			//let appVersionSplit = appVersion.split(/[\.,]+/);
-			console.log("appVersionSplit");
-			console.log(appVersionSplit);
 			if (
-				!hasAppVersion ||
-				oldMainVersion < appMainVersion ||
-				oldSubVersion < appSubVersion ||
-				oldPatchVersion < appPatchVersion ||
-				oldBetaVersion < appBetaVersion
+				!verifyAppVersion(microscope)
 			) {
 				window.alert(
 					"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again."
@@ -2265,7 +2247,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let imageSchema = adaptedSchemas[3];
 		let settingsSchema = adaptedSchemas[4];
 
-		console.log(settingsSchema);
+		//console.log(settingsSchema);
 		let pixelsSchema = null;
 		for (let i in settingsSchema) {
 			let localSchema = settingsSchema[i];
@@ -2390,9 +2372,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	onClickBack() {
 		let presetMicroscope = null;
-		if (this.state.isPreset) {
-			presetMicroscope = this.state.microscope;
-		}
 		this.setState({
 			activeTier: 1,
 			validationTier: 1,
@@ -2411,6 +2390,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			loadingMode: 0,
 			imageMetadata: null,
 		});
+		if (
+			this.state.is4DNPortal &&
+			this.props.onReturnToMicroscopeList !== null &&
+			this.props.onReturnToMicroscopeList !== undefined
+		) {
+			this.props.onReturnToMicroscopeList();
+		}
 	}
 
 	updateElementData(elementData, areComponentsValidated) {
@@ -2564,8 +2550,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		this.setState({ setting: setting });
 
-		console.log("setting");
-		console.log(setting);
+		// console.log("setting");
+		// console.log(setting);
 
 		if (lowerCaseItem.includes("save")) {
 			this.props.onSaveSetting(setting, this.handleCompleteSave);
@@ -2629,21 +2615,24 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		width = Math.max(1100, width);
 		height = Math.max(600, height - 60 * 2);
 
-		//let canvasWidth = Math.ceil(width * 0.75);
-		let canvasWidth = width - 300;
-		//let canvasHeight = height - 60 - 60;
-		let canvasHeight = height;
-
-		//let toolbarWidth = Math.floor(width * 0.25);
 		let toolbarWidth = 300;
-		//let toolbarHeight = height - 60 - 60;
+		if (this.state.isToolbarHidden) {
+			toolbarWidth = 50;
+		}
 		let toolbarHeight = height;
+
+		let canvasWidth = width - toolbarWidth;
+		let canvasHeight = height;
 
 		let settingsWidth = width;
 
-		//let footerWidth = width;
 		let headerFooterWidth = width;
 		let headerFooterHeight = 60;
+
+		let backString = "Back";
+		if(this.state.is4DNPortal) {
+			backString = "Back to list";
+		}
 
 		if (schema === null && microscopes === null /*&& microscope === null*/) {
 			return (
@@ -2793,6 +2782,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickConfirm={this.createOrUseMicroscope}
 						onClickBack={this.onClickBack}
 						isSettings={this.state.isLoadingMicroscope}
+						schema={this.state.schema}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -2804,7 +2794,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			this.props.onLoadMetadata !== null &&
 			this.props.onLoadMetadata !== undefined
 		) {
-			console.log("IMAGE LOADER");
+			//console.log("IMAGE LOADER");
 			//let modifiedCreateString = string_createFromScratch.replace("# ", "");
 			let loadingOptions = [string_noImageLoad, string_createFromFile];
 			return (
@@ -2830,7 +2820,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		//should be settingData instead of elementData
 		if (!this.state.isCreatingNewMicroscope && this.state.isLoadingSettings) {
-			console.log("SETTINGS LOADER");
+			//console.log("SETTINGS LOADER");
 			let modifiedCreateString = string_createFromScratch.replace("# ", "");
 			let loadingOptions = [modifiedCreateString, string_createFromFile];
 			let settingsNames = [];
@@ -2867,6 +2857,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickSettingsSelection={this.selectSettingFromRepository}
 						onClickConfirm={this.createOrUseSetting}
 						onClickBack={this.onClickBack}
+						schema ={this.state.schema}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3012,6 +3003,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						formTitle={setting.Name}
 						imagesPath={imagesPathSVG}
 						elementByType={elementByType}
+						backString={backString}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3109,6 +3101,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								componentSchemas={componentsSchema}
 								dimensions={toolbarDims}
 								scalingFactor={scalingFactor}
+								onHideToolbar={this.onHideToolbar}
+								isToolbarHidden={this.state.isToolbarHidden}
 							/>
 						</div>
 						<Footer
@@ -3129,6 +3123,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							formTitle={microscope.Name}
 							imagesPath={imagesPathSVG}
 							elementByType={elementByType}
+							backString={backString}
 						/>
 					</MicroMetaAppReactContainer>
 				);

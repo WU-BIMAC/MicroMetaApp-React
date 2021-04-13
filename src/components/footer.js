@@ -195,7 +195,7 @@ export default class Footer extends React.PureComponent {
 						style={styleButton}
 						size="lg"
 					>
-						Back
+						{this.props.backString}
 					</Button>
 				}
 			/>
