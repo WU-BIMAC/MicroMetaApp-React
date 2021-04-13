@@ -197,18 +197,35 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         direction: "up",
         tooltip: saveTooltip
       });
-      buttons[3] = /*#__PURE__*/React.createElement(PopoverTooltip, {
-        key: "TooltipButton-3",
-        position: back_tooltip.position,
-        title: back_tooltip.title,
-        content: back_tooltip.content,
-        element: /*#__PURE__*/React.createElement(Button, {
+
+      if (this.props.is4DNPortal) {
+        saveOptions.push("Back to list");
+        if (this.props.hasImport) saveOptions.push("Import from file");
+        buttons[3] = /*#__PURE__*/React.createElement(DropdownMenu, {
           key: "Button-3",
-          onClick: this.props.onClickBack,
-          style: styleButton,
-          size: "lg"
-        }, this.props.backString)
-      });
+          title: "",
+          handleMenuItemClick: this.props.onClickBack,
+          inputData: [],
+          width: 250,
+          margin: 5,
+          direction: "up",
+          tooltip: back_tooltip
+        });
+      } else {
+        buttons[3] = /*#__PURE__*/React.createElement(PopoverTooltip, {
+          key: "TooltipButton-3",
+          position: back_tooltip.position,
+          title: back_tooltip.title,
+          content: back_tooltip.content,
+          element: /*#__PURE__*/React.createElement(Button, {
+            key: "Button-3",
+            onClick: this.props.onClickBack,
+            style: styleButton,
+            size: "lg"
+          }, "Back")
+        });
+      }
+
       return /*#__PURE__*/React.createElement("div", {
         style: {
           backgroundColor: "LightGray",

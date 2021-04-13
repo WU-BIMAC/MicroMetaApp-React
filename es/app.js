@@ -92,7 +92,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       standType: null,
       imageMetadata: null,
       isToolbarHidden: false,
-      is4DNPortal: props.is4DNPortal || false
+      is4DNPortal: props.is4DNPortal || false,
+      hasImport: props.hasImport || false
     };
 
     for (var i = 0; i < current_stands.length; i++) {
@@ -257,7 +258,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         this.setState({
           schema: newSchema
         }, function () {
-          if (_this6.isCreatingNewMicroscope) {
+          if (_this6.state.isCreatingNewMicroscope) {
             _this6.handleMicroscopePreset();
           }
         });
@@ -1652,17 +1653,29 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "onClickBack",
-    value: function onClickBack() {
+    value: function onClickBack(item) {
+      var isCreatingNewMicroscope = null;
+      var isLoadingMicroscope = null;
+      var isLoadingImage = null;
+      var isLoadingSettings = null;
+
+      if (this.state.is4DNPortal) {
+        isCreatingNewMicroscope = this.state.isCreatingNewMicroscope;
+        isLoadingMicroscope = this.stateisLoadingMicroscope;
+        isLoadingImage = this.state.isLoadingImage;
+        isLoadingSettings = this.state.isLoadingSettings;
+      } //activeTier: 1,
+      //validationTier: 1,
+
+
       this.setState({
-        activeTier: 1,
-        validationTier: 1,
         microscope: null,
         microscopes: null,
         setting: null,
-        isCreatingNewMicroscope: null,
-        isLoadingMicroscope: null,
-        isLoadingImage: null,
-        isLoadingSettings: null,
+        isCreatingNewMicroscope: isCreatingNewMicroscope,
+        isLoadingMicroscope: isLoadingMicroscope,
+        isLoadingImage: isLoadingImage,
+        isLoadingSettings: isLoadingSettings,
         loadingOption: null,
         micName: null,
         schema: null,
@@ -1672,8 +1685,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         imageMetadata: null
       });
 
-      if (this.state.is4DNPortal && this.props.onReturnToMicroscopeList !== null && this.props.onReturnToMicroscopeList !== undefined) {
-        this.props.onReturnToMicroscopeList();
+      if (this.state.is4DNPortal) {
+        if (item === "Back to list" && isDefined(this.props.onReturnToMicroscopeList)) {
+          this.props.onReturnToMicroscopeList();
+        } else if (item === "Import from file" && isDefined(this.props.onImportFromFile)) {
+          this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
+        }
       }
     }
   }, {
@@ -1918,11 +1935,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var settingsWidth = width;
       var headerFooterWidth = width;
       var headerFooterHeight = 60;
-      var backString = "Back";
-
-      if (this.state.is4DNPortal) {
-        backString = "Back to list";
-      }
 
       if (schema === null && microscopes === null
       /*&& microscope === null*/
@@ -1954,7 +1966,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }));
       }
 
-      if (this.state.isCreatingNewMicroscope === null && microscope !== null && elementData === null) {
+      if (this.state.is4DNPortal && microscope !== null && elementData === null) {
         return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
@@ -2227,7 +2239,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           formTitle: setting.Name,
           imagesPath: imagesPathSVG,
           elementByType: elementByType,
-          backString: backString
+          is4DNPortal: this.state.is4DNPortal,
+          hasImport: this.state.hasImport
         }));
       } else {
         if (this.state.isViewOnly) {
@@ -2329,7 +2342,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             formTitle: microscope.Name,
             imagesPath: imagesPathSVG,
             elementByType: elementByType,
-            backString: backString
+            is4DNPortal: this.state.is4DNPortal,
+            hasImport: this.state.hasImport
           }));
         }
       }

@@ -77,6 +77,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			imageMetadata: null,
 			isToolbarHidden: false,
 			is4DNPortal: props.is4DNPortal || false,
+			hasImport: props.hasImport || false,
 		};
 
 		for (let i = 0; i < current_stands.length; i++) {
@@ -293,7 +294,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	handleCompleteLoadSchema(newSchema) {
 		if (this.state.is4DNPortal) {
 			this.setState({ schema: newSchema }, () => {
-				if (this.isCreatingNewMicroscope) {
+				if (this.state.isCreatingNewMicroscope) {
 					this.handleMicroscopePreset();
 				} else {
 				}
@@ -2370,18 +2371,27 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 	}
 
-	onClickBack() {
-		let presetMicroscope = null;
+	onClickBack(item) {
+		let isCreatingNewMicroscope= null;
+		let	isLoadingMicroscope= null;
+		let isLoadingImage= null;
+		let isLoadingSettings = null;
+		if(this.state.is4DNPortal) {
+			isCreatingNewMicroscope= this.state.isCreatingNewMicroscope;
+			isLoadingMicroscope= this.stateisLoadingMicroscope;
+			isLoadingImage = this.state.isLoadingImage;
+			isLoadingSettings=  this.state.isLoadingSettings;
+		}
+		//activeTier: 1,
+		//validationTier: 1,
 		this.setState({
-			activeTier: 1,
-			validationTier: 1,
-			microscope: presetMicroscope,
+			microscope: null,
 			microscopes: null,
 			setting: null,
-			isCreatingNewMicroscope: null,
-			isLoadingMicroscope: null,
-			isLoadingImage: null,
-			isLoadingSettings: null,
+			isCreatingNewMicroscope: isCreatingNewMicroscope,
+			isLoadingMicroscope: isLoadingMicroscope,
+			isLoadingImage: isLoadingImage,
+			isLoadingSettings: isLoadingSettings,
 			loadingOption: null,
 			micName: null,
 			schema: null,
@@ -2391,11 +2401,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			imageMetadata: null,
 		});
 		if (
-			this.state.is4DNPortal &&
-			this.props.onReturnToMicroscopeList !== null &&
-			this.props.onReturnToMicroscopeList !== undefined
+			this.state.is4DNPortal
 		) {
-			this.props.onReturnToMicroscopeList();
+			if(item === "Back to list" && isDefined(this.props.onReturnToMicroscopeList)) {
+				this.props.onReturnToMicroscopeList();
+			} else if(item === "Import from file" && isDefined(this.props.onImportFromFile)) {
+				this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
+			}
+			
 		}
 	}
 
@@ -2629,11 +2642,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let headerFooterWidth = width;
 		let headerFooterHeight = 60;
 
-		let backString = "Back";
-		if(this.state.is4DNPortal) {
-			backString = "Back to list";
-		}
-
 		if (schema === null && microscopes === null /*&& microscope === null*/) {
 			return (
 				<MicroMetaAppReactContainer
@@ -2671,7 +2679,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 
 		if (
-			this.state.isCreatingNewMicroscope === null &&
+			this.state.is4DNPortal &&
 			microscope !== null &&
 			elementData === null
 		) {
@@ -3003,7 +3011,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						formTitle={setting.Name}
 						imagesPath={imagesPathSVG}
 						elementByType={elementByType}
-						backString={backString}
+						is4DNPortal={this.state.is4DNPortal}
+						hasImport = {this.state.hasImport}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3123,7 +3132,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							formTitle={microscope.Name}
 							imagesPath={imagesPathSVG}
 							elementByType={elementByType}
-							backString={backString}
+							is4DNPortal={this.state.is4DNPortal}
+							hasImport = {this.state.hasImport}
 						/>
 					</MicroMetaAppReactContainer>
 				);
