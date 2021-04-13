@@ -267,6 +267,7 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
           size: "lg"
         }, "Back")
       })));
+      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       return /*#__PURE__*/React.createElement("div", {
         style: {
           display: "flex",
@@ -288,7 +289,7 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
       }, /*#__PURE__*/React.createElement("div", {
         style: styleImageContainer
       }, /*#__PURE__*/React.createElement("img", {
-        src: this.props.logoImg,
+        src: logoPath,
         alt: this.props.logoImg,
         style: {
           width: "100%",

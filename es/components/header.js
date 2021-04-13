@@ -39,6 +39,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height;
       //<div style={styleTitle}>Microscopy Metadata For The Real World</div>
+      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       return /*#__PURE__*/React.createElement("div", {
         style: {
           backgroundColor: "LightGray",
@@ -54,7 +55,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           height: "60px"
         }
       }, /*#__PURE__*/React.createElement("img", {
-        src: this.props.logoImg,
+        src: logoPath,
         alt: this.props.logoImg,
         style: {
           width: "100%",

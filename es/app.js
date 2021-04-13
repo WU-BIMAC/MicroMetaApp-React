@@ -1660,7 +1660,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         setting: this.state.oldElementData,
         elementData: this.state.oldElementData,
         settingData: this.state.oldSettingData,
-        imageMetadata: this.state.imageMetadata
+        imageMetadata: this.state.oldImageMetadata
       });
     }
   }, {
@@ -1684,7 +1684,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var oldElementData = this.state.elementData;
       var oldSetting = this.state.setting;
       var oldSettingData = this.state.settingData;
-      var imageMetadata = this.state.imageMetadata; //activeTier: 1,
+      var oldImageMetadata = this.state.imageMetadata; //activeTier: 1,
       //validationTier: 1,
 
       this.setState({
@@ -1717,7 +1717,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
               oldElementData: oldElementData,
               oldSetting: oldSetting,
               oldSettingData: oldSettingData,
-              imageMetadata: imageMetadata
+              oldImageMetadata: oldImageMetadata
             });
           }
       }
@@ -1997,6 +1997,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.state.is4DNPortal && (microscope === null || elementData === null)) {
         if (microscope === null) {
+          console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
           var loadingOptions = [];
           loadingOptions.push(string_createFromFile);
 

@@ -53,6 +53,7 @@ var MicroscopePreLoader = /*#__PURE__*/function (_React$PureComponent) {
         height: "".concat(number_logo_height, "px")
       };
       var tierInputData = this.props.tiers;
+      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       return /*#__PURE__*/React.createElement("div", {
         style: {
           display: "flex",
@@ -74,7 +75,7 @@ var MicroscopePreLoader = /*#__PURE__*/function (_React$PureComponent) {
       }, /*#__PURE__*/React.createElement("div", {
         style: styleImageContainer
       }, /*#__PURE__*/React.createElement("img", {
-        src: this.props.logoImg,
+        src: logoPath,
         alt: this.props.logoImg,
         style: {
           width: "100%",
