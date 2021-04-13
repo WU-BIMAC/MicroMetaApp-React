@@ -16,7 +16,7 @@ import ImageLoader from "./components/imageLoader";
 
 import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
-import { verifyAppVersion } from "./genericUtilities"
+import { isDefined, verifyAppVersion } from "./genericUtilities";
 
 const url = require("url");
 const validate = require("jsonschema").validate;
@@ -1983,9 +1983,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			microscope !== undefined &&
 			isLoadingMicroscope
 		) {
-			if (
-				!verifyAppVersion(microscope)
-			) {
+			if (!verifyAppVersion(microscope)) {
 				window.alert(
 					"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again."
 				);
@@ -2372,15 +2370,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	onClickBack(item) {
-		let isCreatingNewMicroscope= null;
-		let	isLoadingMicroscope= null;
-		let isLoadingImage= null;
+		let isCreatingNewMicroscope = null;
+		let isLoadingMicroscope = null;
+		let isLoadingImage = null;
 		let isLoadingSettings = null;
-		if(this.state.is4DNPortal) {
-			isCreatingNewMicroscope= this.state.isCreatingNewMicroscope;
-			isLoadingMicroscope= this.stateisLoadingMicroscope;
+		if (this.state.is4DNPortal) {
+			isCreatingNewMicroscope = this.state.isCreatingNewMicroscope;
+			isLoadingMicroscope = this.stateisLoadingMicroscope;
 			isLoadingImage = this.state.isLoadingImage;
-			isLoadingSettings=  this.state.isLoadingSettings;
+			isLoadingSettings = this.state.isLoadingSettings;
 		}
 		//activeTier: 1,
 		//validationTier: 1,
@@ -2400,15 +2398,18 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			loadingMode: 0,
 			imageMetadata: null,
 		});
-		if (
-			this.state.is4DNPortal
-		) {
-			if(item === "Back to list" && isDefined(this.props.onReturnToMicroscopeList)) {
+		if (this.state.is4DNPortal) {
+			if (
+				item === "Back to list" &&
+				isDefined(this.props.onReturnToMicroscopeList)
+			) {
 				this.props.onReturnToMicroscopeList();
-			} else if(item === "Import from file" && isDefined(this.props.onImportFromFile)) {
+			} else if (
+				item === "Import from file" &&
+				isDefined(this.props.onImportFromFile)
+			) {
 				this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
 			}
-			
 		}
 	}
 
@@ -2678,11 +2679,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			);
 		}
 
-		if (
-			this.state.is4DNPortal &&
-			microscope !== null &&
-			elementData === null
-		) {
+		if (this.state.is4DNPortal && microscope !== null && elementData === null) {
 			const buttonStyle = {
 				width: "400px",
 				height: "50px",
@@ -2865,7 +2862,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickSettingsSelection={this.selectSettingFromRepository}
 						onClickConfirm={this.createOrUseSetting}
 						onClickBack={this.onClickBack}
-						schema ={this.state.schema}
+						schema={this.state.schema}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3012,7 +3009,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						imagesPath={imagesPathSVG}
 						elementByType={elementByType}
 						is4DNPortal={this.state.is4DNPortal}
-						hasImport = {this.state.hasImport}
+						hasImport={this.state.hasImport}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3133,7 +3130,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							imagesPath={imagesPathSVG}
 							elementByType={elementByType}
 							is4DNPortal={this.state.is4DNPortal}
-							hasImport = {this.state.hasImport}
+							hasImport={this.state.hasImport}
 						/>
 					</MicroMetaAppReactContainer>
 				);
