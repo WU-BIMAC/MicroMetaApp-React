@@ -201,7 +201,7 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
         transform: "rotateZ(-90deg)"
       };
       var elementList = this.state.elementList;
-      var isHidden = this.state.isHidden;
+      this.state.isHidden;
       var toolbar = [];
       var names = [];
       var explorerButton = null;
@@ -214,55 +214,50 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
         var styleTransitionCloseExplorer = Object.assign({}, styleTransitionClose, {
           transform: "rotateZ(0deg)"
         });
-
-        var hardwareExplorerHideButtonClose = /*#__PURE__*/_react.default.createElement("div", {
+        var hardwareExplorerHideButtonClose = /*#__PURE__*/React.createElement("div", {
           style: styleTransitionCloseExplorer
         }, "\u25C1");
-
         explorerContainerStyle = Object.assign({}, explorerContainerStyle, {
           height: "100%"
         });
         hardwareExplorerText = hardwareExplorerText.replace(" ", "");
         hardwareExplorerText = hardwareExplorerText.split("").join("\n");
         hardwareExplorerText = hardwareExplorerText.replace("e\ne", "e\n \n \ne");
-        explorerButton = /*#__PURE__*/_react.default.createElement(_Button.default, {
+        explorerButton = /*#__PURE__*/React.createElement(Button, {
           key: "HardwareExplorer",
           variant: "secondary",
           size: "lg",
           style: explorerStyle,
           onClick: this.onHideToolbar
-        }, /*#__PURE__*/_react.default.createElement("div", null, hardwareExplorerHideButtonClose));
+        }, /*#__PURE__*/React.createElement("div", null, hardwareExplorerHideButtonClose));
       } else {
         var styleTransitionOpenExplorer = Object.assign({}, styleTransitionOpen, {
           transform: "rotateZ(180deg)"
         });
-
-        var hardwareExplorerHideButtonOpen = /*#__PURE__*/_react.default.createElement("div", {
+        var hardwareExplorerHideButtonOpen = /*#__PURE__*/React.createElement("div", {
           style: styleTransitionOpenExplorer
         }, "\u25C1");
-
-        explorerButton = /*#__PURE__*/_react.default.createElement(_Button.default, {
+        explorerButton = /*#__PURE__*/React.createElement(Button, {
           key: "HardwareExplorer",
           variant: "secondary",
           size: "lg",
           style: explorerStyle,
           onClick: this.onHideToolbar
-        }, /*#__PURE__*/_react.default.createElement("div", null, hardwareExplorerText), /*#__PURE__*/_react.default.createElement("div", null, hardwareExplorerHideButtonOpen));
+        }, /*#__PURE__*/React.createElement("div", null, hardwareExplorerText), /*#__PURE__*/React.createElement("div", null, hardwareExplorerHideButtonOpen));
       }
 
-      var hardware_explorer = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      var hardware_explorer = /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "HardwareExplorerTooltip",
-        position: _constants.hardware_explorer_tooltip.position,
-        title: _constants.hardware_explorer_tooltip.title,
-        content: _constants.hardware_explorer_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement("div", {
+        position: hardware_explorer_tooltip.position,
+        title: hardware_explorer_tooltip.title,
+        content: hardware_explorer_tooltip.content,
+        element: /*#__PURE__*/React.createElement("div", {
           style: explorerContainerStyle
         }, explorerButton)
       });
       toolbar.push(hardware_explorer);
       if (this.props.isToolbarHidden) return toolbar;
-
-      _constants.menu_order.forEach(function (key) {
+      menu_order.forEach(function (key) {
         var index = key.lastIndexOf(".");
         var simpleKey;
         if (index !== -1) simpleKey = key.substring(index + 1);else simpleKey = key;

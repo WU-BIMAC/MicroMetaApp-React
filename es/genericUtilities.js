@@ -1,27 +1,13 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.isDefined = isDefined;
-exports.verifyAppVersion = verifyAppVersion;
-exports.validateAcquisitionSettings = validateAcquisitionSettings;
-exports.validateMicroscope = validateMicroscope;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _package = require("../package.json");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+import React from "react";
+import { version as appVersion } from "../package.json";
 
 var validate = require("jsonschema").validate;
 
-function isDefined(object) {
+export function isDefined(object) {
   if (object !== null && object !== undefined) return true;
   return false;
 }
-
-function verifyAppVersion(microscope) {
+export function verifyAppVersion(microscope) {
   var oldAppVersion = microscope.AppVersion;
   var oldMainVersion = null;
   var oldSubVersion = null;
@@ -42,8 +28,7 @@ function verifyAppVersion(microscope) {
     hasAppVersion = false;
   }
 
-  var appVersionSplit = _package.version.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
-
+  var appVersionSplit = appVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
 
   var appMainVersion = Number(appVersionSplit[0]);
   var appSubVersion = Number(appVersionSplit[1]);
@@ -58,8 +43,7 @@ function verifyAppVersion(microscope) {
 
   return true;
 }
-
-function validateAcquisitionSettings(settings, schemas) {
+export function validateAcquisitionSettings(settings, schemas) {
   var imageSchema = null;
   var pixelsSchema = null;
 
@@ -77,12 +61,9 @@ function validateAcquisitionSettings(settings, schemas) {
   var imageValidated = imageValidation.valid;
   var pixelsValidation = validate(settings.Pixels, pixelsSchema);
   var pixelsValidated = pixelsValidation.valid;
-  var validated = imageValidated && pixelsValidated;
-  return validated;
+  return imageValidated && pixelsValidated;
 }
-
-function validateMicroscope(microscope, schemas, checkForMicroscopeStand) {
-  var micStandSchemaName = null;
+export function validateMicroscope(microscope, schemas, checkForMicroscopeStand) {
   var microscopeSchema = null;
 
   for (var i = 0; i < schemas.length; i++) {

@@ -1,28 +1,5 @@
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _ButtonToolbar = _interopRequireDefault(require("react-bootstrap/ButtonToolbar"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _reactDropzone = _interopRequireDefault(require("react-dropzone"));
-
-var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
-
-var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
-var _genericUtilities = require("../genericUtilities");
-
-var _constants = require("../constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -49,7 +26,8 @@ import Button from "react-bootstrap/Button";
 import Dropzone from "react-dropzone";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
-import { string_json_ext, number_logo_width, number_logo_height, create_mode_selector_tooltip, create_mode_selector_settings_tooltip, create_from_file_tooltip, create_from_repo_manufacturer_tooltip, create_from_repo_names_tooltip, create_mode_continue_tooltip, create_mode_continue_settings_tooltip, back_tooltip } from "../constants";
+import { validateMicroscope } from "../genericUtilities";
+import { string_json_ext, number_logo_width, number_logo_height, create_mode_selector_tooltip, create_mode_selector_settings_tooltip, create_from_file_tooltip, create_from_repo_manufacturer_tooltip, create_from_repo_names_tooltip, create_mode_continue_tooltip, create_mode_continue_settings_tooltip, back_tooltip, bool_isDebug } from "../constants";
 
 var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(MicroscopeLoader, _React$PureComponent);
@@ -105,7 +83,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       try {
         microscope = JSON.parse(binaryStr);
 
-        if ((0, _genericUtilities.validateMicroscope)(microscope, this.props.schema, true)) {
+        if (validateMicroscope(microscope, this.props.schema, true)) {
           this.props.onFileDrop(microscope);
           this.setState({
             fileLoaded: true
@@ -114,7 +92,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           errorMsg = "The file you are trying to load does not contain a proper MicroMetaApp Microscope";
         }
       } catch (exception) {
-        if (_constants.bool_isDebug) console.log(exception);
+        if (bool_isDebug) console.log(exception);
         errorMsg = "The file you are trying to load is not a proper json file";
       }
 
@@ -279,7 +257,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           var selectedMic = this.state.selectedMic;
           var defaultMic = selectedMic !== null && selectedMic !== undefined ? inputData[selectedManu].indexOf(selectedMic) : 0; //console.log(this.state.micNames);
 
-          list.push( /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+          list.push( /*#__PURE__*/React.createElement(DropdownMenu, {
             key: "dropdown-names",
             title: "",
             handleMenuItemClick: this.props.onClickMicroscopeSelection,

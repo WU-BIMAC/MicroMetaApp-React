@@ -1,52 +1,5 @@
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _reactDom = _interopRequireDefault(require("react-dom"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _header = _interopRequireDefault(require("./components/header"));
-
-var _footer = _interopRequireDefault(require("./components/footer"));
-
-var _toolbar = _interopRequireDefault(require("./components/toolbar"));
-
-var _canvas = _interopRequireDefault(require("./components/canvas"));
-
-var _settingsMainView = _interopRequireDefault(require("./components/settingsMainView"));
-
-var _dataLoader = _interopRequireDefault(require("./components/dataLoader"));
-
-var _microscopePreLoader = _interopRequireDefault(require("./components/microscopePreLoader"));
-
-var _microscopeLoader = _interopRequireDefault(require("./components/microscopeLoader"));
-
-var _settingLoader = _interopRequireDefault(require("./components/settingLoader"));
-
-var _imageLoader = _interopRequireDefault(require("./components/imageLoader"));
-
-var _package = require("../package.json");
-
-var _uuid = require("uuid");
-
-var _genericUtilities = require("./genericUtilities");
-
-var _constants = require("./constants");
-
-var _util = require("util");
-
-var _constants2 = require("constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -83,6 +36,7 @@ import SettingLoader from "./components/settingLoader";
 import ImageLoader from "./components/imageLoader";
 import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
+import { verifyAppVersion } from "./genericUtilities";
 
 var url = require("url");
 
@@ -211,12 +165,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleSaveSetting = _this.handleSaveSetting.bind(_assertThisInitialized(_this));
     _this.handleCompleteSave = _this.handleCompleteSave.bind(_assertThisInitialized(_this));
     _this.handleCompleteExport = _this.handleCompleteExport.bind(_assertThisInitialized(_this));
+    _this.handleMicroscopePreset = _this.handleMicroscopePreset.bind(_assertThisInitialized(_this));
+    _this.onHideToolbar = _this.onHideToolbar.bind(_assertThisInitialized(_this)); //this.toDataUrl = this.toDataUrl.bind(this);
     // Set up API
 
     var _createApi = createApi(_assertThisInitialized(_this)),
         api = _createApi["public"];
-    _this.handleMicroscopePreset = _this.handleMicroscopePreset.bind(_assertThisInitialized(_this));
-    _this.onHideToolbar = _this.onHideToolbar.bind(_assertThisInitialized(_this)); //this.toDataUrl = this.toDataUrl.bind(this);
 
     _this.api = api;
     return _this;
@@ -305,7 +259,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }, function () {
           if (_this6.isCreatingNewMicroscope) {
             _this6.handleMicroscopePreset();
-          } else {}
+          }
         });
       } else {
         this.setState({
@@ -337,7 +291,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         isLoadingMicroscope: false,
         isLoadingSettings: false,
         isLoadingImage: false,
-        loadingOption: _constants.string_createFromFile,
+        loadingOption: string_createFromFile,
         loadingMode: 1
       }, function () {
         _this7.createOrUseMicroscopeFromDroppedFile();
@@ -1334,7 +1288,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (microscope !== null && microscope !== undefined && isLoadingMicroscope) {
-        if (!(0, _genericUtilities.verifyAppVersion)(microscope)) {
+        if (!verifyAppVersion(microscope)) {
           window.alert("The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again.");
           return;
         }
@@ -1699,11 +1653,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onClickBack",
     value: function onClickBack() {
-      var presetMicroscope = null;
       this.setState({
         activeTier: 1,
         validationTier: 1,
-        microscope: presetMicroscope,
+        microscope: null,
         microscopes: null,
         setting: null,
         isCreatingNewMicroscope: null,
@@ -2091,8 +2044,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       if (!this.state.isCreatingNewMicroscope && this.state.isLoadingImage && this.props.onLoadMetadata !== null && this.props.onLoadMetadata !== undefined) {
         //console.log("IMAGE LOADER");
         //let modifiedCreateString = string_createFromScratch.replace("# ", "");
-        var _loadingOptions = [_constants.string_noImageLoad, _constants.string_createFromFile];
-        return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
+        return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
@@ -2112,7 +2064,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (!this.state.isCreatingNewMicroscope && this.state.isLoadingSettings) {
         //console.log("SETTINGS LOADER");
-        var _modifiedCreateString = _constants.string_createFromScratch.replace("# ", "");
+        var _modifiedCreateString = string_createFromScratch.replace("# ", "");
 
         var _loadingOptions2 = [_modifiedCreateString, string_createFromFile];
         var settingsNames = [];
@@ -2159,6 +2111,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var canvasDims = {
         width: canvasWidth,
         height: canvasHeight
+      };
+      var toolbarDims = {
+        width: toolbarWidth,
+        height: toolbarHeight
       };
       var headerFooterDims = {
         width: headerFooterWidth,
@@ -2355,7 +2311,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             scalingFactor: scalingFactor,
             onHideToolbar: this.onHideToolbar,
             isToolbarHidden: this.state.isToolbarHidden
-          })), /*#__PURE__*/_react.default.createElement(_footer.default, {
+          })), /*#__PURE__*/React.createElement(Footer, {
             activeTier: this.state.activeTier,
             validationTier: this.state.validationTier,
             componentSchemas: componentsSchema,
