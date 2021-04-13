@@ -1674,7 +1674,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.state.is4DNPortal) {
         isCreatingNewMicroscope = this.state.isCreatingNewMicroscope;
-        isLoadingMicroscope = this.stateisLoadingMicroscope;
+        isLoadingMicroscope = this.state.isLoadingMicroscope;
         isLoadingImage = this.state.isLoadingImage;
         isLoadingSettings = this.state.isLoadingSettings;
         schema = this.state.schema;

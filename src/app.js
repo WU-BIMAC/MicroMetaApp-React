@@ -2388,7 +2388,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let schema = null;
 		if (this.state.is4DNPortal) {
 			isCreatingNewMicroscope = this.state.isCreatingNewMicroscope;
-			isLoadingMicroscope = this.stateisLoadingMicroscope;
+			isLoadingMicroscope = this.state.isLoadingMicroscope;
 			isLoadingImage = this.state.isLoadingImage;
 			isLoadingSettings = this.state.isLoadingSettings;
 			schema = this.state.schema;
