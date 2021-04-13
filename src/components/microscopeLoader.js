@@ -335,12 +335,17 @@ export default class MicroscopeLoader extends React.PureComponent {
 			</div>
 		);
 
+		let logoPath =
+			this.props.logoImg +
+			(this.props.logoImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowInternalContainer}>
 					<div style={styleImageContainer}>
 						<img
-							src={this.props.logoImg}
+							src={logoPath}
 							alt={this.props.logoImg}
 							style={styleImage}
 							onLoad={this.onImgLoad}

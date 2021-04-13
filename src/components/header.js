@@ -10,7 +10,7 @@ export default class Header extends React.PureComponent {
 			height: height,
 			boxSizing: "border-box",
 			display: "flex",
-			flexDirection: "row"
+			flexDirection: "row",
 		};
 		const styleTitle = {
 			backgroundColor: "LightGray",
@@ -18,23 +18,28 @@ export default class Header extends React.PureComponent {
 			verticalAlign: "middle",
 			paddingLeft: "10px",
 			marginTop: "auto",
-			marginBottom: "auto"
+			marginBottom: "auto",
 		};
 		let styleImageContainer = {
 			width: "430px",
-			height: "60px"
+			height: "60px",
 		};
 		let styleImage = {
 			width: "100%",
 			height: "100%",
-			margin: "auto"
+			margin: "auto",
 		};
 		//<div style={styleTitle}>Microscopy Metadata For The Real World</div>
+		let logoPath =
+			this.props.logoImg +
+			(this.props.logoImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 		return (
 			<div style={style}>
 				<div style={styleImageContainer}>
 					<img
-						src={this.props.logoImg}
+						src={logoPath}
 						alt={this.props.logoImg}
 						style={styleImage}
 						onLoad={this.onImgLoad}

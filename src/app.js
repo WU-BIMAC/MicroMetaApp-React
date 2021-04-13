@@ -2370,7 +2370,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			setting: this.state.oldElementData,
 			elementData: this.state.oldElementData,
 			settingData: this.state.oldSettingData,
-			imageMetadata: this.state.imageMetadata,
+			imageMetadata: this.state.oldImageMetadata,
 		});
 	}
 
@@ -2391,7 +2391,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let oldElementData = this.state.elementData;
 		let oldSetting = this.state.setting;
 		let oldSettingData = this.state.settingData;
-		let imageMetadata = this.state.imageMetadata;
+		let oldImageMetadata = this.state.imageMetadata;
 		//activeTier: 1,
 		//validationTier: 1,
 		this.setState({
@@ -2426,7 +2426,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					oldElementData: oldElementData,
 					oldSetting: oldSetting,
 					oldSettingData: oldSettingData,
-					imageMetadata: imageMetadata,
+					oldImageMetadata: oldImageMetadata,
 				});
 			}
 		}
@@ -2725,6 +2725,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				alignItems: "center",
 			};
 			if (microscope === null) {
+				console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
 				let loadingOptions = [];
 				loadingOptions.push(string_createFromFile);
 				let loadingOption = string_createFromFile;

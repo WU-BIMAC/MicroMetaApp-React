@@ -73,12 +73,13 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         margin: "auto"
       }; //<div style={styleTitle}>Microscopy Metadata For The Real World</div>
 
+      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       return /*#__PURE__*/_react.default.createElement("div", {
         style: style
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: styleImageContainer
       }, /*#__PURE__*/_react.default.createElement("img", {
-        src: this.props.logoImg,
+        src: logoPath,
         alt: this.props.logoImg,
         style: styleImage,
         onLoad: this.onImgLoad

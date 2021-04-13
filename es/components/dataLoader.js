@@ -200,6 +200,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       var isSettingsLoaded = this.state.isSettingsLoaded;
       var isLoadingDimensions = this.state.isLoadingDimensions;
       var isDimensionsLoaded = this.state.isDimensionsLoaded;
+      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       return /*#__PURE__*/_react.default.createElement("div", {
         style: windowExternalContainer
       }, /*#__PURE__*/_react.default.createElement("div", {
@@ -207,7 +208,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: styleImageContainer
       }, /*#__PURE__*/_react.default.createElement("img", {
-        src: this.props.logoImg,
+        src: logoPath,
         alt: this.props.logoImg,
         style: styleImage,
         onLoad: this.onImgLoad
