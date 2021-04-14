@@ -16,7 +16,7 @@ import ImageLoader from "./components/imageLoader";
 
 import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
-import { isDefined, verifyAppVersion } from "./genericUtilities";
+import { isDefined, verifyAppVersion, validateMicroscope } from "./genericUtilities";
 
 const url = require("url");
 const validate = require("jsonschema").validate;
@@ -3291,7 +3291,13 @@ const createApi = function api(context) {
 				let microscope = Object.assign(self.state.microscope, comps);
 
 				return JSON.stringify(microscope, null, 2);
+			},
+
+			validateMicroscope(microscope, schemas, checkForMicroscopeStand){
+				return validateMicroscope(microscope, schemas, checkForMicroscopeStand)
 			}
 		}
 	};
 }
+
+export const AppVersion = appVersion;

@@ -36,7 +36,7 @@ import SettingLoader from "./components/settingLoader";
 import ImageLoader from "./components/imageLoader";
 import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
-import { isDefined, verifyAppVersion } from "./genericUtilities";
+import { isDefined, verifyAppVersion, validateMicroscope as _validateMicroscope } from "./genericUtilities";
 
 var url = require("url");
 
@@ -2767,7 +2767,12 @@ var createApi = function (context) {
           components: components
         });
         return JSON.stringify(microscope, null, 2);
+      },
+      validateMicroscope: function validateMicroscope(microscope, schemas, checkForMicroscopeStand) {
+        return _validateMicroscope(microscope, schemas, checkForMicroscopeStand);
       }
     }
   };
 };
+
+export var AppVersion = appVersion;
