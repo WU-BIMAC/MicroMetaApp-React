@@ -197,18 +197,6 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         },
         onLoad: this.onImgLoad
       })), /*#__PURE__*/React.createElement(Button, {
-        ref: this.simulateClickLoadSchema,
-        disabled: isLoadingSchema || isSchemaLoaded,
-        onClick: !isLoadingSchema && !isSchemaLoaded ? this.onClickLoadSchema : null,
-        style: buttonStyle,
-        size: "lg"
-      }, isLoadingSchema ? "Loading schema" : isSchemaLoaded ? "Schema loaded" : "Load schema"), /*#__PURE__*/React.createElement(Button, {
-        ref: this.simulateClickLoadDimensions,
-        disabled: isLoadingDimensions || isDimensionsLoaded,
-        onClick: !isLoadingDimensions && !isDimensionsLoaded ? this.onClickLoadDimensions : null,
-        style: buttonStyle,
-        size: "lg"
-      }, isLoadingDimensions ? "Loading dimensions" : isDimensionsLoaded ? "Dimensions loaded" : "Load dimensions"), /*#__PURE__*/React.createElement(Button, {
         ref: this.simulateClickLoadMicroscopes,
         disabled: isLoadingMicroscopes || isMicroscopesLoaded,
         onClick: !isLoadingMicroscopes && !isMicroscopesLoaded ? this.onClickLoadMicroscopes : null,
@@ -220,7 +208,19 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         onClick: !isLoadingSettings && !isSettingsLoaded ? this.onClickLoadSettings : null,
         style: buttonStyle,
         size: "lg"
-      }, isLoadingSettings ? "Loading settings" : isSettingsLoaded ? "Settings loaded" : "Load settings")));
+      }, isLoadingSettings ? "Loading settings" : isSettingsLoaded ? "Settings loaded" : "Load settings"), /*#__PURE__*/React.createElement(Button, {
+        ref: this.simulateClickLoadDimensions,
+        disabled: isLoadingDimensions || isDimensionsLoaded,
+        onClick: !isLoadingDimensions && !isDimensionsLoaded ? this.onClickLoadDimensions : null,
+        style: buttonStyle,
+        size: "lg"
+      }, isLoadingDimensions ? "Loading dimensions" : isDimensionsLoaded ? "Dimensions loaded" : "Load dimensions"), /*#__PURE__*/React.createElement(Button, {
+        ref: this.simulateClickLoadSchema,
+        disabled: isLoadingSchema || isSchemaLoaded,
+        onClick: !isLoadingSchema && !isSchemaLoaded ? this.onClickLoadSchema : null,
+        style: buttonStyle,
+        size: "lg"
+      }, isLoadingSchema ? "Loading schema" : isSchemaLoaded ? "Schema loaded" : "Load schema")));
     }
   }]);
 

@@ -1118,7 +1118,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       var containerIndex = Object.keys(forms).indexOf(this.state.activeID); //let activeContainerKey = `${containerIndex}`;
 
-      var form = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, this.props.title), /*#__PURE__*/React.createElement(Tabs // tabPosition={"top"}
+      var form = /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          flexDirection: "column"
+        }
+      }, /*#__PURE__*/React.createElement("h3", null, this.props.title), /*#__PURE__*/React.createElement(Tabs // tabPosition={"top"}
       // tabBarStyle={{
       // 	border: "none",
       // }}

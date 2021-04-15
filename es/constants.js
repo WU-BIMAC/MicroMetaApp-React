@@ -83,7 +83,7 @@ export var channelPath_Additional_7 = ["Shutter", "IrisDiaphragm", "EmissionFilt
 export var channelPath_Additional_8 = ["Shutter", "IrisDiaphragm", "EmissionFilter", "NeutralDensityFilter", "AdditionalFilter", "GenericDichroic", "BeamSplitter", "ReflectingMirror", "GenericLens", "BeamExpander", "BeamExpanderLens", "BeamCollimator", "BeamCollimatorLens", "PolarizationOptics", "Prism", "DiffractionGrating", //Advanced/
 "MaskingPlate" //Advanced/
 ];
-export var menu_order = ["MicroscopyEssentials", "Software", "Transmitted_LightSource", "Fluorescence_LightSource", "Magnification", "LightSourceCoupling", "FluorescenceLightPath", "Stage", "Focusing", "OpticalAssembly", "OpticsHolder", "Aperture", "Filter", "MirroringDevice", "Lens", "AdditionalOptics", "Detector", "Detector.Camera", "Detector.PointDetector", "Calibration"];
+export var menu_order = ["MicroscopeAccessories", "Software", "Transmitted_LightSource", "Fluorescence_LightSource", "Magnification", "LightSourceCoupling", "FluorescenceLightPath", "Stage", "Focusing", "OpticalAssembly", "OpticsHolder", "Aperture", "Filter", "MirroringDevice", "Lens", "AdditionalOptics", "Detector", "Detector.Camera", "Detector.PointDetector", "Calibration"];
 export var string_bandpass_warning = "PLEASE NOTE: If the number of WavelengthRange modules or sub-components (e.g., LEDModule) is changed, all values entered but not yet confirmed will be lost.";
 export var tier_selector_tooltip = {
   title: "Tier Selector",

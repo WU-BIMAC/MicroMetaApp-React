@@ -34,6 +34,7 @@ import MicroscopePreLoader from "./components/microscopePreLoader";
 import MicroscopeLoader from "./components/microscopeLoader";
 import SettingLoader from "./components/settingLoader";
 import ImageLoader from "./components/imageLoader";
+import ModalWindow from "./components/modalWindow";
 import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
 import { isDefined, verifyAppVersion, validateMicroscope as _validateMicroscope } from "./genericUtilities";
@@ -42,7 +43,7 @@ var url = require("url");
 
 var validate = require("jsonschema").validate;
 
-import { bool_isDebug, current_stands, string_object, string_array, string_json_ext, string_logo_img_no_bk, string_logo_img_cell_bk, string_logo_img_micro_bk, string_createFromScratch, string_createFromFile, string_loadFromRepository, string_noImageLoad } from "./constants";
+import { bool_isDebug, number_logo_width, number_logo_height, current_stands, string_object, string_array, string_json_ext, string_logo_img_no_bk, string_logo_img_cell_bk, string_logo_img_micro_bk, string_createFromScratch, string_createFromFile, string_loadFromRepository, string_noImageLoad } from "./constants";
 import { isUndefined } from "util";
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
@@ -289,10 +290,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         activeTier: tier,
         validationTier: vTier,
-        isCreatingNewMicroscope: true,
-        isLoadingMicroscope: false,
-        isLoadingSettings: false,
-        isLoadingImage: false,
         loadingOption: string_createFromFile,
         loadingMode: 1
       }, function () {
@@ -1195,7 +1192,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         typeDimensions: typeDimensions,
         standType: standType,
         loadingOption: string_createFromFile,
-        loadingMode: 1
+        loadingMode: 1,
+        isSpecialImporterActive: false
       });
     }
   }, {
@@ -1656,6 +1654,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     key: "onSpecialImporterBack",
     value: function onSpecialImporterBack() {
       this.setState({
+        isSpecialImporterActive: false,
         microscope: this.state.oldMicroscope,
         setting: this.state.oldElementData,
         elementData: this.state.oldElementData,
@@ -1713,6 +1712,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         ) {
             //this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
             this.setState({
+              isSpecialImporterActive: true,
+              loadingOption: string_createFromFile,
+              loadingMode: 1,
               oldMicroscope: oldMicroscope,
               oldElementData: oldElementData,
               oldSetting: oldSetting,
@@ -1963,23 +1965,21 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var canvasHeight = height;
       var settingsWidth = width;
       var headerFooterWidth = width;
-      var headerFooterHeight = 60;
+      var headerFooterHeight = 60; //Should i add microscopes and settings too ?
 
-      if (schema === null && microscopes === null
-      /*&& microscope === null*/
-      ) {
-          return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
-            width: width,
-            height: height,
-            forwardedRef: this.overlaysContainerRef
-          }, /*#__PURE__*/React.createElement(DataLoader, {
-            logoImg: url.resolve(imagesPathPNG, string_logo_img_micro_bk),
-            onClickLoadSchema: this.handleLoadSchema,
-            onClickLoadDimensions: this.handleLoadDimensions,
-            onClickLoadMicroscopes: this.handleLoadMicroscopes,
-            onClickLoadSettings: this.handleLoadSettings
-          }));
-        }
+      if (schema === null || this.state.dimensions === null) {
+        return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
+          width: width,
+          height: height,
+          forwardedRef: this.overlaysContainerRef
+        }, /*#__PURE__*/React.createElement(DataLoader, {
+          logoImg: url.resolve(imagesPathPNG, string_logo_img_micro_bk),
+          onClickLoadSchema: this.handleLoadSchema,
+          onClickLoadDimensions: this.handleLoadDimensions,
+          onClickLoadMicroscopes: this.handleLoadMicroscopes,
+          onClickLoadSettings: this.handleLoadSettings
+        }));
+      }
 
       if (microscope === null && this.state.isCreatingNewMicroscope === null) {
         return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
@@ -1993,16 +1993,15 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           onClickCreateNewMicroscope: this.setCreateNewMicroscope,
           onClickLoadMicroscope: this.setLoadMicroscope
         }));
-      }
+      } //let overlayImporter = null;
+
 
       if (this.state.is4DNPortal && (microscope === null || elementData === null)) {
-        if (microscope === null) {
+        if (microscope === null || this.state.isSpecialImporterActive) {
           console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
           var loadingOptions = [];
           loadingOptions.push(string_createFromFile);
-
-          /*#__PURE__*/
-          React.createElement(MicroMetaAppReactContainer, {
+          return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
             forwardedRef: this.overlaysContainerRef
@@ -2021,6 +2020,14 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             schema: this.state.schema
           }));
         } else if (microscope !== null && elementData === null) {
+          console.log("IM GOING THROUGH LOADING MICROSCOPE");
+          console.log(microscope);
+          var logoImg = url.resolve(imagesPathPNG, string_logo_img_micro_bk);
+          var logoPath = logoImg + (logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+          var styleImageContainer = {
+            width: "".concat(number_logo_width, "px"),
+            height: "".concat(number_logo_height, "px")
+          };
           return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
@@ -2034,7 +2041,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
               height: "100%",
               alignItems: "center"
             }
-          }, /*#__PURE__*/React.createElement("div", null, "logoImg=", url.resolve(imagesPathPNG, string_logo_img_micro_bk)), /*#__PURE__*/React.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
             style: {
               display: "flex",
               justifyContent: "center",
@@ -2043,7 +2050,18 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
               height: "100%",
               alignItems: "center"
             }
-          }, /*#__PURE__*/React.createElement(Button, {
+          }, /*#__PURE__*/React.createElement("div", {
+            style: styleImageContainer
+          }, /*#__PURE__*/React.createElement("img", {
+            src: logoPath,
+            alt: this.props.logoImg,
+            style: {
+              width: "100%",
+              height: "100%",
+              margin: "auto"
+            },
+            onLoad: this.onImgLoad
+          })), /*#__PURE__*/React.createElement(Button, {
             style: {
               width: "400px",
               height: "50px",
@@ -2244,7 +2262,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (!this.state.isCreatingNewMicroscope) {
         var footerSettingsSchemas = [imageSchema, pixelsSchema];
-        var footerSettingsInput = [setting, setting.Pixels];
+        var footerSettingsInput = [setting, setting.Pixels]; //{overlayImporter}
+
         return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
@@ -2340,6 +2359,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             isViewOnly: this.state.isViewOnly
           })));
         } else {
+          //{overlayImporter}
           return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
@@ -2408,31 +2428,37 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }], [{
     key: "getDerivedStateFromProps",
     value: function getDerivedStateFromProps(props, state) {
-      if (props.schema !== state.schema && props.schema !== null) {
+      if (props.schema !== state.schema && isDefined(props.schema)) {
         return {
           schema: props.schema
         };
       }
 
-      if (props.microscope !== state.microscope && props.microscope !== null) {
+      if (props.microscope !== state.microscope && props.microscope !== state.oldMicroscope && isDefined(props.microscope)) {
         return {
           microscope: props.microscope
         };
       }
 
-      if (props.setting !== state.setting && props.setting !== null) {
+      if (props.setting !== state.setting && props.setting !== state.oldSetting && isDefined(props.setting)) {
         return {
           setting: props.setting
         };
       }
 
-      if (props.microscopes !== state.microscopes && props.microscopes !== null) {
+      if (props.imageMetadata !== state.imageMetadata && props.imageMetadata !== state.oldImageMetadata && isDefined(props.imageMetadata)) {
+        return {
+          imageMetadata: props.imageMetadata
+        };
+      }
+
+      if (props.microscopes !== state.microscopes && isDefined(props.microscopes)) {
         return {
           microscopes: props.microscopes
         };
       }
 
-      if (props.settings !== state.settings && props.settings !== null) {
+      if (props.settings !== state.settings && isDefined(props.settings)) {
         return {
           settings: props.settings
         };
