@@ -221,7 +221,7 @@ export const channelPath_Additional_8 = [
 ];
 
 export const menu_order = [
-	"MicroscopyEssentials",
+	"MicroscopyAccessories",
 	"Software",
 	"Transmitted_LightSource",
 	"Fluorescence_LightSource",
