@@ -194,7 +194,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.createOrUseMetadata = this.createOrUseMetadata.bind(this);
 
 		this.onClickBack = this.onClickBack.bind(this);
-		this.onSpecialImporterBack = this.onSpecialImporterBack.bind(this);
 
 		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
 		this.createAdaptedSchema = this.createAdaptedSchema.bind(this);
@@ -214,6 +213,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		this.onHideToolbar = this.onHideToolbar.bind(this);
 		//this.toDataUrl = this.toDataUrl.bind(this);
+
+		this.onSpecialImporterBack = this.onSpecialImporterBack.bind(this);
+		this.onSpecialImporterConfirm = this.onSpecialImporterConfirm.bind(this);
+		this.simulateClickLoadMicroscopeFromPortal = this.simulateClickLoadMicroscopeFromPortal.bind(
+			this
+		);
+		this.loadMicroscopeFromPortal = this.loadMicroscopeFromPortal.bind(this);
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -308,15 +314,17 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleCompleteLoadSchema(newSchema) {
-		if (this.state.is4DNPortal) {
-			this.setState({ schema: newSchema }, () => {
-				if (this.state.isCreatingNewMicroscope) {
-					this.handleMicroscopePreset();
-				} else {
-				}
-			});
-		} else {
-			this.setState({ schema: newSchema });
+		this.setState({ schema: newSchema });
+	}
+
+	simulateClickLoadMicroscopeFromPortal(loadMicroscopeFromPortalButtonRef) {
+		if (loadMicroscopeFromPortalButtonRef === null) return;
+		loadMicroscopeFromPortalButtonRef.click();
+	}
+
+	loadMicroscopeFromPortal() {
+		if (this.state.is4DNPortal && this.state.isCreatingNewMicroscope) {
+			this.handleMicroscopePreset();
 		}
 	}
 
@@ -327,6 +335,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	//HAVE TO DO THE SAME FOR SETTINGS?
 	handleMicroscopePreset() {
+		console.log("handleMicroscopePreset");
 		let microscope = this.state.microscope;
 		let tier = microscope.Tier;
 		let vTier = microscope.ValidationTier;
@@ -2382,6 +2391,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 	}
 
+	onSpecialImporterConfirm() {
+		this.setState({
+			isSpecialImporterActive: false,
+		});
+	}
+
 	onSpecialImporterBack() {
 		this.setState({
 			isSpecialImporterActive: false,
@@ -2767,7 +2782,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							loadingMode={this.state.loadingMode}
 							onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
 							//onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
-							onClickConfirm={this.createOrUseMicroscope}
+							onClickConfirm={this.onSpecialImporterConfirm}
 							onClickBack={this.onSpecialImporterBack}
 							isSettings={this.state.isLoadingMicroscope}
 							schema={this.state.schema}
@@ -2808,7 +2823,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 										onLoad={this.onImgLoad}
 									/>
 								</div>
-								<Button style={buttonStyle} size="lg">
+								<Button
+									ref={this.simulateClickLoadMicroscopeFromPortal}
+									style={buttonStyle}
+									size="lg"
+									onClick={this.loadMicroscopeFromPortal}
+								>
 									{"Loading " + microscope.Name}
 								</Button>
 							</div>

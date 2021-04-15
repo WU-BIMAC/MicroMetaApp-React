@@ -188,7 +188,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.createOrUseSettingFromSelectedFile = _this.createOrUseSettingFromSelectedFile.bind(_assertThisInitialized(_this));
     _this.createOrUseMetadata = _this.createOrUseMetadata.bind(_assertThisInitialized(_this));
     _this.onClickBack = _this.onClickBack.bind(_assertThisInitialized(_this));
-    _this.onSpecialImporterBack = _this.onSpecialImporterBack.bind(_assertThisInitialized(_this));
     _this.createAdaptedSchemas = _this.createAdaptedSchemas.bind(_assertThisInitialized(_this));
     _this.createAdaptedSchema = _this.createAdaptedSchema.bind(_assertThisInitialized(_this));
     _this.handleExportMicroscope = _this.handleExportMicroscope.bind(_assertThisInitialized(_this));
@@ -201,6 +200,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleMicroscopePreset = _this.handleMicroscopePreset.bind(_assertThisInitialized(_this));
     _this.onHideToolbar = _this.onHideToolbar.bind(_assertThisInitialized(_this)); //this.toDataUrl = this.toDataUrl.bind(this);
 
+    _this.onSpecialImporterBack = _this.onSpecialImporterBack.bind(_assertThisInitialized(_this));
+    _this.onSpecialImporterConfirm = _this.onSpecialImporterConfirm.bind(_assertThisInitialized(_this));
+    _this.simulateClickLoadMicroscopeFromPortal = _this.simulateClickLoadMicroscopeFromPortal.bind(_assertThisInitialized(_this));
+    _this.loadMicroscopeFromPortal = _this.loadMicroscopeFromPortal.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -279,20 +282,21 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleCompleteLoadSchema",
     value: function handleCompleteLoadSchema(newSchema) {
-      var _this6 = this;
-
-      if (this.state.is4DNPortal) {
-        this.setState({
-          schema: newSchema
-        }, function () {
-          if (_this6.state.isCreatingNewMicroscope) {
-            _this6.handleMicroscopePreset();
-          } else {}
-        });
-      } else {
-        this.setState({
-          schema: newSchema
-        });
+      this.setState({
+        schema: newSchema
+      });
+    }
+  }, {
+    key: "simulateClickLoadMicroscopeFromPortal",
+    value: function simulateClickLoadMicroscopeFromPortal(loadMicroscopeFromPortalButtonRef) {
+      if (loadMicroscopeFromPortalButtonRef === null) return;
+      loadMicroscopeFromPortalButtonRef.click();
+    }
+  }, {
+    key: "loadMicroscopeFromPortal",
+    value: function loadMicroscopeFromPortal() {
+      if (this.state.is4DNPortal && this.state.isCreatingNewMicroscope) {
+        this.handleMicroscopePreset();
       }
     }
   }, {
@@ -307,8 +311,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleMicroscopePreset",
     value: function handleMicroscopePreset() {
-      var _this7 = this;
+      var _this6 = this;
 
+      console.log("handleMicroscopePreset");
       var microscope = this.state.microscope;
       var tier = microscope.Tier;
       var vTier = microscope.ValidationTier;
@@ -318,7 +323,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         loadingOption: _constants.string_createFromFile,
         loadingMode: 1
       }, function () {
-        _this7.createOrUseMicroscopeFromDroppedFile();
+        _this6.createOrUseMicroscopeFromDroppedFile();
       });
     }
   }, {
@@ -411,7 +416,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createAdaptedSchema",
     value: function createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier) {
-      var _this8 = this;
+      var _this7 = this;
 
       var singleSchema = Object.assign({}, singleSchemaOriginal);
       singleSchema.properties = Object.assign({}, singleSchemaOriginal.properties);
@@ -439,7 +444,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         var property = properties[propKey];
 
         if (property.type === _constants.string_object || property.type === _constants.string_array && property.items.properties !== null && property.items.properties !== undefined) {
-          var newProp = _this8.createAdaptedSchema(property, activeTier, validationTier);
+          var newProp = _this7.createAdaptedSchema(property, activeTier, validationTier);
 
           properties[propKey] = newProp;
         }
@@ -479,7 +484,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createAdaptedSchemas",
     value: function createAdaptedSchemas(validationTier, standType) {
-      var _this9 = this;
+      var _this8 = this;
 
       var activeTier = this.state.activeTier;
       var schema = this.state.schema;
@@ -501,7 +506,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       Object.keys(schema).forEach(function (schemaIndex) {
         var singleSchemaOriginal = schema[schemaIndex];
 
-        var singleSchema = _this9.createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier);
+        var singleSchema = _this8.createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier);
 
         if (singleSchema.title === "Instrument") {
           microscopeSchema = Object.assign(microscopeSchema, singleSchema);
@@ -1696,6 +1701,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
     }
   }, {
+    key: "onSpecialImporterConfirm",
+    value: function onSpecialImporterConfirm() {
+      this.setState({
+        isSpecialImporterActive: false
+      });
+    }
+  }, {
     key: "onSpecialImporterBack",
     value: function onSpecialImporterBack() {
       this.setState({
@@ -2085,7 +2097,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             loadingMode: this.state.loadingMode,
             onClickLoadingOptionSelection: this.handleLoadingOptionSelection //onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
             ,
-            onClickConfirm: this.createOrUseMicroscope,
+            onClickConfirm: this.onSpecialImporterConfirm,
             onClickBack: this.onSpecialImporterBack,
             isSettings: this.state.isLoadingMicroscope,
             schema: this.state.schema
@@ -2120,8 +2132,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             style: styleImage,
             onLoad: this.onImgLoad
           })), /*#__PURE__*/_react.default.createElement(_Button.default, {
+            ref: this.simulateClickLoadMicroscopeFromPortal,
             style: buttonStyle,
-            size: "lg"
+            size: "lg",
+            onClick: this.loadMicroscopeFromPortal
           }, "Loading " + microscope.Name))));
         }
       }
