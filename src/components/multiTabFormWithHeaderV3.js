@@ -1235,6 +1235,10 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			marginLeft: "5px",
 			marginRight: "5px",
 		};
+		const containerStyle = {
+			display: "flex",
+			flexDirection: "column",
+		};
 		const buttonContainerColumnExternal = {
 			display: "flex",
 			flexDirection: "column",
@@ -1450,8 +1454,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		//let containerIndex = this.state.activeID;
 		let containerIndex = Object.keys(forms).indexOf(this.state.activeID);
 		//let activeContainerKey = `${containerIndex}`;
+		
 		let form = (
-			<div>
+			<div style ={containerStyle}>
 				<h3>{this.props.title}</h3>
 				<Tabs
 					// tabPosition={"top"}

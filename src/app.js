@@ -13,6 +13,7 @@ import MicroscopePreLoader from "./components/microscopePreLoader";
 import MicroscopeLoader from "./components/microscopeLoader";
 import SettingLoader from "./components/settingLoader";
 import ImageLoader from "./components/imageLoader";
+import ModalWindow from "./components/modalWindow";
 
 import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
@@ -23,6 +24,8 @@ const validate = require("jsonschema").validate;
 
 import {
 	bool_isDebug,
+	number_logo_width,
+	number_logo_height,
 	current_stands,
 	string_object,
 	string_array,
@@ -220,19 +223,37 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.schema !== state.schema && props.schema !== null) {
+		if (props.schema !== state.schema && isDefined(props.schema)) {
 			return { schema: props.schema };
 		}
-		if (props.microscope !== state.microscope && props.microscope !== null) {
+		if (
+			props.microscope !== state.microscope &&
+			props.microscope !== state.oldMicroscope &&
+			isDefined(props.microscope)
+		) {
 			return { microscope: props.microscope };
 		}
-		if (props.setting !== state.setting && props.setting !== null) {
+		if (
+			props.setting !== state.setting &&
+			props.setting !== state.oldSetting &&
+			isDefined(props.setting)
+		) {
 			return { setting: props.setting };
 		}
-		if (props.microscopes !== state.microscopes && props.microscopes !== null) {
+		if (
+			props.imageMetadata !== state.imageMetadata &&
+			props.imageMetadata !== state.oldImageMetadata &&
+			isDefined(props.imageMetadata)
+		) {
+			return { imageMetadata: props.imageMetadata };
+		}
+		if (
+			props.microscopes !== state.microscopes &&
+			isDefined(props.microscopes)
+		) {
 			return { microscopes: props.microscopes };
 		}
-		if (props.settings !== state.settings && props.settings !== null) {
+		if (props.settings !== state.settings && isDefined(props.settings)) {
 			return { settings: props.settings };
 		}
 		return null;
@@ -320,10 +341,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			{
 				activeTier: tier,
 				validationTier: vTier,
-				isCreatingNewMicroscope: true,
-				isLoadingMicroscope: false,
-				isLoadingSettings: false,
-				isLoadingImage: false,
 				loadingOption: string_createFromFile,
 				loadingMode: 1,
 			},
@@ -1885,6 +1902,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			standType: standType,
 			loadingOption: string_createFromFile,
 			loadingMode: 1,
+			isSpecialImporterActive: false,
 		});
 	}
 
@@ -2372,6 +2390,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	onSpecialImporterBack() {
 		this.setState({
+			isSpecialImporterActive: false,
 			microscope: this.state.oldMicroscope,
 			setting: this.state.oldElementData,
 			elementData: this.state.oldElementData,
@@ -2428,6 +2447,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			) {
 				//this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
 				this.setState({
+					isSpecialImporterActive: true,
+					loadingOption: string_createFromFile,
+					loadingMode: 1,
 					oldMicroscope: oldMicroscope,
 					oldElementData: oldElementData,
 					oldSetting: oldSetting,
@@ -2668,7 +2690,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let headerFooterWidth = width;
 		let headerFooterHeight = 60;
 
-		if (schema === null && microscopes === null /*&& microscope === null*/) {
+		//Should i add microscopes and settings too ?
+		if (schema === null || this.state.dimensions === null) {
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
@@ -2704,6 +2727,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			);
 		}
 
+		//let overlayImporter = null;
 		if (
 			this.state.is4DNPortal &&
 			(microscope === null || elementData === null)
@@ -2730,33 +2754,50 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				height: "100%",
 				alignItems: "center",
 			};
-			if (microscope === null) {
+			if (microscope === null || this.state.isSpecialImporterActive) {
 				console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
 				let loadingOptions = [];
 				loadingOptions.push(string_createFromFile);
-				let loadingOption = string_createFromFile;
-				let loadingMode = 1;
-				<MicroMetaAppReactContainer
-					width={width}
-					height={height}
-					forwardedRef={this.overlaysContainerRef}
-				>
-					<MicroscopeLoader
-						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
-						loadingOptions={loadingOptions}
-						//microscopes={microscopeNames}
-						onFileDrop={this.uploadMicroscopeFromDropzone}
-						loadingOption={this.state.loadingOption}
-						loadingMode={this.state.loadingMode}
-						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
-						//onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
-						onClickConfirm={this.createOrUseMicroscope}
-						onClickBack={this.onSpecialImporterBack}
-						isSettings={this.state.isLoadingMicroscope}
-						schema={this.state.schema}
-					/>
-				</MicroMetaAppReactContainer>;
+				return (
+					<MicroMetaAppReactContainer
+						width={width}
+						height={height}
+						forwardedRef={this.overlaysContainerRef}
+					>
+						<MicroscopeLoader
+							logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
+							loadingOptions={loadingOptions}
+							//microscopes={microscopeNames}
+							onFileDrop={this.uploadMicroscopeFromDropzone}
+							loadingOption={this.state.loadingOption}
+							loadingMode={this.state.loadingMode}
+							onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
+							//onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
+							onClickConfirm={this.createOrUseMicroscope}
+							onClickBack={this.onSpecialImporterBack}
+							isSettings={this.state.isLoadingMicroscope}
+							schema={this.state.schema}
+						/>
+					</MicroMetaAppReactContainer>
+				);
 			} else if (microscope !== null && elementData === null) {
+				console.log("IM GOING THROUGH LOADING MICROSCOPE");
+				console.log(microscope);
+				let logoImg = url.resolve(imagesPathPNG, string_logo_img_micro_bk);
+				let logoPath =
+					logoImg +
+					(logoImg.indexOf("githubusercontent.com") > -1
+						? "?sanitize=true"
+						: "");
+				let styleImageContainer = {
+					width: `${number_logo_width}px`,
+					height: `${number_logo_height}px`,
+				};
+				let styleImage = {
+					width: "100%",
+					height: "100%",
+					margin: "auto",
+				};
 				return (
 					<MicroMetaAppReactContainer
 						width={width}
@@ -2764,10 +2805,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						forwardedRef={this.overlaysContainerRef}
 					>
 						<div style={windowExternalContainer}>
-							<div>
-								logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
-							</div>
 							<div style={windowInternalContainer}>
+								<div style={styleImageContainer}>
+									<img
+										src={logoPath}
+										alt={this.props.logoImg}
+										style={styleImage}
+										onLoad={this.onImgLoad}
+									/>
+								</div>
 								<Button style={buttonStyle} size="lg">
 									{"Loading " + microscope.Name}
 								</Button>
@@ -3012,6 +3058,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		if (!this.state.isCreatingNewMicroscope) {
 			let footerSettingsSchemas = [imageSchema, pixelsSchema];
 			let footerSettingsInput = [setting, setting.Pixels];
+			//{overlayImporter}
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
@@ -3118,6 +3165,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					</MicroMetaAppReactContainer>
 				);
 			} else {
+				//{overlayImporter}
 				return (
 					<MicroMetaAppReactContainer
 						width={width}

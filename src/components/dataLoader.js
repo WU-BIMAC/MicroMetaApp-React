@@ -149,40 +149,6 @@ export default class DataLoader extends React.PureComponent {
 						/>
 					</div>
 					<Button
-						ref={this.simulateClickLoadSchema}
-						disabled={isLoadingSchema || isSchemaLoaded}
-						onClick={
-							!isLoadingSchema && !isSchemaLoaded
-								? this.onClickLoadSchema
-								: null
-						}
-						style={buttonStyle}
-						size="lg"
-					>
-						{isLoadingSchema
-							? "Loading schema"
-							: isSchemaLoaded
-							? "Schema loaded"
-							: "Load schema"}
-					</Button>
-					<Button
-						ref={this.simulateClickLoadDimensions}
-						disabled={isLoadingDimensions || isDimensionsLoaded}
-						onClick={
-							!isLoadingDimensions && !isDimensionsLoaded
-								? this.onClickLoadDimensions
-								: null
-						}
-						style={buttonStyle}
-						size="lg"
-					>
-						{isLoadingDimensions
-							? "Loading dimensions"
-							: isDimensionsLoaded
-							? "Dimensions loaded"
-							: "Load dimensions"}
-					</Button>
-					<Button
 						ref={this.simulateClickLoadMicroscopes}
 						disabled={isLoadingMicroscopes || isMicroscopesLoaded}
 						onClick={
@@ -215,6 +181,40 @@ export default class DataLoader extends React.PureComponent {
 							: isSettingsLoaded
 							? "Settings loaded"
 							: "Load settings"}
+					</Button>
+					<Button
+						ref={this.simulateClickLoadDimensions}
+						disabled={isLoadingDimensions || isDimensionsLoaded}
+						onClick={
+							!isLoadingDimensions && !isDimensionsLoaded
+								? this.onClickLoadDimensions
+								: null
+						}
+						style={buttonStyle}
+						size="lg"
+					>
+						{isLoadingDimensions
+							? "Loading dimensions"
+							: isDimensionsLoaded
+							? "Dimensions loaded"
+							: "Load dimensions"}
+					</Button>
+					<Button
+						ref={this.simulateClickLoadSchema}
+						disabled={isLoadingSchema || isSchemaLoaded}
+						onClick={
+							!isLoadingSchema && !isSchemaLoaded
+								? this.onClickLoadSchema
+								: null
+						}
+						style={buttonStyle}
+						size="lg"
+					>
+						{isLoadingSchema
+							? "Loading schema"
+							: isSchemaLoaded
+							? "Schema loaded"
+							: "Load schema"}
 					</Button>
 				</div>
 			</div>
