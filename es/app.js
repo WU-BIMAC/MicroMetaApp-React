@@ -1888,11 +1888,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var lowerCaseItem = item.toLowerCase();
 
       if (lowerCaseItem.includes("as new")) {
-        microscope.ID = (0, _uuid.v4)();
-
-        if (microscope.MicroscopeStand !== null && microscope.MicroscopeStand !== undefined) {
-          microscope.MicroscopeStand.ID = (0, _uuid.v4)();
-        }
+        microscope.ID = (0, _uuid.v4)(); // if (
+        // 	microscope.MicroscopeStand !== null &&
+        // 	microscope.MicroscopeStand !== undefined
+        // ) {
+        // 	microscope.MicroscopeStand.ID = uuidv4();
+        // }
       }
 
       this.setState({

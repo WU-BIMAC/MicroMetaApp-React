@@ -2572,12 +2572,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let lowerCaseItem = item.toLowerCase();
 		if (lowerCaseItem.includes("as new")) {
 			microscope.ID = uuidv4();
-			if (
-				microscope.MicroscopeStand !== null &&
-				microscope.MicroscopeStand !== undefined
-			) {
-				microscope.MicroscopeStand.ID = uuidv4();
-			}
+			// if (
+			// 	microscope.MicroscopeStand !== null &&
+			// 	microscope.MicroscopeStand !== undefined
+			// ) {
+			// 	microscope.MicroscopeStand.ID = uuidv4();
+			// }
 		}
 
 		this.setState({ microscope: microscope });
