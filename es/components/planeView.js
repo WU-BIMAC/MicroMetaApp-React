@@ -32,7 +32,7 @@ import { v4 as uuidv4 } from "uuid";
 
 var validate = require("jsonschema").validate;
 
-import { bool_isDebug, string_object, string_array, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, add_multi_planes, edit_plane, add_plane, remove_plane } from "../constants";
+import { string_object, string_array, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, add_multi_planes, edit_plane, add_plane, remove_plane } from "../constants";
 var multiplePlanesSchema = {
   $schema: "http://json-schema.org/draft-07/schema",
   ID: "MultiplePlanesSchema.json",
@@ -164,7 +164,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         planes: planes
       });
-      if (bool_isDebug) console.log("added plane");
+      if (this.props.isDebug) console.log("added plane");
     }
   }, {
     key: "onRemoveElement",
@@ -181,7 +181,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         planes: planes
       });
-      if (bool_isDebug) console.log("removed plane");
+      if (this.props.isDebug) console.log("removed plane");
     }
   }, {
     key: "onEditElement",
@@ -189,7 +189,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         editing: true
       });
-      if (bool_isDebug) console.log("edit plane");
+      if (this.props.isDebug) console.log("edit plane");
     }
   }, {
     key: "onElementDataSave",
@@ -381,7 +381,8 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           minChildrenComponentIdentifier: string_minNumberOf_identifier,
           maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
           elementByType: this.props.elementByType,
-          editable: true
+          editable: true,
+          isDebug: this.props.isDebug
         });
       } else if (this.state.addingMultiplePlanes2) {
         var schema = this.props.schema; //let obj = planes[index];
@@ -405,7 +406,8 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           minChildrenComponentIdentifier: string_minNumberOf_identifier,
           maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
           elementByType: this.props.elementByType,
-          editable: true
+          editable: true,
+          isDebug: this.props.isDebug
         });
       } else if (this.state.editing) {
         var _schema = this.props.schema;
@@ -421,7 +423,8 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           minChildrenComponentIdentifier: string_minNumberOf_identifier,
           maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
           elementByType: this.props.elementByType,
-          editable: true
+          editable: true,
+          isDebug: this.props.isDebug
         });
       } else {
         var buttonContainerRow = {

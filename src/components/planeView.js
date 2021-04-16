@@ -13,7 +13,6 @@ import { v4 as uuidv4 } from "uuid";
 const validate = require("jsonschema").validate;
 
 import {
-	bool_isDebug,
 	string_object,
 	string_array,
 	string_currentNumberOf_identifier,
@@ -198,7 +197,7 @@ export default class PlaneView extends React.PureComponent {
 		);
 		planes.push(newElementData);
 		this.setState({ planes: planes });
-		if (bool_isDebug) console.log("added plane");
+		if (this.props.isDebug) console.log("added plane");
 	}
 
 	onRemoveElement() {
@@ -210,12 +209,12 @@ export default class PlaneView extends React.PureComponent {
 			let removed = planes.pop();
 		}
 		this.setState({ planes: planes });
-		if (bool_isDebug) console.log("removed plane");
+		if (this.props.isDebug) console.log("removed plane");
 	}
 
 	onEditElement() {
 		this.setState({ editing: true });
-		if (bool_isDebug) console.log("edit plane");
+		if (this.props.isDebug) console.log("edit plane");
 	}
 
 	onElementDataSave(id, data) {
@@ -374,6 +373,7 @@ export default class PlaneView extends React.PureComponent {
 					maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 					elementByType={this.props.elementByType}
 					editable={true}
+					isDebug={this.props.isDebug}
 				/>
 			);
 		} else if (this.state.addingMultiplePlanes2) {
@@ -400,6 +400,7 @@ export default class PlaneView extends React.PureComponent {
 					maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 					elementByType={this.props.elementByType}
 					editable={true}
+					isDebug={this.props.isDebug}
 				/>
 			);
 		} else if (this.state.editing) {
@@ -418,6 +419,7 @@ export default class PlaneView extends React.PureComponent {
 					maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 					elementByType={this.props.elementByType}
 					editable={true}
+					isDebug={this.props.isDebug}
 				/>
 			);
 		} else {

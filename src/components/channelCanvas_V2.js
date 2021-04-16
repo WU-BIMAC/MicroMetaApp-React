@@ -13,7 +13,6 @@ const url = require("url");
 const validate = require("jsonschema").validate;
 
 import {
-	bool_isDebug,
 	string_na,
 	string_object,
 	string_array,
@@ -1122,6 +1121,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 						elementByType={this.props.elementByType}
 						editable={editable}
+						isDebug={this.props.isDebug}
 					/>
 				);
 			} else if (this.state.category === null) {
@@ -1140,6 +1140,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 						maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 						elementByType={this.props.elementByType}
 						editable={true}
+						isDebug={this.props.isDebug}
 					/>
 				);
 			} else {
@@ -1419,6 +1420,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							elementByType={this.props.elementByType}
 							notModal={true}
 							editable={false}
+							isDebug={this.props.isDebug}
 						/>
 					);
 

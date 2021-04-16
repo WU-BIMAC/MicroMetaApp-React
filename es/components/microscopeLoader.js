@@ -27,7 +27,7 @@ import Dropzone from "react-dropzone";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 import { validateMicroscope } from "../genericUtilities";
-import { string_json_ext, number_logo_width, number_logo_height, create_mode_selector_tooltip, create_mode_selector_settings_tooltip, create_from_file_tooltip, create_from_repo_manufacturer_tooltip, create_from_repo_names_tooltip, create_mode_continue_tooltip, create_mode_continue_settings_tooltip, back_tooltip, bool_isDebug } from "../constants";
+import { string_json_ext, number_logo_width, number_logo_height, create_mode_selector_tooltip, create_mode_selector_settings_tooltip, create_from_file_tooltip, create_from_repo_manufacturer_tooltip, create_from_repo_names_tooltip, create_mode_continue_tooltip, create_mode_continue_settings_tooltip, back_tooltip } from "../constants";
 
 var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(MicroscopeLoader, _React$PureComponent);
@@ -92,7 +92,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           errorMsg = "The file you are trying to load does not contain a proper MicroMetaApp Microscope";
         }
       } catch (exception) {
-        if (bool_isDebug) console.log(exception);
+        if (this.props.isDebug) console.log(exception);
         errorMsg = "The file you are trying to load is not a proper json file";
       }
 

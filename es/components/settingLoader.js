@@ -27,7 +27,7 @@ import Dropzone from "react-dropzone";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 import { validateAcquisitionSettings } from "../genericUtilities";
-import { string_json_ext, number_logo_width, number_logo_height, createSettings_mode_selector_tooltip, createSettings_from_file_tooltip, createSettings_from_repo_names_tooltip, createSettings_mode_continue_tooltip, back_tooltip, bool_isDebug } from "../constants";
+import { string_json_ext, number_logo_width, number_logo_height, createSettings_mode_selector_tooltip, createSettings_from_file_tooltip, createSettings_from_repo_names_tooltip, createSettings_mode_continue_tooltip, back_tooltip } from "../constants";
 
 var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(SettingLoader, _React$PureComponent);
@@ -101,7 +101,7 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
           errorMsg = "The file you are trying to load does not contain a proper MicroMetaApp ImageAcquisitionSettings";
         }
       } catch (exception) {
-        if (bool_isDebug) console.log(exception);
+        if (this.props.isDebug) console.log(exception);
         errorMsg = "The file you are trying to load is not a proper json file";
       }
 

@@ -11,7 +11,6 @@ import PopoverTooltip from "./popoverTooltip";
 const url = require("url");
 
 import {
-	bool_isDebug,
 	string_validationTier,
 	edit_microscope_tooltip,
 	edit_setting_tooltip,
@@ -70,6 +69,7 @@ export default class Footer extends React.PureComponent {
 					overlaysContainer={this.props.overlaysContainer}
 					editable={true}
 					elementByType={this.props.elementByType}
+					isDebug={this.props.isDebug}
 				/>
 			);
 		}

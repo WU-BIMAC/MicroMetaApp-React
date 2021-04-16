@@ -941,7 +941,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             minChildrenComponentIdentifier: string_minNumberOf_identifier,
             maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
             elementByType: this.props.elementByType,
-            editable: editable
+            editable: editable,
+            isDebug: this.props.isDebug
           });
         } else if (this.state.category === null) {
           return /*#__PURE__*/React.createElement(MultiTabFormWithHeaderV3, {
@@ -955,7 +956,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             minChildrenComponentIdentifier: string_minNumberOf_identifier,
             maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
             elementByType: this.props.elementByType,
-            editable: true
+            editable: true,
+            isDebug: this.props.isDebug
           });
         } else {
           var itemList = [];
@@ -1203,7 +1205,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             maxChildrenComponentIdentifier: string_maxNumberOf_identifier,
             elementByType: this.props.elementByType,
             notModal: true,
-            editable: false
+            editable: false,
+            isDebug: this.props.isDebug
           });
           return /*#__PURE__*/React.createElement(ModalWindow, {
             overlaysContainer: this.props.overlaysContainer

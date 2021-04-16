@@ -23,7 +23,6 @@ const url = require("url");
 const validate = require("jsonschema").validate;
 
 import {
-	bool_isDebug,
 	number_logo_width,
 	number_logo_height,
 	current_stands,
@@ -194,7 +193,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.createOrUseMetadata = this.createOrUseMetadata.bind(this);
 
 		this.onClickBack = this.onClickBack.bind(this);
-		this.onSpecialImporterBack = this.onSpecialImporterBack.bind(this);
 
 		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
 		this.createAdaptedSchema = this.createAdaptedSchema.bind(this);
@@ -214,6 +212,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		this.onHideToolbar = this.onHideToolbar.bind(this);
 		//this.toDataUrl = this.toDataUrl.bind(this);
+
+		this.onSpecialImporterBack = this.onSpecialImporterBack.bind(this);
+		this.onSpecialImporterConfirm = this.onSpecialImporterConfirm.bind(this);
+		this.simulateClickLoadMicroscopeFromPortal = this.simulateClickLoadMicroscopeFromPortal.bind(
+			this
+		);
+		this.loadMicroscopeFromPortal = this.loadMicroscopeFromPortal.bind(this);
 
 		// Set up API
 		const {
@@ -314,15 +319,17 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleCompleteLoadSchema(newSchema) {
-		if (this.state.is4DNPortal) {
-			this.setState({ schema: newSchema }, () => {
-				if (this.state.isCreatingNewMicroscope) {
-					this.handleMicroscopePreset();
-				} else {
-				}
-			});
-		} else {
-			this.setState({ schema: newSchema });
+		this.setState({ schema: newSchema });
+	}
+
+	simulateClickLoadMicroscopeFromPortal(loadMicroscopeFromPortalButtonRef) {
+		if (loadMicroscopeFromPortalButtonRef === null) return;
+		loadMicroscopeFromPortalButtonRef.click();
+	}
+
+	loadMicroscopeFromPortal() {
+		if (this.state.is4DNPortal && this.state.isCreatingNewMicroscope) {
+			this.handleMicroscopePreset();
 		}
 	}
 
@@ -333,6 +340,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	//HAVE TO DO THE SAME FOR SETTINGS?
 	handleMicroscopePreset() {
+		console.log("handleMicroscopePreset");
 		let microscope = this.state.microscope;
 		let tier = microscope.Tier;
 		let vTier = microscope.ValidationTier;
@@ -2236,7 +2244,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	createOrUseSettingFromSelectedFile() {
 		let imageMetadata = this.state.imageMetadata;
 		let microscope = this.state.microscope;
-		if (bool_isDebug) {
+		if (this.props.isDebug) {
 			console.log("settings");
 			console.log(this.state.settings);
 			console.log("settingName");
@@ -2386,6 +2394,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				loadingMode: 1,
 			});
 		}
+	}
+
+	onSpecialImporterConfirm() {
+		this.setState({
+			isSpecialImporterActive: false,
+		});
 	}
 
 	onSpecialImporterBack() {
@@ -2704,6 +2718,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickLoadDimensions={this.handleLoadDimensions}
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
 						onClickLoadSettings={this.handleLoadSettings}
+						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -2722,6 +2737,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickTierSelection={this.handleActiveTierSelection}
 						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
 						onClickLoadMicroscope={this.setLoadMicroscope}
+						hasSettings={this.props.hasSettings}
+						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -2773,10 +2790,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							loadingMode={this.state.loadingMode}
 							onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
 							//onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
-							onClickConfirm={this.createOrUseMicroscope}
+							onClickConfirm={this.onSpecialImporterConfirm}
 							onClickBack={this.onSpecialImporterBack}
 							isSettings={this.state.isLoadingMicroscope}
 							schema={this.state.schema}
+							isDebug={this.props.isDebug}
 						/>
 					</MicroMetaAppReactContainer>
 				);
@@ -2814,7 +2832,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 										onLoad={this.onImgLoad}
 									/>
 								</div>
-								<Button style={buttonStyle} size="lg">
+								<Button
+									ref={this.simulateClickLoadMicroscopeFromPortal}
+									style={buttonStyle}
+									size="lg"
+									onClick={this.loadMicroscopeFromPortal}
+								>
 									{"Loading " + microscope.Name}
 								</Button>
 							</div>
@@ -2890,6 +2913,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickBack={this.onClickBack}
 						isSettings={this.state.isLoadingMicroscope}
 						schema={this.state.schema}
+						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -2920,6 +2944,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
 						onClickConfirm={this.createOrUseMetadata}
 						onClickBack={this.onClickBack}
+						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -2965,6 +2990,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickConfirm={this.createOrUseSetting}
 						onClickBack={this.onClickBack}
 						schema={this.state.schema}
+						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3068,6 +3094,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					<Header
 						dimensions={headerFooterDims}
 						logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
+						isDebug={this.props.isDebug}
 					/>
 					<SettingsMainView
 						microscope={microscope}
@@ -3092,6 +3119,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						containerOffsetTop={this.props.containerOffsetTop}
 						containerOffsetLeft={this.props.containerOffsetLeft}
 						headerOffset={headerOffset}
+						isDebug={this.props.isDebug}
+						hasAdvanced={this.props.hasAdvanced}
+						hasExperimental={this.props.hasExperimental}
 					/>
 					<Footer
 						activeTier={this.state.activeTier}
@@ -3113,6 +3143,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						elementByType={elementByType}
 						is4DNPortal={this.state.is4DNPortal}
 						hasImport={this.state.hasImport}
+						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3131,6 +3162,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						<Header
 							dimensions={headerFooterDims}
 							logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
+							isDebug={this.props.isDebug}
 						/>
 						<div style={style}>
 							<Canvas
@@ -3160,6 +3192,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								headerOffset={headerOffset}
 								//setScale={this.setMicroscopeScale}
 								isViewOnly={this.state.isViewOnly}
+								isDebug={this.props.isDebug}
 							/>
 						</div>
 					</MicroMetaAppReactContainer>
@@ -3175,6 +3208,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						<Header
 							dimensions={headerFooterDims}
 							logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
+							isDebug={this.props.isDebug}
 						/>
 						<div style={style}>
 							<Canvas
@@ -3203,6 +3237,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								containerOffsetLeft={this.props.containerOffsetLeft}
 								headerOffset={headerOffset}
 								//setScale={this.setMicroscopeScale}
+								isDebug={this.props.isDebug}
 							/>
 							<Toolbar
 								activeTier={this.state.activeTier}
@@ -3213,6 +3248,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								scalingFactor={scalingFactor}
 								onHideToolbar={this.onHideToolbar}
 								isToolbarHidden={this.state.isToolbarHidden}
+								isDebug={this.props.isDebug}
 							/>
 						</div>
 						<Footer
@@ -3235,6 +3271,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							elementByType={elementByType}
 							is4DNPortal={this.state.is4DNPortal}
 							hasImport={this.state.hasImport}
+							isDebug={this.props.isDebug}
 						/>
 					</MicroMetaAppReactContainer>
 				);
@@ -3283,6 +3320,10 @@ MicroMetaAppReact.defaultProps = {
 	containerOffsetTop: 0,
 	containerOffsetLeft: 0,
 	scalingFactor: 1,
+	isDebug: false,
+	hasSettings: false,
+	hasAdvancedModel: false,
+	hasExperimentalModel: false,
 	onLoadDimensions: function (complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {

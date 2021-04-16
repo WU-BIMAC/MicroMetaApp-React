@@ -129,7 +129,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
           minChildrenComponentIdentifier: this.props.minChildrenComponentIdentifier,
           maxChildrenComponentIdentifier: this.props.maxChildrenComponentIdentifier,
           elementByType: this.props.elementByType,
-          editable: true
+          editable: true,
+          isDebug: this.props.isDebug
         });
       }
 

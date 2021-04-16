@@ -931,6 +931,26 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "5px",
         marginRight: "5px"
       };
+      var containerStyle = {
+        display: "flex",
+        flexDirection: "column"
+      };
+      var buttonContainerColumnExternal = {
+        display: "flex",
+        flexDirection: "column",
+        flexWap: "wrap",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%"
+      };
+      var buttonContainerColumn = {
+        display: "flex",
+        flexDirection: "column",
+        flexWap: "wrap",
+        justifyContent: "center",
+        alignItems: "center"
+      };
       var buttonContainerRow = {
         display: "flex",
         flexDirection: "row",
@@ -1118,12 +1138,9 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       var containerIndex = Object.keys(forms).indexOf(this.state.activeID); //let activeContainerKey = `${containerIndex}`;
 
-      var form = /*#__PURE__*/React.createElement("div", {
-        style: {
-          display: "flex",
-          flexDirection: "column"
-        }
-      }, /*#__PURE__*/React.createElement("h3", null, this.props.title), /*#__PURE__*/React.createElement(Tabs // tabPosition={"top"}
+      var form = /*#__PURE__*/_react.default.createElement("div", {
+        style: containerStyle
+      }, /*#__PURE__*/_react.default.createElement("h3", null, this.props.title), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs // tabPosition={"top"}
       // tabBarStyle={{
       // 	border: "none",
       // }}

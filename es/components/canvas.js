@@ -33,7 +33,7 @@ var url = require("url");
 
 var validate = require("jsonschema").validate;
 
-import { bool_isDebug, string_na, string_object, string_array, string_toolbar, string_canvas, string_json_ext, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, number_canvas_element_min_width, number_canvas_element_icons_height, number_canvas_element_offset_default, string_typeDimensionsGeneral } from "../constants";
+import { string_na, string_object, string_array, string_toolbar, string_canvas, string_json_ext, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, number_canvas_element_min_width, number_canvas_element_icons_height, number_canvas_element_offset_default, string_typeDimensionsGeneral } from "../constants";
 import { bool } from "prop-types";
 
 var Canvas = /*#__PURE__*/function (_React$PureComponent) {
@@ -1229,7 +1229,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             elementByType: elementByType,
             isViewOnly: _this3.props.isViewOnly,
             setEditingOnCanvas: _this3.setEditingOnCanvas,
-            formTitle: item.name
+            formTitle: item.name,
+            isDebug: _this3.props.isDebug
           }), /*#__PURE__*/React.createElement("div", {
             style: styleName
           }, item.name))))));

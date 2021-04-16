@@ -196,7 +196,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           margin: "auto"
         },
         onLoad: this.onImgLoad
-      })), /*#__PURE__*/React.createElement(Button, {
+      })), /*#__PURE__*/_react.default.createElement(_Button.default, {
         ref: this.simulateClickLoadMicroscopes,
         disabled: isLoadingMicroscopes || isMicroscopesLoaded,
         onClick: !isLoadingMicroscopes && !isMicroscopesLoaded ? this.onClickLoadMicroscopes : null,
@@ -208,13 +208,13 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         onClick: !isLoadingSettings && !isSettingsLoaded ? this.onClickLoadSettings : null,
         style: buttonStyle,
         size: "lg"
-      }, isLoadingSettings ? "Loading settings" : isSettingsLoaded ? "Settings loaded" : "Load settings"), /*#__PURE__*/React.createElement(Button, {
+      }, isLoadingSettings ? "Loading settings" : isSettingsLoaded ? "Settings loaded" : "Load settings"), /*#__PURE__*/_react.default.createElement(_Button.default, {
         ref: this.simulateClickLoadDimensions,
         disabled: isLoadingDimensions || isDimensionsLoaded,
         onClick: !isLoadingDimensions && !isDimensionsLoaded ? this.onClickLoadDimensions : null,
         style: buttonStyle,
         size: "lg"
-      }, isLoadingDimensions ? "Loading dimensions" : isDimensionsLoaded ? "Dimensions loaded" : "Load dimensions"), /*#__PURE__*/React.createElement(Button, {
+      }, isLoadingDimensions ? "Loading dimensions" : isDimensionsLoaded ? "Dimensions loaded" : "Load dimensions"), /*#__PURE__*/_react.default.createElement(_Button.default, {
         ref: this.simulateClickLoadSchema,
         disabled: isLoadingSchema || isSchemaLoaded,
         onClick: !isLoadingSchema && !isSchemaLoaded ? this.onClickLoadSchema : null,

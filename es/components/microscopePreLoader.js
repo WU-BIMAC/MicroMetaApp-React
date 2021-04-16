@@ -21,12 +21,10 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 import React from "react";
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Button from "react-bootstrap/Button";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
-import { bool_isSettings, number_logo_width, number_logo_height, tier_selector_tooltip, manage_instrument_tooltip, manage_settings_tooltip } from "../constants";
-import { escapeSelector } from "jquery";
+import { number_logo_width, number_logo_height, tier_selector_tooltip, manage_instrument_tooltip, manage_settings_tooltip } from "../constants";
 
 var MicroscopePreLoader = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(MicroscopePreLoader, _React$PureComponent);
@@ -107,7 +105,7 @@ var MicroscopePreLoader = /*#__PURE__*/function (_React$PureComponent) {
           onClick: this.props.onClickLoadMicroscope,
           style: buttonStyle,
           size: "lg",
-          disabled: !bool_isSettings
+          disabled: !this.props.hasSettings
         }, "Manage Settings")
       }))));
     }

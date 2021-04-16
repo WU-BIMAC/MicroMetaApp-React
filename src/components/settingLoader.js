@@ -17,7 +17,6 @@ import {
 	createSettings_from_repo_names_tooltip,
 	createSettings_mode_continue_tooltip,
 	back_tooltip,
-	bool_isDebug,
 } from "../constants";
 
 export default class SettingLoader extends React.PureComponent {
@@ -89,7 +88,7 @@ export default class SettingLoader extends React.PureComponent {
 					"The file you are trying to load does not contain a proper MicroMetaApp ImageAcquisitionSettings";
 			}
 		} catch (exception) {
-			if (bool_isDebug) console.log(exception);
+			if (this.props.isDebug) console.log(exception);
 			errorMsg = "The file you are trying to load is not a proper json file";
 		}
 

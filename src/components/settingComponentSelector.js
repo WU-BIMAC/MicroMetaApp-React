@@ -13,7 +13,6 @@ const url = require("url");
 const validate = require("jsonschema").validate;
 
 import {
-	bool_isDebug,
 	string_na,
 	string_object,
 	string_array,
@@ -723,6 +722,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 					maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 					elementByType={this.props.elementByType}
 					editable={true}
+					isDebug={this.props.isDebug}
 				/>
 			);
 		} else {
@@ -983,6 +983,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 						elementByType={this.props.elementByType}
 						notModal={true}
 						editable={false}
+						isDebug={this.props.isDebug}
 					/>
 				);
 
