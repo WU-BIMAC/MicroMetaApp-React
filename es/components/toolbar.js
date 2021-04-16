@@ -29,7 +29,7 @@ import ImageElement from "./imageElement";
 
 var url = require("url");
 
-import { bool_isDebug, string_toolbar, string_canvas, hardware_explorer_tooltip, menu_order } from "../constants";
+import { string_toolbar, string_canvas, hardware_explorer_tooltip, menu_order } from "../constants";
 
 var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(Toolbar, _React$PureComponent);

@@ -33,7 +33,7 @@ var url = require("url");
 
 var validate = require("jsonschema").validate;
 
-import { bool_isDebug, string_na, string_object, string_array, string_json_ext, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, number_canvas_element_icons_height } from "../constants";
+import { string_na, string_object, string_array, string_json_ext, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, number_canvas_element_icons_height } from "../constants";
 
 var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(SettingComponentSelector, _React$PureComponent);

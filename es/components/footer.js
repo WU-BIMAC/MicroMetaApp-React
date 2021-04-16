@@ -31,7 +31,7 @@ import PopoverTooltip from "./popoverTooltip";
 
 var url = require("url");
 
-import { bool_isDebug, string_validationTier, edit_microscope_tooltip, edit_setting_tooltip, validation_microscope_tooltip, validation_setting_tooltip, save_microscope_tooltip, save_setting_tooltip, back_tooltip } from "../constants";
+import { string_validationTier, edit_microscope_tooltip, edit_setting_tooltip, validation_microscope_tooltip, validation_setting_tooltip, save_microscope_tooltip, save_setting_tooltip, back_tooltip } from "../constants";
 
 var Footer = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(Footer, _React$PureComponent);

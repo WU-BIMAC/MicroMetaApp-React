@@ -32,7 +32,7 @@ import { v4 as uuidv4 } from "uuid";
 
 var validate = require("jsonschema").validate;
 
-import { bool_isDebug, string_object, string_array, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, edit_channel, add_channel, remove_channel, remove_plane } from "../constants";
+import { string_object, string_array, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, edit_channel, add_channel, remove_channel, remove_plane } from "../constants";
 
 var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(ChannelView, _React$PureComponent);
