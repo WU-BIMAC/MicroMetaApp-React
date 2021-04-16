@@ -12,9 +12,6 @@ import { v4 as uuidv4 } from "uuid";
 const validate = require("jsonschema").validate;
 
 import {
-	bool_isDebug,
-	bool_hasAdvanced,
-	bool_hasExperimental,
 	string_object,
 	string_array,
 	string_json_ext,
@@ -152,7 +149,7 @@ export default class SettingMainView extends React.PureComponent {
 				let schema = props.experimentalSchemas[schemaIndex];
 				let schema_id = schema.ID;
 				this.state.experimentalSchemas[schema_id] = schema;
-				if (schema_id === "Experiment.json" && bool_hasExperimental) {
+				if (schema_id === "Experiment.json" && this.props.hasExperimentalModel) {
 					if (
 						this.state.experiment === null ||
 						this.state.experiment === undefined
@@ -340,7 +337,7 @@ export default class SettingMainView extends React.PureComponent {
 		let editingElement = this.state.editingElement;
 		if (editingElement !== -1) {
 			//let element = this.state.elementList[editingElement];
-			if (bool_isDebug) {
+			if (this.props.isDebug) {
 				//TODO debug stuff
 			}
 			let obj = null;
@@ -387,6 +384,7 @@ export default class SettingMainView extends React.PureComponent {
 							onConfirm={this.onElementDataSave}
 							onCancel={this.onElementDataCancel}
 							overlaysContainer={this.props.overlaysContainer}
+							isDebug={this.props.isDebug}
 						/>
 					</div>
 				);
@@ -413,6 +411,7 @@ export default class SettingMainView extends React.PureComponent {
 						headerOffset={this.props.headerOffset}
 						objective={this.state.objective}
 						objectiveSettings={this.state.objSettings}
+						isDebug={this.props.isDebug}
 					/>
 				);
 			} else if (
@@ -445,6 +444,7 @@ export default class SettingMainView extends React.PureComponent {
 						overlaysContainer={this.props.overlaysContainer}
 						elementByType={elementByType}
 						maxNumberElement={maxNumberElement}
+						isDebug={this.props.isDebug}
 					/>
 				);
 			} else {
@@ -465,6 +465,7 @@ export default class SettingMainView extends React.PureComponent {
 							maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
 							elementByType={elementByType}
 							editable={true}
+							isDebug={this.props.isDebug}
 						/>
 					</div>
 				);
@@ -566,7 +567,7 @@ export default class SettingMainView extends React.PureComponent {
 			let validation = null;
 			let validated = null;
 			let valid = null;
-			if (bool_hasExperimental) {
+			if (this.props.hasExperimentalModel) {
 				validated = false;
 				if (object !== null && object !== undefined && schemaHasProp) {
 					validation = validate(object, schema);
@@ -602,7 +603,7 @@ export default class SettingMainView extends React.PureComponent {
 			schemaHasProp = false;
 			if (schema !== null && schema !== undefined)
 				schemaHasProp = Object.keys(schema.properties).length > 0;
-			if (bool_hasAdvanced) {
+			if (this.props.hasAdvancedModel) {
 				validated = false;
 				if (object !== null && object !== undefined && schemaHasProp) {
 					if (Array.isArray(object)) {

@@ -13,7 +13,6 @@ const url = require("url");
 const validate = require("jsonschema").validate;
 
 import {
-	bool_isDebug,
 	string_na,
 	string_object,
 	string_array,
@@ -1225,6 +1224,7 @@ export default class Canvas extends React.PureComponent {
 										isViewOnly={this.props.isViewOnly}
 										setEditingOnCanvas={this.setEditingOnCanvas}
 										formTitle={item.name}
+										isDebug={this.props.isDebug}
 									/>
 									<div style={styleName}>{item.name}</div>
 								</div>

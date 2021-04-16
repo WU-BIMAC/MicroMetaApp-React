@@ -9,7 +9,6 @@ import ImageElement from "./imageElement";
 const url = require("url");
 
 import {
-	bool_isDebug,
 	string_toolbar,
 	string_canvas,
 	hardware_explorer_tooltip,

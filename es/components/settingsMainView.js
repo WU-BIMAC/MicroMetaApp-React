@@ -141,7 +141,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         var schema_id = schema.ID;
         _this.state.experimentalSchemas[schema_id] = schema;
 
-        if (schema_id === "Experiment.json" && _constants.bool_hasExperimental) {
+        if (schema_id === "Experiment.json" && _this.props.hasExperimentalModel) {
           if (_this.state.experiment === null || _this.state.experiment === undefined) {
             var newElement = {
               Name: "".concat(schema.title),
@@ -336,7 +336,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
       if (editingElement !== -1) {
         //let element = this.state.elementList[editingElement];
-        if (_constants.bool_isDebug) {//TODO debug stuff
+        if (this.props.isDebug) {//TODO debug stuff
         }
 
         var obj = null;
@@ -386,7 +386,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             id: editingElement,
             onConfirm: this.onElementDataSave,
             onCancel: this.onElementDataCancel,
-            overlaysContainer: this.props.overlaysContainer
+            overlaysContainer: this.props.overlaysContainer,
+            isDebug: this.props.isDebug
           }));
         } else if (editingElement == elements.indexOf("channels")) {
           return /*#__PURE__*/_react.default.createElement(_channelView.default, {
@@ -409,7 +410,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             containerOffsetLeft: this.props.containerOffsetLeft,
             headerOffset: this.props.headerOffset,
             objective: this.state.objective,
-            objectiveSettings: this.state.objSettings
+            objectiveSettings: this.state.objSettings,
+            isDebug: this.props.isDebug
           });
         } else if (editingElement == elements.indexOf("imgEnv") || editingElement == elements.indexOf("tirfSettings") || editingElement == elements.indexOf("objSettings") || editingElement == elements.indexOf("samplePosSettings") || editingElement == elements.indexOf("micTableSettings")) {
           var maxNumberElement = -1;
@@ -435,7 +437,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             onCancel: this.onElementDataCancel,
             overlaysContainer: this.props.overlaysContainer,
             elementByType: elementByType,
-            maxNumberElement: maxNumberElement
+            maxNumberElement: maxNumberElement,
+            isDebug: this.props.isDebug
           });
         } else {
           return /*#__PURE__*/_react.default.createElement("div", {
@@ -452,7 +455,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
             maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
             elementByType: elementByType,
-            editable: true
+            editable: true,
+            isDebug: this.props.isDebug
           }));
         }
       } else {
@@ -543,7 +547,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         var validated = null;
         var valid = null;
 
-        if (_constants.bool_hasExperimental) {
+        if (this.props.hasExperimentalModel) {
           validated = false;
 
           if (object !== null && object !== undefined && schemaHasProp) {
@@ -579,7 +583,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         schemaHasProp = false;
         if (_schema !== null && _schema !== undefined) schemaHasProp = Object.keys(_schema.properties).length > 0;
 
-        if (_constants.bool_hasAdvanced) {
+        if (this.props.hasAdvancedModel) {
           validated = false;
 
           if (object !== null && object !== undefined && schemaHasProp) {

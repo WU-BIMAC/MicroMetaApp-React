@@ -101,6 +101,7 @@ export default class CanvasElement extends React.PureComponent {
 					}
 					elementByType={this.props.elementByType}
 					editable={true}
+					isDebug={this.props.isDebug}
 				/>
 			);
 		}

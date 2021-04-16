@@ -117,7 +117,7 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
           errorMsg = "The file you are trying to load does not contain a proper MicroMetaApp ImageAcquisitionSettings";
         }
       } catch (exception) {
-        if (_constants.bool_isDebug) console.log(exception);
+        if (this.props.isDebug) console.log(exception);
         errorMsg = "The file you are trying to load is not a proper json file";
       }
 

@@ -13,7 +13,6 @@ import { v4 as uuidv4 } from "uuid";
 const validate = require("jsonschema").validate;
 
 import {
-	bool_isDebug,
 	string_object,
 	string_array,
 	string_currentNumberOf_identifier,
@@ -396,6 +395,7 @@ export default class ChannelView extends React.PureComponent {
 					elementByType={this.props.elementByType}
 					objective={this.props.objective}
 					objectiveSettings={this.props.objectiveSettings}
+					isDebug={this.props.isDebug}
 				/>
 			);
 		} else {

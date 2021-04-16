@@ -1,10 +1,5 @@
 import React from "react";
 
-export const bool_isDebug = true;
-export const bool_isSettings = true;
-export const bool_hasAdvanced = false;
-export const bool_hasExperimental = false;
-
 export const string_na = "na";
 export const string_not_assigned = "Not assigned";
 export const string_default = "default";

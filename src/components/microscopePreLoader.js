@@ -1,20 +1,17 @@
 import React from "react";
 
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Button from "react-bootstrap/Button";
 
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
 import {
-	bool_isSettings,
 	number_logo_width,
 	number_logo_height,
 	tier_selector_tooltip,
 	manage_instrument_tooltip,
 	manage_settings_tooltip,
 } from "../constants";
-import { escapeSelector } from "jquery";
 
 export default class MicroscopePreLoader extends React.PureComponent {
 	constructor(props) {
@@ -104,7 +101,7 @@ export default class MicroscopePreLoader extends React.PureComponent {
 									onClick={this.props.onClickLoadMicroscope}
 									style={buttonStyle}
 									size="lg"
-									disabled={!bool_isSettings}
+									disabled={!this.props.hasSettings}
 								>
 									Manage Settings
 								</Button>

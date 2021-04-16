@@ -9,8 +9,6 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _ButtonToolbar = _interopRequireDefault(require("react-bootstrap/ButtonToolbar"));
-
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
@@ -18,8 +16,6 @@ var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
 var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
 
 var _constants = require("../constants");
-
-var _jquery = require("jquery");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -127,7 +123,7 @@ var MicroscopePreLoader = /*#__PURE__*/function (_React$PureComponent) {
           onClick: this.props.onClickLoadMicroscope,
           style: buttonStyle,
           size: "lg",
-          disabled: !_constants.bool_isSettings
+          disabled: !this.props.hasSettings
         }, "Manage Settings")
       }))));
     }

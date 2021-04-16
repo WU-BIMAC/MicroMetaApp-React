@@ -20,7 +20,6 @@ import {
 	create_mode_continue_tooltip,
 	create_mode_continue_settings_tooltip,
 	back_tooltip,
-	bool_isDebug,
 } from "../constants";
 
 export default class MicroscopeLoader extends React.PureComponent {
@@ -85,7 +84,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
 			}
 		} catch (exception) {
-			if (bool_isDebug) console.log(exception);
+			if (this.props.isDebug) console.log(exception);
 			errorMsg = "The file you are trying to load is not a proper json file";
 		}
 

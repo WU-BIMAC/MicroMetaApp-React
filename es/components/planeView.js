@@ -180,7 +180,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         planes: planes
       });
-      if (_constants.bool_isDebug) console.log("added plane");
+      if (this.props.isDebug) console.log("added plane");
     }
   }, {
     key: "onRemoveElement",
@@ -197,7 +197,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         planes: planes
       });
-      if (_constants.bool_isDebug) console.log("removed plane");
+      if (this.props.isDebug) console.log("removed plane");
     }
   }, {
     key: "onEditElement",
@@ -205,7 +205,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         editing: true
       });
-      if (_constants.bool_isDebug) console.log("edit plane");
+      if (this.props.isDebug) console.log("edit plane");
     }
   }, {
     key: "onElementDataSave",
@@ -406,7 +406,8 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
           maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
           elementByType: this.props.elementByType,
-          editable: true
+          editable: true,
+          isDebug: this.props.isDebug
         });
       } else if (this.state.addingMultiplePlanes2) {
         var schema = this.props.schema; //let obj = planes[index];
@@ -430,7 +431,8 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
           maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
           elementByType: this.props.elementByType,
-          editable: true
+          editable: true,
+          isDebug: this.props.isDebug
         });
       } else if (this.state.editing) {
         var _schema = this.props.schema;
@@ -446,7 +448,8 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
           minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
           maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
           elementByType: this.props.elementByType,
-          editable: true
+          editable: true,
+          isDebug: this.props.isDebug
         });
       } else {
         var buttonContainerRow = {

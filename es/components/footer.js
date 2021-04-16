@@ -113,7 +113,8 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
           onCancel: this.onFormCancel,
           overlaysContainer: this.props.overlaysContainer,
           editable: true,
-          elementByType: this.props.elementByType
+          elementByType: this.props.elementByType,
+          isDebug: this.props.isDebug
         });
       }
 

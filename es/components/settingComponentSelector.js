@@ -738,7 +738,8 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
           minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
           maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
           elementByType: this.props.elementByType,
-          editable: true
+          editable: true,
+          isDebug: this.props.isDebug
         });
       } else {
         var itemList = [];
@@ -964,7 +965,8 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
           maxChildrenComponentIdentifier: _constants.string_maxNumberOf_identifier,
           elementByType: this.props.elementByType,
           notModal: true,
-          editable: false
+          editable: false,
+          isDebug: this.props.isDebug
         });
         return /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
           overlaysContainer: this.props.overlaysContainer

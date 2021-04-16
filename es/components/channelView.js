@@ -371,7 +371,8 @@ var ChannelView = /*#__PURE__*/function (_React$PureComponent) {
           onCancel: this.onElementDataCancel,
           elementByType: this.props.elementByType,
           objective: this.props.objective,
-          objectiveSettings: this.props.objectiveSettings
+          objectiveSettings: this.props.objectiveSettings,
+          isDebug: this.props.isDebug
         });
       } else {
         var buttonContainerRow = {

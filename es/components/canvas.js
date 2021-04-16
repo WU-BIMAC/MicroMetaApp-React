@@ -1265,7 +1265,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             elementByType: elementByType,
             isViewOnly: _this3.props.isViewOnly,
             setEditingOnCanvas: _this3.setEditingOnCanvas,
-            formTitle: item.name
+            formTitle: item.name,
+            isDebug: _this3.props.isDebug
           }), /*#__PURE__*/_react.default.createElement("div", {
             style: styleName
           }, item.name))))));
