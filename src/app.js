@@ -2699,7 +2699,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let headerFooterHeight = 60;
 
 		//Should i add microscopes and settings too ?
-		if (schema === null || this.state.dimensions === null) {
+		if (!isDefined(schema) || !isDefined(this.state.dimensions)) {
 			return (
 				<MicroMetaAppReactContainer
 					width={width}

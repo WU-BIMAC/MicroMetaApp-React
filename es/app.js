@@ -2028,7 +2028,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var headerFooterWidth = width;
       var headerFooterHeight = 60; //Should i add microscopes and settings too ?
 
-      if (schema === null || this.state.dimensions === null) {
+      if (!(0, _genericUtilities.isDefined)(schema) || !(0, _genericUtilities.isDefined)(this.state.dimensions)) {
         return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
