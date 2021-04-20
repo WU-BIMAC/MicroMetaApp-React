@@ -1840,11 +1840,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var lowerCaseItem = item.toLowerCase();
 
       if (lowerCaseItem.includes("as new")) {
-        microscope.ID = uuidv4();
-
-        if (microscope.MicroscopeStand !== null && microscope.MicroscopeStand !== undefined) {
-          microscope.MicroscopeStand.ID = uuidv4();
-        }
+        microscope.ID = uuidv4(); // if (
+        // 	microscope.MicroscopeStand !== null &&
+        // 	microscope.MicroscopeStand !== undefined
+        // ) {
+        // 	microscope.MicroscopeStand.ID = uuidv4();
+        // }
       }
 
       this.setState({
@@ -1979,7 +1980,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var headerFooterWidth = width;
       var headerFooterHeight = 60; //Should i add microscopes and settings too ?
 
-      if (schema === null || this.state.dimensions === null) {
+      if (!isDefined(schema) || !isDefined(this.state.dimensions)) {
         return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
