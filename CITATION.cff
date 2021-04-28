@@ -34,11 +34,11 @@ authors:
     email: caterina.strambio@umassmed.edu
     orcid: https://orcid.org/https://orcid.org/0000-0002-1069-1816
   - 
-date-released: 2021-04-20
+date-released: 2021-04-22
 license: GNU General Public License v.3
 repository-code: https://github.com/WU-BIMAC/MicroMetaApp-React
 title: Micro-Meta App - React implementation
-version: 0.46.5-b1
+version: 1.0.0-b1-2 stable beta
 doi: PENDING
   - 
 keywords: 
