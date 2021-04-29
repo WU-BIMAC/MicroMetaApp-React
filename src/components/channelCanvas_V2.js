@@ -321,9 +321,9 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 							Tier: immersionLiquidSchema.tier,
 							Schema_ID: immersionLiquidSchema.ID,
 							ModelVersion: immersionLiquidSchema.modelVersion,
-						Extension: immersionLiquidSchema.extension,
-						Domain: immersionLiquidSchema.domain,
-						Category: immersionLiquidSchema.category,
+							Extension: immersionLiquidSchema.extension,
+							Domain: immersionLiquidSchema.domain,
+							Category: immersionLiquidSchema.category,
 						};
 					}
 				}
@@ -501,6 +501,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 					this.setState({
 						selectedSlot: null,
 						selectedComp: null,
+						selectedSchema: null,
 					});
 					return;
 				}
@@ -567,7 +568,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			editing: true,
 			category: category,
 			selectedSlot: selectedSlot,
-			selectedComp: comp,
+			//selectedComp: comp,
 			tmpSlots: localComps,
 		});
 	}
@@ -889,7 +890,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		const modalGridContainer = {
 			display: "flex",
 			flexDirection: "column",
-			flexWrap: "wrap",
+			//flexWrap: "wrap",
 			justifyContent: "center",
 			width: "100%",
 			height: "100%",
@@ -898,7 +899,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		const modalGridPanel = {
 			display: "flex",
 			flexDirection: "row",
-			flexWrap: "wrap",
+			//flexWrap: "wrap",
 			justifyContent: "center",
 			width: "100%",
 			height: "90%",
