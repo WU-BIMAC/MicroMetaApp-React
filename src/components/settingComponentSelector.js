@@ -507,7 +507,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 		const modalGridContainer = {
 			display: "flex",
 			flexDirection: "column",
-			flexWrap: "wrap",
+			//flexWrap: "wrap",
 			justifyContent: "center",
 			width: "100%",
 			height: "100%",
@@ -516,7 +516,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 		const modalGridPanel = {
 			display: "flex",
 			flexDirection: "row",
-			flexWrap: "wrap",
+			//flexWrap: "wrap",
 			justifyContent: "center",
 			width: "100%",
 			height: "90%",
@@ -537,7 +537,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 		const modalTopListContainer = {
 			display: "flex",
 			flexDirection: "column",
-			flexWrap: "wrap",
+			//flexWrap: "wrap",
 			justifyContent: "space-evenly",
 			overflow: "auto",
 			height: "250px",
@@ -555,7 +555,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 		const multiTab = {
 			display: "flex",
 			flexDirection: "row",
-			flexWrap: "wrap",
+			//flexWrap: "wrap",
 			overflow: "auto",
 			maxHeight: "100%",
 			minWidth: "70%",

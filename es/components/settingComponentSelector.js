@@ -519,7 +519,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var modalGridContainer = {
         display: "flex",
         flexDirection: "column",
-        flexWrap: "wrap",
+        //flexWrap: "wrap",
         justifyContent: "center",
         width: "100%",
         height: "100%",
@@ -528,7 +528,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var modalGridPanel = {
         display: "flex",
         flexDirection: "row",
-        flexWrap: "wrap",
+        //flexWrap: "wrap",
         justifyContent: "center",
         width: "100%",
         height: "90%",
@@ -548,7 +548,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var modalTopListContainer = {
         display: "flex",
         flexDirection: "column",
-        flexWrap: "wrap",
+        //flexWrap: "wrap",
         justifyContent: "space-evenly",
         overflow: "auto",
         height: "250px",
@@ -565,7 +565,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       var multiTab = {
         display: "flex",
         flexDirection: "row",
-        flexWrap: "wrap",
+        //flexWrap: "wrap",
         overflow: "auto",
         maxHeight: "100%",
         minWidth: "70%",
