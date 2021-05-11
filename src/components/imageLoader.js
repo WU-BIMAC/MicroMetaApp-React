@@ -6,6 +6,8 @@ import Dropzone from "react-dropzone";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
+const url = require("url");
+
 import {
 	string_json_ext,
 	number_logo_width,
@@ -15,6 +17,7 @@ import {
 	loadImage_from_repo_names_tooltip,
 	loadImage_mode_continue_tooltip,
 	back_tooltip,
+	string_back_img,
 } from "../constants";
 
 export default class ImageLoader extends React.PureComponent {
@@ -167,6 +170,10 @@ export default class ImageLoader extends React.PureComponent {
 			height: "100%",
 			margin: "auto",
 		};
+		let styleImageBk = {
+			width: "20px",
+			height: "20px",
+		};
 		let imageMap = this.state.imageMap;
 
 		let loadingMode = this.props.loadingMode;
@@ -236,8 +243,46 @@ export default class ImageLoader extends React.PureComponent {
 				/>
 			);
 		}
+
+		let backImgPath_tmp = url.resolve(this.props.imagesPath, string_back_img);
+		let backImgPath =
+			backImgPath_tmp +
+			(backImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+
 		list.push(
 			<div key="buttons">
+				<PopoverTooltip
+					position={back_tooltip.position}
+					title={back_tooltip.title}
+					content={back_tooltip.content}
+					element={
+						<Button
+							onClick={this.props.onClickBack}
+							style={buttonStyle}
+							size="lg"
+							variant="outline-dark"
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									gap: "10px",
+								}}
+							>
+								<img
+									src={backImgPath}
+									alt={backImgPath_tmp}
+									style={styleImageBk}
+									onLoad={this.onImgLoad}
+								/>
+								Back
+							</div>
+						</Button>
+					}
+				/>
 				<PopoverTooltip
 					position={loadImage_mode_continue_tooltip.position}
 					title={loadImage_mode_continue_tooltip.title}
@@ -262,20 +307,6 @@ export default class ImageLoader extends React.PureComponent {
 						</Button>
 					}
 				/>
-				<PopoverTooltip
-					position={back_tooltip.position}
-					title={back_tooltip.title}
-					content={back_tooltip.content}
-					element={
-						<Button
-							onClick={this.props.onClickBack}
-							style={buttonStyle}
-							size="lg"
-						>
-							Back
-						</Button>
-					}
-				/>
 			</div>
 		);
 
@@ -289,6 +320,9 @@ export default class ImageLoader extends React.PureComponent {
 							style={styleImage}
 							onLoad={this.onImgLoad}
 						/>
+					</div>
+					<div style={{ textAlign: "center", fontWeight: "bold" }}>
+						Manage Settings Step 2/3: Load Image File
 					</div>
 					{list}
 				</div>
