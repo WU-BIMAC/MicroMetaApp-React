@@ -112,7 +112,7 @@ export default class Footer extends React.PureComponent {
 					element={
 						<Button
 							key={"ButtonRight-0"}
-							onClick={() => this.props.onClickBack()}
+							onClick={() => this.props.onClickBack("Import")}
 							style={styleButton}
 							size="lg"
 							variant="dark"
