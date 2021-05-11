@@ -13,6 +13,8 @@ var _Dropdown = _interopRequireDefault(require("react-bootstrap/Dropdown"));
 
 var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
 
+var _genericUtilities = require("../genericUtilities");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -79,6 +81,10 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
     value: function render() {
       var _this2 = this;
 
+      var styleImageBk = {
+        width: "20px",
+        height: "20px"
+      };
       var inputData = this.state.inputData;
       var width = this.props.width || 250;
       var margin = this.props.margin || 0;
@@ -93,7 +99,11 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
       var dropdownStyle = {
         width: "".concat(width, "px"),
         height: "50px",
-        margin: "".concat(margin, "px")
+        margin: "".concat(margin, "px"),
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
       };
       var dropdownMenuStyle = {
         overflow: "auto",
@@ -107,11 +117,30 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
         title = this.state.title;
       }
 
+      var imgTitle = title;
+
+      if ((0, _genericUtilities.isDefined)(this.props.imgPath) && (0, _genericUtilities.isDefined)(this.props.imgPath_tmp)) {
+        imgTitle = /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px"
+          }
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: this.props.imgPath,
+          alt: this.props.imgPath_tmp,
+          style: styleImageBk,
+          onLoad: this.onImgLoad
+        }), title);
+      }
+
       var dropdownToggle = /*#__PURE__*/_react.default.createElement(_Dropdown.default.Toggle, {
         id: "dropdown-basic-button",
         style: dropdownStyle,
-        size: "lg"
-      }, title);
+        size: "lg",
+        variant: (0, _genericUtilities.isDefined)(this.props.variant) ? this.props.variant : "primary"
+      }, imgTitle);
 
       var dropdownToggleWrapped = null;
 

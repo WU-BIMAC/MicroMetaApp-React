@@ -212,7 +212,12 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         alt: this.props.logoImg,
         style: styleImage,
         onLoad: this.onImgLoad
-      })), /*#__PURE__*/_react.default.createElement(_Button.default, {
+      })), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          textAlign: "center",
+          fontWeight: "bold"
+        }
+      }, "Loading..."), /*#__PURE__*/_react.default.createElement(_Button.default, {
         ref: this.simulateClickLoadMicroscopes,
         disabled: isLoadingMicroscopes || isMicroscopesLoaded,
         onClick: !isLoadingMicroscopes && !isMicroscopesLoaded ? this.onClickLoadMicroscopes : null,

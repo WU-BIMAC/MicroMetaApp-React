@@ -52,83 +52,35 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
 
   var _super = _createSuper(Footer);
 
-  function Footer(props) {
-    var _this;
-
+  function Footer() {
     _classCallCheck(this, Footer);
 
-    _this = _super.call(this, props);
-    _this.state = {
-      editing: false
-    };
-    _this.onClickEdit = _this.onClickEdit.bind(_assertThisInitialized(_this));
-    _this.onFormConfirm = _this.onFormConfirm.bind(_assertThisInitialized(_this));
-    _this.onFormCancel = _this.onFormCancel.bind(_assertThisInitialized(_this));
-    _this.onClickChangeValidation = _this.onClickChangeValidation.bind(_assertThisInitialized(_this));
-    return _this;
+    return _super.apply(this, arguments);
   }
 
   _createClass(Footer, [{
-    key: "onClickEdit",
-    value: function onClickEdit() {
-      this.setState({
-        editing: true
-      });
-    }
-  }, {
-    key: "onFormConfirm",
-    value: function onFormConfirm(id, data) {
-      this.setState({
-        editing: false
-      });
-      this.props.onFormConfirm(id, data);
-    }
-  }, {
-    key: "onFormCancel",
-    value: function onFormCancel() {
-      this.setState({
-        editing: false
-      });
-    }
-  }, {
-    key: "onClickChangeValidation",
-    value: function onClickChangeValidation(item) {
-      var tier = Number(item);
-      this.props.onClickChangeValidation(tier);
-    }
-  }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height;
+      var styleButtonContainer = {
+        marginRight: "20px",
+        marginLeft: "20px",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center" //justifyContent: "flex-end",
 
-      if (this.state.editing) {
-        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
-          title: "Edit " + this.props.formTitle //schemas={this.props.componentSchemas}
-          ,
-          schema: this.props.schema,
-          inputData: this.props.inputData //id={this.props.id}
-          ,
-          onConfirm: this.onFormConfirm,
-          onCancel: this.onFormCancel,
-          overlaysContainer: this.props.overlaysContainer,
-          editable: true,
-          elementByType: this.props.elementByType,
-          isDebug: this.props.isDebug
-        });
-      }
-
+      };
       var style = {
         backgroundColor: "LightGray",
         width: width,
         height: height,
-        boxSizing: "border-box",
         display: "flex",
         flexDirection: "row",
-        flexWap: "wrap",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "5px"
+        justifyContent: "space-between",
+        alignItems: "center"
       };
       var styleButton = {
         width: "250px",
@@ -137,72 +89,18 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "5px",
         marginRight: "5px"
       };
-      var styleValidation = {
-        position: "absolute",
-        verticalAlign: "middle",
-        fontWeight: "bold",
-        textAlign: "center"
+      var styleImageBk = {
+        width: "20px",
+        height: "20px"
       };
-      var validated = null;
-
-      if (this.props.isSchemaValidated) {
-        var styleValidated = Object.assign({}, styleValidation, {
-          color: "green"
-        });
-        validated = /*#__PURE__*/_react.default.createElement("div", {
-          style: styleValidated
-        }, "\u25CF");
-      } else {
-        var _styleValidated = Object.assign({}, styleValidation, {
-          color: "red"
-        });
-
-        validated = /*#__PURE__*/_react.default.createElement("div", {
-          style: _styleValidated
-        }, "\u25CF");
-      }
-
-      var editTooltip = _constants.edit_microscope_tooltip;
-      var validationTooltip = _constants.validation_microscope_tooltip;
       var saveTooltip = _constants.save_microscope_tooltip;
 
       if (this.props.element === "image settings") {
-        editTooltip = _constants.edit_setting_tooltip;
-        validationTooltip = _constants.validation_setting_tooltip;
         saveTooltip = _constants.save_setting_tooltip;
       }
 
-      var buttons = [];
-      buttons[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        key: "TooltipButton-0",
-        position: editTooltip.position,
-        title: editTooltip.title,
-        content: editTooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-0",
-          onClick: this.onClickEdit,
-          style: styleButton,
-          size: "lg"
-        }, validated, "Edit ".concat(this.props.element))
-      });
-      var inputData = [];
-
-      for (var i = 1; i <= this.props.activeTier; i++) {
-        inputData.push(i);
-      }
-
-      var defaultValidationTier = this.props.validationTier - 1;
-      buttons[1] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
-        key: "Button-1",
-        title: _constants.string_validationTier,
-        handleMenuItemClick: this.onClickChangeValidation,
-        inputData: inputData,
-        width: 250,
-        margin: 5,
-        defaultValue: defaultValidationTier,
-        direction: "up",
-        tooltip: validationTooltip
-      });
+      var buttonsLeft = [];
+      var buttonsRight = [];
       var saveOptions = [];
 
       if (this.props.hasSaveOption) {
@@ -211,57 +109,119 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       } //saveOptions.push("Export " + this.props.element + " image");
 
 
-      saveOptions.push("Export " + this.props.element);
-      saveOptions.push("Export as new " + this.props.element); //Rethink this, maybe drop down split button with multi actions?
+      var exportOptions = [];
+      exportOptions.push("Export " + this.props.element);
+      exportOptions.push("Export as new " + this.props.element);
+      var importImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_import_img);
+      var importImgPath = importImgPath_tmp + (importImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var saveImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_save_img);
+      var saveImgPath = saveImgPath_tmp + (saveImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var exportImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_export_img);
+      var exportImgPath = exportImgPath_tmp + (exportImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""); //Rethink this, maybe drop down split button with multi actions?
 
-      buttons[2] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
-        key: "Button-2",
-        title: "",
+      var index = 0;
+
+      if (this.props.is4DNPortal && this.props.hasImport) {
+        buttonsRight[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButtonRight-0",
+          position: _constants.import_tooltip.position,
+          title: _constants.import_tooltip.title,
+          content: _constants.import_tooltip.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "ButtonRight-0",
+            onClick: function onClick() {
+              return _this.props.onClickBack("Import");
+            },
+            style: styleButton,
+            size: "lg",
+            variant: "dark"
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: {
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "10px"
+            }
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            src: importImgPath,
+            alt: importImgPath_tmp,
+            style: styleImageBk,
+            onLoad: this.onImgLoad
+          }), "Import"))
+        });
+        index++;
+      }
+
+      buttonsRight[index] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+        key: "ButtonRight-1",
+        title: "Save",
         handleMenuItemClick: this.props.onClickSave,
         inputData: saveOptions,
         width: 250,
         margin: 5,
         direction: "up",
-        tooltip: saveTooltip
+        tooltip: saveTooltip,
+        hasFixedTitle: true,
+        variant: "dark",
+        imgPath_tmp: saveImgPath_tmp,
+        imgPath: saveImgPath
       });
+      buttonsRight[index + 1] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+        key: "ButtonRight-2",
+        title: "Export",
+        handleMenuItemClick: this.props.onClickSave,
+        inputData: exportOptions,
+        width: 250,
+        margin: 5,
+        direction: "up",
+        tooltip: saveTooltip,
+        hasFixedTitle: true,
+        variant: "dark",
+        imgPath_tmp: exportImgPath_tmp,
+        imgPath: exportImgPath
+      });
+      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
+      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var backText = "Back";
 
       if (this.props.is4DNPortal) {
-        var backOptions = [];
-        backOptions.push("Back to list");
-
-        if (this.props.hasImport) {
-          backOptions.push("Import from file");
-        }
-
-        buttons[3] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
-          key: "Button-3",
-          title: "Back options",
-          handleMenuItemClick: this.props.onClickBack,
-          inputData: backOptions,
-          width: 250,
-          margin: 5,
-          direction: "up",
-          tooltip: _constants.back_tooltip,
-          hasFixedTitle: true
-        });
-      } else {
-        buttons[3] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-          key: "TooltipButton-3",
-          position: _constants.back_tooltip.position,
-          title: _constants.back_tooltip.title,
-          content: _constants.back_tooltip.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-            key: "Button-3",
-            onClick: this.props.onClickBack,
-            style: styleButton,
-            size: "lg"
-          }, "Back")
-        });
+        backText = "Back to list";
       }
 
+      buttonsLeft[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButtonLeft-0",
+        position: "top",
+        title: _constants.back_tooltip.title,
+        content: _constants.back_tooltip.content,
+        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "ButtonLeft-0",
+          onClick: function onClick() {
+            return _this.props.onClickBack(backText);
+          },
+          style: styleButton,
+          size: "lg",
+          variant: "outline-dark"
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px"
+          }
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: backImgPath,
+          alt: backImgPath_tmp,
+          style: styleImageBk,
+          onLoad: this.onImgLoad
+        }), backText))
+      });
       return /*#__PURE__*/_react.default.createElement("div", {
         style: style
-      }, buttons);
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        style: styleButtonContainer
+      }, buttonsLeft), /*#__PURE__*/_react.default.createElement("div", {
+        style: styleButtonContainer
+      }, buttonsRight));
     }
   }]);
 

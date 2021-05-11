@@ -43,6 +43,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+var url = require("url");
+
 var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(ImageLoader, _React$PureComponent);
 
@@ -219,6 +221,10 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
         height: "100%",
         margin: "auto"
       };
+      var styleImageBk = {
+        width: "20px",
+        height: "20px"
+      };
       var imageMap = this.state.imageMap;
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
@@ -275,9 +281,33 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
         }));
       }
 
+      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
+      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       list.push( /*#__PURE__*/_react.default.createElement("div", {
         key: "buttons"
       }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        position: _constants.back_tooltip.position,
+        title: _constants.back_tooltip.title,
+        content: _constants.back_tooltip.content,
+        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          onClick: this.props.onClickBack,
+          style: buttonStyle,
+          size: "lg",
+          variant: "outline-dark"
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px"
+          }
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: backImgPath,
+          alt: backImgPath_tmp,
+          style: styleImageBk,
+          onLoad: this.onImgLoad
+        }), "Back"))
+      }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         position: _constants.loadImage_mode_continue_tooltip.position,
         title: _constants.loadImage_mode_continue_tooltip.title,
         content: _constants.loadImage_mode_continue_tooltip.content,
@@ -287,15 +317,6 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
           size: "lg",
           disabled: isDropzoneActive && (!fileLoaded || fileLoading)
         }, isDropzoneActive && !fileLoaded && !fileLoading ? "Waiting for file" : isDropzoneActive && fileLoading ? "Loading file" : "Continue")
-      }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        position: _constants.back_tooltip.position,
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-          onClick: this.props.onClickBack,
-          style: buttonStyle,
-          size: "lg"
-        }, "Back")
       })));
       return /*#__PURE__*/_react.default.createElement("div", {
         style: windowExternalContainer
@@ -308,7 +329,12 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
         alt: this.props.logoImg,
         style: styleImage,
         onLoad: this.onImgLoad
-      })), list));
+      })), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          textAlign: "center",
+          fontWeight: "bold"
+        }
+      }, "Manage Settings Step 2/3: Load Image File"), list));
     }
   }], [{
     key: "getDerivedStateFromProps",

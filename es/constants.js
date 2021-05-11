@@ -3,7 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.select_additional_right = exports.select_additional_left = exports.select_emission = exports.select_dichroic = exports.select_excitation = exports.select_detector = exports.select_relayLens = exports.select_lightSourceCoupling = exports.select_couplingLens = exports.select_lightSource = exports.edit_channel_settings = exports.edit_channel = exports.edit_plane = exports.remove_channel = exports.add_channel = exports.remove_plane = exports.add_plane = exports.add_multi_planes = exports.edit_mic_table_settings = exports.edit_sample_pos_settings = exports.edit_obj_settings = exports.edit_mic_settings = exports.edit_img_env_settings = exports.edit_channels = exports.edit_planes = exports.hardware_explorer_tooltip = exports.save_setting_tooltip = exports.save_microscope_tooltip = exports.save_component_tooltip = exports.validation_setting_tooltip = exports.validation_microscope_tooltip = exports.edit_setting_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.loadImage_mode_continue_tooltip = exports.createSettings_mode_continue_tooltip = exports.create_mode_continue_settings_tooltip = exports.create_mode_continue_tooltip = exports.loadImage_from_repo_names_tooltip = exports.createSettings_from_repo_names_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.loadImage_from_file_tooltip = exports.createSettings_from_file_tooltip = exports.create_from_file_tooltip = exports.loadImage_mode_selector_tooltip = exports.createSettings_mode_selector_tooltip = exports.create_mode_selector_settings_tooltip = exports.create_mode_selector_tooltip = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_8 = exports.channelPath_Additional_7 = exports.channelPath_Additional_3_4_5_6 = exports.channelPath_Additional_2 = exports.channelPath_Additional_1 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.channelPath_LightSource = exports.channelPath_Detector = exports.channelPath_RelayLens = exports.channelPath_CouplingLens = exports.channelPath_LightSourceCoupling = exports.channelPath_Objective = exports.matchSettings = exports.current_stands = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_width = exports.number_logo_height = exports.number_logo_width = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_noImageLoad = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = void 0;
+exports.select_excitation = exports.select_detector = exports.select_relayLens = exports.select_lightSourceCoupling = exports.select_couplingLens = exports.select_lightSource = exports.edit_channel_settings = exports.edit_channel = exports.edit_plane = exports.remove_channel = exports.add_channel = exports.remove_plane = exports.add_plane = exports.add_multi_planes = exports.edit_mic_table_settings = exports.edit_sample_pos_settings = exports.edit_obj_settings = exports.edit_mic_settings = exports.edit_img_env_settings = exports.edit_channels = exports.edit_planes = exports.hardware_explorer_tooltip = exports.save_setting_tooltip = exports.save_microscope_tooltip = exports.save_component_tooltip = exports.validation_setting_tooltip = exports.validation_microscope_tooltip = exports.edit_setting_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.import_tooltip = exports.loadImage_mode_continue_tooltip = exports.createSettings_mode_continue_tooltip = exports.create_mode_continue_settings_tooltip = exports.create_mode_continue_tooltip = exports.loadImage_from_repo_names_tooltip = exports.createSettings_from_repo_names_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.loadImage_from_file_tooltip = exports.createSettings_from_file_tooltip = exports.create_from_file_tooltip = exports.loadImage_mode_selector_tooltip = exports.createSettings_mode_selector_tooltip = exports.create_mode_selector_settings_tooltip = exports.create_mode_selector_tooltip = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_8 = exports.channelPath_Additional_7 = exports.channelPath_Additional_3_4_5_6 = exports.channelPath_Additional_2 = exports.channelPath_Additional_1 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.channelPath_LightSource = exports.channelPath_Detector = exports.channelPath_RelayLens = exports.channelPath_CouplingLens = exports.channelPath_LightSourceCoupling = exports.channelPath_Objective = exports.matchSettings = exports.current_stands = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_width = exports.number_logo_height = exports.number_logo_width = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_noImageLoad = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_microscope_img = exports.string_import_img = exports.string_export_img = exports.string_save_img = exports.string_back_img = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = void 0;
+exports.select_additional_right = exports.select_additional_left = exports.select_emission = exports.select_dichroic = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -37,12 +38,22 @@ var string_maxNumberOf_identifier = "Max_Number_Of_";
 exports.string_maxNumberOf_identifier = string_maxNumberOf_identifier;
 var string_json_ext = ".json";
 exports.string_json_ext = string_json_ext;
-var string_logo_img_no_bk = "MicroMetaApp_noBkg_3.png";
+var string_logo_img_no_bk = "MicroMetaApp_noBkg_noOutline.png";
 exports.string_logo_img_no_bk = string_logo_img_no_bk;
 var string_logo_img_cell_bk = "MicroMetaApp_cellBkg.png";
 exports.string_logo_img_cell_bk = string_logo_img_cell_bk;
 var string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_2.png";
 exports.string_logo_img_micro_bk = string_logo_img_micro_bk;
+var string_back_img = "arrow-circle-left-solid.svg";
+exports.string_back_img = string_back_img;
+var string_save_img = "save-solid.svg";
+exports.string_save_img = string_save_img;
+var string_export_img = "file-export-solid.svg";
+exports.string_export_img = string_export_img;
+var string_import_img = "file-import-solid.svg";
+exports.string_import_img = string_import_img;
+var string_microscope_img = "microscope-solid.svg";
+exports.string_microscope_img = string_microscope_img;
 var string_createFromScratch = "Create # from scratch";
 exports.string_createFromScratch = string_createFromScratch;
 var string_createFromFile = "Load from file";
@@ -228,43 +239,49 @@ exports.loadImage_from_repo_names_tooltip = loadImage_from_repo_names_tooltip;
 var create_mode_continue_tooltip = {
   title: "Continue",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Create a microscope using the mode selected above."),
-  position: "left"
+  position: "right"
 };
 exports.create_mode_continue_tooltip = create_mode_continue_tooltip;
 var create_mode_continue_settings_tooltip = {
   title: "Continue",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select the image(s) you want to annotate and, if available, an existing Settings file."),
-  position: "left"
+  position: "right"
 };
 exports.create_mode_continue_settings_tooltip = create_mode_continue_settings_tooltip;
 var createSettings_mode_continue_tooltip = {
   title: "Continue",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to create a new Settings file or edit an existing one using the modality chosen above."),
-  position: "left"
+  position: "right"
 };
 exports.createSettings_mode_continue_tooltip = createSettings_mode_continue_tooltip;
 var loadImage_mode_continue_tooltip = {
   title: "Continue",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to create a new Settings file or load metadata from an Image using the modality chosen above."),
-  position: "left"
+  position: "right"
 };
 exports.loadImage_mode_continue_tooltip = loadImage_mode_continue_tooltip;
+var import_tooltip = {
+  title: "Import microscope",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Import a new microscope file to overwrite the one currently open."),
+  position: "top"
+};
+exports.import_tooltip = import_tooltip;
 var back_tooltip = {
   title: "Back",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Return to the initial window."),
-  position: "right"
+  position: "left"
 };
 exports.back_tooltip = back_tooltip;
 var edit_microscope_tooltip = {
   title: "Edit microscope",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to enter general information about this Instrument."),
-  position: "top"
+  position: "bottom"
 };
 exports.edit_microscope_tooltip = edit_microscope_tooltip;
 var edit_setting_tooltip = {
   title: "Edit Image Acquisition Settings",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to enter general information about the acquisition settings utilized for this image."),
-  position: "top"
+  position: "bottom"
 };
 exports.edit_setting_tooltip = edit_setting_tooltip;
 var validation_microscope_tooltip = {
@@ -274,7 +291,7 @@ var validation_microscope_tooltip = {
     rel: "noopener noreferrer",
     href: "https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
   }, "link"), "."),
-  position: "top"
+  position: "bottom"
 };
 exports.validation_microscope_tooltip = validation_microscope_tooltip;
 var validation_setting_tooltip = {
@@ -284,7 +301,7 @@ var validation_setting_tooltip = {
     rel: "noopener noreferrer",
     href: "https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
   }, "link"), "."),
-  position: "top"
+  position: "bottom"
 };
 exports.validation_setting_tooltip = validation_setting_tooltip;
 var save_component_tooltip = {

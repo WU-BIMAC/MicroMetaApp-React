@@ -1764,7 +1764,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       if (this.state.is4DNPortal) {
         if (item === "Back to list" && (0, _genericUtilities.isDefined)(this.props.onReturnToMicroscopeList)) {
           this.props.onReturnToMicroscopeList();
-        } else if (item === "Import from file"
+        } else if (item === "Import"
         /*&& isDefined(this.props.onImportFromFile*/
         ) {
             //this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
@@ -2013,8 +2013,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var experimentalData = this.state.experimentalData;
       var linkedFields = this.state.linkedFields;
       var scalingFactor = this.props.scalingFactor;
+      var headerFooterHeight = 80;
       width = Math.max(1100, width);
-      height = Math.max(600, height - 60 * 2);
+      height = Math.max(600, height - (headerFooterHeight + 10) * 2);
       var toolbarWidth = 300;
 
       if (this.state.isToolbarHidden) {
@@ -2025,8 +2026,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var canvasWidth = width - toolbarWidth;
       var canvasHeight = height;
       var settingsWidth = width;
-      var headerFooterWidth = width;
-      var headerFooterHeight = 60; //Should i add microscopes and settings too ?
+      var headerFooterWidth = width; //Should i add microscopes and settings too ?
 
       if (!(0, _genericUtilities.isDefined)(schema) || !(0, _genericUtilities.isDefined)(this.state.dimensions)) {
         return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
@@ -2105,7 +2105,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             onClickBack: this.onSpecialImporterBack,
             isSettings: this.state.isLoadingMicroscope,
             schema: this.state.schema,
-            isDebug: this.props.isDebug
+            isDebug: this.props.isDebug,
+            imagesPath: imagesPathSVG,
+            isImporter: true
           }));
         } else if (microscope !== null && elementData === null) {
           console.log("IM GOING THROUGH LOADING MICROSCOPE");
@@ -2198,7 +2200,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           onClickBack: this.onClickBack,
           isSettings: this.state.isLoadingMicroscope,
           schema: this.state.schema,
-          isDebug: this.props.isDebug
+          isDebug: this.props.isDebug,
+          imagesPath: imagesPathSVG
         }));
       }
 
@@ -2220,7 +2223,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           onClickLoadingOptionSelection: this.handleLoadingOptionSelection,
           onClickConfirm: this.createOrUseMetadata,
           onClickBack: this.onClickBack,
-          isDebug: this.props.isDebug
+          isDebug: this.props.isDebug,
+          imagesPath: imagesPathSVG
         }));
       } //should be settingData instead of elementData
 
@@ -2261,7 +2265,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           onClickConfirm: this.createOrUseSetting,
           onClickBack: this.onClickBack,
           schema: this.state.schema,
-          isDebug: this.props.isDebug
+          isDebug: this.props.isDebug,
+          imagesPath: imagesPathSVG
         }));
       }
 
@@ -2353,7 +2358,21 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement(_header.default, {
           dimensions: headerFooterDims,
           logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_no_bk),
-          isDebug: this.props.isDebug
+          isDebug: this.props.isDebug,
+          isSchemaValidated: this.state.isSettingValidated,
+          onFormConfirm: this.onSettingDataSave,
+          onClickChangeValidation: this.createAdaptedSchemas,
+          inputData: footerSettingsInput,
+          element: "image settings",
+          formTitle: setting.Name,
+          activeTier: this.state.activeTier,
+          validationTier: this.state.validationTier,
+          componentSchemas: componentsSchema,
+          schema: footerSettingsSchemas,
+          ["inputData"]: footerSettingsInput,
+          elementByType: elementByType,
+          is4DNPortal: this.state.is4DNPortal,
+          overlaysContainer: this.overlaysContainerRef.current
         }), /*#__PURE__*/_react.default.createElement(_settingsMainView.default, {
           microscope: microscope,
           microscopeComponents: elementData,
@@ -2381,23 +2400,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           hasAdvanced: this.props.hasAdvanced,
           hasExperimental: this.props.hasExperimental
         }), /*#__PURE__*/_react.default.createElement(_footer.default, {
-          activeTier: this.state.activeTier,
-          validationTier: this.state.validationTier,
-          componentSchemas: componentsSchema,
-          schema: footerSettingsSchemas,
-          onFormConfirm: this.onSettingDataSave,
           onClickSave: this.handleSaveSetting,
           onClickBack: this.onClickBack,
           hasSaveOption: this.props.onSaveSetting ? true : false,
-          onClickChangeValidation: this.createAdaptedSchemas,
           overlaysContainer: this.overlaysContainerRef.current,
-          inputData: footerSettingsInput,
-          isSchemaValidated: this.state.isSettingValidated,
           dimensions: headerFooterDims,
           element: "image settings",
-          formTitle: setting.Name,
           imagesPath: imagesPathSVG,
-          elementByType: elementByType,
           is4DNPortal: this.state.is4DNPortal,
           hasImport: this.state.hasImport,
           isDebug: this.props.isDebug
@@ -2453,7 +2462,21 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/_react.default.createElement(_header.default, {
             dimensions: headerFooterDims,
             logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_no_bk),
-            isDebug: this.props.isDebug
+            isDebug: this.props.isDebug,
+            isSchemaValidated: this.state.isMicroscopeValidated,
+            onFormConfirm: this.onSettingDataSave,
+            onClickChangeValidation: this.createAdaptedSchemas,
+            inputData: footerMicroscopeInput,
+            element: "microscope",
+            formTitle: microscope.Name,
+            activeTier: this.state.activeTier,
+            validationTier: this.state.validationTier,
+            componentSchemas: componentsSchema,
+            schema: footerMicroscopeSchemas,
+            ["inputData"]: footerMicroscopeInput,
+            elementByType: elementByType,
+            is4DNPortal: this.state.is4DNPortal,
+            overlaysContainer: this.overlaysContainerRef.current
           }), /*#__PURE__*/_react.default.createElement("div", {
             style: style
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
@@ -2491,26 +2514,16 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             isToolbarHidden: this.state.isToolbarHidden,
             isDebug: this.props.isDebug
           })), /*#__PURE__*/_react.default.createElement(_footer.default, {
-            activeTier: this.state.activeTier,
-            validationTier: this.state.validationTier,
-            componentSchemas: componentsSchema,
-            schema: footerMicroscopeSchemas,
-            onFormConfirm: this.onMicroscopeDataSave,
             onClickSave: this.handleSaveMicroscope,
             onClickBack: this.onClickBack,
             hasSaveOption: this.props.onSaveMicroscope ? true : false,
-            onClickChangeValidation: this.createAdaptedSchemas,
             overlaysContainer: this.overlaysContainerRef.current,
-            inputData: footerMicroscopeInput,
-            isSchemaValidated: this.state.isMicroscopeValidated,
             dimensions: headerFooterDims,
-            element: "microscope",
-            formTitle: microscope.Name,
             imagesPath: imagesPathSVG,
-            elementByType: elementByType,
             is4DNPortal: this.state.is4DNPortal,
             hasImport: this.state.hasImport,
-            isDebug: this.props.isDebug
+            isDebug: this.props.isDebug,
+            element: "microscope"
           }));
         }
       }

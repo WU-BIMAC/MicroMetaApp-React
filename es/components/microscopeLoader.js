@@ -45,6 +45,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+var url = require("url");
+
 var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(MicroscopeLoader, _React$PureComponent);
 
@@ -224,6 +226,10 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         height: "100%",
         margin: "auto"
       };
+      var styleImageBk = {
+        width: "20px",
+        height: "20px"
+      };
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
       var fileLoaded = this.state.fileLoaded;
@@ -231,11 +237,19 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var isDropzoneActive = false;
       if (loadingMode === 1) isDropzoneActive = true;
       var create_mode_tooltip = null;
+      var titleText = null;
 
       if (this.props.isSettings) {
         create_mode_tooltip = _constants.create_mode_selector_settings_tooltip;
+        titleText = "Manage Settings Step 1/3: Open Microscope File";
       } else {
         create_mode_tooltip = _constants.create_mode_selector_tooltip;
+
+        if (this.props.isImporter) {
+          titleText = "Microscope Importer Step 1/1: Open Microscope File";
+        } else {
+          titleText = "Manage Hardware Step 1/1: Open Microscope File";
+        }
       }
 
       var list = [];
@@ -315,9 +329,33 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         continue_tooltip = _constants.create_mode_continue_tooltip;
       }
 
+      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
+      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       list.push( /*#__PURE__*/_react.default.createElement("div", {
         key: "buttons"
       }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        position: _constants.back_tooltip.position,
+        title: _constants.back_tooltip.title,
+        content: _constants.back_tooltip.content,
+        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          onClick: this.props.onClickBack,
+          style: buttonStyle,
+          size: "lg",
+          variant: "outline-dark"
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px"
+          }
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: backImgPath,
+          alt: backImgPath_tmp,
+          style: styleImageBk,
+          onLoad: this.onImgLoad
+        }), "Back"))
+      }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         position: continue_tooltip.position,
         title: continue_tooltip.title,
         content: continue_tooltip.content,
@@ -327,15 +365,6 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           size: "lg",
           disabled: isDropzoneActive && (!fileLoaded || fileLoading)
         }, isDropzoneActive && !fileLoaded && !fileLoading ? "Waiting for file" : isDropzoneActive && fileLoading ? "Loading file" : "Continue")
-      }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        position: _constants.back_tooltip.position,
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-          onClick: this.props.onClickBack,
-          style: buttonStyle,
-          size: "lg"
-        }, "Back")
       })));
       var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       return /*#__PURE__*/_react.default.createElement("div", {
@@ -349,7 +378,12 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         alt: this.props.logoImg,
         style: styleImage,
         onLoad: this.onImgLoad
-      })), list));
+      })), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          textAlign: "center",
+          fontWeight: "bold"
+        }
+      }, titleText), list));
     }
   }], [{
     key: "getDerivedStateFromProps",
