@@ -11,80 +11,36 @@ import PopoverTooltip from "./popoverTooltip";
 const url = require("url");
 
 import {
-	string_validationTier,
-	edit_microscope_tooltip,
-	edit_setting_tooltip,
-	validation_microscope_tooltip,
-	validation_setting_tooltip,
 	save_microscope_tooltip,
 	save_setting_tooltip,
 	back_tooltip,
+	string_back_img,
+	string_save_img,
+	string_export_img,
+	string_import_img,
+	import_tooltip,
 } from "../constants";
 
 export default class Footer extends React.PureComponent {
-	constructor(props) {
-		super(props);
-		this.state = {
-			editing: false,
-		};
-
-		this.onClickEdit = this.onClickEdit.bind(this);
-		this.onFormConfirm = this.onFormConfirm.bind(this);
-		this.onFormCancel = this.onFormCancel.bind(this);
-
-		this.onClickChangeValidation = this.onClickChangeValidation.bind(this);
-	}
-
-	onClickEdit() {
-		this.setState({ editing: true });
-	}
-
-	onFormConfirm(id, data) {
-		this.setState({ editing: false });
-		this.props.onFormConfirm(id, data);
-	}
-
-	onFormCancel() {
-		this.setState({ editing: false });
-	}
-
-	onClickChangeValidation(item) {
-		let tier = Number(item);
-		this.props.onClickChangeValidation(tier);
-	}
-
 	render() {
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
-		if (this.state.editing) {
-			return (
-				<MultiTabFormWithHeaderV3
-					title={"Edit " + this.props.formTitle}
-					//schemas={this.props.componentSchemas}
-					schema={this.props.schema}
-					inputData={this.props.inputData}
-					//id={this.props.id}
-					onConfirm={this.onFormConfirm}
-					onCancel={this.onFormCancel}
-					overlaysContainer={this.props.overlaysContainer}
-					editable={true}
-					elementByType={this.props.elementByType}
-					isDebug={this.props.isDebug}
-				/>
-			);
-		}
-
+		const styleButtonContainer = {
+			marginRight: "20px",
+			marginLeft: "20px",
+			display: "flex",
+			flexDirection: "row",
+			alignItems: "center",
+			//justifyContent: "flex-end",
+		};
 		const style = {
 			backgroundColor: "LightGray",
 			width: width,
 			height: height,
-			boxSizing: "border-box",
 			display: "flex",
 			flexDirection: "row",
-			flexWap: "wrap",
-			justifyContent: "center",
+			justifyContent: "space-between",
 			alignItems: "center",
-			padding: "5px",
 		};
 		let styleButton = {
 			width: "250px",
@@ -94,134 +50,178 @@ export default class Footer extends React.PureComponent {
 			marginRight: "5px",
 		};
 
-		const styleValidation = {
-			position: "absolute",
-			verticalAlign: "middle",
-			fontWeight: "bold",
-			textAlign: "center",
+		let styleImageBk = {
+			width: "20px",
+			height: "20px",
 		};
-		let validated = null;
-		if (this.props.isSchemaValidated) {
-			const styleValidated = Object.assign({}, styleValidation, {
-				color: "green",
-			});
-			validated = <div style={styleValidated}>&#9679;</div>;
-		} else {
-			const styleValidated = Object.assign({}, styleValidation, {
-				color: "red",
-			});
-			validated = <div style={styleValidated}>&#9679;</div>;
-		}
 
-		let editTooltip = edit_microscope_tooltip;
-		let validationTooltip = validation_microscope_tooltip;
 		let saveTooltip = save_microscope_tooltip;
 		if (this.props.element === "image settings") {
-			editTooltip = edit_setting_tooltip;
-			validationTooltip = validation_setting_tooltip;
 			saveTooltip = save_setting_tooltip;
 		}
 
-		let buttons = [];
-		buttons[0] = (
-			<PopoverTooltip
-				key={"TooltipButton-0"}
-				position={editTooltip.position}
-				title={editTooltip.title}
-				content={editTooltip.content}
-				element={
-					<Button
-						key={"Button-0"}
-						onClick={this.onClickEdit}
-						style={styleButton}
-						size="lg"
-					>
-						{validated}
-						{`Edit ${this.props.element}`}
-					</Button>
-				}
-			/>
-		);
-		let inputData = [];
-		for (let i = 1; i <= this.props.activeTier; i++) {
-			inputData.push(i);
-		}
-		let defaultValidationTier = this.props.validationTier - 1;
+		let buttonsLeft = [];
+		let buttonsRight = [];
 
-		buttons[1] = (
-			<DropdownMenu
-				key={"Button-1"}
-				title={string_validationTier}
-				handleMenuItemClick={this.onClickChangeValidation}
-				inputData={inputData}
-				width={250}
-				margin={5}
-				defaultValue={defaultValidationTier}
-				direction={"up"}
-				tooltip={validationTooltip}
-			/>
-		);
 		let saveOptions = [];
 		if (this.props.hasSaveOption) {
 			saveOptions.push("Save " + this.props.element);
 			saveOptions.push("Save as new " + this.props.element);
 		}
 		//saveOptions.push("Export " + this.props.element + " image");
-		saveOptions.push("Export " + this.props.element);
-		saveOptions.push("Export as new " + this.props.element);
+		let exportOptions = [];
+		exportOptions.push("Export " + this.props.element);
+		exportOptions.push("Export as new " + this.props.element);
+
+		let importImgPath_tmp = url.resolve(
+			this.props.imagesPath,
+			string_import_img
+		);
+		let importImgPath =
+			importImgPath_tmp +
+			(importImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+
+		let saveImgPath_tmp = url.resolve(this.props.imagesPath, string_save_img);
+		let saveImgPath =
+			saveImgPath_tmp +
+			(saveImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+
+		let exportImgPath_tmp = url.resolve(
+			this.props.imagesPath,
+			string_export_img
+		);
+		let exportImgPath =
+			exportImgPath_tmp +
+			(exportImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+
 		//Rethink this, maybe drop down split button with multi actions?
-		buttons[2] = (
+		let index = 0;
+		if (this.props.is4DNPortal && this.props.hasImport) {
+			buttonsRight[index] = (
+				<PopoverTooltip
+					key={"TooltipButtonRight-0"}
+					position={import_tooltip.position}
+					title={import_tooltip.title}
+					content={import_tooltip.content}
+					element={
+						<Button
+							key={"ButtonRight-0"}
+							onClick={() => this.props.onClickBack()}
+							style={styleButton}
+							size="lg"
+							variant="dark"
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									gap: "10px",
+								}}
+							>
+								<img
+									src={importImgPath}
+									alt={importImgPath_tmp}
+									style={styleImageBk}
+									onLoad={this.onImgLoad}
+								/>
+								Import
+							</div>
+						</Button>
+					}
+				/>
+			);
+			index++;
+		}
+		buttonsRight[index] = (
 			<DropdownMenu
-				key={"Button-2"}
-				title={""}
+				key={"ButtonRight-1"}
+				title={"Save"}
 				handleMenuItemClick={this.props.onClickSave}
 				inputData={saveOptions}
 				width={250}
 				margin={5}
 				direction={"up"}
 				tooltip={saveTooltip}
+				hasFixedTitle={true}
+				variant="dark"
+				imgPath_tmp={saveImgPath_tmp}
+				imgPath={saveImgPath}
+			/>
+		);
+		buttonsRight[index + 1] = (
+			<DropdownMenu
+				key={"ButtonRight-2"}
+				title={"Export"}
+				handleMenuItemClick={this.props.onClickSave}
+				inputData={exportOptions}
+				width={250}
+				margin={5}
+				direction={"up"}
+				tooltip={saveTooltip}
+				hasFixedTitle={true}
+				variant="dark"
+				imgPath_tmp={exportImgPath_tmp}
+				imgPath={exportImgPath}
 			/>
 		);
 
+		let backImgPath_tmp = url.resolve(this.props.imagesPath, string_back_img);
+		let backImgPath =
+			backImgPath_tmp +
+			(backImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+		let backText = "Back";
+
 		if (this.props.is4DNPortal) {
-			let backOptions = [];
-			backOptions.push("Back to list");
-			if (this.props.hasImport) {
-				backOptions.push("Import from file");
-			}
-			buttons[3] = (
-				<DropdownMenu
-					key={"Button-3"}
-					title={"Back options"}
-					handleMenuItemClick={this.props.onClickBack}
-					inputData={backOptions}
-					width={250}
-					margin={5}
-					direction={"up"}
-					tooltip={back_tooltip}
-					hasFixedTitle={true}
-				/>
-			);
-		} else {
-			buttons[3] = (
-				<PopoverTooltip
-					key={"TooltipButton-3"}
-					position={back_tooltip.position}
-					title={back_tooltip.title}
-					content={back_tooltip.content}
-					element={
-						<Button
-							key={"Button-3"}
-							onClick={this.props.onClickBack}
-							style={styleButton}
-							size="lg"
-						>
-							Back
-						</Button>
-					}
-				/>
-			);
+			backText = "Back to list";
 		}
-		return <div style={style}>{buttons}</div>;
+		buttonsLeft[0] = (
+			<PopoverTooltip
+				key={"TooltipButtonLeft-0"}
+				position={"top"}
+				title={back_tooltip.title}
+				content={back_tooltip.content}
+				element={
+					<Button
+						key={"ButtonLeft-0"}
+						onClick={() => this.props.onClickBack(backText)}
+						style={styleButton}
+						size="lg"
+						variant="outline-dark"
+					>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+								gap: "10px",
+							}}
+						>
+							<img
+								src={backImgPath}
+								alt={backImgPath_tmp}
+								style={styleImageBk}
+								onLoad={this.onImgLoad}
+							/>
+							{backText}
+						</div>
+					</Button>
+				}
+			/>
+		);
+		return (
+			<div style={style}>
+				<div style={styleButtonContainer}>{buttonsLeft}</div>
+				<div style={styleButtonContainer}>{buttonsRight}</div>
+			</div>
+		);
 	}
 }
