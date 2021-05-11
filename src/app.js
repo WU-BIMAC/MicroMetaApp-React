@@ -2681,8 +2681,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		let scalingFactor = this.props.scalingFactor;
 
+		let headerFooterHeight = 80;
+
 		width = Math.max(1100, width);
-		height = Math.max(600, height - 60 * 2);
+		height = Math.max(600, height - (headerFooterHeight + 10) * 2);
 
 		let toolbarWidth = 300;
 		if (this.state.isToolbarHidden) {
@@ -2696,7 +2698,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let settingsWidth = width;
 
 		let headerFooterWidth = width;
-		let headerFooterHeight = 60;
 
 		//Should i add microscopes and settings too ?
 		if (!isDefined(schema) || !isDefined(this.state.dimensions)) {
@@ -2789,6 +2790,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							isSettings={this.state.isLoadingMicroscope}
 							schema={this.state.schema}
 							isDebug={this.props.isDebug}
+							imagesPath={imagesPathSVG}
 						/>
 					</MicroMetaAppReactContainer>
 				);
@@ -2908,6 +2910,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						isSettings={this.state.isLoadingMicroscope}
 						schema={this.state.schema}
 						isDebug={this.props.isDebug}
+						imagesPath={imagesPathSVG}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -2939,6 +2942,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickConfirm={this.createOrUseMetadata}
 						onClickBack={this.onClickBack}
 						isDebug={this.props.isDebug}
+						imagesPath={imagesPathSVG}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -2985,6 +2989,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickBack={this.onClickBack}
 						schema={this.state.schema}
 						isDebug={this.props.isDebug}
+						imagesPath={imagesPathSVG}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3089,6 +3094,20 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						dimensions={headerFooterDims}
 						logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
 						isDebug={this.props.isDebug}
+						isSchemaValidated={this.state.isSettingValidated}
+						onFormConfirm={this.onSettingDataSave}
+						onClickChangeValidation={this.createAdaptedSchemas}
+						inputData={footerSettingsInput}
+						element={"image settings"}
+						formTitle={setting.Name}
+						activeTier={this.state.activeTier}
+						validationTier={this.state.validationTier}
+						componentSchemas={componentsSchema}
+						schema={footerSettingsSchemas}
+						inputData={footerSettingsInput}
+						elementByType={elementByType}
+						is4DNPortal={this.state.is4DNPortal}
+						overlaysContainer={this.overlaysContainerRef.current}
 					/>
 					<SettingsMainView
 						microscope={microscope}
@@ -3118,23 +3137,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						hasExperimental={this.props.hasExperimental}
 					/>
 					<Footer
-						activeTier={this.state.activeTier}
-						validationTier={this.state.validationTier}
-						componentSchemas={componentsSchema}
-						schema={footerSettingsSchemas}
-						onFormConfirm={this.onSettingDataSave}
 						onClickSave={this.handleSaveSetting}
 						onClickBack={this.onClickBack}
 						hasSaveOption={this.props.onSaveSetting ? true : false}
-						onClickChangeValidation={this.createAdaptedSchemas}
 						overlaysContainer={this.overlaysContainerRef.current}
-						inputData={footerSettingsInput}
-						isSchemaValidated={this.state.isSettingValidated}
 						dimensions={headerFooterDims}
 						element={"image settings"}
-						formTitle={setting.Name}
 						imagesPath={imagesPathSVG}
-						elementByType={elementByType}
 						is4DNPortal={this.state.is4DNPortal}
 						hasImport={this.state.hasImport}
 						isDebug={this.props.isDebug}
@@ -3203,6 +3212,20 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							dimensions={headerFooterDims}
 							logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
 							isDebug={this.props.isDebug}
+							isSchemaValidated={this.state.isMicroscopeValidated}
+							onFormConfirm={this.onSettingDataSave}
+							onClickChangeValidation={this.createAdaptedSchemas}
+							inputData={footerMicroscopeInput}
+							element={"microscope"}
+							formTitle={microscope.Name}
+							activeTier={this.state.activeTier}
+							validationTier={this.state.validationTier}
+							componentSchemas={componentsSchema}
+							schema={footerMicroscopeSchemas}
+							inputData={footerMicroscopeInput}
+							elementByType={elementByType}
+							is4DNPortal={this.state.is4DNPortal}
+							overlaysContainer={this.overlaysContainerRef.current}
 						/>
 						<div style={style}>
 							<Canvas
@@ -3246,26 +3269,16 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							/>
 						</div>
 						<Footer
-							activeTier={this.state.activeTier}
-							validationTier={this.state.validationTier}
-							componentSchemas={componentsSchema}
-							schema={footerMicroscopeSchemas}
-							onFormConfirm={this.onMicroscopeDataSave}
 							onClickSave={this.handleSaveMicroscope}
 							onClickBack={this.onClickBack}
 							hasSaveOption={this.props.onSaveMicroscope ? true : false}
-							onClickChangeValidation={this.createAdaptedSchemas}
 							overlaysContainer={this.overlaysContainerRef.current}
-							inputData={footerMicroscopeInput}
-							isSchemaValidated={this.state.isMicroscopeValidated}
 							dimensions={headerFooterDims}
-							element={"microscope"}
-							formTitle={microscope.Name}
 							imagesPath={imagesPathSVG}
-							elementByType={elementByType}
 							is4DNPortal={this.state.is4DNPortal}
 							hasImport={this.state.hasImport}
 							isDebug={this.props.isDebug}
+							element={"microscope"}
 						/>
 					</MicroMetaAppReactContainer>
 				);
