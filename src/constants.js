@@ -19,9 +19,15 @@ export const string_maxNumberOf_identifier = "Max_Number_Of_";
 
 export const string_json_ext = ".json";
 
-export const string_logo_img_no_bk = "MicroMetaApp_noBkg_3.png";
+export const string_logo_img_no_bk = "MicroMetaApp_noBkg_noOutline.png";
 export const string_logo_img_cell_bk = "MicroMetaApp_cellBkg.png";
 export const string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_2.png";
+
+export const string_back_img = "arrow-circle-left-solid.svg";
+export const string_save_img = "save-solid.svg";
+export const string_export_img = "file-export-solid.svg";
+export const string_import_img = "file-import-solid.svg";
+export const string_microscope_img = "microscope-solid.svg";
 
 export const string_createFromScratch = "Create # from scratch";
 export const string_createFromFile = "Load from file";
@@ -385,7 +391,7 @@ export const loadImage_from_repo_names_tooltip = {
 export const create_mode_continue_tooltip = {
 	title: "Continue",
 	content: <p>Create a microscope using the mode selected above.</p>,
-	position: "left",
+	position: "right",
 };
 
 export const create_mode_continue_settings_tooltip = {
@@ -396,7 +402,7 @@ export const create_mode_continue_settings_tooltip = {
 			available, an existing Settings file.
 		</p>
 	),
-	position: "left",
+	position: "right",
 };
 
 export const createSettings_mode_continue_tooltip = {
@@ -407,7 +413,7 @@ export const createSettings_mode_continue_tooltip = {
 			using the modality chosen above.
 		</p>
 	),
-	position: "left",
+	position: "right",
 };
 
 export const loadImage_mode_continue_tooltip = {
@@ -418,13 +424,21 @@ export const loadImage_mode_continue_tooltip = {
 			Image using the modality chosen above.
 		</p>
 	),
-	position: "left",
+	position: "right",
+};
+
+export const import_tooltip = {
+	title: "Import microscope",
+	content: (
+		<p>Import a new microscope file to overwrite the one currently open.</p>
+	),
+	position: "top",
 };
 
 export const back_tooltip = {
 	title: "Back",
 	content: <p>Return to the initial window.</p>,
-	position: "right",
+	position: "left",
 };
 
 export const edit_microscope_tooltip = {
@@ -432,7 +446,7 @@ export const edit_microscope_tooltip = {
 	content: (
 		<p>Click this button to enter general information about this Instrument.</p>
 	),
-	position: "top",
+	position: "bottom",
 };
 
 export const edit_setting_tooltip = {
@@ -443,7 +457,7 @@ export const edit_setting_tooltip = {
 			settings utilized for this image.
 		</p>
 	),
-	position: "top",
+	position: "bottom",
 };
 
 export const validation_microscope_tooltip = {
@@ -462,7 +476,7 @@ export const validation_microscope_tooltip = {
 			.
 		</p>
 	),
-	position: "top",
+	position: "bottom",
 };
 
 export const validation_setting_tooltip = {
@@ -481,7 +495,7 @@ export const validation_setting_tooltip = {
 			.
 		</p>
 	),
-	position: "top",
+	position: "bottom",
 };
 
 export const save_component_tooltip = {
