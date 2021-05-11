@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="514" height="515" viewBox="0 0 514 515">
+  <defs>
+    <clipPath id="clip-Import_Icon_-_White_">
+      <rect width="514" height="515"/>
+    </clipPath>
+  </defs>
+  <g id="Import_Icon_-_White_" data-name="Import Icon - White " clip-path="url(#clip-Import_Icon_-_White_)">
+    <path id="file-import-solid" d="M16,288A16.047,16.047,0,0,0,0,304v32a16.047,16.047,0,0,0,16,16H128V288ZM505,105,407.1,7a23.982,23.982,0,0,0-17-7H384V128H512v-6.1A23.923,23.923,0,0,0,505,105ZM352,136V0H152a23.942,23.942,0,0,0-24,24V288H256V222.8c0-14.3,17.3-21.4,27.4-11.3L379,308a17.02,17.02,0,0,1,0,24l-95.7,96.4c-10.1,10.1-27.4,3-27.4-11.3V352H128V488a23.942,23.942,0,0,0,24,24H488a23.942,23.942,0,0,0,24-24V160H376A24.071,24.071,0,0,1,352,136Z" transform="translate(0 2)" fill="#fff"/>
+  </g>
+</svg>
