@@ -8,6 +8,8 @@ import PopoverTooltip from "./popoverTooltip";
 
 import { validateAcquisitionSettings } from "../genericUtilities";
 
+const url = require("url");
+
 import {
 	string_json_ext,
 	number_logo_width,
@@ -17,6 +19,7 @@ import {
 	createSettings_from_repo_names_tooltip,
 	createSettings_mode_continue_tooltip,
 	back_tooltip,
+	string_back_img,
 } from "../constants";
 
 export default class SettingLoader extends React.PureComponent {
@@ -176,6 +179,10 @@ export default class SettingLoader extends React.PureComponent {
 			height: "100%",
 			margin: "auto",
 		};
+		let styleImageBk = {
+			width: "20px",
+			height: "20px",
+		};
 		let loadingMode = this.props.loadingMode;
 		let fileLoading = this.state.fileLoading;
 		let fileLoaded = this.state.fileLoaded;
@@ -251,8 +258,46 @@ export default class SettingLoader extends React.PureComponent {
 				/>
 			);
 		}
+
+		let backImgPath_tmp = url.resolve(this.props.imagesPath, string_back_img);
+		let backImgPath =
+			backImgPath_tmp +
+			(backImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+
 		list.push(
 			<div key="buttons">
+				<PopoverTooltip
+					position={back_tooltip.position}
+					title={back_tooltip.title}
+					content={back_tooltip.content}
+					element={
+						<Button
+							onClick={this.props.onClickBack}
+							style={buttonStyle}
+							size="lg"
+							variant="outline-dark"
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									gap: "10px",
+								}}
+							>
+								<img
+									src={backImgPath}
+									alt={backImgPath_tmp}
+									style={styleImageBk}
+									onLoad={this.onImgLoad}
+								/>
+								Back
+							</div>
+						</Button>
+					}
+				/>
 				<PopoverTooltip
 					position={createSettings_mode_continue_tooltip.position}
 					title={createSettings_mode_continue_tooltip.title}
@@ -277,20 +322,6 @@ export default class SettingLoader extends React.PureComponent {
 						</Button>
 					}
 				/>
-				<PopoverTooltip
-					position={back_tooltip.position}
-					title={back_tooltip.title}
-					content={back_tooltip.content}
-					element={
-						<Button
-							onClick={this.props.onClickBack}
-							style={buttonStyle}
-							size="lg"
-						>
-							Back
-						</Button>
-					}
-				/>
 			</div>
 		);
 		let logoPath =
@@ -308,6 +339,9 @@ export default class SettingLoader extends React.PureComponent {
 							style={styleImage}
 							onLoad={this.onImgLoad}
 						/>
+					</div>
+					<div style={{ textAlign: "center", fontWeight: "bold" }}>
+						Manage Settings Step 3/3: Open Settings file
 					</div>
 					{list}
 				</div>
