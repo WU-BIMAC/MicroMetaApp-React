@@ -201,7 +201,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 			titleText = "Manage Settings Step 1/3: Open Microscope File";
 		} else {
 			create_mode_tooltip = create_mode_selector_tooltip;
-			titleText = "Manage Hardware Step 1/1: Open Microscope File";
+			if (this.props.isImporter) {
+				titleText = "Microscope Importer Step 1/1: Open Microscope File";
+			} else {
+				titleText = "Manage Hardware Step 1/1: Open Microscope File";
+			}
 		}
 
 		let list = [];
