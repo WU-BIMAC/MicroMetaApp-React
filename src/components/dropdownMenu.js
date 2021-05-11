@@ -1,8 +1,8 @@
 import React from "react";
-
 import Dropdown from "react-bootstrap/Dropdown";
-
 import PopoverTooltip from "./popoverTooltip";
+
+import { isDefined } from "../genericUtilities";
 
 export default class DropdownMenu extends React.PureComponent {
 	constructor(props) {
@@ -50,6 +50,10 @@ export default class DropdownMenu extends React.PureComponent {
 	}
 
 	render() {
+		let styleImageBk = {
+			width: "20px",
+			height: "20px",
+		};
 		let inputData = this.state.inputData;
 		let width = this.props.width || 250;
 		let margin = this.props.margin || 0;
@@ -64,6 +68,10 @@ export default class DropdownMenu extends React.PureComponent {
 			width: `${width}px`,
 			height: "50px",
 			margin: `${margin}px`,
+			display: "flex",
+			flexDirection: "row",
+			justifyContent: "center",
+			alignItems: "center",
 		};
 		const dropdownMenuStyle = {
 			overflow: "auto",
@@ -72,16 +80,38 @@ export default class DropdownMenu extends React.PureComponent {
 			width: `${width}px`,
 		};
 		let title = this.state.currentTitle;
-		if(this.props.hasFixedTitle) {
+		if (this.props.hasFixedTitle) {
 			title = this.state.title;
+		}
+		let imgTitle = title;
+		if (isDefined(this.props.imgPath) && isDefined(this.props.imgPath_tmp)) {
+			imgTitle = (
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						gap: "10px",
+					}}
+				>
+					<img
+						src={this.props.imgPath}
+						alt={this.props.imgPath_tmp}
+						style={styleImageBk}
+						onLoad={this.onImgLoad}
+					/>
+					{title}
+				</div>
+			);
 		}
 		const dropdownToggle = (
 			<Dropdown.Toggle
 				id="dropdown-basic-button"
 				style={dropdownStyle}
 				size="lg"
+				variant={isDefined(this.props.variant) ? this.props.variant : "primary"}
 			>
-				{title}
+				{imgTitle}
 			</Dropdown.Toggle>
 		);
 		let dropdownToggleWrapped = null;
