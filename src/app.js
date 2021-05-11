@@ -2451,7 +2451,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			) {
 				this.props.onReturnToMicroscopeList();
 			} else if (
-				item === "Import from file" /*&& isDefined(this.props.onImportFromFile*/
+				item === "Import" /*&& isDefined(this.props.onImportFromFile*/
 			) {
 				//this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
 				this.setState({
@@ -2791,6 +2791,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							schema={this.state.schema}
 							isDebug={this.props.isDebug}
 							imagesPath={imagesPathSVG}
+							isImporter={true}
 						/>
 					</MicroMetaAppReactContainer>
 				);
