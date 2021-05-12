@@ -3214,7 +3214,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
 							isDebug={this.props.isDebug}
 							isSchemaValidated={this.state.isMicroscopeValidated}
-							onFormConfirm={this.onSettingDataSave}
+							onFormConfirm={this.onMicroscopeDataSave}
 							onClickChangeValidation={this.createAdaptedSchemas}
 							inputData={footerMicroscopeInput}
 							element={"microscope"}
