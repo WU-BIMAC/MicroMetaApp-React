@@ -1,28 +1,5 @@
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _Dropdown = _interopRequireDefault(require("react-bootstrap/Dropdown"));
-
-var _ButtonGroup = _interopRequireDefault(require("react-bootstrap/ButtonGroup"));
-
-var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
-
-var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
-
-var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
-var _constants = require("../constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -44,6 +21,13 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function (o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 import React from "react";
+import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
+import DropdownMenu from "./dropdownMenu";
+import PopoverTooltip from "./popoverTooltip";
+import { string_validationTier, edit_microscope_tooltip, edit_setting_tooltip, validation_microscope_tooltip, validation_setting_tooltip } from "../constants";
 
 var Header = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(Header, _React$PureComponent);
@@ -99,38 +83,6 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
     value: function render() {
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height;
-      var style = {
-        backgroundColor: "LightGray",
-        width: width,
-        height: height,
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center"
-      };
-      var styleButtonContainer = {
-        marginRight: "20px",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center" //justifyContent: "flex-end",
-
-      };
-      var styleImageContainer = {
-        width: "430px",
-        height: "60px",
-        marginLeft: "20px"
-      };
-      var styleImage = {
-        width: "100%",
-        height: "100%",
-        margin: "auto"
-      };
-      var styleButton = {
-        width: "250px",
-        minWidth: "250px",
-        height: "50px",
-        margin: "5px"
-      };
       var styleValidation = {
         position: "absolute",
         verticalAlign: "middle",
@@ -143,7 +95,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         var styleValidated = Object.assign({}, styleValidation, {
           color: "green"
         });
-        validated = /*#__PURE__*/_react.default.createElement("div", {
+        validated = /*#__PURE__*/React.createElement("div", {
           style: styleValidated
         }, "\u25CF");
       } else {
@@ -151,29 +103,34 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           color: "red"
         });
 
-        validated = /*#__PURE__*/_react.default.createElement("div", {
+        validated = /*#__PURE__*/React.createElement("div", {
           style: _styleValidated
         }, "\u25CF");
       }
 
-      var editTooltip = _constants.edit_microscope_tooltip;
-      var validationTooltip = _constants.validation_microscope_tooltip;
+      var editTooltip = edit_microscope_tooltip;
+      var validationTooltip = validation_microscope_tooltip;
 
       if (this.props.element === "image settings") {
-        editTooltip = _constants.edit_setting_tooltip;
-        validationTooltip = _constants.validation_setting_tooltip;
+        editTooltip = edit_setting_tooltip;
+        validationTooltip = validation_setting_tooltip;
       }
 
       var buttons = [];
-      buttons[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      buttons[0] = /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButton-0",
         position: editTooltip.position,
         title: editTooltip.title,
         content: editTooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+        element: /*#__PURE__*/React.createElement(Button, {
           key: "Button-0",
           onClick: this.onClickEdit,
-          style: styleButton,
+          style: {
+            width: "250px",
+            minWidth: "250px",
+            height: "50px",
+            margin: "5px"
+          },
           size: "lg"
         }, validated, "Edit ".concat(this.props.element))
       });
@@ -184,9 +141,9 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var defaultValidationTier = this.props.validationTier - 1;
-      buttons[1] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+      buttons[1] = /*#__PURE__*/React.createElement(DropdownMenu, {
         key: "Button-1",
-        title: _constants.string_validationTier,
+        title: string_validationTier,
         handleMenuItemClick: this.onClickChangeValidation,
         inputData: inputData,
         width: 250,
@@ -199,7 +156,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
       var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
       if (this.state.editing) {
-        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+        return /*#__PURE__*/React.createElement(MultiTabFormWithHeaderV3, {
           title: "Edit " + this.props.formTitle //schemas={this.props.componentSchemas}
           ,
           schema: this.props.schema,
@@ -214,11 +171,23 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         });
       }
 
-      return /*#__PURE__*/_react.default.createElement("div", {
-        style: style
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: styleImageContainer
-      }, /*#__PURE__*/_react.default.createElement("img", {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          backgroundColor: "LightGray",
+          width: width,
+          height: height,
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          width: "430px",
+          height: "60px",
+          marginLeft: "20px"
+        }
+      }, /*#__PURE__*/React.createElement("img", {
         src: logoPath,
         alt: this.props.logoImg,
         style: {
@@ -227,8 +196,14 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           margin: "auto"
         },
         onLoad: this.onImgLoad
-      })), /*#__PURE__*/_react.default.createElement("div", {
-        style: styleButtonContainer
+      })), /*#__PURE__*/React.createElement("div", {
+        style: {
+          marginRight: "20px",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center" //justifyContent: "flex-end",
+
+        }
       }, buttons));
     }
   }]);

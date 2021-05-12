@@ -1,20 +1,5 @@
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Dropdown = _interopRequireDefault(require("react-bootstrap/Dropdown"));
-
-var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
-var _genericUtilities = require("../genericUtilities");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -38,6 +23,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import PopoverTooltip from "./popoverTooltip";
+import { isDefined } from "../genericUtilities";
 
 var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(DropdownMenu, _React$PureComponent);
@@ -83,12 +69,6 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
     value: function render() {
       var _this2 = this;
 
-      var styleImageBk = {
-        width: "20px",
-        height: "20px",
-        marginLeft: "10px",
-        marginRight: "10px"
-      };
       var inputData = this.state.inputData;
       var width = this.props.width || 250;
       var margin = this.props.margin || 0;
@@ -102,7 +82,7 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
       });
       var justifyContent = "center";
 
-      if ((0, _genericUtilities.isDefined)(this.props.isCentered) && !this.props.isCentered) {
+      if (isDefined(this.props.isCentered) && !this.props.isCentered) {
         justifyContent = "flex-start";
       }
 
@@ -129,29 +109,33 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
 
       var imgTitle = title;
 
-      if ((0, _genericUtilities.isDefined)(this.props.imgPath) && (0, _genericUtilities.isDefined)(this.props.imgPath_tmp)) {
-        imgTitle = /*#__PURE__*/_react.default.createElement("div", {
+      if (isDefined(this.props.imgPath) && isDefined(this.props.imgPath_tmp)) {
+        imgTitle = /*#__PURE__*/React.createElement("div", {
           style: {
             display: "flex",
             justifyContent: "center",
             alignItems: "center" //gap: "10px",
 
           }
-        }, /*#__PURE__*/_react.default.createElement("img", {
+        }, /*#__PURE__*/React.createElement("img", {
           src: this.props.imgPath,
           alt: this.props.imgPath_tmp,
-          style: styleImageBk,
+          style: {
+            width: "20px",
+            height: "20px",
+            marginLeft: "10px",
+            marginRight: "10px"
+          },
           onLoad: this.onImgLoad
         }), title);
       }
 
-      var dropdownToggle = /*#__PURE__*/_react.default.createElement(_Dropdown.default.Toggle, {
+      var dropdownToggle = /*#__PURE__*/React.createElement(Dropdown.Toggle, {
         id: "dropdown-basic-button",
         style: dropdownStyle,
         size: "lg",
-        variant: (0, _genericUtilities.isDefined)(this.props.variant) ? this.props.variant : "primary"
+        variant: isDefined(this.props.variant) ? this.props.variant : "primary"
       }, imgTitle);
-
       var dropdownToggleWrapped = null;
 
       if (this.props.tooltip !== undefined && this.props.tooltip !== null && this.props.tooltip.position !== undefined && this.props.position !== null && this.props.tooltip.title !== undefined && this.props.title !== null && this.props.tooltip.content !== undefined && this.props.content !== null && this.state.showTooltip) {

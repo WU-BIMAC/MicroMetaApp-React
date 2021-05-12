@@ -196,12 +196,12 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           margin: "auto"
         },
         onLoad: this.onImgLoad
-      })), /*#__PURE__*/_react.default.createElement("div", {
+      })), /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: "center",
           fontWeight: "bold"
         }
-      }, "Loading..."), /*#__PURE__*/_react.default.createElement(_Button.default, {
+      }, "Loading..."), /*#__PURE__*/React.createElement(Button, {
         ref: this.simulateClickLoadMicroscopes,
         disabled: isLoadingMicroscopes || isMicroscopesLoaded,
         onClick: !isLoadingMicroscopes && !isMicroscopesLoaded ? this.onClickLoadMicroscopes : null,

@@ -29,7 +29,7 @@ import ImageElement from "./imageElement";
 
 var url = require("url");
 
-import { string_toolbar, string_canvas, hardware_explorer_tooltip, menu_order } from "../constants";
+import { string_toolbar, string_canvas, hardware_explorer_tooltip, menu_order, string_microscope_img } from "../constants";
 
 var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(Toolbar, _React$PureComponent);
@@ -223,7 +223,7 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "10px",
         marginRight: "10px"
       };
-      var microscopeImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_microscope_img);
+      var microscopeImgPath_tmp = url.resolve(this.props.imagesPath, string_microscope_img);
       var microscopeImgPath = microscopeImgPath_tmp + (microscopeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
       if (this.props.isToolbarHidden) {
@@ -235,7 +235,6 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
         var hardwareExplorerHideButtonClose = /*#__PURE__*/React.createElement("div", {
           style: styleTransitionCloseExplorer
         }, "\u25B2");
-
         explorerContainerStyle = Object.assign({}, explorerContainerStyle, {
           height: "100%"
         });
@@ -248,14 +247,14 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
           size: "lg",
           style: explorerStyle,
           onClick: this.onHideToolbar
-        }, /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/React.createElement("div", {
           style: {
             display: "flex",
             justifyContent: "center",
             alignItems: "center" //gap: "10px",
 
           }
-        }, /*#__PURE__*/_react.default.createElement("img", {
+        }, /*#__PURE__*/React.createElement("img", {
           src: microscopeImgPath,
           alt: microscopeImgPath_tmp,
           style: styleImageBk,
@@ -268,21 +267,20 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
         var hardwareExplorerHideButtonOpen = /*#__PURE__*/React.createElement("div", {
           style: styleTransitionOpenExplorer
         }, "\u25B2");
-
-        explorerButton = /*#__PURE__*/_react.default.createElement(_Button.default, {
+        explorerButton = /*#__PURE__*/React.createElement(Button, {
           key: "HardwareExplorer",
           variant: "dark",
           size: "lg",
           style: explorerStyle,
           onClick: this.onHideToolbar
-        }, /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/React.createElement("div", {
           style: {
             display: "flex",
             justifyContent: "center",
             alignItems: "center" //gap: "10px",
 
           }
-        }, /*#__PURE__*/_react.default.createElement("img", {
+        }, /*#__PURE__*/React.createElement("img", {
           src: microscopeImgPath,
           alt: microscopeImgPath_tmp,
           style: styleImageBk,
@@ -330,7 +328,7 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
             }, /*#__PURE__*/React.createElement("div", null, simpleKey), /*#__PURE__*/React.createElement("div", {
               style: styleTransitionClose
             }, "\u25B2")),
-            triggerWhenOpen: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            triggerWhenOpen: /*#__PURE__*/React.createElement(Button, {
               key: "Trigger".concat(key),
               size: "lg",
               style: style

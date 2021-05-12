@@ -31,7 +31,7 @@ import PopoverTooltip from "./popoverTooltip";
 
 var url = require("url");
 
-import { string_validationTier, edit_microscope_tooltip, edit_setting_tooltip, validation_microscope_tooltip, validation_setting_tooltip, save_microscope_tooltip, save_setting_tooltip, back_tooltip } from "../constants";
+import { save_microscope_tooltip, save_setting_tooltip, back_tooltip, string_back_img, string_save_img, string_export_img, string_import_img, import_tooltip } from "../constants";
 
 var Footer = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(Footer, _React$PureComponent);
@@ -59,15 +59,6 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         alignItems: "center" //justifyContent: "flex-end",
 
       };
-      var style = {
-        backgroundColor: "LightGray",
-        width: width,
-        height: height,
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center"
-      };
       var styleButton = {
         width: "250px",
         minWidth: "250px",
@@ -81,10 +72,10 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "10px",
         marginRight: "10px"
       };
-      var saveTooltip = _constants.save_microscope_tooltip;
+      var saveTooltip = save_microscope_tooltip;
 
       if (this.props.element === "image settings") {
-        saveTooltip = _constants.save_setting_tooltip;
+        saveTooltip = save_setting_tooltip;
       }
 
       var buttonsLeft = [];
@@ -100,22 +91,22 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       var exportOptions = [];
       exportOptions.push("Export " + this.props.element);
       exportOptions.push("Export as new " + this.props.element);
-      var importImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_import_img);
+      var importImgPath_tmp = url.resolve(this.props.imagesPath, string_import_img);
       var importImgPath = importImgPath_tmp + (importImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var saveImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_save_img);
+      var saveImgPath_tmp = url.resolve(this.props.imagesPath, string_save_img);
       var saveImgPath = saveImgPath_tmp + (saveImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var exportImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_export_img);
+      var exportImgPath_tmp = url.resolve(this.props.imagesPath, string_export_img);
       var exportImgPath = exportImgPath_tmp + (exportImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""); //Rethink this, maybe drop down split button with multi actions?
 
       var index = 0;
 
       if (this.props.is4DNPortal && this.props.hasImport) {
-        buttonsRight[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        buttonsRight[index] = /*#__PURE__*/React.createElement(PopoverTooltip, {
           key: "TooltipButtonRight-0",
-          position: _constants.import_tooltip.position,
-          title: _constants.import_tooltip.title,
-          content: _constants.import_tooltip.content,
-          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          position: import_tooltip.position,
+          title: import_tooltip.title,
+          content: import_tooltip.content,
+          element: /*#__PURE__*/React.createElement(Button, {
             key: "ButtonRight-0",
             onClick: function onClick() {
               return _this.props.onClickBack("Import");
@@ -123,14 +114,14 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
             style: styleButton,
             size: "lg",
             variant: "dark"
-          }, /*#__PURE__*/_react.default.createElement("div", {
+          }, /*#__PURE__*/React.createElement("div", {
             style: {
               display: "flex",
               justifyContent: "center",
               alignItems: "center" //gap: "10px",
 
             }
-          }, /*#__PURE__*/_react.default.createElement("img", {
+          }, /*#__PURE__*/React.createElement("img", {
             src: importImgPath,
             alt: importImgPath_tmp,
             style: styleImageBk,
@@ -140,7 +131,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         index++;
       }
 
-      buttonsRight[index] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+      buttonsRight[index] = /*#__PURE__*/React.createElement(DropdownMenu, {
         key: "ButtonRight-1",
         title: "Save",
         handleMenuItemClick: this.props.onClickSave,
@@ -154,7 +145,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         imgPath_tmp: saveImgPath_tmp,
         imgPath: saveImgPath
       });
-      buttonsRight[index + 1] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+      buttonsRight[index + 1] = /*#__PURE__*/React.createElement(DropdownMenu, {
         key: "ButtonRight-2",
         title: "Export",
         handleMenuItemClick: this.props.onClickSave,
@@ -168,7 +159,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         imgPath_tmp: exportImgPath_tmp,
         imgPath: exportImgPath
       });
-      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
+      var backImgPath_tmp = url.resolve(this.props.imagesPath, string_back_img);
       var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var backText = "Back";
 
@@ -176,12 +167,12 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         backText = "Back to list";
       }
 
-      buttonsLeft[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      buttonsLeft[0] = /*#__PURE__*/React.createElement(PopoverTooltip, {
         key: "TooltipButtonLeft-0",
         position: "top",
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+        title: back_tooltip.title,
+        content: back_tooltip.content,
+        element: /*#__PURE__*/React.createElement(Button, {
           key: "ButtonLeft-0",
           onClick: function onClick() {
             return _this.props.onClickBack(backText);
@@ -189,25 +180,33 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
           style: styleButton,
           size: "lg",
           variant: "outline-dark"
-        }, /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/React.createElement("div", {
           style: {
             display: "flex",
             justifyContent: "center",
             alignItems: "center" //gap: "10px",
 
           }
-        }, /*#__PURE__*/_react.default.createElement("img", {
+        }, /*#__PURE__*/React.createElement("img", {
           src: backImgPath,
           alt: backImgPath_tmp,
           style: styleImageBk,
           onLoad: this.onImgLoad
         }), backText))
       });
-      return /*#__PURE__*/_react.default.createElement("div", {
-        style: style
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          backgroundColor: "LightGray",
+          width: width,
+          height: height,
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
         style: styleButtonContainer
-      }, buttonsLeft), /*#__PURE__*/_react.default.createElement("div", {
+      }, buttonsLeft), /*#__PURE__*/React.createElement("div", {
         style: styleButtonContainer
       }, buttonsRight));
     }

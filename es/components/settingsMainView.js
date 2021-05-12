@@ -452,17 +452,6 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           // marginRight: "5px",
 
         };
-        var containerStyle = {
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          height: "100%"
-        };
-        var infoStyle = {
-          position: "absolute",
-          left: "10px",
-          top: "90px"
-        };
         var styleValidation = {
           position: "absolute",
           verticalAlign: "middle",
@@ -979,7 +968,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           style: {
             position: "absolute",
             left: "10px",
-            top: "70px"
+            top: "90px"
           }
         }, /*#__PURE__*/React.createElement("p", null, settingsInfo)), /*#__PURE__*/React.createElement("div", {
           style: styleMainContainer

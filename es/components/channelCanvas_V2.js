@@ -559,12 +559,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var i = Number(index);
       var selectedSlot = "AdditionalSlot_" + i;
       var slots = this.state.slots;
-      var comp = null;
       var localComps = null;
 
       if (slots[selectedSlot] !== null && slots[selectedSlot] !== undefined) {
         localComps = slots[selectedSlot];
-        comp = localComps[localComps.length - 1];
+        localComps[localComps.length - 1];
       } else {
         localComps = [];
       }
@@ -749,15 +748,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         height: "80px",
         width: "80px",
         margin: "auto"
-      };
-      var modalGridContainer = {
-        display: "flex",
-        flexDirection: "column",
-        //flexWrap: "wrap",
-        justifyContent: "center",
-        width: "100%",
-        height: "100%",
-        alignItems: "center"
       };
       var modalGridPanel = {
         display: "flex",
@@ -1224,7 +1214,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
             style: {
               display: "flex",
               flexDirection: "column",
-              flexWrap: "wrap",
+              //flexWrap: "wrap",
               justifyContent: "center",
               width: "100%",
               height: "100%",

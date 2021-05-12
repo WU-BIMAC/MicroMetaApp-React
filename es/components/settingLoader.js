@@ -27,9 +27,10 @@ import Dropzone from "react-dropzone";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 import { validateAcquisitionSettings } from "../genericUtilities";
-import { string_json_ext, number_logo_width, number_logo_height, createSettings_mode_selector_tooltip, createSettings_from_file_tooltip, createSettings_from_repo_names_tooltip, createSettings_mode_continue_tooltip, back_tooltip } from "../constants";
 
 var url = require("url");
+
+import { string_json_ext, number_logo_width, number_logo_height, createSettings_mode_selector_tooltip, createSettings_from_file_tooltip, createSettings_from_repo_names_tooltip, createSettings_mode_continue_tooltip, back_tooltip, string_back_img } from "../constants";
 
 var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(SettingLoader, _React$PureComponent);
@@ -188,12 +189,6 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "".concat(number_logo_width, "px"),
         height: "".concat(number_logo_height, "px")
       };
-      var styleImageBk = {
-        width: "20px",
-        height: "20px",
-        marginLeft: "10px",
-        marginRight: "10px"
-      };
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
       var fileLoaded = this.state.fileLoaded;
@@ -249,42 +244,47 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
           defaultValue: defaultMic,
           width: width,
           margin: margin,
-          tooltip: _constants.createSettings_from_repo_names_tooltip,
+          tooltip: createSettings_from_repo_names_tooltip,
           isCentered: false
         }));
       }
 
-      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
+      var backImgPath_tmp = url.resolve(this.props.imagesPath, string_back_img);
       var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      list.push( /*#__PURE__*/_react.default.createElement("div", {
+      list.push( /*#__PURE__*/React.createElement("div", {
         key: "buttons"
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        position: _constants.back_tooltip.position,
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
+        position: back_tooltip.position,
+        title: back_tooltip.title,
+        content: back_tooltip.content,
+        element: /*#__PURE__*/React.createElement(Button, {
           onClick: this.props.onClickBack,
           style: buttonStyle,
           size: "lg",
           variant: "outline-dark"
-        }, /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/React.createElement("div", {
           style: {
             display: "flex",
             justifyContent: "center",
             alignItems: "center" //gap: "10px",
 
           }
-        }, /*#__PURE__*/_react.default.createElement("img", {
+        }, /*#__PURE__*/React.createElement("img", {
           src: backImgPath,
           alt: backImgPath_tmp,
-          style: styleImageBk,
+          style: {
+            width: "20px",
+            height: "20px",
+            marginLeft: "10px",
+            marginRight: "10px"
+          },
           onLoad: this.onImgLoad
         }), "Back"))
-      }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        position: _constants.createSettings_mode_continue_tooltip.position,
-        title: _constants.createSettings_mode_continue_tooltip.title,
-        content: _constants.createSettings_mode_continue_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+      }), /*#__PURE__*/React.createElement(PopoverTooltip, {
+        position: createSettings_mode_continue_tooltip.position,
+        title: createSettings_mode_continue_tooltip.title,
+        content: createSettings_mode_continue_tooltip.content,
+        element: /*#__PURE__*/React.createElement(Button, {
           onClick: isDropzoneActive && fileLoaded && !fileLoading || !isDropzoneActive ? this.props.onClickConfirm : null,
           style: buttonStyle,
           size: "lg",
@@ -321,7 +321,7 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
           margin: "auto"
         },
         onLoad: this.onImgLoad
-      })), /*#__PURE__*/_react.default.createElement("div", {
+      })), /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: "center",
           fontWeight: "bold"

@@ -1,5 +1,7 @@
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2288,6 +2290,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       });
 
       if (!this.state.isCreatingNewMicroscope) {
+        var _React$createElement;
+
         var footerSettingsSchemas = [imageSchema, pixelsSchema];
         var footerSettingsInput = [setting, setting.Pixels]; //{overlayImporter}
 
@@ -2295,9 +2299,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
-        }, /*#__PURE__*/React.createElement(Header, {
+        }, /*#__PURE__*/React.createElement(Header, (_React$createElement = {
           dimensions: headerFooterDims,
-          logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_no_bk),
+          logoImg: url.resolve(imagesPathPNG, string_logo_img_no_bk),
           isDebug: this.props.isDebug,
           isSchemaValidated: this.state.isSettingValidated,
           onFormConfirm: this.onSettingDataSave,
@@ -2308,12 +2312,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           activeTier: this.state.activeTier,
           validationTier: this.state.validationTier,
           componentSchemas: componentsSchema,
-          schema: footerSettingsSchemas,
-          ["inputData"]: footerSettingsInput,
-          elementByType: elementByType,
-          is4DNPortal: this.state.is4DNPortal,
-          overlaysContainer: this.overlaysContainerRef.current
-        }), /*#__PURE__*/_react.default.createElement(_settingsMainView.default, {
+          schema: footerSettingsSchemas
+        }, _defineProperty(_React$createElement, "inputData", footerSettingsInput), _defineProperty(_React$createElement, "elementByType", elementByType), _defineProperty(_React$createElement, "is4DNPortal", this.state.is4DNPortal), _defineProperty(_React$createElement, "overlaysContainer", this.overlaysContainerRef.current), _React$createElement)), /*#__PURE__*/React.createElement(SettingsMainView, {
           microscope: microscope,
           microscopeComponents: elementData,
           activeTier: this.state.activeTier,
@@ -2342,7 +2342,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           isDebug: this.props.isDebug,
           hasAdvanced: this.props.hasAdvanced,
           hasExperimental: this.props.hasExperimental
-        }), /*#__PURE__*/_react.default.createElement(_footer.default, {
+        }), /*#__PURE__*/React.createElement(Footer, {
           onClickSave: this.handleSaveSetting,
           onClickBack: this.onClickBack,
           hasSaveOption: this.props.onSaveSetting ? true : false,
@@ -2397,14 +2397,16 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             isDebug: this.props.isDebug
           })));
         } else {
+          var _React$createElement2;
+
           //{overlayImporter}
           return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
             forwardedRef: this.overlaysContainerRef
-          }, /*#__PURE__*/React.createElement(Header, {
+          }, /*#__PURE__*/React.createElement(Header, (_React$createElement2 = {
             dimensions: headerFooterDims,
-            logoImg: url.resolve(imagesPathPNG, _constants.string_logo_img_no_bk),
+            logoImg: url.resolve(imagesPathPNG, string_logo_img_no_bk),
             isDebug: this.props.isDebug,
             isSchemaValidated: this.state.isMicroscopeValidated,
             onFormConfirm: this.onMicroscopeDataSave,
@@ -2415,12 +2417,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             activeTier: this.state.activeTier,
             validationTier: this.state.validationTier,
             componentSchemas: componentsSchema,
-            schema: footerMicroscopeSchemas,
-            ["inputData"]: footerMicroscopeInput,
-            elementByType: elementByType,
-            is4DNPortal: this.state.is4DNPortal,
-            overlaysContainer: this.overlaysContainerRef.current
-          }), /*#__PURE__*/_react.default.createElement("div", {
+            schema: [microscopeSchema, microscopeStandSchema]
+          }, _defineProperty(_React$createElement2, "inputData", footerMicroscopeInput), _defineProperty(_React$createElement2, "elementByType", elementByType), _defineProperty(_React$createElement2, "is4DNPortal", this.state.is4DNPortal), _defineProperty(_React$createElement2, "overlaysContainer", this.overlaysContainerRef.current), _React$createElement2)), /*#__PURE__*/React.createElement("div", {
             style: style
           }, /*#__PURE__*/React.createElement(Canvas, {
             microscope: microscope,
@@ -2456,7 +2454,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             onHideToolbar: this.onHideToolbar,
             isToolbarHidden: this.state.isToolbarHidden,
             isDebug: this.props.isDebug
-          })), /*#__PURE__*/_react.default.createElement(_footer.default, {
+          })), /*#__PURE__*/React.createElement(Footer, {
             onClickSave: this.handleSaveMicroscope,
             onClickBack: this.onClickBack,
             hasSaveOption: this.props.onSaveMicroscope ? true : false,
