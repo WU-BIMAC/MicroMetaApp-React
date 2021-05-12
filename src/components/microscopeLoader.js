@@ -206,7 +206,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			if (this.props.isImporter) {
 				titleText = "Microscope Importer Step 1/1: Open Microscope File";
 			} else {
-				titleText = "Manage Hardware Step 1/1: Open Microscope File";
+				titleText = "Manage Instrument Step 1/1: Open Microscope File";
 			}
 		}
 
