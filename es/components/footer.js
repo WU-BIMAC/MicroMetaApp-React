@@ -164,7 +164,8 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         hasFixedTitle: true,
         variant: "dark",
         imgPath_tmp: saveImgPath_tmp,
-        imgPath: saveImgPath
+        imgPath: saveImgPath,
+        isCentered: true
       });
       buttonsRight[index + 1] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
         key: "ButtonRight-2",
@@ -178,7 +179,8 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         hasFixedTitle: true,
         variant: "dark",
         imgPath_tmp: exportImgPath_tmp,
-        imgPath: exportImgPath
+        imgPath: exportImgPath,
+        isCentered: true
       });
       var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
       var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");

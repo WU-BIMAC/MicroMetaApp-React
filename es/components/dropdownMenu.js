@@ -96,13 +96,19 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
           id: item
         }, item);
       });
+      var justifyContent = "flex-start";
+
+      if (this.props.isCentered) {
+        justifyContent = "center";
+      }
+
       var dropdownStyle = {
         width: "".concat(width, "px"),
         height: "50px",
         margin: "".concat(margin, "px"),
         display: "flex",
         flexDirection: "row",
-        justifyContent: "center",
+        justifyContent: "".concat(justifyContent),
         alignItems: "center"
       };
       var dropdownMenuStyle = {

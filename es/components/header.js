@@ -193,7 +193,8 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         margin: 5,
         defaultValue: defaultValidationTier,
         direction: "down",
-        tooltip: validationTooltip
+        tooltip: validationTooltip,
+        isCentered: true
       }); //<div style={styleTitle}>Microscopy Metadata For The Real World</div>
 
       var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
