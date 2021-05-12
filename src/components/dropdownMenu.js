@@ -64,13 +64,17 @@ export default class DropdownMenu extends React.PureComponent {
 				{item}
 			</Dropdown.Item>
 		));
+		let justifyContent = "flex-start";
+		if (this.props.isCentered) {
+			justifyContent = "center";
+		}
 		const dropdownStyle = {
 			width: `${width}px`,
 			height: "50px",
 			margin: `${margin}px`,
 			display: "flex",
 			flexDirection: "row",
-			justifyContent: "center",
+			justifyContent: `${justifyContent}`,
 			alignItems: "center",
 		};
 		const dropdownMenuStyle = {
