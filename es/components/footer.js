@@ -91,7 +91,9 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       };
       var styleImageBk = {
         width: "20px",
-        height: "20px"
+        height: "20px",
+        marginLeft: "10px",
+        marginRight: "10px"
       };
       var saveTooltip = _constants.save_microscope_tooltip;
 
@@ -139,8 +141,8 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
             style: {
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
-              gap: "10px"
+              alignItems: "center" //gap: "10px",
+
             }
           }, /*#__PURE__*/_react.default.createElement("img", {
             src: importImgPath,
@@ -164,8 +166,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         hasFixedTitle: true,
         variant: "dark",
         imgPath_tmp: saveImgPath_tmp,
-        imgPath: saveImgPath,
-        isCentered: true
+        imgPath: saveImgPath
       });
       buttonsRight[index + 1] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
         key: "ButtonRight-2",
@@ -179,8 +180,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         hasFixedTitle: true,
         variant: "dark",
         imgPath_tmp: exportImgPath_tmp,
-        imgPath: exportImgPath,
-        isCentered: true
+        imgPath: exportImgPath
       });
       var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
       var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
@@ -207,8 +207,8 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
           style: {
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
-            gap: "10px"
+            alignItems: "center" //gap: "10px",
+
           }
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: backImgPath,

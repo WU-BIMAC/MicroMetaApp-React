@@ -223,7 +223,9 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
       };
       var styleImageBk = {
         width: "20px",
-        height: "20px"
+        height: "20px",
+        marginLeft: "10px",
+        marginRight: "10px"
       };
       var imageMap = this.state.imageMap;
       var loadingMode = this.props.loadingMode;
@@ -298,8 +300,8 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: {
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
-            gap: "10px"
+            alignItems: "center" //gap: "10px",
+
           }
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: backImgPath,

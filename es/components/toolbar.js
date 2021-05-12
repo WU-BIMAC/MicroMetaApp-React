@@ -234,7 +234,9 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
       var hardwareExplorerText = "Hardware explorer";
       var styleImageBk = {
         width: "40px",
-        height: "40px"
+        height: "40px",
+        marginLeft: "10px",
+        marginRight: "10px"
       };
       var microscopeImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_microscope_img);
       var microscopeImgPath = microscopeImgPath_tmp + (microscopeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
@@ -266,8 +268,8 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
           style: {
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
-            gap: "10px"
+            alignItems: "center" //gap: "10px",
+
           }
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: microscopeImgPath,
@@ -294,8 +296,8 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
           style: {
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
-            gap: "10px"
+            alignItems: "center" //gap: "10px",
+
           }
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: microscopeImgPath,

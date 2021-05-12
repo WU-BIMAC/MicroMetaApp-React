@@ -228,7 +228,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       };
       var styleImageBk = {
         width: "20px",
-        height: "20px"
+        height: "20px",
+        marginLeft: "10px",
+        marginRight: "10px"
       };
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
@@ -316,7 +318,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             defaultValue: defaultMic,
             width: width,
             margin: margin,
-            tooltip: _constants.create_from_repo_names_tooltip
+            tooltip: _constants.create_from_repo_names_tooltip,
+            isCentered: false
           }));
         }
       }
@@ -346,8 +349,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: {
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
-            gap: "10px"
+            alignItems: "center" //gap: "10px",
+
           }
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: backImgPath,

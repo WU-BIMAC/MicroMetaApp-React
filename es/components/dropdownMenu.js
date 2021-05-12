@@ -83,7 +83,9 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
 
       var styleImageBk = {
         width: "20px",
-        height: "20px"
+        height: "20px",
+        marginLeft: "10px",
+        marginRight: "10px"
       };
       var inputData = this.state.inputData;
       var width = this.props.width || 250;
@@ -96,10 +98,10 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
           id: item
         }, item);
       });
-      var justifyContent = "flex-start";
+      var justifyContent = "center";
 
-      if (this.props.isCentered) {
-        justifyContent = "center";
+      if ((0, _genericUtilities.isDefined)(this.props.isCentered) && !this.props.isCentered) {
+        justifyContent = "flex-start";
       }
 
       var dropdownStyle = {
@@ -130,8 +132,8 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
           style: {
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
-            gap: "10px"
+            alignItems: "center" //gap: "10px",
+
           }
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: this.props.imgPath,

@@ -478,7 +478,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         var infoStyle = {
           position: "absolute",
           left: "10px",
-          top: "70px"
+          top: "90px"
         };
         var styleValidation = {
           position: "absolute",
