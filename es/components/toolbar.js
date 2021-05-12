@@ -176,7 +176,9 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        height: "50px",
+        alignItems: "center"
       }; //pointerEvents: "none"
 
       var explorerStyle = null;
@@ -189,16 +191,22 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
 
         });
       } else {
-        explorerStyle = Object.assign({}, style, {});
+        explorerStyle = Object.assign({}, style, {
+          height: "75px"
+        });
       }
 
       var styleTransitionClose = {
         transition: "transform 300ms",
-        transform: "rotateZ(0deg)"
+        transform: "rotateZ(180deg)",
+        marginLeft: "10px",
+        marginRight: "10px"
       };
       var styleTransitionOpen = {
         transition: "transform 300ms",
-        transform: "rotateZ(-90deg)"
+        transform: "rotateZ(0deg)",
+        marginLeft: "10px",
+        marginRight: "10px"
       };
       var elementList = this.state.elementList;
       this.state.isHidden;
@@ -209,14 +217,25 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%"
       };
       var hardwareExplorerText = "Hardware explorer";
+      var styleImageBk = {
+        width: "40px",
+        height: "40px",
+        marginLeft: "10px",
+        marginRight: "10px"
+      };
+      var microscopeImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_microscope_img);
+      var microscopeImgPath = microscopeImgPath_tmp + (microscopeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
       if (this.props.isToolbarHidden) {
         var styleTransitionCloseExplorer = Object.assign({}, styleTransitionClose, {
-          transform: "rotateZ(0deg)"
+          transform: "rotateZ(270deg)",
+          marginLeft: "0px",
+          marginRight: "0px"
         });
         var hardwareExplorerHideButtonClose = /*#__PURE__*/React.createElement("div", {
           style: styleTransitionCloseExplorer
-        }, "\u25C1");
+        }, "\u25B2");
+
         explorerContainerStyle = Object.assign({}, explorerContainerStyle, {
           height: "100%"
         });
@@ -225,25 +244,50 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
         hardwareExplorerText = hardwareExplorerText.replace("e\ne", "e\n \n \ne");
         explorerButton = /*#__PURE__*/React.createElement(Button, {
           key: "HardwareExplorer",
-          variant: "secondary",
+          variant: "dark",
           size: "lg",
           style: explorerStyle,
           onClick: this.onHideToolbar
-        }, /*#__PURE__*/React.createElement("div", null, hardwareExplorerHideButtonClose));
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center" //gap: "10px",
+
+          }
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: microscopeImgPath,
+          alt: microscopeImgPath_tmp,
+          style: styleImageBk,
+          onLoad: this.onImgLoad
+        })), hardwareExplorerHideButtonClose);
       } else {
         var styleTransitionOpenExplorer = Object.assign({}, styleTransitionOpen, {
-          transform: "rotateZ(180deg)"
+          transform: "rotateZ(90deg)"
         });
         var hardwareExplorerHideButtonOpen = /*#__PURE__*/React.createElement("div", {
           style: styleTransitionOpenExplorer
-        }, "\u25C1");
-        explorerButton = /*#__PURE__*/React.createElement(Button, {
+        }, "\u25B2");
+
+        explorerButton = /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "HardwareExplorer",
-          variant: "secondary",
+          variant: "dark",
           size: "lg",
           style: explorerStyle,
           onClick: this.onHideToolbar
-        }, /*#__PURE__*/React.createElement("div", null, hardwareExplorerText), /*#__PURE__*/React.createElement("div", null, hardwareExplorerHideButtonOpen));
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center" //gap: "10px",
+
+          }
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: microscopeImgPath,
+          alt: microscopeImgPath_tmp,
+          style: styleImageBk,
+          onLoad: this.onImgLoad
+        }), hardwareExplorerText), hardwareExplorerHideButtonOpen);
       }
 
       var hardware_explorer = /*#__PURE__*/React.createElement(PopoverTooltip, {
@@ -285,14 +329,14 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
               style: style
             }, /*#__PURE__*/React.createElement("div", null, simpleKey), /*#__PURE__*/React.createElement("div", {
               style: styleTransitionClose
-            }, "\u25C1")),
-            triggerWhenOpen: /*#__PURE__*/React.createElement(Button, {
+            }, "\u25B2")),
+            triggerWhenOpen: /*#__PURE__*/_react.default.createElement(_Button.default, {
               key: "Trigger".concat(key),
               size: "lg",
               style: style
             }, /*#__PURE__*/React.createElement("div", null, simpleKey), /*#__PURE__*/React.createElement("div", {
               style: styleTransitionOpen
-            }, "\u25C1"))
+            }, "\u25B2"))
           }, _this3.createCategoryItems(key)));
         });
       });

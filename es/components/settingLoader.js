@@ -29,6 +29,8 @@ import PopoverTooltip from "./popoverTooltip";
 import { validateAcquisitionSettings } from "../genericUtilities";
 import { string_json_ext, number_logo_width, number_logo_height, createSettings_mode_selector_tooltip, createSettings_from_file_tooltip, createSettings_from_repo_names_tooltip, createSettings_mode_continue_tooltip, back_tooltip } from "../constants";
 
+var url = require("url");
+
 var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(SettingLoader, _React$PureComponent);
 
@@ -186,6 +188,12 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "".concat(number_logo_width, "px"),
         height: "".concat(number_logo_height, "px")
       };
+      var styleImageBk = {
+        width: "20px",
+        height: "20px",
+        marginLeft: "10px",
+        marginRight: "10px"
+      };
       var loadingMode = this.props.loadingMode;
       var fileLoading = this.state.fileLoading;
       var fileLoaded = this.state.fileLoaded;
@@ -241,31 +249,47 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
           defaultValue: defaultMic,
           width: width,
           margin: margin,
-          tooltip: createSettings_from_repo_names_tooltip
+          tooltip: _constants.createSettings_from_repo_names_tooltip,
+          isCentered: false
         }));
       }
 
-      list.push( /*#__PURE__*/React.createElement("div", {
+      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
+      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      list.push( /*#__PURE__*/_react.default.createElement("div", {
         key: "buttons"
-      }, /*#__PURE__*/React.createElement(PopoverTooltip, {
-        position: createSettings_mode_continue_tooltip.position,
-        title: createSettings_mode_continue_tooltip.title,
-        content: createSettings_mode_continue_tooltip.content,
-        element: /*#__PURE__*/React.createElement(Button, {
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        position: _constants.back_tooltip.position,
+        title: _constants.back_tooltip.title,
+        content: _constants.back_tooltip.content,
+        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          onClick: this.props.onClickBack,
+          style: buttonStyle,
+          size: "lg",
+          variant: "outline-dark"
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center" //gap: "10px",
+
+          }
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: backImgPath,
+          alt: backImgPath_tmp,
+          style: styleImageBk,
+          onLoad: this.onImgLoad
+        }), "Back"))
+      }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        position: _constants.createSettings_mode_continue_tooltip.position,
+        title: _constants.createSettings_mode_continue_tooltip.title,
+        content: _constants.createSettings_mode_continue_tooltip.content,
+        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           onClick: isDropzoneActive && fileLoaded && !fileLoading || !isDropzoneActive ? this.props.onClickConfirm : null,
           style: buttonStyle,
           size: "lg",
           disabled: isDropzoneActive && (!fileLoaded || fileLoading)
         }, isDropzoneActive && !fileLoaded && !fileLoading ? "Waiting for file" : isDropzoneActive && fileLoading ? "Loading file" : "Continue")
-      }), /*#__PURE__*/React.createElement(PopoverTooltip, {
-        position: back_tooltip.position,
-        title: back_tooltip.title,
-        content: back_tooltip.content,
-        element: /*#__PURE__*/React.createElement(Button, {
-          onClick: this.props.onClickBack,
-          style: buttonStyle,
-          size: "lg"
-        }, "Back")
       })));
       var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       return /*#__PURE__*/React.createElement("div", {
@@ -297,7 +321,12 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
           margin: "auto"
         },
         onLoad: this.onImgLoad
-      })), list));
+      })), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          textAlign: "center",
+          fontWeight: "bold"
+        }
+      }, "Manage Settings Step 3/3: Open Settings file"), list));
     }
   }], [{
     key: "getDerivedStateFromProps",

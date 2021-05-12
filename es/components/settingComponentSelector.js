@@ -491,14 +491,63 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         width: "80px",
         margin: "auto"
       };
+      var modalGridContainer = {
+        display: "flex",
+        flexDirection: "column",
+        //flexWrap: "wrap",
+        justifyContent: "center",
+        width: "100%",
+        height: "100%",
+        alignItems: "center"
+      };
       var modalGridPanel = {
         display: "flex",
         flexDirection: "row",
-        flexWrap: "wrap",
+        //flexWrap: "wrap",
         justifyContent: "center",
         width: "100%",
         height: "90%",
         alignItems: "left"
+      };
+      var modalGrid = {
+        display: "flex",
+        flexDirection: "column",
+        //flexWrap: "wrap",
+        justifyContent: "flex-start",
+        overflow: "auto",
+        width: "20%",
+        height: "100%",
+        maxHeight: "100%" //alignItems: "center",
+
+      };
+      var modalTopListContainer = {
+        display: "flex",
+        flexDirection: "column",
+        //flexWrap: "wrap",
+        justifyContent: "space-evenly",
+        overflow: "auto",
+        height: "250px",
+        maxHeight: "250px",
+        alignItems: "center",
+        width: "80%"
+      };
+      var modalTopList = {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "center"
+      };
+      var multiTab = {
+        display: "flex",
+        flexDirection: "row",
+        //flexWrap: "wrap",
+        overflow: "auto",
+        maxHeight: "100%",
+        minWidth: "70%",
+        justifyContent: "flex-start",
+        width: "70%",
+        alignItems: "left",
+        marginLeft: "10px"
       };
       var buttonStyle = {
         textAlign: "center",

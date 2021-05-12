@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="451" height="450" viewBox="0 0 451 450">
+  <defs>
+    <clipPath id="clip-Save_Icon_-_White">
+      <rect width="451" height="450"/>
+    </clipPath>
+  </defs>
+  <g id="Save_Icon_-_White" data-name="Save Icon - White" clip-path="url(#clip-Save_Icon_-_White)">
+    <path id="save-solid" d="M433.941,129.941,350.059,46.059A48,48,0,0,0,316.118,32H48A48,48,0,0,0,0,80V432a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V163.882a48,48,0,0,0-14.059-33.941ZM224,416a64,64,0,1,1,64-64A64,64,0,0,1,224,416Zm96-304.52V212a12,12,0,0,1-12,12H76a12,12,0,0,1-12-12V108A12,12,0,0,1,76,96H304.52a12,12,0,0,1,8.485,3.515l3.48,3.48A12,12,0,0,1,320,111.48Z" transform="translate(0 -32)" fill="#fff"/>
+  </g>
+</svg>

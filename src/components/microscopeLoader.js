@@ -8,6 +8,8 @@ import PopoverTooltip from "./popoverTooltip";
 
 import { validateMicroscope } from "../genericUtilities";
 
+const url = require("url");
+
 import {
 	string_json_ext,
 	number_logo_width,
@@ -20,6 +22,7 @@ import {
 	create_mode_continue_tooltip,
 	create_mode_continue_settings_tooltip,
 	back_tooltip,
+	string_back_img,
 } from "../constants";
 
 export default class MicroscopeLoader extends React.PureComponent {
@@ -178,6 +181,12 @@ export default class MicroscopeLoader extends React.PureComponent {
 			height: "100%",
 			margin: "auto",
 		};
+		let styleImageBk = {
+			width: "20px",
+			height: "20px",
+			marginLeft: "10px",
+			marginRight: "10px",
+		};
 		let loadingMode = this.props.loadingMode;
 		let fileLoading = this.state.fileLoading;
 		let fileLoaded = this.state.fileLoaded;
@@ -188,10 +197,17 @@ export default class MicroscopeLoader extends React.PureComponent {
 		if (loadingMode === 1) isDropzoneActive = true;
 
 		let create_mode_tooltip = null;
+		let titleText = null;
 		if (this.props.isSettings) {
 			create_mode_tooltip = create_mode_selector_settings_tooltip;
+			titleText = "Manage Settings Step 1/3: Open Microscope File";
 		} else {
 			create_mode_tooltip = create_mode_selector_tooltip;
+			if (this.props.isImporter) {
+				titleText = "Microscope Importer Step 1/1: Open Microscope File";
+			} else {
+				titleText = "Manage Instrument Step 1/1: Open Microscope File";
+			}
 		}
 
 		let list = [];
@@ -280,6 +296,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						width={width}
 						margin={margin}
 						tooltip={create_from_repo_names_tooltip}
+						isCentered={false}
 					/>
 				);
 			}
@@ -291,8 +308,45 @@ export default class MicroscopeLoader extends React.PureComponent {
 		} else {
 			continue_tooltip = create_mode_continue_tooltip;
 		}
+		let backImgPath_tmp = url.resolve(this.props.imagesPath, string_back_img);
+		let backImgPath =
+			backImgPath_tmp +
+			(backImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+
 		list.push(
 			<div key="buttons">
+				<PopoverTooltip
+					position={back_tooltip.position}
+					title={back_tooltip.title}
+					content={back_tooltip.content}
+					element={
+						<Button
+							onClick={this.props.onClickBack}
+							style={buttonStyle}
+							size="lg"
+							variant="outline-dark"
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									//gap: "10px",
+								}}
+							>
+								<img
+									src={backImgPath}
+									alt={backImgPath_tmp}
+									style={styleImageBk}
+									onLoad={this.onImgLoad}
+								/>
+								Back
+							</div>
+						</Button>
+					}
+				/>
 				<PopoverTooltip
 					position={continue_tooltip.position}
 					title={continue_tooltip.title}
@@ -317,20 +371,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 						</Button>
 					}
 				/>
-				<PopoverTooltip
-					position={back_tooltip.position}
-					title={back_tooltip.title}
-					content={back_tooltip.content}
-					element={
-						<Button
-							onClick={this.props.onClickBack}
-							style={buttonStyle}
-							size="lg"
-						>
-							Back
-						</Button>
-					}
-				/>
 			</div>
 		);
 
@@ -349,6 +389,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 							style={styleImage}
 							onLoad={this.onImgLoad}
 						/>
+					</div>
+					<div style={{ textAlign: "center", fontWeight: "bold" }}>
+						{titleText}
 					</div>
 					{list}
 				</div>

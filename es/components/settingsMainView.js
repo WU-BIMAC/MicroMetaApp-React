@@ -452,6 +452,17 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           // marginRight: "5px",
 
         };
+        var containerStyle = {
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          height: "100%"
+        };
+        var infoStyle = {
+          position: "absolute",
+          left: "10px",
+          top: "90px"
+        };
         var styleValidation = {
           position: "absolute",
           verticalAlign: "middle",

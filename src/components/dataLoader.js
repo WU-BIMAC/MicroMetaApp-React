@@ -148,6 +148,9 @@ export default class DataLoader extends React.PureComponent {
 							onLoad={this.onImgLoad}
 						/>
 					</div>
+					<div style={{ textAlign: "center", fontWeight: "bold" }}>
+						Loading...
+					</div>
 					<Button
 						ref={this.simulateClickLoadMicroscopes}
 						disabled={isLoadingMicroscopes || isMicroscopesLoaded}

@@ -503,7 +503,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           if (selectedComp === null || selectedComp === undefined) {
             this.setState({
               selectedSlot: null,
-              selectedComp: null
+              selectedComp: null,
+              selectedSchema: null
             });
             return;
           }
@@ -572,7 +573,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         editing: true,
         category: category,
         selectedSlot: selectedSlot,
-        selectedComp: comp,
+        //selectedComp: comp,
         tmpSlots: localComps
       });
     }
@@ -749,10 +750,19 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         width: "80px",
         margin: "auto"
       };
+      var modalGridContainer = {
+        display: "flex",
+        flexDirection: "column",
+        //flexWrap: "wrap",
+        justifyContent: "center",
+        width: "100%",
+        height: "100%",
+        alignItems: "center"
+      };
       var modalGridPanel = {
         display: "flex",
         flexDirection: "row",
-        flexWrap: "wrap",
+        //flexWrap: "wrap",
         justifyContent: "center",
         width: "100%",
         height: "90%",

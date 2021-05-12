@@ -13,6 +13,7 @@ import {
 	string_canvas,
 	hardware_explorer_tooltip,
 	menu_order,
+	string_microscope_img,
 } from "../constants";
 
 export default class Toolbar extends React.PureComponent {
@@ -154,6 +155,8 @@ export default class Toolbar extends React.PureComponent {
 			display: "flex",
 			flexDirection: "row",
 			justifyContent: "space-between",
+			height: "50px",
+			alignItems: "center",
 		};
 		//pointerEvents: "none"
 		let explorerStyle = null;
@@ -165,16 +168,20 @@ export default class Toolbar extends React.PureComponent {
 				//transform: "rotateZ(90deg)",
 			});
 		} else {
-			explorerStyle = Object.assign({}, style, {});
+			explorerStyle = Object.assign({}, style, { height: "75px" });
 		}
 
 		const styleTransitionClose = {
 			transition: "transform 300ms",
-			transform: "rotateZ(0deg)",
+			transform: "rotateZ(180deg)",
+			marginLeft: "10px",
+			marginRight: "10px",
 		};
 		const styleTransitionOpen = {
 			transition: "transform 300ms",
-			transform: "rotateZ(-90deg)",
+			transform: "rotateZ(0deg)",
+			marginLeft: "10px",
+			marginRight: "10px",
 		};
 		let elementList = this.state.elementList;
 		let isHidden = this.state.isHidden;
@@ -183,14 +190,30 @@ export default class Toolbar extends React.PureComponent {
 		let explorerButton = null;
 		let explorerContainerStyle = { width: "100%" };
 		let hardwareExplorerText = "Hardware explorer";
+
+		let styleImageBk = {
+			width: "40px",
+			height: "40px",
+			marginLeft: "10px",
+			marginRight: "10px",
+		};
+		let microscopeImgPath_tmp = url.resolve(
+			this.props.imagesPath,
+			string_microscope_img
+		);
+		let microscopeImgPath =
+			microscopeImgPath_tmp +
+			(microscopeImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 		if (this.props.isToolbarHidden) {
 			const styleTransitionCloseExplorer = Object.assign(
 				{},
 				styleTransitionClose,
-				{ transform: "rotateZ(0deg)" }
+				{ transform: "rotateZ(270deg)", marginLeft: "0px", marginRight: "0px" }
 			);
 			let hardwareExplorerHideButtonClose = (
-				<div style={styleTransitionCloseExplorer}>&#9665;</div>
+				<div style={styleTransitionCloseExplorer}>&#9650;</div>
 			);
 			explorerContainerStyle = Object.assign({}, explorerContainerStyle, {
 				height: "100%",
@@ -201,33 +224,63 @@ export default class Toolbar extends React.PureComponent {
 			explorerButton = (
 				<Button
 					key={"HardwareExplorer"}
-					variant="secondary"
+					variant="dark"
 					size="lg"
 					style={explorerStyle}
 					onClick={this.onHideToolbar}
 				>
-					<div>{hardwareExplorerHideButtonClose}</div>
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							//gap: "10px",
+						}}
+					>
+						<img
+							src={microscopeImgPath}
+							alt={microscopeImgPath_tmp}
+							style={styleImageBk}
+							onLoad={this.onImgLoad}
+						/>
+					</div>
+					{hardwareExplorerHideButtonClose}
 				</Button>
 			);
 		} else {
 			const styleTransitionOpenExplorer = Object.assign(
 				{},
 				styleTransitionOpen,
-				{ transform: "rotateZ(180deg)" }
+				{ transform: "rotateZ(90deg)" }
 			);
 			let hardwareExplorerHideButtonOpen = (
-				<div style={styleTransitionOpenExplorer}>&#9665;</div>
+				<div style={styleTransitionOpenExplorer}>&#9650;</div>
 			);
 			explorerButton = (
 				<Button
 					key={"HardwareExplorer"}
-					variant="secondary"
+					variant="dark"
 					size="lg"
 					style={explorerStyle}
 					onClick={this.onHideToolbar}
 				>
-					<div>{hardwareExplorerText}</div>
-					<div>{hardwareExplorerHideButtonOpen}</div>
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							//gap: "10px",
+						}}
+					>
+						<img
+							src={microscopeImgPath}
+							alt={microscopeImgPath_tmp}
+							style={styleImageBk}
+							onLoad={this.onImgLoad}
+						/>
+						{hardwareExplorerText}
+					</div>
+					{hardwareExplorerHideButtonOpen}
 				</Button>
 			);
 		}
@@ -270,13 +323,13 @@ export default class Toolbar extends React.PureComponent {
 						trigger={
 							<Button key={`Trigger${key}`} size="lg" style={style}>
 								<div>{simpleKey}</div>
-								<div style={styleTransitionClose}>&#9665;</div>
+								<div style={styleTransitionClose}>&#9650;</div>
 							</Button>
 						}
 						triggerWhenOpen={
 							<Button key={`Trigger${key}`} size="lg" style={style}>
 								<div>{simpleKey}</div>
-								<div style={styleTransitionOpen}>&#9665;</div>
+								<div style={styleTransitionOpen}>&#9650;</div>
 							</Button>
 						}
 					>
