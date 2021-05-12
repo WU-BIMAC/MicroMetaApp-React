@@ -153,6 +153,7 @@ export default class Footer extends React.PureComponent {
 				variant="dark"
 				imgPath_tmp={saveImgPath_tmp}
 				imgPath={saveImgPath}
+				isCentered={true}
 			/>
 		);
 		buttonsRight[index + 1] = (
@@ -169,6 +170,7 @@ export default class Footer extends React.PureComponent {
 				variant="dark"
 				imgPath_tmp={exportImgPath_tmp}
 				imgPath={exportImgPath}
+				isCentered={true}
 			/>
 		);
 
