@@ -173,6 +173,8 @@ export default class ImageLoader extends React.PureComponent {
 		let styleImageBk = {
 			width: "20px",
 			height: "20px",
+			marginLeft: "10px",
+			marginRight: "10px",
 		};
 		let imageMap = this.state.imageMap;
 
@@ -269,7 +271,7 @@ export default class ImageLoader extends React.PureComponent {
 									display: "flex",
 									justifyContent: "center",
 									alignItems: "center",
-									gap: "10px",
+									//gap: "10px",
 								}}
 							>
 								<img

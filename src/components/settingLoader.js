@@ -182,6 +182,8 @@ export default class SettingLoader extends React.PureComponent {
 		let styleImageBk = {
 			width: "20px",
 			height: "20px",
+			marginLeft: "10px",
+			marginRight: "10px",
 		};
 		let loadingMode = this.props.loadingMode;
 		let fileLoading = this.state.fileLoading;
@@ -255,6 +257,7 @@ export default class SettingLoader extends React.PureComponent {
 					width={width}
 					margin={margin}
 					tooltip={createSettings_from_repo_names_tooltip}
+					isCentered={false}
 				/>
 			);
 		}
@@ -284,7 +287,7 @@ export default class SettingLoader extends React.PureComponent {
 									display: "flex",
 									justifyContent: "center",
 									alignItems: "center",
-									gap: "10px",
+									//gap: "10px",
 								}}
 							>
 								<img

@@ -53,6 +53,8 @@ export default class Footer extends React.PureComponent {
 		let styleImageBk = {
 			width: "20px",
 			height: "20px",
+			marginLeft: "10px",
+			marginRight: "10px",
 		};
 
 		let saveTooltip = save_microscope_tooltip;
@@ -122,7 +124,7 @@ export default class Footer extends React.PureComponent {
 									display: "flex",
 									justifyContent: "center",
 									alignItems: "center",
-									gap: "10px",
+									//gap: "10px",
 								}}
 							>
 								<img
@@ -153,7 +155,6 @@ export default class Footer extends React.PureComponent {
 				variant="dark"
 				imgPath_tmp={saveImgPath_tmp}
 				imgPath={saveImgPath}
-				isCentered={true}
 			/>
 		);
 		buttonsRight[index + 1] = (
@@ -170,7 +171,6 @@ export default class Footer extends React.PureComponent {
 				variant="dark"
 				imgPath_tmp={exportImgPath_tmp}
 				imgPath={exportImgPath}
-				isCentered={true}
 			/>
 		);
 
@@ -204,7 +204,7 @@ export default class Footer extends React.PureComponent {
 								display: "flex",
 								justifyContent: "center",
 								alignItems: "center",
-								gap: "10px",
+								//gap: "10px",
 							}}
 						>
 							<img

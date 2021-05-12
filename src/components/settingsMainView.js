@@ -149,7 +149,10 @@ export default class SettingMainView extends React.PureComponent {
 				let schema = props.experimentalSchemas[schemaIndex];
 				let schema_id = schema.ID;
 				this.state.experimentalSchemas[schema_id] = schema;
-				if (schema_id === "Experiment.json" && this.props.hasExperimentalModel) {
+				if (
+					schema_id === "Experiment.json" &&
+					this.props.hasExperimentalModel
+				) {
 					if (
 						this.state.experiment === null ||
 						this.state.experiment === undefined
@@ -489,7 +492,7 @@ export default class SettingMainView extends React.PureComponent {
 			const infoStyle = {
 				position: "absolute",
 				left: "10px",
-				top: "70px",
+				top: "90px",
 			};
 			const styleValidation = {
 				position: "absolute",

@@ -194,6 +194,8 @@ export default class Toolbar extends React.PureComponent {
 		let styleImageBk = {
 			width: "40px",
 			height: "40px",
+			marginLeft: "10px",
+			marginRight: "10px",
 		};
 		let microscopeImgPath_tmp = url.resolve(
 			this.props.imagesPath,
@@ -232,7 +234,7 @@ export default class Toolbar extends React.PureComponent {
 							display: "flex",
 							justifyContent: "center",
 							alignItems: "center",
-							gap: "10px",
+							//gap: "10px",
 						}}
 					>
 						<img
@@ -267,7 +269,7 @@ export default class Toolbar extends React.PureComponent {
 							display: "flex",
 							justifyContent: "center",
 							alignItems: "center",
-							gap: "10px",
+							//gap: "10px",
 						}}
 					>
 						<img

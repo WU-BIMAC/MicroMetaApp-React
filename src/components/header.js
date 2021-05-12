@@ -148,7 +148,6 @@ export default class Header extends React.PureComponent {
 				defaultValue={defaultValidationTier}
 				direction={"down"}
 				tooltip={validationTooltip}
-				isCentered={true}
 			/>
 		);
 

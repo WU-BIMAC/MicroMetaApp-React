@@ -53,6 +53,8 @@ export default class DropdownMenu extends React.PureComponent {
 		let styleImageBk = {
 			width: "20px",
 			height: "20px",
+			marginLeft: "10px",
+			marginRight: "10px",
 		};
 		let inputData = this.state.inputData;
 		let width = this.props.width || 250;
@@ -64,9 +66,9 @@ export default class DropdownMenu extends React.PureComponent {
 				{item}
 			</Dropdown.Item>
 		));
-		let justifyContent = "flex-start";
-		if (this.props.isCentered) {
-			justifyContent = "center";
+		let justifyContent = "center";
+		if (isDefined(this.props.isCentered) && !this.props.isCentered) {
+			justifyContent = "flex-start";
 		}
 		const dropdownStyle = {
 			width: `${width}px`,
@@ -95,7 +97,7 @@ export default class DropdownMenu extends React.PureComponent {
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
-						gap: "10px",
+						//gap: "10px",
 					}}
 				>
 					<img
