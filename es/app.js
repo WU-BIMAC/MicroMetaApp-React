@@ -94,7 +94,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       standTypes: {},
       standType: null,
       imageMetadata: null,
-      isToolbarHidden: false,
+      isToolbarHidden: props.isToolbarHidden || false,
       is4DNPortal: props.is4DNPortal || false,
       hasImport: props.hasImport || false
     };
