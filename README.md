@@ -1,7 +1,14 @@
 # 4DN Micro-Meta App React implementation
 
-## Website
-[MicroMetaApp website](https://wu-bimac.github.io/MicroMetaApp.github.io/)
+1. [Summary](#summary)
+2. [Background](#background)
+3. [Description](#description)
+4. [Website](https://wu-bimac.github.io/MicroMetaApp.github.io/)
+5. [Installation](https://micrometaapp-docs.readthedocs.io/en/latest/docs/intro/installation.html)
+6. [Documentation](https://micrometaapp-docs.readthedocs.io/en/latest/index.html)
+7. [Step-by-Step Instructions](https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/index.html#step-by-step-instructions)
+8. [Tutorial Videos](https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/VideoTutorials.html#micro-meta-app-video-tutorials)
+9. [Example data files and instructional video on how to use them](https://doi.org/10.5281/zenodo.4891883)
 
 ## Summary
 Micro-Meta App is an interactive tool that was developed by Alex Rigano in the Strambio De Castillia's lab at UMMS to facilitate the documentation of fluorescence microscopy experiments. 
