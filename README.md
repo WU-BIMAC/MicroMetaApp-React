@@ -8,7 +8,12 @@
 6. [Documentation](https://micrometaapp-docs.readthedocs.io/en/latest/index.html)
 7. [Step-by-Step Instructions](https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/index.html#step-by-step-instructions)
 8. [Tutorial Videos](https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/VideoTutorials.html#micro-meta-app-video-tutorials)
-9. [Example data files and instructional video on how to use them](https://doi.org/10.5281/zenodo.4891883)
+9. [Example data files](https://doi.org/10.5281/zenodo.4891883)
+10. Use these videos to get started with using Micro-Meta App after downloading the example data files available at point 9.
+
+- [Part 1/2](https://vimeo.com/562022222)
+
+- [Part 2/2](https://vimeo.com/562022281) 
 
 ## Summary
 Micro-Meta App is an interactive tool that was developed by Alex Rigano in the Strambio De Castillia's lab at UMMS to facilitate the documentation of fluorescence microscopy experiments. 
