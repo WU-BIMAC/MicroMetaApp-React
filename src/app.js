@@ -593,7 +593,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let offX = 0;
 			let element = elementData[key];
 			if (isDefined(element.OccupiedSpot)) {
-				offY -= number_canvas_element_icons_height * (1 -  newScalingFactor);
+				offY -= number_canvas_element_icons_height * (1 - newScalingFactor);
 			} else {
 				offY -= 5 * scalingFactor;
 				offX -= 5 * scalingFactor;
@@ -1849,6 +1849,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			Extension: microscopeSchema.extension,
 			Domain: microscopeSchema.domain,
 			Category: microscopeSchema.category,
+			ScalingFactor: this.props.scalingFactor,
 		};
 		let uuid2 = uuidv4();
 		microscope.MicroscopeStand = {
@@ -1860,7 +1861,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			Extension: microscopeStandSchema.extension,
 			Domain: microscopeStandSchema.domain,
 			Category: microscopeStandSchema.category,
-			ScalingFactor: this.props.scalingFactor,
 		};
 		this.setState({
 			microscope: microscope,
