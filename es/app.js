@@ -1154,7 +1154,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         AppVersion: _package.version,
         Extension: microscopeSchema.extension,
         Domain: microscopeSchema.domain,
-        Category: microscopeSchema.category
+        Category: microscopeSchema.category,
+        ScalingFactor: this.props.scalingFactor
       };
       var uuid2 = (0, _uuid.v4)();
       microscope.MicroscopeStand = {
@@ -1165,8 +1166,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         ModelVersion: microscopeStandSchema.modelVersion,
         Extension: microscopeStandSchema.extension,
         Domain: microscopeStandSchema.domain,
-        Category: microscopeStandSchema.category,
-        ScalingFactor: this.props.scalingFactor
+        Category: microscopeStandSchema.category
       };
       this.setState({
         microscope: microscope,
