@@ -677,12 +677,21 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
 
       var minElementWidth = _constants.number_canvas_element_min_width * scalingFactor;
+      var minElementHeight = _constants.number_canvas_element_min_height * scalingFactor;
       var adjustedWidth = 0;
 
       if (width < minElementWidth) {
         adjustedWidth = (minElementWidth - width) / 2;
         x -= adjustedWidth;
         width = minElementWidth;
+      }
+
+      var adjustedHeight = 0;
+
+      if (height < minElementHeight) {
+        adjustedHeight = (minElementHeight - height) / 2;
+        y -= adjustedHeight;
+        height = minElementHeight;
       }
 
       if (originalDimensions[schema_ID] === undefined) {
@@ -700,7 +709,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         x -= 5 * scalingFactor;
       }
 
-      y -= 6.67; // if (sourceElement.source !== string_toolbar) {
+      y -= _constants.number_canvas_element_offset_default; // if (sourceElement.source !== string_toolbar) {
       // 	x -= 5;
       // 	y -= 15;
       // }
@@ -1074,7 +1083,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         verticalAlign: "middle"
       }; //justifyContent: "space-between"
 
-      var minElementWidth = _constants.number_canvas_element_min_width * scalingFactor; //	console.log("minElementWidth - " + minElementWidth);
+      var minElementWidth = _constants.number_canvas_element_min_width * scalingFactor;
+      var minElementHeight = _constants.number_canvas_element_min_height * scalingFactor; //	console.log("minElementWidth - " + minElementWidth);
 
       var styleActionContainer = {
         display: "flex",
@@ -1125,6 +1135,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         // }
 
         if (scaledContainerWidth <= minElementWidth) scaledContainerWidth = minElementWidth;
+        if (scaledContainerHeight <= minElementHeight) scaledContainerHeight = minElementHeight;
         scaledContainerHeight += _constants.number_canvas_element_icons_height
         /* * scalingFactor */
         + _constants.number_canvas_element_offset_default; // console.log("SCW - " + scaledContainerWidth);

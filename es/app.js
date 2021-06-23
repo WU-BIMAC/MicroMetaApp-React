@@ -120,7 +120,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       standTypes: {},
       standType: null,
       imageMetadata: null,
-      isToolbarHidden: false,
+      isToolbarHidden: props.isToolbarHidden || false,
       is4DNPortal: props.is4DNPortal || false,
       hasImport: props.hasImport || false
     };
@@ -1165,7 +1165,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         ModelVersion: microscopeStandSchema.modelVersion,
         Extension: microscopeStandSchema.extension,
         Domain: microscopeStandSchema.domain,
-        Category: microscopeStandSchema.category
+        Category: microscopeStandSchema.category,
+        ScalingFactor: this.props.scalingFactor
       };
       this.setState({
         microscope: microscope,
@@ -2573,18 +2574,36 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     key: "checkScalingFactorAndRescaleIfNeeded",
     value: function checkScalingFactorAndRescaleIfNeeded(modifiedMic, elementData, scalingFactor) {
       var micScalingFactor = 1;
-      if (modifiedMic.ScalingFactor !== undefined) micScalingFactor = modifiedMic.ScalingFactor;
+
+      if ((0, _genericUtilities.isDefined)(modifiedMic.ScalingFactor)) {
+        micScalingFactor = modifiedMic.ScalingFactor;
+      } else {
+        modifiedMic.ScalingFactor = scalingFactor;
+      }
+
       if (micScalingFactor === scalingFactor) return;
       var reverseScale = 1 / micScalingFactor;
       var newScalingFactor = reverseScale * scalingFactor;
+      console.log("rescale from " + micScalingFactor + " to " + scalingFactor + " newScalingFactor: " + newScalingFactor);
       modifiedMic.ScalingFactor = scalingFactor; //console.log("SC: " + newScalingFactor);
 
       for (var key in elementData) {
+        var offY = 0;
+        var offX = 0;
         var element = elementData[key];
+
+        if ((0, _genericUtilities.isDefined)(element.OccupiedSpot)) {
+          offY -= _constants.number_canvas_element_icons_height * (1 - newScalingFactor);
+        } else {
+          offY -= 5 * scalingFactor;
+          offX -= 5 * scalingFactor;
+        }
+
+        offY -= _constants.number_canvas_element_offset_default * (1 - newScalingFactor);
         element.Width *= newScalingFactor;
         element.Height *= newScalingFactor;
-        element.PositionX *= newScalingFactor;
-        element.PositionY *= newScalingFactor;
+        element.PositionX = element.PositionX * newScalingFactor + offX;
+        element.PositionY = element.PositionY * newScalingFactor + offY;
       }
     }
   }, {
