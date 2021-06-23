@@ -33,7 +33,7 @@ var url = require("url");
 
 var validate = require("jsonschema").validate;
 
-import { string_na, string_object, string_array, string_toolbar, string_canvas, string_json_ext, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, number_canvas_element_min_width, number_canvas_element_icons_height, number_canvas_element_offset_default, string_typeDimensionsGeneral } from "../constants";
+import { string_na, string_object, string_array, string_toolbar, string_canvas, string_json_ext, string_currentNumberOf_identifier, string_minNumberOf_identifier, string_maxNumberOf_identifier, number_canvas_element_min_width, number_canvas_element_min_height, number_canvas_element_icons_height, number_canvas_element_offset_default, string_typeDimensionsGeneral } from "../constants";
 import { bool } from "prop-types";
 
 var Canvas = /*#__PURE__*/function (_React$PureComponent) {
@@ -645,12 +645,21 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
 
       var minElementWidth = number_canvas_element_min_width * scalingFactor;
+      var minElementHeight = number_canvas_element_min_height * scalingFactor;
       var adjustedWidth = 0;
 
       if (width < minElementWidth) {
         adjustedWidth = (minElementWidth - width) / 2;
         x -= adjustedWidth;
         width = minElementWidth;
+      }
+
+      var adjustedHeight = 0;
+
+      if (height < minElementHeight) {
+        adjustedHeight = (minElementHeight - height) / 2;
+        y -= adjustedHeight;
+        height = minElementHeight;
       }
 
       if (originalDimensions[schema_ID] === undefined) {
@@ -668,7 +677,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         x -= 5 * scalingFactor;
       }
 
-      y -= 6.67; // if (sourceElement.source !== string_toolbar) {
+      y -= number_canvas_element_offset_default; // if (sourceElement.source !== string_toolbar) {
       // 	x -= 5;
       // 	y -= 15;
       // }
@@ -1042,7 +1051,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         verticalAlign: "middle"
       }; //justifyContent: "space-between"
 
-      var minElementWidth = number_canvas_element_min_width * scalingFactor; //	console.log("minElementWidth - " + minElementWidth);
+      var minElementWidth = number_canvas_element_min_width * scalingFactor;
+      var minElementHeight = number_canvas_element_min_height * scalingFactor; //	console.log("minElementWidth - " + minElementWidth);
 
       var styleActionContainer = {
         display: "flex",
@@ -1085,6 +1095,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         // }
 
         if (scaledContainerWidth <= minElementWidth) scaledContainerWidth = minElementWidth;
+        if (scaledContainerHeight <= minElementHeight) scaledContainerHeight = minElementHeight;
         scaledContainerHeight += number_canvas_element_icons_height
         /* * scalingFactor */
         + number_canvas_element_offset_default; // console.log("SCW - " + scaledContainerWidth);

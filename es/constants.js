@@ -32,6 +32,7 @@ export var number_logo_height = 280; // export const number_canvas_width = 3201;
 // export const number_canvas_height = 989;
 
 export var number_canvas_element_min_width = 25;
+export var number_canvas_element_min_height = 25;
 export var number_canvas_element_icons_height = 12.5;
 export var number_canvas_element_offset_default = 6.67;
 export var current_stands = [{

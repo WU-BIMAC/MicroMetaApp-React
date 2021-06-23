@@ -23,6 +23,7 @@ import {
 	string_minNumberOf_identifier,
 	string_maxNumberOf_identifier,
 	number_canvas_element_min_width,
+	number_canvas_element_min_height,
 	number_canvas_element_icons_height,
 	number_canvas_element_offset_default,
 	string_typeDimensionsGeneral,
@@ -99,9 +100,8 @@ export default class Canvas extends React.PureComponent {
 		});
 
 		this.setEditingOnCanvas = this.setEditingOnCanvas.bind(this);
-		this.addComponentsIndexesIfMissing = this.addComponentsIndexesIfMissing.bind(
-			this
-		);
+		this.addComponentsIndexesIfMissing =
+			this.addComponentsIndexesIfMissing.bind(this);
 
 		this.dragged = this.dragged.bind(this);
 		this.dropped = this.dropped.bind(this);
@@ -122,9 +122,8 @@ export default class Canvas extends React.PureComponent {
 
 		this.handleScroll = this.handleScroll.bind(this);
 
-		this.clearOccupiedSpotOnElements = this.clearOccupiedSpotOnElements.bind(
-			this
-		);
+		this.clearOccupiedSpotOnElements =
+			this.clearOccupiedSpotOnElements.bind(this);
 
 		this.props.updateElementData(this.state.elementData, true);
 	}
@@ -637,12 +636,19 @@ export default class Canvas extends React.PureComponent {
 		//console.log("DROPPED: r-" + rotate);
 
 		let minElementWidth = number_canvas_element_min_width * scalingFactor;
+		let minElementHeight = number_canvas_element_min_height * scalingFactor;
 
 		let adjustedWidth = 0;
 		if (width < minElementWidth) {
 			adjustedWidth = (minElementWidth - width) / 2;
 			x -= adjustedWidth;
 			width = minElementWidth;
+		}
+		let adjustedHeight = 0;
+		if (height < minElementHeight) {
+			adjustedHeight = (minElementHeight - height) / 2;
+			y -= adjustedHeight;
+			height = minElementHeight;
 		}
 
 		if (originalDimensions[schema_ID] === undefined) {
@@ -660,7 +666,7 @@ export default class Canvas extends React.PureComponent {
 			x -= 5 * scalingFactor;
 		}
 
-		y -= 6.67;
+		y -= number_canvas_element_offset_default;
 		// if (sourceElement.source !== string_toolbar) {
 		// 	x -= 5;
 		// 	y -= 15;
@@ -1023,6 +1029,7 @@ export default class Canvas extends React.PureComponent {
 		};
 		//justifyContent: "space-between"
 		let minElementWidth = number_canvas_element_min_width * scalingFactor;
+		let minElementHeight = number_canvas_element_min_height * scalingFactor;
 		//	console.log("minElementWidth - " + minElementWidth);
 		const styleActionContainer = {
 			display: "flex",
@@ -1081,6 +1088,8 @@ export default class Canvas extends React.PureComponent {
 
 			if (scaledContainerWidth <= minElementWidth)
 				scaledContainerWidth = minElementWidth;
+			if (scaledContainerHeight <= minElementHeight)
+				scaledContainerHeight = minElementHeight;
 			scaledContainerHeight +=
 				number_canvas_element_icons_height /* * scalingFactor */ +
 				number_canvas_element_offset_default;

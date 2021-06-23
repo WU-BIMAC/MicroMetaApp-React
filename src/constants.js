@@ -45,6 +45,7 @@ export const number_logo_height = 280;
 // export const number_canvas_height = 989;
 
 export const number_canvas_element_min_width = 25;
+export const number_canvas_element_min_height = 25;
 export const number_canvas_element_icons_height = 12.5;
 export const number_canvas_element_offset_default = 6.67;
 
