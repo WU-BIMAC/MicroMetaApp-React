@@ -1176,6 +1176,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createOrUseMicroscopeFromDroppedFile",
     value: function createOrUseMicroscopeFromDroppedFile() {
+      //console.log("createOrUseMicroscopeFromDroppedFile - 1");
       var modifiedMic = this.state.microscope;
       var activeTier = this.state.activeTier;
 
@@ -1217,7 +1218,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var validatedMicroscope = validationMicroscope.valid;
       var validationStand = validate(modifiedMic.MicroscopeStand, microscopeStandSchema);
       var validatedStand = validationStand.valid;
-      MicroMetaAppReact.checkScalingFactorAndRescaleIfNeeded(modifiedMic, newElementData, this.props.scalingFactor);
+      MicroMetaAppReact.checkScalingFactorAndRescaleIfNeeded(modifiedMic, newElementData, this.props.scalingFactor); //console.log("createOrUseMicroscopeFromDroppedFile - 2");
+      //console.log(modifiedMic);
+
       this.setState({
         microscope: modifiedMic,
         setting: null,
@@ -1883,6 +1886,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         microscope: microscope
       });
+      console.log(microscope);
 
       if (lowerCaseItem.includes("save")) {
         this.props.onSaveMicroscope(microscope, this.handleCompleteSave);
@@ -2503,54 +2507,52 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }], [{
     key: "getDerivedStateFromProps",
-    value: function getDerivedStateFromProps(props, state) {
-      if (props.schema !== state.schema && isDefined(props.schema)) {
-        return {
-          schema: props.schema
-        };
-      }
-
-      if (props.microscope !== state.microscope && props.microscope !== state.oldMicroscope && isDefined(props.microscope)) {
-        return {
-          microscope: props.microscope
-        };
-      }
-
-      if (props.setting !== state.setting && props.setting !== state.oldSetting && isDefined(props.setting)) {
-        return {
-          setting: props.setting
-        };
-      }
-
-      if (props.imageMetadata !== state.imageMetadata && props.imageMetadata !== state.oldImageMetadata && isDefined(props.imageMetadata)) {
-        return {
-          imageMetadata: props.imageMetadata
-        };
-      }
-
-      if (props.microscopes !== state.microscopes && isDefined(props.microscopes)) {
-        return {
-          microscopes: props.microscopes
-        };
-      }
-
-      if (props.settings !== state.settings && isDefined(props.settings)) {
-        return {
-          settings: props.settings
-        };
-      }
-
+    value: function getDerivedStateFromProps() {
+      // if (props.schema !== state.schema && isDefined(props.schema)) {
+      // 	return { schema: props.schema };
+      // }
+      // if (
+      // 	props.microscope !== state.microscope &&
+      // 	props.microscope !== state.oldMicroscope &&
+      // 	isDefined(props.microscope)
+      // ) {
+      // 	return { microscope: props.microscope };
+      // }
+      // if (
+      // 	props.setting !== state.setting &&
+      // 	props.setting !== state.oldSetting &&
+      // 	isDefined(props.setting)
+      // ) {
+      // 	return { setting: props.setting };
+      // }
+      // if (
+      // 	props.imageMetadata !== state.imageMetadata &&
+      // 	props.imageMetadata !== state.oldImageMetadata &&
+      // 	isDefined(props.imageMetadata)
+      // ) {
+      // 	return { imageMetadata: props.imageMetadata };
+      // }
+      // if (
+      // 	props.microscopes !== state.microscopes &&
+      // 	isDefined(props.microscopes)
+      // ) {
+      // 	return { microscopes: props.microscopes };
+      // }
+      // if (props.settings !== state.settings && isDefined(props.settings)) {
+      // 	return { settings: props.settings };
+      // }
       return null;
     }
   }, {
     key: "checkScalingFactorAndRescaleIfNeeded",
     value: function checkScalingFactorAndRescaleIfNeeded(modifiedMic, elementData, scalingFactor) {
+      //console.log("checkScalingFactorAndRescaleIfNeeded");
       var micScalingFactor = 1;
 
       if (isDefined(modifiedMic.ScalingFactor)) {
         micScalingFactor = modifiedMic.ScalingFactor;
       } else {
-        modifiedMic.ScalingFactor = scalingFactor;
+        modifiedMic.ScalingFactor = micScalingFactor;
       }
 
       if (micScalingFactor === scalingFactor) {
