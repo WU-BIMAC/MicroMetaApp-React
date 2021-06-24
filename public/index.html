@@ -67,43 +67,43 @@
 						width: window.innerWidth,
 						height: window.innerHeight,
 					};
-					// let micTest = {
-					// 	"Name": "New Instrument",
-					// 	"Schema_ID": "Instrument.json",
-					// 	"ID": "1edf9d66-7922-4225-b0e6-ac255ec8d04b",
-					// 	"Tier": 3,
-					// 	"ValidationTier": 3,
-					// 	"ModelVersion": "2.00.0",
-					// 	"AppVersion": "1.0.0-b1",
-					// 	"MicroscopeStand": {
-					// 		"Name": "New InvertedMicroscopeStand",
-					// 		"Schema_ID": "InvertedMicroscopeStand.json",
-					// 		"ID": "3fcc00df-70b1-4b38-bc88-863824c8f26f",
-					// 		"Tier": 1,
-					// 		"ModelVersion": "2.00.0",
-					// 		"Extension": "Basic",
-					// 		"Domain": "MicroscopeHardwareSpecifications",
-					// 		"Category": "MicroscopeStand"
-					// 	},
-					// 	"components": [],
-					// 	"linkedFields": null
-					// };
+					let micTest = {
+						"Name": "New Instrument",
+						"Schema_ID": "Instrument.json",
+						"ID": "1edf9d66-7922-4225-b0e6-ac255ec8d04b",
+						"Tier": 3,
+						"ValidationTier": 3,
+						"ModelVersion": "2.00.0",
+						"AppVersion": "1.0.0-b1",
+						"MicroscopeStand": {
+							"Name": "New InvertedMicroscopeStand",
+							"Schema_ID": "InvertedMicroscopeStand.json",
+							"ID": "3fcc00df-70b1-4b38-bc88-863824c8f26f",
+							"Tier": 1,
+							"ModelVersion": "2.00.0",
+							"Extension": "Basic",
+							"Domain": "MicroscopeHardwareSpecifications",
+							"Category": "MicroscopeStand"
+						},
+						"components": [],
+						"linkedFields": null
+					};
 					ReactDOM.render(
 						React.createElement(MicroscopyMetadataToolApp, {
 							height: dims.height,
 							width: dims.width,
 							key: "my-app",
-							scalingFactor: 1,
-							// is4DNPortal: true,
-							// hasImport: true,
-							// microscope: micTest,
-							// isCreatingNewMicroscope: true,
-							// isLoadingMicroscope: false,
-							// isLoadingSettings : false,
-							// isLoadingImage : false,
+							//scalingFactor: 0.7,
+							is4DNPortal: true,
+							hasImport: true,
+							microscope: micTest,
+							isCreatingNewMicroscope: true,
+							isLoadingMicroscope: false,
+							isLoadingSettings : false,
+							isLoadingImage : false,
 							isDebug: true,
 							hasSettings: true,
-							onLoadSchema: function (complete) {
+							onLoadSchema: function (complete, resolve) {
 								// Maybe some UI to select something...
 								// Not all browsers have `window.fetch`, used for demoing purposes.
 								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
@@ -117,10 +117,10 @@
 									})
 									.then(function (respText) {
 										var schema = JSON.parse(respText);
-										complete(schema);
+										complete(schema, resolve);
 									});
 							},
-							onLoadDimensions: function (complete) {
+							onLoadDimensions: function (complete, resolve) {
 								// Maybe some UI to select something...
 								// Not all browsers have `window.fetch`, used for demoing purposes.
 								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
@@ -134,16 +134,16 @@
 									})
 									.then(function (respText) {
 										var dimensions = JSON.parse(respText);
-										complete(dimensions);
+										complete(dimensions, resolve);
 									});
 							},
-							// onLoadMicroscopes: function (complete) {
+							// onLoadMicroscopes: function (complete, resolve) {
 							// 	let microscopesDB = {};
-							// 	complete(microscopesDB);
+							// 	complete(microscopesDB, resolve);
 							// },
-							// onLoadSettings: function (complete) {
+							// onLoadSettings: function (complete, resolve) {
 							// 	let settingsDB = {};
-							// 	complete(settingsDB);
+							// 	complete(settingsDB, resolve);
 							// },
 						}),
 						document.getElementById("root")
