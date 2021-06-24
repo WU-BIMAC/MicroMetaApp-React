@@ -205,39 +205,39 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.schema !== state.schema && isDefined(props.schema)) {
-			return { schema: props.schema };
-		}
-		if (
-			props.microscope !== state.microscope &&
-			props.microscope !== state.oldMicroscope &&
-			isDefined(props.microscope)
-		) {
-			return { microscope: props.microscope };
-		}
-		if (
-			props.setting !== state.setting &&
-			props.setting !== state.oldSetting &&
-			isDefined(props.setting)
-		) {
-			return { setting: props.setting };
-		}
-		if (
-			props.imageMetadata !== state.imageMetadata &&
-			props.imageMetadata !== state.oldImageMetadata &&
-			isDefined(props.imageMetadata)
-		) {
-			return { imageMetadata: props.imageMetadata };
-		}
-		if (
-			props.microscopes !== state.microscopes &&
-			isDefined(props.microscopes)
-		) {
-			return { microscopes: props.microscopes };
-		}
-		if (props.settings !== state.settings && isDefined(props.settings)) {
-			return { settings: props.settings };
-		}
+		// if (props.schema !== state.schema && isDefined(props.schema)) {
+		// 	return { schema: props.schema };
+		// }
+		// if (
+		// 	props.microscope !== state.microscope &&
+		// 	props.microscope !== state.oldMicroscope &&
+		// 	isDefined(props.microscope)
+		// ) {
+		// 	return { microscope: props.microscope };
+		// }
+		// if (
+		// 	props.setting !== state.setting &&
+		// 	props.setting !== state.oldSetting &&
+		// 	isDefined(props.setting)
+		// ) {
+		// 	return { setting: props.setting };
+		// }
+		// if (
+		// 	props.imageMetadata !== state.imageMetadata &&
+		// 	props.imageMetadata !== state.oldImageMetadata &&
+		// 	isDefined(props.imageMetadata)
+		// ) {
+		// 	return { imageMetadata: props.imageMetadata };
+		// }
+		// if (
+		// 	props.microscopes !== state.microscopes &&
+		// 	isDefined(props.microscopes)
+		// ) {
+		// 	return { microscopes: props.microscopes };
+		// }
+		// if (props.settings !== state.settings && isDefined(props.settings)) {
+		// 	return { settings: props.settings };
+		// }
 		return null;
 	}
 
@@ -578,11 +578,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		elementData,
 		scalingFactor
 	) {
+		//console.log("checkScalingFactorAndRescaleIfNeeded");
 		let micScalingFactor = 1;
 		if (isDefined(modifiedMic.ScalingFactor)) {
 			micScalingFactor = modifiedMic.ScalingFactor;
 		} else {
-			modifiedMic.ScalingFactor = scalingFactor;
+			modifiedMic.ScalingFactor = micScalingFactor;
 		}
 		if (micScalingFactor === scalingFactor) {
 			return;
@@ -1888,6 +1889,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	createOrUseMicroscopeFromDroppedFile() {
+		//console.log("createOrUseMicroscopeFromDroppedFile - 1");
 		let modifiedMic = this.state.microscope;
 		let activeTier = this.state.activeTier;
 		if (activeTier !== modifiedMic.Tier) {
@@ -1938,6 +1940,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			newElementData,
 			this.props.scalingFactor
 		);
+		//console.log("createOrUseMicroscopeFromDroppedFile - 2");
+		//console.log(modifiedMic);
 		this.setState({
 			microscope: modifiedMic,
 			setting: null,
@@ -2625,6 +2629,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		this.setState({ microscope: microscope });
 
+		console.log(microscope);
 		if (lowerCaseItem.includes("save")) {
 			this.props.onSaveMicroscope(microscope, this.handleCompleteSave);
 		} else if (lowerCaseItem.includes("export")) {
