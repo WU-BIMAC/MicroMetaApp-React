@@ -250,35 +250,29 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleLoadDimensions(e) {
-		return new Promise(
-			(resolve, reject) =>
-				this.props.onLoadDimensions(this.handleCompleteLoadDimensions, resolve)
-			// setTimeout(() => {
-
-			// }, 5000)
+		return new Promise((resolve, reject) =>
+			setTimeout(() => {
+				this.props.onLoadDimensions(this.handleCompleteLoadDimensions, resolve);
+			}, 500)
 		);
 	}
 
 	handleLoadMicroscopes(e) {
-		return new Promise(
-			(resolve, reject) =>
+		return new Promise((resolve, reject) =>
+			setTimeout(() => {
 				this.props.onLoadMicroscopes(
 					this.handleCompleteLoadMicroscopes,
 					resolve
-				)
-			// setTimeout(() => {
-
-			// }, 5000)
+				);
+			}, 500)
 		);
 	}
 
 	handleLoadSettings(e) {
-		return new Promise(
-			(resolve, reject) =>
-				this.props.onLoadSettings(this.handleCompleteLoadSettings, resolve)
-			// setTimeout(() => {
-
-			// }, 5000)
+		return new Promise((resolve, reject) =>
+			setTimeout(() => {
+				this.props.onLoadSettings(this.handleCompleteLoadSettings, resolve);
+			}, 500)
 		);
 	}
 
@@ -295,16 +289,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleLoadSchema(e) {
-		return new Promise(
-			(resolve, reject) =>
-				this.props.onLoadSchema(this.handleCompleteLoadSchema, resolve)
-			// setTimeout(() => {
-
-			// }, 5000)
+		return new Promise((resolve, reject) =>
+			setTimeout(() => {
+				this.props.onLoadSchema(this.handleCompleteLoadSchema, resolve);
+			}, 500)
 		);
 	}
 
 	handleCompleteLoadSchema(newSchema, resolve) {
+		console.log("handleCompleteLoadSchema");
 		this.setState({ schema: newSchema }, resolve());
 	}
 
@@ -325,9 +318,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleMicPreset(e) {
-		return new Promise(
-			(resolve, reject) => this.handleMicroscopePreset(resolve)
-			//setTimeout(, 2000)
+		return new Promise((resolve, reject) =>
+			setTimeout(() => {
+				this.handleMicroscopePreset(resolve);
+			}, 100)
 		);
 	}
 

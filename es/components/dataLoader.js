@@ -58,19 +58,35 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       isSchemaLoaded: false,
       isMicroscopesLoaded: false,
       isDimensionsLoaded: false,
-      isSettingsLoaded: false
+      isSettingsLoaded: false,
+      isHandlingMicPreset: false,
+      isHandledMicPreset: false
     };
+    _this._isMounted = false;
     _this.simulateClickLoadSchema = _this.simulateClickLoadSchema.bind(_assertThisInitialized(_this));
     _this.onClickLoadSchema = _this.onClickLoadSchema.bind(_assertThisInitialized(_this));
     _this.simulateClickLoadMicroscopes = _this.simulateClickLoadMicroscopes.bind(_assertThisInitialized(_this));
     _this.onClickLoadMicroscopes = _this.onClickLoadMicroscopes.bind(_assertThisInitialized(_this));
+    _this.simulateClickLoadSettings = _this.simulateClickLoadSettings.bind(_assertThisInitialized(_this));
     _this.onClickLoadSettings = _this.onClickLoadSettings.bind(_assertThisInitialized(_this));
     _this.simulateClickLoadDimensions = _this.simulateClickLoadDimensions.bind(_assertThisInitialized(_this));
     _this.onClickLoadDimensions = _this.onClickLoadDimensions.bind(_assertThisInitialized(_this));
+    _this.simulateClickHandleMicPreset = _this.simulateClickHandleMicPreset.bind(_assertThisInitialized(_this));
+    _this.onClickHandleMicPreset = _this.onClickHandleMicPreset.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(DataLoader, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this._isMounted = true;
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this._isMounted = false;
+    }
+  }, {
     key: "onClickLoadDimensions",
     value: function onClickLoadDimensions() {
       var _this2 = this;
@@ -79,7 +95,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         isLoadingDimensions: true
       }, function () {
         _this2.props.onClickLoadDimensions().then(function () {
-          _this2.setState({
+          if (_this2._isMounted) _this2.setState({
             isLoadingDimensions: false,
             isDimensionsLoaded: true
           });
@@ -95,7 +111,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         isLoadingSchema: true
       }, function () {
         _this3.props.onClickLoadSchema().then(function () {
-          _this3.setState({
+          if (_this3._isMounted) _this3.setState({
             isLoadingSchema: false,
             isSchemaLoaded: true
           });
@@ -111,7 +127,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         isLoadingMicroscopes: true
       }, function () {
         _this4.props.onClickLoadMicroscopes().then(function () {
-          _this4.setState({
+          if (_this4._isMounted) _this4.setState({
             isLoadingMicroscopes: false,
             isMicroscopesLoaded: true
           });
@@ -127,9 +143,25 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         isLoadingSettings: true
       }, function () {
         _this5.props.onClickLoadSettings().then(function () {
-          _this5.setState({
+          if (_this5._isMounted) _this5.setState({
             isLoadingSettings: false,
             isSettingsLoaded: true
+          });
+        });
+      });
+    }
+  }, {
+    key: "onClickHandleMicPreset",
+    value: function onClickHandleMicPreset() {
+      var _this6 = this;
+
+      this.setState({
+        isHandlingMicPreset: true
+      }, function () {
+        _this6.props.onClickHandleMicPreset().then(function () {
+          if (_this6._isMounted) _this6.setState({
+            isHandlingMicPreset: false,
+            isHandledMicPreset: true
           });
         });
       });
@@ -157,6 +189,12 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
     value: function simulateClickLoadSettings(loadSettingsButtonRef) {
       if (loadSettingsButtonRef === null) return;
       loadSettingsButtonRef.click();
+    }
+  }, {
+    key: "simulateClickHandleMicPreset",
+    value: function simulateClickHandleMicPreset(handleMicPresetButtonRef) {
+      if (handleMicPresetButtonRef === null) return;
+      handleMicPresetButtonRef.click();
     }
   }, {
     key: "render",
@@ -200,48 +238,90 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       var isSettingsLoaded = this.state.isSettingsLoaded;
       var isLoadingDimensions = this.state.isLoadingDimensions;
       var isDimensionsLoaded = this.state.isDimensionsLoaded;
+      var isHandlingMicPreset = this.state.isHandlingMicPreset;
+      var isHandledMicPreset = this.state.isHandledMicPreset;
       var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      return /*#__PURE__*/_react.default.createElement("div", {
-        style: windowExternalContainer
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: windowInternalContainer
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: styleImageContainer
-      }, /*#__PURE__*/_react.default.createElement("img", {
-        src: logoPath,
-        alt: this.props.logoImg,
-        style: styleImage,
-        onLoad: this.onImgLoad
-      })), /*#__PURE__*/_react.default.createElement("div", {
-        style: {
-          textAlign: "center",
-          fontWeight: "bold"
-        }
-      }, "Loading..."), /*#__PURE__*/_react.default.createElement(_Button.default, {
-        ref: this.simulateClickLoadMicroscopes,
-        disabled: isLoadingMicroscopes || isMicroscopesLoaded,
-        onClick: !isLoadingMicroscopes && !isMicroscopesLoaded ? this.onClickLoadMicroscopes : null,
-        style: buttonStyle,
-        size: "lg"
-      }, isLoadingMicroscopes ? "Loading microscopes" : isMicroscopesLoaded ? "Microscopes loaded" : "Load microscopes"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-        ref: this.simulateClickLoadSettings,
-        disabled: isLoadingSettings || isSettingsLoaded,
-        onClick: !isLoadingSettings && !isSettingsLoaded ? this.onClickLoadSettings : null,
-        style: buttonStyle,
-        size: "lg"
-      }, isLoadingSettings ? "Loading settings" : isSettingsLoaded ? "Settings loaded" : "Load settings"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-        ref: this.simulateClickLoadDimensions,
-        disabled: isLoadingDimensions || isDimensionsLoaded,
-        onClick: !isLoadingDimensions && !isDimensionsLoaded ? this.onClickLoadDimensions : null,
-        style: buttonStyle,
-        size: "lg"
-      }, isLoadingDimensions ? "Loading dimensions" : isDimensionsLoaded ? "Dimensions loaded" : "Load dimensions"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-        ref: this.simulateClickLoadSchema,
-        disabled: isLoadingSchema || isSchemaLoaded,
-        onClick: !isLoadingSchema && !isSchemaLoaded ? this.onClickLoadSchema : null,
-        style: buttonStyle,
-        size: "lg"
-      }, isLoadingSchema ? "Loading schema" : isSchemaLoaded ? "Schema loaded" : "Load schema")));
+
+      if (!isSchemaLoaded || !isDimensionsLoaded || !isMicroscopesLoaded || !isSettingsLoaded) {
+        return /*#__PURE__*/_react.default.createElement("div", {
+          style: windowExternalContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: windowInternalContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: styleImageContainer
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: logoPath,
+          alt: this.props.logoImg,
+          style: styleImage,
+          onLoad: this.onImgLoad
+        })), /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            textAlign: "center",
+            fontWeight: "bold"
+          }
+        }, "Loading..."), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          ref: this.simulateClickLoadMicroscopes,
+          disabled: isLoadingMicroscopes || isMicroscopesLoaded,
+          onClick: !isLoadingMicroscopes && !isMicroscopesLoaded ? this.onClickLoadMicroscopes : null,
+          style: buttonStyle,
+          size: "lg"
+        }, isLoadingMicroscopes ? "Loading microscopes" : isMicroscopesLoaded ? "Microscopes loaded" : "Load microscopes"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          ref: this.simulateClickLoadSettings,
+          disabled: isLoadingSettings || isSettingsLoaded,
+          onClick: !isLoadingSettings && !isSettingsLoaded ? this.onClickLoadSettings : null,
+          style: buttonStyle,
+          size: "lg"
+        }, isLoadingSettings ? "Loading settings" : isSettingsLoaded ? "Settings loaded" : "Load settings"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          ref: this.simulateClickLoadDimensions,
+          disabled: isLoadingDimensions || isDimensionsLoaded,
+          onClick: !isLoadingDimensions && !isDimensionsLoaded ? this.onClickLoadDimensions : null,
+          style: buttonStyle,
+          size: "lg"
+        }, isLoadingDimensions ? "Loading dimensions" : isDimensionsLoaded ? "Dimensions loaded" : "Load dimensions"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          ref: this.simulateClickLoadSchema,
+          disabled: isLoadingSchema || isSchemaLoaded,
+          onClick: !isLoadingSchema && !isSchemaLoaded ? this.onClickLoadSchema : null,
+          style: buttonStyle,
+          size: "lg"
+        }, isLoadingSchema ? "Loading schema" : isSchemaLoaded ? "Schema loaded" : "Load schema")));
+      } else if (this.props.is4DNPortal && !isHandledMicPreset) {
+        return /*#__PURE__*/_react.default.createElement("div", {
+          style: windowExternalContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: windowInternalContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: styleImageContainer
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: logoPath,
+          alt: this.props.logoImg,
+          style: styleImage,
+          onLoad: this.onImgLoad
+        })), /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            textAlign: "center",
+            fontWeight: "bold"
+          }
+        }, "Loading..."), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          ref: this.simulateClickHandleMicPreset,
+          disabled: isHandlingMicPreset || isHandledMicPreset,
+          onClick: !isHandlingMicPreset && !isHandledMicPreset ? this.onClickHandleMicPreset : null,
+          style: buttonStyle,
+          size: "lg"
+        }, isHandlingMicPreset ? "Loading microscope" : isHandledMicPreset ? "Microscope loaded" : "Load Microscope")));
+      } else {
+        return /*#__PURE__*/_react.default.createElement("div", {
+          style: windowExternalContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: windowInternalContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: styleImageContainer
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: logoPath,
+          alt: this.props.logoImg,
+          style: styleImage,
+          onLoad: this.onImgLoad
+        }))));
+      }
     }
   }]);
 

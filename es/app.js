@@ -122,7 +122,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       imageMetadata: null,
       isToolbarHidden: props.isToolbarHidden || false,
       is4DNPortal: props.is4DNPortal || false,
-      hasImport: props.hasImport || false
+      hasImport: props.hasImport || false,
+      microscopePresetHandled: false
     };
 
     for (var i = 0; i < _constants.current_stands.length; i++) {
@@ -149,6 +150,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
      */
 
     _this.overlaysContainerRef = /*#__PURE__*/_react.default.createRef();
+    _this.handleMicPreset = _this.handleMicPreset.bind(_assertThisInitialized(_this));
     _this.handleLoadSchema = _this.handleLoadSchema.bind(_assertThisInitialized(_this));
     _this.handleCompleteLoadSchema = _this.handleCompleteLoadSchema.bind(_assertThisInitialized(_this));
     _this.handleLoadMicroscopes = _this.handleLoadMicroscopes.bind(_assertThisInitialized(_this));
@@ -226,8 +228,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleLoadDimensions(e) {
       var _this2 = this;
 
-      return new Promise(function () {
-        return setTimeout(_this2.props.onLoadDimensions(_this2.handleCompleteLoadDimensions), 10000);
+      return new Promise(function (resolve, reject) {
+        return setTimeout(function () {
+          _this2.props.onLoadDimensions(_this2.handleCompleteLoadDimensions, resolve);
+        }, 500);
       });
     }
   }, {
@@ -235,8 +239,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleLoadMicroscopes(e) {
       var _this3 = this;
 
-      return new Promise(function () {
-        return setTimeout(_this3.props.onLoadMicroscopes(_this3.handleCompleteLoadMicroscopes), 10000);
+      return new Promise(function (resolve, reject) {
+        return setTimeout(function () {
+          _this3.props.onLoadMicroscopes(_this3.handleCompleteLoadMicroscopes, resolve);
+        }, 500);
       });
     }
   }, {
@@ -244,47 +250,51 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleLoadSettings(e) {
       var _this4 = this;
 
-      return new Promise(function () {
-        return setTimeout(_this4.props.onLoadSettings(_this4.handleCompleteLoadSettings), 10000);
+      return new Promise(function (resolve, reject) {
+        return setTimeout(function () {
+          _this4.props.onLoadSettings(_this4.handleCompleteLoadSettings, resolve);
+        }, 500);
       });
     }
   }, {
     key: "handleCompleteLoadDimensions",
-    value: function handleCompleteLoadDimensions(newDimensions) {
-      //console.log(newDimensions);
+    value: function handleCompleteLoadDimensions(newDimensions, resolve) {
       this.setState({
         dimensions: newDimensions
-      });
+      }, resolve());
     }
   }, {
     key: "handleCompleteLoadMicroscopes",
-    value: function handleCompleteLoadMicroscopes(newMicroscopes) {
+    value: function handleCompleteLoadMicroscopes(newMicroscopes, resolve) {
       this.setState({
         microscopes: newMicroscopes
-      });
+      }, resolve());
     }
   }, {
     key: "handleCompleteLoadSettings",
-    value: function handleCompleteLoadSettings(newSettings) {
+    value: function handleCompleteLoadSettings(newSettings, resolve) {
       this.setState({
         settings: newSettings
-      });
+      }, resolve());
     }
   }, {
     key: "handleLoadSchema",
     value: function handleLoadSchema(e) {
       var _this5 = this;
 
-      return new Promise(function () {
-        return setTimeout(_this5.props.onLoadSchema(_this5.handleCompleteLoadSchema), 10000);
+      return new Promise(function (resolve, reject) {
+        return setTimeout(function () {
+          _this5.props.onLoadSchema(_this5.handleCompleteLoadSchema, resolve);
+        }, 500);
       });
     }
   }, {
     key: "handleCompleteLoadSchema",
-    value: function handleCompleteLoadSchema(newSchema) {
+    value: function handleCompleteLoadSchema(newSchema, resolve) {
+      console.log("handleCompleteLoadSchema");
       this.setState({
         schema: newSchema
-      });
+      }, resolve());
     }
   }, {
     key: "simulateClickLoadMicroscopeFromPortal",
@@ -306,12 +316,23 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         isToolbarHidden: !isToolbarHidden
       });
+    }
+  }, {
+    key: "handleMicPreset",
+    value: function handleMicPreset(e) {
+      var _this6 = this;
+
+      return new Promise(function (resolve, reject) {
+        return setTimeout(function () {
+          _this6.handleMicroscopePreset(resolve);
+        }, 100);
+      });
     } //HAVE TO DO THE SAME FOR SETTINGS?
 
   }, {
     key: "handleMicroscopePreset",
-    value: function handleMicroscopePreset() {
-      var _this6 = this;
+    value: function handleMicroscopePreset(resolve) {
+      var _this7 = this;
 
       console.log("handleMicroscopePreset");
       var microscope = this.state.microscope;
@@ -323,7 +344,15 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         loadingOption: _constants.string_createFromFile,
         loadingMode: 1
       }, function () {
-        _this6.createOrUseMicroscopeFromDroppedFile();
+        _this7.createOrUseMicroscopeFromDroppedFile();
+
+        _this7.setState({
+          microscopePresetHandled: true
+        }, function () {
+          if ((0, _genericUtilities.isDefined)(resolve)) {
+            resolve();
+          }
+        });
       });
     }
   }, {
@@ -416,7 +445,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createAdaptedSchema",
     value: function createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier) {
-      var _this7 = this;
+      var _this8 = this;
 
       var singleSchema = Object.assign({}, singleSchemaOriginal);
       singleSchema.properties = Object.assign({}, singleSchemaOriginal.properties);
@@ -444,7 +473,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         var property = properties[propKey];
 
         if (property.type === _constants.string_object || property.type === _constants.string_array && property.items.properties !== null && property.items.properties !== undefined) {
-          var newProp = _this7.createAdaptedSchema(property, activeTier, validationTier);
+          var newProp = _this8.createAdaptedSchema(property, activeTier, validationTier);
 
           properties[propKey] = newProp;
         }
@@ -484,7 +513,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createAdaptedSchemas",
     value: function createAdaptedSchemas(validationTier, standType) {
-      var _this8 = this;
+      var _this9 = this;
 
       var activeTier = this.state.activeTier;
       var schema = this.state.schema;
@@ -506,7 +535,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       Object.keys(schema).forEach(function (schemaIndex) {
         var singleSchemaOriginal = schema[schemaIndex];
 
-        var singleSchema = _this8.createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier);
+        var singleSchema = _this9.createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier);
 
         if (singleSchema.title === "Instrument") {
           microscopeSchema = Object.assign(microscopeSchema, singleSchema);
@@ -2029,7 +2058,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var settingsWidth = width;
       var headerFooterWidth = width; //Should i add microscopes and settings too ?
 
-      if (!(0, _genericUtilities.isDefined)(schema) || !(0, _genericUtilities.isDefined)(this.state.dimensions)) {
+      if (!(0, _genericUtilities.isDefined)(schema) || !(0, _genericUtilities.isDefined)(this.state.dimensions) || this.state.is4DNPortal && !this.state.microscopePresetHandled) {
         return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
@@ -2040,6 +2069,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           onClickLoadDimensions: this.handleLoadDimensions,
           onClickLoadMicroscopes: this.handleLoadMicroscopes,
           onClickLoadSettings: this.handleLoadSettings,
+          onClickHandleMicPreset: this.handleMicPreset,
+          is4DNPortal: this.state.is4DNPortal,
           isDebug: this.props.isDebug
         }));
       }
@@ -2105,7 +2136,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             onClickConfirm: this.onSpecialImporterConfirm,
             onClickBack: this.onSpecialImporterBack,
             isSettings: this.state.isLoadingMicroscope,
-            schema: this.state.schema,
+            schema: schema,
             isDebug: this.props.isDebug,
             imagesPath: imagesPathSVG,
             isImporter: true
@@ -2581,7 +2612,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         modifiedMic.ScalingFactor = scalingFactor;
       }
 
-      if (micScalingFactor === scalingFactor) return;
+      if (micScalingFactor === scalingFactor) {
+        return;
+      }
+
       var reverseScale = 1 / micScalingFactor;
       var newScalingFactor = reverseScale * scalingFactor;
       console.log("rescale from " + micScalingFactor + " to " + scalingFactor + " newScalingFactor: " + newScalingFactor);
@@ -2865,28 +2899,28 @@ MicroMetaAppReact.defaultProps = {
   hasSettings: false,
   hasAdvancedModel: false,
   hasExperimentalModel: false,
-  onLoadDimensions: function onLoadDimensions(complete) {
+  onLoadDimensions: function onLoadDimensions(complete, resolve) {
     // Do some stuff... show pane for people to browse/select schema.. etc.
     setTimeout(function () {
-      complete(null);
+      complete(null, resolve);
     });
   },
-  onLoadSchema: function onLoadSchema(complete) {
+  onLoadSchema: function onLoadSchema(complete, resolve) {
     // Do some stuff... show pane for people to browse/select schema.. etc.
     setTimeout(function () {
-      complete(null);
+      complete(null, resolve);
     });
   },
-  onLoadMicroscopes: function onLoadMicroscopes(complete) {
+  onLoadMicroscopes: function onLoadMicroscopes(complete, resolve) {
     // Do some stuff... show pane for people to browse/select schema.. etc.
     setTimeout(function () {
-      complete(null);
+      complete(null, resolve);
     });
   },
-  onLoadSettings: function onLoadSettings(complete) {
+  onLoadSettings: function onLoadSettings(complete, resolve) {
     // Do some stuff... show pane for people to browse/select schema.. etc.
     setTimeout(function () {
-      complete(null);
+      complete(null, resolve);
     });
   },
   onSaveMicroscope: function onSaveMicroscope(microscope, complete) {

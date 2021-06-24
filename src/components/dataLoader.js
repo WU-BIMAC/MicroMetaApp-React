@@ -21,6 +21,7 @@ export default class DataLoader extends React.PureComponent {
 			isHandlingMicPreset: false,
 			isHandledMicPreset: false,
 		};
+		this._isMounted = false;
 
 		this.simulateClickLoadSchema = this.simulateClickLoadSchema.bind(this);
 		this.onClickLoadSchema = this.onClickLoadSchema.bind(this);
@@ -41,10 +42,22 @@ export default class DataLoader extends React.PureComponent {
 		this.onClickHandleMicPreset = this.onClickHandleMicPreset.bind(this);
 	}
 
+	componentDidMount() {
+		this._isMounted = true;
+	}
+
+	componentWillUnmount() {
+		this._isMounted = false;
+	}
+
 	onClickLoadDimensions() {
 		this.setState({ isLoadingDimensions: true }, () => {
 			this.props.onClickLoadDimensions().then(() => {
-				this.setState({ isLoadingDimensions: false, isDimensionsLoaded: true });
+				if (this._isMounted)
+					this.setState({
+						isLoadingDimensions: false,
+						isDimensionsLoaded: true,
+					});
 			});
 		});
 	}
@@ -52,7 +65,8 @@ export default class DataLoader extends React.PureComponent {
 	onClickLoadSchema() {
 		this.setState({ isLoadingSchema: true }, () => {
 			this.props.onClickLoadSchema().then(() => {
-				this.setState({ isLoadingSchema: false, isSchemaLoaded: true });
+				if (this._isMounted)
+					this.setState({ isLoadingSchema: false, isSchemaLoaded: true });
 			});
 		});
 	}
@@ -60,10 +74,11 @@ export default class DataLoader extends React.PureComponent {
 	onClickLoadMicroscopes() {
 		this.setState({ isLoadingMicroscopes: true }, () => {
 			this.props.onClickLoadMicroscopes().then(() => {
-				this.setState({
-					isLoadingMicroscopes: false,
-					isMicroscopesLoaded: true,
-				});
+				if (this._isMounted)
+					this.setState({
+						isLoadingMicroscopes: false,
+						isMicroscopesLoaded: true,
+					});
 			});
 		});
 	}
@@ -71,23 +86,24 @@ export default class DataLoader extends React.PureComponent {
 	onClickLoadSettings() {
 		this.setState({ isLoadingSettings: true }, () => {
 			this.props.onClickLoadSettings().then(() => {
-				this.setState({
-					isLoadingSettings: false,
-					isSettingsLoaded: true,
-				});
+				if (this._isMounted)
+					this.setState({
+						isLoadingSettings: false,
+						isSettingsLoaded: true,
+					});
 			});
 		});
 	}
 
 	onClickHandleMicPreset() {
 		this.setState({ isHandlingMicPreset: true }, () => {
-			this.props.onClickHandleMicPreset();
-			// .then(() => {
-			// this.setState({
-			// 	isHandlingMicPreset: false,
-			// 	isHandledMicPreset: true,
-			// });
-			//});
+			this.props.onClickHandleMicPreset().then(() => {
+				if (this._isMounted)
+					this.setState({
+						isHandlingMicPreset: false,
+						isHandledMicPreset: true,
+					});
+			});
 		});
 	}
 
@@ -256,7 +272,7 @@ export default class DataLoader extends React.PureComponent {
 					</div>
 				</div>
 			);
-		} else if (this.props.is4DNPortal) {
+		} else if (this.props.is4DNPortal && !isHandledMicPreset) {
 			return (
 				<div style={windowExternalContainer}>
 					<div style={windowInternalContainer}>
