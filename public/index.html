@@ -93,8 +93,8 @@
 							height: dims.height,
 							width: dims.width,
 							key: "my-app",
-							scalingFactor: 1,
-							// is4DNPortal: true,
+							//scalingFactor: 0.7,
+							//is4DNPortal: true,
 							// hasImport: true,
 							// microscope: micTest,
 							// isCreatingNewMicroscope: true,
@@ -103,7 +103,7 @@
 							// isLoadingImage : false,
 							isDebug: true,
 							hasSettings: true,
-							onLoadSchema: function (complete) {
+							onLoadSchema: function (complete, resolve) {
 								// Maybe some UI to select something...
 								// Not all browsers have `window.fetch`, used for demoing purposes.
 								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
@@ -117,10 +117,10 @@
 									})
 									.then(function (respText) {
 										var schema = JSON.parse(respText);
-										complete(schema);
+										complete(schema, resolve);
 									});
 							},
-							onLoadDimensions: function (complete) {
+							onLoadDimensions: function (complete, resolve) {
 								// Maybe some UI to select something...
 								// Not all browsers have `window.fetch`, used for demoing purposes.
 								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
@@ -134,16 +134,16 @@
 									})
 									.then(function (respText) {
 										var dimensions = JSON.parse(respText);
-										complete(dimensions);
+										complete(dimensions, resolve);
 									});
 							},
-							// onLoadMicroscopes: function (complete) {
+							// onLoadMicroscopes: function (complete, resolve) {
 							// 	let microscopesDB = {};
-							// 	complete(microscopesDB);
+							// 	complete(microscopesDB, resolve);
 							// },
-							// onLoadSettings: function (complete) {
+							// onLoadSettings: function (complete, resolve) {
 							// 	let settingsDB = {};
-							// 	complete(settingsDB);
+							// 	complete(settingsDB, resolve);
 							// },
 						}),
 						document.getElementById("root")

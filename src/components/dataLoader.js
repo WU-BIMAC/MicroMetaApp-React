@@ -17,21 +17,28 @@ export default class DataLoader extends React.PureComponent {
 			isMicroscopesLoaded: false,
 			isDimensionsLoaded: false,
 			isSettingsLoaded: false,
+
+			isHandlingMicPreset: false,
+			isHandledMicPreset: false,
 		};
 
 		this.simulateClickLoadSchema = this.simulateClickLoadSchema.bind(this);
 		this.onClickLoadSchema = this.onClickLoadSchema.bind(this);
 
-		this.simulateClickLoadMicroscopes = this.simulateClickLoadMicroscopes.bind(
-			this
-		);
+		this.simulateClickLoadMicroscopes =
+			this.simulateClickLoadMicroscopes.bind(this);
 		this.onClickLoadMicroscopes = this.onClickLoadMicroscopes.bind(this);
+
+		this.simulateClickLoadSettings = this.simulateClickLoadSettings.bind(this);
 		this.onClickLoadSettings = this.onClickLoadSettings.bind(this);
 
-		this.simulateClickLoadDimensions = this.simulateClickLoadDimensions.bind(
-			this
-		);
+		this.simulateClickLoadDimensions =
+			this.simulateClickLoadDimensions.bind(this);
 		this.onClickLoadDimensions = this.onClickLoadDimensions.bind(this);
+
+		this.simulateClickHandleMicPreset =
+			this.simulateClickHandleMicPreset.bind(this);
+		this.onClickHandleMicPreset = this.onClickHandleMicPreset.bind(this);
 	}
 
 	onClickLoadDimensions() {
@@ -72,6 +79,18 @@ export default class DataLoader extends React.PureComponent {
 		});
 	}
 
+	onClickHandleMicPreset() {
+		this.setState({ isHandlingMicPreset: true }, () => {
+			this.props.onClickHandleMicPreset();
+			// .then(() => {
+			// this.setState({
+			// 	isHandlingMicPreset: false,
+			// 	isHandledMicPreset: true,
+			// });
+			//});
+		});
+	}
+
 	simulateClickLoadDimensions(loadDimensionsButtonRef) {
 		if (loadDimensionsButtonRef === null) return;
 		loadDimensionsButtonRef.click();
@@ -90,6 +109,11 @@ export default class DataLoader extends React.PureComponent {
 	simulateClickLoadSettings(loadSettingsButtonRef) {
 		if (loadSettingsButtonRef === null) return;
 		loadSettingsButtonRef.click();
+	}
+
+	simulateClickHandleMicPreset(handleMicPresetButtonRef) {
+		if (handleMicPresetButtonRef === null) return;
+		handleMicPresetButtonRef.click();
 	}
 
 	render() {
@@ -132,95 +156,156 @@ export default class DataLoader extends React.PureComponent {
 		let isSettingsLoaded = this.state.isSettingsLoaded;
 		let isLoadingDimensions = this.state.isLoadingDimensions;
 		let isDimensionsLoaded = this.state.isDimensionsLoaded;
+
+		let isHandlingMicPreset = this.state.isHandlingMicPreset;
+		let isHandledMicPreset = this.state.isHandledMicPreset;
+
 		let logoPath =
 			this.props.logoImg +
 			(this.props.logoImg.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
-		return (
-			<div style={windowExternalContainer}>
-				<div style={windowInternalContainer}>
-					<div style={styleImageContainer}>
-						<img
-							src={logoPath}
-							alt={this.props.logoImg}
-							style={styleImage}
-							onLoad={this.onImgLoad}
-						/>
+		if (
+			!isSchemaLoaded ||
+			!isDimensionsLoaded ||
+			!isMicroscopesLoaded ||
+			!isSettingsLoaded
+		) {
+			return (
+				<div style={windowExternalContainer}>
+					<div style={windowInternalContainer}>
+						<div style={styleImageContainer}>
+							<img
+								src={logoPath}
+								alt={this.props.logoImg}
+								style={styleImage}
+								onLoad={this.onImgLoad}
+							/>
+						</div>
+						<div style={{ textAlign: "center", fontWeight: "bold" }}>
+							Loading...
+						</div>
+						<Button
+							ref={this.simulateClickLoadMicroscopes}
+							disabled={isLoadingMicroscopes || isMicroscopesLoaded}
+							onClick={
+								!isLoadingMicroscopes && !isMicroscopesLoaded
+									? this.onClickLoadMicroscopes
+									: null
+							}
+							style={buttonStyle}
+							size="lg"
+						>
+							{isLoadingMicroscopes
+								? "Loading microscopes"
+								: isMicroscopesLoaded
+								? "Microscopes loaded"
+								: "Load microscopes"}
+						</Button>
+						<Button
+							ref={this.simulateClickLoadSettings}
+							disabled={isLoadingSettings || isSettingsLoaded}
+							onClick={
+								!isLoadingSettings && !isSettingsLoaded
+									? this.onClickLoadSettings
+									: null
+							}
+							style={buttonStyle}
+							size="lg"
+						>
+							{isLoadingSettings
+								? "Loading settings"
+								: isSettingsLoaded
+								? "Settings loaded"
+								: "Load settings"}
+						</Button>
+						<Button
+							ref={this.simulateClickLoadDimensions}
+							disabled={isLoadingDimensions || isDimensionsLoaded}
+							onClick={
+								!isLoadingDimensions && !isDimensionsLoaded
+									? this.onClickLoadDimensions
+									: null
+							}
+							style={buttonStyle}
+							size="lg"
+						>
+							{isLoadingDimensions
+								? "Loading dimensions"
+								: isDimensionsLoaded
+								? "Dimensions loaded"
+								: "Load dimensions"}
+						</Button>
+						<Button
+							ref={this.simulateClickLoadSchema}
+							disabled={isLoadingSchema || isSchemaLoaded}
+							onClick={
+								!isLoadingSchema && !isSchemaLoaded
+									? this.onClickLoadSchema
+									: null
+							}
+							style={buttonStyle}
+							size="lg"
+						>
+							{isLoadingSchema
+								? "Loading schema"
+								: isSchemaLoaded
+								? "Schema loaded"
+								: "Load schema"}
+						</Button>
 					</div>
-					<div style={{ textAlign: "center", fontWeight: "bold" }}>
-						Loading...
-					</div>
-					<Button
-						ref={this.simulateClickLoadMicroscopes}
-						disabled={isLoadingMicroscopes || isMicroscopesLoaded}
-						onClick={
-							!isLoadingMicroscopes && !isMicroscopesLoaded
-								? this.onClickLoadMicroscopes
-								: null
-						}
-						style={buttonStyle}
-						size="lg"
-					>
-						{isLoadingMicroscopes
-							? "Loading microscopes"
-							: isMicroscopesLoaded
-							? "Microscopes loaded"
-							: "Load microscopes"}
-					</Button>
-					<Button
-						ref={this.simulateClickLoadSettings}
-						disabled={isLoadingSettings || isSettingsLoaded}
-						onClick={
-							!isLoadingSettings && !isSettingsLoaded
-								? this.onClickLoadSettings
-								: null
-						}
-						style={buttonStyle}
-						size="lg"
-					>
-						{isLoadingSettings
-							? "Loading settings"
-							: isSettingsLoaded
-							? "Settings loaded"
-							: "Load settings"}
-					</Button>
-					<Button
-						ref={this.simulateClickLoadDimensions}
-						disabled={isLoadingDimensions || isDimensionsLoaded}
-						onClick={
-							!isLoadingDimensions && !isDimensionsLoaded
-								? this.onClickLoadDimensions
-								: null
-						}
-						style={buttonStyle}
-						size="lg"
-					>
-						{isLoadingDimensions
-							? "Loading dimensions"
-							: isDimensionsLoaded
-							? "Dimensions loaded"
-							: "Load dimensions"}
-					</Button>
-					<Button
-						ref={this.simulateClickLoadSchema}
-						disabled={isLoadingSchema || isSchemaLoaded}
-						onClick={
-							!isLoadingSchema && !isSchemaLoaded
-								? this.onClickLoadSchema
-								: null
-						}
-						style={buttonStyle}
-						size="lg"
-					>
-						{isLoadingSchema
-							? "Loading schema"
-							: isSchemaLoaded
-							? "Schema loaded"
-							: "Load schema"}
-					</Button>
 				</div>
-			</div>
-		);
+			);
+		} else if (this.props.is4DNPortal) {
+			return (
+				<div style={windowExternalContainer}>
+					<div style={windowInternalContainer}>
+						<div style={styleImageContainer}>
+							<img
+								src={logoPath}
+								alt={this.props.logoImg}
+								style={styleImage}
+								onLoad={this.onImgLoad}
+							/>
+						</div>
+						<div style={{ textAlign: "center", fontWeight: "bold" }}>
+							Loading...
+						</div>
+						<Button
+							ref={this.simulateClickHandleMicPreset}
+							disabled={isHandlingMicPreset || isHandledMicPreset}
+							onClick={
+								!isHandlingMicPreset && !isHandledMicPreset
+									? this.onClickHandleMicPreset
+									: null
+							}
+							style={buttonStyle}
+							size="lg"
+						>
+							{isHandlingMicPreset
+								? "Loading microscope"
+								: isHandledMicPreset
+								? "Microscope loaded"
+								: "Load Microscope"}
+						</Button>
+					</div>
+				</div>
+			);
+		} else {
+			return (
+				<div style={windowExternalContainer}>
+					<div style={windowInternalContainer}>
+						<div style={styleImageContainer}>
+							<img
+								src={logoPath}
+								alt={this.props.logoImg}
+								style={styleImage}
+								onLoad={this.onImgLoad}
+							/>
+						</div>
+					</div>
+				</div>
+			);
+		}
 	}
 }

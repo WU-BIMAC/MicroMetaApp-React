@@ -82,6 +82,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			isToolbarHidden: props.isToolbarHidden || false,
 			is4DNPortal: props.is4DNPortal || false,
 			hasImport: props.hasImport || false,
+			microscopePresetHandled: false,
 		};
 
 		for (let i = 0; i < current_stands.length; i++) {
@@ -105,6 +106,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		 * this prop is optional, we implement the componentDidMount func below.
 		 */
 		this.overlaysContainerRef = React.createRef();
+
+		this.handleMicPreset = this.handleMicPreset.bind(this);
 
 		this.handleLoadSchema = this.handleLoadSchema.bind(this);
 		this.handleCompleteLoadSchema = this.handleCompleteLoadSchema.bind(this);
@@ -247,53 +250,62 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleLoadDimensions(e) {
-		return new Promise(() =>
-			setTimeout(
-				this.props.onLoadDimensions(this.handleCompleteLoadDimensions),
-				10000
-			)
+		return new Promise(
+			(resolve, reject) =>
+				this.props.onLoadDimensions(this.handleCompleteLoadDimensions, resolve)
+			// setTimeout(() => {
+
+			// }, 5000)
 		);
 	}
 
 	handleLoadMicroscopes(e) {
-		return new Promise(() =>
-			setTimeout(
-				this.props.onLoadMicroscopes(this.handleCompleteLoadMicroscopes),
-				10000
-			)
+		return new Promise(
+			(resolve, reject) =>
+				this.props.onLoadMicroscopes(
+					this.handleCompleteLoadMicroscopes,
+					resolve
+				)
+			// setTimeout(() => {
+
+			// }, 5000)
 		);
 	}
 
 	handleLoadSettings(e) {
-		return new Promise(() =>
-			setTimeout(
-				this.props.onLoadSettings(this.handleCompleteLoadSettings),
-				10000
-			)
+		return new Promise(
+			(resolve, reject) =>
+				this.props.onLoadSettings(this.handleCompleteLoadSettings, resolve)
+			// setTimeout(() => {
+
+			// }, 5000)
 		);
 	}
 
-	handleCompleteLoadDimensions(newDimensions) {
-		//console.log(newDimensions);
-		this.setState({ dimensions: newDimensions });
+	handleCompleteLoadDimensions(newDimensions, resolve) {
+		this.setState({ dimensions: newDimensions }, resolve());
 	}
 
-	handleCompleteLoadMicroscopes(newMicroscopes) {
-		this.setState({ microscopes: newMicroscopes });
+	handleCompleteLoadMicroscopes(newMicroscopes, resolve) {
+		this.setState({ microscopes: newMicroscopes }, resolve());
 	}
 
-	handleCompleteLoadSettings(newSettings) {
-		this.setState({ settings: newSettings });
+	handleCompleteLoadSettings(newSettings, resolve) {
+		this.setState({ settings: newSettings }, resolve());
 	}
 
 	handleLoadSchema(e) {
-		return new Promise(() =>
-			setTimeout(this.props.onLoadSchema(this.handleCompleteLoadSchema), 10000)
+		return new Promise(
+			(resolve, reject) =>
+				this.props.onLoadSchema(this.handleCompleteLoadSchema, resolve)
+			// setTimeout(() => {
+
+			// }, 5000)
 		);
 	}
 
-	handleCompleteLoadSchema(newSchema) {
-		this.setState({ schema: newSchema });
+	handleCompleteLoadSchema(newSchema, resolve) {
+		this.setState({ schema: newSchema }, resolve());
 	}
 
 	simulateClickLoadMicroscopeFromPortal(loadMicroscopeFromPortalButtonRef) {
@@ -312,8 +324,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.setState({ isToolbarHidden: !isToolbarHidden });
 	}
 
+	handleMicPreset(e) {
+		return new Promise(
+			(resolve, reject) => this.handleMicroscopePreset(resolve)
+			//setTimeout(, 2000)
+		);
+	}
+
 	//HAVE TO DO THE SAME FOR SETTINGS?
-	handleMicroscopePreset() {
+	handleMicroscopePreset(resolve) {
 		console.log("handleMicroscopePreset");
 		let microscope = this.state.microscope;
 		let tier = microscope.Tier;
@@ -328,6 +347,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			},
 			() => {
 				this.createOrUseMicroscopeFromDroppedFile();
+				this.setState({ microscopePresetHandled: true }, () => {
+					if (isDefined(resolve)) {
+						resolve();
+					}
+				});
 			}
 		);
 	}
@@ -566,7 +590,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		} else {
 			modifiedMic.ScalingFactor = scalingFactor;
 		}
-		if (micScalingFactor === scalingFactor) return;
+		if (micScalingFactor === scalingFactor) {
+			return;
+		}
 
 		let reverseScale = 1 / micScalingFactor;
 		let newScalingFactor = reverseScale * scalingFactor;
@@ -2723,7 +2749,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let headerFooterWidth = width;
 
 		//Should i add microscopes and settings too ?
-		if (!isDefined(schema) || !isDefined(this.state.dimensions)) {
+		if (
+			!isDefined(schema) ||
+			!isDefined(this.state.dimensions) ||
+			(this.state.is4DNPortal && !this.state.microscopePresetHandled)
+		) {
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
@@ -2736,6 +2766,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickLoadDimensions={this.handleLoadDimensions}
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
 						onClickLoadSettings={this.handleLoadSettings}
+						onClickHandleMicPreset={this.handleMicPreset}
+						is4DNPortal={this.state.is4DNPortal}
 						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
@@ -2811,7 +2843,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							onClickConfirm={this.onSpecialImporterConfirm}
 							onClickBack={this.onSpecialImporterBack}
 							isSettings={this.state.isLoadingMicroscope}
-							schema={this.state.schema}
+							schema={schema}
 							isDebug={this.props.isDebug}
 							imagesPath={imagesPathSVG}
 							isImporter={true}
@@ -3355,28 +3387,28 @@ MicroMetaAppReact.defaultProps = {
 	hasSettings: false,
 	hasAdvancedModel: false,
 	hasExperimentalModel: false,
-	onLoadDimensions: function (complete) {
+	onLoadDimensions: function (complete, resolve) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
-			complete(null);
+			complete(null, resolve);
 		});
 	},
-	onLoadSchema: function (complete) {
+	onLoadSchema: function (complete, resolve) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
-			complete(null);
+			complete(null, resolve);
 		});
 	},
-	onLoadMicroscopes: function (complete) {
+	onLoadMicroscopes: function (complete, resolve) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
-			complete(null);
+			complete(null, resolve);
 		});
 	},
-	onLoadSettings: function (complete) {
+	onLoadSettings: function (complete, resolve) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
-			complete(null);
+			complete(null, resolve);
 		});
 	},
 	onSaveMicroscope: function (microscope, complete) {
