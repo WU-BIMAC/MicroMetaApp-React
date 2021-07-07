@@ -4,7 +4,6 @@
 	"main": "./dist/MicroMetaAppReact.min.js",
 	"unpkg": "./dist/MicroMetaAppReact.min.js",
 	"module": "./es/app.js",
-	"type": "module",
 	"private": true,
 	"scripts": {
 		"test": "node scripts/test.js",
