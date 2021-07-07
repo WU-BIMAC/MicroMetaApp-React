@@ -1,3 +1,4 @@
+import React from "react";
 export var string_na = "na";
 export var string_not_assigned = "Not assigned";
 export var string_default = "default";
