@@ -3446,15 +3446,21 @@ const createApi = function api(context) {
 				});
 				let comps = { components };
 				let microscope = Object.assign(self.state.microscope, comps);
+				microscope.linkedFields = self.state.linkedFields;
 
 				return JSON.stringify(microscope, null, 2);
 			},
 
+			updateMicroscopeDescription(description) {
+				const newMicroscope = Object.assign(self.state.microscope, { "Description": description || "" });
+				this.setState({ microscope: newMicroscope });
+			},
+
 			validateMicroscope(microscope, schemas, checkForMicroscopeStand){
-				return validateMicroscope(microscope, schemas, checkForMicroscopeStand)
+				return validateMicroscope(microscope, schemas, checkForMicroscopeStand);
 			}
 		}
 	};
-}
+};
 
 export const AppVersion = appVersion;

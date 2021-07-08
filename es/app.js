@@ -2895,7 +2895,16 @@ var createApi = function (context) {
         var microscope = Object.assign(self.state.microscope, {
           components: components
         });
+        microscope.linkedFields = self.state.linkedFields;
         return JSON.stringify(microscope, null, 2);
+      },
+      updateMicroscopeDescription: function updateMicroscopeDescription(description) {
+        var newMicroscope = Object.assign(self.state.microscope, {
+          "Description": description || ""
+        });
+        this.setState({
+          microscope: newMicroscope
+        });
       },
       validateMicroscope: function validateMicroscope(microscope, schemas, checkForMicroscopeStand) {
         return _validateMicroscope(microscope, schemas, checkForMicroscopeStand);
