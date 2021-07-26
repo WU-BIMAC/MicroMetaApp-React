@@ -32,6 +32,7 @@ export const string_microscope_img = "microscope-solid.svg";
 export const string_createFromScratch = "Create # from scratch";
 export const string_createFromFile = "Load from file";
 export const string_loadFromRepository = "Load from repository";
+export const string_loadFromHomeFolder = "Load from home folder";
 export const string_noImageLoad = "Skip load Image";
 
 export const string_validationTier = "Validate @ tier: ";
@@ -366,19 +367,19 @@ export const loadImage_from_file_tooltip = {
 };
 
 export const create_from_repo_manufacturer_tooltip = {
-	title: "Create from repository",
+	title: "Select Manufacturer",
 	content: <p>Select the Manufacturer of the Microscope you want to load.</p>,
 	position: "top",
 };
 
 export const create_from_repo_names_tooltip = {
-	title: "Create from repository",
+	title: "Select Microscope",
 	content: <p>Select the Microscope you want to load.</p>,
 	position: "top",
 };
 
 export const createSettings_from_repo_names_tooltip = {
-	title: "Load from repository",
+	title: "Select Settings",
 	content: <p>Select the Settings file you want to load.</p>,
 	position: "top",
 };

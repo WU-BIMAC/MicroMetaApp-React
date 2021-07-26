@@ -45,10 +45,6 @@ var _genericUtilities = require("./genericUtilities");
 
 var _constants = require("./constants");
 
-var _util = require("util");
-
-var _constants2 = require("constants");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -395,7 +391,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (item === _constants.string_createFromFile) {
         loadingMode = 1;
-      } else if (item === _constants.string_loadFromRepository) {
+      } else if (item === _constants.string_loadFromRepository || item === _constants.string_loadFromHomeFolder) {
         loadingMode = 2;
       }
 
@@ -434,10 +430,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleLoadMetadataComplete",
-    value: function handleLoadMetadataComplete(imageMetadata) {
+    value: function handleLoadMetadataComplete(imageMetadata, resolve) {
       this.setState({
         imageMetadata: imageMetadata
-      });
+      }, resolve());
     } // setMicroscopeScale(scale) {
     // 	this.state.microscope.scale = scale;
     // }
@@ -2121,7 +2117,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         };
 
         if (microscope === null || this.state.isSpecialImporterActive) {
-          console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
+          //console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
           var loadingOptions = [];
           loadingOptions.push(_constants.string_createFromFile);
           return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
@@ -2218,7 +2214,14 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           });
         }
 
-        if (microscopeNames !== null && microscopeNames !== undefined && Object.keys(microscopeNames).length > 0) _loadingOptions.push(_constants.string_loadFromRepository);
+        if (microscopeNames !== null && microscopeNames !== undefined && Object.keys(microscopeNames).length > 0) {
+          if (this.props.isElectron) {
+            _loadingOptions.push(_constants.string_loadFromHomeFolder);
+          } else {
+            _loadingOptions.push(_constants.string_loadFromRepository);
+          }
+        }
+
         return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
@@ -2284,7 +2287,14 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           });
         }
 
-        if (settingsNames !== null && settingsNames !== undefined && Object.keys(settingsNames).length > 0) _loadingOptions3.push(_constants.string_loadFromRepository);
+        if (settingsNames !== null && settingsNames !== undefined && Object.keys(settingsNames).length > 0) {
+          if (this.props.isElectron) {
+            _loadingOptions3.push(_constants.string_loadFromHomeFolder);
+          } else {
+            _loadingOptions3.push(_constants.string_loadFromRepository);
+          }
+        }
+
         return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
@@ -2898,6 +2908,7 @@ MicroMetaAppReact.defaultProps = {
   containerOffsetLeft: 0,
   scalingFactor: 1,
   isDebug: false,
+  isElectron: false,
   hasSettings: false,
   hasAdvancedModel: false,
   hasExperimentalModel: false,
