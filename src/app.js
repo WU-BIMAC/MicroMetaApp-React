@@ -382,7 +382,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let loadingMode = 0;
 		if (item === string_createFromFile) {
 			loadingMode = 1;
-		} else if (item === string_loadFromRepository || item === string_loadFromHomeFolder) {
+		} else if (
+			item === string_loadFromRepository ||
+			item === string_loadFromHomeFolder
+		) {
 			loadingMode = 2;
 		}
 		this.setState({ loadingOption: item, loadingMode: loadingMode });
@@ -404,8 +407,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.setState({ setting: setting });
 	}
 
-	handleLoadMetadataComplete(imageMetadata, resolve) {
-		this.setState({ imageMetadata: imageMetadata }, resolve());
+	handleLoadMetadataComplete(imageMetadata) {
+		this.setState({ imageMetadata: imageMetadata });
 	}
 
 	// setMicroscopeScale(scale) {
@@ -2943,8 +2946,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				microscopeNames !== undefined &&
 				Object.keys(microscopeNames).length > 0
 			) {
-				if(this.props.isElectron) {
-					loadingOptions.push(string_loadFromHomeFolder)
+				if (this.props.isElectron) {
+					loadingOptions.push(string_loadFromHomeFolder);
 				} else {
 					loadingOptions.push(string_loadFromRepository);
 				}
@@ -3028,7 +3031,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				settingsNames !== undefined &&
 				Object.keys(settingsNames).length > 0
 			) {
-				if(this.props.isElectron) {
+				if (this.props.isElectron) {
 					loadingOptions.push(string_loadFromHomeFolder);
 				} else {
 					loadingOptions.push(string_loadFromRepository);

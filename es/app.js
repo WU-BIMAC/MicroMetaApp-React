@@ -430,10 +430,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleLoadMetadataComplete",
-    value: function handleLoadMetadataComplete(imageMetadata, resolve) {
+    value: function handleLoadMetadataComplete(imageMetadata) {
       this.setState({
         imageMetadata: imageMetadata
-      }, resolve());
+      });
     } // setMicroscopeScale(scale) {
     // 	this.state.microscope.scale = scale;
     // }

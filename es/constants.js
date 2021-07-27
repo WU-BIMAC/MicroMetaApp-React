@@ -56,7 +56,7 @@ var string_microscope_img = "microscope-solid.svg";
 exports.string_microscope_img = string_microscope_img;
 var string_createFromScratch = "Create # from scratch";
 exports.string_createFromScratch = string_createFromScratch;
-var string_createFromFile = "Load from file";
+var string_createFromFile = "Import from file";
 exports.string_createFromFile = string_createFromFile;
 var string_loadFromRepository = "Load from repository";
 exports.string_loadFromRepository = string_loadFromRepository;
@@ -176,7 +176,7 @@ var manage_settings_tooltip = {
 exports.manage_settings_tooltip = manage_settings_tooltip;
 var create_mode_selector_tooltip = {
   title: "Create mode selector",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the modality you want to use for Instrument hardware management. 'Create from scratch' allows you to create a brand new Microscope file from scratch. 'Load from file' allows you to import into Micro-Meta App a previously available Microscope file (i.e., an example file, a template file, or an existing Microscope file shared by a colleague) to edit. 'Load from repository' allows you to load a previously available file from the active Micro-Meta App repository."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the modality you want to use for Instrument hardware management. 'Create from scratch' allows you to create a brand new Microscope file from scratch. 'Import from file' allows you to import into Micro-Meta App a previously available Microscope file (i.e., an example file, a template file, or an existing Microscope file shared by a colleague) to edit. 'Load from repository' allows you to load a previously available file from the active Micro-Meta App repository."),
   position: "top"
 };
 exports.create_mode_selector_tooltip = create_mode_selector_tooltip;
@@ -188,7 +188,7 @@ var create_mode_selector_settings_tooltip = {
 exports.create_mode_selector_settings_tooltip = create_mode_selector_settings_tooltip;
 var createSettings_mode_selector_tooltip = {
   title: "Load Settings file selector",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the modality you want to use for Settings management. 'Create from scratch' allows you to create a brand new Settings file from scratch. 'Load from file' allows you to import into Micro-Meta App a previously available Settings file (i.e., an example file, a template file, or an existing Settings file shared by a colleague) to edit. 'Load from repository' allows you to load a previously available file from the active Micro-Meta App repository."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the modality you want to use for Settings management. 'Create from scratch' allows you to create a brand new Settings file from scratch. 'Import from file' allows you to import into Micro-Meta App a previously available Settings file (i.e., an example file, a template file, or an existing Settings file shared by a colleague) to edit. 'Load from repository' allows you to load a previously available file from the active Micro-Meta App repository."),
   position: "top"
 };
 exports.createSettings_mode_selector_tooltip = createSettings_mode_selector_tooltip;
@@ -205,13 +205,13 @@ var create_from_file_tooltip = {
 };
 exports.create_from_file_tooltip = create_from_file_tooltip;
 var createSettings_from_file_tooltip = {
-  title: "Load from file",
+  title: "Import from file",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Select an existing Settings file you want to work on."),
   position: "top"
 };
 exports.createSettings_from_file_tooltip = createSettings_from_file_tooltip;
 var loadImage_from_file_tooltip = {
-  title: "Load from file",
+  title: "Import from file",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Select an existing Image file you want to work on."),
   position: "top"
 };

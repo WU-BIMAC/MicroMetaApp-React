@@ -30,7 +30,7 @@ export const string_import_img = "file-import-solid.svg";
 export const string_microscope_img = "microscope-solid.svg";
 
 export const string_createFromScratch = "Create # from scratch";
-export const string_createFromFile = "Load from file";
+export const string_createFromFile = "Import from file";
 export const string_loadFromRepository = "Load from repository";
 export const string_loadFromHomeFolder = "Load from home folder";
 export const string_noImageLoad = "Skip load Image";
@@ -299,8 +299,8 @@ export const create_mode_selector_tooltip = {
 		<p>
 			Choose the modality you want to use for Instrument hardware management.
 			'Create from scratch' allows you to create a brand new Microscope file
-			from scratch. 'Load from file' allows you to import into Micro-Meta App a
-			previously available Microscope file (i.e., an example file, a template
+			from scratch. 'Import from file' allows you to import into Micro-Meta App
+			a previously available Microscope file (i.e., an example file, a template
 			file, or an existing Microscope file shared by a colleague) to edit. 'Load
 			from repository' allows you to load a previously available file from the
 			active Micro-Meta App repository.
@@ -327,7 +327,7 @@ export const createSettings_mode_selector_tooltip = {
 		<p>
 			Choose the modality you want to use for Settings management. 'Create from
 			scratch' allows you to create a brand new Settings file from scratch.
-			'Load from file' allows you to import into Micro-Meta App a previously
+			'Import from file' allows you to import into Micro-Meta App a previously
 			available Settings file (i.e., an example file, a template file, or an
 			existing Settings file shared by a colleague) to edit. 'Load from
 			repository' allows you to load a previously available file from the active
@@ -355,13 +355,13 @@ export const create_from_file_tooltip = {
 };
 
 export const createSettings_from_file_tooltip = {
-	title: "Load from file",
+	title: "Import from file",
 	content: <p>Select an existing Settings file you want to work on.</p>,
 	position: "top",
 };
 
 export const loadImage_from_file_tooltip = {
-	title: "Load from file",
+	title: "Import from file",
 	content: <p>Select an existing Image file you want to work on.</p>,
 	position: "top",
 };
