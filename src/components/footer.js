@@ -12,7 +12,9 @@ const url = require("url");
 
 import {
 	save_microscope_tooltip,
+	export_microscope_tooltip,
 	save_setting_tooltip,
+	export_setting_tooltip,
 	back_tooltip,
 	string_back_img,
 	string_save_img,
@@ -60,6 +62,10 @@ export default class Footer extends React.PureComponent {
 		let saveTooltip = save_microscope_tooltip;
 		if (this.props.element === "image settings") {
 			saveTooltip = save_setting_tooltip;
+		}
+		let exportTooltip = export_microscope_tooltip;
+		if (this.props.element === "image settings") {
+			exportTooltip = export_setting_tooltip;
 		}
 
 		let buttonsLeft = [];
@@ -166,7 +172,7 @@ export default class Footer extends React.PureComponent {
 				width={250}
 				margin={5}
 				direction={"up"}
-				tooltip={saveTooltip}
+				tooltip={exportTooltip}
 				hasFixedTitle={true}
 				variant="dark"
 				imgPath_tmp={exportImgPath_tmp}
