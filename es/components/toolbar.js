@@ -359,7 +359,8 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
         borderTop: "2px solid",
         width: "".concat(width, "px"),
         height: "".concat(height, "px"),
-        overflow: "auto"
+        overflowY: "auto",
+        overflowX: "hidden"
       };
 
       if (!this.props.isToolbarHidden) {

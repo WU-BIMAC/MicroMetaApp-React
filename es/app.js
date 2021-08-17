@@ -1,49 +1,6 @@
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _reactDom = _interopRequireDefault(require("react-dom"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _header = _interopRequireDefault(require("./components/header"));
-
-var _footer = _interopRequireDefault(require("./components/footer"));
-
-var _toolbar = _interopRequireDefault(require("./components/toolbar"));
-
-var _canvas = _interopRequireDefault(require("./components/canvas"));
-
-var _settingsMainView = _interopRequireDefault(require("./components/settingsMainView"));
-
-var _dataLoader = _interopRequireDefault(require("./components/dataLoader"));
-
-var _microscopePreLoader = _interopRequireDefault(require("./components/microscopePreLoader"));
-
-var _microscopeLoader = _interopRequireDefault(require("./components/microscopeLoader"));
-
-var _settingLoader = _interopRequireDefault(require("./components/settingLoader"));
-
-var _imageLoader = _interopRequireDefault(require("./components/imageLoader"));
-
-var _modalWindow = _interopRequireDefault(require("./components/modalWindow"));
-
-var _package = require("../package.json");
-
-var _uuid = require("uuid");
-
-var _genericUtilities = require("./genericUtilities");
-
-var _constants = require("./constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -88,9 +45,7 @@ var url = require("url");
 
 var validate = require("jsonschema").validate;
 
-import { number_logo_width, number_logo_height, current_stands, string_object, string_array, string_json_ext, string_logo_img_no_bk, string_logo_img_cell_bk, string_logo_img_micro_bk, string_createFromScratch, string_createFromFile, string_loadFromRepository, string_noImageLoad, number_canvas_element_icons_height, number_canvas_element_offset_default } from "./constants";
-import { isUndefined } from "util";
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
+import { number_logo_width, number_logo_height, current_stands, string_object, string_array, string_json_ext, string_logo_img_no_bk, string_logo_img_cell_bk, string_logo_img_micro_bk, string_createFromScratch, string_createFromFile, string_loadFromRepository, string_loadFromHomeFolder, string_noImageLoad, number_canvas_element_icons_height, number_canvas_element_offset_default } from "./constants";
 
 var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(MicroMetaAppReact, _React$PureComponent);
@@ -415,7 +370,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (item === string_createFromFile) {
         loadingMode = 1;
-      } else if (item === _constants.string_loadFromRepository || item === _constants.string_loadFromHomeFolder) {
+      } else if (item === string_loadFromRepository || item === string_loadFromHomeFolder) {
         loadingMode = 2;
       }
 
@@ -2211,13 +2166,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
         if (microscopeNames !== null && microscopeNames !== undefined && Object.keys(microscopeNames).length > 0) {
           if (this.props.isElectron) {
-            _loadingOptions.push(_constants.string_loadFromHomeFolder);
+            _loadingOptions.push(string_loadFromHomeFolder);
           } else {
-            _loadingOptions.push(_constants.string_loadFromRepository);
+            _loadingOptions.push(string_loadFromRepository);
           }
         }
 
-        return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
+        return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
@@ -2283,13 +2238,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
         if (settingsNames !== null && settingsNames !== undefined && Object.keys(settingsNames).length > 0) {
           if (this.props.isElectron) {
-            _loadingOptions3.push(_constants.string_loadFromHomeFolder);
+            _loadingOptions3.push(string_loadFromHomeFolder);
           } else {
-            _loadingOptions3.push(_constants.string_loadFromRepository);
+            _loadingOptions3.push(string_loadFromRepository);
           }
         }
 
-        return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
+        return /*#__PURE__*/React.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef

@@ -31,7 +31,7 @@ import PopoverTooltip from "./popoverTooltip";
 
 var url = require("url");
 
-import { save_microscope_tooltip, save_setting_tooltip, back_tooltip, string_back_img, string_save_img, string_export_img, string_import_img, import_tooltip } from "../constants";
+import { save_microscope_tooltip, export_microscope_tooltip, save_setting_tooltip, export_setting_tooltip, back_tooltip, string_back_img, string_save_img, string_export_img, string_import_img, import_tooltip } from "../constants";
 
 var Footer = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(Footer, _React$PureComponent);
@@ -78,10 +78,10 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         saveTooltip = save_setting_tooltip;
       }
 
-      var exportTooltip = _constants.export_microscope_tooltip;
+      var exportTooltip = export_microscope_tooltip;
 
       if (this.props.element === "image settings") {
-        exportTooltip = _constants.export_setting_tooltip;
+        exportTooltip = export_setting_tooltip;
       }
 
       var buttonsLeft = [];
