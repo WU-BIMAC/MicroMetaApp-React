@@ -30,8 +30,9 @@ export const string_import_img = "file-import-solid.svg";
 export const string_microscope_img = "microscope-solid.svg";
 
 export const string_createFromScratch = "Create # from scratch";
-export const string_createFromFile = "Load from file";
+export const string_createFromFile = "Import from file";
 export const string_loadFromRepository = "Load from repository";
+export const string_loadFromHomeFolder = "Load from the local home folder";
 export const string_noImageLoad = "Skip load Image";
 
 export const string_validationTier = "Validate @ tier: ";
@@ -298,11 +299,12 @@ export const create_mode_selector_tooltip = {
 		<p>
 			Choose the modality you want to use for Instrument hardware management.
 			'Create from scratch' allows you to create a brand new Microscope file
-			from scratch. 'Load from file' allows you to import into Micro-Meta App a
-			previously available Microscope file (i.e., an example file, a template
+			from scratch. 'Import from file' allows you to import into Micro-Meta App
+			a previously available Microscope file (i.e., an example file, a template
 			file, or an existing Microscope file shared by a colleague) to edit. 'Load
-			from repository' allows you to load a previously available file from the
-			active Micro-Meta App repository.
+			from repository' or 'Load from the local home folder' allows you to load a
+			previously available file, respectively, from the active Micro-Meta App
+			repository or the local home folder.
 		</p>
 	),
 	position: "top",
@@ -326,11 +328,12 @@ export const createSettings_mode_selector_tooltip = {
 		<p>
 			Choose the modality you want to use for Settings management. 'Create from
 			scratch' allows you to create a brand new Settings file from scratch.
-			'Load from file' allows you to import into Micro-Meta App a previously
+			'Import from file' allows you to import into Micro-Meta App a previously
 			available Settings file (i.e., an example file, a template file, or an
 			existing Settings file shared by a colleague) to edit. 'Load from
-			repository' allows you to load a previously available file from the active
-			Micro-Meta App repository.
+			repository' or 'Load from the local home folder' allows you to load a
+			previously available file, respectively, from the active Micro-Meta App
+			repository or the local home folder.
 		</p>
 	),
 	position: "top",
@@ -354,31 +357,31 @@ export const create_from_file_tooltip = {
 };
 
 export const createSettings_from_file_tooltip = {
-	title: "Load from file",
+	title: "Import from file",
 	content: <p>Select an existing Settings file you want to work on.</p>,
 	position: "top",
 };
 
 export const loadImage_from_file_tooltip = {
-	title: "Load from file",
+	title: "Import from file",
 	content: <p>Select an existing Image file you want to work on.</p>,
 	position: "top",
 };
 
 export const create_from_repo_manufacturer_tooltip = {
-	title: "Create from repository",
+	title: "Select Manufacturer",
 	content: <p>Select the Manufacturer of the Microscope you want to load.</p>,
 	position: "top",
 };
 
 export const create_from_repo_names_tooltip = {
-	title: "Create from repository",
+	title: "Select Microscope",
 	content: <p>Select the Microscope you want to load.</p>,
 	position: "top",
 };
 
 export const createSettings_from_repo_names_tooltip = {
-	title: "Load from repository",
+	title: "Select Settings",
 	content: <p>Select the Settings file you want to load.</p>,
 	position: "top",
 };
@@ -503,9 +506,23 @@ export const save_component_tooltip = {
 	title: "Save component",
 	content: (
 		<p>
-			Choose whether you want to save this Component file to the active
-			Micro-Meta App repository or if you want to export it to your local file
-			system.
+			Save the JSON file for this Component to the active Micro-Meta App
+			repository or to the local home folder. You have one of two options: 1)
+			'Save' allows to save the Component JSON file in its current status. 2)
+			'Save as new' allows to save the Component JSON file with a new Unique ID.
+		</p>
+	),
+	position: "top",
+};
+
+export const export_component_tooltip = {
+	title: "Export component",
+	content: (
+		<p>
+			Export the current Component JSON file from Micro-Meta App to the file
+			system. You have one of two options: 1) 'Export' allows to export the
+			Component JSON file in its current status. 2) 'Export as new' allows to
+			export the Component JSON file with a new Unique ID.
 		</p>
 	),
 	position: "top",
@@ -515,9 +532,24 @@ export const save_microscope_tooltip = {
 	title: "Save microscope",
 	content: (
 		<p>
-			Choose whether you want to save this Microscope file to the active
-			Micro-Meta App repository or if you want to export it to your local file
-			system.
+			Save the JSON file for this Microscope to the active Micro-Meta App
+			repository or to the local home folder. You have one of two options: 1)
+			'Save' allows to save the Microscope JSON file in its current status. 2)
+			'Save as new' allows to save the Microscope JSON file with a new Unique
+			ID.
+		</p>
+	),
+	position: "top",
+};
+
+export const export_microscope_tooltip = {
+	title: "Export microscope",
+	content: (
+		<p>
+			Export the current Microscope JSON file from Micro-Meta App to the file
+			system. You have one of two options: 1) 'Export' allows to export the
+			Microscope JSON file in its current status. 2) 'Export as new' allows to
+			export the Microscope JSON file with a new Unique ID.
 		</p>
 	),
 	position: "top",
@@ -527,9 +559,23 @@ export const save_setting_tooltip = {
 	title: "Save settings",
 	content: (
 		<p>
-			Choose whether you want to save this Settings file to the active
-			Micro-Meta App repository or if you want to export it to your local file
-			system.
+			Save the JSON file for this Settings to the active Micro-Meta App
+			repository or to the local home folder. You have one of two options: 1)
+			'Save' allows to save the Settings JSON file in its current status. 2)
+			'Save as new' allows to save the Settings JSON file with a new Unique ID.
+		</p>
+	),
+	position: "top",
+};
+
+export const export_setting_tooltip = {
+	title: "Export settings",
+	content: (
+		<p>
+			Export the current Settings JSON file from Micro-Meta App to the file
+			system. You have one of two options: 1) 'Export' allows to export the
+			Settings JSON file in its current status. 2) 'Export as new' allows to
+			export the Settings JSON file with a new Unique ID.
 		</p>
 	),
 	position: "top",

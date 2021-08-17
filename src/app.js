@@ -35,12 +35,11 @@ import {
 	string_createFromScratch,
 	string_createFromFile,
 	string_loadFromRepository,
+	string_loadFromHomeFolder,
 	string_noImageLoad,
 	number_canvas_element_icons_height,
 	number_canvas_element_offset_default,
 } from "./constants";
-import { isUndefined } from "util";
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
 export default class MicroMetaAppReact extends React.PureComponent {
 	constructor(props) {
@@ -389,7 +388,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let loadingMode = 0;
 		if (item === string_createFromFile) {
 			loadingMode = 1;
-		} else if (item === string_loadFromRepository) {
+		} else if (
+			item === string_loadFromRepository ||
+			item === string_loadFromHomeFolder
+		) {
 			loadingMode = 2;
 		}
 		this.setState({ loadingOption: item, loadingMode: loadingMode });
@@ -2827,7 +2829,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				alignItems: "center",
 			};
 			if (microscope === null || this.state.isSpecialImporterActive) {
-				console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
+				//console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
 				let loadingOptions = [];
 				loadingOptions.push(string_createFromFile);
 				return (
@@ -2949,8 +2951,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				microscopeNames !== null &&
 				microscopeNames !== undefined &&
 				Object.keys(microscopeNames).length > 0
-			)
-				loadingOptions.push(string_loadFromRepository);
+			) {
+				if (this.props.isElectron) {
+					loadingOptions.push(string_loadFromHomeFolder);
+				} else {
+					loadingOptions.push(string_loadFromRepository);
+				}
+			}
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
@@ -3029,8 +3036,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				settingsNames !== null &&
 				settingsNames !== undefined &&
 				Object.keys(settingsNames).length > 0
-			)
-				loadingOptions.push(string_loadFromRepository);
+			) {
+				if (this.props.isElectron) {
+					loadingOptions.push(string_loadFromHomeFolder);
+				} else {
+					loadingOptions.push(string_loadFromRepository);
+				}
+			}
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
@@ -3389,6 +3401,7 @@ MicroMetaAppReact.defaultProps = {
 	containerOffsetLeft: 0,
 	scalingFactor: 1,
 	isDebug: false,
+	isElectron: false,
 	hasSettings: false,
 	hasAdvancedModel: false,
 	hasExperimentalModel: false,

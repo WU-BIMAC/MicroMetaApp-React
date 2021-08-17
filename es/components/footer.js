@@ -78,6 +78,12 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         saveTooltip = save_setting_tooltip;
       }
 
+      var exportTooltip = _constants.export_microscope_tooltip;
+
+      if (this.props.element === "image settings") {
+        exportTooltip = _constants.export_setting_tooltip;
+      }
+
       var buttonsLeft = [];
       var buttonsRight = [];
       var saveOptions = [];
@@ -153,7 +159,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         width: 250,
         margin: 5,
         direction: "up",
-        tooltip: saveTooltip,
+        tooltip: exportTooltip,
         hasFixedTitle: true,
         variant: "dark",
         imgPath_tmp: exportImgPath_tmp,
