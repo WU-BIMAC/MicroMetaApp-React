@@ -86,7 +86,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         display: "flex",
         justifyContent: "flex-start",
         flexFlow: "column",
-        width: "100%",
+        width: "75%",
         height: "100%",
         alignItems: "flex-start"
       };

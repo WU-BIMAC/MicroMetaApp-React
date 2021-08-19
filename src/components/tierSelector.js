@@ -49,7 +49,7 @@ export default class TierSelector extends React.PureComponent {
 			display: "flex",
 			justifyContent: "flex-start",
 			flexFlow: "column",
-			width: "100%",
+			width: "75%",
 			height: "100%",
 			alignItems: "flex-start",
 		};
