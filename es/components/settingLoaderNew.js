@@ -629,7 +629,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var variant_3 = "outline-primary";
       var variant_4 = "outline-danger";
 
-      if (!this.props.hasImageLoader) {
+      if (!this.props.hasMetadataLoader) {
         step3Disabled = true;
         step4Disabled = true;
         variant_3 = "outline-primary";

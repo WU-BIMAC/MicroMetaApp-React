@@ -580,7 +580,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		let step4Disabled = false;
 		let variant_3 = "outline-primary";
 		let variant_4 = "outline-danger";
-		if (!this.props.hasImageLoader) {
+		if (!this.props.hasMetadataLoader) {
 			step3Disabled = true;
 			step4Disabled = true;
 			variant_3 = "outline-primary";
