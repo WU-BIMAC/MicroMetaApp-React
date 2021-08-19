@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="8" viewBox="0 0 14 8">
+  <defs>
+    <clipPath id="clip-Down_Arrow_Icon">
+      <rect width="14" height="8"/>
+    </clipPath>
+  </defs>
+  <g id="Down_Arrow_Icon" data-name="Down Arrow Icon" clip-path="url(#clip-Down_Arrow_Icon)">
+    <path id="sort-down-solid" d="M18.087,288h11.4a1.151,1.151,0,0,1,.814,1.964l-5.7,5.7a1.145,1.145,0,0,1-1.623,0l-5.7-5.7A1.151,1.151,0,0,1,18.087,288Z" transform="translate(-16.786 -288)" fill="#fff"/>
+  </g>
+</svg>

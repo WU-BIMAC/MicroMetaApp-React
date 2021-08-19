@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="8" viewBox="0 0 14 8">
+  <defs>
+    <clipPath id="clip-Up_Arrow_Icon">
+      <rect width="14" height="8"/>
+    </clipPath>
+  </defs>
+  <g id="Up_Arrow_Icon" data-name="Up Arrow Icon" clip-path="url(#clip-Up_Arrow_Icon)">
+    <path id="sort-up-solid" d="M29.484,64.95h-11.4a1.151,1.151,0,0,1-.814-1.963l5.7-5.7a1.145,1.145,0,0,1,1.623,0l5.7,5.7A1.148,1.148,0,0,1,29.484,64.95Z" transform="translate(-16.785 -56.95)" fill="#fff"/>
+  </g>
+</svg>
