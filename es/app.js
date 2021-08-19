@@ -2423,18 +2423,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
         var settCreatingOptions = [_modifiedCreateString];
         var settLoadingOptions = [_constants.string_createFromFile];
-        var settingsNames = [];
+        var settingsNames = {};
 
         if (settings) {
-          var mic_ID = microscope.ID;
-          Object.keys(settings).forEach(function (key) {
-            var sett = settings[key];
-            var sett_ID = sett.InstrumentID;
-
-            if (sett_ID === mic_ID) {
-              settingsNames.push(key);
-            }
-          });
+          settingsNames = settings;
         }
 
         if (settingsNames !== null && settingsNames !== undefined && Object.keys(settingsNames).length > 0) {

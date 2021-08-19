@@ -3214,16 +3214,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let modifiedCreateString = string_createFromScratch.replace("# ", "");
 			let settCreatingOptions = [modifiedCreateString];
 			let settLoadingOptions = [string_createFromFile];
-			let settingsNames = [];
+			let settingsNames = {};
 			if (settings) {
-				let mic_ID = microscope.ID;
-				Object.keys(settings).forEach((key) => {
-					let sett = settings[key];
-					let sett_ID = sett.InstrumentID;
-					if (sett_ID === mic_ID) {
-						settingsNames.push(key);
-					}
-				});
+				settingsNames = settings;
 			}
 			if (
 				settingsNames !== null &&

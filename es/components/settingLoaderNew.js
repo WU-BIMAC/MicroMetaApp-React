@@ -1337,7 +1337,17 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             maxHeight: "80%",
             overflow: "auto"
           };
-          var settingKeys = Object.keys(settings); // let defaultManu = isDefined(selectedManu)
+          var settingsNames = [];
+          var mic_ID = loadedMicroscope.ID;
+          Object.keys(settings).forEach(function (key) {
+            var sett = settings[key];
+            var sett_ID = sett.InstrumentID;
+
+            if (sett_ID === mic_ID) {
+              settingsNames.push(key);
+            }
+          });
+          var settingKeys = Object.keys(settingsNames); // let defaultManu = isDefined(selectedManu)
           // 	? manufacturers.indexOf(selectedManu)
           // 	: 0;
 

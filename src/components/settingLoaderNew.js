@@ -1384,7 +1384,17 @@ export default class MicroscopeLoader extends React.PureComponent {
 					overflow: "auto",
 				};
 
-				let settingKeys = Object.keys(settings);
+				let settingsNames = [];
+				let mic_ID = loadedMicroscope.ID;
+				Object.keys(settings).forEach((key) => {
+					let sett = settings[key];
+					let sett_ID = sett.InstrumentID;
+					if (sett_ID === mic_ID) {
+						settingsNames.push(key);
+					}
+				});
+
+				let settingKeys = Object.keys(settingsNames);
 				// let defaultManu = isDefined(selectedManu)
 				// 	? manufacturers.indexOf(selectedManu)
 				// 	: 0;
