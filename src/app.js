@@ -8,11 +8,15 @@ import Footer from "./components/footer";
 import Toolbar from "./components/toolbar";
 import Canvas from "./components/canvas";
 import SettingsMainView from "./components/settingsMainView";
-import DataLoader from "./components/dataLoader";
-import MicroscopePreLoader from "./components/microscopePreLoader";
+//import DataLoader from "./components/dataLoader";
+import ModeSelectorDataLoader from "./components/modeSelectorDataLoader";
+import TierSelector from "./components/tierSelector";
+//import MicroscopePreLoader from "./components/microscopePreLoader";
 import MicroscopeLoader from "./components/microscopeLoader";
+import MicroscopeLoaderNew from "./components/microscopeLoaderNew";
 import SettingLoader from "./components/settingLoader";
 import ImageLoader from "./components/imageLoader";
+import SettingLoaderNew from "./components/settingLoaderNew";
 import ModalWindow from "./components/modalWindow";
 
 import { version as appVersion } from "../package.json";
@@ -32,6 +36,11 @@ import {
 	string_logo_img_no_bk,
 	string_logo_img_cell_bk,
 	string_logo_img_micro_bk,
+	string_help_img,
+	string_manage_hardware_img,
+	string_manage_settings_img,
+	string_manage_hardware_circle_img,
+	string_manage_settings_circle_img,
 	string_createFromScratch,
 	string_createFromFile,
 	string_loadFromRepository,
@@ -57,19 +66,19 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			adaptedChildrenSchema: null,
 			adaptedExperimentalSchema: null,
 			mounted: false,
+			tierList: null,
+			isTierSelected: false,
 			activeTier: 1,
 			validationTier: 1,
 			isCreatingNewMicroscope: props.isCreatingNewMicroscope || null,
 			isLoadingMicroscope: props.isLoadingMicroscope || null,
 			isLoadingSettings: props.isLoadingSettings || null,
 			isLoadingImage: props.isLoadingImage || null,
-			loadingOption: null,
 			micName: null,
 			settingName: null,
 			elementData: null,
 			settingData: null,
 			linkedFields: null,
-			loadingMode: 0,
 			isMicroscopeValidated: false,
 			isSettingValidated: false,
 			areComponentsValidated: false,
@@ -119,6 +128,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.handleLoadDimensions = this.handleLoadDimensions.bind(this);
 		this.handleCompleteLoadDimensions =
 			this.handleCompleteLoadDimensions.bind(this);
+		this.handleLoadTierList = this.handleLoadTierList.bind(this);
+		this.handleCompleteLoadTierList =
+			this.handleCompleteLoadTierList.bind(this);
 
 		this.updateElementData = this.updateElementData.bind(this);
 		this.updateLinkedFields = this.updateLinkedFields.bind(this);
@@ -131,18 +143,18 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.setCreateNewMicroscope = this.setCreateNewMicroscope.bind(this);
 		this.setLoadMicroscope = this.setLoadMicroscope.bind(this);
 
-		this.uploadMicroscopeFromDropzone =
-			this.uploadMicroscopeFromDropzone.bind(this);
-		this.uploadSettingFromDropzone = this.uploadSettingFromDropzone.bind(this);
-		this.handleLoadMetadataComplete =
-			this.handleLoadMetadataComplete.bind(this);
+		// this.uploadMicroscopeFromDropzone =
+		// 	this.uploadMicroscopeFromDropzone.bind(this);
+		//this.uploadSettingFromDropzone = this.uploadSettingFromDropzone.bind(this);
+		// this.handleLoadMetadataComplete =
+		// 	this.handleLoadMetadataComplete.bind(this);
 
-		this.handleLoadingOptionSelection =
-			this.handleLoadingOptionSelection.bind(this);
-		this.selectMicroscopeFromRepository =
-			this.selectMicroscopeFromRepository.bind(this);
-		this.selectSettingFromRepository =
-			this.selectSettingFromRepository.bind(this);
+		// this.handleLoadingOptionSelection =
+		// 	this.handleLoadingOptionSelection.bind(this);
+		// this.selectMicroscopeFromRepository =
+		// 	this.selectMicroscopeFromRepository.bind(this);
+		// this.selectSettingFromRepository =
+		// 	this.selectSettingFromRepository.bind(this);
 
 		this.applyPreviousVersionModificationToMicroscope =
 			this.applyPreviousVersionModificationToMicroscope.bind(this);
@@ -174,7 +186,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.createOrUseSettingFromSelectedFile =
 			this.createOrUseSettingFromSelectedFile.bind(this);
 
-		this.createOrUseMetadata = this.createOrUseMetadata.bind(this);
+		//this.createOrUseMetadata = this.createOrUseMetadata.bind(this);
 
 		this.onClickBack = this.onClickBack.bind(this);
 
@@ -275,6 +287,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		);
 	}
 
+	handleLoadTierList(e) {
+		return new Promise((resolve, reject) =>
+			setTimeout(() => {
+				this.props.onLoadTierList(this.handleCompleteLoadTierList, resolve);
+			}, 500)
+		);
+	}
+
 	handleCompleteLoadDimensions(newDimensions, resolve) {
 		this.setState({ dimensions: newDimensions }, resolve());
 	}
@@ -287,6 +307,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.setState({ settings: newSettings }, resolve());
 	}
 
+	handleCompleteLoadTierList(newTierList, resolve) {
+		this.setState({ tierList: newTierList }, resolve());
+	}
+
 	handleLoadSchema(e) {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
@@ -296,7 +320,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleCompleteLoadSchema(newSchema, resolve) {
-		console.log("handleCompleteLoadSchema");
 		this.setState({ schema: newSchema }, resolve());
 	}
 
@@ -335,8 +358,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			{
 				activeTier: tier,
 				validationTier: vTier,
-				loadingOption: string_createFromFile,
-				loadingMode: 1,
 			},
 			() => {
 				this.createOrUseMicroscopeFromDroppedFile();
@@ -349,9 +370,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		);
 	}
 
-	handleActiveTierSelection(item) {
-		let tier = Number(item);
-		this.setState({ activeTier: tier, validationTier: tier });
+	handleActiveTierSelection(item, name) {
+		let tier = Number(item) + 1;
+		this.setState({
+			isTierSelected: true,
+			activeTier: tier,
+			validationTier: tier,
+			tierName: name,
+		});
 	}
 
 	setCreateNewMicroscope() {
@@ -360,8 +386,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			isLoadingMicroscope: false,
 			isLoadingSettings: false,
 			isLoadingImage: false,
-			loadingOption: Object.keys(this.state.standTypes)[0],
-			loadingMode: 0,
 		});
 		//this.handleLoadingOptionSelection(createFromScratch);
 	}
@@ -372,44 +396,42 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			isLoadingMicroscope: true,
 			isLoadingSettings: true,
 			isLoadingImage: true,
-			loadingOption: string_createFromFile,
-			loadingMode: 1,
 		});
 		//this.handleLoadingOptionSelection(createFromFile);
 	}
 
-	handleLoadingOptionSelection(item) {
-		let loadingMode = 0;
-		if (item === string_createFromFile) {
-			loadingMode = 1;
-		} else if (
-			item === string_loadFromRepository ||
-			item === string_loadFromHomeFolder
-		) {
-			loadingMode = 2;
-		}
-		this.setState({ loadingOption: item, loadingMode: loadingMode });
-	}
+	// handleLoadingOptionSelection(item) {
+	// 	let loadingMode = 0;
+	// 	if (item === string_createFromFile) {
+	// 		loadingMode = 1;
+	// 	} else if (
+	// 		item === string_loadFromRepository ||
+	// 		item === string_loadFromHomeFolder
+	// 	) {
+	// 		loadingMode = 2;
+	// 	}
+	// 	this.setState({ loadingOption: item, loadingMode: loadingMode });
+	// }
 
-	selectMicroscopeFromRepository(item) {
-		this.setState({ micName: item });
-	}
+	// selectMicroscopeFromRepository(item) {
+	// 	this.setState({ micName: item });
+	// }
 
-	selectSettingFromRepository(item) {
-		this.setState({ settingName: item });
-	}
+	// selectSettingFromRepository(item) {
+	// 	this.setState({ settingName: item });
+	// }
 
-	uploadMicroscopeFromDropzone(microscope) {
-		this.setState({ microscope: microscope });
-	}
+	// uploadMicroscopeFromDropzone(microscope) {
+	// 	this.setState({ microscope: microscope });
+	// }
 
-	uploadSettingFromDropzone(setting) {
-		this.setState({ setting: setting });
-	}
+	// uploadSettingFromDropzone(setting) {
+	// 	this.setState({ setting: setting });
+	// }
 
-	handleLoadMetadataComplete(imageMetadata) {
-		this.setState({ imageMetadata: imageMetadata });
-	}
+	// handleLoadMetadataComplete(imageMetadata) {
+	// 	this.setState({ imageMetadata: imageMetadata });
+	// }
 
 	// setMicroscopeScale(scale) {
 	// 	this.state.microscope.scale = scale;
@@ -1885,12 +1907,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			validationTier: microscope.ValidationTier,
 			typeDimensions: typeDimensions,
 			standType: standType,
-			loadingOption: string_createFromFile,
-			loadingMode: 1,
 		});
 	}
 
-	createOrUseMicroscopeFromDroppedFile() {
+	createOrUseMicroscopeFromDroppedFile(resolve) {
 		//console.log("createOrUseMicroscopeFromDroppedFile - 1");
 		let modifiedMic = this.state.microscope;
 		let activeTier = this.state.activeTier;
@@ -1943,24 +1963,29 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			this.props.scalingFactor
 		);
 		//console.log("createOrUseMicroscopeFromDroppedFile - 2");
-		//console.log(modifiedMic);
-		this.setState({
-			microscope: modifiedMic,
-			setting: null,
-			elementData: newElementData,
-			settingData: null,
-			linkedFields: linkedFields,
-			validationTier: modifiedMic.ValidationTier,
-			isMicroscopeValidated: validated,
-			typeDimensions: typeDimensions,
-			standType: standType,
-			loadingOption: string_createFromFile,
-			loadingMode: 1,
-			isSpecialImporterActive: false,
-		});
+		this.setState(
+			{
+				microscope: modifiedMic,
+				setting: null,
+				elementData: newElementData,
+				settingData: null,
+				linkedFields: linkedFields,
+				validationTier: modifiedMic.ValidationTier,
+				isMicroscopeValidated: validated,
+				typeDimensions: typeDimensions,
+				standType: standType,
+				isSpecialImporterActive: false,
+			},
+			() => {
+				if (isDefined(resolve)) {
+					//console.log("createOrUseMicroscopeFromDroppedFile - callback");
+					resolve();
+				}
+			}
+		);
 	}
 
-	createOrUseMicroscopeFromSelectedFile() {
+	createOrUseMicroscopeFromSelectedFile(resolve) {
 		let modifiedMic = this.state.microscopes[this.state.micName];
 		let activeTier = this.state.activeTier;
 		if (activeTier !== modifiedMic.Tier) {
@@ -2012,27 +2037,31 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			newElementData,
 			this.props.scalingFactor
 		);
-		this.setState({
-			microscope: modifiedMic,
-			setting: null,
-			elementData: newElementData,
-			settingData: null,
-			linkedFields: linkedFields,
-			validationTier: modifiedMic.ValidationTier,
-			isMicroscopeValidated: validated,
-			typeDimensions: typeDimensions,
-			standType: standType,
-			loadingOption: string_createFromFile,
-			loadingMode: 1,
-		});
+		this.setState(
+			{
+				microscope: modifiedMic,
+				setting: null,
+				elementData: newElementData,
+				settingData: null,
+				linkedFields: linkedFields,
+				validationTier: modifiedMic.ValidationTier,
+				isMicroscopeValidated: validated,
+				typeDimensions: typeDimensions,
+				standType: standType,
+			},
+			() => {
+				if (isDefined(resolve)) {
+					resolve();
+				}
+			}
+		);
 	}
 
-	createOrUseMicroscope() {
-		let loadingOption = this.state.loadingOption;
+	createOrUseMicroscope(loadingOption, filename, newMicroscope, resolve) {
 		let isCreateNewScratch = false;
 		let standType = null;
 		for (let typeString in this.state.standTypes) {
-			if (this.state.loadingOption === typeString) {
+			if (loadingOption === typeString) {
 				isCreateNewScratch = true;
 				let type = this.state.standTypes[typeString];
 				for (let i = 0; i < current_stands.length; i++) {
@@ -2046,9 +2075,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			}
 		}
 		let isLoadingMicroscope = this.state.isLoadingMicroscope;
-		let microscope = this.state.microscope;
+		let microscope = newMicroscope;
 		if (!isCreateNewScratch && loadingOption !== string_createFromFile) {
-			microscope = this.state.microscopes[this.state.micName];
+			microscope = this.state.microscopes[filename];
 		}
 		if (
 			microscope !== null &&
@@ -2062,16 +2091,24 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				return;
 			}
 		}
-		if (isCreateNewScratch) {
-			this.createNewMicroscopeFromScratch(standType);
-		} else if (loadingOption === string_createFromFile) {
-			this.createOrUseMicroscopeFromDroppedFile();
-		} else {
-			this.createOrUseMicroscopeFromSelectedFile();
-		}
+		this.setState(
+			{
+				micName: filename,
+				microscope: microscope,
+			},
+			() => {
+				if (isCreateNewScratch) {
+					this.createNewMicroscopeFromScratch(standType);
+				} else if (loadingOption === string_createFromFile) {
+					this.createOrUseMicroscopeFromDroppedFile(resolve);
+				} else {
+					this.createOrUseMicroscopeFromSelectedFile(resolve);
+				}
+			}
+		);
 	}
 
-	createNewSettingFromScratch() {
+	createNewSettingFromScratch(resolve) {
 		let imageMetadata = this.state.imageMetadata;
 		let microscope = this.state.microscope;
 		let standType = microscope.MicroscopeStand.Schema_ID.replace(".json", "");
@@ -2175,20 +2212,23 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let validationPixels = validate(mergedSettings.Pixels, pixelsSchema);
 		let validatedPixels = validationPixels.valid;
 		let validated = validatedSetting && validatedPixels;
-		this.setState({
-			setting: mergedSettings,
-			settingData: newSettingData,
-			validationTier: setting.ValidationTier,
-			typeDimensions: typeDimensions,
-			standType: standType,
-			isSettingValidated: validated,
-			isLoadingSettings: false,
-			loadingOption: string_createFromFile,
-			loadingMode: 1,
-		});
+		this.setState(
+			{
+				setting: mergedSettings,
+				settingData: newSettingData,
+				validationTier: setting.ValidationTier,
+				typeDimensions: typeDimensions,
+				standType: standType,
+				isSettingValidated: validated,
+				isLoadingSettings: false,
+			},
+			() => {
+				if (isDefined(resolve)) resolve();
+			}
+		);
 	}
 
-	createOrUseSettingFromDroppedFile() {
+	createOrUseSettingFromDroppedFile(resolve) {
 		let imageMetadata = this.state.imageMetadata;
 		let microscope = this.state.microscope;
 		let modifiedSetting = this.state.setting;
@@ -2274,18 +2314,21 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let validationPixels = validate(mergedSettings.Pixels, pixelsSchema);
 		let validatedPixels = validationPixels.valid;
 		let validated = validatedSetting && validatedPixels;
-		this.setState({
-			setting: mergedSettings,
-			settingData: newSettingData,
-			validationTier: mergedSettings.ValidationTier,
-			isSettingValidated: validated,
-			isLoadingSettings: false,
-			loadingOption: string_createFromFile,
-			loadingMode: 1,
-		});
+		this.setState(
+			{
+				setting: mergedSettings,
+				settingData: newSettingData,
+				validationTier: mergedSettings.ValidationTier,
+				isSettingValidated: validated,
+				isLoadingSettings: false,
+			},
+			() => {
+				if (isDefined(resolve)) resolve();
+			}
+		);
 	}
 
-	createOrUseSettingFromSelectedFile() {
+	createOrUseSettingFromSelectedFile(resolve) {
 		let imageMetadata = this.state.imageMetadata;
 		let microscope = this.state.microscope;
 		if (this.props.isDebug) {
@@ -2376,72 +2419,131 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let validationPixels = validate(mergedSettings.Pixels, pixelsSchema);
 		let validatedPixels = validationPixels.valid;
 		let validated = validatedSetting && validatedPixels;
-		this.setState({
-			setting: mergedSettings,
-			settingData: newSettingData,
-			validationTier: mergedSettings.ValidationTier,
-			isSettingValidated: validated,
-			isLoadingSettings: false,
-			loadingOption: string_createFromFile,
-			loadingMode: 1,
+		this.setState(
+			{
+				setting: mergedSettings,
+				settingData: newSettingData,
+				validationTier: mergedSettings.ValidationTier,
+				isSettingValidated: validated,
+				isLoadingSettings: false,
+			},
+			() => {
+				if (isDefined(resolve)) resolve();
+			}
+		);
+	}
+
+	createOrUseSetting(
+		micLoadingOption,
+		imgLoadingOption,
+		settLoadingOption,
+		micFilename,
+		newMicroscope,
+		settFilename,
+		newSetting,
+		newMetadata
+	) {
+		let promiseMicroscope = new Promise((resolve, reject) => {
+			this.createOrUseMicroscope(
+				micLoadingOption,
+				micFilename,
+				newMicroscope,
+				resolve
+			);
+		});
+
+		promiseMicroscope.then(() => {
+			//console.log("SetSettingState1");
+			let metadata = null;
+			if (imgLoadingOption !== string_noImageLoad) metadata = newMetadata;
+			if (isDefined(metadata)) {
+				this.setState({ metadata: metadata });
+			}
+
+			//console.log("SetSettingState2");
+
+			let modifiedCreateString = string_createFromScratch.replace("# ", "");
+			let setting = newSetting;
+			let microscope = this.state.microscope;
+			if (
+				settLoadingOption !== modifiedCreateString &&
+				settLoadingOption !== string_createFromFile
+			) {
+				setting = this.state.settings[settFilename];
+			}
+
+			//console.log("SetSettingState3");
+			if (isDefined(setting)) {
+				let micID = microscope.ID;
+				let micName = microscope.Name;
+				let instrumentID = setting.InstrumentID;
+				let instrumentName = setting.InstrumentName;
+				if (micID !== instrumentID || micName !== instrumentName) {
+					if (
+						!window.confirm(
+							"The unique ID & Name of the Microscope file you have selected do not match those that has been saved in the Settings file you are trying to load. If you continue the Microscope ID and Name stored in the Settings file will be overwritten. Are you sure?"
+						)
+					) {
+						return;
+					}
+				}
+				//console.log("SetSettingState4");
+				let promiseSetting = new Promise((resolve, reject) => {
+					this.setState(
+						{
+							settingName: settFilename,
+							setting: setting,
+						},
+						() => {
+							//console.log("SetSettingState-callback");
+							if (settLoadingOption === modifiedCreateString) {
+								this.createNewSettingFromScratch(resolve);
+							} else if (settLoadingOption === string_createFromFile) {
+								//console.log("Calling - createOrUseSettingFromDroppedFile");
+								this.createOrUseSettingFromDroppedFile(resolve);
+							} else {
+								this.createOrUseSettingFromSelectedFile(resolve);
+							}
+						}
+					);
+				});
+				promiseSetting.then(() => {
+					this.setState({ isLoadingImage: false });
+				});
+			}
 		});
 	}
 
-	createOrUseSetting() {
-		let loadingOption = this.state.loadingOption;
-		let microscope = this.state.microscope;
-		let setting = this.state.setting;
-		let modifiedCreateString = string_createFromScratch.replace("# ", "");
-		if (
-			loadingOption !== modifiedCreateString &&
-			loadingOption !== string_createFromFile
-		) {
-			setting = this.state.settings[this.state.settingName];
-		}
-		if (setting !== null && setting !== undefined) {
-			let micID = microscope.ID;
-			let micName = microscope.Name;
-			let instrumentID = setting.InstrumentID;
-			let instrumentName = setting.InstrumentName;
-			if (micID !== instrumentID || micName !== instrumentName) {
-				if (
-					!window.confirm(
-						"The unique ID & Name of the Microscope file you have selected do not match those that has been saved in the Settings file you are trying to load. If you continue the Microscope ID and Name stored in the Settings file will be overwritten. Are you sure?"
-					)
-				) {
-					return;
-				}
-			}
-		}
-		if (loadingOption === modifiedCreateString) {
-			this.createNewSettingFromScratch();
-		} else if (loadingOption === string_createFromFile) {
-			this.createOrUseSettingFromDroppedFile();
-		} else {
-			this.createOrUseSettingFromSelectedFile();
-		}
-	}
+	// createOrUseMetadata() {
+	// 	if (this.state.loadingOption === string_createFromFile) {
+	// 		this.setState({
+	// 			isLoadingImage: false,
+	// 			loadingOption: string_createFromFile,
+	// 			loadingMode: 1,
+	// 		});
+	// 	} else {
+	// 		this.setState({
+	// 			isLoadingImage: false,
+	// 			imageMetadata: null,
+	// 			loadingOption: string_createFromFile,
+	// 			loadingMode: 1,
+	// 		});
+	// 	}
+	// }
 
-	createOrUseMetadata() {
-		if (this.state.loadingOption === string_createFromFile) {
+	onSpecialImporterConfirm(loadingOption, filename, newMicroscope) {
+		let promiseMicroscope = new Promise((resolve, reject) => {
+			this.createOrUseMicroscope(
+				loadingOption,
+				loadingOption,
+				newMicroscope,
+				resolve
+			);
+		});
+		promiseMicroscope.then(() => {
 			this.setState({
-				isLoadingImage: false,
-				loadingOption: string_createFromFile,
-				loadingMode: 1,
+				isSpecialImporterActive: false,
 			});
-		} else {
-			this.setState({
-				isLoadingImage: false,
-				imageMetadata: null,
-				loadingOption: string_createFromFile,
-				loadingMode: 1,
-			});
-		}
-	}
-
-	onSpecialImporterConfirm() {
-		this.setState({
-			isSpecialImporterActive: false,
 		});
 	}
 
@@ -2481,16 +2583,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			microscopes: null,
 			setting: null,
 			settings: null,
+			isTierSelected: false,
 			isCreatingNewMicroscope: isCreatingNewMicroscope,
 			isLoadingMicroscope: isLoadingMicroscope,
 			isLoadingImage: isLoadingImage,
 			isLoadingSettings: isLoadingSettings,
-			loadingOption: null,
 			micName: null,
 			schema: schema,
 			elementData: null,
 			settingData: null,
-			loadingMode: 0,
 			imageMetadata: null,
 		});
 		if (this.state.is4DNPortal) {
@@ -2505,8 +2606,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				//this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
 				this.setState({
 					isSpecialImporterActive: true,
-					loadingOption: string_createFromFile,
-					loadingMode: 1,
 					oldMicroscope: oldMicroscope,
 					oldElementData: oldElementData,
 					oldSetting: oldSetting,
@@ -2749,46 +2848,96 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		let headerFooterWidth = width;
 
-		//Should i add microscopes and settings too ?
 		if (
-			!isDefined(schema) ||
-			!isDefined(this.state.dimensions) ||
+			(this.state.isCreatingNewMicroscope == null &&
+				this.state.isLoadingMicroscope == null) ||
 			(this.state.is4DNPortal && !this.state.microscopePresetHandled)
 		) {
+			let hardwareImg = null;
+			let settingsImg = null;
+			let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
+			if (!this.state.is4DNPortal) {
+				hardwareImg = url.resolve(
+					imagesPathSVG,
+					string_manage_hardware_circle_img
+				);
+				settingsImg = url.resolve(imagesPathSVG, string_manage_settings_img);
+			}
 			return (
+				// 	<DataLoader
+				// 		logoImg={logoImg}
+				// 		onClickLoadSchema={this.handleLoadSchema}
+				// 		onClickLoadDimensions={this.handleLoadDimensions}
+				// 		onClickLoadMicroscopes={this.handleLoadMicroscopes}
+				// 		onClickLoadSettings={this.handleLoadSettings}
+				// 		onClickHandleMicPreset={this.handleMicPreset}
+				// 		is4DNPortal={this.state.is4DNPortal}
+				// 		isDebug={this.props.isDebug}
+				// 	/>
 				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
-					<DataLoader
-						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
+					<ModeSelectorDataLoader
+						logoImg={logoImg}
+						hardwareImg={hardwareImg}
+						settingsImg={settingsImg}
 						onClickLoadSchema={this.handleLoadSchema}
 						onClickLoadDimensions={this.handleLoadDimensions}
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
 						onClickLoadSettings={this.handleLoadSettings}
+						onClickLoadTierList={this.handleLoadTierList}
 						onClickHandleMicPreset={this.handleMicPreset}
+						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
+						onClickLoadMicroscope={this.setLoadMicroscope}
 						is4DNPortal={this.state.is4DNPortal}
+						hasSettings={this.props.hasSettings}
 						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
 			);
 		}
 
-		if (microscope === null && this.state.isCreatingNewMicroscope === null) {
+		// if (microscope === null && this.state.isCreatingNewMicroscope === null) {
+		// 	return (
+		// 		<MicroMetaAppReactContainer
+		// 			width={width}
+		// 			height={height}
+		// 			forwardedRef={this.overlaysContainerRef}
+		// 		>
+		// 			<MicroscopePreLoader
+		// 				logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
+		// 				tiers={this.props.tiers}
+		// 				onClickTierSelection={this.handleActiveTierSelection}
+		// 				onClickCreateNewMicroscope={this.setCreateNewMicroscope}
+		// 				onClickLoadMicroscope={this.setLoadMicroscope}
+		// 				hasSettings={this.props.hasSettings}
+		// 				isDebug={this.props.isDebug}
+		// 			/>
+		// 		</MicroMetaAppReactContainer>
+		// 	);
+		// }
+
+		if (!this.state.is4DNPortal && !this.state.isTierSelected) {
+			let iconImg = null;
+			if (this.state.isCreatingNewMicroscope) {
+				iconImg = url.resolve(imagesPathSVG, string_manage_hardware_img);
+			} else {
+				iconImg = url.resolve(imagesPathSVG, string_manage_settings_img);
+			}
+			let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
-					<MicroscopePreLoader
-						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
-						tiers={this.props.tiers}
+					<TierSelector
+						logoImg={logoImg}
+						iconImg={iconImg}
+						tierList={this.state.tierList}
 						onClickTierSelection={this.handleActiveTierSelection}
-						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
-						onClickLoadMicroscope={this.setLoadMicroscope}
-						hasSettings={this.props.hasSettings}
 						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
@@ -2823,7 +2972,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				alignItems: "center",
 			};
 			if (microscope === null || this.state.isSpecialImporterActive) {
+				let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
 				//console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
+				let creatingOptions = [];
 				let loadingOptions = [];
 				loadingOptions.push(string_createFromFile);
 				return (
@@ -2832,14 +2983,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						height={height}
 						forwardedRef={this.overlaysContainerRef}
 					>
-						<MicroscopeLoader
-							logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
+						<MicroscopeLoaderNew
+							logoImg={logoImg}
+							creatingOptions={creatingOptions}
 							loadingOptions={loadingOptions}
+							modeSelection={string_createFromFile}
 							//microscopes={microscopeNames}
-							onFileDrop={this.uploadMicroscopeFromDropzone}
-							loadingOption={this.state.loadingOption}
-							loadingMode={this.state.loadingMode}
-							onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
+							//onFileDrop={this.uploadMicroscopeFromDropzone}
+							//onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
 							//onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
 							onClickConfirm={this.onSpecialImporterConfirm}
 							onClickBack={this.onSpecialImporterBack}
@@ -2901,9 +3052,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 
 		if (
-			(this.state.isCreatingNewMicroscope || this.state.isLoadingMicroscope) &&
+			this.state
+				.isCreatingNewMicroscope /*|| this.state.isLoadingMicroscope*/ &&
 			(microscope === null || elementData === null)
 		) {
+			let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
+			let creatingOptions = [];
 			let loadingOptions = [];
 			//CREATE MULTIPLE ENTRIES FOR DIFFERENT MICROSCOPE
 			if (!this.state.isLoadingMicroscope) {
@@ -2914,7 +3068,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						"#",
 						name
 					);
-					loadingOptions.push(modifiedCreateString);
+					creatingOptions.push(modifiedCreateString);
 				}
 			}
 			//let loadingOptions = [string_createFromScratch, string_createFromFile];
@@ -2958,18 +3112,20 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
-					<MicroscopeLoader
-						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
+					<MicroscopeLoaderNew
+						logoImg={logoImg}
+						title={this.state.tierName}
+						creatingOptions={creatingOptions}
 						loadingOptions={loadingOptions}
 						microscopes={microscopeNames}
-						onFileDrop={this.uploadMicroscopeFromDropzone}
-						loadingOption={this.state.loadingOption}
-						loadingMode={this.state.loadingMode}
-						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
-						onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
+						//onFileDrop={this.uploadMicroscopeFromDropzone}
+						modeSelection={this.state.loadingOption}
+						//loadingMode={this.state.loadingMode}
+						//onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
+						//onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
 						onClickConfirm={this.createOrUseMicroscope}
 						onClickBack={this.onClickBack}
-						isSettings={this.state.isLoadingMicroscope}
+						//isSettings={this.state.isLoadingMicroscope}
 						schema={this.state.schema}
 						isDebug={this.props.isDebug}
 						imagesPath={imagesPathSVG}
@@ -2978,43 +3134,86 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			);
 		}
 
+		// if (
+		// 	!this.state.isCreatingNewMicroscope &&
+		// 	this.state.isLoadingImage &&
+		// 	this.props.onLoadMetadata !== null &&
+		// 	this.props.onLoadMetadata !== undefined
+		// ) {
+		// 	//console.log("IMAGE LOADER");
+		// 	//let modifiedCreateString = string_createFromScratch.replace("# ", "");
+		// 	let loadingOptions = [string_noImageLoad, string_createFromFile];
+		// 	return (
+		// 		<MicroMetaAppReactContainer
+		// 			width={width}
+		// 			height={height}
+		// 			forwardedRef={this.overlaysContainerRef}
+		// 		>
+		// 			<ImageLoader
+		// 				logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
+		// 				loadingOptions={loadingOptions}
+		// 				onLoadMetadata={this.props.onLoadMetadata}
+		// 				handleLoadMetadataComplete={this.handleLoadMetadataComplete}
+		// 				//loadingOption={this.state.loadingOption}
+		// 				//loadingMode={this.state.loadingMode}
+		// 				//onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
+		// 				onClickConfirm={this.createOrUseMetadata}
+		// 				onClickBack={this.onClickBack}
+		// 				isDebug={this.props.isDebug}
+		// 				imagesPath={imagesPathSVG}
+		// 			/>
+		// 		</MicroMetaAppReactContainer>
+		// 	);
+		// }
+
+		//should be settingData instead of elementData
 		if (
 			!this.state.isCreatingNewMicroscope &&
 			this.state.isLoadingImage &&
-			this.props.onLoadMetadata !== null &&
-			this.props.onLoadMetadata !== undefined
+			this.state.isLoadingSettings
 		) {
-			//console.log("IMAGE LOADER");
-			//let modifiedCreateString = string_createFromScratch.replace("# ", "");
-			let loadingOptions = [string_noImageLoad, string_createFromFile];
-			return (
-				<MicroMetaAppReactContainer
-					width={width}
-					height={height}
-					forwardedRef={this.overlaysContainerRef}
-				>
-					<ImageLoader
-						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
-						loadingOptions={loadingOptions}
-						onLoadMetadata={this.props.onLoadMetadata}
-						handleLoadMetadataComplete={this.handleLoadMetadataComplete}
-						loadingOption={this.state.loadingOption}
-						loadingMode={this.state.loadingMode}
-						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
-						onClickConfirm={this.createOrUseMetadata}
-						onClickBack={this.onClickBack}
-						isDebug={this.props.isDebug}
-						imagesPath={imagesPathSVG}
-					/>
-				</MicroMetaAppReactContainer>
-			);
-		}
-
-		//should be settingData instead of elementData
-		if (!this.state.isCreatingNewMicroscope && this.state.isLoadingSettings) {
+			let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
 			//console.log("SETTINGS LOADER");
+			let imgLoadingOptions = [string_noImageLoad, string_createFromFile];
+			let micLoadingOptions = [];
+			micLoadingOptions.push(string_createFromFile);
+			let microscopeNames = {};
+			if (microscopes) {
+				Object.keys(microscopes).forEach((key) => {
+					let mic = microscopes[key];
+					if (
+						mic.MicroscopeStand !== null &&
+						mic.MicroscopeStand !== undefined &&
+						mic.MicroscopeStand.Manufacturer !== null &&
+						mic.MicroscopeStand.Manufacturer !== undefined
+					) {
+						let catNames = microscopeNames[mic.MicroscopeStand.Manufacturer];
+						if (catNames !== null && catNames !== undefined) catNames.push(key);
+						else catNames = [key];
+						microscopeNames[mic.MicroscopeStand.Manufacturer] = catNames;
+					} else {
+						let catNames = microscopeNames["Others"];
+						if (catNames !== null && catNames !== undefined) catNames.push(key);
+						else catNames = [key];
+						microscopeNames["Others"] = catNames;
+					}
+				});
+			}
+			if (
+				microscopeNames !== null &&
+				microscopeNames !== undefined &&
+				Object.keys(microscopeNames).length > 0
+			) {
+				if (this.props.isElectron) {
+					micLoadingOptions.push(string_loadFromHomeFolder);
+				} else {
+					micLoadingOptions.push(string_loadFromRepository);
+				}
+			}
+
 			let modifiedCreateString = string_createFromScratch.replace("# ", "");
-			let loadingOptions = [modifiedCreateString, string_createFromFile];
+			let settCreatingOptions = [modifiedCreateString];
+			let settLoadingOptions = [string_createFromFile];
 			let settingsNames = [];
 			if (settings) {
 				let mic_ID = microscope.ID;
@@ -3032,31 +3231,43 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				Object.keys(settingsNames).length > 0
 			) {
 				if (this.props.isElectron) {
-					loadingOptions.push(string_loadFromHomeFolder);
+					settLoadingOptions.push(string_loadFromHomeFolder);
 				} else {
-					loadingOptions.push(string_loadFromRepository);
+					settLoadingOptions.push(string_loadFromRepository);
 				}
 			}
+			let hasMetadataLoader = false;
+			if (isDefined(this.props.onLoadMetadata)) hasMetadataLoader = true;
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
-					<SettingLoader
-						logoImg={url.resolve(imagesPathPNG, string_logo_img_micro_bk)}
-						loadingOptions={loadingOptions}
+					<SettingLoaderNew
+						title={this.state.tierName}
+						logoImg={logoImg}
+						microscopeLoadingOptions={micLoadingOptions}
+						imageLoadingOptions={imgLoadingOptions}
+						settingCreatingOptions={settCreatingOptions}
+						settingLoadingOptions={settLoadingOptions}
+						microscopes={microscopeNames}
 						settings={settingsNames}
-						onFileDrop={this.uploadSettingFromDropzone}
-						loadingOption={this.state.loadingOption}
-						loadingMode={this.state.loadingMode}
-						onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
-						onClickSettingsSelection={this.selectSettingFromRepository}
+						//onFileDrop={this.uploadSettingFromDropzone}
+						micloadingOption={this.state.loadingOption}
+						imgloadingOption={this.state.loadingOption}
+						settloadingOption={this.state.loadingOption}
+						//loadingMode={this.state.loadingMode}
+						//onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
+						//onClickSettingsSelection={this.selectSettingFromRepository}
+						//handleLoadMetadataComplete={this.handleLoadMetadataComplete}
+						//onClickConfirm={this.createOrUseMetadata}
 						onClickConfirm={this.createOrUseSetting}
 						onClickBack={this.onClickBack}
 						schema={this.state.schema}
 						isDebug={this.props.isDebug}
 						imagesPath={imagesPathSVG}
+						hasMetadataLoader={hasMetadataLoader}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3148,9 +3359,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		});
 
 		if (!this.state.isCreatingNewMicroscope) {
+			console.log("setting");
+			console.log(setting);
 			let footerSettingsSchemas = [imageSchema, pixelsSchema];
 			let footerSettingsInput = [setting, setting.Pixels];
 			//{overlayImporter}
+			let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
+			let helpImg = url.resolve(imagesPathSVG, string_help_img);
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
@@ -3159,7 +3374,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				>
 					<Header
 						dimensions={headerFooterDims}
-						logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
+						logoImg={logoImg}
+						helpImg={helpImg}
 						isDebug={this.props.isDebug}
 						isSchemaValidated={this.state.isSettingValidated}
 						onFormConfirm={this.onSettingDataSave}
@@ -3223,6 +3439,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					width: width,
 					height: canvasHeight + headerFooterHeight,
 				};
+				let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
+				let helpImg = url.resolve(imagesPathSVG, string_help_img);
 				return (
 					<MicroMetaAppReactContainer
 						width={width}
@@ -3231,8 +3449,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					>
 						<Header
 							dimensions={headerFooterDims}
-							logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
+							logoImg={logoImg}
+							helpImg={helpImg}
 							isDebug={this.props.isDebug}
+							isViewOnly={isViewOnly}
 						/>
 						<div style={style}>
 							<Canvas
@@ -3269,6 +3489,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				);
 			} else {
 				//{overlayImporter}
+
+				let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
+				let helpImg = url.resolve(imagesPathSVG, string_help_img);
 				return (
 					<MicroMetaAppReactContainer
 						width={width}
@@ -3277,7 +3500,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					>
 						<Header
 							dimensions={headerFooterDims}
-							logoImg={url.resolve(imagesPathPNG, string_logo_img_no_bk)}
+							logoImg={logoImg}
+							helpImg={helpImg}
 							isDebug={this.props.isDebug}
 							isSchemaValidated={this.state.isMicroscopeValidated}
 							onFormConfirm={this.onMicroscopeDataSave}
@@ -3390,7 +3614,7 @@ MicroMetaAppReact.defaultProps = {
 	imagesPathPNG: "./assets/png/",
 	imagesPathSVG: "./assets/svg/",
 	dimensionsPath: "./assets/dimension/",
-	tiers: ["1", "2", "3"],
+	//tiers: ["1", "2", "3"],
 	containerOffsetTop: 0,
 	containerOffsetLeft: 0,
 	scalingFactor: 1,
