@@ -28,6 +28,11 @@ export const string_save_img = "save-solid.svg";
 export const string_export_img = "file-export-solid.svg";
 export const string_import_img = "file-import-solid.svg";
 export const string_microscope_img = "microscope-solid.svg";
+export const string_manage_hardware_img = "microscope-large.svg";
+export const string_manage_settings_img = "setting-large.svg";
+export const string_manage_hardware_circle_img = "microscope-large-circle.svg";
+export const string_manage_settings_circle_img = "setting-large-circle.svg";
+export const string_help_img = "question-mark-small.svg";
 
 export const string_createFromScratch = "Create # from scratch";
 export const string_createFromFile = "Import from file";
@@ -41,6 +46,8 @@ export const string_typeDimensionsGeneral = "General";
 
 export const number_logo_width = 800;
 export const number_logo_height = 280;
+export const number_small_logo_width = 430;
+export const number_small_logo_height = 60;
 
 // export const number_canvas_width = 3201;
 // export const number_canvas_height = 989;
@@ -243,7 +250,7 @@ export const menu_order = [
 	"Detector",
 	"Detector.Camera",
 	"Detector.PointDetector",
-	"Calibration",
+	"CalibrationTools",
 ];
 
 export const string_bandpass_warning =
@@ -266,7 +273,7 @@ export const tier_selector_tooltip = {
 			.
 		</p>
 	),
-	position: "top",
+	position: "bottom",
 };
 
 export const manage_instrument_tooltip = {
@@ -290,7 +297,63 @@ export const manage_settings_tooltip = {
 			Image dataset you want to document
 		</p>
 	),
-	position: "right",
+	position: "bottom",
+};
+
+export const microscope_loader_scratch_inverted = {
+	title: "Create Inverted Microscope",
+	content: (
+		<p>
+			'Create Inverted from scratch' allows you to create a brand new Inverted
+			Microscope file from scratch.
+		</p>
+	),
+	position: "bottom",
+};
+export const microscope_loader_scratch_upright = {
+	title: "Create Upright Microscope",
+	content: (
+		<p>
+			'Create Upright from scratch' allows you to create a brand new Inverted
+			Microscope file from scratch.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const microscope_loader_load_from_file = {
+	title: "Import from file",
+	content: (
+		<p>
+			'Import from file' allows you to import into Micro-Meta App a previously
+			available Microscope file (i.e., an example file, a template file, or an
+			existing Microscope file shared by a colleague) to edit.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const microscope_loader_load_from_homeFolder = {
+	title: "Load from local home folder",
+	content: (
+		<p>
+			'Load from the local home folder' allows you to load a previously
+			available Microscope file, respectively, from the active Micro-Meta local home
+			folder.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const microscope_loader_load_from_repo = {
+	title: "Load from repository",
+	content: (
+		<p>
+			'Load from repository' allows you to load a previously available Microscope file,
+			respectively, from the active Micro-Meta App repository.
+		</p>
+	),
+	position: "bottom",
 };
 
 export const create_mode_selector_tooltip = {
@@ -307,7 +370,7 @@ export const create_mode_selector_tooltip = {
 			repository or the local home folder.
 		</p>
 	),
-	position: "top",
+	position: "bottom",
 };
 
 export const create_mode_selector_settings_tooltip = {
@@ -319,7 +382,52 @@ export const create_mode_selector_settings_tooltip = {
 			you want to annotate.
 		</p>
 	),
-	position: "top",
+	position: "bottom",
+};
+
+export const setting_loader_scratch = {
+	title: "Create Setting",
+	content: (
+		<p>
+			'Create from scratch' allows you to create a brand new Settings file from scratch.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const setting_loader_load_from_file = {
+	title: "Import from file",
+	content: (
+		<p>
+			'Import from file' allows you to import into Micro-Meta App a previously
+			available Settings file (i.e., an example file, a template file, or an
+			existing Settings file shared by a colleague) to edit.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const setting_loader_load_from_homeFolder = {
+	title: "Load from local home folder",
+	content: (
+		<p>
+			'Load from the local home folder' allows you to load a previously
+			available Settings file, respectively, from the active Micro-Meta local home
+			folder.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const setting_loader_load_from_repo = {
+	title: "Load from repository",
+	content: (
+		<p>
+			'Load from repository' allows you to load a previously available Settings file,
+			respectively, from the active Micro-Meta App repository.
+		</p>
+	),
+	position: "bottom",
 };
 
 export const createSettings_mode_selector_tooltip = {
@@ -336,7 +444,19 @@ export const createSettings_mode_selector_tooltip = {
 			repository or the local home folder.
 		</p>
 	),
-	position: "top",
+	position: "bottom",
+};
+
+export const loadImage_load_tooltip = {
+	title: "Load image ",
+	content: <p>Enable the selection of the Image file you wish to work with.</p>,
+	position: "bottom",
+};
+
+export const loadImage_skip_tooltip = {
+	title: "Skip load image ",
+	content: <p>Select 'Skip load image' to continue without an Image.</p>,
+	position: "bottom",
 };
 
 export const loadImage_mode_selector_tooltip = {
@@ -347,49 +467,49 @@ export const loadImage_mode_selector_tooltip = {
 			load image' to continue without an Image.
 		</p>
 	),
-	position: "top",
+	position: "bottom",
 };
 
 export const create_from_file_tooltip = {
 	title: "Create from file",
 	content: <p>Select an existing Microscope file you want to work on.</p>,
-	position: "top",
+	position: "bottom",
 };
 
 export const createSettings_from_file_tooltip = {
 	title: "Import from file",
 	content: <p>Select an existing Settings file you want to work on.</p>,
-	position: "top",
+	position: "bottom",
 };
 
 export const loadImage_from_file_tooltip = {
 	title: "Import from file",
 	content: <p>Select an existing Image file you want to work on.</p>,
-	position: "top",
+	position: "bottom",
 };
 
 export const create_from_repo_manufacturer_tooltip = {
 	title: "Select Manufacturer",
 	content: <p>Select the Manufacturer of the Microscope you want to load.</p>,
-	position: "top",
+	position: "left",
 };
 
 export const create_from_repo_names_tooltip = {
 	title: "Select Microscope",
 	content: <p>Select the Microscope you want to load.</p>,
-	position: "top",
+	position: "right",
 };
 
 export const createSettings_from_repo_names_tooltip = {
 	title: "Select Settings",
 	content: <p>Select the Settings file you want to load.</p>,
-	position: "top",
+	position: "bottom",
 };
 
-export const loadImage_from_repo_names_tooltip = {
+export const loadImage_from_names_tooltip = {
 	title: "Load from multi file",
 	content: <p>Select the Image entry you want to load.</p>,
-	position: "top",
+	position: "bottom",
 };
 
 export const create_mode_continue_tooltip = {
