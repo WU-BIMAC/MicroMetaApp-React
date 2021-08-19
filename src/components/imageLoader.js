@@ -14,7 +14,7 @@ import {
 	number_logo_height,
 	loadImage_mode_selector_tooltip,
 	loadImage_from_file_tooltip,
-	loadImage_from_repo_names_tooltip,
+	loadImage_from_names_tooltip,
 	loadImage_mode_continue_tooltip,
 	back_tooltip,
 	string_back_img,
@@ -38,9 +38,8 @@ export default class ImageLoader extends React.PureComponent {
 		this.dropzoneDialogOpen = this.dropzoneDialogOpen.bind(this);
 		this.dropzoneDialogCancel = this.dropzoneDialogCancel.bind(this);
 
-		this.handleLoadMetadataComplete = this.handleLoadMetadataComplete.bind(
-			this
-		);
+		this.handleLoadMetadataComplete =
+			this.handleLoadMetadataComplete.bind(this);
 		this.handleImageSelection = this.handleImageSelection.bind(this);
 
 		// this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
@@ -241,7 +240,7 @@ export default class ImageLoader extends React.PureComponent {
 					//defaultValue={defaultMic}
 					width={width}
 					margin={margin}
-					tooltip={loadImage_from_repo_names_tooltip}
+					tooltip={loadImage_from_names_tooltip}
 				/>
 			);
 		}
