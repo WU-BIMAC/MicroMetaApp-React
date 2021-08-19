@@ -360,7 +360,8 @@ export default class Toolbar extends React.PureComponent {
 			borderTop: "2px solid",
 			width: `${width}px`,
 			height: `${height}px`,
-			overflow: "auto",
+			overflowY: "auto",
+			overflowX: "hidden",
 		};
 		if (!this.props.isToolbarHidden) {
 			style = Object.assign({}, style, {
