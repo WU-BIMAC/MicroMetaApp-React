@@ -401,11 +401,17 @@ export default class ModeSelectorDataLoader extends React.PureComponent {
 				height: "50%",
 				margin: "30px",
 			};
-			let styleText = {
+			let styleText_1 = {
+				wordBreak: "break-word",
+				whiteSpace: "normal",
+			};
+			let styleText_2 = {
 				textAlign: "left",
 				fontSize: "0.8em",
 				marginLeft: "15px",
 				marginRight: "15px",
+				wordBreak: "break-word",
+				whiteSpace: "normal",
 			};
 			let selectionEnabled = true;
 			if (
@@ -448,8 +454,8 @@ export default class ModeSelectorDataLoader extends React.PureComponent {
 												alt={this.props.hardwareImg}
 												style={styleIconImage}
 											/>
-											<h2>Manage Instrument</h2>
-											<p style={styleText}>
+											<h2 style={styleText_1}>Manage Instrument</h2>
+											<p style={styleText_2}>
 												Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 											</p>
 										</div>
@@ -476,8 +482,8 @@ export default class ModeSelectorDataLoader extends React.PureComponent {
 												alt={this.props.settingsImg}
 												style={styleIconImage}
 											/>
-											<h2>Manage Settings</h2>
-											<p style={styleText}>
+											<h2 style={styleText_1}>Manage Settings</h2>
+											<p style={styleText_2}>
 												Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 											</p>
 										</div>

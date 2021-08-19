@@ -388,11 +388,17 @@ var ModeSelectorDataLoader = /*#__PURE__*/function (_React$PureComponent) {
           height: "50%",
           margin: "30px"
         };
-        var styleText = {
+        var styleText_1 = {
+          wordBreak: "break-word",
+          whiteSpace: "normal"
+        };
+        var styleText_2 = {
           textAlign: "left",
           fontSize: "0.8em",
           marginLeft: "15px",
-          marginRight: "15px"
+          marginRight: "15px",
+          wordBreak: "break-word",
+          whiteSpace: "normal"
         };
         var selectionEnabled = true;
 
@@ -422,8 +428,10 @@ var ModeSelectorDataLoader = /*#__PURE__*/function (_React$PureComponent) {
             src: hardwareImgPath,
             alt: this.props.hardwareImg,
             style: styleIconImage
-          }), /*#__PURE__*/_react.default.createElement("h2", null, "Manage Instrument"), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleText
+          }), /*#__PURE__*/_react.default.createElement("h2", {
+            style: styleText_1
+          }, "Manage Instrument"), /*#__PURE__*/_react.default.createElement("p", {
+            style: styleText_2
           }, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.")))
         }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           position: _constants.manage_settings_tooltip.position,
@@ -441,8 +449,10 @@ var ModeSelectorDataLoader = /*#__PURE__*/function (_React$PureComponent) {
             src: settingsImgPath,
             alt: this.props.settingsImg,
             style: styleIconImage
-          }), /*#__PURE__*/_react.default.createElement("h2", null, "Manage Settings"), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleText
+          }), /*#__PURE__*/_react.default.createElement("h2", {
+            style: styleText_1
+          }, "Manage Settings"), /*#__PURE__*/_react.default.createElement("p", {
+            style: styleText_2
           }, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.")))
         })), /*#__PURE__*/_react.default.createElement("div", {
           style: windowButtonsContainer

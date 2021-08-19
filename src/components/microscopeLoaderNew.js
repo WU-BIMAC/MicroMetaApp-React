@@ -354,6 +354,21 @@ export default class MicroscopeLoader extends React.PureComponent {
 		// if (this.props.isImporter) {
 		// }
 
+		let styleText_1 = {
+			wordBreak: "break-word",
+			whiteSpace: "normal",
+		};
+		let styleText_2 = {
+			fontSize: "0.8em",
+			wordBreak: "break-word",
+			whiteSpace: "normal",
+		};
+		let styleText_3 = {
+			fontSize: "0.7em",
+			wordBreak: "break-word",
+			whiteSpace: "normal",
+		};
+
 		let step1Disabled = false;
 		let step2Disabled = false;
 		let variant_1 = "outline-primary";
@@ -378,23 +393,21 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 		let step1Text = (
 			<div style={buttonsInnerTextContainer}>
-				<h5>1 - Microscope information</h5>
-				<p style={{ fontSize: "0.7em" }}>
-					{modeSelection !== null ? modeSelection : ""}
-				</p>
+				<h5 style={styleText_1}>1 - Microscope information</h5>
+				<p style={styleText_3}>{modeSelection !== null ? modeSelection : ""}</p>
 			</div>
 		);
 		let step2Text = (
 			<div style={buttonsInnerTextContainer}>
-				<h5>2 - Select Microscope</h5>
-				<p style={{ fontSize: "0.7em" }}>{filename !== null ? filename : ""}</p>
+				<h5 style={styleText_1}>2 - Select Microscope</h5>
+				<p style={styleText_3}>{filename !== null ? filename : ""}</p>
 			</div>
 		);
 		if (step === 1) {
 			step1Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h3>1 - Microscope information</h3>
-					<p style={{ fontSize: "0.8em" }}>
+					<h3 style={styleText_1}>1 - Microscope information</h3>
+					<p style={styleText_2}>
 						{modeSelection !== null ? modeSelection : ""}
 					</p>
 				</div>
@@ -402,10 +415,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 		} else {
 			step2Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h3>2 - Select Microscope</h3>
-					<p style={{ fontSize: "0.8em" }}>
-						{filename !== null ? filename : ""}
-					</p>
+					<h3 style={styleText_1}>2 - Select Microscope</h3>
+					<p style={styleText_2}>{filename !== null ? filename : ""}</p>
 				</div>
 			);
 		}

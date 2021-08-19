@@ -674,101 +674,114 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         variant_6 = "outline-success";
       }
 
+      var styleText_1 = {
+        wordBreak: "break-word",
+        whiteSpace: "normal"
+      };
+      var styleText_2 = {
+        fontSize: "0.8em",
+        wordBreak: "break-word",
+        whiteSpace: "normal"
+      };
+      var styleText_3 = {
+        fontSize: "0.7em",
+        wordBreak: "break-word",
+        whiteSpace: "normal"
+      };
+
       var step1Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
       }, /*#__PURE__*/_react.default.createElement("h5", null, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
-        style: {
-          fontSize: "0.7em"
-        }
+        style: styleText_3
       }, micModeSelection !== null ? micModeSelection : ""));
 
       var step2Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", null, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
-        style: {
-          fontSize: "0.7em"
-        }
+      }, /*#__PURE__*/_react.default.createElement("h5", {
+        style: styleText_1
+      }, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
+        style: styleText_3
       }, micFilename !== null ? micFilename : ""));
 
       var step3Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", null, "3 - Image information"), /*#__PURE__*/_react.default.createElement("p", {
-        style: {
-          fontSize: "0.7em"
-        }
+      }, /*#__PURE__*/_react.default.createElement("h5", {
+        style: styleText_1
+      }, "3 - Image information"), /*#__PURE__*/_react.default.createElement("p", {
+        style: styleText_3
       }, imgModeSelection !== null ? imgModeSelection : ""));
 
       var step4Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", null, "4 - Select Image"), /*#__PURE__*/_react.default.createElement("p", {
-        style: {
-          fontSize: "0.7em"
-        }
+      }, /*#__PURE__*/_react.default.createElement("h5", {
+        style: styleText_1
+      }, "4 - Select Image"), /*#__PURE__*/_react.default.createElement("p", {
+        style: styleText_3
       }, imgFilename !== null ? imgFilename : ""));
 
       var step5Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", null, "5 - Setting information"), /*#__PURE__*/_react.default.createElement("p", {
-        style: {
-          fontSize: "0.7em"
-        }
+      }, /*#__PURE__*/_react.default.createElement("h5", {
+        style: styleText_1
+      }, "5 - Setting information"), /*#__PURE__*/_react.default.createElement("p", {
+        style: styleText_3
       }, settModeSelection !== null ? settModeSelection : ""));
 
       var step6Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", null, "6 - Select Setting"), /*#__PURE__*/_react.default.createElement("p", {
-        style: {
-          fontSize: "0.7em"
-        }
+      }, /*#__PURE__*/_react.default.createElement("h5", {
+        style: styleText_1
+      }, "6 - Select Setting"), /*#__PURE__*/_react.default.createElement("p", {
+        style: styleText_3
       }, settFilename !== null ? settFilename : ""));
 
       if (step === 1) {
         step1Text = /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", null, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
-          style: {
-            fontSize: "0.8em"
-          }
+        }, /*#__PURE__*/_react.default.createElement("h3", {
+          style: styleText_1
+        }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
+          style: styleText_2
         }, micModeSelection !== null ? micModeSelection : ""));
       } else if (step === 2) {
         step2Text = /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", null, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
-          style: {
-            fontSize: "0.8em"
-          }
+        }, /*#__PURE__*/_react.default.createElement("h3", {
+          style: styleText_1
+        }, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
+          style: styleText_2
         }, micFilename !== null ? micFilename : ""));
       } else if (step === 3) {
         step3Text = /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", null, "3 - Image information"), /*#__PURE__*/_react.default.createElement("p", {
-          style: {
-            fontSize: "0.8em"
-          }
+        }, /*#__PURE__*/_react.default.createElement("h3", {
+          style: styleText_1
+        }, "3 - Image information"), /*#__PURE__*/_react.default.createElement("p", {
+          style: styleText_2
         }, imgModeSelection !== null ? imgModeSelection : ""));
       } else if (step === 4) {
         step4Text = /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", null, "4 - Select Image"), /*#__PURE__*/_react.default.createElement("p", {
-          style: {
-            fontSize: "0.8em"
-          }
+        }, /*#__PURE__*/_react.default.createElement("h3", {
+          style: styleText_1
+        }, "4 - Select Image"), /*#__PURE__*/_react.default.createElement("p", {
+          style: styleText_2
         }, imgFilename !== null ? imgFilename : ""));
       } else if (step === 5) {
         step5Text = /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", null, "5 - Setting information"), /*#__PURE__*/_react.default.createElement("p", {
-          style: {
-            fontSize: "0.8em"
-          }
+        }, /*#__PURE__*/_react.default.createElement("h3", {
+          style: styleText_1
+        }, "5 - Setting information"), /*#__PURE__*/_react.default.createElement("p", {
+          style: styleText_2
         }, settModeSelection !== null ? settModeSelection : ""));
       } else if (step === 6) {
         step6Text = /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", null, "6 - Select Setting"), /*#__PURE__*/_react.default.createElement("p", {
-          style: {
-            fontSize: "0.8em"
-          }
+        }, /*#__PURE__*/_react.default.createElement("h3", {
+          style: styleText_1
+        }, "6 - Select Setting"), /*#__PURE__*/_react.default.createElement("p", {
+          style: styleText_2
         }, settFilename !== null ? settFilename : ""));
       }
 

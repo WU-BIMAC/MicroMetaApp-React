@@ -620,59 +620,68 @@ export default class MicroscopeLoader extends React.PureComponent {
 			variant_6 = "outline-success";
 		}
 
+		let styleText_1 = {
+			wordBreak: "break-word",
+			whiteSpace: "normal",
+		};
+		let styleText_2 = {
+			fontSize: "0.8em",
+			wordBreak: "break-word",
+			whiteSpace: "normal",
+		};
+		let styleText_3 = {
+			fontSize: "0.7em",
+			wordBreak: "break-word",
+			whiteSpace: "normal",
+		};
+
 		let step1Text = (
 			<div style={buttonsInnerTextContainer}>
 				<h5>1 - Microscope information</h5>
-				<p style={{ fontSize: "0.7em" }}>
+				<p style={styleText_3}>
 					{micModeSelection !== null ? micModeSelection : ""}
 				</p>
 			</div>
 		);
 		let step2Text = (
 			<div style={buttonsInnerTextContainer}>
-				<h5>2 - Select Microscope</h5>
-				<p style={{ fontSize: "0.7em" }}>
-					{micFilename !== null ? micFilename : ""}
-				</p>
+				<h5 style={styleText_1}>2 - Select Microscope</h5>
+				<p style={styleText_3}>{micFilename !== null ? micFilename : ""}</p>
 			</div>
 		);
 		let step3Text = (
 			<div style={buttonsInnerTextContainer}>
-				<h5>3 - Image information</h5>
-				<p style={{ fontSize: "0.7em" }}>
+				<h5 style={styleText_1}>3 - Image information</h5>
+				<p style={styleText_3}>
 					{imgModeSelection !== null ? imgModeSelection : ""}
 				</p>
 			</div>
 		);
 		let step4Text = (
 			<div style={buttonsInnerTextContainer}>
-				<h5>4 - Select Image</h5>
-				<p style={{ fontSize: "0.7em" }}>
-					{imgFilename !== null ? imgFilename : ""}
-				</p>
+				<h5 style={styleText_1}>4 - Select Image</h5>
+				<p style={styleText_3}>{imgFilename !== null ? imgFilename : ""}</p>
 			</div>
 		);
 		let step5Text = (
 			<div style={buttonsInnerTextContainer}>
-				<h5>5 - Setting information</h5>
-				<p style={{ fontSize: "0.7em" }}>
+				<h5 style={styleText_1}>5 - Setting information</h5>
+				<p style={styleText_3}>
 					{settModeSelection !== null ? settModeSelection : ""}
 				</p>
 			</div>
 		);
 		let step6Text = (
 			<div style={buttonsInnerTextContainer}>
-				<h5>6 - Select Setting</h5>
-				<p style={{ fontSize: "0.7em" }}>
-					{settFilename !== null ? settFilename : ""}
-				</p>
+				<h5 style={styleText_1}>6 - Select Setting</h5>
+				<p style={styleText_3}>{settFilename !== null ? settFilename : ""}</p>
 			</div>
 		);
 		if (step === 1) {
 			step1Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h3>1 - Microscope information</h3>
-					<p style={{ fontSize: "0.8em" }}>
+					<h3 style={styleText_1}>1 - Microscope information</h3>
+					<p style={styleText_2}>
 						{micModeSelection !== null ? micModeSelection : ""}
 					</p>
 				</div>
@@ -680,17 +689,15 @@ export default class MicroscopeLoader extends React.PureComponent {
 		} else if (step === 2) {
 			step2Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h3>2 - Select Microscope</h3>
-					<p style={{ fontSize: "0.8em" }}>
-						{micFilename !== null ? micFilename : ""}
-					</p>
+					<h3 style={styleText_1}>2 - Select Microscope</h3>
+					<p style={styleText_2}>{micFilename !== null ? micFilename : ""}</p>
 				</div>
 			);
 		} else if (step === 3) {
 			step3Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h3>3 - Image information</h3>
-					<p style={{ fontSize: "0.8em" }}>
+					<h3 style={styleText_1}>3 - Image information</h3>
+					<p style={styleText_2}>
 						{imgModeSelection !== null ? imgModeSelection : ""}
 					</p>
 				</div>
@@ -698,17 +705,15 @@ export default class MicroscopeLoader extends React.PureComponent {
 		} else if (step === 4) {
 			step4Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h3>4 - Select Image</h3>
-					<p style={{ fontSize: "0.8em" }}>
-						{imgFilename !== null ? imgFilename : ""}
-					</p>
+					<h3 style={styleText_1}>4 - Select Image</h3>
+					<p style={styleText_2}>{imgFilename !== null ? imgFilename : ""}</p>
 				</div>
 			);
 		} else if (step === 5) {
 			step5Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h3>5 - Setting information</h3>
-					<p style={{ fontSize: "0.8em" }}>
+					<h3 style={styleText_1}>5 - Setting information</h3>
+					<p style={styleText_2}>
 						{settModeSelection !== null ? settModeSelection : ""}
 					</p>
 				</div>
@@ -716,10 +721,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 		} else if (step === 6) {
 			step6Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h3>6 - Select Setting</h3>
-					<p style={{ fontSize: "0.8em" }}>
-						{settFilename !== null ? settFilename : ""}
-					</p>
+					<h3 style={styleText_1}>6 - Select Setting</h3>
+					<p style={styleText_2}>{settFilename !== null ? settFilename : ""}</p>
 				</div>
 			);
 		}

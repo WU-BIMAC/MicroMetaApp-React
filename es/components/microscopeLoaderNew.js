@@ -408,6 +408,20 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       // if (this.props.isImporter) {
       // }
 
+      var styleText_1 = {
+        wordBreak: "break-word",
+        whiteSpace: "normal"
+      };
+      var styleText_2 = {
+        fontSize: "0.8em",
+        wordBreak: "break-word",
+        whiteSpace: "normal"
+      };
+      var styleText_3 = {
+        fontSize: "0.7em",
+        wordBreak: "break-word",
+        whiteSpace: "normal"
+      };
       var step1Disabled = false;
       var step2Disabled = false;
       var variant_1 = "outline-primary";
@@ -434,35 +448,35 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
       var step1Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", null, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
-        style: {
-          fontSize: "0.7em"
-        }
+      }, /*#__PURE__*/_react.default.createElement("h5", {
+        style: styleText_1
+      }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
+        style: styleText_3
       }, modeSelection !== null ? modeSelection : ""));
 
       var step2Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", null, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
-        style: {
-          fontSize: "0.7em"
-        }
+      }, /*#__PURE__*/_react.default.createElement("h5", {
+        style: styleText_1
+      }, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
+        style: styleText_3
       }, filename !== null ? filename : ""));
 
       if (step === 1) {
         step1Text = /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", null, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
-          style: {
-            fontSize: "0.8em"
-          }
+        }, /*#__PURE__*/_react.default.createElement("h3", {
+          style: styleText_1
+        }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
+          style: styleText_2
         }, modeSelection !== null ? modeSelection : ""));
       } else {
         step2Text = /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", null, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
-          style: {
-            fontSize: "0.8em"
-          }
+        }, /*#__PURE__*/_react.default.createElement("h3", {
+          style: styleText_1
+        }, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
+          style: styleText_2
         }, filename !== null ? filename : ""));
       }
 

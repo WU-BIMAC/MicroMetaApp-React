@@ -116,19 +116,25 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         textAlign: "left",
         //fontSize: "1em",
         marginLeft: "15px",
-        marginRight: "15px"
+        marginRight: "15px",
+        wordBreak: "break-word",
+        whiteSpace: "normal"
       };
       var styleText_2 = {
         textAlign: "left",
         fontSize: "0.8em",
         marginLeft: "15px",
-        marginRight: "15px"
+        marginRight: "15px",
+        wordBreak: "break-word",
+        whiteSpace: "normal"
       };
       var styleText_3 = {
         textAlign: "left",
         fontSize: "0.6em",
         marginLeft: "15px",
-        marginRight: "15px"
+        marginRight: "15px",
+        wordBreak: "break-word",
+        whiteSpace: "normal"
       };
       var tierList = this.props.tierList;
       var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
