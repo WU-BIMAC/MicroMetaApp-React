@@ -27,6 +27,14 @@ export default class Header extends React.PureComponent {
 		this.onFormCancel = this.onFormCancel.bind(this);
 
 		this.onClickChangeValidation = this.onClickChangeValidation.bind(this);
+		this.onClickHelp = this.onClickHelp.bind(this);
+	}
+
+	onClickHelp() {
+		window.open(
+			"https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/index.html#step-by-step-instructions",
+			"_blank"
+		);
 	}
 
 	onClickEdit() {
@@ -83,12 +91,31 @@ export default class Header extends React.PureComponent {
 			height: "50px",
 			margin: "5px",
 		};
+
+		let styleButtonHelp = {
+			width: "50px",
+			minWidth: "50px",
+			height: "50px",
+			margin: "5px",
+		};
 		const styleValidation = {
 			position: "absolute",
 			verticalAlign: "middle",
 			fontWeight: "bold",
 			textAlign: "center",
 		};
+
+		let logoPath =
+			this.props.logoImg +
+			(this.props.logoImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+		let helpPath =
+			this.props.helpImg +
+			(this.props.helpImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+
 		let validated = null;
 		if (this.props.isSchemaValidated) {
 			const styleValidated = Object.assign({}, styleValidation, {
@@ -110,53 +137,69 @@ export default class Header extends React.PureComponent {
 		}
 
 		let buttons = [];
+		if (!this.props.isViewOnly) {
+			buttons[0] = (
+				<PopoverTooltip
+					key={"TooltipButton-0"}
+					position={editTooltip.position}
+					title={editTooltip.title}
+					content={editTooltip.content}
+					element={
+						<Button
+							key={"Button-0"}
+							onClick={this.onClickEdit}
+							style={styleButton}
+							size="lg"
+						>
+							{validated}
+							{`Edit ${this.props.element}`}
+						</Button>
+					}
+				/>
+			);
 
-		buttons[0] = (
-			<PopoverTooltip
-				key={"TooltipButton-0"}
-				position={editTooltip.position}
-				title={editTooltip.title}
-				content={editTooltip.content}
-				element={
-					<Button
-						key={"Button-0"}
-						onClick={this.onClickEdit}
-						style={styleButton}
-						size="lg"
-					>
-						{validated}
-						{`Edit ${this.props.element}`}
-					</Button>
-				}
-			/>
-		);
+			let inputData = [];
+			for (let i = 1; i <= this.props.activeTier; i++) {
+				inputData.push(i);
+			}
+			let defaultValidationTier = this.props.validationTier - 1;
 
-		let inputData = [];
-		for (let i = 1; i <= this.props.activeTier; i++) {
-			inputData.push(i);
+			buttons[1] = (
+				<DropdownMenu
+					key={"Button-1"}
+					title={string_validationTier}
+					handleMenuItemClick={this.onClickChangeValidation}
+					inputData={inputData}
+					width={250}
+					margin={5}
+					defaultValue={defaultValidationTier}
+					direction={"down"}
+					tooltip={validationTooltip}
+				/>
+			);
+
+			buttons[2] = (
+				<Button
+					key={"Button-2"}
+					onClick={this.onClickHelp}
+					style={styleButtonHelp}
+					size="lg"
+				>
+					<img src={helpPath} alt={this.props.helpImg} style={styleImage} />
+				</Button>
+			);
+		} else {
+			buttons[0] = (
+				<Button
+					key={"Button-0"}
+					onClick={this.onClickHelp}
+					style={styleButtonHelp}
+					size="lg"
+				>
+					<img src={helpPath} alt={this.props.helpImg} style={styleImage} />
+				</Button>
+			);
 		}
-		let defaultValidationTier = this.props.validationTier - 1;
-
-		buttons[1] = (
-			<DropdownMenu
-				key={"Button-1"}
-				title={string_validationTier}
-				handleMenuItemClick={this.onClickChangeValidation}
-				inputData={inputData}
-				width={250}
-				margin={5}
-				defaultValue={defaultValidationTier}
-				direction={"down"}
-				tooltip={validationTooltip}
-			/>
-		);
-
-		//<div style={styleTitle}>Microscopy Metadata For The Real World</div>
-		let logoPath =
-			this.props.logoImg +
-			(this.props.logoImg.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
 
 		if (this.state.editing) {
 			return (
