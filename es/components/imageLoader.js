@@ -279,7 +279,7 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
           ,
           width: width,
           margin: margin,
-          tooltip: _constants.loadImage_from_repo_names_tooltip
+          tooltip: _constants.loadImage_from_names_tooltip
         }));
       }
 

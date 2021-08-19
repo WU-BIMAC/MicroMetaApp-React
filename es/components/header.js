@@ -63,10 +63,16 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
     _this.onFormConfirm = _this.onFormConfirm.bind(_assertThisInitialized(_this));
     _this.onFormCancel = _this.onFormCancel.bind(_assertThisInitialized(_this));
     _this.onClickChangeValidation = _this.onClickChangeValidation.bind(_assertThisInitialized(_this));
+    _this.onClickHelp = _this.onClickHelp.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Header, [{
+    key: "onClickHelp",
+    value: function onClickHelp() {
+      window.open("https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/index.html#step-by-step-instructions", "_blank");
+    }
+  }, {
     key: "onClickEdit",
     value: function onClickEdit() {
       this.setState({
@@ -131,12 +137,20 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         height: "50px",
         margin: "5px"
       };
+      var styleButtonHelp = {
+        width: "50px",
+        minWidth: "50px",
+        height: "50px",
+        margin: "5px"
+      };
       var styleValidation = {
         position: "absolute",
         verticalAlign: "middle",
         fontWeight: "bold",
         textAlign: "center"
       };
+      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var helpPath = this.props.helpImg + (this.props.helpImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var validated = null;
 
       if (this.props.isSchemaValidated) {
@@ -165,38 +179,60 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var buttons = [];
-      buttons[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        key: "TooltipButton-0",
-        position: editTooltip.position,
-        title: editTooltip.title,
-        content: editTooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-0",
-          onClick: this.onClickEdit,
-          style: styleButton,
+
+      if (!this.props.isViewOnly) {
+        buttons[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-0",
+          position: editTooltip.position,
+          title: editTooltip.title,
+          content: editTooltip.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-0",
+            onClick: this.onClickEdit,
+            style: styleButton,
+            size: "lg"
+          }, validated, "Edit ".concat(this.props.element))
+        });
+        var inputData = [];
+
+        for (var i = 1; i <= this.props.activeTier; i++) {
+          inputData.push(i);
+        }
+
+        var defaultValidationTier = this.props.validationTier - 1;
+        buttons[1] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+          key: "Button-1",
+          title: _constants.string_validationTier,
+          handleMenuItemClick: this.onClickChangeValidation,
+          inputData: inputData,
+          width: 250,
+          margin: 5,
+          defaultValue: defaultValidationTier,
+          direction: "down",
+          tooltip: validationTooltip
+        });
+        buttons[2] = /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "Button-2",
+          onClick: this.onClickHelp,
+          style: styleButtonHelp,
           size: "lg"
-        }, validated, "Edit ".concat(this.props.element))
-      });
-      var inputData = [];
-
-      for (var i = 1; i <= this.props.activeTier; i++) {
-        inputData.push(i);
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: helpPath,
+          alt: this.props.helpImg,
+          style: styleImage
+        }));
+      } else {
+        buttons[0] = /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "Button-0",
+          onClick: this.onClickHelp,
+          style: styleButtonHelp,
+          size: "lg"
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: helpPath,
+          alt: this.props.helpImg,
+          style: styleImage
+        }));
       }
-
-      var defaultValidationTier = this.props.validationTier - 1;
-      buttons[1] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
-        key: "Button-1",
-        title: _constants.string_validationTier,
-        handleMenuItemClick: this.onClickChangeValidation,
-        inputData: inputData,
-        width: 250,
-        margin: 5,
-        defaultValue: defaultValidationTier,
-        direction: "down",
-        tooltip: validationTooltip
-      }); //<div style={styleTitle}>Microscopy Metadata For The Real World</div>
-
-      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
       if (this.state.editing) {
         return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
