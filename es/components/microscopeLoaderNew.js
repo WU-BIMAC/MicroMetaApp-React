@@ -468,7 +468,12 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (filename !== null) {
-        step1SubText += "\n" + filename;
+        var fullMicName = filename;
+        var lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
+        var micName = fullMicName.substring(0, lastIndexBeforeID);
+        var micID = fullMicName.substring(lastIndexBeforeID);
+        var micLabel = micName + "\n" + micID;
+        step1SubText += "\n" + micLabel;
       }
 
       var step1Text = /*#__PURE__*/_react.default.createElement("div", {
@@ -733,17 +738,29 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             var microscopeRadios = [];
 
             for (var _i3 = 0; _i3 < microscopes.length; _i3++) {
+              var _fullMicName = microscopes[_i3];
+
+              var _lastIndexBeforeID = _fullMicName.lastIndexOf("_") + 1;
+
+              var _micName = _fullMicName.substring(0, _lastIndexBeforeID);
+
+              var _micID = _fullMicName.substring(_lastIndexBeforeID);
+
+              var _micLabel = _micName + "\n" + _micID;
+
               microscopeRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
                 id: "rmico-radio-" + _i3,
                 key: "rmico-radio-" + _i3,
-                value: microscopes[_i3],
+                value: _fullMicName,
                 variant: "outline-primary",
                 style: buttonStyleWide
               }, /*#__PURE__*/_react.default.createElement("div", {
                 style: {
-                  fontSize: "0.8em"
+                  fontSize: "0.8em",
+                  wordBreak: "break-word",
+                  whiteSpace: "break-spaces"
                 }
-              }, microscopes[_i3])));
+              }, _micLabel)));
             }
 
             var microscopeRadio = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
