@@ -415,7 +415,12 @@ export default class MicroscopeLoader extends React.PureComponent {
 			step1SubText = modeSelection;
 		}
 		if (filename !== null) {
-			step1SubText += "\n" + filename;
+			let fullMicName = filename;
+			let lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
+			let micName = fullMicName.substring(0, lastIndexBeforeID);
+			let micID = fullMicName.substring(lastIndexBeforeID);
+			let micLabel = micName + "\n" + micID;
+			step1SubText += "\n" + micLabel;
 		}
 		let step1Text = (
 			<div style={buttonsInnerTextContainer}>
@@ -725,15 +730,28 @@ export default class MicroscopeLoader extends React.PureComponent {
 					let microscopes = inputData[selectedManu];
 					let microscopeRadios = [];
 					for (let i = 0; i < microscopes.length; i++) {
+						let fullMicName = microscopes[i];
+						let lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
+						let micName = fullMicName.substring(0, lastIndexBeforeID);
+						let micID = fullMicName.substring(lastIndexBeforeID);
+						let micLabel = micName + "\n" + micID;
 						microscopeRadios.push(
 							<ToggleButton
 								id={"rmico-radio-" + i}
 								key={"rmico-radio-" + i}
-								value={microscopes[i]}
+								value={fullMicName}
 								variant={"outline-primary"}
 								style={buttonStyleWide}
 							>
-								<div style={{ fontSize: "0.8em" }}>{microscopes[i]}</div>
+								<div
+									style={{
+										fontSize: "0.8em",
+										wordBreak: "break-word",
+										whiteSpace: "break-spaces",
+									}}
+								>
+									{micLabel}
+								</div>
 							</ToggleButton>
 						);
 					}

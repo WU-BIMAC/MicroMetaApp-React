@@ -365,14 +365,22 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 	onClickBack() {
 		let step = this.state.step;
-		step--;
+		if (step === 3 && !this.props.hasMetadataLoader) {
+			step -= 2;
+		} else {
+			step--;
+		}
 		this.setState({ step: step });
 	}
 
 	onClickConfirm() {
 		let step = this.state.step;
 		if (step !== 3) {
-			step++;
+			if (step === 1 && !this.props.hasMetadataLoader) {
+				step += 2;
+			} else {
+				step++;
+			}
 			this.setState({ step: step });
 			return;
 		}
@@ -673,7 +681,12 @@ export default class MicroscopeLoader extends React.PureComponent {
 			step1SubText = micModeSelection;
 		}
 		if (micFilename !== null) {
-			step1SubText += "\n" + micFilename;
+			let fullMicName = micFilename;
+			let lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
+			let micName = fullMicName.substring(0, lastIndexBeforeID);
+			let micID = fullMicName.substring(lastIndexBeforeID);
+			let micLabel = micName + "\n" + micID;
+			step1SubText += "\n" + micLabel;
 		}
 		let step1Text = (
 			<div style={buttonsInnerTextContainer}>
@@ -729,6 +742,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 			step3SubText = settModeSelection;
 		}
 		if (settFilename !== null) {
+			// let fullSettName = settFilename;
+			// let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
+			// let settName = fullSettName.substring(0, lastIndexBeforeID);
+			// let settID = fullSettName.substring(lastIndexBeforeID);
+			// let settLabel = settName + "\n" + settID;
 			step3SubText += "\n" + settFilename;
 		}
 		let step3Text = (
@@ -866,6 +884,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			step1Completed = false;
 		}
 
+		let step2Inactive = false;
 		if (this.props.hasMetadataLoader) {
 			if (!isDefined(imgModeSelection)) {
 				step2Completed = false;
@@ -875,6 +894,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 			) {
 				step2Completed = false;
 			}
+		} else {
+			step2Inactive = true;
 		}
 
 		if (!isDefined(settModeSelection)) {
@@ -893,14 +914,21 @@ export default class MicroscopeLoader extends React.PureComponent {
 		}
 
 		if (step === 1) {
-			if (!step1Completed) {
+			if (!step1Completed || step2Inactive) {
 				continueDisabled = true;
 				step2Disabled = true;
 				variant_2 = "secondary";
 			}
-			if (!step2Completed) {
-				step3Disabled = true;
-				variant_3 = "secondary";
+			if (!step2Inactive) {
+				if (!step2Completed) {
+					step3Disabled = true;
+					variant_3 = "secondary";
+				}
+			} else {
+				if (!step1Completed) {
+					step3Disabled = true;
+					variant_3 = "secondary";
+				}
 			}
 		} else if (step === 2) {
 			if (!step2Completed) {
@@ -1208,15 +1236,20 @@ export default class MicroscopeLoader extends React.PureComponent {
 					let microscopesManu = microscopes[selectedManu];
 					let microscopeRadios = [];
 					for (let i = 0; i < microscopesManu.length; i++) {
+						let fullMicName = microscopesManu[i];
+						let lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
+						let micName = fullMicName.substring(0, lastIndexBeforeID);
+						let micID = fullMicName.substring(lastIndexBeforeID);
+						let micLabel = micName + "\n" + micID;
 						microscopeRadios.push(
 							<ToggleButton
 								id={"rmico-radio-" + i}
 								key={"rmico-radio-" + i}
-								value={microscopesManu[i]}
+								value={fullMicName}
 								variant={"outline-primary"}
 								style={buttonStyleWide}
 							>
-								<div style={{ fontSize: "0.8em" }}>{microscopesManu[i]}</div>
+								<div style={{ fontSize: "0.8em" }}>{micLabel}</div>
 							</ToggleButton>
 						);
 					}
@@ -1545,7 +1578,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					styleDropzone.borderColor = "green";
 					text = (
 						<div>
-							<p style={styleCenterText}>{micFilename}</p>
+							<p style={styleCenterText}>{settFilename}</p>
 							<p style={styleCenterText}>
 								Click or drag a file here to replace the currently loaded file
 							</p>
@@ -1554,7 +1587,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				} else if (errorMsg !== null) {
 					text = (
 						<div>
-							<p style={styleCenterText}>{micFilename}</p>
+							<p style={styleCenterText}>{settFilename}</p>
 							<p style={styleCenterText}>{errorMsg}</p>
 							<p style={styleCenterText}>
 								Click or drag a file here to replace the currently loaded file
@@ -1637,15 +1670,20 @@ export default class MicroscopeLoader extends React.PureComponent {
 				// 	: 0;
 				let settingRadios = [];
 				for (let i = 0; i < settingKeys.length; i++) {
+					let fullSettName = settingKeys[i];
+					// let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
+					// let settName = fullSettName.substring(0, lastIndexBeforeID);
+					// let settID = fullSettName.substring(lastIndexBeforeID);
+					// let settLabel = settName + "\n" + settID;
 					settingRadios.push(
 						<ToggleButton
 							id={"rmo-radio-" + i}
 							key={"rmo-radio-" + i}
-							value={settingKeys[i]}
+							value={fullSettName}
 							variant={"outline-primary"}
 							style={buttonStyleWide}
 						>
-							{settingKeys[i]}
+							{fullSettName}
 						</ToggleButton>
 					);
 				}
