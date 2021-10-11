@@ -63,6 +63,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
     _this = _super.call(this, props);
     _this.state = {
+      loadOrCreateOption: null,
       fileLoaded: false,
       fileLoading: false,
       selectedManu: null,
@@ -220,7 +221,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleCreateOrLoadRadioChange",
     value: function handleCreateOrLoadRadioChange(item) {
-      //console.log("handleCreateOrLoadRadioChange - " + item);
+      console.log("handleCreateOrLoadRadioChange - " + item);
+
       if (this.state.modeSelection === _constants.string_createFromFile && item !== this.state.modeSelection || (this.state.modeSelection === _constants.string_loadFromRepository || this.state.modeSelection === _constants.string_loadFromHomeFolder) && item !== this.state.modeSelection) {
         this.setState({
           fileLoading: false,
@@ -263,11 +265,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var _this4 = this;
 
       var buttonStyleWideNoMarginSelected = {
-        width: "420px",
+        width: "500px",
         height: "100px"
       };
       var buttonStyleWideNoMargin = {
-        width: "210px",
+        width: "250px",
         height: "100px"
       };
       var buttonStyleWide = {
@@ -285,7 +287,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "center",
         flexFlow: "column",
         width: "100%",
-        height: "10%",
+        height: "50px",
         alignItems: "center"
       };
       var windowExternalContainer = {
@@ -296,30 +298,37 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         height: "100%",
         alignItems: "center"
       };
+      var windowMainContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
+        width: "100%",
+        height: "750px",
+        alignItems: "center"
+      };
       var windowStepContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "row",
         width: "100%",
-        height: "10%",
+        height: "100px",
         alignItems: "center",
         alignContent: "stretch"
       };
       var windowButtonsContainer = {
         display: "flex",
         justifyContent: "center",
-        flexFlow: "column",
+        flexFlow: "row",
         width: "100%",
-        height: "35%",
-        alignItems: "center",
-        maxHeight: "35%"
+        height: "550px",
+        alignItems: "center"
       };
       var windowLogoContainer = {
         display: "flex",
         justifyContent: "flex-end",
         flexFlow: "column",
         width: "100%",
-        height: "20%",
+        height: "100%",
         alignItems: "center"
       };
       var windowBottomButtonsContainer = {
@@ -327,7 +336,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "center",
         flexFlow: "row",
         width: "100%",
-        height: "10%",
+        height: "50px",
         alignItems: "center"
       };
       var buttonsInnerTextContainer = {
@@ -342,9 +351,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         display: "flex",
         flexFlow: "column",
         justifyContent: "center",
-        alignItems: "center",
-        width: "40%",
-        height: "80%",
+        alignItems: "flex-start",
+        width: "420px",
+        height: "420px",
         cursor: "pointer"
       };
       var styleDropzone = {
@@ -372,6 +381,13 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "100%",
         margin: "auto"
+      };
+      var styleButton = {
+        width: "250px",
+        minWidth: "250px",
+        height: "50px",
+        marginLeft: "5px",
+        marginRight: "5px"
       };
       var styleImageBk = {
         width: "20px",
@@ -410,40 +426,49 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
       var styleText_1 = {
         wordBreak: "break-word",
-        whiteSpace: "normal"
+        whiteSpace: "break-spaces",
+        textAlign: "left"
       };
       var styleText_2 = {
         fontSize: "0.8em",
         wordBreak: "break-word",
-        whiteSpace: "normal"
+        whiteSpace: "break-spaces",
+        textAlign: "left"
       };
       var styleText_3 = {
-        fontSize: "0.7em",
+        fontSize: "0.5em",
         wordBreak: "break-word",
-        whiteSpace: "normal"
+        whiteSpace: "break-spaces",
+        textAlign: "left"
       };
-      var step1Disabled = false;
-      var step2Disabled = false;
-      var variant_1 = "outline-primary";
-      var variant_2 = "outline-danger";
+      var step1Disabled = false; //let step2Disabled = false;
 
-      if ((0, _genericUtilities.isDefined)(modeSelection)) {
-        if (modeSelection.toLowerCase().includes("create")) {
-          step2Disabled = true;
-          variant_2 = "outline-success";
-        }
+      var variant_1 = "outline-primary"; //let variant_2 = "outline-primary";
+      // let variant_2 = "outline-danger";
+      // if (isDefined(modeSelection)) {
+      // 	if (modeSelection.toLowerCase().includes("create")) {
+      // 		step2Disabled = true;
+      // 		variant_2 = "outline-success";
+      // 	}
+      // 	variant_1 = "outline-success";
+      // } else {
+      // 	variant_1 = "outline-danger";
+      // }
+      // if (this.props.isImporter) {
+      // 	step1Disabled = true;
+      // }
+      // if (loadedMicroscope !== null && filename !== null) {
+      // 	variant_2 = "outline-success";
+      // }
 
-        variant_1 = "outline-success";
-      } else {
-        variant_1 = "outline-danger";
+      var step1SubText = "";
+
+      if (modeSelection !== null) {
+        step1SubText = modeSelection;
       }
 
-      if (this.props.isImporter) {
-        step1Disabled = true;
-      }
-
-      if (loadedMicroscope !== null && filename !== null) {
-        variant_2 = "outline-success";
+      if (filename !== null) {
+        step1SubText += "\n" + filename;
       }
 
       var step1Text = /*#__PURE__*/_react.default.createElement("div", {
@@ -452,33 +477,31 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         style: styleText_1
       }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
         style: styleText_3
-      }, modeSelection !== null ? modeSelection : ""));
+      }, step1SubText)); // let step2Text = (
+      // 	<div style={buttonsInnerTextContainer}>
+      // 		<h5 style={styleText_1}>2 - Select Microscope</h5>
+      // 		<p style={styleText_3}>{filename !== null ? filename : ""}</p>
+      // 	</div>
+      // );
 
-      var step2Text = /*#__PURE__*/_react.default.createElement("div", {
-        style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", {
-        style: styleText_1
-      }, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
-        style: styleText_3
-      }, filename !== null ? filename : ""));
 
       if (step === 1) {
         step1Text = /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", {
+        }, /*#__PURE__*/_react.default.createElement("h4", {
           style: styleText_1
         }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
           style: styleText_2
-        }, modeSelection !== null ? modeSelection : ""));
-      } else {
-        step2Text = /*#__PURE__*/_react.default.createElement("div", {
-          style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", {
-          style: styleText_1
-        }, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
-          style: styleText_2
-        }, filename !== null ? filename : ""));
-      }
+        }, step1SubText));
+      } // else {
+      // 	step2Text = (
+      // 		<div style={buttonsInnerTextContainer}>
+      // 			<h4 style={styleText_1}>2 - Select Microscope</h4>
+      // 			<p style={styleText_2}>{filename !== null ? filename : ""}</p>
+      // 		</div>
+      // 	);
+      // }
+
 
       var stepRadios = /*#__PURE__*/_react.default.createElement(_ToggleButtonGroup.default, {
         id: "radio-step-options",
@@ -494,53 +517,45 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         disabled: step1Disabled,
         variant: variant_1,
         style: step === 1 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
-      }, step1Text), /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-        id: "rso-radio-2",
-        key: "rso-radio-2",
-        value: 2,
-        disabled: step2Disabled,
-        variant: variant_2,
-        style: step === 2 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
-      }, step2Text));
+      }, step1Text));
 
       var list = [];
+      var createRadios = [];
 
-      if (step === 1) {
-        var createRadios = [];
+      var _loop = function _loop(i) {
+        var creatingOption = creatingOptions[i];
+        var tooltip = _constants.microscope_loader_scratch_inverted;
 
-        var _loop = function _loop(i) {
-          var creatingOption = creatingOptions[i];
-          var tooltip = _constants.microscope_loader_scratch_inverted;
-
-          if (creatingOption.includes("Upright")) {
-            tooltip = _constants.microscope_loader_scratch_upright;
-          }
-
-          createRadios.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-            key: "popover" + creatingOption,
-            position: tooltip.position,
-            title: tooltip.title,
-            content: tooltip.content,
-            element: /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-              type: "radio",
-              key: creatingOption,
-              id: creatingOption,
-              value: creatingOption,
-              onChange: function onChange() {
-                return _this4.handleCreateOrLoadRadioChange(creatingOption);
-              },
-              checked: creatingOption === modeSelection,
-              style: buttonStyleWide,
-              size: "lg",
-              variant: "outline-primary"
-            }, creatingOption)
-          }));
-        };
-
-        for (var i = 0; i < creatingOptions.length; i++) {
-          _loop(i);
+        if (creatingOption.includes("Upright")) {
+          tooltip = _constants.microscope_loader_scratch_upright;
         }
 
+        createRadios.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "popover" + creatingOption,
+          position: tooltip.position,
+          title: tooltip.title,
+          content: tooltip.content,
+          element: /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
+            type: "radio",
+            key: creatingOption,
+            id: creatingOption,
+            value: creatingOption,
+            onChange: function onChange() {
+              return _this4.handleCreateOrLoadRadioChange(creatingOption);
+            },
+            checked: creatingOption === modeSelection,
+            style: buttonStyleWide,
+            size: "lg",
+            variant: "outline-primary"
+          }, creatingOption)
+        }));
+      };
+
+      for (var i = 0; i < creatingOptions.length; i++) {
+        _loop(i);
+      }
+
+      if (step === 1) {
         var loadRadios = [];
 
         var _loop2 = function _loop2(_i) {
@@ -578,38 +593,47 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           _loop2(_i);
         }
 
-        list.push( /*#__PURE__*/_react.default.createElement("h4", {
+        var toggles = [];
+        toggles.push( /*#__PURE__*/_react.default.createElement("h4", {
           key: "create-options"
         }, "Create options"));
-        list.push(createRadios);
-        list.push( /*#__PURE__*/_react.default.createElement("h4", {
+        toggles.push(createRadios);
+        toggles.push( /*#__PURE__*/_react.default.createElement("h4", {
           key: "load-options"
         }, "Load options"));
-        list.push(loadRadios);
-      } else {
-        var text = /*#__PURE__*/_react.default.createElement("p", {
-          style: styleCenterText
-        }, "Click or drag a file here to load an existing Microscope file you want to work on.");
-
-        if (fileLoaded) {
-          styleDropzone.borderColor = "green";
-          text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, filename), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, "Click or drag a file here to replace the currently loaded file"));
-        } else if (errorMsg !== null) {
-          text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, filename), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, errorMsg), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, "Click or drag a file here to replace the currently loaded file"));
-        } //TODO upload zone
-
+        toggles.push(loadRadios);
+        list.push( /*#__PURE__*/_react.default.createElement(_ToggleButtonGroup.default, {
+          id: "radio-createLoad-options",
+          key: "radio-createLoad-options",
+          type: "radio",
+          name: "radio-createLoad-options" //value={modeSelection}
+          //onChange={this.handleCreateOrLoadRadioChange}
+          ,
+          vertical: true
+        }, toggles)); //TODO upload zone
 
         if (modeSelection === _constants.string_createFromFile) {
+          var text = /*#__PURE__*/_react.default.createElement("p", {
+            style: styleCenterText
+          }, "Click or drag a file here to load an existing Microscope file you want to work on.");
+
+          if (fileLoaded) {
+            styleDropzone.borderColor = "green";
+            text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, filename), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, "Click or drag a file here to replace the currently loaded file"));
+          } else if (errorMsg !== null) {
+            text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, filename), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, errorMsg), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, "Click or drag a file here to replace the currently loaded file"));
+          }
+
           var dropbox = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
             key: "popover-dropzone",
             id: "popover-dropzone",
@@ -643,17 +667,19 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             key: "container-dropzone",
             id: "container-dropzone",
             style: dropzoneContainer
-          }, dropbox));
-        } else {
-          windowButtonsContainer.flexFlow = "row";
+          }, /*#__PURE__*/_react.default.createElement("h4", {
+            key: "dropzone"
+          }, "Load file"), dropbox));
+        } else if (modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder) {
+          //windowButtonsContainer.flexFlow = "row";
           var windowRadioButtonsContainer = {
             display: "flex",
             justifyContent: "center",
             flexFlow: "column",
-            width: "25%",
-            height: "80%",
-            alignItems: "center",
-            maxHeight: "80%",
+            width: "430px",
+            height: "550px",
+            alignItems: "flex-start",
+            maxHeight: "550px",
             overflow: "auto"
           };
           var manufacturers = Object.keys(inputData); // let defaultManu = isDefined(selectedManu)
@@ -695,18 +721,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             key: "radio-manufactorer-container",
             id: "radio-manufactorer-container",
             style: windowRadioButtonsContainer
-          }, manufacturerRadio)); // list.push(
-          // 	<DropdownMenu
-          // 		key={"dropdown-manufacturers"}
-          // 		title={""}
-          // 		handleMenuItemClick={this.onClickManufacturerSelection}
-          // 		inputData={manufacturers}
-          // 		defaultValue={defaultManu}
-          // 		width={width}
-          // 		margin={margin}
-          // 		tooltip={create_from_repo_manufacturer_tooltip}
-          // 	/>
-          // );
+          }, /*#__PURE__*/_react.default.createElement("h4", {
+            key: "select-manufacturer"
+          }, "Select Manufacturer"), manufacturerRadio));
 
           if ((0, _genericUtilities.isDefined)(selectedManu)) {
             // let defaultMic = isDefined(selectedMic)
@@ -740,7 +757,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 key: "radio-microscope-options",
                 type: "radio",
                 name: "radio-microscope-options",
-                value: selectedMic,
+                value: filename,
                 onChange: function onChange(e) {
                   _this4.onClickMicroscopeSelection(e);
                 },
@@ -752,65 +769,28 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               key: "radio-microscope-options",
               id: "radio-microscope-options",
               style: windowRadioButtonsContainer
-            }, microscopeRadio)); // list.push(
-            // 	<DropdownMenu
-            // 		key={"dropdown-names"}
-            // 		title={""}
-            // 		handleMenuItemClick={this.props.onClickMicroscopeSelection}
-            // 		inputData={this.state.micNames}
-            // 		defaultValue={selectedMic}
-            // 		width={width}
-            // 		margin={margin}
-            // 		tooltip={create_from_repo_names_tooltip}
-            // 		isCentered={false}
-            // 	/>
-            // );
+            }, /*#__PURE__*/_react.default.createElement("h4", {
+              key: "select-manufacturer"
+            }, "Select Microscope"), microscopeRadio));
           }
         }
-      } // list.push(
-      // 	<DropdownMenu
-      // 		key={"dropdown-loadingOption"}
-      // 		title={""}
-      // 		handleMenuItemClick={this.props.onClickLoadingOptionSelection}
-      // 		defaultValue={this.props.loadingOptions.indexOf(
-      // 			this.props.loadingOption
-      // 		)}
-      // 		inputData={this.props.loadingOptions}
-      // 		width={width}
-      // 		margin={margin}
-      // 		tooltip={create_mode_tooltip}
+      }
+
+      var continue_tooltip = _constants.create_mode_continue_tooltip;
+      var buttons = []; // buttons.push(
+      // 	<PopoverTooltip
+      // 		key={"button-back"}
+      // 		position={back_tooltip.position}
+      // 		title={back_tooltip.title}
+      // 		content={back_tooltip.content}
+      // 		element={
+      // 			<Button onClick={console.log("back")} style={buttonStyle} size="lg">
+      // 				Back
+      // 			</Button>
+      // 		}
       // 	/>
       // );
 
-
-      var continue_tooltip = _constants.create_mode_continue_tooltip;
-      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
-      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var buttons = [];
-      buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        key: "button-back",
-        position: _constants.back_tooltip.position,
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-          onClick: this.props.onClickBack,
-          style: buttonStyle,
-          size: "lg",
-          variant: "outline-dark"
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center" //gap: "10px",
-
-          }
-        }, /*#__PURE__*/_react.default.createElement("img", {
-          src: backImgPath,
-          alt: backImgPath_tmp,
-          style: styleImageBk,
-          onLoad: this.onImgLoad
-        }), "Back"))
-      }));
       var disabled = false;
       if (modeSelection === _constants.string_createFromFile && (!fileLoaded || loadedMicroscope === null)) disabled = true;else if (modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder && filename === null) disabled = true;
       buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -825,27 +805,42 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           disabled: disabled
         }, "Continue")
       }));
-      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""); // return (
-      // 	<div style={windowExternalContainer}>
-      // 		<div style={windowInternalContainer}>
-      // 			<div style={styleImageContainer}>
-      // 				<img
-      // 					src={logoPath}
-      // 					alt={this.props.logoImg}
-      // 					style={styleImage}
-      // 					onLoad={this.onImgLoad}
-      // 				/>
-      // 			</div>
-      // 			<div style={{ textAlign: "center", fontWeight: "bold" }}>
-      // 				{titleText}
-      // 			</div>
-      // 			{list}
-      // 		</div>
-      // 	</div>
-      // );
+      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
+      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var backText = "Home";
+
+      var homeButton = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButtonLeft-0",
+        position: "top",
+        title: _constants.back_tooltip.title,
+        content: _constants.back_tooltip.content,
+        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "ButtonLeft-0",
+          onClick: function onClick() {
+            return _this4.props.onClickHome(backText);
+          },
+          style: styleButton,
+          size: "lg",
+          variant: "outline-dark"
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center" //gap: "10px",
+
+          }
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: backImgPath,
+          alt: backImgPath_tmp,
+          style: styleImageBk
+        }), backText))
+      });
 
       return /*#__PURE__*/_react.default.createElement("div", {
         style: windowExternalContainer
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        style: windowMainContainer
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: titleContainer
       }, /*#__PURE__*/_react.default.createElement("h1", null, this.props.title)), /*#__PURE__*/_react.default.createElement("div", {
@@ -854,9 +849,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         style: windowButtonsContainer
       }, list), /*#__PURE__*/_react.default.createElement("div", {
         style: windowBottomButtonsContainer
-      }, buttons), /*#__PURE__*/_react.default.createElement("div", {
+      }, buttons)), /*#__PURE__*/_react.default.createElement("div", {
         style: windowLogoContainer
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, homeButton, /*#__PURE__*/_react.default.createElement("div", {
         style: styleImageContainer
       }, /*#__PURE__*/_react.default.createElement("img", {
         src: logoPath,

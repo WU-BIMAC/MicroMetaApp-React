@@ -178,14 +178,14 @@ var tier_selector_tooltip = {
 exports.tier_selector_tooltip = tier_selector_tooltip;
 var manage_instrument_tooltip = {
   title: "Manage Instrument Hardware",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to create, load from a template, or edit a Microscope file describing the hardware components of the Instrument you want to document"),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to create, load from a template or edit a Microscope file containing a description of the hardware components of microscopes you want to document."),
   position: "left"
 };
 exports.manage_instrument_tooltip = manage_instrument_tooltip;
 var manage_settings_tooltip = {
   title: "Manage Acquisition Settings",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to select an existing Microscope file and enter, load from file, or edit the acquisition settings associated with the specific Image dataset you want to document"),
-  position: "bottom"
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to load from file or edit a Settings file containing a description of the acquisition settings that were used for image datasets you want to document."),
+  position: "right"
 };
 exports.manage_settings_tooltip = manage_settings_tooltip;
 var microscope_loader_scratch_inverted = {
@@ -299,13 +299,13 @@ exports.loadImage_from_file_tooltip = loadImage_from_file_tooltip;
 var create_from_repo_manufacturer_tooltip = {
   title: "Select Manufacturer",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Select the Manufacturer of the Microscope you want to load."),
-  position: "left"
+  position: "bottom"
 };
 exports.create_from_repo_manufacturer_tooltip = create_from_repo_manufacturer_tooltip;
 var create_from_repo_names_tooltip = {
   title: "Select Microscope",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Select the Microscope you want to load."),
-  position: "right"
+  position: "bottom"
 };
 exports.create_from_repo_names_tooltip = create_from_repo_names_tooltip;
 var createSettings_from_repo_names_tooltip = {

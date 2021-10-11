@@ -37,6 +37,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+var url = require("url");
+
 var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(TierSelector, _React$PureComponent);
 
@@ -66,7 +68,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "center",
         flexFlow: "column",
         width: "100%",
-        height: "65%",
+        height: "750px",
         alignItems: "center"
       };
       var buttonModeSelectorStyle = {
@@ -76,7 +78,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
       };
       var buttonsInnerContainer = {
         display: "flex",
-        justifyContent: "flex-start",
+        justifyContent: "center",
         flexFlow: "row",
         width: "100%",
         height: "100%",
@@ -86,7 +88,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         display: "flex",
         justifyContent: "flex-start",
         flexFlow: "column",
-        width: "75%",
+        width: "100%",
         height: "100%",
         alignItems: "flex-start"
       };
@@ -95,7 +97,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "flex-end",
         flexFlow: "column",
         width: "100%",
-        height: "20%",
+        height: "100%",
         alignItems: "center"
       };
       var styleImageContainer = {
@@ -127,23 +129,38 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         marginRight: "15px",
         wordBreak: "break-word",
         whiteSpace: "normal"
+      }; // let styleText_3 = {
+      // 	textAlign: "left",
+      // 	fontSize: "0.6em",
+      // 	marginLeft: "15px",
+      // 	marginRight: "15px",
+      // 	wordBreak: "break-word",
+      // 	whiteSpace: "normal",
+      // };
+
+      var styleButton = {
+        width: "250px",
+        minWidth: "250px",
+        height: "50px",
+        marginLeft: "5px",
+        marginRight: "5px"
       };
-      var styleText_3 = {
-        textAlign: "left",
-        fontSize: "0.6em",
-        marginLeft: "15px",
-        marginRight: "15px",
-        wordBreak: "break-word",
-        whiteSpace: "normal"
+      var styleImageBk = {
+        width: "20px",
+        height: "20px",
+        marginLeft: "10px",
+        marginRight: "10px"
       };
       var tierList = this.props.tierList;
       var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var iconPath = this.props.iconImg + (this.props.iconImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var tiers = [];
       tierList.forEach(function (tier) {
-        var index = tier.Index - 1;
-        var regex = /(\[|\])/gi;
-        var minComp = tier.MinimumComponentsList.replace(regex, "").replace("||", "or");
+        var index = tier.Index - 1; //let regex = /(\[|\])/gi;
+        // let minComp = tier.MinimumComponentsList.replace(regex, "").replace(
+        // 	"||",
+        // 	"or"
+        // );
 
         var button = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           position: _constants.tier_selector_tooltip.position,
@@ -156,7 +173,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
             },
             style: buttonModeSelectorStyle,
             size: "lg",
-            variant: "secondary",
+            variant: "light",
             key: "tier-button-" + index
           }, /*#__PURE__*/_react.default.createElement("div", {
             style: buttonsInnerContainer
@@ -170,13 +187,42 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
             style: styleText_1
           }, tier.Name), /*#__PURE__*/_react.default.createElement("p", {
             style: styleText_2
-          }, tier.Description), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleText_3
-          }, "Minimum components: " + minComp))))
+          }, tier.Description))))
         });
 
         tiers[index] = button;
+      });
+      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
+      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var backText = "Home";
+
+      var homeButton = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButtonLeft-0",
+        position: "top",
+        title: _constants.back_tooltip.title,
+        content: _constants.back_tooltip.content,
+        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "ButtonLeft-0",
+          onClick: function onClick() {
+            return _this.props.onClickHome(backText);
+          },
+          style: styleButton,
+          size: "lg",
+          variant: "outline-dark"
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center" //gap: "10px",
+
+          }
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: backImgPath,
+          alt: backImgPath_tmp,
+          style: styleImageBk
+        }), backText))
       }); //handleMenuItemClick={this.props.onClickTierSelection}
+
 
       return /*#__PURE__*/_react.default.createElement("div", {
         style: windowExternalContainer
@@ -184,7 +230,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         style: windowButtonsContainer
       }, tiers), /*#__PURE__*/_react.default.createElement("div", {
         style: windowLogoContainer
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, homeButton, /*#__PURE__*/_react.default.createElement("div", {
         style: styleImageContainer
       }, /*#__PURE__*/_react.default.createElement("img", {
         src: logoPath,

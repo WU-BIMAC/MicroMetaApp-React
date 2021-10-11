@@ -138,7 +138,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
           element: /*#__PURE__*/_react.default.createElement(_Button.default, {
             key: "ButtonRight-0",
             onClick: function onClick() {
-              return _this.props.onClickBack("Import");
+              return _this.props.onClickHome("Import");
             },
             style: styleButton,
             size: "lg",
@@ -153,8 +153,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/_react.default.createElement("img", {
             src: importImgPath,
             alt: importImgPath_tmp,
-            style: styleImageBk,
-            onLoad: this.onImgLoad
+            style: styleImageBk
           }), "Import"))
         });
         index++;
@@ -190,7 +189,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       });
       var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
       var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var backText = "Back";
+      var backText = "Home";
 
       if (this.props.is4DNPortal) {
         backText = "Back to list";
@@ -204,7 +203,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "ButtonLeft-0",
           onClick: function onClick() {
-            return _this.props.onClickBack(backText);
+            return _this.props.onClickHome(backText);
           },
           style: styleButton,
           size: "lg",
@@ -219,8 +218,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: backImgPath,
           alt: backImgPath_tmp,
-          style: styleImageBk,
-          onLoad: this.onImgLoad
+          style: styleImageBk
         }), backText))
       });
       return /*#__PURE__*/_react.default.createElement("div", {

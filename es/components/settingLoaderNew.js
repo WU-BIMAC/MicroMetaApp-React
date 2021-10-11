@@ -103,6 +103,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleStepRadioChange = _this.handleStepRadioChange.bind(_assertThisInitialized(_this));
     _this.handleLoadMetadataComplete = _this.handleLoadMetadataComplete.bind(_assertThisInitialized(_this));
     _this.onClickConfirm = _this.onClickConfirm.bind(_assertThisInitialized(_this));
+    _this.onClickBack = _this.onClickBack.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -110,9 +111,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     key: "onFileReaderAbort",
     value: function onFileReaderAbort(e) {
       var step = this.state.step;
-      if (step === 2) this.setState({
+      if (step === 1) this.setState({
         micFileLoaded: false
-      });else if (step === 6) this.setState({
+      });else if (step === 3) this.setState({
         settFileLoaded: false
       });
     }
@@ -120,9 +121,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     key: "onFileReaderError",
     value: function onFileReaderError(e) {
       var step = this.state.step;
-      if (step === 2) this.setState({
+      if (step === 1) this.setState({
         micFileLoaded: false
-      });else if (step === 6) this.setState({
+      });else if (step === 3) this.setState({
         settFileLoaded: false
       });
     }
@@ -135,7 +136,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var errorMsg = null;
 
       try {
-        if (step === 2) {
+        if (step === 1) {
           microscope = JSON.parse(binaryStr);
 
           if ((0, _genericUtilities.validateMicroscope)(microscope, this.props.schema, true)) {
@@ -146,7 +147,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           } else {
             errorMsg = "The file you are trying to load does not contain a proper MicroMetaApp Microscope";
           }
-        } else if (step === 6) {
+        } else if (step === 3) {
           var settings = JSON.parse(binaryStr);
 
           if ((0, _genericUtilities.validateAcquisitionSettings)(settings, this.props.schema)) {
@@ -165,9 +166,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (errorMsg !== null) {
-        if (step === 2) this.setState({
+        if (step === 1) this.setState({
           micFileLoaded: false
-        });else if (step === 6) this.setState({
+        });else if (step === 3) this.setState({
           settFileLoaded: false
         });
         this.setState({
@@ -179,13 +180,13 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     key: "dropzoneDrop",
     value: function dropzoneDrop() {
       var step = this.state.step;
-      if (step === 2) this.setState({
+      if (step === 1) this.setState({
         micFileLoading: true,
         micFileLoaded: false
-      });else if (step === 4) this.setState({
+      });else if (step === 2) this.setState({
         imgFileLoading: true,
         imgFileLoaded: false
-      });else if (step === 6) this.setState({
+      });else if (step === 3) this.setState({
         setFileLoading: true,
         settFileLoaded: false
       });
@@ -200,17 +201,17 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         filename = rejected.file.name;
       });
       var errorMsg = "The file you tried to load is not a json file";
-      if (step === 2) this.setState({
+      if (step === 1) this.setState({
         micFileLoading: false,
         micFileLoaded: false,
         micFilename: filename,
         errorMsg: errorMsg
-      });else if (step === 4) this.setState({
+      });else if (step === 2) this.setState({
         imgFileLoading: false,
         imgFileLoaded: false,
         imgFilename: filename,
         errorMsg: errorMsg
-      });else if (step === 6) this.setState({
+      });else if (step === 3) this.setState({
         settFileLoading: false,
         settFileLoaded: false,
         settFilename: filename,
@@ -228,26 +229,26 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       reader.onerror = this.onFileReaderError;
       reader.onload = this.onFileReaderLoad;
       acceptedFiles.forEach(function (file) {
-        if (step === 2 || step === 6) {
-          if (step === 2) _this2.setState({
+        if (step === 1 || step === 3) {
+          if (step === 1) _this2.setState({
             micFilename: file.name
           });
-          if (step === 6) _this2.setState({
+          if (step === 3) _this2.setState({
             settFilename: file.name
           });
           reader.readAsText(file);
-        } else if (step === 4) {
+        } else if (step === 2) {
           _this2.setState({
             imgFilename: file.name
           }); //this.props.onLoadMetadata(file.path, this.handleLoadMetadataComplete);
 
         }
       });
-      if (step === 2) this.setState({
+      if (step === 1) this.setState({
         micFileLoading: false
-      });else if (step === 4) this.setState({
+      });else if (step === 2) this.setState({
         imgFileLoading: false
-      });else if (step === 6) this.setState({
+      });else if (step === 3) this.setState({
         settFileLoading: false
       });
     }
@@ -255,19 +256,19 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     key: "dropzoneDialogOpen",
     value: function dropzoneDialogOpen() {
       var step = this.state.step;
-      if (step === 2) this.setState({
+      if (step === 1) this.setState({
         micFileLoading: true,
         micFileLoaded: false,
         errorMsg: null,
         micFilename: null,
         loadedMicroscope: null
-      });else if (step === 4) this.setState({
+      });else if (step === 2) this.setState({
         imgFileLoading: true,
         imgFileLoaded: false,
         errorMsg: null,
         imgFilename: null,
         loadedMetadata: null
-      });else if (step === 6) this.setState({
+      });else if (step === 3) this.setState({
         settFileLoading: true,
         settFileLoaded: false,
         errorMsg: null,
@@ -335,7 +336,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         this.setState({
           micModeSelection: item
         });
-      } else if (step === 3) {
+      } else if (step === 2) {
         if (this.state.imgModeSelection === _constants.string_createFromFile && item !== this.state.imgModeSelection) {
           this.setState({
             imgFileLoading: false,
@@ -348,7 +349,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         this.setState({
           imgModeSelection: item
         });
-      } else if (step == 5) {
+      } else if (step == 3) {
         if (this.state.settModeSelection === _constants.string_createFromFile && item !== this.state.settModeSelection || (this.state.settModeSelection === _constants.string_loadFromRepository || this.state.settModeSelection === _constants.string_loadFromHomeFolder) && item !== this.state.settModeSelection) {
           this.setState({
             settFileLoading: false,
@@ -421,8 +422,27 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       }
     }
   }, {
+    key: "onClickBack",
+    value: function onClickBack() {
+      var step = this.state.step;
+      step--;
+      this.setState({
+        step: step
+      });
+    }
+  }, {
     key: "onClickConfirm",
     value: function onClickConfirm() {
+      var step = this.state.step;
+
+      if (step !== 3) {
+        step++;
+        this.setState({
+          step: step
+        });
+        return;
+      }
+
       var micModeSelection = this.state.micModeSelection;
       var imgModeSelection = this.state.imgModeSelection;
       var settModeSelection = this.state.settModeSelection; //console.log("modeSelection: " + this.state.modeSelection);
@@ -458,11 +478,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var _this3 = this;
 
       var buttonStyleWideNoMarginSelected = {
-        width: "420px",
+        width: "500px",
         height: "100px"
       };
       var buttonStyleWideNoMargin = {
-        width: "210px",
+        width: "250px",
         height: "100px"
       };
       var buttonStyleWide = {
@@ -480,7 +500,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "center",
         flexFlow: "column",
         width: "100%",
-        height: "10%",
+        height: "50px",
         alignItems: "center"
       };
       var windowExternalContainer = {
@@ -491,31 +511,38 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         height: "100%",
         alignItems: "center"
       };
+      var windowMainContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
+        width: "100%",
+        height: "750px",
+        alignItems: "center"
+      };
       var windowStepContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "row",
         flexWrap: "wrap",
-        width: "60%",
-        height: "10%",
+        width: "100%",
+        height: "100px",
         alignItems: "center",
         alignContent: "stretch"
       };
       var windowButtonsContainer = {
         display: "flex",
         justifyContent: "center",
-        flexFlow: "column",
+        flexFlow: "row",
         width: "100%",
-        height: "35%",
-        alignItems: "center",
-        maxHeight: "35%"
+        height: "550px",
+        alignItems: "center"
       };
       var windowLogoContainer = {
         display: "flex",
         justifyContent: "flex-end",
         flexFlow: "column",
         width: "100%",
-        height: "20%",
+        height: "100%",
         alignItems: "center"
       };
       var windowBottomButtonsContainer = {
@@ -523,7 +550,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "center",
         flexFlow: "row",
         width: "100%",
-        height: "10%",
+        height: "50px",
         alignItems: "center"
       };
       var buttonsInnerTextContainer = {
@@ -539,8 +566,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         justifyContent: "center",
         alignItems: "center",
-        width: "50%",
-        height: "80%",
+        width: "420px",
+        height: "420px",
         cursor: "pointer"
       };
       var styleDropzone = {
@@ -568,6 +595,13 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "100%",
         margin: "auto"
+      };
+      var styleButton = {
+        width: "250px",
+        minWidth: "250px",
+        height: "50px",
+        marginLeft: "5px",
+        marginRight: "5px"
       };
       var styleImageBk = {
         width: "20px",
@@ -603,186 +637,331 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var micModeSelection = this.state.micModeSelection;
       var imgModeSelection = this.state.imgModeSelection;
       var settModeSelection = this.state.settModeSelection;
+      var step1Disabled = false;
       var step2Disabled = false;
-      var variant_1 = "outline-primary";
-      var variant_2 = "outline-danger";
-
-      if ((0, _genericUtilities.isDefined)(micModeSelection)) {
-        if (micModeSelection.toLowerCase().includes("create")) {
-          step2Disabled = true;
-          variant_2 = "outline-success";
-        }
-
-        variant_1 = "outline-success";
-      } else {
-        step2Disabled = true;
-        variant_1 = "outline-danger";
-        variant_2 = "outline-primary";
-      }
-
-      if (loadedMicroscope !== null && micFilename !== null) {
-        variant_2 = "outline-success";
-      }
-
       var step3Disabled = false;
-      var step4Disabled = false;
-      var variant_3 = "outline-primary";
-      var variant_4 = "outline-danger";
-
-      if (!this.props.hasMetadataLoader) {
-        step3Disabled = true;
-        step4Disabled = true;
-        variant_3 = "outline-primary";
-        variant_4 = "outline-primary";
-      } else {
-        if ((0, _genericUtilities.isDefined)(imgModeSelection)) {
-          if (imgModeSelection.toLowerCase().includes("skip")) {
-            step4Disabled = true;
-            variant_4 = "outline-success";
-          }
-
-          variant_3 = "outline-success";
-        } else {
-          step4Disabled = true;
-          variant_3 = "outline-danger";
-          variant_4 = "outline-primary";
-        }
-
-        if (loadedMetadata !== null && imgFilename !== null) {
-          variant_4 = "outline-success";
-        }
-      }
-
-      var step6Disabled = false;
-      var variant_5 = "outline-primary";
-      var variant_6 = "outline-danger";
-
-      if ((0, _genericUtilities.isDefined)(settModeSelection)) {
-        if (settModeSelection.toLowerCase().includes("create")) {
-          step6Disabled = true;
-          variant_6 = "outline-success";
-        }
-
-        variant_5 = "outline-success";
-      } else {
-        step6Disabled = true;
-        variant_5 = "outline-danger";
-        variant_6 = "outline-primary";
-      }
-
-      if (loadedSetting !== null && settFilename !== null) {
-        variant_6 = "outline-success";
-      }
+      var variant_1 = "outline-primary";
+      var variant_2 = "outline-primary";
+      var variant_3 = "outline-primary"; // if (isDefined(micModeSelection)) {
+      // 	if (micModeSelection.toLowerCase().includes("create")) {
+      // 		step2Disabled = true;
+      // 		variant_2 = "outline-success";
+      // 	}
+      // 	variant_1 = "outline-success";
+      // } else {
+      // 	step2Disabled = true;
+      // 	variant_1 = "outline-danger";
+      // 	variant_2 = "outline-primary";
+      // }
+      // if (loadedMicroscope !== null && micFilename !== null) {
+      // 	variant_2 = "outline-success";
+      // }
+      // let step3Disabled = false;
+      // let step4Disabled = false;
+      // let variant_3 = "outline-primary";
+      // let variant_4 = "outline-danger";
+      // if (!this.props.hasMetadataLoader) {
+      // 	step3Disabled = true;
+      // 	step4Disabled = true;
+      // 	variant_3 = "outline-primary";
+      // 	variant_4 = "outline-primary";
+      // } else {
+      // 	if (isDefined(imgModeSelection)) {
+      // 		if (imgModeSelection.toLowerCase().includes("skip")) {
+      // 			step4Disabled = true;
+      // 			variant_4 = "outline-success";
+      // 		}
+      // 		variant_3 = "outline-success";
+      // 	} else {
+      // 		step4Disabled = true;
+      // 		variant_3 = "outline-danger";
+      // 		variant_4 = "outline-primary";
+      // 	}
+      // 	if (loadedMetadata !== null && imgFilename !== null) {
+      // 		variant_4 = "outline-success";
+      // 	}
+      // }
+      // let step6Disabled = false;
+      // let variant_5 = "outline-primary";
+      // let variant_6 = "outline-danger";
+      // if (isDefined(settModeSelection)) {
+      // 	if (settModeSelection.toLowerCase().includes("create")) {
+      // 		step6Disabled = true;
+      // 		variant_6 = "outline-success";
+      // 	}
+      // 	variant_5 = "outline-success";
+      // } else {
+      // 	step6Disabled = true;
+      // 	variant_5 = "outline-danger";
+      // 	variant_6 = "outline-primary";
+      // }
+      // if (loadedSetting !== null && settFilename !== null) {
+      // 	variant_6 = "outline-success";
+      // }
 
       var styleText_1 = {
         wordBreak: "break-word",
-        whiteSpace: "normal"
+        whiteSpace: "break-spaces",
+        textAlign: "left"
       };
       var styleText_2 = {
         fontSize: "0.8em",
         wordBreak: "break-word",
-        whiteSpace: "normal"
+        whiteSpace: "break-spaces",
+        textAlign: "left"
       };
       var styleText_3 = {
-        fontSize: "0.7em",
+        fontSize: "0.5em",
         wordBreak: "break-word",
-        whiteSpace: "normal"
+        whiteSpace: "break-spaces",
+        textAlign: "left"
       };
+      var step1SubText = "";
+
+      if (micModeSelection !== null) {
+        step1SubText = micModeSelection;
+      }
+
+      if (micFilename !== null) {
+        step1SubText += "\n" + micFilename;
+      }
 
       var step1Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", null, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
+      }, /*#__PURE__*/_react.default.createElement("h5", {
+        style: styleText_1
+      }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
         style: styleText_3
-      }, micModeSelection !== null ? micModeSelection : ""));
+      }, step1SubText)); // let step2Text = (
+      // 	<div style={buttonsInnerTextContainer}>
+      // 		<h5 style={styleText_1}>2 - Select Microscope</h5>
+      // 		<p style={styleText_3}>{filename !== null ? filename : ""}</p>
+      // 	</div>
+      // );
+
+
+      if (step === 1) {
+        step1Text = /*#__PURE__*/_react.default.createElement("div", {
+          style: buttonsInnerTextContainer
+        }, /*#__PURE__*/_react.default.createElement("h4", {
+          style: styleText_1
+        }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
+          style: styleText_2
+        }, step1SubText));
+      }
+
+      var step2SubText = "";
+
+      if (imgModeSelection !== null) {
+        step2SubText = imgModeSelection;
+      }
+
+      if (imgFilename !== null) {
+        step2SubText += "\n" + imgFilename;
+      }
 
       var step2Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
       }, /*#__PURE__*/_react.default.createElement("h5", {
         style: styleText_1
-      }, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
+      }, "1 - Image information"), /*#__PURE__*/_react.default.createElement("p", {
         style: styleText_3
-      }, micFilename !== null ? micFilename : ""));
+      }, step2SubText)); // let step2Text = (
+      // 	<div style={buttonsInnerTextContainer}>
+      // 		<h5 style={styleText_1}>2 - Select Microscope</h5>
+      // 		<p style={styleText_3}>{filename !== null ? filename : ""}</p>
+      // 	</div>
+      // );
+
+
+      if (step === 2) {
+        step2Text = /*#__PURE__*/_react.default.createElement("div", {
+          style: buttonsInnerTextContainer
+        }, /*#__PURE__*/_react.default.createElement("h4", {
+          style: styleText_1
+        }, "2 - Image information"), /*#__PURE__*/_react.default.createElement("p", {
+          style: styleText_2
+        }, step2SubText));
+      }
+
+      var step3SubText = "";
+
+      if (settModeSelection !== null) {
+        step3SubText = settModeSelection;
+      }
+
+      if (settFilename !== null) {
+        step3SubText += "\n" + settFilename;
+      }
 
       var step3Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
       }, /*#__PURE__*/_react.default.createElement("h5", {
         style: styleText_1
-      }, "3 - Image information"), /*#__PURE__*/_react.default.createElement("p", {
+      }, "1 - Setting information"), /*#__PURE__*/_react.default.createElement("p", {
         style: styleText_3
-      }, imgModeSelection !== null ? imgModeSelection : ""));
+      }, step3SubText)); // let step2Text = (
+      // 	<div style={buttonsInnerTextContainer}>
+      // 		<h5 style={styleText_1}>2 - Select Microscope</h5>
+      // 		<p style={styleText_3}>{filename !== null ? filename : ""}</p>
+      // 	</div>
+      // );
 
-      var step4Text = /*#__PURE__*/_react.default.createElement("div", {
-        style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", {
-        style: styleText_1
-      }, "4 - Select Image"), /*#__PURE__*/_react.default.createElement("p", {
-        style: styleText_3
-      }, imgFilename !== null ? imgFilename : ""));
 
-      var step5Text = /*#__PURE__*/_react.default.createElement("div", {
-        style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", {
-        style: styleText_1
-      }, "5 - Setting information"), /*#__PURE__*/_react.default.createElement("p", {
-        style: styleText_3
-      }, settModeSelection !== null ? settModeSelection : ""));
-
-      var step6Text = /*#__PURE__*/_react.default.createElement("div", {
-        style: buttonsInnerTextContainer
-      }, /*#__PURE__*/_react.default.createElement("h5", {
-        style: styleText_1
-      }, "6 - Select Setting"), /*#__PURE__*/_react.default.createElement("p", {
-        style: styleText_3
-      }, settFilename !== null ? settFilename : ""));
-
-      if (step === 1) {
-        step1Text = /*#__PURE__*/_react.default.createElement("div", {
-          style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", {
-          style: styleText_1
-        }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
-          style: styleText_2
-        }, micModeSelection !== null ? micModeSelection : ""));
-      } else if (step === 2) {
-        step2Text = /*#__PURE__*/_react.default.createElement("div", {
-          style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", {
-          style: styleText_1
-        }, "2 - Select Microscope"), /*#__PURE__*/_react.default.createElement("p", {
-          style: styleText_2
-        }, micFilename !== null ? micFilename : ""));
-      } else if (step === 3) {
+      if (step === 3) {
         step3Text = /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", {
+        }, /*#__PURE__*/_react.default.createElement("h4", {
           style: styleText_1
-        }, "3 - Image information"), /*#__PURE__*/_react.default.createElement("p", {
+        }, "2 - Setting information"), /*#__PURE__*/_react.default.createElement("p", {
           style: styleText_2
-        }, imgModeSelection !== null ? imgModeSelection : ""));
-      } else if (step === 4) {
-        step4Text = /*#__PURE__*/_react.default.createElement("div", {
-          style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", {
-          style: styleText_1
-        }, "4 - Select Image"), /*#__PURE__*/_react.default.createElement("p", {
-          style: styleText_2
-        }, imgFilename !== null ? imgFilename : ""));
-      } else if (step === 5) {
-        step5Text = /*#__PURE__*/_react.default.createElement("div", {
-          style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", {
-          style: styleText_1
-        }, "5 - Setting information"), /*#__PURE__*/_react.default.createElement("p", {
-          style: styleText_2
-        }, settModeSelection !== null ? settModeSelection : ""));
-      } else if (step === 6) {
-        step6Text = /*#__PURE__*/_react.default.createElement("div", {
-          style: buttonsInnerTextContainer
-        }, /*#__PURE__*/_react.default.createElement("h3", {
-          style: styleText_1
-        }, "6 - Select Setting"), /*#__PURE__*/_react.default.createElement("p", {
-          style: styleText_2
-        }, settFilename !== null ? settFilename : ""));
+        }, step3SubText));
+      } // let step1Text = (
+      // 	<div style={buttonsInnerTextContainer}>
+      // 		<h5>1 - Microscope information</h5>
+      // 		<p style={styleText_3}>
+      // 			{micModeSelection !== null ? micModeSelection : ""}
+      // 		</p>
+      // 	</div>
+      // );
+      // let step2Text = (
+      // 	<div style={buttonsInnerTextContainer}>
+      // 		<h5 style={styleText_1}>2 - Select Microscope</h5>
+      // 		<p style={styleText_3}>{micFilename !== null ? micFilename : ""}</p>
+      // 	</div>
+      // );
+      // let step3Text = (
+      // 	<div style={buttonsInnerTextContainer}>
+      // 		<h5 style={styleText_1}>3 - Image information</h5>
+      // 		<p style={styleText_3}>
+      // 			{imgModeSelection !== null ? imgModeSelection : ""}
+      // 		</p>
+      // 	</div>
+      // );
+      // let step4Text = (
+      // 	<div style={buttonsInnerTextContainer}>
+      // 		<h5 style={styleText_1}>4 - Select Image</h5>
+      // 		<p style={styleText_3}>{imgFilename !== null ? imgFilename : ""}</p>
+      // 	</div>
+      // );
+      // let step5Text = (
+      // 	<div style={buttonsInnerTextContainer}>
+      // 		<h5 style={styleText_1}>5 - Setting information</h5>
+      // 		<p style={styleText_3}>
+      // 			{settModeSelection !== null ? settModeSelection : ""}
+      // 		</p>
+      // 	</div>
+      // );
+      // let step6Text = (
+      // 	<div style={buttonsInnerTextContainer}>
+      // 		<h5 style={styleText_1}>6 - Select Setting</h5>
+      // 		<p style={styleText_3}>{settFilename !== null ? settFilename : ""}</p>
+      // 	</div>
+      // );
+      // if (step === 1) {
+      // 	step1Text = (
+      // 		<div style={buttonsInnerTextContainer}>
+      // 			<h3 style={styleText_1}>1 - Microscope information</h3>
+      // 			<p style={styleText_2}>
+      // 				{micModeSelection !== null ? micModeSelection : ""}
+      // 			</p>
+      // 		</div>
+      // 	);
+      // } else if (step === 2) {
+      // 	step2Text = (
+      // 		<div style={buttonsInnerTextContainer}>
+      // 			<h3 style={styleText_1}>2 - Select Microscope</h3>
+      // 			<p style={styleText_2}>{micFilename !== null ? micFilename : ""}</p>
+      // 		</div>
+      // 	);
+      // } else if (step === 3) {
+      // 	step3Text = (
+      // 		<div style={buttonsInnerTextContainer}>
+      // 			<h3 style={styleText_1}>3 - Image information</h3>
+      // 			<p style={styleText_2}>
+      // 				{imgModeSelection !== null ? imgModeSelection : ""}
+      // 			</p>
+      // 		</div>
+      // 	);
+      // } else if (step === 4) {
+      // 	step4Text = (
+      // 		<div style={buttonsInnerTextContainer}>
+      // 			<h3 style={styleText_1}>4 - Select Image</h3>
+      // 			<p style={styleText_2}>{imgFilename !== null ? imgFilename : ""}</p>
+      // 		</div>
+      // 	);
+      // } else if (step === 5) {
+      // 	step5Text = (
+      // 		<div style={buttonsInnerTextContainer}>
+      // 			<h3 style={styleText_1}>5 - Setting information</h3>
+      // 			<p style={styleText_2}>
+      // 				{settModeSelection !== null ? settModeSelection : ""}
+      // 			</p>
+      // 		</div>
+      // 	);
+      // } else if (step === 6) {
+      // 	step6Text = (
+      // 		<div style={buttonsInnerTextContainer}>
+      // 			<h3 style={styleText_1}>6 - Select Setting</h3>
+      // 			<p style={styleText_2}>{settFilename !== null ? settFilename : ""}</p>
+      // 		</div>
+      // 	);
+      // }
+
+
+      var continueDisabled = false;
+      var continueLabel = "Next";
+      var step1Completed = true;
+      var step2Completed = true;
+      var step3Completed = true;
+
+      if (!(0, _genericUtilities.isDefined)(micModeSelection)) {
+        step1Completed = false;
+      } else if (micModeSelection === _constants.string_createFromFile && (!micFileLoaded || loadedMicroscope === null)) {
+        step1Completed = false;
+      } else if ((micModeSelection === _constants.string_loadFromRepository || micModeSelection === _constants.string_loadFromHomeFolder) && micFilename === null) {
+        step1Completed = false;
+      }
+
+      if (this.props.hasMetadataLoader) {
+        if (!(0, _genericUtilities.isDefined)(imgModeSelection)) {
+          step2Completed = false;
+        } else if (imgModeSelection === _constants.string_createFromFile && (!imgFileLoaded || loadedMetadata === null)) {
+          step2Completed = false;
+        }
+      }
+
+      if (!(0, _genericUtilities.isDefined)(settModeSelection)) {
+        step3Completed = false;
+      } else if (settModeSelection === _constants.string_createFromFile && (!settFileLoaded || loadedSetting === null)) {
+        step3Completed = false;
+      } else if ((settModeSelection === _constants.string_loadFromRepository || settModeSelection === _constants.string_loadFromHomeFolder) && settFilename === null) {
+        step3Completed = false;
+      }
+
+      if (step === 1) {
+        if (!step1Completed) {
+          continueDisabled = true;
+          step2Disabled = true;
+          variant_2 = "secondary";
+        }
+
+        if (!step2Completed) {
+          step3Disabled = true;
+          variant_3 = "secondary";
+        }
+      } else if (step === 2) {
+        if (!step2Completed) {
+          continueDisabled = true;
+          step3Disabled = true;
+          variant_3 = "secondary";
+        }
+      } else if (step === 3) {
+        if (!step3Completed) {
+          continueDisabled = true;
+        }
+
+        continueLabel = "Continue";
       }
 
       var stepRadios = /*#__PURE__*/_react.default.createElement(_ToggleButtonGroup.default, {
@@ -796,6 +975,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         id: "rso-radio-1",
         key: "rso-radio-1",
         value: 1,
+        disabled: step1Disabled,
         variant: variant_1,
         style: step === 1 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
       }, step1Text), /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
@@ -812,27 +992,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         disabled: step3Disabled,
         variant: variant_3,
         style: step === 3 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
-      }, step3Text), /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-        id: "rso-radio-4",
-        key: "rso-radio-4",
-        value: 4,
-        disabled: step4Disabled,
-        variant: variant_4,
-        style: step === 4 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
-      }, step4Text), /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-        id: "rso-radio-5",
-        key: "rso-radio-5",
-        value: 5,
-        variant: variant_5,
-        style: step === 5 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
-      }, step5Text), /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-        id: "rso-radio-6",
-        key: "rso-radio-6",
-        value: 6,
-        disabled: step6Disabled,
-        variant: variant_6,
-        style: step === 6 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
-      }, step6Text));
+      }, step3Text));
 
       var list = [];
 
@@ -874,34 +1034,43 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           _loop(i);
         }
 
-        list.push( /*#__PURE__*/_react.default.createElement("h4", {
+        var toggles = [];
+        toggles.push( /*#__PURE__*/_react.default.createElement("h4", {
           key: "load-options"
         }, "Load options"));
-        list.push(loadRadios);
-      } else if (step === 2) {
-        var text = /*#__PURE__*/_react.default.createElement("p", {
-          style: styleCenterText
-        }, "Click or drag a file here to load an existing Microscope file you want to work on.");
-
-        if (micFileLoaded) {
-          styleDropzone.borderColor = "green";
-          text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, micFilename), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, "Click or drag a file here to replace the currently loaded file"));
-        } else if (errorMsg !== null) {
-          text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, micFilename), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, errorMsg), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, "Click or drag a file here to replace the currently loaded file"));
-        } //TODO upload zone
-
+        toggles.push(loadRadios);
+        list.push( /*#__PURE__*/_react.default.createElement(_ToggleButtonGroup.default, {
+          id: "radio-createLoad-options",
+          key: "radio-createLoad-options",
+          type: "radio",
+          name: "radio-createLoad-options" //value={modeSelection}
+          //onChange={this.handleCreateOrLoadRadioChange}
+          ,
+          vertical: true
+        }, toggles));
 
         if (micModeSelection === _constants.string_createFromFile) {
+          var text = /*#__PURE__*/_react.default.createElement("p", {
+            style: styleCenterText
+          }, "Click or drag a file here to load an existing Microscope file you want to work on.");
+
+          if (micFileLoaded) {
+            styleDropzone.borderColor = "green";
+            text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, micFilename), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, "Click or drag a file here to replace the currently loaded file"));
+          } else if (errorMsg !== null) {
+            text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, micFilename), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, errorMsg), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, "Click or drag a file here to replace the currently loaded file"));
+          }
+
           var dropbox = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
             key: "popover-dropzone",
             id: "popover-dropzone",
@@ -935,17 +1104,19 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             key: "container-dropzone",
             id: "container-dropzone",
             style: dropzoneContainer
-          }, dropbox));
-        } else {
-          windowButtonsContainer.flexFlow = "row";
+          }, /*#__PURE__*/_react.default.createElement("h4", {
+            key: "dropzone"
+          }, "Load file"), dropbox));
+        } else if (micModeSelection === _constants.string_loadFromRepository || micModeSelection === _constants.string_loadFromHomeFolder) {
+          //windowButtonsContainer.flexFlow = "row";
           var windowRadioButtonsContainer = {
             display: "flex",
             justifyContent: "center",
             flexFlow: "column",
-            width: "25%",
-            height: "80%",
-            alignItems: "center",
-            maxHeight: "80%",
+            width: "430px",
+            height: "550px",
+            alignItems: "flex-start",
+            maxHeight: "550px",
             overflow: "auto"
           };
           var manufacturers = Object.keys(microscopes); // let defaultManu = isDefined(selectedManu)
@@ -1018,7 +1189,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 key: "radio-microscope-options",
                 type: "radio",
                 name: "radio-microscope-options",
-                value: selectedMic,
+                value: micFilename,
                 onChange: function onChange(e) {
                   _this3.onClickMicroscopeSelection(e);
                 },
@@ -1033,7 +1204,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             }, microscopeRadio));
           }
         }
-      } else if (step === 3) {
+      } else if (step === 2) {
         var _loadRadios = [];
 
         var _loop2 = function _loop2(_i3) {
@@ -1069,39 +1240,51 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           _loop2(_i3);
         }
 
-        list.push( /*#__PURE__*/_react.default.createElement("h4", {
+        var _toggles = [];
+
+        _toggles.push( /*#__PURE__*/_react.default.createElement("h4", {
           key: "load-options"
         }, "Load options"));
-        list.push(_loadRadios);
-      } else if (step === 4) {
-        var _text = /*#__PURE__*/_react.default.createElement("p", {
-          style: styleCenterText
-        }, "Click or drag a file here to load an Image file you want to work with.");
 
-        if (imgFileLoaded) {
-          styleDropzone.borderColor = "green";
-          _text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, imgFilename), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, "Click or drag a file here to replace the currently loaded file"));
-        } else if (errorMsg !== null) {
-          _text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, imgFilename), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, errorMsg), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, "Click or drag a file here to replace the currently loaded file"));
-        } //TODO upload zone
+        _toggles.push(_loadRadios);
 
+        list.push( /*#__PURE__*/_react.default.createElement(_ToggleButtonGroup.default, {
+          id: "radio-createLoad-options",
+          key: "radio-createLoad-options",
+          type: "radio",
+          name: "radio-createLoad-options" //value={modeSelection}
+          //onChange={this.handleCreateOrLoadRadioChange}
+          ,
+          vertical: true
+        }, _toggles));
 
         if (imgModeSelection === _constants.string_createFromFile) {
+          var _text = /*#__PURE__*/_react.default.createElement("p", {
+            style: styleCenterText
+          }, "Click or drag a file here to load an Image file you want to work with.");
+
+          if (imgFileLoaded) {
+            styleDropzone.borderColor = "green";
+            _text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, imgFilename), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, "Click or drag a file here to replace the currently loaded file"));
+          } else if (errorMsg !== null) {
+            _text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, imgFilename), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, errorMsg), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, "Click or drag a file here to replace the currently loaded file"));
+          }
+
           var imageRadio = null;
           var _windowRadioButtonsContainer = null;
 
           if (imageMap !== null) {
-            windowButtonsContainer.flexFlow = "row";
+            //windowButtonsContainer.flexFlow = "row";
             _windowRadioButtonsContainer = {
               display: "flex",
               justifyContent: "center",
@@ -1182,9 +1365,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             key: "container-dropzone",
             id: "container-dropzone",
             style: dropzoneContainer
-          }, _dropbox));
+          }, /*#__PURE__*/_react.default.createElement("h4", {
+            key: "dropzone"
+          }, "Load file"), _dropbox));
 
-          if (imageMap !== null) {
+          if (imageRadio !== null) {
             list.push( /*#__PURE__*/_react.default.createElement("div", {
               key: "radio-image-container",
               id: "radio-image-container",
@@ -1192,7 +1377,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             }, imageRadio));
           }
         }
-      } else if (step === 5) {
+      } else if (step === 3) {
         var createRadios = [];
 
         var _loop3 = function _loop3(_i5) {
@@ -1260,38 +1445,52 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           _loop4(_i6);
         }
 
-        list.push( /*#__PURE__*/_react.default.createElement("h4", {
+        var _toggles2 = [];
+
+        _toggles2.push( /*#__PURE__*/_react.default.createElement("h4", {
           key: "create-options"
         }, "Create options"));
-        list.push(createRadios);
-        list.push( /*#__PURE__*/_react.default.createElement("h4", {
+
+        _toggles2.push(createRadios);
+
+        _toggles2.push( /*#__PURE__*/_react.default.createElement("h4", {
           key: "load-options"
         }, "Load options"));
-        list.push(_loadRadios2);
-      } else {
-        var _text2 = /*#__PURE__*/_react.default.createElement("p", {
-          style: styleCenterText
-        }, "Click or drag a file here to load an existing Image Acquisition Setting file you want to work on.");
 
-        if (settFileLoaded) {
-          styleDropzone.borderColor = "green";
-          _text2 = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, micFilename), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, "Click or drag a file here to replace the currently loaded file"));
-        } else if (errorMsg !== null) {
-          _text2 = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, micFilename), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, errorMsg), /*#__PURE__*/_react.default.createElement("p", {
-            style: styleCenterText
-          }, "Click or drag a file here to replace the currently loaded file"));
-        } //TODO upload zone
+        _toggles2.push(_loadRadios2);
 
+        list.push( /*#__PURE__*/_react.default.createElement(_ToggleButtonGroup.default, {
+          id: "radio-createLoad-options",
+          key: "radio-createLoad-options",
+          type: "radio",
+          name: "radio-createLoad-options" //value={modeSelection}
+          //onChange={this.handleCreateOrLoadRadioChange}
+          ,
+          vertical: true
+        }, _toggles2));
 
         if (settModeSelection === _constants.string_createFromFile) {
+          var _text2 = /*#__PURE__*/_react.default.createElement("p", {
+            style: styleCenterText
+          }, "Click or drag a file here to load an existing Image Acquisition Setting file you want to work on.");
+
+          if (settFileLoaded) {
+            styleDropzone.borderColor = "green";
+            _text2 = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, micFilename), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, "Click or drag a file here to replace the currently loaded file"));
+          } else if (errorMsg !== null) {
+            _text2 = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, micFilename), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, errorMsg), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, "Click or drag a file here to replace the currently loaded file"));
+          }
+
           var _dropbox2 = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
             key: "popover-dropzone",
             id: "popover-dropzone",
@@ -1325,8 +1524,10 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             key: "container-dropzone",
             id: "container-dropzone",
             style: dropzoneContainer
-          }, _dropbox2));
-        } else {
+          }, /*#__PURE__*/_react.default.createElement("h4", {
+            key: "dropzone"
+          }, "Load file"), _dropbox2));
+        } else if (settModeSelection === _constants.string_loadFromRepository || settModeSelection === _constants.string_loadFromHomeFolder) {
           var _windowRadioButtonsContainer2 = {
             display: "flex",
             justifyContent: "center",
@@ -1374,7 +1575,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               key: "radio-setting-options",
               type: "radio",
               name: "radio-setting-options",
-              value: selectedSett,
+              value: settFilename,
               onChange: function onChange(e) {
                 _this3.onClickSettingSelection(e);
               },
@@ -1390,18 +1591,54 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
-      var continue_tooltip = _constants.create_mode_continue_settings_tooltip;
-      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
-      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var continue_tooltip = _constants.createSettings_mode_continue_tooltip;
       var buttons = [];
+      var backDisabled = false;
+
+      if (step === 1) {
+        backDisabled = true;
+      }
+
       buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "button-back",
         position: _constants.back_tooltip.position,
         title: _constants.back_tooltip.title,
         content: _constants.back_tooltip.content,
+        disabled: backDisabled,
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-          onClick: this.props.onClickBack,
+          onClick: !backDisabled ? this.onClickBack : null,
           style: buttonStyle,
+          size: "lg"
+        }, "Back")
+      }));
+      buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "button-continue",
+        position: continue_tooltip.position,
+        title: continue_tooltip.title,
+        content: continue_tooltip.content,
+        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          onClick: !continueDisabled ? this.onClickConfirm : null,
+          style: buttonStyle,
+          size: "lg",
+          disabled: continueDisabled
+        }, continueLabel)
+      }));
+      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
+      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var backText = "Home";
+
+      var homeButton = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButtonLeft-0",
+        position: "top",
+        title: _constants.back_tooltip.title,
+        content: _constants.back_tooltip.content,
+        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "ButtonLeft-0",
+          onClick: function onClick() {
+            return _this3.props.onClickHome(backText);
+          },
+          style: styleButton,
           size: "lg",
           variant: "outline-dark"
         }, /*#__PURE__*/_react.default.createElement("div", {
@@ -1414,69 +1651,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: backImgPath,
           alt: backImgPath_tmp,
-          style: styleImageBk,
-          onLoad: this.onImgLoad
-        }), "Back"))
-      }));
-      var continueDisabled = false;
-
-      if (!(0, _genericUtilities.isDefined)(micModeSelection)) {
-        continueDisabled = true;
-      } else if (micModeSelection === _constants.string_createFromFile && (!micFileLoaded || loadedMicroscope === null)) {
-        continueDisabled = true;
-      } else if ((micModeSelection === _constants.string_loadFromRepository || micModeSelection === _constants.string_loadFromHomeFolder) && micFilename === null) {
-        continueDisabled = true;
-      }
-
-      if (this.props.hasMetadataLoader) {
-        if (!(0, _genericUtilities.isDefined)(imgModeSelection)) {
-          continueDisabled = true;
-        } else if (imgModeSelection === _constants.string_createFromFile && (!imgFileLoaded || loadedMetadata === null)) {
-          continueDisabled = true;
-        }
-      }
-
-      if (!(0, _genericUtilities.isDefined)(settModeSelection)) {
-        continueDisabled = true;
-      } else if (settModeSelection === _constants.string_createFromFile && (!settFileLoaded || loadedSetting === null)) {
-        continueDisabled = true;
-      } else if ((settModeSelection === _constants.string_loadFromRepository || settModeSelection === _constants.string_loadFromHomeFolder) && settFilename === null) {
-        continueDisabled = true;
-      }
-
-      buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        key: "button-continue",
-        position: continue_tooltip.position,
-        title: continue_tooltip.title,
-        content: continue_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-          onClick: !continueDisabled ? this.onClickConfirm : null,
-          style: buttonStyle,
-          size: "lg",
-          disabled: continueDisabled
-        }, "Continue")
-      }));
-      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""); // return (
-      // 	<div style={windowExternalContainer}>
-      // 		<div style={windowInternalContainer}>
-      // 			<div style={styleImageContainer}>
-      // 				<img
-      // 					src={logoPath}
-      // 					alt={this.props.logoImg}
-      // 					style={styleImage}
-      // 					onLoad={this.onImgLoad}
-      // 				/>
-      // 			</div>
-      // 			<div style={{ textAlign: "center", fontWeight: "bold" }}>
-      // 				{titleText}
-      // 			</div>
-      // 			{list}
-      // 		</div>
-      // 	</div>
-      // );
+          style: styleImageBk
+        }), backText))
+      });
 
       return /*#__PURE__*/_react.default.createElement("div", {
         style: windowExternalContainer
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        style: windowMainContainer
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: titleContainer
       }, /*#__PURE__*/_react.default.createElement("h1", null, this.props.title)), /*#__PURE__*/_react.default.createElement("div", {
@@ -1485,9 +1667,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         style: windowButtonsContainer
       }, list), /*#__PURE__*/_react.default.createElement("div", {
         style: windowBottomButtonsContainer
-      }, buttons), /*#__PURE__*/_react.default.createElement("div", {
+      }, buttons)), /*#__PURE__*/_react.default.createElement("div", {
         style: windowLogoContainer
-      }, /*#__PURE__*/_react.default.createElement("div", {
+      }, homeButton, /*#__PURE__*/_react.default.createElement("div", {
         style: styleImageContainer
       }, /*#__PURE__*/_react.default.createElement("img", {
         src: logoPath,
