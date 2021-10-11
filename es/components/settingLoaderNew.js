@@ -295,18 +295,25 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     key: "onClickManufacturerSelection",
     value: function onClickManufacturerSelection(item) {
       //console.log("onClickManufacturerSelection - " + item);
-      var micNames = this.props.microscopes[item];
+      var micNames = this.props.microscopeNames[item];
       this.setState({
         selectedManu: item,
         micNames: micNames
-      }); //this.props.onClickMicroscopeSelection(this.props.microscopes[item][0]);
+      }); //this.props.onClickMicroscopeSelection(this.props.microscopeNames[item][0]);
     }
   }, {
     key: "onClickMicroscopeSelection",
     value: function onClickMicroscopeSelection(item) {
       //console.log("onClickMicroscopeSelection - " + item);
+      var loadedMicroscope = null;
+
+      if ((0, _genericUtilities.isDefined)(this.props.microscopes)) {
+        loadedMicroscope = this.props.microscopes[item];
+      }
+
       this.setState({
-        micFilename: item
+        micFilename: item,
+        loadedMicroscope: loadedMicroscope
       });
     }
   }, {
@@ -621,7 +628,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         marginRight: "10px"
       };
       var step = this.state.step;
-      var microscopes = this.props.microscopes;
+      var microscopeNames = this.props.microscopeNames;
       var imageMap = this.state.imageMap;
       var settings = this.props.settings;
       var errorMsg = this.state.errorMsg;
@@ -1151,7 +1158,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             maxHeight: "550px",
             overflow: "auto"
           };
-          var manufacturers = Object.keys(microscopes); // let defaultManu = isDefined(selectedManu)
+          var manufacturers = Object.keys(microscopeNames); // let defaultManu = isDefined(selectedManu)
           // 	? manufacturers.indexOf(selectedManu)
           // 	: 0;
 
@@ -1195,7 +1202,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }, "Select Manufacturer"), manufacturerRadio));
 
           if ((0, _genericUtilities.isDefined)(selectedManu)) {
-            var microscopesManu = microscopes[selectedManu];
+            var microscopesManu = microscopeNames[selectedManu];
             var microscopeRadios = [];
 
             for (var _i2 = 0; _i2 < microscopesManu.length; _i2++) {
@@ -1217,7 +1224,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 style: buttonStyleWide
               }, /*#__PURE__*/_react.default.createElement("div", {
                 style: {
-                  fontSize: "0.8em"
+                  fontSize: "0.8em",
+                  wordBreak: "break-word",
+                  whiteSpace: "break-spaces"
                 }
               }, _micLabel)));
             }
@@ -1614,7 +1623,13 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               value: fullSettName,
               variant: "outline-primary",
               style: buttonStyleWide
-            }, fullSettName));
+            }, /*#__PURE__*/_react.default.createElement("div", {
+              style: {
+                fontSize: "0.8em",
+                wordBreak: "break-word",
+                whiteSpace: "break-spaces"
+              }
+            }, fullSettName)));
           }
 
           var settingRadio = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {

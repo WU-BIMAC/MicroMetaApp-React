@@ -2466,7 +2466,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           imageLoadingOptions: imgLoadingOptions,
           settingCreatingOptions: settCreatingOptions,
           settingLoadingOptions: settLoadingOptions,
-          microscopes: _microscopeNames,
+          microscopeNames: _microscopeNames,
+          microscopes: microscopes,
           settings: settingsNames //onFileDrop={this.uploadSettingFromDropzone}
           ,
           micloadingOption: this.state.loadingOption,
