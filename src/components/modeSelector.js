@@ -167,6 +167,7 @@ export default class ModeSelector extends React.PureComponent {
 			width: "100%",
 			height: `${number_logo_height}px`,
 			alignItems: "center",
+			margin: "50px",
 		};
 		let styleImage = {
 			width: "100%",
@@ -368,8 +369,8 @@ export default class ModeSelector extends React.PureComponent {
 			alignItems: "center",
 		};
 		const buttonModeSelectorStyle = {
-			width: "400px",
-			height: "500px",
+			width: "500px",
+			height: "600px",
 			margin: "50px",
 		};
 		const buttonsInnerContainer = {
@@ -445,7 +446,8 @@ export default class ModeSelector extends React.PureComponent {
 										/>
 										<h2 style={styleText_1}>Manage Instrument</h2>
 										<p style={styleText_2}>
-											Collect information about the hardware components of your microscope.
+											Collect information about the hardware components of your
+											microscope.
 										</p>
 									</div>
 								}
@@ -473,7 +475,8 @@ export default class ModeSelector extends React.PureComponent {
 										/>
 										<h2 style={styleText_1}>Manage Settings</h2>
 										<p style={styleText_2}>
-											Collect information about the acquisition settings that were used to produce your image.
+											Collect information about the acquisition settings that
+											were used to produce your image.
 										</p>
 									</div>
 								}
