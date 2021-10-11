@@ -35,6 +35,7 @@ export default class TierSelector extends React.PureComponent {
 			width: "100%",
 			height: "750px",
 			alignItems: "center",
+			margin: "50px",
 		};
 		const buttonModeSelectorStyle = {
 			width: "800px",
