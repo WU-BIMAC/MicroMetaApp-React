@@ -669,7 +669,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             style: dropzoneContainer
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "dropzone"
-          }, "Load file"), dropbox));
+          }, "Load Microscope file"), dropbox));
         } else if (modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder) {
           //windowButtonsContainer.flexFlow = "row";
           var windowRadioButtonsContainer = {
@@ -770,7 +770,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               id: "radio-microscope-options",
               style: windowRadioButtonsContainer
             }, /*#__PURE__*/_react.default.createElement("h4", {
-              key: "select-manufacturer"
+              key: "select-microscope"
             }, "Select Microscope"), microscopeRadio));
           }
         }

@@ -1106,7 +1106,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             style: dropzoneContainer
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "dropzone"
-          }, "Load file"), dropbox));
+          }, "Load Microscope file"), dropbox));
         } else if (micModeSelection === _constants.string_loadFromRepository || micModeSelection === _constants.string_loadFromHomeFolder) {
           //windowButtonsContainer.flexFlow = "row";
           var windowRadioButtonsContainer = {
@@ -1158,7 +1158,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             key: "radio-manufactorer-container",
             id: "radio-manufactorer-container",
             style: windowRadioButtonsContainer
-          }, manufacturerRadio));
+          }, /*#__PURE__*/_react.default.createElement("h4", {
+            key: "select-manufacturer"
+          }, "Select Manufacturer"), manufacturerRadio));
 
           if ((0, _genericUtilities.isDefined)(selectedManu)) {
             var microscopesManu = microscopes[selectedManu];
@@ -1201,7 +1203,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               key: "radio-microscope-options",
               id: "radio-microscope-options",
               style: windowRadioButtonsContainer
-            }, microscopeRadio));
+            }, /*#__PURE__*/_react.default.createElement("h4", {
+              key: "select-microscope"
+            }, "Select Microscope"), microscopeRadio));
           }
         }
       } else if (step === 2) {
@@ -1367,14 +1371,16 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             style: dropzoneContainer
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "dropzone"
-          }, "Load file"), _dropbox));
+          }, "Load Image file"), _dropbox));
 
           if (imageRadio !== null) {
             list.push( /*#__PURE__*/_react.default.createElement("div", {
               key: "radio-image-container",
               id: "radio-image-container",
               style: _windowRadioButtonsContainer
-            }, imageRadio));
+            }, /*#__PURE__*/_react.default.createElement("h4", {
+              key: "select-manufacturer"
+            }, "Select Image"), imageRadio));
           }
         }
       } else if (step === 3) {
@@ -1526,7 +1532,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             style: dropzoneContainer
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "dropzone"
-          }, "Load file"), _dropbox2));
+          }, "Load Setting file"), _dropbox2));
         } else if (settModeSelection === _constants.string_loadFromRepository || settModeSelection === _constants.string_loadFromHomeFolder) {
           var _windowRadioButtonsContainer2 = {
             display: "flex",
@@ -1587,7 +1593,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             key: "radio-setting-container",
             id: "radio-setting-container",
             style: _windowRadioButtonsContainer2
-          }, settingRadio));
+          }, /*#__PURE__*/_react.default.createElement("h4", {
+            key: "select-setting"
+          }, "Select Setting"), settingRadio));
         }
       }
 
