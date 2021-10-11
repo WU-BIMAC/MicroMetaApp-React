@@ -280,9 +280,9 @@ export const manage_instrument_tooltip = {
 	title: "Manage Instrument Hardware",
 	content: (
 		<p>
-			Click this button to create, load from a template, or edit a Microscope
-			file describing the hardware components of the Instrument you want to
-			document
+			Click this button to create, load from a template or edit a Microscope
+			file containing a description of the hardware components of microscopes
+			you want to document.
 		</p>
 	),
 	position: "left",
@@ -292,12 +292,12 @@ export const manage_settings_tooltip = {
 	title: "Manage Acquisition Settings",
 	content: (
 		<p>
-			Click this button to select an existing Microscope file and enter, load
-			from file, or edit the acquisition settings associated with the specific
-			Image dataset you want to document
+			Click this button to load from file or edit a Settings file containing a
+			description of the acquisition settings that were used for image datasets
+			you want to document.
 		</p>
 	),
-	position: "bottom",
+	position: "right",
 };
 
 export const microscope_loader_scratch_inverted = {
@@ -338,8 +338,8 @@ export const microscope_loader_load_from_homeFolder = {
 	content: (
 		<p>
 			'Load from the local home folder' allows you to load a previously
-			available Microscope file, respectively, from the active Micro-Meta local home
-			folder.
+			available Microscope file, respectively, from the active Micro-Meta local
+			home folder.
 		</p>
 	),
 	position: "bottom",
@@ -349,8 +349,8 @@ export const microscope_loader_load_from_repo = {
 	title: "Load from repository",
 	content: (
 		<p>
-			'Load from repository' allows you to load a previously available Microscope file,
-			respectively, from the active Micro-Meta App repository.
+			'Load from repository' allows you to load a previously available
+			Microscope file, respectively, from the active Micro-Meta App repository.
 		</p>
 	),
 	position: "bottom",
@@ -389,7 +389,8 @@ export const setting_loader_scratch = {
 	title: "Create Setting",
 	content: (
 		<p>
-			'Create from scratch' allows you to create a brand new Settings file from scratch.
+			'Create from scratch' allows you to create a brand new Settings file from
+			scratch.
 		</p>
 	),
 	position: "bottom",
@@ -412,8 +413,8 @@ export const setting_loader_load_from_homeFolder = {
 	content: (
 		<p>
 			'Load from the local home folder' allows you to load a previously
-			available Settings file, respectively, from the active Micro-Meta local home
-			folder.
+			available Settings file, respectively, from the active Micro-Meta local
+			home folder.
 		</p>
 	),
 	position: "bottom",
@@ -423,8 +424,8 @@ export const setting_loader_load_from_repo = {
 	title: "Load from repository",
 	content: (
 		<p>
-			'Load from repository' allows you to load a previously available Settings file,
-			respectively, from the active Micro-Meta App repository.
+			'Load from repository' allows you to load a previously available Settings
+			file, respectively, from the active Micro-Meta App repository.
 		</p>
 	),
 	position: "bottom",
@@ -491,13 +492,13 @@ export const loadImage_from_file_tooltip = {
 export const create_from_repo_manufacturer_tooltip = {
 	title: "Select Manufacturer",
 	content: <p>Select the Manufacturer of the Microscope you want to load.</p>,
-	position: "left",
+	position: "bottom",
 };
 
 export const create_from_repo_names_tooltip = {
 	title: "Select Microscope",
 	content: <p>Select the Microscope you want to load.</p>,
-	position: "right",
+	position: "bottom",
 };
 
 export const createSettings_from_repo_names_tooltip = {
