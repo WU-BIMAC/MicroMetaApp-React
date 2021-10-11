@@ -35,6 +35,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
+			loadOrCreateOption: null,
 			fileLoaded: false,
 			fileLoading: false,
 			selectedManu: null,
@@ -162,7 +163,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	handleCreateOrLoadRadioChange(item) {
-		//console.log("handleCreateOrLoadRadioChange - " + item);
+		console.log("handleCreateOrLoadRadioChange - " + item);
 		if (
 			(this.state.modeSelection === string_createFromFile &&
 				item !== this.state.modeSelection) ||
@@ -202,11 +203,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 	render() {
 		const buttonStyleWideNoMarginSelected = {
-			width: "420px",
+			width: "500px",
 			height: "100px",
 		};
 		const buttonStyleWideNoMargin = {
-			width: "210px",
+			width: "250px",
 			height: "100px",
 		};
 		const buttonStyleWide = {
@@ -224,7 +225,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			justifyContent: "center",
 			flexFlow: "column",
 			width: "100%",
-			height: "10%",
+			height: "50px",
 			alignItems: "center",
 		};
 		const windowExternalContainer = {
@@ -235,30 +236,37 @@ export default class MicroscopeLoader extends React.PureComponent {
 			height: "100%",
 			alignItems: "center",
 		};
+		const windowMainContainer = {
+			display: "flex",
+			justifyContent: "center",
+			flexFlow: "column",
+			width: "100%",
+			height: "750px",
+			alignItems: "center",
+		};
 		const windowStepContainer = {
 			display: "flex",
 			justifyContent: "center",
 			flexFlow: "row",
 			width: "100%",
-			height: "10%",
+			height: "100px",
 			alignItems: "center",
 			alignContent: "stretch",
 		};
-		let windowButtonsContainer = {
+		const windowButtonsContainer = {
 			display: "flex",
 			justifyContent: "center",
-			flexFlow: "column",
+			flexFlow: "row",
 			width: "100%",
-			height: "35%",
+			height: "550px",
 			alignItems: "center",
-			maxHeight: "35%",
 		};
 		const windowLogoContainer = {
 			display: "flex",
 			justifyContent: "flex-end",
 			flexFlow: "column",
 			width: "100%",
-			height: "20%",
+			height: "100%",
 			alignItems: "center",
 		};
 		const windowBottomButtonsContainer = {
@@ -266,7 +274,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			justifyContent: "center",
 			flexFlow: "row",
 			width: "100%",
-			height: "10%",
+			height: "50px",
 			alignItems: "center",
 		};
 		const buttonsInnerTextContainer = {
@@ -282,9 +290,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 			display: "flex",
 			flexFlow: "column",
 			justifyContent: "center",
-			alignItems: "center",
-			width: "40%",
-			height: "80%",
+			alignItems: "flex-start",
+			width: "420px",
+			height: "420px",
 			cursor: "pointer",
 		};
 		let styleDropzone = {
@@ -308,6 +316,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 			width: "100%",
 			height: "100%",
 			margin: "auto",
+		};
+		let styleButton = {
+			width: "250px",
+			minWidth: "250px",
+			height: "50px",
+			marginLeft: "5px",
+			marginRight: "5px",
 		};
 		let styleImageBk = {
 			width: "20px",
@@ -356,70 +371,80 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 		let styleText_1 = {
 			wordBreak: "break-word",
-			whiteSpace: "normal",
+			whiteSpace: "break-spaces",
+			textAlign: "left",
 		};
 		let styleText_2 = {
 			fontSize: "0.8em",
 			wordBreak: "break-word",
-			whiteSpace: "normal",
+			whiteSpace: "break-spaces",
+			textAlign: "left",
 		};
 		let styleText_3 = {
-			fontSize: "0.7em",
+			fontSize: "0.5em",
 			wordBreak: "break-word",
-			whiteSpace: "normal",
+			whiteSpace: "break-spaces",
+			textAlign: "left",
 		};
 
 		let step1Disabled = false;
-		let step2Disabled = false;
+		//let step2Disabled = false;
 		let variant_1 = "outline-primary";
-		let variant_2 = "outline-danger";
-		if (isDefined(modeSelection)) {
-			if (modeSelection.toLowerCase().includes("create")) {
-				step2Disabled = true;
-				variant_2 = "outline-success";
-			}
-			variant_1 = "outline-success";
-		} else {
-			variant_1 = "outline-danger";
-		}
+		//let variant_2 = "outline-primary";
+		// let variant_2 = "outline-danger";
+		// if (isDefined(modeSelection)) {
+		// 	if (modeSelection.toLowerCase().includes("create")) {
+		// 		step2Disabled = true;
+		// 		variant_2 = "outline-success";
+		// 	}
+		// 	variant_1 = "outline-success";
+		// } else {
+		// 	variant_1 = "outline-danger";
+		// }
 
-		if (this.props.isImporter) {
-			step1Disabled = true;
-		}
+		// if (this.props.isImporter) {
+		// 	step1Disabled = true;
+		// }
 
-		if (loadedMicroscope !== null && filename !== null) {
-			variant_2 = "outline-success";
-		}
+		// if (loadedMicroscope !== null && filename !== null) {
+		// 	variant_2 = "outline-success";
+		// }
 
+		let step1SubText = "";
+		if (modeSelection !== null) {
+			step1SubText = modeSelection;
+		}
+		if (filename !== null) {
+			step1SubText += "\n" + filename;
+		}
 		let step1Text = (
 			<div style={buttonsInnerTextContainer}>
 				<h5 style={styleText_1}>1 - Microscope information</h5>
-				<p style={styleText_3}>{modeSelection !== null ? modeSelection : ""}</p>
+				<p style={styleText_3}>{step1SubText}</p>
 			</div>
 		);
-		let step2Text = (
-			<div style={buttonsInnerTextContainer}>
-				<h5 style={styleText_1}>2 - Select Microscope</h5>
-				<p style={styleText_3}>{filename !== null ? filename : ""}</p>
-			</div>
-		);
+		// let step2Text = (
+		// 	<div style={buttonsInnerTextContainer}>
+		// 		<h5 style={styleText_1}>2 - Select Microscope</h5>
+		// 		<p style={styleText_3}>{filename !== null ? filename : ""}</p>
+		// 	</div>
+		// );
 		if (step === 1) {
 			step1Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h3 style={styleText_1}>1 - Microscope information</h3>
-					<p style={styleText_2}>
-						{modeSelection !== null ? modeSelection : ""}
-					</p>
-				</div>
-			);
-		} else {
-			step2Text = (
-				<div style={buttonsInnerTextContainer}>
-					<h3 style={styleText_1}>2 - Select Microscope</h3>
-					<p style={styleText_2}>{filename !== null ? filename : ""}</p>
+					<h4 style={styleText_1}>1 - Microscope information</h4>
+					<p style={styleText_2}>{step1SubText}</p>
 				</div>
 			);
 		}
+		// else {
+		// 	step2Text = (
+		// 		<div style={buttonsInnerTextContainer}>
+		// 			<h4 style={styleText_1}>2 - Select Microscope</h4>
+		// 			<p style={styleText_2}>{filename !== null ? filename : ""}</p>
+		// 		</div>
+		// 	);
+		// }
 
 		let stepRadios = (
 			<ToggleButtonGroup
@@ -444,7 +469,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				>
 					{step1Text}
 				</ToggleButton>
-				<ToggleButton
+				{/* <ToggleButton
 					id="rso-radio-2"
 					key="rso-radio-2"
 					value={2}
@@ -457,46 +482,46 @@ export default class MicroscopeLoader extends React.PureComponent {
 					}
 				>
 					{step2Text}
-				</ToggleButton>
+				</ToggleButton> */}
 			</ToggleButtonGroup>
 		);
 
 		let list = [];
-		if (step === 1) {
-			let createRadios = [];
-			for (let i = 0; i < creatingOptions.length; i++) {
-				let creatingOption = creatingOptions[i];
-				let tooltip = microscope_loader_scratch_inverted;
-				if (creatingOption.includes("Upright")) {
-					tooltip = microscope_loader_scratch_upright;
-				}
-				createRadios.push(
-					<PopoverTooltip
-						key={"popover" + creatingOption}
-						position={tooltip.position}
-						title={tooltip.title}
-						content={tooltip.content}
-						element={
-							<ToggleButton
-								type="radio"
-								key={creatingOption}
-								id={creatingOption}
-								value={creatingOption}
-								onChange={() =>
-									this.handleCreateOrLoadRadioChange(creatingOption)
-								}
-								checked={creatingOption === modeSelection}
-								style={buttonStyleWide}
-								size="lg"
-								variant="outline-primary"
-							>
-								{creatingOption}
-							</ToggleButton>
-						}
-					/>
-				);
+		let createRadios = [];
+		for (let i = 0; i < creatingOptions.length; i++) {
+			let creatingOption = creatingOptions[i];
+			let tooltip = microscope_loader_scratch_inverted;
+			if (creatingOption.includes("Upright")) {
+				tooltip = microscope_loader_scratch_upright;
 			}
+			createRadios.push(
+				<PopoverTooltip
+					key={"popover" + creatingOption}
+					position={tooltip.position}
+					title={tooltip.title}
+					content={tooltip.content}
+					element={
+						<ToggleButton
+							type="radio"
+							key={creatingOption}
+							id={creatingOption}
+							value={creatingOption}
+							onChange={() =>
+								this.handleCreateOrLoadRadioChange(creatingOption)
+							}
+							checked={creatingOption === modeSelection}
+							style={buttonStyleWide}
+							size="lg"
+							variant="outline-primary"
+						>
+							{creatingOption}
+						</ToggleButton>
+					}
+				/>
+			);
+		}
 
+		if (step === 1) {
 			let loadRadios = [];
 			for (let i = 0; i < loadingOptions.length; i++) {
 				let loadingOption = loadingOptions[i];
@@ -532,40 +557,54 @@ export default class MicroscopeLoader extends React.PureComponent {
 					/>
 				);
 			}
-			list.push(<h4 key={"create-options"}>Create options</h4>);
-			list.push(createRadios);
-			list.push(<h4 key={"load-options"}>Load options</h4>);
-			list.push(loadRadios);
-		} else {
-			let text = (
-				<p style={styleCenterText}>
-					Click or drag a file here to load an existing Microscope file you want
-					to work on.
-				</p>
+			let toggles = [];
+			toggles.push(<h4 key={"create-options"}>Create options</h4>);
+			toggles.push(createRadios);
+			toggles.push(<h4 key={"load-options"}>Load options</h4>);
+			toggles.push(loadRadios);
+			list.push(
+				<ToggleButtonGroup
+					id="radio-createLoad-options"
+					key="radio-createLoad-options"
+					type="radio"
+					name="radio-createLoad-options"
+					//value={modeSelection}
+					//onChange={this.handleCreateOrLoadRadioChange}
+					vertical
+				>
+					{toggles}
+				</ToggleButtonGroup>
 			);
-			if (fileLoaded) {
-				styleDropzone.borderColor = "green";
-				text = (
-					<div>
-						<p style={styleCenterText}>{filename}</p>
-						<p style={styleCenterText}>
-							Click or drag a file here to replace the currently loaded file
-						</p>
-					</div>
-				);
-			} else if (errorMsg !== null) {
-				text = (
-					<div>
-						<p style={styleCenterText}>{filename}</p>
-						<p style={styleCenterText}>{errorMsg}</p>
-						<p style={styleCenterText}>
-							Click or drag a file here to replace the currently loaded file
-						</p>
-					</div>
-				);
-			}
+
 			//TODO upload zone
 			if (modeSelection === string_createFromFile) {
+				let text = (
+					<p style={styleCenterText}>
+						Click or drag a file here to load an existing Microscope file you
+						want to work on.
+					</p>
+				);
+				if (fileLoaded) {
+					styleDropzone.borderColor = "green";
+					text = (
+						<div>
+							<p style={styleCenterText}>{filename}</p>
+							<p style={styleCenterText}>
+								Click or drag a file here to replace the currently loaded file
+							</p>
+						</div>
+					);
+				} else if (errorMsg !== null) {
+					text = (
+						<div>
+							<p style={styleCenterText}>{filename}</p>
+							<p style={styleCenterText}>{errorMsg}</p>
+							<p style={styleCenterText}>
+								Click or drag a file here to replace the currently loaded file
+							</p>
+						</div>
+					);
+				}
 				let dropbox = (
 					<PopoverTooltip
 						key={"popover-dropzone"}
@@ -606,19 +645,23 @@ export default class MicroscopeLoader extends React.PureComponent {
 						id={"container-dropzone"}
 						style={dropzoneContainer}
 					>
+						<h4 key={"dropzone"}>Load file</h4>
 						{dropbox}
 					</div>
 				);
-			} else {
-				windowButtonsContainer.flexFlow = "row";
+			} else if (
+				modeSelection === string_loadFromRepository ||
+				modeSelection === string_loadFromHomeFolder
+			) {
+				//windowButtonsContainer.flexFlow = "row";
 				const windowRadioButtonsContainer = {
 					display: "flex",
 					justifyContent: "center",
 					flexFlow: "column",
-					width: "25%",
-					height: "80%",
-					alignItems: "center",
-					maxHeight: "80%",
+					width: "430px",
+					height: "550px",
+					alignItems: "flex-start",
+					maxHeight: "550px",
 					overflow: "auto",
 				};
 
@@ -670,22 +713,10 @@ export default class MicroscopeLoader extends React.PureComponent {
 						id="radio-manufactorer-container"
 						style={windowRadioButtonsContainer}
 					>
+						<h4 key={"select-manufacturer"}>Select Manufacturer</h4>
 						{manufacturerRadio}
 					</div>
 				);
-
-				// list.push(
-				// 	<DropdownMenu
-				// 		key={"dropdown-manufacturers"}
-				// 		title={""}
-				// 		handleMenuItemClick={this.onClickManufacturerSelection}
-				// 		inputData={manufacturers}
-				// 		defaultValue={defaultManu}
-				// 		width={width}
-				// 		margin={margin}
-				// 		tooltip={create_from_repo_manufacturer_tooltip}
-				// 	/>
-				// );
 
 				if (isDefined(selectedManu)) {
 					// let defaultMic = isDefined(selectedMic)
@@ -719,11 +750,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 									key="radio-microscope-options"
 									type="radio"
 									name="radio-microscope-options"
-									value={selectedMic}
+									value={filename}
 									onChange={(e) => {
 										this.onClickMicroscopeSelection(e);
 									}}
-									vertical={true}
+									vertical
 								>
 									{microscopeRadios}
 								</ToggleButtonGroup>
@@ -736,82 +767,28 @@ export default class MicroscopeLoader extends React.PureComponent {
 							id="radio-microscope-options"
 							style={windowRadioButtonsContainer}
 						>
+							<h4 key={"select-manufacturer"}>Select Microscope</h4>
 							{microscopeRadio}
 						</div>
 					);
-
-					// list.push(
-					// 	<DropdownMenu
-					// 		key={"dropdown-names"}
-					// 		title={""}
-					// 		handleMenuItemClick={this.props.onClickMicroscopeSelection}
-					// 		inputData={this.state.micNames}
-					// 		defaultValue={selectedMic}
-					// 		width={width}
-					// 		margin={margin}
-					// 		tooltip={create_from_repo_names_tooltip}
-					// 		isCentered={false}
-					// 	/>
-					// );
 				}
 			}
 		}
-		// list.push(
-		// 	<DropdownMenu
-		// 		key={"dropdown-loadingOption"}
-		// 		title={""}
-		// 		handleMenuItemClick={this.props.onClickLoadingOptionSelection}
-		// 		defaultValue={this.props.loadingOptions.indexOf(
-		// 			this.props.loadingOption
-		// 		)}
-		// 		inputData={this.props.loadingOptions}
-		// 		width={width}
-		// 		margin={margin}
-		// 		tooltip={create_mode_tooltip}
+		let continue_tooltip = create_mode_continue_tooltip;
+		let buttons = [];
+		// buttons.push(
+		// 	<PopoverTooltip
+		// 		key={"button-back"}
+		// 		position={back_tooltip.position}
+		// 		title={back_tooltip.title}
+		// 		content={back_tooltip.content}
+		// 		element={
+		// 			<Button onClick={console.log("back")} style={buttonStyle} size="lg">
+		// 				Back
+		// 			</Button>
+		// 		}
 		// 	/>
 		// );
-		let continue_tooltip = create_mode_continue_tooltip;
-
-		let backImgPath_tmp = url.resolve(this.props.imagesPath, string_back_img);
-		let backImgPath =
-			backImgPath_tmp +
-			(backImgPath_tmp.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
-		let buttons = [];
-		buttons.push(
-			<PopoverTooltip
-				key={"button-back"}
-				position={back_tooltip.position}
-				title={back_tooltip.title}
-				content={back_tooltip.content}
-				element={
-					<Button
-						onClick={this.props.onClickBack}
-						style={buttonStyle}
-						size="lg"
-						variant="outline-dark"
-					>
-						<div
-							style={{
-								display: "flex",
-								justifyContent: "center",
-								alignItems: "center",
-								//gap: "10px",
-							}}
-						>
-							<img
-								src={backImgPath}
-								alt={backImgPath_tmp}
-								style={styleImageBk}
-								onLoad={this.onImgLoad}
-							/>
-							Back
-						</div>
-					</Button>
-				}
-			/>
-		);
 		let disabled = false;
 		if (
 			modeSelection === string_createFromFile &&
@@ -847,33 +824,60 @@ export default class MicroscopeLoader extends React.PureComponent {
 			(this.props.logoImg.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
-		// return (
-		// 	<div style={windowExternalContainer}>
-		// 		<div style={windowInternalContainer}>
-		// 			<div style={styleImageContainer}>
-		// 				<img
-		// 					src={logoPath}
-		// 					alt={this.props.logoImg}
-		// 					style={styleImage}
-		// 					onLoad={this.onImgLoad}
-		// 				/>
-		// 			</div>
-		// 			<div style={{ textAlign: "center", fontWeight: "bold" }}>
-		// 				{titleText}
-		// 			</div>
-		// 			{list}
-		// 		</div>
-		// 	</div>
-		// );
+
+		let backImgPath_tmp = url.resolve(this.props.imagesPath, string_back_img);
+		let backImgPath =
+			backImgPath_tmp +
+			(backImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+		let backText = "Home";
+		let homeButton = (
+			<PopoverTooltip
+				key={"TooltipButtonLeft-0"}
+				position={"top"}
+				title={back_tooltip.title}
+				content={back_tooltip.content}
+				element={
+					<Button
+						key={"ButtonLeft-0"}
+						onClick={() => this.props.onClickHome(backText)}
+						style={styleButton}
+						size="lg"
+						variant="outline-dark"
+					>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+								//gap: "10px",
+							}}
+						>
+							<img
+								src={backImgPath}
+								alt={backImgPath_tmp}
+								style={styleImageBk}
+							/>
+							{backText}
+						</div>
+					</Button>
+				}
+			/>
+		);
+
 		return (
 			<div style={windowExternalContainer}>
-				<div style={titleContainer}>
-					<h1>{this.props.title}</h1>
+				<div style={windowMainContainer}>
+					<div style={titleContainer}>
+						<h1>{this.props.title}</h1>
+					</div>
+					<div style={windowStepContainer}>{stepRadios}</div>
+					<div style={windowButtonsContainer}>{list}</div>
+					<div style={windowBottomButtonsContainer}>{buttons}</div>
 				</div>
-				<div style={windowStepContainer}>{stepRadios}</div>
-				<div style={windowButtonsContainer}>{list}</div>
-				<div style={windowBottomButtonsContainer}>{buttons}</div>
 				<div style={windowLogoContainer}>
+					{homeButton}
 					<div style={styleImageContainer}>
 						<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
 					</div>
