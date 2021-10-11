@@ -266,11 +266,17 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
       var buttonStyleWideNoMarginSelected = {
         width: "500px",
-        height: "100px"
+        height: "100px",
+        borderRadius: "50px",
+        paddingLeft: "50px",
+        paddingRight: "50px"
       };
       var buttonStyleWideNoMargin = {
         width: "250px",
-        height: "100px"
+        height: "100px",
+        borderRadius: "50px",
+        paddingLeft: "50px",
+        paddingRight: "50px"
       };
       var buttonStyleWide = {
         width: "420px",
@@ -284,10 +290,10 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       };
       var titleContainer = {
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "flex-end",
         flexFlow: "column",
         width: "100%",
-        height: "50px",
+        height: "150px",
         alignItems: "center"
       };
       var windowExternalContainer = {
@@ -468,12 +474,16 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (filename !== null) {
-        var fullMicName = filename;
-        var lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
-        var micName = fullMicName.substring(0, lastIndexBeforeID);
-        var micID = fullMicName.substring(lastIndexBeforeID);
-        var micLabel = micName + "\n" + micID;
-        step1SubText += "\n" + micLabel;
+        if (modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder) {
+          var fullMicName = filename;
+          var lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
+          var micName = fullMicName.substring(0, lastIndexBeforeID);
+          var micID = fullMicName.substring(lastIndexBeforeID);
+          var micLabel = micName + "\n" + micID;
+          step1SubText += "\n" + micLabel;
+        } else {
+          step1SubText += "\n" + filename;
+        }
       }
 
       var step1Text = /*#__PURE__*/_react.default.createElement("div", {

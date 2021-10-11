@@ -495,13 +495,37 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     value: function render() {
       var _this3 = this;
 
-      var buttonStyleWideNoMarginSelected = {
+      var buttonStyleWideNoMarginSelected1 = {
+        width: "500px",
+        height: "100px",
+        borderRadius: "50px 0px 0px 50px",
+        paddingLeft: "50px"
+      };
+      var buttonStyleWideNoMargin1 = {
+        width: "300px",
+        height: "100px",
+        borderRadius: "50px 0px 0px 50px",
+        paddingLeft: "50px"
+      };
+      var buttonStyleWideNoMarginSelected2 = {
         width: "500px",
         height: "100px"
       };
-      var buttonStyleWideNoMargin = {
-        width: "250px",
+      var buttonStyleWideNoMargin2 = {
+        width: "300px",
         height: "100px"
+      };
+      var buttonStyleWideNoMarginSelected3 = {
+        width: "500px",
+        height: "100px",
+        borderRadius: "0px 50px 50px 0px",
+        paddingRight: "50px"
+      };
+      var buttonStyleWideNoMargin3 = {
+        width: "300px",
+        height: "100px",
+        borderRadius: "0px 50px 50px 0px",
+        paddingRight: "50px"
       };
       var buttonStyleWide = {
         width: "420px",
@@ -515,10 +539,10 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       };
       var titleContainer = {
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "flex-end",
         flexFlow: "column",
         width: "100%",
-        height: "50px",
+        height: "150px",
         alignItems: "center"
       };
       var windowExternalContainer = {
@@ -741,19 +765,23 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (micFilename !== null) {
-        var fullMicName = micFilename;
-        var lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
-        var micName = fullMicName.substring(0, lastIndexBeforeID);
-        var micID = fullMicName.substring(lastIndexBeforeID);
-        var micLabel = micName + "\n" + micID;
-        step1SubText += "\n" + micLabel;
+        if (micModeSelection === _constants.string_loadFromRepository || micModeSelection === _constants.string_loadFromHomeFolder) {
+          var fullMicName = micFilename;
+          var lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
+          var micName = fullMicName.substring(0, lastIndexBeforeID);
+          var micID = fullMicName.substring(lastIndexBeforeID);
+          var micLabel = micName + "\n" + micID;
+          step1SubText += "\n" + micLabel;
+        } else {
+          step1SubText += "\n" + micFilename;
+        }
       }
 
       var step1Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
       }, /*#__PURE__*/_react.default.createElement("h5", {
         style: styleText_1
-      }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
+      }, "1 - Load Microscope file"), /*#__PURE__*/_react.default.createElement("p", {
         style: styleText_3
       }, step1SubText)); // let step2Text = (
       // 	<div style={buttonsInnerTextContainer}>
@@ -768,7 +796,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: buttonsInnerTextContainer
         }, /*#__PURE__*/_react.default.createElement("h4", {
           style: styleText_1
-        }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
+        }, "1 - Load Microscope file"), /*#__PURE__*/_react.default.createElement("p", {
           style: styleText_2
         }, step1SubText));
       }
@@ -787,7 +815,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         style: buttonsInnerTextContainer
       }, /*#__PURE__*/_react.default.createElement("h5", {
         style: styleText_1
-      }, "1 - Image information"), /*#__PURE__*/_react.default.createElement("p", {
+      }, "2 - Load Image file"), /*#__PURE__*/_react.default.createElement("p", {
         style: styleText_3
       }, step2SubText)); // let step2Text = (
       // 	<div style={buttonsInnerTextContainer}>
@@ -802,7 +830,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: buttonsInnerTextContainer
         }, /*#__PURE__*/_react.default.createElement("h4", {
           style: styleText_1
-        }, "2 - Image information"), /*#__PURE__*/_react.default.createElement("p", {
+        }, "2 - Load Image file"), /*#__PURE__*/_react.default.createElement("p", {
           style: styleText_2
         }, step2SubText));
       }
@@ -814,19 +842,25 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (settFilename !== null) {
-        // let fullSettName = settFilename;
-        // let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
-        // let settName = fullSettName.substring(0, lastIndexBeforeID);
-        // let settID = fullSettName.substring(lastIndexBeforeID);
-        // let settLabel = settName + "\n" + settID;
-        step3SubText += "\n" + settFilename;
+        if (settModeSelection === _constants.string_loadFromRepository || settModeSelection === _constants.string_loadFromHomeFolder) {
+          var fullSettName = settFilename;
+
+          var _lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
+
+          var settName = fullSettName.substring(0, _lastIndexBeforeID);
+          var settID = fullSettName.substring(_lastIndexBeforeID);
+          var settLabel = settName + "\n" + settID;
+          step3SubText += "\n" + settLabel;
+        } else {
+          step3SubText += "\n" + settFilename;
+        }
       }
 
       var step3Text = /*#__PURE__*/_react.default.createElement("div", {
         style: buttonsInnerTextContainer
       }, /*#__PURE__*/_react.default.createElement("h5", {
         style: styleText_1
-      }, "1 - Setting information"), /*#__PURE__*/_react.default.createElement("p", {
+      }, "3 - Load Setting file"), /*#__PURE__*/_react.default.createElement("p", {
         style: styleText_3
       }, step3SubText)); // let step2Text = (
       // 	<div style={buttonsInnerTextContainer}>
@@ -841,7 +875,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: buttonsInnerTextContainer
         }, /*#__PURE__*/_react.default.createElement("h4", {
           style: styleText_1
-        }, "2 - Setting information"), /*#__PURE__*/_react.default.createElement("p", {
+        }, "3 - Load Setting file"), /*#__PURE__*/_react.default.createElement("p", {
           style: styleText_2
         }, step3SubText));
       } // let step1Text = (
@@ -972,30 +1006,43 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (step === 1) {
-        if (!step1Completed || step2Inactive) {
-          continueDisabled = true;
-          step2Disabled = true;
-          variant_2 = "secondary";
-        }
+        if (!step1Completed) {
+          // || step2Inactive
+          continueDisabled = true; // step2Disabled = true;
+          // variant_2 = "secondary";
+        } // if (!step2Inactive) {
+        // 	if (!step2Completed) {
+        // 		step3Disabled = true;
+        // 		variant_3 = "secondary";
+        // 	}
+        // } else {
+        // 	if (!step1Completed) {
+        // 		step3Disabled = true;
+        // 		variant_3 = "secondary";
+        // 	}
+        // }
 
-        if (!step2Inactive) {
-          if (!step2Completed) {
-            step3Disabled = true;
-            variant_3 = "secondary";
-          }
-        } else {
-          if (!step1Completed) {
-            step3Disabled = true;
-            variant_3 = "secondary";
-          }
-        }
+
+        step2Disabled = true;
+        variant_2 = "secondary";
+        step3Disabled = true;
+        variant_3 = "secondary";
       } else if (step === 2) {
         if (!step2Completed) {
-          continueDisabled = true;
-          step3Disabled = true;
-          variant_3 = "secondary";
+          continueDisabled = true; // step3Disabled = true;
+          // variant_3 = "secondary";
         }
+
+        step1Disabled = true;
+        variant_1 = "secondary";
+        step3Disabled = true;
+        variant_3 = "secondary";
       } else if (step === 3) {
+        step1Disabled = true;
+        variant_1 = "secondary";
+        step2Disabled = true;
+        variant_2 = "secondary";
+
         if (!step3Completed) {
           continueDisabled = true;
         }
@@ -1008,29 +1055,29 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         key: "radio-step-options",
         type: "radio",
         name: "radio-step-options",
-        value: this.state.step,
-        onChange: this.handleStepRadioChange
+        value: this.state.step //onChange={this.handleStepRadioChange}
+
       }, /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
         id: "rso-radio-1",
         key: "rso-radio-1",
         value: 1,
         disabled: step1Disabled,
         variant: variant_1,
-        style: step === 1 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
+        style: step === 1 ? buttonStyleWideNoMarginSelected1 : buttonStyleWideNoMargin1
       }, step1Text), /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
         id: "rso-radio-2",
         key: "rso-radio-2",
         value: 2,
         disabled: step2Disabled,
         variant: variant_2,
-        style: step === 2 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
+        style: step === 2 ? buttonStyleWideNoMarginSelected2 : buttonStyleWideNoMargin2
       }, step2Text), /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
         id: "rso-radio-3",
         key: "rso-radio-3",
         value: 3,
         disabled: step3Disabled,
         variant: variant_3,
-        style: step === 3 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
+        style: step === 3 ? buttonStyleWideNoMarginSelected3 : buttonStyleWideNoMargin3
       }, step3Text));
 
       var list = [];
@@ -1208,11 +1255,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             for (var _i2 = 0; _i2 < microscopesManu.length; _i2++) {
               var _fullMicName = microscopesManu[_i2];
 
-              var _lastIndexBeforeID = _fullMicName.lastIndexOf("_") + 1;
+              var _lastIndexBeforeID2 = _fullMicName.lastIndexOf("_") + 1;
 
-              var _micName = _fullMicName.substring(0, _lastIndexBeforeID);
+              var _micName = _fullMicName.substring(0, _lastIndexBeforeID2);
 
-              var _micID = _fullMicName.substring(_lastIndexBeforeID);
+              var _micID = _fullMicName.substring(_lastIndexBeforeID2);
 
               var _micLabel = _micName + "\n" + _micID;
 
@@ -1604,15 +1651,15 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             if (sett_ID === mic_ID) {
               settingsNames.push(key);
             }
-          });
-          var settingKeys = Object.keys(settingsNames); // let defaultManu = isDefined(selectedManu)
+          }); //let settingKeys = Object.keys(settingsNames);
+          // let defaultManu = isDefined(selectedManu)
           // 	? manufacturers.indexOf(selectedManu)
           // 	: 0;
 
           var settingRadios = [];
 
-          for (var _i7 = 0; _i7 < settingKeys.length; _i7++) {
-            var fullSettName = settingKeys[_i7]; // let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
+          for (var _i7 = 0; _i7 < settingsNames.length; _i7++) {
+            var _fullSettName = settingsNames[_i7]; // let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
             // let settName = fullSettName.substring(0, lastIndexBeforeID);
             // let settID = fullSettName.substring(lastIndexBeforeID);
             // let settLabel = settName + "\n" + settID;
@@ -1620,7 +1667,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             settingRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
               id: "rmo-radio-" + _i7,
               key: "rmo-radio-" + _i7,
-              value: fullSettName,
+              value: _fullSettName,
               variant: "outline-primary",
               style: buttonStyleWide
             }, /*#__PURE__*/_react.default.createElement("div", {
@@ -1629,7 +1676,17 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 wordBreak: "break-word",
                 whiteSpace: "break-spaces"
               }
-            }, fullSettName)));
+            }, _fullSettName)));
+          }
+
+          if (settingRadios.length === 0) {
+            settingRadios.push( /*#__PURE__*/_react.default.createElement("p", {
+              style: {
+                wordBreak: "break-word",
+                whiteSpace: "break-spaces"
+              },
+              key: "no-setting"
+            }, "No Setting matching selected\\nMicroscope ID have been found"));
           }
 
           var settingRadio = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {

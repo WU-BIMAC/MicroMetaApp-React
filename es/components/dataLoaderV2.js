@@ -331,7 +331,8 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         height: "".concat(_constants.number_logo_height, "px"),
-        alignItems: "center"
+        alignItems: "center",
+        margin: "50px"
       };
       var styleImageContainer = {
         width: "".concat(_constants.number_logo_width, "px"),

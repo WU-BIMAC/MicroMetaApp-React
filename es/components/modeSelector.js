@@ -186,7 +186,8 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         height: "".concat(_constants.number_logo_height, "px"),
-        alignItems: "center"
+        alignItems: "center",
+        margin: "50px"
       };
       var styleImage = {
         width: "100%",
@@ -381,8 +382,8 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
         alignItems: "center"
       };
       var buttonModeSelectorStyle = {
-        width: "400px",
-        height: "500px",
+        width: "500px",
+        height: "600px",
         margin: "50px"
       };
       var buttonsInnerContainer = {

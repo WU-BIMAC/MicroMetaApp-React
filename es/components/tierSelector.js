@@ -69,7 +69,8 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         height: "750px",
-        alignItems: "center"
+        alignItems: "center",
+        margin: "50px"
       };
       var buttonModeSelectorStyle = {
         width: "800px",
