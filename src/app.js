@@ -9,7 +9,8 @@ import Toolbar from "./components/toolbar";
 import Canvas from "./components/canvas";
 import SettingsMainView from "./components/settingsMainView";
 //import DataLoader from "./components/dataLoader";
-import ModeSelectorDataLoader from "./components/modeSelectorDataLoader";
+import DataLoaderV2 from "./components/dataLoaderV2";
+import ModeSelector from "./components/modeSelector";
 import TierSelector from "./components/tierSelector";
 //import MicroscopePreLoader from "./components/microscopePreLoader";
 import MicroscopeLoader from "./components/microscopeLoader";
@@ -91,6 +92,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			is4DNPortal: props.is4DNPortal || false,
 			hasImport: props.hasImport || false,
 			microscopePresetHandled: false,
+			isDataLoaded: false,
 		};
 
 		for (let i = 0; i < current_stands.length; i++) {
@@ -188,7 +190,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		//this.createOrUseMetadata = this.createOrUseMetadata.bind(this);
 
-		this.onClickBack = this.onClickBack.bind(this);
+		this.onClickHome = this.onClickHome.bind(this);
 
 		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
 		this.createAdaptedSchema = this.createAdaptedSchema.bind(this);
@@ -213,6 +215,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.simulateClickLoadMicroscopeFromPortal =
 			this.simulateClickLoadMicroscopeFromPortal.bind(this);
 		this.loadMicroscopeFromPortal = this.loadMicroscopeFromPortal.bind(this);
+
+		this.setDataLoaded = this.setDataLoaded.bind(this);
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -260,11 +264,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.setState({ mounted: false });
 	}
 
+	setDataLoaded() {
+		this.setState({ isDataLoaded: true });
+	}
+
 	handleLoadDimensions(e) {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
 				this.props.onLoadDimensions(this.handleCompleteLoadDimensions, resolve);
-			}, 500)
+			}, 1000)
 		);
 	}
 
@@ -275,7 +283,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					this.handleCompleteLoadMicroscopes,
 					resolve
 				);
-			}, 500)
+			}, 1000)
 		);
 	}
 
@@ -283,7 +291,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
 				this.props.onLoadSettings(this.handleCompleteLoadSettings, resolve);
-			}, 500)
+			}, 1000)
 		);
 	}
 
@@ -291,7 +299,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
 				this.props.onLoadTierList(this.handleCompleteLoadTierList, resolve);
-			}, 500)
+			}, 1000)
 		);
 	}
 
@@ -315,7 +323,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
 				this.props.onLoadSchema(this.handleCompleteLoadSchema, resolve);
-			}, 500)
+			}, 1000)
 		);
 	}
 
@@ -343,7 +351,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
 				this.handleMicroscopePreset(resolve);
-			}, 100)
+			}, 1000)
 		);
 	}
 
@@ -2558,7 +2566,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		});
 	}
 
-	onClickBack(item) {
+	onClickHome(item) {
 		let isCreatingNewMicroscope = null;
 		let isLoadingMicroscope = null;
 		let isLoadingImage = null;
@@ -2593,6 +2601,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			elementData: null,
 			settingData: null,
 			imageMetadata: null,
+			isDataLoaded: false,
 		});
 		if (this.state.is4DNPortal) {
 			if (
@@ -2849,49 +2858,63 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let headerFooterWidth = width;
 
 		if (
-			(this.state.isCreatingNewMicroscope == null &&
-				this.state.isLoadingMicroscope == null) ||
-			(this.state.is4DNPortal && !this.state.microscopePresetHandled)
+			(this.state.is4DNPortal && !this.state.microscopePresetHandled) ||
+			!this.state.isDataLoaded
 		) {
-			let hardwareImg = null;
-			let settingsImg = null;
-			let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
-			if (!this.state.is4DNPortal) {
-				hardwareImg = url.resolve(
-					imagesPathSVG,
-					string_manage_hardware_circle_img
-				);
-				settingsImg = url.resolve(imagesPathSVG, string_manage_settings_img);
-			}
+			let logoImg = url.resolve(imagesPathPNG, string_logo_img_micro_bk);
 			return (
-				// 	<DataLoader
-				// 		logoImg={logoImg}
-				// 		onClickLoadSchema={this.handleLoadSchema}
-				// 		onClickLoadDimensions={this.handleLoadDimensions}
-				// 		onClickLoadMicroscopes={this.handleLoadMicroscopes}
-				// 		onClickLoadSettings={this.handleLoadSettings}
-				// 		onClickHandleMicPreset={this.handleMicPreset}
-				// 		is4DNPortal={this.state.is4DNPortal}
-				// 		isDebug={this.props.isDebug}
-				// 	/>
 				<MicroMetaAppReactContainer
 					width={width}
 					height={height}
 					forwardedRef={this.overlaysContainerRef}
 				>
-					<ModeSelectorDataLoader
+					<DataLoaderV2
 						logoImg={logoImg}
-						hardwareImg={hardwareImg}
-						settingsImg={settingsImg}
 						onClickLoadSchema={this.handleLoadSchema}
 						onClickLoadDimensions={this.handleLoadDimensions}
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
 						onClickLoadSettings={this.handleLoadSettings}
 						onClickLoadTierList={this.handleLoadTierList}
 						onClickHandleMicPreset={this.handleMicPreset}
+						onDataLoaded={this.setDataLoaded}
+						is4DNPortal={this.state.is4DNPortal}
+						isDebug={this.props.isDebug}
+					/>
+				</MicroMetaAppReactContainer>
+			);
+		}
+
+		if (
+			(this.state.isCreatingNewMicroscope == null &&
+				this.state.isLoadingMicroscope == null) ||
+			(this.state.is4DNPortal && !this.state.microscopePresetHandled)
+		) {
+			let logoImg = url.resolve(imagesPathPNG, string_logo_img_micro_bk);
+			let hardwareImg = url.resolve(
+				imagesPathSVG,
+				string_manage_hardware_circle_img
+			);
+			let settingsImg = url.resolve(imagesPathSVG, string_manage_settings_img);
+
+			return (
+				<MicroMetaAppReactContainer
+					width={width}
+					height={height}
+					forwardedRef={this.overlaysContainerRef}
+				>
+					<ModeSelector
+						logoImg={logoImg}
+						hardwareImg={hardwareImg}
+						settingsImg={settingsImg}
+						// onClickLoadSchema={this.handleLoadSchema}
+						// onClickLoadDimensions={this.handleLoadDimensions}
+						// onClickLoadMicroscopes={this.handleLoadMicroscopes}
+						// onClickLoadSettings={this.handleLoadSettings}
+						// onClickLoadTierList={this.handleLoadTierList}
+						// onClickHandleMicPreset={this.handleMicPreset}
 						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
 						onClickLoadMicroscope={this.setLoadMicroscope}
-						is4DNPortal={this.state.is4DNPortal}
+						// is4DNPortal={this.state.is4DNPortal}
 						hasSettings={this.props.hasSettings}
 						isDebug={this.props.isDebug}
 					/>
@@ -2936,8 +2959,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					<TierSelector
 						logoImg={logoImg}
 						iconImg={iconImg}
+						imagesPath={imagesPathSVG}
 						tierList={this.state.tierList}
 						onClickTierSelection={this.handleActiveTierSelection}
+						onClickHome={this.onClickHome}
 						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
@@ -2993,7 +3018,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							//onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
 							//onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
 							onClickConfirm={this.onSpecialImporterConfirm}
-							onClickBack={this.onSpecialImporterBack}
+							onClickHome={this.onSpecialImporterBack}
 							isSettings={this.state.isLoadingMicroscope}
 							schema={schema}
 							isDebug={this.props.isDebug}
@@ -3124,7 +3149,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						//onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
 						//onClickMicroscopeSelection={this.selectMicroscopeFromRepository}
 						onClickConfirm={this.createOrUseMicroscope}
-						onClickBack={this.onClickBack}
+						onClickHome={this.onClickHome}
 						//isSettings={this.state.isLoadingMicroscope}
 						schema={this.state.schema}
 						isDebug={this.props.isDebug}
@@ -3158,7 +3183,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		// 				//loadingMode={this.state.loadingMode}
 		// 				//onClickLoadingOptionSelection={this.handleLoadingOptionSelection}
 		// 				onClickConfirm={this.createOrUseMetadata}
-		// 				onClickBack={this.onClickBack}
+		// 				onClickHome={this.onClickHome}
 		// 				isDebug={this.props.isDebug}
 		// 				imagesPath={imagesPathSVG}
 		// 			/>
@@ -3256,7 +3281,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						//handleLoadMetadataComplete={this.handleLoadMetadataComplete}
 						//onClickConfirm={this.createOrUseMetadata}
 						onClickConfirm={this.createOrUseSetting}
-						onClickBack={this.onClickBack}
+						onClickHome={this.onClickHome}
 						schema={this.state.schema}
 						isDebug={this.props.isDebug}
 						imagesPath={imagesPathSVG}
@@ -3414,7 +3439,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					/>
 					<Footer
 						onClickSave={this.handleSaveSetting}
-						onClickBack={this.onClickBack}
+						onClickHome={this.onClickHome}
 						hasSaveOption={this.props.onSaveSetting ? true : false}
 						overlaysContainer={this.overlaysContainerRef.current}
 						dimensions={headerFooterDims}
@@ -3554,7 +3579,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						</div>
 						<Footer
 							onClickSave={this.handleSaveMicroscope}
-							onClickBack={this.onClickBack}
+							onClickHome={this.onClickHome}
 							hasSaveOption={this.props.onSaveMicroscope ? true : false}
 							overlaysContainer={this.overlaysContainerRef.current}
 							dimensions={headerFooterDims}
@@ -3620,36 +3645,37 @@ MicroMetaAppReact.defaultProps = {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
 			complete(null, resolve);
-		});
+		}, 1000);
 	},
 	onLoadSchema: function (complete, resolve) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
 			complete(null, resolve);
-		});
+		}, 1000);
 	},
 	onLoadMicroscopes: function (complete, resolve) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
 			complete(null, resolve);
-		});
+		}, 1000);
 	},
 	onLoadSettings: function (complete, resolve) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
 			complete(null, resolve);
-		});
+		}),
+			1000;
 	},
 	onSaveMicroscope: function (microscope, complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
 			complete(microscope.Name);
-		});
+		}, 1000);
 	},
 	onSaveSetting: function (setting, complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
 			complete(setting.Name);
-		});
+		}, 1000);
 	},
 };
