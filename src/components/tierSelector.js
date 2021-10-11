@@ -3,10 +3,14 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import PopoverTooltip from "./popoverTooltip";
 
+const url = require("url");
+
 import {
 	number_small_logo_width,
 	number_small_logo_height,
 	tier_selector_tooltip,
+	string_back_img,
+	back_tooltip,
 } from "../constants";
 
 export default class TierSelector extends React.PureComponent {
@@ -29,7 +33,7 @@ export default class TierSelector extends React.PureComponent {
 			justifyContent: "center",
 			flexFlow: "column",
 			width: "100%",
-			height: "65%",
+			height: "750px",
 			alignItems: "center",
 		};
 		const buttonModeSelectorStyle = {
@@ -39,7 +43,7 @@ export default class TierSelector extends React.PureComponent {
 		};
 		const buttonsInnerContainer = {
 			display: "flex",
-			justifyContent: "flex-start",
+			justifyContent: "center",
 			flexFlow: "row",
 			width: "100%",
 			height: "100%",
@@ -49,7 +53,7 @@ export default class TierSelector extends React.PureComponent {
 			display: "flex",
 			justifyContent: "flex-start",
 			flexFlow: "column",
-			width: "75%",
+			width: "100%",
 			height: "100%",
 			alignItems: "flex-start",
 		};
@@ -58,7 +62,7 @@ export default class TierSelector extends React.PureComponent {
 			justifyContent: "flex-end",
 			flexFlow: "column",
 			width: "100%",
-			height: "20%",
+			height: "100%",
 			alignItems: "center",
 		};
 		let styleImageContainer = {
@@ -91,13 +95,26 @@ export default class TierSelector extends React.PureComponent {
 			wordBreak: "break-word",
 			whiteSpace: "normal",
 		};
-		let styleText_3 = {
-			textAlign: "left",
-			fontSize: "0.6em",
-			marginLeft: "15px",
-			marginRight: "15px",
-			wordBreak: "break-word",
-			whiteSpace: "normal",
+		// let styleText_3 = {
+		// 	textAlign: "left",
+		// 	fontSize: "0.6em",
+		// 	marginLeft: "15px",
+		// 	marginRight: "15px",
+		// 	wordBreak: "break-word",
+		// 	whiteSpace: "normal",
+		// };
+		let styleButton = {
+			width: "250px",
+			minWidth: "250px",
+			height: "50px",
+			marginLeft: "5px",
+			marginRight: "5px",
+		};
+		let styleImageBk = {
+			width: "20px",
+			height: "20px",
+			marginLeft: "10px",
+			marginRight: "10px",
 		};
 		let tierList = this.props.tierList;
 
@@ -115,11 +132,11 @@ export default class TierSelector extends React.PureComponent {
 		let tiers = [];
 		tierList.forEach((tier) => {
 			let index = tier.Index - 1;
-			let regex = /(\[|\])/gi;
-			let minComp = tier.MinimumComponentsList.replace(regex, "").replace(
-				"||",
-				"or"
-			);
+			//let regex = /(\[|\])/gi;
+			// let minComp = tier.MinimumComponentsList.replace(regex, "").replace(
+			// 	"||",
+			// 	"or"
+			// );
 			let button = (
 				<PopoverTooltip
 					position={tier_selector_tooltip.position}
@@ -133,7 +150,7 @@ export default class TierSelector extends React.PureComponent {
 							}}
 							style={buttonModeSelectorStyle}
 							size="lg"
-							variant="secondary"
+							variant="light"
 							key={"tier-button-" + index}
 						>
 							{
@@ -146,9 +163,9 @@ export default class TierSelector extends React.PureComponent {
 									<div style={buttonsInnerTextContainer}>
 										<h2 style={styleText_1}>{tier.Name}</h2>
 										<p style={styleText_2}>{tier.Description}</p>
-										<p style={styleText_3}>
+										{/* <p style={styleText_3}>
 											{"Minimum components: " + minComp}
-										</p>
+										</p> */}
 									</div>
 								</div>
 							}
@@ -158,11 +175,53 @@ export default class TierSelector extends React.PureComponent {
 			);
 			tiers[index] = button;
 		});
+
+		let backImgPath_tmp = url.resolve(this.props.imagesPath, string_back_img);
+		let backImgPath =
+			backImgPath_tmp +
+			(backImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+		let backText = "Home";
+		let homeButton = (
+			<PopoverTooltip
+				key={"TooltipButtonLeft-0"}
+				position={"top"}
+				title={back_tooltip.title}
+				content={back_tooltip.content}
+				element={
+					<Button
+						key={"ButtonLeft-0"}
+						onClick={() => this.props.onClickHome(backText)}
+						style={styleButton}
+						size="lg"
+						variant="outline-dark"
+					>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+								//gap: "10px",
+							}}
+						>
+							<img
+								src={backImgPath}
+								alt={backImgPath_tmp}
+								style={styleImageBk}
+							/>
+							{backText}
+						</div>
+					</Button>
+				}
+			/>
+		);
 		//handleMenuItemClick={this.props.onClickTierSelection}
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowButtonsContainer}>{tiers}</div>
 				<div style={windowLogoContainer}>
+					{homeButton}
 					<div style={styleImageContainer}>
 						<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
 					</div>
