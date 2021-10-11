@@ -287,6 +287,7 @@ export default class DataLoader extends React.PureComponent {
 			width: "100%",
 			height: `${number_logo_height}px`,
 			alignItems: "center",
+			margin: "50px",
 		};
 		let styleImageContainer = {
 			width: `${number_logo_width}px`,
