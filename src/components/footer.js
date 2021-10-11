@@ -120,7 +120,7 @@ export default class Footer extends React.PureComponent {
 					element={
 						<Button
 							key={"ButtonRight-0"}
-							onClick={() => this.props.onClickBack("Import")}
+							onClick={() => this.props.onClickHome("Import")}
 							style={styleButton}
 							size="lg"
 							variant="dark"
@@ -137,7 +137,6 @@ export default class Footer extends React.PureComponent {
 									src={importImgPath}
 									alt={importImgPath_tmp}
 									style={styleImageBk}
-									onLoad={this.onImgLoad}
 								/>
 								Import
 							</div>
@@ -186,7 +185,7 @@ export default class Footer extends React.PureComponent {
 			(backImgPath_tmp.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
-		let backText = "Back";
+		let backText = "Home";
 
 		if (this.props.is4DNPortal) {
 			backText = "Back to list";
@@ -200,7 +199,7 @@ export default class Footer extends React.PureComponent {
 				element={
 					<Button
 						key={"ButtonLeft-0"}
-						onClick={() => this.props.onClickBack(backText)}
+						onClick={() => this.props.onClickHome(backText)}
 						style={styleButton}
 						size="lg"
 						variant="outline-dark"
@@ -217,7 +216,6 @@ export default class Footer extends React.PureComponent {
 								src={backImgPath}
 								alt={backImgPath_tmp}
 								style={styleImageBk}
-								onLoad={this.onImgLoad}
 							/>
 							{backText}
 						</div>
