@@ -645,7 +645,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						id={"container-dropzone"}
 						style={dropzoneContainer}
 					>
-						<h4 key={"dropzone"}>Load file</h4>
+						<h4 key={"dropzone"}>Load Microscope file</h4>
 						{dropbox}
 					</div>
 				);
@@ -767,7 +767,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							id="radio-microscope-options"
 							style={windowRadioButtonsContainer}
 						>
-							<h4 key={"select-manufacturer"}>Select Microscope</h4>
+							<h4 key={"select-microscope"}>Select Microscope</h4>
 							{microscopeRadio}
 						</div>
 					);
