@@ -95,6 +95,8 @@
 					// 	"components": [],
 					// 	"linkedFields": null
 					// };
+					// let microscopes={};
+					// microscopes[micTest.Name + "_" + micTest.ID] = micTest;
 					ReactDOM.render(
 						React.createElement(MicroscopyMetadataToolApp, {
 							height: dims.height,
@@ -170,6 +172,9 @@
 							// 	let settingsDB = {};
 							// 	complete(settingsDB, resolve);
 							// },
+							// onLoadMetadata: function(imgPath, resolve) {
+							// 	return null;
+							// }
 						}),
 						document.getElementById("root")
 					);
