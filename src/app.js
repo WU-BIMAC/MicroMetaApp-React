@@ -3269,7 +3269,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						imageLoadingOptions={imgLoadingOptions}
 						settingCreatingOptions={settCreatingOptions}
 						settingLoadingOptions={settLoadingOptions}
-						microscopes={microscopeNames}
+						microscopeNames={microscopeNames}
+						microscopes={microscopes}
 						settings={settingsNames}
 						//onFileDrop={this.uploadSettingFromDropzone}
 						micloadingOption={this.state.loadingOption}

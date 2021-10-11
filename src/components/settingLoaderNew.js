@@ -254,14 +254,18 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 	onClickManufacturerSelection(item) {
 		//console.log("onClickManufacturerSelection - " + item);
-		let micNames = this.props.microscopes[item];
+		let micNames = this.props.microscopeNames[item];
 		this.setState({ selectedManu: item, micNames: micNames });
-		//this.props.onClickMicroscopeSelection(this.props.microscopes[item][0]);
+		//this.props.onClickMicroscopeSelection(this.props.microscopeNames[item][0]);
 	}
 
 	onClickMicroscopeSelection(item) {
 		//console.log("onClickMicroscopeSelection - " + item);
-		this.setState({ micFilename: item });
+		let loadedMicroscope = null;
+		if (isDefined(this.props.microscopes)) {
+			loadedMicroscope = this.props.microscopes[item];
+		}
+		this.setState({ micFilename: item, loadedMicroscope: loadedMicroscope });
 	}
 
 	onClickSettingSelection(item) {
@@ -559,7 +563,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 		let step = this.state.step;
 
-		let microscopes = this.props.microscopes;
+		let microscopeNames = this.props.microscopeNames;
 		let imageMap = this.state.imageMap;
 		let settings = this.props.settings;
 
@@ -1179,7 +1183,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					overflow: "auto",
 				};
 
-				let manufacturers = Object.keys(microscopes);
+				let manufacturers = Object.keys(microscopeNames);
 				// let defaultManu = isDefined(selectedManu)
 				// 	? manufacturers.indexOf(selectedManu)
 				// 	: 0;
@@ -1233,7 +1237,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				);
 
 				if (isDefined(selectedManu)) {
-					let microscopesManu = microscopes[selectedManu];
+					let microscopesManu = microscopeNames[selectedManu];
 					let microscopeRadios = [];
 					for (let i = 0; i < microscopesManu.length; i++) {
 						let fullMicName = microscopesManu[i];
@@ -1249,7 +1253,15 @@ export default class MicroscopeLoader extends React.PureComponent {
 								variant={"outline-primary"}
 								style={buttonStyleWide}
 							>
-								<div style={{ fontSize: "0.8em" }}>{micLabel}</div>
+								<div
+									style={{
+										fontSize: "0.8em",
+										wordBreak: "break-word",
+										whiteSpace: "break-spaces",
+									}}
+								>
+									{micLabel}
+								</div>
 							</ToggleButton>
 						);
 					}
@@ -1683,7 +1695,15 @@ export default class MicroscopeLoader extends React.PureComponent {
 							variant={"outline-primary"}
 							style={buttonStyleWide}
 						>
-							{fullSettName}
+							<div
+								style={{
+									fontSize: "0.8em",
+									wordBreak: "break-word",
+									whiteSpace: "break-spaces",
+								}}
+							>
+								{fullSettName}
+							</div>
 						</ToggleButton>
 					);
 				}
