@@ -205,10 +205,16 @@ export default class MicroscopeLoader extends React.PureComponent {
 		const buttonStyleWideNoMarginSelected = {
 			width: "500px",
 			height: "100px",
+			borderRadius: "50px",
+			paddingLeft: "50px",
+			paddingRight: "50px",
 		};
 		const buttonStyleWideNoMargin = {
 			width: "250px",
 			height: "100px",
+			borderRadius: "50px",
+			paddingLeft: "50px",
+			paddingRight: "50px",
 		};
 		const buttonStyleWide = {
 			width: "420px",
@@ -222,10 +228,10 @@ export default class MicroscopeLoader extends React.PureComponent {
 		};
 		const titleContainer = {
 			display: "flex",
-			justifyContent: "center",
+			justifyContent: "flex-end",
 			flexFlow: "column",
 			width: "100%",
-			height: "50px",
+			height: "150px",
 			alignItems: "center",
 		};
 		const windowExternalContainer = {
@@ -415,12 +421,19 @@ export default class MicroscopeLoader extends React.PureComponent {
 			step1SubText = modeSelection;
 		}
 		if (filename !== null) {
-			let fullMicName = filename;
-			let lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
-			let micName = fullMicName.substring(0, lastIndexBeforeID);
-			let micID = fullMicName.substring(lastIndexBeforeID);
-			let micLabel = micName + "\n" + micID;
-			step1SubText += "\n" + micLabel;
+			if (
+				modeSelection === string_loadFromRepository ||
+				modeSelection === string_loadFromHomeFolder
+			) {
+				let fullMicName = filename;
+				let lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
+				let micName = fullMicName.substring(0, lastIndexBeforeID);
+				let micID = fullMicName.substring(lastIndexBeforeID);
+				let micLabel = micName + "\n" + micID;
+				step1SubText += "\n" + micLabel;
+			} else {
+				step1SubText += "\n" + filename;
+			}
 		}
 		let step1Text = (
 			<div style={buttonsInnerTextContainer}>
