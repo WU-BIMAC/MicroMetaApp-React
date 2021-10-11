@@ -431,13 +431,37 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	render() {
-		const buttonStyleWideNoMarginSelected = {
+		const buttonStyleWideNoMarginSelected1 = {
+			width: "500px",
+			height: "100px",
+			borderRadius: "50px 0px 0px 50px",
+			paddingLeft: "50px",
+		};
+		const buttonStyleWideNoMargin1 = {
+			width: "300px",
+			height: "100px",
+			borderRadius: "50px 0px 0px 50px",
+			paddingLeft: "50px",
+		};
+		const buttonStyleWideNoMarginSelected2 = {
 			width: "500px",
 			height: "100px",
 		};
-		const buttonStyleWideNoMargin = {
-			width: "250px",
+		const buttonStyleWideNoMargin2 = {
+			width: "300px",
 			height: "100px",
+		};
+		const buttonStyleWideNoMarginSelected3 = {
+			width: "500px",
+			height: "100px",
+			borderRadius: "0px 50px 50px 0px",
+			paddingRight: "50px",
+		};
+		const buttonStyleWideNoMargin3 = {
+			width: "300px",
+			height: "100px",
+			borderRadius: "0px 50px 50px 0px",
+			paddingRight: "50px",
 		};
 		const buttonStyleWide = {
 			width: "420px",
@@ -451,10 +475,10 @@ export default class MicroscopeLoader extends React.PureComponent {
 		};
 		const titleContainer = {
 			display: "flex",
-			justifyContent: "center",
+			justifyContent: "flex-end",
 			flexFlow: "column",
 			width: "100%",
-			height: "50px",
+			height: "150px",
 			alignItems: "center",
 		};
 		const windowExternalContainer = {
@@ -685,16 +709,23 @@ export default class MicroscopeLoader extends React.PureComponent {
 			step1SubText = micModeSelection;
 		}
 		if (micFilename !== null) {
-			let fullMicName = micFilename;
-			let lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
-			let micName = fullMicName.substring(0, lastIndexBeforeID);
-			let micID = fullMicName.substring(lastIndexBeforeID);
-			let micLabel = micName + "\n" + micID;
-			step1SubText += "\n" + micLabel;
+			if (
+				micModeSelection === string_loadFromRepository ||
+				micModeSelection === string_loadFromHomeFolder
+			) {
+				let fullMicName = micFilename;
+				let lastIndexBeforeID = fullMicName.lastIndexOf("_") + 1;
+				let micName = fullMicName.substring(0, lastIndexBeforeID);
+				let micID = fullMicName.substring(lastIndexBeforeID);
+				let micLabel = micName + "\n" + micID;
+				step1SubText += "\n" + micLabel;
+			} else {
+				step1SubText += "\n" + micFilename;
+			}
 		}
 		let step1Text = (
 			<div style={buttonsInnerTextContainer}>
-				<h5 style={styleText_1}>1 - Microscope information</h5>
+				<h5 style={styleText_1}>1 - Load Microscope file</h5>
 				<p style={styleText_3}>{step1SubText}</p>
 			</div>
 		);
@@ -707,7 +738,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		if (step === 1) {
 			step1Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h4 style={styleText_1}>1 - Microscope information</h4>
+					<h4 style={styleText_1}>1 - Load Microscope file</h4>
 					<p style={styleText_2}>{step1SubText}</p>
 				</div>
 			);
@@ -722,7 +753,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		}
 		let step2Text = (
 			<div style={buttonsInnerTextContainer}>
-				<h5 style={styleText_1}>1 - Image information</h5>
+				<h5 style={styleText_1}>2 - Load Image file</h5>
 				<p style={styleText_3}>{step2SubText}</p>
 			</div>
 		);
@@ -735,7 +766,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		if (step === 2) {
 			step2Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h4 style={styleText_1}>2 - Image information</h4>
+					<h4 style={styleText_1}>2 - Load Image file</h4>
 					<p style={styleText_2}>{step2SubText}</p>
 				</div>
 			);
@@ -746,16 +777,23 @@ export default class MicroscopeLoader extends React.PureComponent {
 			step3SubText = settModeSelection;
 		}
 		if (settFilename !== null) {
-			// let fullSettName = settFilename;
-			// let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
-			// let settName = fullSettName.substring(0, lastIndexBeforeID);
-			// let settID = fullSettName.substring(lastIndexBeforeID);
-			// let settLabel = settName + "\n" + settID;
-			step3SubText += "\n" + settFilename;
+			if (
+				settModeSelection === string_loadFromRepository ||
+				settModeSelection === string_loadFromHomeFolder
+			) {
+				let fullSettName = settFilename;
+				let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
+				let settName = fullSettName.substring(0, lastIndexBeforeID);
+				let settID = fullSettName.substring(lastIndexBeforeID);
+				let settLabel = settName + "\n" + settID;
+				step3SubText += "\n" + settLabel;
+			} else {
+				step3SubText += "\n" + settFilename;
+			}
 		}
 		let step3Text = (
 			<div style={buttonsInnerTextContainer}>
-				<h5 style={styleText_1}>1 - Setting information</h5>
+				<h5 style={styleText_1}>3 - Load Setting file</h5>
 				<p style={styleText_3}>{step3SubText}</p>
 			</div>
 		);
@@ -768,7 +806,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		if (step === 3) {
 			step3Text = (
 				<div style={buttonsInnerTextContainer}>
-					<h4 style={styleText_1}>2 - Setting information</h4>
+					<h4 style={styleText_1}>3 - Load Setting file</h4>
 					<p style={styleText_2}>{step3SubText}</p>
 				</div>
 			);
@@ -918,29 +956,42 @@ export default class MicroscopeLoader extends React.PureComponent {
 		}
 
 		if (step === 1) {
-			if (!step1Completed || step2Inactive) {
+			if (!step1Completed) {
+				// || step2Inactive
 				continueDisabled = true;
-				step2Disabled = true;
-				variant_2 = "secondary";
+				// step2Disabled = true;
+				// variant_2 = "secondary";
 			}
-			if (!step2Inactive) {
-				if (!step2Completed) {
-					step3Disabled = true;
-					variant_3 = "secondary";
-				}
-			} else {
-				if (!step1Completed) {
-					step3Disabled = true;
-					variant_3 = "secondary";
-				}
-			}
+			// if (!step2Inactive) {
+			// 	if (!step2Completed) {
+			// 		step3Disabled = true;
+			// 		variant_3 = "secondary";
+			// 	}
+			// } else {
+			// 	if (!step1Completed) {
+			// 		step3Disabled = true;
+			// 		variant_3 = "secondary";
+			// 	}
+			// }
+			step2Disabled = true;
+			variant_2 = "secondary";
+			step3Disabled = true;
+			variant_3 = "secondary";
 		} else if (step === 2) {
 			if (!step2Completed) {
 				continueDisabled = true;
-				step3Disabled = true;
-				variant_3 = "secondary";
+				// step3Disabled = true;
+				// variant_3 = "secondary";
 			}
+			step1Disabled = true;
+			variant_1 = "secondary";
+			step3Disabled = true;
+			variant_3 = "secondary";
 		} else if (step === 3) {
+			step1Disabled = true;
+			variant_1 = "secondary";
+			step2Disabled = true;
+			variant_2 = "secondary";
 			if (!step3Completed) {
 				continueDisabled = true;
 			}
@@ -954,7 +1005,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				type="radio"
 				name="radio-step-options"
 				value={this.state.step}
-				onChange={this.handleStepRadioChange}
+				//onChange={this.handleStepRadioChange}
 			>
 				<ToggleButton
 					id="rso-radio-1"
@@ -964,8 +1015,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 					variant={variant_1}
 					style={
 						step === 1
-							? buttonStyleWideNoMarginSelected
-							: buttonStyleWideNoMargin
+							? buttonStyleWideNoMarginSelected1
+							: buttonStyleWideNoMargin1
 					}
 				>
 					{step1Text}
@@ -978,8 +1029,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 					variant={variant_2}
 					style={
 						step === 2
-							? buttonStyleWideNoMarginSelected
-							: buttonStyleWideNoMargin
+							? buttonStyleWideNoMarginSelected2
+							: buttonStyleWideNoMargin2
 					}
 				>
 					{step2Text}
@@ -992,8 +1043,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 					variant={variant_3}
 					style={
 						step === 3
-							? buttonStyleWideNoMarginSelected
-							: buttonStyleWideNoMargin
+							? buttonStyleWideNoMarginSelected3
+							: buttonStyleWideNoMargin3
 					}
 				>
 					{step3Text}
@@ -1676,13 +1727,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 					}
 				});
 
-				let settingKeys = Object.keys(settingsNames);
+				//let settingKeys = Object.keys(settingsNames);
 				// let defaultManu = isDefined(selectedManu)
 				// 	? manufacturers.indexOf(selectedManu)
 				// 	: 0;
 				let settingRadios = [];
-				for (let i = 0; i < settingKeys.length; i++) {
-					let fullSettName = settingKeys[i];
+				for (let i = 0; i < settingsNames.length; i++) {
+					let fullSettName = settingsNames[i];
 					// let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
 					// let settName = fullSettName.substring(0, lastIndexBeforeID);
 					// let settID = fullSettName.substring(lastIndexBeforeID);
@@ -1707,6 +1758,17 @@ export default class MicroscopeLoader extends React.PureComponent {
 						</ToggleButton>
 					);
 				}
+				if (settingRadios.length === 0) {
+					settingRadios.push(
+						<p
+							style={{ wordBreak: "break-word", whiteSpace: "break-spaces" }}
+							key={"no-setting"}
+						>
+							No Setting matching selected\nMicroscope ID have been found
+						</p>
+					);
+				}
+
 				let settingRadio = (
 					<PopoverTooltip
 						id={"popover-radio-setting-options"}
