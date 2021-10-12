@@ -2495,30 +2495,30 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						return;
 					}
 				}
-				//console.log("SetSettingState4");
-				let promiseSetting = new Promise((resolve, reject) => {
-					this.setState(
-						{
-							settingName: settFilename,
-							setting: setting,
-						},
-						() => {
-							//console.log("SetSettingState-callback");
-							if (settLoadingOption === modifiedCreateString) {
-								this.createNewSettingFromScratch(resolve);
-							} else if (settLoadingOption === string_createFromFile) {
-								//console.log("Calling - createOrUseSettingFromDroppedFile");
-								this.createOrUseSettingFromDroppedFile(resolve);
-							} else {
-								this.createOrUseSettingFromSelectedFile(resolve);
-							}
-						}
-					);
-				});
-				promiseSetting.then(() => {
-					this.setState({ isLoadingImage: false });
-				});
 			}
+			//console.log("SetSettingState4");
+			let promiseSetting = new Promise((resolve, reject) => {
+				this.setState(
+					{
+						settingName: settFilename,
+						setting: setting,
+					},
+					() => {
+						//console.log("SetSettingState-callback");
+						if (settLoadingOption === modifiedCreateString) {
+							this.createNewSettingFromScratch(resolve);
+						} else if (settLoadingOption === string_createFromFile) {
+							//console.log("Calling - createOrUseSettingFromDroppedFile");
+							this.createOrUseSettingFromDroppedFile(resolve);
+						} else {
+							this.createOrUseSettingFromSelectedFile(resolve);
+						}
+					}
+				);
+			});
+			promiseSetting.then(() => {
+				this.setState({ isLoadingImage: false });
+			});
 		});
 	}
 
