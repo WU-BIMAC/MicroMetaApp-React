@@ -369,7 +369,10 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 	onClickBack() {
 		let step = this.state.step;
-		if (step === 3 && !isDefined(this.props.onLoadMetadata)/*!this.props.hasMetadataLoader*/) {
+		if (
+			step === 3 &&
+			!isDefined(this.props.onLoadMetadata) /*!this.props.hasMetadataLoader*/
+		) {
 			step -= 2;
 		} else {
 			step--;
@@ -380,7 +383,10 @@ export default class MicroscopeLoader extends React.PureComponent {
 	onClickConfirm() {
 		let step = this.state.step;
 		if (step !== 3) {
-			if (step === 1 && isDefined(this.props.onLoadMetadata)/*!this.props.hasMetadataLoader*/) {
+			if (
+				step === 1 &&
+				!isDefined(this.props.onLoadMetadata) /*!this.props.hasMetadataLoader*/
+			) {
 				step += 2;
 			} else {
 				step++;
@@ -927,7 +933,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		}
 
 		let step2Inactive = false;
-		if (isDefined(this.props.onLoadMetadata)/*this.props.hasMetadataLoader*/) {
+		if (isDefined(this.props.onLoadMetadata) /*this.props.hasMetadataLoader*/) {
 			if (!isDefined(imgModeSelection)) {
 				step2Completed = false;
 			} else if (

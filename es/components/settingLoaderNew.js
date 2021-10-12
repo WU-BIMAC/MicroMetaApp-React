@@ -454,7 +454,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var step = this.state.step;
 
       if (step !== 3) {
-        if (step === 1 && (0, _genericUtilities.isDefined)(this.props.onLoadMetadata)
+        if (step === 1 && !(0, _genericUtilities.isDefined)(this.props.onLoadMetadata)
         /*!this.props.hasMetadataLoader*/
         ) {
             step += 2;
