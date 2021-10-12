@@ -15,7 +15,7 @@ import {
 	export_microscope_tooltip,
 	save_setting_tooltip,
 	export_setting_tooltip,
-	back_tooltip,
+	home_tooltip,
 	string_back_img,
 	string_save_img,
 	string_export_img,
@@ -194,8 +194,8 @@ export default class Footer extends React.PureComponent {
 			<PopoverTooltip
 				key={"TooltipButtonLeft-0"}
 				position={"top"}
-				title={back_tooltip.title}
-				content={back_tooltip.content}
+				title={home_tooltip.title}
+				content={home_tooltip.content}
 				element={
 					<Button
 						key={"ButtonLeft-0"}
