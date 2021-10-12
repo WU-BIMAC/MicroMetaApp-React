@@ -10,7 +10,7 @@ import {
 	number_small_logo_height,
 	tier_selector_tooltip,
 	string_back_img,
-	back_tooltip,
+	home_tooltip,
 } from "../constants";
 
 export default class TierSelector extends React.PureComponent {
@@ -188,8 +188,8 @@ export default class TierSelector extends React.PureComponent {
 			<PopoverTooltip
 				key={"TooltipButtonLeft-0"}
 				position={"top"}
-				title={back_tooltip.title}
-				content={back_tooltip.content}
+				title={home_tooltip.title}
+				content={home_tooltip.content}
 				element={
 					<Button
 						key={"ButtonLeft-0"}

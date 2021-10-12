@@ -28,7 +28,7 @@ import {
 	create_from_file_tooltip,
 	create_from_repo_manufacturer_tooltip,
 	create_from_repo_names_tooltip,
-	create_mode_continue_settings_tooltip,
+	//create_mode_continue_settings_tooltip,
 	loadImage_load_tooltip,
 	loadImage_from_file_tooltip,
 	loadImage_from_names_tooltip,
@@ -40,7 +40,9 @@ import {
 	createSettings_from_file_tooltip,
 	createSettings_from_repo_names_tooltip,
 	createSettings_mode_continue_tooltip,
+	next_tooltip,
 	back_tooltip,
+	home_tooltip,
 	string_back_img,
 	string_noImageLoad,
 } from "../constants";
@@ -910,6 +912,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		// 	);
 		// }
 
+		let continueNextTooltip = next_tooltip;
 		let continueDisabled = false;
 		let continueLabel = "Next";
 
@@ -968,17 +971,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 				// step2Disabled = true;
 				// variant_2 = "secondary";
 			}
-			// if (!step2Inactive) {
-			// 	if (!step2Completed) {
-			// 		step3Disabled = true;
-			// 		variant_3 = "secondary";
-			// 	}
-			// } else {
-			// 	if (!step1Completed) {
-			// 		step3Disabled = true;
-			// 		variant_3 = "secondary";
-			// 	}
-			// }
 			step2Disabled = true;
 			variant_2 = "secondary";
 			step3Disabled = true;
@@ -1002,6 +994,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				continueDisabled = true;
 			}
 			continueLabel = "Continue";
+			continueNextTooltip = createSettings_mode_continue_tooltip;
 		}
 
 		let stepRadios = (
@@ -1352,7 +1345,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							id="radio-microscope-options"
 							style={windowRadioButtonsContainer}
 						>
-							<h4 key={"select-microscope"}>Select Microscope</h4>
+							<h4 key={"select-microscope"}>Select Microscope file</h4>
 							{microscopeRadio}
 						</div>
 					);
@@ -1546,7 +1539,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							id="radio-image-container"
 							style={windowRadioButtonsContainer}
 						>
-							<h4 key={"select-manufacturer"}>Select Image</h4>
+							<h4 key={"select-manufacturer"}>Select Image file</h4>
 							{imageRadio}
 						</div>
 					);
@@ -1805,7 +1798,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						id="radio-setting-container"
 						style={windowRadioButtonsContainer}
 					>
-						<h4 key={"select-setting"}>Select Setting</h4>
+						<h4 key={"select-setting"}>Select Settings file</h4>
 						{settingRadio}
 					</div>
 				);
@@ -1818,18 +1811,19 @@ export default class MicroscopeLoader extends React.PureComponent {
 		if (step === 1) {
 			backDisabled = true;
 		}
+		console.log("backDisabled" + backDisabled);
 		buttons.push(
 			<PopoverTooltip
 				key={"button-back"}
 				position={back_tooltip.position}
 				title={back_tooltip.title}
 				content={back_tooltip.content}
-				disabled={backDisabled}
 				element={
 					<Button
 						onClick={!backDisabled ? this.onClickBack : null}
 						style={buttonStyle}
 						size="lg"
+						disabled={backDisabled}
 					>
 						Back
 					</Button>
@@ -1840,9 +1834,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 		buttons.push(
 			<PopoverTooltip
 				key={"button-continue"}
-				position={continue_tooltip.position}
-				title={continue_tooltip.title}
-				content={continue_tooltip.content}
+				position={continueNextTooltip.position}
+				title={continueNextTooltip.title}
+				content={continueNextTooltip.content}
 				element={
 					<Button
 						onClick={!continueDisabled ? this.onClickConfirm : null}
@@ -1873,8 +1867,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 			<PopoverTooltip
 				key={"TooltipButtonLeft-0"}
 				position={"top"}
-				title={back_tooltip.title}
-				content={back_tooltip.content}
+				title={home_tooltip.title}
+				content={home_tooltip.content}
 				element={
 					<Button
 						key={"ButtonLeft-0"}

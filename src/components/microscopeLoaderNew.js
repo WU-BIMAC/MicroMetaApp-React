@@ -27,7 +27,7 @@ import {
 	create_from_repo_manufacturer_tooltip,
 	create_from_repo_names_tooltip,
 	create_mode_continue_tooltip,
-	back_tooltip,
+	home_tooltip,
 	string_back_img,
 } from "../constants";
 
@@ -798,7 +798,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							id="radio-microscope-options"
 							style={windowRadioButtonsContainer}
 						>
-							<h4 key={"select-microscope"}>Select Microscope</h4>
+							<h4 key={"select-microscope"}>Select Microscope file</h4>
 							{microscopeRadio}
 						</div>
 					);
@@ -867,8 +867,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 			<PopoverTooltip
 				key={"TooltipButtonLeft-0"}
 				position={"top"}
-				title={back_tooltip.title}
-				content={back_tooltip.content}
+				title={home_tooltip.title}
+				content={home_tooltip.content}
 				element={
 					<Button
 						key={"ButtonLeft-0"}
