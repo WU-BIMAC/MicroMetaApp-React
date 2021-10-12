@@ -205,8 +205,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				reader.readAsText(file);
 			} else if (step === 2) {
 				this.setState({ imgFilename: file.name });
-
-				//this.props.onLoadMetadata(file.path, this.handleLoadMetadataComplete);
+				this.props.onLoadMetadata(file.path, this.handleLoadMetadataComplete);
 			}
 		});
 		if (step === 1) this.setState({ micFileLoading: false });
@@ -339,6 +338,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	handleLoadMetadataComplete(imageMetadata) {
+		console.log("IM HERE");
 		if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
 			this.setState({ errorMsg: "Error: " + imageMetadata.Error });
 		} else if (
@@ -369,7 +369,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 	onClickBack() {
 		let step = this.state.step;
-		if (step === 3 && !this.props.hasMetadataLoader) {
+		if (step === 3 && !isDefined(this.props.onLoadMetadata)/*!this.props.hasMetadataLoader*/) {
 			step -= 2;
 		} else {
 			step--;
@@ -380,7 +380,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 	onClickConfirm() {
 		let step = this.state.step;
 		if (step !== 3) {
-			if (step === 1 && !this.props.hasMetadataLoader) {
+			if (step === 1 && isDefined(this.props.onLoadMetadata)/*!this.props.hasMetadataLoader*/) {
 				step += 2;
 			} else {
 				step++;
@@ -646,7 +646,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		// let step4Disabled = false;
 		// let variant_3 = "outline-primary";
 		// let variant_4 = "outline-danger";
-		// if (!this.props.hasMetadataLoader) {
+		// if (!isDefined(this.props.onLoadMetadata)/*!this.props.hasMetadataLoader*/) {
 		// 	step3Disabled = true;
 		// 	step4Disabled = true;
 		// 	variant_3 = "outline-primary";
@@ -927,7 +927,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		}
 
 		let step2Inactive = false;
-		if (this.props.hasMetadataLoader) {
+		if (isDefined(this.props.onLoadMetadata)/*this.props.hasMetadataLoader*/) {
 			if (!isDefined(imgModeSelection)) {
 				step2Completed = false;
 			} else if (

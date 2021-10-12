@@ -3255,7 +3255,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				}
 			}
 			let hasMetadataLoader = false;
-			if (isDefined(this.props.onLoadMetadata)) hasMetadataLoader = true;
+			//if (isDefined(this.props.onLoadMetadata)) hasMetadataLoader = true;
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
@@ -3286,7 +3286,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						schema={this.state.schema}
 						isDebug={this.props.isDebug}
 						imagesPath={imagesPathSVG}
-						hasMetadataLoader={hasMetadataLoader}
+						//hasMetadataLoader={hasMetadataLoader}
+						onLoadMetadata={this.props.onLoadMetadata}
 					/>
 				</MicroMetaAppReactContainer>
 			);

@@ -240,8 +240,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         } else if (step === 2) {
           _this2.setState({
             imgFilename: file.name
-          }); //this.props.onLoadMetadata(file.path, this.handleLoadMetadataComplete);
+          });
 
+          _this2.props.onLoadMetadata(file.path, _this2.handleLoadMetadataComplete);
         }
       });
       if (step === 1) this.setState({
@@ -394,6 +395,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleLoadMetadataComplete",
     value: function handleLoadMetadataComplete(imageMetadata) {
+      console.log("IM HERE");
+
       if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
         this.setState({
           errorMsg: "Error: " + imageMetadata.Error
@@ -433,9 +436,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     value: function onClickBack() {
       var step = this.state.step;
 
-      if (step === 3 && !this.props.hasMetadataLoader) {
-        step -= 2;
-      } else {
+      if (step === 3 && !(0, _genericUtilities.isDefined)(this.props.onLoadMetadata)
+      /*!this.props.hasMetadataLoader*/
+      ) {
+          step -= 2;
+        } else {
         step--;
       }
 
@@ -449,9 +454,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var step = this.state.step;
 
       if (step !== 3) {
-        if (step === 1 && !this.props.hasMetadataLoader) {
-          step += 2;
-        } else {
+        if (step === 1 && (0, _genericUtilities.isDefined)(this.props.onLoadMetadata)
+        /*!this.props.hasMetadataLoader*/
+        ) {
+            step += 2;
+          } else {
           step++;
         }
 
@@ -702,7 +709,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       // let step4Disabled = false;
       // let variant_3 = "outline-primary";
       // let variant_4 = "outline-danger";
-      // if (!this.props.hasMetadataLoader) {
+      // if (!isDefined(this.props.onLoadMetadata)/*!this.props.hasMetadataLoader*/) {
       // 	step3Disabled = true;
       // 	step4Disabled = true;
       // 	variant_3 = "outline-primary";
@@ -987,13 +994,15 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
       var step2Inactive = false;
 
-      if (this.props.hasMetadataLoader) {
-        if (!(0, _genericUtilities.isDefined)(imgModeSelection)) {
-          step2Completed = false;
-        } else if (imgModeSelection === _constants.string_createFromFile && (!imgFileLoaded || loadedMetadata === null)) {
-          step2Completed = false;
-        }
-      } else {
+      if ((0, _genericUtilities.isDefined)(this.props.onLoadMetadata)
+      /*this.props.hasMetadataLoader*/
+      ) {
+          if (!(0, _genericUtilities.isDefined)(imgModeSelection)) {
+            step2Completed = false;
+          } else if (imgModeSelection === _constants.string_createFromFile && (!imgFileLoaded || loadedMetadata === null)) {
+            step2Completed = false;
+          }
+        } else {
         step2Inactive = true;
       }
 

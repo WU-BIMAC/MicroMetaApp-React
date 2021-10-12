@@ -2453,8 +2453,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           }
         }
 
-        var hasMetadataLoader = false;
-        if ((0, _genericUtilities.isDefined)(this.props.onLoadMetadata)) hasMetadataLoader = true;
+        var hasMetadataLoader = false; //if (isDefined(this.props.onLoadMetadata)) hasMetadataLoader = true;
+
         return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,
@@ -2482,8 +2482,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           onClickHome: this.onClickHome,
           schema: this.state.schema,
           isDebug: this.props.isDebug,
-          imagesPath: imagesPathSVG,
-          hasMetadataLoader: hasMetadataLoader
+          imagesPath: imagesPathSVG //hasMetadataLoader={hasMetadataLoader}
+          ,
+          onLoadMetadata: this.props.onLoadMetadata
         }));
       }
 
