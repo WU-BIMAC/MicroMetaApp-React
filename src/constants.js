@@ -57,6 +57,8 @@ export const number_canvas_element_min_height = 25;
 export const number_canvas_element_icons_height = 12.5;
 export const number_canvas_element_offset_default = 6.67;
 
+export const number_max_name_length = 55;
+
 export const current_stands = [
 	{
 		name: "Inverted",
@@ -519,16 +521,16 @@ export const create_mode_continue_tooltip = {
 	position: "right",
 };
 
-export const create_mode_continue_settings_tooltip = {
-	title: "Continue",
-	content: (
-		<p>
-			Click this button to select the image(s) you want to annotate and, if
-			available, an existing Settings file.
-		</p>
-	),
-	position: "right",
-};
+// export const create_mode_continue_settings_tooltip = {
+// 	title: "Continue",
+// 	content: (
+// 		<p>
+// 			Click this button to select the image(s) you want to annotate and, if
+// 			available, an existing Settings file.
+// 		</p>
+// 	),
+// 	position: "right",
+// };
 
 export const createSettings_mode_continue_tooltip = {
 	title: "Continue",
@@ -560,10 +562,22 @@ export const import_tooltip = {
 	position: "top",
 };
 
+export const next_tooltip = {
+	title: "Next",
+	content: <p>Move to the next window.</p>,
+	position: "right",
+};
+
 export const back_tooltip = {
 	title: "Back",
-	content: <p>Return to the initial window.</p>,
+	content: <p>Return to the previous window.</p>,
 	position: "left",
+};
+
+export const home_tooltip = {
+	title: "Home",
+	content: <p>Return to the initial window.</p>,
+	position: "top",
 };
 
 export const edit_microscope_tooltip = {
