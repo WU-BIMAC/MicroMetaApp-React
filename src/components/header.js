@@ -8,6 +8,7 @@ import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
 import {
+	help_tooltip,
 	string_validationTier,
 	edit_microscope_tooltip,
 	edit_setting_tooltip,
@@ -179,14 +180,22 @@ export default class Header extends React.PureComponent {
 			);
 
 			buttons[2] = (
-				<Button
-					key={"Button-2"}
-					onClick={this.onClickHelp}
-					style={styleButtonHelp}
-					size="lg"
-				>
-					<img src={helpPath} alt={this.props.helpImg} style={styleImage} />
-				</Button>
+				<PopoverTooltip
+					key={"TooltipButton-2"}
+					position={help_tooltip.position}
+					title={help_tooltip.title}
+					content={help_tooltip.content}
+					element={
+						<Button
+							key={"Button-2"}
+							onClick={this.onClickHelp}
+							style={styleButtonHelp}
+							size="lg"
+						>
+							<img src={helpPath} alt={this.props.helpImg} style={styleImage} />
+						</Button>
+					}
+				/>
 			);
 		} else {
 			buttons[0] = (

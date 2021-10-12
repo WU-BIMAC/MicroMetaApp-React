@@ -258,6 +258,17 @@ export const menu_order = [
 export const string_bandpass_warning =
 	"PLEASE NOTE: If the number of WavelengthRange modules or sub-components (e.g., LEDModule) is changed, all values entered but not yet confirmed will be lost.";
 
+export const help_tooltip = {
+	title: "Help",
+	content: (
+		<p>
+			Click here to access the Micro-Meta App documentations page and video
+			tutorials.
+		</p>
+	),
+	position: "bottom",
+};
+
 export const tier_selector_tooltip = {
 	title: "Tier Selector",
 	content: (
@@ -521,16 +532,16 @@ export const create_mode_continue_tooltip = {
 	position: "right",
 };
 
-// export const create_mode_continue_settings_tooltip = {
-// 	title: "Continue",
-// 	content: (
-// 		<p>
-// 			Click this button to select the image(s) you want to annotate and, if
-// 			available, an existing Settings file.
-// 		</p>
-// 	),
-// 	position: "right",
-// };
+export const create_mode_continue_settings_tooltip = {
+	title: "Continue",
+	content: (
+		<p>
+			Click this button to select the image(s) you want to annotate and, if
+			available, an existing Settings file.
+		</p>
+	),
+	position: "right",
+};
 
 export const createSettings_mode_continue_tooltip = {
 	title: "Continue",
