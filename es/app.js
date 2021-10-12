@@ -1736,31 +1736,31 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             if (!window.confirm("The unique ID & Name of the Microscope file you have selected do not match those that has been saved in the Settings file you are trying to load. If you continue the Microscope ID and Name stored in the Settings file will be overwritten. Are you sure?")) {
               return;
             }
-          } //console.log("SetSettingState4");
+          }
+        } //console.log("SetSettingState4");
 
 
-          var promiseSetting = new Promise(function (resolve, reject) {
-            _this12.setState({
-              settingName: settFilename,
-              setting: setting
-            }, function () {
-              //console.log("SetSettingState-callback");
-              if (settLoadingOption === modifiedCreateString) {
-                _this12.createNewSettingFromScratch(resolve);
-              } else if (settLoadingOption === _constants.string_createFromFile) {
-                //console.log("Calling - createOrUseSettingFromDroppedFile");
-                _this12.createOrUseSettingFromDroppedFile(resolve);
-              } else {
-                _this12.createOrUseSettingFromSelectedFile(resolve);
-              }
-            });
+        var promiseSetting = new Promise(function (resolve, reject) {
+          _this12.setState({
+            settingName: settFilename,
+            setting: setting
+          }, function () {
+            //console.log("SetSettingState-callback");
+            if (settLoadingOption === modifiedCreateString) {
+              _this12.createNewSettingFromScratch(resolve);
+            } else if (settLoadingOption === _constants.string_createFromFile) {
+              //console.log("Calling - createOrUseSettingFromDroppedFile");
+              _this12.createOrUseSettingFromDroppedFile(resolve);
+            } else {
+              _this12.createOrUseSettingFromSelectedFile(resolve);
+            }
           });
-          promiseSetting.then(function () {
-            _this12.setState({
-              isLoadingImage: false
-            });
+        });
+        promiseSetting.then(function () {
+          _this12.setState({
+            isLoadingImage: false
           });
-        }
+        });
       });
     } // createOrUseMetadata() {
     // 	if (this.state.loadingOption === string_createFromFile) {

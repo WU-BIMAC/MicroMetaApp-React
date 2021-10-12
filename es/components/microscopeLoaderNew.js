@@ -798,7 +798,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               style: windowRadioButtonsContainer
             }, /*#__PURE__*/_react.default.createElement("h4", {
               key: "select-microscope"
-            }, "Select Microscope"), microscopeRadio));
+            }, "Select Microscope file"), microscopeRadio));
           }
         }
       }
@@ -840,8 +840,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var homeButton = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "TooltipButtonLeft-0",
         position: "top",
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
+        title: _constants.home_tooltip.title,
+        content: _constants.home_tooltip.content,
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "ButtonLeft-0",
           onClick: function onClick() {

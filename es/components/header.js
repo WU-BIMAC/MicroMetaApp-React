@@ -211,16 +211,22 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           direction: "down",
           tooltip: validationTooltip
         });
-        buttons[2] = /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-2",
-          onClick: this.onClickHelp,
-          style: styleButtonHelp,
-          size: "lg"
-        }, /*#__PURE__*/_react.default.createElement("img", {
-          src: helpPath,
-          alt: this.props.helpImg,
-          style: styleImage
-        }));
+        buttons[2] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-2",
+          position: _constants.help_tooltip.position,
+          title: _constants.help_tooltip.title,
+          content: _constants.help_tooltip.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-2",
+            onClick: this.onClickHelp,
+            style: styleButtonHelp,
+            size: "lg"
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            src: helpPath,
+            alt: this.props.helpImg,
+            style: styleImage
+          }))
+        });
       } else {
         buttons[0] = /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "Button-0",

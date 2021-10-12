@@ -200,8 +200,8 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
       var homeButton = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "TooltipButtonLeft-0",
         position: "top",
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
+        title: _constants.home_tooltip.title,
+        content: _constants.home_tooltip.content,
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "ButtonLeft-0",
           onClick: function onClick() {

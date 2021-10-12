@@ -3,8 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.save_setting_tooltip = exports.export_microscope_tooltip = exports.save_microscope_tooltip = exports.export_component_tooltip = exports.save_component_tooltip = exports.validation_setting_tooltip = exports.validation_microscope_tooltip = exports.edit_setting_tooltip = exports.edit_microscope_tooltip = exports.back_tooltip = exports.import_tooltip = exports.loadImage_mode_continue_tooltip = exports.createSettings_mode_continue_tooltip = exports.create_mode_continue_settings_tooltip = exports.create_mode_continue_tooltip = exports.loadImage_from_names_tooltip = exports.createSettings_from_repo_names_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.loadImage_from_file_tooltip = exports.createSettings_from_file_tooltip = exports.create_from_file_tooltip = exports.loadImage_mode_selector_tooltip = exports.loadImage_skip_tooltip = exports.loadImage_load_tooltip = exports.createSettings_mode_selector_tooltip = exports.setting_loader_load_from_repo = exports.setting_loader_load_from_homeFolder = exports.setting_loader_load_from_file = exports.setting_loader_scratch = exports.create_mode_selector_settings_tooltip = exports.create_mode_selector_tooltip = exports.microscope_loader_load_from_repo = exports.microscope_loader_load_from_homeFolder = exports.microscope_loader_load_from_file = exports.microscope_loader_scratch_upright = exports.microscope_loader_scratch_inverted = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_8 = exports.channelPath_Additional_7 = exports.channelPath_Additional_3_4_5_6 = exports.channelPath_Additional_2 = exports.channelPath_Additional_1 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.channelPath_LightSource = exports.channelPath_Detector = exports.channelPath_RelayLens = exports.channelPath_CouplingLens = exports.channelPath_LightSourceCoupling = exports.channelPath_Objective = exports.matchSettings = exports.current_stands = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_height = exports.number_canvas_element_min_width = exports.number_small_logo_height = exports.number_small_logo_width = exports.number_logo_height = exports.number_logo_width = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_noImageLoad = exports.string_loadFromHomeFolder = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_help_img = exports.string_manage_settings_circle_img = exports.string_manage_hardware_circle_img = exports.string_manage_settings_img = exports.string_manage_hardware_img = exports.string_microscope_img = exports.string_import_img = exports.string_export_img = exports.string_save_img = exports.string_back_img = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = void 0;
-exports.select_additional_right = exports.select_additional_left = exports.select_emission = exports.select_dichroic = exports.select_excitation = exports.select_detector = exports.select_relayLens = exports.select_lightSourceCoupling = exports.select_couplingLens = exports.select_lightSource = exports.edit_channel_settings = exports.edit_channel = exports.edit_plane = exports.remove_channel = exports.add_channel = exports.remove_plane = exports.add_plane = exports.add_multi_planes = exports.edit_mic_table_settings = exports.edit_sample_pos_settings = exports.edit_obj_settings = exports.edit_mic_settings = exports.edit_img_env_settings = exports.edit_channels = exports.edit_planes = exports.hardware_explorer_tooltip = exports.export_setting_tooltip = void 0;
+exports.save_component_tooltip = exports.validation_setting_tooltip = exports.validation_microscope_tooltip = exports.edit_setting_tooltip = exports.edit_microscope_tooltip = exports.home_tooltip = exports.back_tooltip = exports.next_tooltip = exports.import_tooltip = exports.loadImage_mode_continue_tooltip = exports.createSettings_mode_continue_tooltip = exports.create_mode_continue_settings_tooltip = exports.create_mode_continue_tooltip = exports.loadImage_from_names_tooltip = exports.createSettings_from_repo_names_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.loadImage_from_file_tooltip = exports.createSettings_from_file_tooltip = exports.create_from_file_tooltip = exports.loadImage_mode_selector_tooltip = exports.loadImage_skip_tooltip = exports.loadImage_load_tooltip = exports.createSettings_mode_selector_tooltip = exports.setting_loader_load_from_repo = exports.setting_loader_load_from_homeFolder = exports.setting_loader_load_from_file = exports.setting_loader_scratch = exports.create_mode_selector_settings_tooltip = exports.create_mode_selector_tooltip = exports.microscope_loader_load_from_repo = exports.microscope_loader_load_from_homeFolder = exports.microscope_loader_load_from_file = exports.microscope_loader_scratch_upright = exports.microscope_loader_scratch_inverted = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.help_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_8 = exports.channelPath_Additional_7 = exports.channelPath_Additional_3_4_5_6 = exports.channelPath_Additional_2 = exports.channelPath_Additional_1 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.channelPath_LightSource = exports.channelPath_Detector = exports.channelPath_RelayLens = exports.channelPath_CouplingLens = exports.channelPath_LightSourceCoupling = exports.channelPath_Objective = exports.matchSettings = exports.current_stands = exports.number_max_name_length = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_height = exports.number_canvas_element_min_width = exports.number_small_logo_height = exports.number_small_logo_width = exports.number_logo_height = exports.number_logo_width = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_noImageLoad = exports.string_loadFromHomeFolder = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_help_img = exports.string_manage_settings_circle_img = exports.string_manage_hardware_circle_img = exports.string_manage_settings_img = exports.string_manage_hardware_img = exports.string_microscope_img = exports.string_import_img = exports.string_export_img = exports.string_save_img = exports.string_back_img = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = void 0;
+exports.select_additional_right = exports.select_additional_left = exports.select_emission = exports.select_dichroic = exports.select_excitation = exports.select_detector = exports.select_relayLens = exports.select_lightSourceCoupling = exports.select_couplingLens = exports.select_lightSource = exports.edit_channel_settings = exports.edit_channel = exports.edit_plane = exports.remove_channel = exports.add_channel = exports.remove_plane = exports.add_plane = exports.add_multi_planes = exports.edit_mic_table_settings = exports.edit_sample_pos_settings = exports.edit_obj_settings = exports.edit_mic_settings = exports.edit_img_env_settings = exports.edit_channels = exports.edit_planes = exports.hardware_explorer_tooltip = exports.export_setting_tooltip = exports.save_setting_tooltip = exports.export_microscope_tooltip = exports.save_microscope_tooltip = exports.export_component_tooltip = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -96,6 +96,8 @@ var number_canvas_element_icons_height = 12.5;
 exports.number_canvas_element_icons_height = number_canvas_element_icons_height;
 var number_canvas_element_offset_default = 6.67;
 exports.number_canvas_element_offset_default = number_canvas_element_offset_default;
+var number_max_name_length = 55;
+exports.number_max_name_length = number_max_name_length;
 var current_stands = [{
   name: "Inverted",
   json: "InvertedMicroscopeStand"
@@ -166,6 +168,12 @@ var menu_order = ["MicroscopyAccessories", "Software", "Transmitted_LightSource"
 exports.menu_order = menu_order;
 var string_bandpass_warning = "PLEASE NOTE: If the number of WavelengthRange modules or sub-components (e.g., LEDModule) is changed, all values entered but not yet confirmed will be lost.";
 exports.string_bandpass_warning = string_bandpass_warning;
+var help_tooltip = {
+  title: "Help",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to access the Micro-Meta App documentations page and video tutorials."),
+  position: "bottom"
+};
+exports.help_tooltip = help_tooltip;
 var tier_selector_tooltip = {
   title: "Tier Selector",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the Tier level you want to utilize to document Instrument Hardware Specifications and Image Acquisition Settings. For more details about Tier definition please refer to the following", " ", /*#__PURE__*/_react.default.createElement("a", {
@@ -350,12 +358,24 @@ var import_tooltip = {
   position: "top"
 };
 exports.import_tooltip = import_tooltip;
+var next_tooltip = {
+  title: "Next",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Move to the next window."),
+  position: "right"
+};
+exports.next_tooltip = next_tooltip;
 var back_tooltip = {
   title: "Back",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Return to the initial window."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Return to the previous window."),
   position: "left"
 };
 exports.back_tooltip = back_tooltip;
+var home_tooltip = {
+  title: "Home",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Return to the initial window."),
+  position: "top"
+};
+exports.home_tooltip = home_tooltip;
 var edit_microscope_tooltip = {
   title: "Edit microscope",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Click this button to enter general information about this Instrument."),

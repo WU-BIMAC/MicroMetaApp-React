@@ -978,6 +978,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       // }
 
 
+      var continueNextTooltip = _constants.next_tooltip;
       var continueDisabled = false;
       var continueLabel = "Next";
       var step1Completed = true;
@@ -1019,18 +1020,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           // || step2Inactive
           continueDisabled = true; // step2Disabled = true;
           // variant_2 = "secondary";
-        } // if (!step2Inactive) {
-        // 	if (!step2Completed) {
-        // 		step3Disabled = true;
-        // 		variant_3 = "secondary";
-        // 	}
-        // } else {
-        // 	if (!step1Completed) {
-        // 		step3Disabled = true;
-        // 		variant_3 = "secondary";
-        // 	}
-        // }
-
+        }
 
         step2Disabled = true;
         variant_2 = "secondary";
@@ -1057,6 +1047,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         continueLabel = "Continue";
+        continueNextTooltip = _constants.createSettings_mode_continue_tooltip;
       }
 
       var stepRadios = /*#__PURE__*/_react.default.createElement(_ToggleButtonGroup.default, {
@@ -1312,7 +1303,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               style: windowRadioButtonsContainer
             }, /*#__PURE__*/_react.default.createElement("h4", {
               key: "select-microscope"
-            }, "Select Microscope"), microscopeRadio));
+            }, "Select Microscope file"), microscopeRadio));
           }
         }
       } else if (step === 2) {
@@ -1487,7 +1478,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               style: _windowRadioButtonsContainer
             }, /*#__PURE__*/_react.default.createElement("h4", {
               key: "select-manufacturer"
-            }, "Select Image"), imageRadio));
+            }, "Select Image file"), imageRadio));
           }
         }
       } else if (step === 3) {
@@ -1723,7 +1714,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             style: _windowRadioButtonsContainer2
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "select-setting"
-          }, "Select Setting"), settingRadio));
+          }, "Select Settings file"), settingRadio));
         }
       }
 
@@ -1735,23 +1726,24 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         backDisabled = true;
       }
 
+      console.log("backDisabled" + backDisabled);
       buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "button-back",
         position: _constants.back_tooltip.position,
         title: _constants.back_tooltip.title,
         content: _constants.back_tooltip.content,
-        disabled: backDisabled,
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           onClick: !backDisabled ? this.onClickBack : null,
           style: buttonStyle,
-          size: "lg"
+          size: "lg",
+          disabled: backDisabled
         }, "Back")
       }));
       buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "button-continue",
-        position: continue_tooltip.position,
-        title: continue_tooltip.title,
-        content: continue_tooltip.content,
+        position: continueNextTooltip.position,
+        title: continueNextTooltip.title,
+        content: continueNextTooltip.content,
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           onClick: !continueDisabled ? this.onClickConfirm : null,
           style: buttonStyle,
@@ -1767,8 +1759,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var homeButton = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "TooltipButtonLeft-0",
         position: "top",
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
+        title: _constants.home_tooltip.title,
+        content: _constants.home_tooltip.content,
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "ButtonLeft-0",
           onClick: function onClick() {
