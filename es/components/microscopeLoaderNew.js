@@ -221,8 +221,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleCreateOrLoadRadioChange",
     value: function handleCreateOrLoadRadioChange(item) {
-      console.log("handleCreateOrLoadRadioChange - " + item);
-
+      //console.log("handleCreateOrLoadRadioChange - " + item);
       if (this.state.modeSelection === _constants.string_createFromFile && item !== this.state.modeSelection || (this.state.modeSelection === _constants.string_loadFromRepository || this.state.modeSelection === _constants.string_loadFromHomeFolder) && item !== this.state.modeSelection) {
         this.setState({
           fileLoading: false,

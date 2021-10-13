@@ -1706,12 +1706,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       });
       promiseMicroscope.then(function () {
         //console.log("SetSettingState1");
-        var metadata = null;
-        if (imgLoadingOption !== _constants.string_noImageLoad) metadata = newMetadata;
+        var imageMetadata = null;
+        if (imgLoadingOption !== _constants.string_noImageLoad) imageMetadata = newMetadata;
 
-        if ((0, _genericUtilities.isDefined)(metadata)) {
+        if ((0, _genericUtilities.isDefined)(imageMetadata)) {
           _this12.setState({
-            metadata: metadata
+            imageMetadata: imageMetadata
           });
         } //console.log("SetSettingState2");
 

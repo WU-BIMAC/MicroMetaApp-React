@@ -384,10 +384,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     key: "onClickImageSelection",
     value: function onClickImageSelection(item) {
       var imageMap = this.props.imageMap;
-      var image = imageMap[item];
-      console.log("image");
-      console.log(image); //this.props.handleLoadMetadataComplete(image);
+      var image = imageMap[item]; //this.props.handleLoadMetadataComplete(image);
 
+      if (this.props.isDebug) console.log("Loaded metadata: " + loadedMetadata);
       this.setState({
         loadedMetadata: image
       });
@@ -395,8 +394,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleLoadMetadataComplete",
     value: function handleLoadMetadataComplete(imageMetadata) {
-      console.log("IM HERE");
-
+      //console.log("IM HERE");
       if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
         this.setState({
           errorMsg: "Error: " + imageMetadata.Error
@@ -413,18 +411,20 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           imageMap[name] = image;
         }
 
-        console.log("image");
-        console.log(firstImage); //this.props.handleLoadMetadataComplete(firstImage);
+        if (this.props.isDebug) console.log("Image map: " + imageMap); // console.log("image");
+        // console.log(firstImage);
+        //this.props.handleLoadMetadataComplete(firstImage);
 
         this.setState({
           imageMap: imageMap,
           imgFileLoaded: true
         });
       } else {
-        var _image = imageMetadata.Image;
-        console.log("image");
-        console.log(_image); //this.props.handleLoadMetadataComplete(image);
+        var _image = imageMetadata.Image; // console.log("image");
+        // console.log(image);
+        //this.props.handleLoadMetadataComplete(image);
 
+        if (this.props.isDebug) console.log("Loaded metadata: " + loadedMetadata);
         this.setState({
           imgFileLoaded: true,
           loadedMetadata: _image
@@ -1726,7 +1726,6 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         backDisabled = true;
       }
 
-      console.log("backDisabled" + backDisabled);
       buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "button-back",
         position: _constants.back_tooltip.position,
