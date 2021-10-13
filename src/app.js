@@ -2462,10 +2462,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		promiseMicroscope.then(() => {
 			//console.log("SetSettingState1");
-			let metadata = null;
-			if (imgLoadingOption !== string_noImageLoad) metadata = newMetadata;
-			if (isDefined(metadata)) {
-				this.setState({ metadata: metadata });
+			let imageMetadata = null;
+			if (imgLoadingOption !== string_noImageLoad) imageMetadata = newMetadata;
+			if (isDefined(imageMetadata)) {
+				this.setState({ imageMetadata: imageMetadata });
 			}
 
 			//console.log("SetSettingState2");

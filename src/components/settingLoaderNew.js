@@ -333,14 +333,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 	onClickImageSelection(item) {
 		let imageMap = this.props.imageMap;
 		let image = imageMap[item];
-		console.log("image");
-		console.log(image);
 		//this.props.handleLoadMetadataComplete(image);
+		if(this.props.isDebug)
+				console.log("Loaded metadata: " + loadedMetadata);
 		this.setState({ loadedMetadata: image });
 	}
 
 	handleLoadMetadataComplete(imageMetadata) {
-		console.log("IM HERE");
+		//console.log("IM HERE");
 		if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
 			this.setState({ errorMsg: "Error: " + imageMetadata.Error });
 		} else if (
@@ -356,15 +356,19 @@ export default class MicroscopeLoader extends React.PureComponent {
 				let name = image.Name;
 				imageMap[name] = image;
 			}
-			console.log("image");
-			console.log(firstImage);
+			if(this.props.isDebug)
+				console.log("Image map: " + imageMap);
+			// console.log("image");
+			// console.log(firstImage);
 			//this.props.handleLoadMetadataComplete(firstImage);
 			this.setState({ imageMap: imageMap, imgFileLoaded: true });
 		} else {
 			let image = imageMetadata.Image;
-			console.log("image");
-			console.log(image);
+			// console.log("image");
+			// console.log(image);
 			//this.props.handleLoadMetadataComplete(image);
+			if(this.props.isDebug)
+				console.log("Loaded metadata: " + loadedMetadata);
 			this.setState({ imgFileLoaded: true, loadedMetadata: image });
 		}
 	}
@@ -1811,7 +1815,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 		if (step === 1) {
 			backDisabled = true;
 		}
-		console.log("backDisabled" + backDisabled);
 		buttons.push(
 			<PopoverTooltip
 				key={"button-back"}
