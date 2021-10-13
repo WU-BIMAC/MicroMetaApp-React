@@ -163,7 +163,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	handleCreateOrLoadRadioChange(item) {
-		console.log("handleCreateOrLoadRadioChange - " + item);
+		//console.log("handleCreateOrLoadRadioChange - " + item);
 		if (
 			(this.state.modeSelection === string_createFromFile &&
 				item !== this.state.modeSelection) ||
