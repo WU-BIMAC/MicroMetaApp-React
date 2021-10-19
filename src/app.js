@@ -38,10 +38,6 @@ import {
 	string_logo_img_cell_bk,
 	string_logo_img_micro_bk,
 	string_help_img,
-	string_manage_hardware_img,
-	string_manage_settings_img,
-	string_manage_hardware_circle_img,
-	string_manage_settings_circle_img,
 	string_createFromScratch,
 	string_createFromFile,
 	string_loadFromRepository,
@@ -2861,7 +2857,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			(this.state.is4DNPortal && !this.state.microscopePresetHandled) ||
 			!this.state.isDataLoaded
 		) {
-			let logoImg = url.resolve(imagesPathPNG, string_logo_img_micro_bk);
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
@@ -2869,7 +2864,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<DataLoaderV2
-						logoImg={logoImg}
+						imagesPathPNG={imagesPathPNG}
 						onClickLoadSchema={this.handleLoadSchema}
 						onClickLoadDimensions={this.handleLoadDimensions}
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
@@ -2889,12 +2884,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				this.state.isLoadingMicroscope == null) ||
 			(this.state.is4DNPortal && !this.state.microscopePresetHandled)
 		) {
-			let logoImg = url.resolve(imagesPathPNG, string_logo_img_micro_bk);
-			let hardwareImg = url.resolve(
-				imagesPathSVG,
-				string_manage_hardware_circle_img
-			);
-			let settingsImg = url.resolve(imagesPathSVG, string_manage_settings_img);
+			
 
 			return (
 				<MicroMetaAppReactContainer
@@ -2903,6 +2893,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<ModeSelector
+						imagesPathPNG={imagesPathPNG}
+						imagesPathSVG={imagesPathSVG}
 						logoImg={logoImg}
 						hardwareImg={hardwareImg}
 						settingsImg={settingsImg}
@@ -2943,13 +2935,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		// }
 
 		if (!this.state.is4DNPortal && !this.state.isTierSelected) {
-			let iconImg = null;
-			if (this.state.isCreatingNewMicroscope) {
-				iconImg = url.resolve(imagesPathSVG, string_manage_hardware_img);
-			} else {
-				iconImg = url.resolve(imagesPathSVG, string_manage_settings_img);
-			}
-			let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
@@ -2957,13 +2942,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<TierSelector
-						logoImg={logoImg}
-						iconImg={iconImg}
-						imagesPath={imagesPathSVG}
+						imagesPathPNG={imagesPathPNG}
+						imagesPathSVG={imagesPathSVG}
 						tierList={this.state.tierList}
 						onClickTierSelection={this.handleActiveTierSelection}
 						onClickHome={this.onClickHome}
 						isDebug={this.props.isDebug}
+						isHardware={this.state.isCreatingNewMicroscope}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -2997,7 +2982,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				alignItems: "center",
 			};
 			if (microscope === null || this.state.isSpecialImporterActive) {
-				let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
 				//console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
 				let creatingOptions = [];
 				let loadingOptions = [];
@@ -3009,7 +2993,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						forwardedRef={this.overlaysContainerRef}
 					>
 						<MicroscopeLoaderNew
-							logoImg={logoImg}
+							imagesPathPNG={imagesPathPNG}
+							imagesPathSVG={imagesPathSVG}
 							creatingOptions={creatingOptions}
 							loadingOptions={loadingOptions}
 							modeSelection={string_createFromFile}
@@ -3022,7 +3007,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							isSettings={this.state.isLoadingMicroscope}
 							schema={schema}
 							isDebug={this.props.isDebug}
-							imagesPath={imagesPathSVG}
 							isImporter={true}
 						/>
 					</MicroMetaAppReactContainer>
@@ -3056,9 +3040,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								<div style={styleImageContainer}>
 									<img
 										src={logoPath}
-										alt={this.props.logoImg}
+										alt={logoImg}
 										style={styleImage}
-										onLoad={this.onImgLoad}
 									/>
 								</div>
 								<Button
@@ -3081,7 +3064,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				.isCreatingNewMicroscope /*|| this.state.isLoadingMicroscope*/ &&
 			(microscope === null || elementData === null)
 		) {
-			let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
 			let creatingOptions = [];
 			let loadingOptions = [];
 			//CREATE MULTIPLE ENTRIES FOR DIFFERENT MICROSCOPE
@@ -3138,7 +3120,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					forwardedRef={this.overlaysContainerRef}
 				>
 					<MicroscopeLoaderNew
-						logoImg={logoImg}
+						imagesPathPNG={imagesPathPNG}
+						imagesPathSVG={imagesPathSVG}
 						title={this.state.tierName}
 						creatingOptions={creatingOptions}
 						loadingOptions={loadingOptions}
@@ -3153,7 +3136,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						//isSettings={this.state.isLoadingMicroscope}
 						schema={this.state.schema}
 						isDebug={this.props.isDebug}
-						imagesPath={imagesPathSVG}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3197,7 +3179,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			this.state.isLoadingImage &&
 			this.state.isLoadingSettings
 		) {
-			let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
 			//console.log("SETTINGS LOADER");
 			let imgLoadingOptions = [string_noImageLoad, string_createFromFile];
 			let micLoadingOptions = [];
@@ -3264,7 +3245,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				>
 					<SettingLoaderNew
 						title={this.state.tierName}
-						logoImg={logoImg}
+						imagesPathPNG={imagesPathPNG}
+						imagesPathSVG={imagesPathSVG}
 						microscopeLoadingOptions={micLoadingOptions}
 						imageLoadingOptions={imgLoadingOptions}
 						settingCreatingOptions={settCreatingOptions}
@@ -3285,7 +3267,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickHome={this.onClickHome}
 						schema={this.state.schema}
 						isDebug={this.props.isDebug}
-						imagesPath={imagesPathSVG}
 						//hasMetadataLoader={hasMetadataLoader}
 						onLoadMetadata={this.props.onLoadMetadata}
 					/>
@@ -3384,8 +3365,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let footerSettingsSchemas = [imageSchema, pixelsSchema];
 			let footerSettingsInput = [setting, setting.Pixels];
 			//{overlayImporter}
-			let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
-			let helpImg = url.resolve(imagesPathSVG, string_help_img);
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
@@ -3394,8 +3373,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				>
 					<Header
 						dimensions={headerFooterDims}
-						logoImg={logoImg}
-						helpImg={helpImg}
+						imagesPathPNG={imagesPathPNG}
+						imagesPathSVG={imagesPathSVG}
 						isDebug={this.props.isDebug}
 						isSchemaValidated={this.state.isSettingValidated}
 						onFormConfirm={this.onSettingDataSave}
@@ -3459,8 +3438,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					width: width,
 					height: canvasHeight + headerFooterHeight,
 				};
-				let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
-				let helpImg = url.resolve(imagesPathSVG, string_help_img);
 				return (
 					<MicroMetaAppReactContainer
 						width={width}
@@ -3469,8 +3446,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					>
 						<Header
 							dimensions={headerFooterDims}
-							logoImg={logoImg}
-							helpImg={helpImg}
+							imagesPathPNG={imagesPathPNG}
+							imagesPathSVG={imagesPathSVG}
 							isDebug={this.props.isDebug}
 							isViewOnly={isViewOnly}
 						/>
@@ -3509,9 +3486,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				);
 			} else {
 				//{overlayImporter}
-
-				let logoImg = url.resolve(imagesPathPNG, string_logo_img_no_bk);
-				let helpImg = url.resolve(imagesPathSVG, string_help_img);
 				return (
 					<MicroMetaAppReactContainer
 						width={width}
@@ -3520,8 +3494,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					>
 						<Header
 							dimensions={headerFooterDims}
-							logoImg={logoImg}
-							helpImg={helpImg}
+							imagesPathPNG={imagesPathPNG}
+							imagesPathSVG={imagesPathSVG}
 							isDebug={this.props.isDebug}
 							isSchemaValidated={this.state.isMicroscopeValidated}
 							onFormConfirm={this.onMicroscopeDataSave}

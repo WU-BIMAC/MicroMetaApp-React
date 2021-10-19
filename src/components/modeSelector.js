@@ -7,6 +7,9 @@ import {
 	number_logo_height,
 	manage_instrument_tooltip,
 	manage_settings_tooltip,
+	string_logo_img_micro_bk,
+	string_manage_hardware_circle_img,
+	string_manage_settings_circle_img,
 } from "../constants";
 
 export default class ModeSelector extends React.PureComponent {
@@ -199,12 +202,6 @@ export default class ModeSelector extends React.PureComponent {
 
 		// let isHandlingMicPreset = this.state.isHandlingMicPreset;
 		// let isHandledMicPreset = this.state.isHandledMicPreset;
-
-		let logoPath =
-			this.props.logoImg +
-			(this.props.logoImg.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
 
 		// if (this.props.is4DNPortal) {
 		// 	if (
@@ -407,21 +404,34 @@ export default class ModeSelector extends React.PureComponent {
 		// ) {
 		// 	selectionEnabled = false;
 		// }
+
+		let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_micro_bk);
+		let hardwareImg = url.resolve(
+				this.props.imagesPathSVG,
+				string_manage_hardware_circle_img
+			);
+		let settingsImg = url.resolve(this.props.imagesPathSVG, string_manage_settings_circle_img);
+
+		let logoPath =
+			logoImg +
+			(logoImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 		let hardwareImgPath =
-			this.props.hardwareImg +
-			(this.props.hardwareImg.indexOf("githubusercontent.com") > -1
+			hardwareImg +
+			(hardwareImg.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
 		let settingsImgPath =
-			this.props.settingsImg +
-			(this.props.settingsImg.indexOf("githubusercontent.com") > -1
+			settingsImg +
+			(settingsImg.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
 		return (
 			<div style={windowExternalContainer}>
 				<div style={windowLogoContainer}>
 					<div style={styleImageContainer}>
-						<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
+						<img src={logoPath} alt={logoImg} style={styleImage} />
 					</div>
 				</div>
 				<div style={windowModeSelectorContainer}>
@@ -470,7 +480,7 @@ export default class ModeSelector extends React.PureComponent {
 									<div style={buttonsInnerContainer}>
 										<img
 											src={settingsImgPath}
-											alt={this.props.settingsImg}
+											alt={settingsImg}
 											style={styleIconImage}
 										/>
 										<h2 style={styleText_1}>Manage Settings</h2>

@@ -14,6 +14,8 @@ import {
 	edit_setting_tooltip,
 	validation_microscope_tooltip,
 	validation_setting_tooltip,
+	string_logo_img_no_bk,
+	string_help_img,
 } from "../constants";
 
 export default class Header extends React.PureComponent {
@@ -105,15 +107,16 @@ export default class Header extends React.PureComponent {
 			fontWeight: "bold",
 			textAlign: "center",
 		};
-
+			let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_no_bk);
+			let helpImg = url.resolve(this.props.imagesPathSVG, string_help_img);
 		let logoPath =
-			this.props.logoImg +
-			(this.props.logoImg.indexOf("githubusercontent.com") > -1
+			logoImg +
+			(logoImg.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
 		let helpPath =
-			this.props.helpImg +
-			(this.props.helpImg.indexOf("githubusercontent.com") > -1
+			helpImg +
+			(helpImg.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
 

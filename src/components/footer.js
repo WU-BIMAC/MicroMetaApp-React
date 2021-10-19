@@ -16,7 +16,7 @@ import {
 	save_setting_tooltip,
 	export_setting_tooltip,
 	home_tooltip,
-	string_back_img,
+	string_home_circle_img,
 	string_save_img,
 	string_export_img,
 	string_import_img,
@@ -52,7 +52,7 @@ export default class Footer extends React.PureComponent {
 			marginRight: "5px",
 		};
 
-		let styleImageBk = {
+		let styleImageIcon = {
 			width: "20px",
 			height: "20px",
 			marginLeft: "10px",
@@ -111,6 +111,7 @@ export default class Footer extends React.PureComponent {
 		//Rethink this, maybe drop down split button with multi actions?
 		let index = 0;
 		if (this.props.is4DNPortal && this.props.hasImport) {
+			let importButtText = "Import";
 			buttonsRight[index] = (
 				<PopoverTooltip
 					key={"TooltipButtonRight-0"}
@@ -120,7 +121,7 @@ export default class Footer extends React.PureComponent {
 					element={
 						<Button
 							key={"ButtonRight-0"}
-							onClick={() => this.props.onClickHome("Import")}
+							onClick={() => this.props.onClickHome(importButtText)}
 							style={styleButton}
 							size="lg"
 							variant="dark"
@@ -136,9 +137,9 @@ export default class Footer extends React.PureComponent {
 								<img
 									src={importImgPath}
 									alt={importImgPath_tmp}
-									style={styleImageBk}
+									style={styleImageIcon}
 								/>
-								Import
+								{importButtText}
 							</div>
 						</Button>
 					}
@@ -179,16 +180,16 @@ export default class Footer extends React.PureComponent {
 			/>
 		);
 
-		let backImgPath_tmp = url.resolve(this.props.imagesPath, string_back_img);
-		let backImgPath =
-			backImgPath_tmp +
-			(backImgPath_tmp.indexOf("githubusercontent.com") > -1
+		let homeImg = url.resolve(this.props.imagesPath, string_home_circle_img);
+		let homeImgPath =
+			homeImg +
+			(homeImg.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
-		let backText = "Home";
+		let homeButtText = "Home";
 
 		if (this.props.is4DNPortal) {
-			backText = "Back to list";
+			homeButtText = "Back to list";
 		}
 		buttonsLeft[0] = (
 			<PopoverTooltip
@@ -199,7 +200,7 @@ export default class Footer extends React.PureComponent {
 				element={
 					<Button
 						key={"ButtonLeft-0"}
-						onClick={() => this.props.onClickHome(backText)}
+						onClick={() => this.props.onClickHome(homeButtText)}
 						style={styleButton}
 						size="lg"
 						variant="outline-dark"
@@ -213,11 +214,11 @@ export default class Footer extends React.PureComponent {
 							}}
 						>
 							<img
-								src={backImgPath}
-								alt={backImgPath_tmp}
+								src={homeImgPath}
+								alt={homeImg}
 								style={styleImageBk}
 							/>
-							{backText}
+							{homeButtText}
 						</div>
 					</Button>
 				}

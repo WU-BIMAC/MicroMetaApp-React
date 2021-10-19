@@ -2,7 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
-import { number_logo_width, number_logo_height } from "../constants";
+import { number_logo_width, number_logo_height,string_logo_img_micro_bk} from "../constants";
 
 export default class DataLoader extends React.PureComponent {
 	constructor(props) {
@@ -312,9 +312,10 @@ export default class DataLoader extends React.PureComponent {
 		let isHandlingMicPreset = this.state.isHandlingMicPreset;
 		let isHandledMicPreset = this.state.isHandledMicPreset;
 
+		let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_micro_bk);
 		let logoPath =
-			this.props.logoImg +
-			(this.props.logoImg.indexOf("githubusercontent.com") > -1
+			logoImg +
+			(logoImg.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
 

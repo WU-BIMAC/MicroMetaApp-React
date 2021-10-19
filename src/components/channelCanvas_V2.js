@@ -46,6 +46,7 @@ import {
 	select_additional_left,
 	select_additional_right,
 	edit_channel_settings,
+	string_add_img
 } from "../constants";
 import { bool } from "prop-types";
 
@@ -716,15 +717,15 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		category,
 		isEnabled
 	) {
-		let image = (
-			<img
-				src={
-					addButtonImage +
+		let addButtonImagePath = addButtonImage +
 					(addButtonImage.indexOf("githubusercontent.com") > -1
 						? "?sanitize=true"
-						: "")
+						: "");
+		let image = (
+			<img
+				src={addButtonImagePath
 				}
-				alt={"Add"}
+				alt={addButtonImage}
 				style={addButtonImageStyle}
 			/>
 		);
@@ -1529,7 +1530,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			addButtonImageStyle
 		);
 
-		let addButtonImage = url.resolve(this.props.imagesPath, "AddButton.svg");
+		let addButtonImage = url.resolve(this.props.imagesPath, string_add_img);
 
 		let hasChannelPath_Additional_1 = false;
 		let hasChannelPath_Additional_2 = false;

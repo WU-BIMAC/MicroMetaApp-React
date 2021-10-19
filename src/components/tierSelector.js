@@ -11,6 +11,14 @@ import {
 	tier_selector_tooltip,
 	string_back_img,
 	home_tooltip,
+	string_logo_img_no_bk,
+	string_home_circle_img,
+	string_hardware_tier_1_img,
+	string_hardware_tier_2_img,
+	string_hardware_tier_3_img,
+	string_settings_tier_1_img,
+	string_settings_tier_2_img,
+	string_settings_tier_3_img,
 } from "../constants";
 
 export default class TierSelector extends React.PureComponent {
@@ -111,7 +119,7 @@ export default class TierSelector extends React.PureComponent {
 			marginLeft: "5px",
 			marginRight: "5px",
 		};
-		let styleImageBk = {
+		let styleImageIcon = {
 			width: "20px",
 			height: "20px",
 			marginLeft: "10px",
@@ -119,20 +127,55 @@ export default class TierSelector extends React.PureComponent {
 		};
 		let tierList = this.props.tierList;
 
-		let logoPath =
-			this.props.logoImg +
-			(this.props.logoImg.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
-		let iconPath =
-			this.props.iconImg +
-			(this.props.iconImg.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
+		let iconImg_tier1 = null;
+		let iconImg_tier2 = null;
+		let iconImg_tier3 = null;
+		if (this.props.isHardware) {
+			iconImg_tier1 = url.resolve(
+				this.props.imagesPathSVG,
+				string_hardware_tier_1_img
+			);
+			iconImg_tier2 = url.resolve(
+				this.props.imagesPathSVG,
+				string_hardware_tier_2_img
+			);
+			iconImg_tier3 = url.resolve(
+				this.props.imagesPathSVG,
+				string_hardware_tier_3_img
+			);
+		} else {
+			iconImg_tier1 = url.resolve(
+				this.props.imagesPathSVG,
+				string_settings_tier_1_img
+			);
+			iconImg_tier2 = url.resolve(
+				this.props.imagesPathSVG,
+				string_settings_tier_2_img
+			);
+			iconImg_tier3 = url.resolve(
+				this.props.imagesPathSVG,
+				string_settings_tier_3_img
+			);
+		}
+		let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_no_bk);
 
+		let logoPath =
+			logoImg +
+			(logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 		let tiers = [];
 		tierList.forEach((tier) => {
 			let index = tier.Index - 1;
+			let iconImg = null;
+			if (tier === 1) {
+				iconImg = iconImg_tier1;
+			} else if (tier === 2) {
+				iconImg = iconImg_tier2;
+			} else {
+				iconImg = iconImg_tier3;
+			}
+			let iconPath =
+				iconPath +
+				(iconImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 			//let regex = /(\[|\])/gi;
 			// let minComp = tier.MinimumComponentsList.replace(regex, "").replace(
 			// 	"||",
@@ -156,11 +199,7 @@ export default class TierSelector extends React.PureComponent {
 						>
 							{
 								<div style={buttonsInnerContainer}>
-									<img
-										src={iconPath}
-										alt={this.props.iconImg}
-										style={styleIconImage}
-									/>
+									<img src={iconPath} alt={iconImg} style={styleIconImage} />
 									<div style={buttonsInnerTextContainer}>
 										<h2 style={styleText_1}>{tier.Name}</h2>
 										<p style={styleText_2}>{tier.Description}</p>
@@ -177,12 +216,10 @@ export default class TierSelector extends React.PureComponent {
 			tiers[index] = button;
 		});
 
-		let backImgPath_tmp = url.resolve(this.props.imagesPath, string_back_img);
-		let backImgPath =
-			backImgPath_tmp +
-			(backImgPath_tmp.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
+		let homeImg = url.resolve(this.props.imagesPathSVG, string_home_circle_img);
+		let homeImgPath =
+			homeImg +
+			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 		let backText = "Home";
 		let homeButton = (
 			<PopoverTooltip
@@ -206,11 +243,7 @@ export default class TierSelector extends React.PureComponent {
 								//gap: "10px",
 							}}
 						>
-							<img
-								src={backImgPath}
-								alt={backImgPath_tmp}
-								style={styleImageBk}
-							/>
+							<img src={homeImgPath} alt={homeImg} style={styleImageIcon} />
 							{backText}
 						</div>
 					</Button>
