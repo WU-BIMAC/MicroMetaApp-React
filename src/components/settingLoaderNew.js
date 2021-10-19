@@ -7,13 +7,13 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
+const url = require("url");
+
 import {
 	isDefined,
 	validateMicroscope,
 	validateAcquisitionSettings,
 } from "../genericUtilities";
-
-const url = require("url");
 
 import {
 	string_json_ext,
@@ -1028,6 +1028,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						<ToggleButton
 							id="rso-radio-1"
 							key="rso-radio-1"
+							type="radio"
 							value={1}
 							disabled={step1Disabled}
 							variant={variant_1}
@@ -1050,6 +1051,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						<ToggleButton
 							id="rso-radio-2"
 							key="rso-radio-2"
+							type="radio"
 							value={2}
 							disabled={step2Disabled}
 							variant={variant_2}
@@ -1072,6 +1074,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						<ToggleButton
 							id="rso-radio-3"
 							key="rso-radio-3"
+							type="radio"
 							value={3}
 							disabled={step3Disabled}
 							variant={variant_3}
@@ -1882,12 +1885,12 @@ export default class MicroscopeLoader extends React.PureComponent {
 								//gap: "10px",
 							}}
 						>
+							{continueLabel}
 							<img
 								src={forwardImgPath}
 								alt={forwardImg}
 								style={styleImageIcon}
 							/>
-							{continueLabel}
 						</div>
 					</Button>
 				}

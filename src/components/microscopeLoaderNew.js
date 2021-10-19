@@ -30,6 +30,7 @@ import {
 	create_mode_continue_tooltip,
 	home_tooltip,
 	string_logo_img_no_bk,
+	string_next_img,
 	string_home_circle_img,
 	string_dropbox_hardware_new,
 	string_dropbox_hardware_replace,
@@ -487,6 +488,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						<ToggleButton
 							id="rso-radio-1"
 							key="rso-radio-1"
+							type="radio"
 							value={1}
 							disabled={step1Disabled}
 							variant={variant_1}
@@ -835,6 +837,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 			(modeSelection === string_loadFromHomeFolder && filename === null)
 		)
 			disabled = true;
+
+		let forwardImg = url.resolve(this.props.imagesPathSVG, string_next_img);
+		let forwardImgPath =
+			forwardImg +
+			(forwardImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 		buttons.push(
 			<PopoverTooltip
 				key={"button-continue"}
@@ -848,7 +857,21 @@ export default class MicroscopeLoader extends React.PureComponent {
 						size="lg"
 						disabled={disabled}
 					>
-						Continue
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+								//gap: "10px",
+							}}
+						>
+							Continue
+							<img
+								src={forwardImgPath}
+								alt={forwardImg}
+								style={styleImageIcon}
+							/>
+						</div>
 					</Button>
 				}
 			/>

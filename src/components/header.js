@@ -7,6 +7,8 @@ import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
+const url = require("url");
+
 import {
 	help_tooltip,
 	string_validationTier,

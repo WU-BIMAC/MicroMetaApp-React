@@ -2895,9 +2895,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					<ModeSelector
 						imagesPathPNG={imagesPathPNG}
 						imagesPathSVG={imagesPathSVG}
-						logoImg={logoImg}
-						hardwareImg={hardwareImg}
-						settingsImg={settingsImg}
 						// onClickLoadSchema={this.handleLoadSchema}
 						// onClickLoadDimensions={this.handleLoadDimensions}
 						// onClickLoadMicroscopes={this.handleLoadMicroscopes}

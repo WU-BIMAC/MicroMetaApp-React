@@ -2,6 +2,8 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
+const url = require("url");
+
 import { number_logo_width, number_logo_height,string_logo_img_micro_bk} from "../constants";
 
 export default class DataLoader extends React.PureComponent {

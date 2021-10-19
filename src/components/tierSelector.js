@@ -9,7 +9,6 @@ import {
 	number_small_logo_width,
 	number_small_logo_height,
 	tier_selector_tooltip,
-	string_back_img,
 	home_tooltip,
 	string_logo_img_no_bk,
 	string_home_circle_img,
@@ -166,15 +165,15 @@ export default class TierSelector extends React.PureComponent {
 		tierList.forEach((tier) => {
 			let index = tier.Index - 1;
 			let iconImg = null;
-			if (tier === 1) {
+			if (tier.Index === 1) {
 				iconImg = iconImg_tier1;
-			} else if (tier === 2) {
+			} else if (tier.Index === 2) {
 				iconImg = iconImg_tier2;
 			} else {
 				iconImg = iconImg_tier3;
 			}
 			let iconPath =
-				iconPath +
+				iconImg +
 				(iconImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 			//let regex = /(\[|\])/gi;
 			// let minComp = tier.MinimumComponentsList.replace(regex, "").replace(

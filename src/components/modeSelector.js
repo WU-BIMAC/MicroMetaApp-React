@@ -2,6 +2,8 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import PopoverTooltip from "./popoverTooltip";
 
+const url = require("url");
+
 import {
 	number_logo_width,
 	number_logo_height,
