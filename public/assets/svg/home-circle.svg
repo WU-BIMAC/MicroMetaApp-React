@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="52" height="52" viewBox="0 0 52 52">
+  <defs>
+    <clipPath id="clip-Home_In_Circle">
+      <rect width="52" height="52"/>
+    </clipPath>
+  </defs>
+  <g id="Home_In_Circle" clip-path="url(#clip-Home_In_Circle)">
+    <path id="home-solid" d="M17.393,39.265,5.946,48.693V58.868a.993.993,0,0,0,.993.993l6.957-.018a.993.993,0,0,0,.988-.993V52.908a.993.993,0,0,1,.993-.993h3.974a.993.993,0,0,1,.993.993v5.938a.993.993,0,0,0,.993,1l6.955.019a.993.993,0,0,0,.993-.993V48.686L18.343,39.265a.757.757,0,0,0-.95,0Zm18.081,6.408-5.19-4.278V32.8a.745.745,0,0,0-.745-.745H26.062a.745.745,0,0,0-.745.745V37.3L19.758,32.73a2.98,2.98,0,0,0-3.787,0L.255,45.673a.745.745,0,0,0-.1,1.049l1.583,1.925a.745.745,0,0,0,1.05.1l14.6-12.029a.757.757,0,0,1,.95,0l14.6,12.029a.745.745,0,0,0,1.049-.1l1.583-1.925a.745.745,0,0,0-.106-1.051Z" transform="translate(8.044 -19.53)"/>
+    <g id="Ellipse_15" data-name="Ellipse 15" fill="none" stroke="#000" stroke-width="2">
+      <circle cx="26" cy="26" r="26" stroke="none"/>
+      <circle cx="26" cy="26" r="25" fill="none"/>
+    </g>
+  </g>
+</svg>

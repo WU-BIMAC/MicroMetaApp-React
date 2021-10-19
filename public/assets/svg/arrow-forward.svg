@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="52" height="52" viewBox="0 0 52 52">
+  <defs>
+    <clipPath id="clip-Forward_Arrow">
+      <rect width="52" height="52"/>
+    </clipPath>
+  </defs>
+  <g id="Forward_Arrow" clip-path="url(#clip-Forward_Arrow)">
+    <path id="arrow-circle-left-solid" d="M34,60A26,26,0,1,1,60,34,26,26,0,0,1,34,60Zm3.03-15.055-7.915-7.59H48.258a2.51,2.51,0,0,0,2.516-2.516V33.161a2.51,2.51,0,0,0-2.516-2.516H29.115l7.915-7.59a2.519,2.519,0,0,0,.042-3.6l-1.153-1.143a2.506,2.506,0,0,0-3.554,0l-13.912,13.9a2.506,2.506,0,0,0,0,3.554L32.365,49.684a2.506,2.506,0,0,0,3.554,0l1.153-1.143A2.519,2.519,0,0,0,37.03,44.945Z" transform="translate(60 60) rotate(180)" fill="#151414"/>
+  </g>
+</svg>
