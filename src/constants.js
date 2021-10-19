@@ -23,16 +23,24 @@ export const string_logo_img_no_bk = "MicroMetaApp_noBkg_noOutline.png";
 export const string_logo_img_cell_bk = "MicroMetaApp_cellBkg.png";
 export const string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_2.png";
 
-export const string_back_img = "arrow-circle-left-solid.svg";
+export const string_add_img = "add-button.svg";
+export const string_home_circle_img = "home-circle.svg";
+export const string_back_img = "arrow-back.svg";
+export const string_next_img = "arrow-forward.svg";
 export const string_save_img = "save-solid.svg";
 export const string_export_img = "file-export-solid.svg";
 export const string_import_img = "file-import-solid.svg";
 export const string_microscope_img = "microscope-solid.svg";
-export const string_manage_hardware_img = "microscope-large.svg";
-export const string_manage_settings_img = "setting-large.svg";
-export const string_manage_hardware_circle_img = "microscope-large-circle.svg";
-export const string_manage_settings_circle_img = "setting-large-circle.svg";
+export const string_manage_hardware_circle_img = "hardware-large-circle.svg";
+export const string_manage_settings_circle_img = "settings-large-circle.svg";
 export const string_help_img = "question-mark-small.svg";
+
+export const string_hardware_tier_1_img = "hardware-tier-1.svg";
+export const string_hardware_tier_2_img = "hardware-tier-2.svg";
+export const string_hardware_tier_3_img = "hardware-tier-3.svg";
+export const string_settings_tier_1_img = "settings-tier-1.svg";
+export const string_settings_tier_2_img = "settings-tier-2.svg";
+export const string_settings_tier_3_img = "settings-tier-3.svg";
 
 export const string_createFromScratch = "Create # from scratch";
 export const string_createFromFile = "Import from file";
@@ -43,6 +51,19 @@ export const string_noImageLoad = "Skip load Image";
 export const string_validationTier = "Validate @ tier: ";
 
 export const string_typeDimensionsGeneral = "General";
+
+export const string_dropbox_hardware_new =
+	"Click and select, or drag a file here to load an existing Microscope file you want to work with.";
+export const string_dropbox_hardware_replace =
+	"Click and select, or drag a file here to replace the currently selected Microscope file.";
+export const string_dropbox_image_new =
+	"Click and select, or drag a file here to load an existing Image data file you want to work with.";
+export const string_dropbox_image_replace =
+	"Click and select, or drag a file here to replace the currently selected Image data file.";
+export const string_dropbox_settings_new =
+	"Click and select, or drag a file here to load an existing Settings file you want to work with.";
+export const string_dropbox_settings_replace =
+	"Click and select, or drag a file here to replace the currently selected Settings file.";
 
 export const number_logo_width = 800;
 export const number_logo_height = 280;
@@ -258,6 +279,54 @@ export const menu_order = [
 export const string_bandpass_warning =
 	"PLEASE NOTE: If the number of WavelengthRange modules or sub-components (e.g., LEDModule) is changed, all values entered but not yet confirmed will be lost.";
 
+export const hardware_hardware_step_tooltip = {
+	title: "Microscope file selection options",
+	content: (
+		<p>
+			In this Step, you can select the source of your Microscope file. Options
+			include: creating a brand new file from scratch, importing a file from
+			outside the App, or loading a file that is already present in your local
+			home folder.
+		</p>
+	),
+	position: "bottom",
+};
+export const settings_hardware_step_tooltip = {
+	title: "Microscope file selection options",
+	content: (
+		<p>
+			In this Step, you can select the source of your Microscope file. Options
+			include: importing a file from outside the App, or loading a file that is
+			already present in your local home folder.
+		</p>
+	),
+	position: "bottom",
+};
+export const settings_image_step_tooltip = {
+	title: "Image file selection options",
+	content: (
+		<p>
+			In this Step, you can choose whether you want to load an existing image
+			data file to document. You can also proceed without loading any images and
+			skip this step.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const settings_settings_step_tooltip = {
+	title: "Settings file selection options",
+	content: (
+		<p>
+			In this Step, you can select the source of your Settings file. Options
+			include: creating a brand new file from scratch, importing a file from
+			outside the App, or loading a file that is already present in your local
+			home folder.
+		</p>
+	),
+	position: "bottom",
+};
+
 export const help_tooltip = {
 	title: "Help",
 	content: (
@@ -317,8 +386,7 @@ export const microscope_loader_scratch_inverted = {
 	title: "Create Inverted Microscope",
 	content: (
 		<p>
-			'Create Inverted from scratch' allows you to create a brand new Inverted
-			Microscope file from scratch.
+			Click here to create a brand new Inverted Microscope file from scratch.
 		</p>
 	),
 	position: "bottom",
@@ -327,8 +395,7 @@ export const microscope_loader_scratch_upright = {
 	title: "Create Upright Microscope",
 	content: (
 		<p>
-			'Create Upright from scratch' allows you to create a brand new Inverted
-			Microscope file from scratch.
+			Click here to create a brand new Upright Microscope file from scratch.
 		</p>
 	),
 	position: "bottom",
@@ -338,9 +405,9 @@ export const microscope_loader_load_from_file = {
 	title: "Import from file",
 	content: (
 		<p>
-			'Import from file' allows you to import into Micro-Meta App a previously
-			available Microscope file (i.e., an example file, a template file, or an
-			existing Microscope file shared by a colleague) to edit.
+			"Click here to import into Micro-Meta App a previously available
+			Microscope file to edit (e.g., an example file, a template file, or an
+			existing Microscope file shared with you by a colleague).
 		</p>
 	),
 	position: "bottom",
@@ -350,9 +417,8 @@ export const microscope_loader_load_from_homeFolder = {
 	title: "Load from local home folder",
 	content: (
 		<p>
-			'Load from the local home folder' allows you to load a previously
-			available Microscope file, respectively, from the active Micro-Meta local
-			home folder.
+			Click here to load an existing Microscope file from the active Micro-Meta
+			App home folder.
 		</p>
 	),
 	position: "bottom",
@@ -362,8 +428,7 @@ export const microscope_loader_load_from_repo = {
 	title: "Load from repository",
 	content: (
 		<p>
-			'Load from repository' allows you to load a previously available
-			Microscope file, respectively, from the active Micro-Meta App repository.
+			Click here to load an existing Microscope file from the active repository.
 		</p>
 	),
 	position: "bottom",
@@ -400,12 +465,7 @@ export const create_mode_selector_settings_tooltip = {
 
 export const setting_loader_scratch = {
 	title: "Create Setting",
-	content: (
-		<p>
-			'Create from scratch' allows you to create a brand new Settings file from
-			scratch.
-		</p>
-	),
+	content: <p>Click here to create a brand new Settings file from scratch.</p>,
 	position: "bottom",
 };
 
@@ -413,9 +473,9 @@ export const setting_loader_load_from_file = {
 	title: "Import from file",
 	content: (
 		<p>
-			'Import from file' allows you to import into Micro-Meta App a previously
-			available Settings file (i.e., an example file, a template file, or an
-			existing Settings file shared by a colleague) to edit.
+			Click here to import into Micro-Meta App a previously available Settings
+			file to edit (e.g., an example file, a template file, or an existing
+			Settings file shared with you by a colleague).
 		</p>
 	),
 	position: "bottom",
@@ -425,9 +485,8 @@ export const setting_loader_load_from_homeFolder = {
 	title: "Load from local home folder",
 	content: (
 		<p>
-			'Load from the local home folder' allows you to load a previously
-			available Settings file, respectively, from the active Micro-Meta local
-			home folder.
+			Click here to load an existing Settings file from the active Micro-Meta
+			App home folder.
 		</p>
 	),
 	position: "bottom",
@@ -437,8 +496,7 @@ export const setting_loader_load_from_repo = {
 	title: "Load from repository",
 	content: (
 		<p>
-			'Load from repository' allows you to load a previously available Settings
-			file, respectively, from the active Micro-Meta App repository.
+			Click here to load an existing Settings file from the active repository.
 		</p>
 	),
 	position: "bottom",
@@ -463,13 +521,18 @@ export const createSettings_mode_selector_tooltip = {
 
 export const loadImage_load_tooltip = {
 	title: "Load image ",
-	content: <p>Enable the selection of the Image file you wish to work with.</p>,
+	content: (
+		<p>
+			Click here to import into Micro-Meta App the Image data file you wish to
+			work with.
+		</p>
+	),
 	position: "bottom",
 };
 
 export const loadImage_skip_tooltip = {
 	title: "Skip load image ",
-	content: <p>Select 'Skip load image' to continue without an Image.</p>,
+	content: <p>Click here to continue without an Image data file.</p>,
 	position: "bottom",
 };
 
@@ -504,13 +567,15 @@ export const loadImage_from_file_tooltip = {
 
 export const create_from_repo_manufacturer_tooltip = {
 	title: "Select Manufacturer",
-	content: <p>Select the Manufacturer of the Microscope you want to load.</p>,
+	content: (
+		<p>Select the Manufacturer for the Microscope you want to document.</p>
+	),
 	position: "bottom",
 };
 
 export const create_from_repo_names_tooltip = {
 	title: "Select Microscope",
-	content: <p>Select the Microscope you want to load.</p>,
+	content: <p>Select the Microscope you want to document.</p>,
 	position: "bottom",
 };
 
@@ -653,9 +718,9 @@ export const save_component_tooltip = {
 	content: (
 		<p>
 			Save the JSON file for this Component to the active Micro-Meta App
-			repository or to the local home folder. You have one of two options: 1)
-			'Save' allows to save the Component JSON file in its current status. 2)
-			'Save as new' allows to save the Component JSON file with a new Unique ID.
+			pository or to the local home folder. You have one of two options: 1) 've'
+			allows to save the Component JSON file in its current status. 2) 've as
+			new' allows to save the Component JSON file with a new Unique ID.
 		</p>
 	),
 	position: "top",
