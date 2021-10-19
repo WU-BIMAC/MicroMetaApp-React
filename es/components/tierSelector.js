@@ -146,18 +146,43 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "5px",
         marginRight: "5px"
       };
-      var styleImageBk = {
+      var styleImageIcon = {
         width: "20px",
         height: "20px",
         marginLeft: "10px",
         marginRight: "10px"
       };
       var tierList = this.props.tierList;
-      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var iconPath = this.props.iconImg + (this.props.iconImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var iconImg_tier1 = null;
+      var iconImg_tier2 = null;
+      var iconImg_tier3 = null;
+
+      if (this.props.isHardware) {
+        iconImg_tier1 = url.resolve(this.props.imagesPathSVG, _constants.string_hardware_tier_1_img);
+        iconImg_tier2 = url.resolve(this.props.imagesPathSVG, _constants.string_hardware_tier_2_img);
+        iconImg_tier3 = url.resolve(this.props.imagesPathSVG, _constants.string_hardware_tier_3_img);
+      } else {
+        iconImg_tier1 = url.resolve(this.props.imagesPathSVG, _constants.string_settings_tier_1_img);
+        iconImg_tier2 = url.resolve(this.props.imagesPathSVG, _constants.string_settings_tier_2_img);
+        iconImg_tier3 = url.resolve(this.props.imagesPathSVG, _constants.string_settings_tier_3_img);
+      }
+
+      var logoImg = url.resolve(this.props.imagesPathPNG, _constants.string_logo_img_no_bk);
+      var logoPath = logoImg + (logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var tiers = [];
       tierList.forEach(function (tier) {
-        var index = tier.Index - 1; //let regex = /(\[|\])/gi;
+        var index = tier.Index - 1;
+        var iconImg = null;
+
+        if (tier.Index === 1) {
+          iconImg = iconImg_tier1;
+        } else if (tier.Index === 2) {
+          iconImg = iconImg_tier2;
+        } else {
+          iconImg = iconImg_tier3;
+        }
+
+        var iconPath = iconImg + (iconImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""); //let regex = /(\[|\])/gi;
         // let minComp = tier.MinimumComponentsList.replace(regex, "").replace(
         // 	"||",
         // 	"or"
@@ -180,7 +205,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
             style: buttonsInnerContainer
           }, /*#__PURE__*/_react.default.createElement("img", {
             src: iconPath,
-            alt: _this.props.iconImg,
+            alt: iconImg,
             style: styleIconImage
           }), /*#__PURE__*/_react.default.createElement("div", {
             style: buttonsInnerTextContainer
@@ -193,8 +218,8 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
 
         tiers[index] = button;
       });
-      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
-      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var homeImg = url.resolve(this.props.imagesPathSVG, _constants.string_home_circle_img);
+      var homeImgPath = homeImg + (homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var backText = "Home";
 
       var homeButton = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -218,9 +243,9 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
 
           }
         }, /*#__PURE__*/_react.default.createElement("img", {
-          src: backImgPath,
-          alt: backImgPath_tmp,
-          style: styleImageBk
+          src: homeImgPath,
+          alt: homeImg,
+          style: styleImageIcon
         }), backText))
       }); //handleMenuItemClick={this.props.onClickTierSelection}
 

@@ -37,6 +37,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+var url = require("url");
+
 var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(ModeSelector, _React$PureComponent);
 
@@ -217,8 +219,7 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
       // let isTierListLoaded = this.state.isTierListLoaded;
       // let isHandlingMicPreset = this.state.isHandlingMicPreset;
       // let isHandledMicPreset = this.state.isHandledMicPreset;
-
-      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""); // if (this.props.is4DNPortal) {
+      // if (this.props.is4DNPortal) {
       // 	if (
       // 		!isSchemaLoaded ||
       // 		!isDimensionsLoaded ||
@@ -420,8 +421,12 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
       // 	selectionEnabled = false;
       // }
 
-      var hardwareImgPath = this.props.hardwareImg + (this.props.hardwareImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var settingsImgPath = this.props.settingsImg + (this.props.settingsImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var logoImg = url.resolve(this.props.imagesPathPNG, _constants.string_logo_img_micro_bk);
+      var hardwareImg = url.resolve(this.props.imagesPathSVG, _constants.string_manage_hardware_circle_img);
+      var settingsImg = url.resolve(this.props.imagesPathSVG, _constants.string_manage_settings_circle_img);
+      var logoPath = logoImg + (logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var hardwareImgPath = hardwareImg + (hardwareImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var settingsImgPath = settingsImg + (settingsImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       return /*#__PURE__*/_react.default.createElement("div", {
         style: windowExternalContainer
       }, /*#__PURE__*/_react.default.createElement("div", {
@@ -430,7 +435,7 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
         style: styleImageContainer
       }, /*#__PURE__*/_react.default.createElement("img", {
         src: logoPath,
-        alt: this.props.logoImg,
+        alt: logoImg,
         style: styleImage
       }))), /*#__PURE__*/_react.default.createElement("div", {
         style: windowModeSelectorContainer
@@ -469,7 +474,7 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
           style: buttonsInnerContainer
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: settingsImgPath,
-          alt: this.props.settingsImg,
+          alt: settingsImg,
           style: styleIconImage
         }), /*#__PURE__*/_react.default.createElement("h2", {
           style: styleText_1

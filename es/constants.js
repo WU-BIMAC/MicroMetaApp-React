@@ -3,8 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.save_component_tooltip = exports.validation_setting_tooltip = exports.validation_microscope_tooltip = exports.edit_setting_tooltip = exports.edit_microscope_tooltip = exports.home_tooltip = exports.back_tooltip = exports.next_tooltip = exports.import_tooltip = exports.loadImage_mode_continue_tooltip = exports.createSettings_mode_continue_tooltip = exports.create_mode_continue_settings_tooltip = exports.create_mode_continue_tooltip = exports.loadImage_from_names_tooltip = exports.createSettings_from_repo_names_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = exports.loadImage_from_file_tooltip = exports.createSettings_from_file_tooltip = exports.create_from_file_tooltip = exports.loadImage_mode_selector_tooltip = exports.loadImage_skip_tooltip = exports.loadImage_load_tooltip = exports.createSettings_mode_selector_tooltip = exports.setting_loader_load_from_repo = exports.setting_loader_load_from_homeFolder = exports.setting_loader_load_from_file = exports.setting_loader_scratch = exports.create_mode_selector_settings_tooltip = exports.create_mode_selector_tooltip = exports.microscope_loader_load_from_repo = exports.microscope_loader_load_from_homeFolder = exports.microscope_loader_load_from_file = exports.microscope_loader_scratch_upright = exports.microscope_loader_scratch_inverted = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.help_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_8 = exports.channelPath_Additional_7 = exports.channelPath_Additional_3_4_5_6 = exports.channelPath_Additional_2 = exports.channelPath_Additional_1 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.channelPath_LightSource = exports.channelPath_Detector = exports.channelPath_RelayLens = exports.channelPath_CouplingLens = exports.channelPath_LightSourceCoupling = exports.channelPath_Objective = exports.matchSettings = exports.current_stands = exports.number_max_name_length = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_height = exports.number_canvas_element_min_width = exports.number_small_logo_height = exports.number_small_logo_width = exports.number_logo_height = exports.number_logo_width = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_noImageLoad = exports.string_loadFromHomeFolder = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_help_img = exports.string_manage_settings_circle_img = exports.string_manage_hardware_circle_img = exports.string_manage_settings_img = exports.string_manage_hardware_img = exports.string_microscope_img = exports.string_import_img = exports.string_export_img = exports.string_save_img = exports.string_back_img = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = void 0;
-exports.select_additional_right = exports.select_additional_left = exports.select_emission = exports.select_dichroic = exports.select_excitation = exports.select_detector = exports.select_relayLens = exports.select_lightSourceCoupling = exports.select_couplingLens = exports.select_lightSource = exports.edit_channel_settings = exports.edit_channel = exports.edit_plane = exports.remove_channel = exports.add_channel = exports.remove_plane = exports.add_plane = exports.add_multi_planes = exports.edit_mic_table_settings = exports.edit_sample_pos_settings = exports.edit_obj_settings = exports.edit_mic_settings = exports.edit_img_env_settings = exports.edit_channels = exports.edit_planes = exports.hardware_explorer_tooltip = exports.export_setting_tooltip = exports.save_setting_tooltip = exports.export_microscope_tooltip = exports.save_microscope_tooltip = exports.export_component_tooltip = void 0;
+exports.loadImage_from_file_tooltip = exports.createSettings_from_file_tooltip = exports.create_from_file_tooltip = exports.loadImage_mode_selector_tooltip = exports.loadImage_skip_tooltip = exports.loadImage_load_tooltip = exports.createSettings_mode_selector_tooltip = exports.setting_loader_load_from_repo = exports.setting_loader_load_from_homeFolder = exports.setting_loader_load_from_file = exports.setting_loader_scratch = exports.create_mode_selector_settings_tooltip = exports.create_mode_selector_tooltip = exports.microscope_loader_load_from_repo = exports.microscope_loader_load_from_homeFolder = exports.microscope_loader_load_from_file = exports.microscope_loader_scratch_upright = exports.microscope_loader_scratch_inverted = exports.manage_settings_tooltip = exports.manage_instrument_tooltip = exports.tier_selector_tooltip = exports.help_tooltip = exports.settings_settings_step_tooltip = exports.settings_image_step_tooltip = exports.settings_hardware_step_tooltip = exports.hardware_hardware_step_tooltip = exports.string_bandpass_warning = exports.menu_order = exports.channelPath_Additional_8 = exports.channelPath_Additional_7 = exports.channelPath_Additional_3_4_5_6 = exports.channelPath_Additional_2 = exports.channelPath_Additional_1 = exports.channelPath_Emission = exports.channelPath_Dichroic = exports.channelPath_Excitation = exports.channelPath_LightSource = exports.channelPath_Detector = exports.channelPath_RelayLens = exports.channelPath_CouplingLens = exports.channelPath_LightSourceCoupling = exports.channelPath_Objective = exports.matchSettings = exports.current_stands = exports.number_max_name_length = exports.number_canvas_element_offset_default = exports.number_canvas_element_icons_height = exports.number_canvas_element_min_height = exports.number_canvas_element_min_width = exports.number_small_logo_height = exports.number_small_logo_width = exports.number_logo_height = exports.number_logo_width = exports.string_dropbox_settings_replace = exports.string_dropbox_settings_new = exports.string_dropbox_image_replace = exports.string_dropbox_image_new = exports.string_dropbox_hardware_replace = exports.string_dropbox_hardware_new = exports.string_typeDimensionsGeneral = exports.string_validationTier = exports.string_noImageLoad = exports.string_loadFromHomeFolder = exports.string_loadFromRepository = exports.string_createFromFile = exports.string_createFromScratch = exports.string_settings_tier_3_img = exports.string_settings_tier_2_img = exports.string_settings_tier_1_img = exports.string_hardware_tier_3_img = exports.string_hardware_tier_2_img = exports.string_hardware_tier_1_img = exports.string_help_img = exports.string_manage_settings_circle_img = exports.string_manage_hardware_circle_img = exports.string_microscope_img = exports.string_import_img = exports.string_export_img = exports.string_save_img = exports.string_next_img = exports.string_back_img = exports.string_home_circle_img = exports.string_add_img = exports.string_logo_img_micro_bk = exports.string_logo_img_cell_bk = exports.string_logo_img_no_bk = exports.string_json_ext = exports.string_maxNumberOf_identifier = exports.string_minNumberOf_identifier = exports.string_currentNumberOf_identifier = exports.string_linkedFields = exports.string_toolbar = exports.string_canvas = exports.string_array = exports.string_object = exports.string_enumNames = exports.string_enum = exports.string_default = exports.string_not_assigned = exports.string_na = void 0;
+exports.select_additional_right = exports.select_additional_left = exports.select_emission = exports.select_dichroic = exports.select_excitation = exports.select_detector = exports.select_relayLens = exports.select_lightSourceCoupling = exports.select_couplingLens = exports.select_lightSource = exports.edit_channel_settings = exports.edit_channel = exports.edit_plane = exports.remove_channel = exports.add_channel = exports.remove_plane = exports.add_plane = exports.add_multi_planes = exports.edit_mic_table_settings = exports.edit_sample_pos_settings = exports.edit_obj_settings = exports.edit_mic_settings = exports.edit_img_env_settings = exports.edit_channels = exports.edit_planes = exports.hardware_explorer_tooltip = exports.export_setting_tooltip = exports.save_setting_tooltip = exports.export_microscope_tooltip = exports.save_microscope_tooltip = exports.export_component_tooltip = exports.save_component_tooltip = exports.validation_setting_tooltip = exports.validation_microscope_tooltip = exports.edit_setting_tooltip = exports.edit_microscope_tooltip = exports.home_tooltip = exports.back_tooltip = exports.next_tooltip = exports.import_tooltip = exports.loadImage_mode_continue_tooltip = exports.createSettings_mode_continue_tooltip = exports.create_mode_continue_settings_tooltip = exports.create_mode_continue_tooltip = exports.loadImage_from_names_tooltip = exports.createSettings_from_repo_names_tooltip = exports.create_from_repo_names_tooltip = exports.create_from_repo_manufacturer_tooltip = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -44,8 +44,14 @@ var string_logo_img_cell_bk = "MicroMetaApp_cellBkg.png";
 exports.string_logo_img_cell_bk = string_logo_img_cell_bk;
 var string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_2.png";
 exports.string_logo_img_micro_bk = string_logo_img_micro_bk;
-var string_back_img = "arrow-circle-left-solid.svg";
+var string_add_img = "add-button.svg";
+exports.string_add_img = string_add_img;
+var string_home_circle_img = "home-circle.svg";
+exports.string_home_circle_img = string_home_circle_img;
+var string_back_img = "arrow-back.svg";
 exports.string_back_img = string_back_img;
+var string_next_img = "arrow-forward.svg";
+exports.string_next_img = string_next_img;
 var string_save_img = "save-solid.svg";
 exports.string_save_img = string_save_img;
 var string_export_img = "file-export-solid.svg";
@@ -54,16 +60,24 @@ var string_import_img = "file-import-solid.svg";
 exports.string_import_img = string_import_img;
 var string_microscope_img = "microscope-solid.svg";
 exports.string_microscope_img = string_microscope_img;
-var string_manage_hardware_img = "microscope-large.svg";
-exports.string_manage_hardware_img = string_manage_hardware_img;
-var string_manage_settings_img = "setting-large.svg";
-exports.string_manage_settings_img = string_manage_settings_img;
-var string_manage_hardware_circle_img = "microscope-large-circle.svg";
+var string_manage_hardware_circle_img = "hardware-large-circle.svg";
 exports.string_manage_hardware_circle_img = string_manage_hardware_circle_img;
-var string_manage_settings_circle_img = "setting-large-circle.svg";
+var string_manage_settings_circle_img = "settings-large-circle.svg";
 exports.string_manage_settings_circle_img = string_manage_settings_circle_img;
 var string_help_img = "question-mark-small.svg";
 exports.string_help_img = string_help_img;
+var string_hardware_tier_1_img = "hardware-tier-1.svg";
+exports.string_hardware_tier_1_img = string_hardware_tier_1_img;
+var string_hardware_tier_2_img = "hardware-tier-2.svg";
+exports.string_hardware_tier_2_img = string_hardware_tier_2_img;
+var string_hardware_tier_3_img = "hardware-tier-3.svg";
+exports.string_hardware_tier_3_img = string_hardware_tier_3_img;
+var string_settings_tier_1_img = "settings-tier-1.svg";
+exports.string_settings_tier_1_img = string_settings_tier_1_img;
+var string_settings_tier_2_img = "settings-tier-2.svg";
+exports.string_settings_tier_2_img = string_settings_tier_2_img;
+var string_settings_tier_3_img = "settings-tier-3.svg";
+exports.string_settings_tier_3_img = string_settings_tier_3_img;
 var string_createFromScratch = "Create # from scratch";
 exports.string_createFromScratch = string_createFromScratch;
 var string_createFromFile = "Import from file";
@@ -78,6 +92,18 @@ var string_validationTier = "Validate @ tier: ";
 exports.string_validationTier = string_validationTier;
 var string_typeDimensionsGeneral = "General";
 exports.string_typeDimensionsGeneral = string_typeDimensionsGeneral;
+var string_dropbox_hardware_new = "Click and select, or drag a file here to load an existing Microscope file you want to work with.";
+exports.string_dropbox_hardware_new = string_dropbox_hardware_new;
+var string_dropbox_hardware_replace = "Click and select, or drag a file here to replace the currently selected Microscope file.";
+exports.string_dropbox_hardware_replace = string_dropbox_hardware_replace;
+var string_dropbox_image_new = "Click and select, or drag a file here to load an existing Image data file you want to work with.";
+exports.string_dropbox_image_new = string_dropbox_image_new;
+var string_dropbox_image_replace = "Click and select, or drag a file here to replace the currently selected Image data file.";
+exports.string_dropbox_image_replace = string_dropbox_image_replace;
+var string_dropbox_settings_new = "Click and select, or drag a file here to load an existing Settings file you want to work with.";
+exports.string_dropbox_settings_new = string_dropbox_settings_new;
+var string_dropbox_settings_replace = "Click and select, or drag a file here to replace the currently selected Settings file.";
+exports.string_dropbox_settings_replace = string_dropbox_settings_replace;
 var number_logo_width = 800;
 exports.number_logo_width = number_logo_width;
 var number_logo_height = 280;
@@ -168,6 +194,30 @@ var menu_order = ["MicroscopyAccessories", "Software", "Transmitted_LightSource"
 exports.menu_order = menu_order;
 var string_bandpass_warning = "PLEASE NOTE: If the number of WavelengthRange modules or sub-components (e.g., LEDModule) is changed, all values entered but not yet confirmed will be lost.";
 exports.string_bandpass_warning = string_bandpass_warning;
+var hardware_hardware_step_tooltip = {
+  title: "Microscope file selection options",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "In this Step, you can select the source of your Microscope file. Options include: creating a brand new file from scratch, importing a file from outside the App, or loading a file that is already present in your local home folder."),
+  position: "bottom"
+};
+exports.hardware_hardware_step_tooltip = hardware_hardware_step_tooltip;
+var settings_hardware_step_tooltip = {
+  title: "Microscope file selection options",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "In this Step, you can select the source of your Microscope file. Options include: importing a file from outside the App, or loading a file that is already present in your local home folder."),
+  position: "bottom"
+};
+exports.settings_hardware_step_tooltip = settings_hardware_step_tooltip;
+var settings_image_step_tooltip = {
+  title: "Image file selection options",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "In this Step, you can choose whether you want to load an existing image data file to document. You can also proceed without loading any images and skip this step."),
+  position: "bottom"
+};
+exports.settings_image_step_tooltip = settings_image_step_tooltip;
+var settings_settings_step_tooltip = {
+  title: "Settings file selection options",
+  content: /*#__PURE__*/_react.default.createElement("p", null, "In this Step, you can select the source of your Settings file. Options include: creating a brand new file from scratch, importing a file from outside the App, or loading a file that is already present in your local home folder."),
+  position: "bottom"
+};
+exports.settings_settings_step_tooltip = settings_settings_step_tooltip;
 var help_tooltip = {
   title: "Help",
   content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to access the Micro-Meta App documentations page and video tutorials."),
@@ -198,31 +248,31 @@ var manage_settings_tooltip = {
 exports.manage_settings_tooltip = manage_settings_tooltip;
 var microscope_loader_scratch_inverted = {
   title: "Create Inverted Microscope",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "'Create Inverted from scratch' allows you to create a brand new Inverted Microscope file from scratch."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to create a brand new Inverted Microscope file from scratch."),
   position: "bottom"
 };
 exports.microscope_loader_scratch_inverted = microscope_loader_scratch_inverted;
 var microscope_loader_scratch_upright = {
   title: "Create Upright Microscope",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "'Create Upright from scratch' allows you to create a brand new Inverted Microscope file from scratch."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to create a brand new Upright Microscope file from scratch."),
   position: "bottom"
 };
 exports.microscope_loader_scratch_upright = microscope_loader_scratch_upright;
 var microscope_loader_load_from_file = {
   title: "Import from file",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "'Import from file' allows you to import into Micro-Meta App a previously available Microscope file (i.e., an example file, a template file, or an existing Microscope file shared by a colleague) to edit."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "\"Click here to import into Micro-Meta App a previously available Microscope file to edit (e.g., an example file, a template file, or an existing Microscope file shared with you by a colleague)."),
   position: "bottom"
 };
 exports.microscope_loader_load_from_file = microscope_loader_load_from_file;
 var microscope_loader_load_from_homeFolder = {
   title: "Load from local home folder",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "'Load from the local home folder' allows you to load a previously available Microscope file, respectively, from the active Micro-Meta local home folder."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to load an existing Microscope file from the active Micro-Meta App home folder."),
   position: "bottom"
 };
 exports.microscope_loader_load_from_homeFolder = microscope_loader_load_from_homeFolder;
 var microscope_loader_load_from_repo = {
   title: "Load from repository",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "'Load from repository' allows you to load a previously available Microscope file, respectively, from the active Micro-Meta App repository."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to load an existing Microscope file from the active repository."),
   position: "bottom"
 };
 exports.microscope_loader_load_from_repo = microscope_loader_load_from_repo;
@@ -240,25 +290,25 @@ var create_mode_selector_settings_tooltip = {
 exports.create_mode_selector_settings_tooltip = create_mode_selector_settings_tooltip;
 var setting_loader_scratch = {
   title: "Create Setting",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "'Create from scratch' allows you to create a brand new Settings file from scratch."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to create a brand new Settings file from scratch."),
   position: "bottom"
 };
 exports.setting_loader_scratch = setting_loader_scratch;
 var setting_loader_load_from_file = {
   title: "Import from file",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "'Import from file' allows you to import into Micro-Meta App a previously available Settings file (i.e., an example file, a template file, or an existing Settings file shared by a colleague) to edit."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to import into Micro-Meta App a previously available Settings file to edit (e.g., an example file, a template file, or an existing Settings file shared with you by a colleague)."),
   position: "bottom"
 };
 exports.setting_loader_load_from_file = setting_loader_load_from_file;
 var setting_loader_load_from_homeFolder = {
   title: "Load from local home folder",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "'Load from the local home folder' allows you to load a previously available Settings file, respectively, from the active Micro-Meta local home folder."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to load an existing Settings file from the active Micro-Meta App home folder."),
   position: "bottom"
 };
 exports.setting_loader_load_from_homeFolder = setting_loader_load_from_homeFolder;
 var setting_loader_load_from_repo = {
   title: "Load from repository",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "'Load from repository' allows you to load a previously available Settings file, respectively, from the active Micro-Meta App repository."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to load an existing Settings file from the active repository."),
   position: "bottom"
 };
 exports.setting_loader_load_from_repo = setting_loader_load_from_repo;
@@ -270,13 +320,13 @@ var createSettings_mode_selector_tooltip = {
 exports.createSettings_mode_selector_tooltip = createSettings_mode_selector_tooltip;
 var loadImage_load_tooltip = {
   title: "Load image ",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Enable the selection of the Image file you wish to work with."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to import into Micro-Meta App the Image data file you wish to work with."),
   position: "bottom"
 };
 exports.loadImage_load_tooltip = loadImage_load_tooltip;
 var loadImage_skip_tooltip = {
   title: "Skip load image ",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Select 'Skip load image' to continue without an Image."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Click here to continue without an Image data file."),
   position: "bottom"
 };
 exports.loadImage_skip_tooltip = loadImage_skip_tooltip;
@@ -306,13 +356,13 @@ var loadImage_from_file_tooltip = {
 exports.loadImage_from_file_tooltip = loadImage_from_file_tooltip;
 var create_from_repo_manufacturer_tooltip = {
   title: "Select Manufacturer",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Select the Manufacturer of the Microscope you want to load."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Select the Manufacturer for the Microscope you want to document."),
   position: "bottom"
 };
 exports.create_from_repo_manufacturer_tooltip = create_from_repo_manufacturer_tooltip;
 var create_from_repo_names_tooltip = {
   title: "Select Microscope",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Select the Microscope you want to load."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Select the Microscope you want to document."),
   position: "bottom"
 };
 exports.create_from_repo_names_tooltip = create_from_repo_names_tooltip;
@@ -410,7 +460,7 @@ var validation_setting_tooltip = {
 exports.validation_setting_tooltip = validation_setting_tooltip;
 var save_component_tooltip = {
   title: "Save component",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Save the JSON file for this Component to the active Micro-Meta App repository or to the local home folder. You have one of two options: 1) 'Save' allows to save the Component JSON file in its current status. 2) 'Save as new' allows to save the Component JSON file with a new Unique ID."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "Save the JSON file for this Component to the active Micro-Meta App pository or to the local home folder. You have one of two options: 1) 've' allows to save the Component JSON file in its current status. 2) 've as new' allows to save the Component JSON file with a new Unique ID."),
   position: "top"
 };
 exports.save_component_tooltip = save_component_tooltip;

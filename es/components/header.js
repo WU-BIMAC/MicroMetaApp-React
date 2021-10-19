@@ -45,6 +45,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+var url = require("url");
+
 var Header = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(Header, _React$PureComponent);
 
@@ -149,8 +151,10 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         fontWeight: "bold",
         textAlign: "center"
       };
-      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var helpPath = this.props.helpImg + (this.props.helpImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var logoImg = url.resolve(this.props.imagesPathPNG, _constants.string_logo_img_no_bk);
+      var helpImg = url.resolve(this.props.imagesPathSVG, _constants.string_help_img);
+      var logoPath = logoImg + (logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var helpPath = helpImg + (helpImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var validated = null;
 
       if (this.props.isSchemaValidated) {

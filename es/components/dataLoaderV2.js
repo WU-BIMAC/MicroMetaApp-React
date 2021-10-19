@@ -37,6 +37,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+var url = require("url");
+
 var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(DataLoader, _React$PureComponent);
 
@@ -355,7 +357,8 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       var isTierListLoaded = this.state.isTierListLoaded;
       var isHandlingMicPreset = this.state.isHandlingMicPreset;
       var isHandledMicPreset = this.state.isHandledMicPreset;
-      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var logoImg = url.resolve(this.props.imagesPathPNG, _constants.string_logo_img_micro_bk);
+      var logoPath = logoImg + (logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var microscopesLabel = isLoadingMicroscopes ? "Loading microscopes: " + this.state.progressValueMicroscopes + "%" : isMicroscopesLoaded ? "Microscopes loaded" : "Load microscopes";
       var settingsLabel = isLoadingSettings ? "Loading settings: " + this.state.progressValueSettings + "%" : isSettingsLoaded ? "Settings loaded" : "Load settings";
       var dimensionsLabel = isLoadingDimensions ? "Loading dimensions: " + this.state.progressValueDimensions + "%" : isDimensionsLoaded ? "Dimensions loaded" : "Load dimensions";

@@ -736,9 +736,11 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
     value: function createAddButton(buttonStyle, addButtonImage, addButtonImageStyle, index, category, isEnabled) {
       var _this2 = this;
 
+      var addButtonImagePath = addButtonImage + (addButtonImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+
       var image = /*#__PURE__*/_react.default.createElement("img", {
-        src: addButtonImage + (addButtonImage.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""),
-        alt: "Add",
+        src: addButtonImagePath,
+        alt: addButtonImage,
         style: addButtonImageStyle
       });
 
@@ -1377,7 +1379,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       var opaqueAddButtonImageStyle = Object.assign({
         opacity: "0.4"
       }, addButtonImageStyle);
-      var addButtonImage = url.resolve(this.props.imagesPath, "AddButton.svg");
+      var addButtonImage = url.resolve(this.props.imagesPath, _constants.string_add_img);
       var hasChannelPath_Additional_1 = false;
       var hasChannelPath_Additional_2 = false;
       var hasChannelPath_Additional_3_4_5_6 = false;

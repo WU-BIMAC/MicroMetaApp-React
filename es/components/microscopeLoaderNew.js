@@ -394,7 +394,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "5px",
         marginRight: "5px"
       };
-      var styleImageBk = {
+      var styleImageIcon = {
         width: "20px",
         height: "20px",
         marginLeft: "10px",
@@ -489,7 +489,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         style: buttonsInnerTextContainer
       }, /*#__PURE__*/_react.default.createElement("h5", {
         style: styleText_1
-      }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
+      }, "1 - Select Microscope file"), /*#__PURE__*/_react.default.createElement("p", {
         style: styleText_3
       }, step1SubText)); // let step2Text = (
       // 	<div style={buttonsInnerTextContainer}>
@@ -504,7 +504,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: buttonsInnerTextContainer
         }, /*#__PURE__*/_react.default.createElement("h4", {
           style: styleText_1
-        }, "1 - Microscope information"), /*#__PURE__*/_react.default.createElement("p", {
+        }, "1 - Select Microscope file"), /*#__PURE__*/_react.default.createElement("p", {
           style: styleText_2
         }, step1SubText));
       } // else {
@@ -524,14 +524,21 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         name: "radio-step-options",
         value: this.state.step,
         onChange: this.handleStepRadioChange
-      }, /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-        id: "rso-radio-1",
-        key: "rso-radio-1",
-        value: 1,
-        disabled: step1Disabled,
-        variant: variant_1,
-        style: step === 1 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
-      }, step1Text));
+      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "popover-step-1",
+        position: _constants.hardware_hardware_step_tooltip.position,
+        title: _constants.hardware_hardware_step_tooltip.title,
+        content: _constants.hardware_hardware_step_tooltip.content,
+        element: /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
+          id: "rso-radio-1",
+          key: "rso-radio-1",
+          type: "radio",
+          value: 1,
+          disabled: step1Disabled,
+          variant: variant_1,
+          style: step === 1 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
+        }, step1Text)
+      }));
 
       var list = [];
       var createRadios = [];
@@ -545,7 +552,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         createRadios.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-          key: "popover" + creatingOption,
+          key: "popover-" + creatingOption,
           position: tooltip.position,
           title: tooltip.title,
           content: tooltip.content,
@@ -583,7 +590,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }
 
           loadRadios.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-            key: "popover" + loadingOption,
+            key: "popover-" + loadingOption,
             position: tooltip.position,
             title: tooltip.title,
             content: tooltip.content,
@@ -629,7 +636,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         if (modeSelection === _constants.string_createFromFile) {
           var text = /*#__PURE__*/_react.default.createElement("p", {
             style: styleCenterText
-          }, "Click or drag a file here to load an existing Microscope file you want to work on.");
+          }, _constants.string_dropbox_hardware_new);
 
           if (fileLoaded) {
             styleDropzone.borderColor = "green";
@@ -637,7 +644,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               style: styleCenterText
             }, filename), /*#__PURE__*/_react.default.createElement("p", {
               style: styleCenterText
-            }, "Click or drag a file here to replace the currently loaded file"));
+            }, _constants.string_dropbox_hardware_replace));
           } else if (errorMsg !== null) {
             text = /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
               style: styleCenterText
@@ -645,7 +652,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               style: styleCenterText
             }, errorMsg), /*#__PURE__*/_react.default.createElement("p", {
               style: styleCenterText
-            }, "Click or drag a file here to replace the currently loaded file"));
+            }, _constants.string_dropbox_hardware_replace));
           }
 
           var dropbox = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -819,6 +826,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
       var disabled = false;
       if (modeSelection === _constants.string_createFromFile && (!fileLoaded || loadedMicroscope === null)) disabled = true;else if (modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder && filename === null) disabled = true;
+      var forwardImg = url.resolve(this.props.imagesPathSVG, _constants.string_next_img);
+      var forwardImgPath = forwardImg + (forwardImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "button-continue",
         position: continue_tooltip.position,
@@ -829,12 +838,24 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: buttonStyle,
           size: "lg",
           disabled: disabled
-        }, "Continue")
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center" //gap: "10px",
+
+          }
+        }, "Continue", /*#__PURE__*/_react.default.createElement("img", {
+          src: forwardImgPath,
+          alt: forwardImg,
+          style: styleImageIcon
+        })))
       }));
-      var logoPath = this.props.logoImg + (this.props.logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
-      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var backText = "Home";
+      var logoImg = url.resolve(this.props.imagesPathPNG, _constants.string_logo_img_no_bk);
+      var logoPath = logoImg + (logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var homeImg = url.resolve(this.props.imagesPathSVG, _constants.string_home_circle_img);
+      var homeImgPath = homeImg + (homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var buttText = "Home";
 
       var homeButton = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "TooltipButtonLeft-0",
@@ -844,7 +865,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "ButtonLeft-0",
           onClick: function onClick() {
-            return _this4.props.onClickHome(backText);
+            return _this4.props.onClickHome(buttText);
           },
           style: styleButton,
           size: "lg",
@@ -857,10 +878,10 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
           }
         }, /*#__PURE__*/_react.default.createElement("img", {
-          src: backImgPath,
-          alt: backImgPath_tmp,
-          style: styleImageBk
-        }), backText))
+          src: homeImgPath,
+          alt: homeImg,
+          style: styleImageIcon
+        }), buttText))
       });
 
       return /*#__PURE__*/_react.default.createElement("div", {

@@ -89,7 +89,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "5px",
         marginRight: "5px"
       };
-      var styleImageBk = {
+      var styleImageIcon = {
         width: "20px",
         height: "20px",
         marginLeft: "10px",
@@ -130,6 +130,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       var index = 0;
 
       if (this.props.is4DNPortal && this.props.hasImport) {
+        var importButtText = "Import";
         buttonsRight[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           key: "TooltipButtonRight-0",
           position: _constants.import_tooltip.position,
@@ -138,7 +139,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
           element: /*#__PURE__*/_react.default.createElement(_Button.default, {
             key: "ButtonRight-0",
             onClick: function onClick() {
-              return _this.props.onClickHome("Import");
+              return _this.props.onClickHome(importButtText);
             },
             style: styleButton,
             size: "lg",
@@ -153,8 +154,8 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/_react.default.createElement("img", {
             src: importImgPath,
             alt: importImgPath_tmp,
-            style: styleImageBk
-          }), "Import"))
+            style: styleImageIcon
+          }), importButtText))
         });
         index++;
       }
@@ -187,12 +188,12 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         imgPath_tmp: exportImgPath_tmp,
         imgPath: exportImgPath
       });
-      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
-      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var backText = "Home";
+      var homeImg = url.resolve(this.props.imagesPath, _constants.string_home_circle_img);
+      var homeImgPath = homeImg + (homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var homeButtText = "Home";
 
       if (this.props.is4DNPortal) {
-        backText = "Back to list";
+        homeButtText = "Back to list";
       }
 
       buttonsLeft[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -203,7 +204,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "ButtonLeft-0",
           onClick: function onClick() {
-            return _this.props.onClickHome(backText);
+            return _this.props.onClickHome(homeButtText);
           },
           style: styleButton,
           size: "lg",
@@ -216,10 +217,10 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
 
           }
         }, /*#__PURE__*/_react.default.createElement("img", {
-          src: backImgPath,
-          alt: backImgPath_tmp,
+          src: homeImgPath,
+          alt: homeImg,
           style: styleImageBk
-        }), backText))
+        }), homeButtText))
       });
       return /*#__PURE__*/_react.default.createElement("div", {
         style: style
