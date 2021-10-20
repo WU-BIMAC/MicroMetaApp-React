@@ -453,34 +453,34 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 	render() {
 		const buttonStyleWideNoMarginSelected1 = {
-			width: "500px",
-			height: "100px",
+			width: "600px",
+			height: "125px",
 			borderRadius: "50px 0px 0px 50px",
 			paddingLeft: "50px",
 		};
 		const buttonStyleWideNoMargin1 = {
-			width: "300px",
-			height: "100px",
+			width: "350px",
+			height: "125px",
 			borderRadius: "50px 0px 0px 50px",
 			paddingLeft: "50px",
 		};
 		const buttonStyleWideNoMarginSelected2 = {
-			width: "500px",
-			height: "100px",
+			width: "600px",
+			height: "125px",
 		};
 		const buttonStyleWideNoMargin2 = {
-			width: "300px",
-			height: "100px",
+			width: "350px",
+			height: "125px",
 		};
 		const buttonStyleWideNoMarginSelected3 = {
-			width: "500px",
-			height: "100px",
+			width: "600px",
+			height: "125px",
 			borderRadius: "0px 50px 50px 0px",
 			paddingRight: "50px",
 		};
 		const buttonStyleWideNoMargin3 = {
-			width: "300px",
-			height: "100px",
+			width: "350px",
+			height: "125px",
 			borderRadius: "0px 50px 50px 0px",
 			paddingRight: "50px",
 		};
@@ -582,7 +582,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 			height: "100%",
 		};
 		let styleDropzoneInput = { cursor: "pointer" };
-		let styleCenterText = { textAlign: "center" };
+		let styleCenterText = {
+			textAlign: "center",
+			wordBreak: "break-word",
+			whiteSpace: "break-spaces",
+		};
 		let styleImageContainer = {
 			width: `${number_small_logo_width}px`,
 			height: `${number_small_logo_height}px`,
@@ -713,13 +717,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 			textAlign: "left",
 		};
 		let styleText_2 = {
-			fontSize: "0.8em",
+			//fontSize: "1em",
 			wordBreak: "break-word",
 			whiteSpace: "break-spaces",
 			textAlign: "left",
 		};
 		let styleText_3 = {
-			fontSize: "0.5em",
+			fontSize: "0.9em",
 			wordBreak: "break-word",
 			whiteSpace: "break-spaces",
 			textAlign: "left",
@@ -1016,7 +1020,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				key="radio-step-options"
 				type="radio"
 				name="radio-step-options"
-				value={this.state.step}
+				//value={this.state.step}
 				//onChange={this.handleStepRadioChange}
 			>
 				<PopoverTooltip
@@ -1032,6 +1036,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							value={1}
 							disabled={step1Disabled}
 							variant={variant_1}
+							checked={this.state.step === 1}
 							style={
 								step === 1
 									? buttonStyleWideNoMarginSelected1
@@ -1055,6 +1060,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							value={2}
 							disabled={step2Disabled}
 							variant={variant_2}
+							checked={this.state.step === 2}
 							style={
 								step === 2
 									? buttonStyleWideNoMarginSelected2
@@ -1078,6 +1084,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							value={3}
 							disabled={step3Disabled}
 							variant={variant_3}
+							checked={this.state.step === 3}
 							style={
 								step === 3
 									? buttonStyleWideNoMarginSelected3
