@@ -503,34 +503,34 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var _this3 = this;
 
       var buttonStyleWideNoMarginSelected1 = {
-        width: "500px",
-        height: "100px",
+        width: "600px",
+        height: "125px",
         borderRadius: "50px 0px 0px 50px",
         paddingLeft: "50px"
       };
       var buttonStyleWideNoMargin1 = {
-        width: "300px",
-        height: "100px",
+        width: "350px",
+        height: "125px",
         borderRadius: "50px 0px 0px 50px",
         paddingLeft: "50px"
       };
       var buttonStyleWideNoMarginSelected2 = {
-        width: "500px",
-        height: "100px"
+        width: "600px",
+        height: "125px"
       };
       var buttonStyleWideNoMargin2 = {
-        width: "300px",
-        height: "100px"
+        width: "350px",
+        height: "125px"
       };
       var buttonStyleWideNoMarginSelected3 = {
-        width: "500px",
-        height: "100px",
+        width: "600px",
+        height: "125px",
         borderRadius: "0px 50px 50px 0px",
         paddingRight: "50px"
       };
       var buttonStyleWideNoMargin3 = {
-        width: "300px",
-        height: "100px",
+        width: "350px",
+        height: "125px",
         borderRadius: "0px 50px 50px 0px",
         paddingRight: "50px"
       };
@@ -634,7 +634,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         cursor: "pointer"
       };
       var styleCenterText = {
-        textAlign: "center"
+        textAlign: "center",
+        wordBreak: "break-word",
+        whiteSpace: "break-spaces"
       };
       var styleImageContainer = {
         width: "".concat(_constants.number_small_logo_width, "px"),
@@ -754,13 +756,13 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         textAlign: "left"
       };
       var styleText_2 = {
-        fontSize: "0.8em",
+        //fontSize: "1em",
         wordBreak: "break-word",
         whiteSpace: "break-spaces",
         textAlign: "left"
       };
       var styleText_3 = {
-        fontSize: "0.5em",
+        fontSize: "0.9em",
         wordBreak: "break-word",
         whiteSpace: "break-spaces",
         textAlign: "left"
@@ -1054,8 +1056,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         id: "radio-step-options",
         key: "radio-step-options",
         type: "radio",
-        name: "radio-step-options",
-        value: this.state.step //onChange={this.handleStepRadioChange}
+        name: "radio-step-options" //value={this.state.step}
+        //onChange={this.handleStepRadioChange}
 
       }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "popover-step-1",
@@ -1069,6 +1071,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           value: 1,
           disabled: step1Disabled,
           variant: variant_1,
+          checked: this.state.step === 1,
           style: step === 1 ? buttonStyleWideNoMarginSelected1 : buttonStyleWideNoMargin1
         }, step1Text)
       }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -1083,6 +1086,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           value: 2,
           disabled: step2Disabled,
           variant: variant_2,
+          checked: this.state.step === 2,
           style: step === 2 ? buttonStyleWideNoMarginSelected2 : buttonStyleWideNoMargin2
         }, step2Text)
       }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -1097,6 +1101,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           value: 3,
           disabled: step3Disabled,
           variant: variant_3,
+          checked: this.state.step === 3,
           style: step === 3 ? buttonStyleWideNoMarginSelected3 : buttonStyleWideNoMargin3
         }, step3Text)
       }));

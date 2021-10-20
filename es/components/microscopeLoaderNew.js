@@ -264,15 +264,15 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var _this4 = this;
 
       var buttonStyleWideNoMarginSelected = {
-        width: "500px",
-        height: "100px",
+        width: "600px",
+        height: "125px",
         borderRadius: "50px",
         paddingLeft: "50px",
         paddingRight: "50px"
       };
       var buttonStyleWideNoMargin = {
-        width: "250px",
-        height: "100px",
+        width: "350px",
+        height: "125px",
         borderRadius: "50px",
         paddingLeft: "50px",
         paddingRight: "50px"
@@ -376,7 +376,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         cursor: "pointer"
       };
       var styleCenterText = {
-        textAlign: "center"
+        textAlign: "center",
+        wordBreak: "break-word",
+        whiteSpace: "break-spaces"
       };
       var styleImageContainer = {
         width: "".concat(_constants.number_small_logo_width, "px"),
@@ -435,13 +437,13 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         textAlign: "left"
       };
       var styleText_2 = {
-        fontSize: "0.8em",
+        //fontSize: "1em",
         wordBreak: "break-word",
         whiteSpace: "break-spaces",
         textAlign: "left"
       };
       var styleText_3 = {
-        fontSize: "0.5em",
+        fontSize: "0.9em",
         wordBreak: "break-word",
         whiteSpace: "break-spaces",
         textAlign: "left"
@@ -521,9 +523,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         id: "radio-step-options",
         key: "radio-step-options",
         type: "radio",
-        name: "radio-step-options",
-        value: this.state.step,
-        onChange: this.handleStepRadioChange
+        name: "radio-step-options" //value={this.state.step}
+        //onChange={this.handleStepRadioChange}
+
       }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "popover-step-1",
         position: _constants.hardware_hardware_step_tooltip.position,
@@ -536,6 +538,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           value: 1,
           disabled: step1Disabled,
           variant: variant_1,
+          checked: this.state.step === 1,
           style: step === 1 ? buttonStyleWideNoMarginSelected : buttonStyleWideNoMargin
         }, step1Text)
       }));
