@@ -150,13 +150,11 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.onEditComponents = this.onEditComponents.bind(this);
 		this.onEditComponentsConfirm = this.onEditComponentsConfirm.bind(this);
 		this.onEditComponentsCancel = this.onEditComponentsCancel.bind(this);
-		this.createChildrenComponentsButton = this.createChildrenComponentsButton.bind(
-			this
-		);
+		this.createChildrenComponentsButton =
+			this.createChildrenComponentsButton.bind(this);
 		this.onClickAddChildComponent = this.onClickAddChildComponent.bind(this);
-		this.onClickRemoveChildComponent = this.onClickRemoveChildComponent.bind(
-			this
-		);
+		this.onClickRemoveChildComponent =
+			this.onClickRemoveChildComponent.bind(this);
 
 		this.initializeForms = this.initializeForms.bind(this);
 		if (
@@ -199,10 +197,11 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 								linkedFields,
 								inputDataIDs
 							);
-							let localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(
-								inputData,
-								partialSchema
-							);
+							let localPartialInputData =
+								MultiTabFormWithHeaderV3.transformInputData(
+									inputData,
+									partialSchema
+								);
 							partialInputData[id] = {
 								schemaTitle: schema.title,
 								data: localPartialInputData,
@@ -566,9 +565,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			}
 
 			let localConsolidatedData = this.transformOutputData(currentData);
-			let currentChildrenComponents = this.state.currentChildrenComponents[
-				currentID
-			];
+			let currentChildrenComponents =
+				this.state.currentChildrenComponents[currentID];
 			if (
 				currentChildrenComponents !== null &&
 				currentChildrenComponents !== undefined
@@ -843,14 +841,15 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 						}
 					}
 					for (let i = 0; i < count; i++) {
-						let localPartialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(
-							currentChildrenComponents,
-							property,
-							elementByType,
-							-1,
-							string_object,
-							linkedFields
-						);
+						let localPartialSchema =
+							MultiTabFormWithHeaderV3.transformSchemaCategorizeField(
+								currentChildrenComponents,
+								property,
+								elementByType,
+								-1,
+								string_object,
+								linkedFields
+							);
 						partialSchema = Object.assign(partialSchema, localPartialSchema);
 					}
 					return;
@@ -863,14 +862,15 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 						}
 					}
 					for (let i = 0; i < count; i++) {
-						let localPartialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(
-							currentChildrenComponents,
-							property.items,
-							elementByType,
-							i,
-							string_array,
-							linkedFields
-						);
+						let localPartialSchema =
+							MultiTabFormWithHeaderV3.transformSchemaCategorizeField(
+								currentChildrenComponents,
+								property.items,
+								elementByType,
+								i,
+								string_array,
+								linkedFields
+							);
 						partialSchema = Object.assign(partialSchema, localPartialSchema);
 					}
 					return;
@@ -1454,9 +1454,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		//let containerIndex = this.state.activeID;
 		let containerIndex = Object.keys(forms).indexOf(this.state.activeID);
 		//let activeContainerKey = `${containerIndex}`;
-		
+
 		let form = (
-			<div style ={containerStyle}>
+			<div style={containerStyle}>
 				<h3>{this.props.title}</h3>
 				<Tabs
 					// tabPosition={"top"}
