@@ -183,9 +183,7 @@ export default class Footer extends React.PureComponent {
 		let homeImg = url.resolve(this.props.imagesPath, string_home_circle_img);
 		let homeImgPath =
 			homeImg +
-			(homeImg.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
+			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 		let homeButtText = "Home";
 
 		if (this.props.is4DNPortal) {
@@ -213,11 +211,7 @@ export default class Footer extends React.PureComponent {
 								//gap: "10px",
 							}}
 						>
-							<img
-								src={homeImgPath}
-								alt={homeImg}
-								style={styleImageBk}
-							/>
+							<img src={homeImgPath} alt={homeImg} style={styleImageIcon} />
 							{homeButtText}
 						</div>
 					</Button>

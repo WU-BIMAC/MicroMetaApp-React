@@ -219,7 +219,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: homeImgPath,
           alt: homeImg,
-          style: styleImageBk
+          style: styleImageIcon
         }), homeButtText))
       });
       return /*#__PURE__*/_react.default.createElement("div", {
