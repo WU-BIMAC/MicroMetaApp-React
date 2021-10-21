@@ -146,9 +146,9 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "5px",
         marginRight: "5px"
       };
-      var styleImageIcon = {
-        width: "20px",
-        height: "20px",
+      var styleImageIconHome = {
+        width: "30px",
+        height: "30px",
         marginLeft: "10px",
         marginRight: "10px"
       };
@@ -218,7 +218,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
 
         tiers[index] = button;
       });
-      var homeImg = url.resolve(this.props.imagesPathSVG, _constants.string_home_circle_img);
+      var homeImg = url.resolve(this.props.imagesPathSVG, _constants.string_home_img);
       var homeImgPath = homeImg + (homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var backText = "Home";
 
@@ -245,7 +245,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: homeImgPath,
           alt: homeImg,
-          style: styleImageIcon
+          style: styleImageIconHome
         }), backText))
       }); //handleMenuItemClick={this.props.onClickTierSelection}
 

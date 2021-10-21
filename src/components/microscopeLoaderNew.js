@@ -32,6 +32,7 @@ import {
 	string_logo_img_no_bk,
 	string_next_img,
 	string_home_circle_img,
+	string_home_img,
 	string_dropbox_hardware_new,
 	string_dropbox_hardware_replace,
 } from "../constants";
@@ -346,7 +347,12 @@ export default class MicroscopeLoader extends React.PureComponent {
 			marginLeft: "10px",
 			marginRight: "10px",
 		};
-
+		let styleImageIconHome = {
+			width: "30px",
+			height: "30px",
+			marginLeft: "10px",
+			marginRight: "10px",
+		};
 		let step = this.state.step;
 		let inputData = this.props.microscopes;
 
@@ -887,7 +893,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			logoImg +
 			(logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
-		let homeImg = url.resolve(this.props.imagesPathSVG, string_home_circle_img);
+		let homeImg = url.resolve(this.props.imagesPathSVG, string_home_img);
 		let homeImgPath =
 			homeImg +
 			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
@@ -914,7 +920,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								//gap: "10px",
 							}}
 						>
-							<img src={homeImgPath} alt={homeImg} style={styleImageIcon} />
+							<img src={homeImgPath} alt={homeImg} style={styleImageIconHome} />
 							{buttText}
 						</div>
 					</Button>

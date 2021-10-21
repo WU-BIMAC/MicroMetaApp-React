@@ -17,6 +17,7 @@ import {
 	export_setting_tooltip,
 	home_tooltip,
 	string_home_circle_img,
+	string_home_img,
 	string_save_img,
 	string_export_img,
 	string_import_img,
@@ -55,6 +56,12 @@ export default class Footer extends React.PureComponent {
 		let styleImageIcon = {
 			width: "20px",
 			height: "20px",
+			marginLeft: "10px",
+			marginRight: "10px",
+		};
+		let styleImageIconHome = {
+			width: "30px",
+			height: "30px",
 			marginLeft: "10px",
 			marginRight: "10px",
 		};
@@ -180,7 +187,7 @@ export default class Footer extends React.PureComponent {
 			/>
 		);
 
-		let homeImg = url.resolve(this.props.imagesPath, string_home_circle_img);
+		let homeImg = url.resolve(this.props.imagesPath, string_home_img);
 		let homeImgPath =
 			homeImg +
 			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
@@ -211,7 +218,7 @@ export default class Footer extends React.PureComponent {
 								//gap: "10px",
 							}}
 						>
-							<img src={homeImgPath} alt={homeImg} style={styleImageIcon} />
+							<img src={homeImgPath} alt={homeImg} style={styleImageIconHome} />
 							{homeButtText}
 						</div>
 					</Button>

@@ -172,7 +172,7 @@ export default class ModeSelector extends React.PureComponent {
 			width: "100%",
 			height: `${number_logo_height}px`,
 			alignItems: "center",
-			margin: "50px",
+			marginTop: "100px",
 		};
 		let styleImage = {
 			width: "100%",
@@ -407,18 +407,22 @@ export default class ModeSelector extends React.PureComponent {
 		// 	selectionEnabled = false;
 		// }
 
-		let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_micro_bk);
+		let logoImg = url.resolve(
+			this.props.imagesPathPNG,
+			string_logo_img_micro_bk
+		);
 		let hardwareImg = url.resolve(
-				this.props.imagesPathSVG,
-				string_manage_hardware_circle_img
-			);
-		let settingsImg = url.resolve(this.props.imagesPathSVG, string_manage_settings_circle_img);
+			this.props.imagesPathSVG,
+			string_manage_hardware_circle_img
+		);
+		let settingsImg = url.resolve(
+			this.props.imagesPathSVG,
+			string_manage_settings_circle_img
+		);
 
 		let logoPath =
 			logoImg +
-			(logoImg.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
+			(logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 		let hardwareImgPath =
 			hardwareImg +
 			(hardwareImg.indexOf("githubusercontent.com") > -1

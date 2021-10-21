@@ -50,7 +50,7 @@ export default class DropdownMenu extends React.PureComponent {
 	}
 
 	render() {
-		let styleImageBk = {
+		let styleImageIcon = {
 			width: "20px",
 			height: "20px",
 			marginLeft: "10px",
@@ -103,8 +103,7 @@ export default class DropdownMenu extends React.PureComponent {
 					<img
 						src={this.props.imgPath}
 						alt={this.props.imgPath_tmp}
-						style={styleImageBk}
-						onLoad={this.onImgLoad}
+						style={styleImageIcon}
 					/>
 					{title}
 				</div>

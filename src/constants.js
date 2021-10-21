@@ -24,6 +24,7 @@ export const string_logo_img_cell_bk = "MicroMetaApp_cellBkg.png";
 export const string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_2.png";
 
 export const string_add_img = "add-button.svg";
+export const string_home_img = "home.svg";
 export const string_home_circle_img = "home-circle.svg";
 export const string_back_img = "arrow-back.svg";
 export const string_next_img = "arrow-forward.svg";

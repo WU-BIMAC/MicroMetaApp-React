@@ -12,6 +12,7 @@ import {
 	home_tooltip,
 	string_logo_img_no_bk,
 	string_home_circle_img,
+	string_home_img,
 	string_hardware_tier_1_img,
 	string_hardware_tier_2_img,
 	string_hardware_tier_3_img,
@@ -118,9 +119,9 @@ export default class TierSelector extends React.PureComponent {
 			marginLeft: "5px",
 			marginRight: "5px",
 		};
-		let styleImageIcon = {
-			width: "20px",
-			height: "20px",
+		let styleImageIconHome = {
+			width: "30px",
+			height: "30px",
 			marginLeft: "10px",
 			marginRight: "10px",
 		};
@@ -215,7 +216,7 @@ export default class TierSelector extends React.PureComponent {
 			tiers[index] = button;
 		});
 
-		let homeImg = url.resolve(this.props.imagesPathSVG, string_home_circle_img);
+		let homeImg = url.resolve(this.props.imagesPathSVG, string_home_img);
 		let homeImgPath =
 			homeImg +
 			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
@@ -242,7 +243,7 @@ export default class TierSelector extends React.PureComponent {
 								//gap: "10px",
 							}}
 						>
-							<img src={homeImgPath} alt={homeImg} style={styleImageIcon} />
+							<img src={homeImgPath} alt={homeImg} style={styleImageIconHome} />
 							{backText}
 						</div>
 					</Button>

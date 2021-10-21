@@ -402,6 +402,12 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "10px",
         marginRight: "10px"
       };
+      var styleImageIconHome = {
+        width: "30px",
+        height: "30px",
+        marginLeft: "10px",
+        marginRight: "10px"
+      };
       var step = this.state.step;
       var inputData = this.props.microscopes;
       var errorMsg = this.state.errorMsg;
@@ -856,7 +862,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       }));
       var logoImg = url.resolve(this.props.imagesPathPNG, _constants.string_logo_img_no_bk);
       var logoPath = logoImg + (logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var homeImg = url.resolve(this.props.imagesPathSVG, _constants.string_home_circle_img);
+      var homeImg = url.resolve(this.props.imagesPathSVG, _constants.string_home_img);
       var homeImgPath = homeImg + (homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var buttText = "Home";
 
@@ -883,7 +889,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: homeImgPath,
           alt: homeImg,
-          style: styleImageIcon
+          style: styleImageIconHome
         }), buttText))
       });
 

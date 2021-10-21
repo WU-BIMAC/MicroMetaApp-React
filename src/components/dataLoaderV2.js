@@ -4,7 +4,11 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 
 const url = require("url");
 
-import { number_logo_width, number_logo_height,string_logo_img_micro_bk} from "../constants";
+import {
+	number_logo_width,
+	number_logo_height,
+	string_logo_img_micro_bk,
+} from "../constants";
 
 export default class DataLoader extends React.PureComponent {
 	constructor(props) {
@@ -289,7 +293,7 @@ export default class DataLoader extends React.PureComponent {
 			width: "100%",
 			height: `${number_logo_height}px`,
 			alignItems: "center",
-			margin: "50px",
+			marginTop: "100px",
 		};
 		let styleImageContainer = {
 			width: `${number_logo_width}px`,
@@ -314,12 +318,13 @@ export default class DataLoader extends React.PureComponent {
 		let isHandlingMicPreset = this.state.isHandlingMicPreset;
 		let isHandledMicPreset = this.state.isHandledMicPreset;
 
-		let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_micro_bk);
+		let logoImg = url.resolve(
+			this.props.imagesPathPNG,
+			string_logo_img_micro_bk
+		);
 		let logoPath =
 			logoImg +
-			(logoImg.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
+			(logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
 		let microscopesLabel = isLoadingMicroscopes
 			? "Loading microscopes: " + this.state.progressValueMicroscopes + "%"

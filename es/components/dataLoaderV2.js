@@ -334,7 +334,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "".concat(_constants.number_logo_height, "px"),
         alignItems: "center",
-        margin: "50px"
+        marginTop: "100px"
       };
       var styleImageContainer = {
         width: "".concat(_constants.number_logo_width, "px"),

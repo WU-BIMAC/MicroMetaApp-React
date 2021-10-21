@@ -81,7 +81,7 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
     value: function render() {
       var _this2 = this;
 
-      var styleImageBk = {
+      var styleImageIcon = {
         width: "20px",
         height: "20px",
         marginLeft: "10px",
@@ -138,8 +138,7 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: this.props.imgPath,
           alt: this.props.imgPath_tmp,
-          style: styleImageBk,
-          onLoad: this.onImgLoad
+          style: styleImageIcon
         }), title);
       }
 

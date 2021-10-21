@@ -95,6 +95,12 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "10px",
         marginRight: "10px"
       };
+      var styleImageIconHome = {
+        width: "30px",
+        height: "30px",
+        marginLeft: "10px",
+        marginRight: "10px"
+      };
       var saveTooltip = _constants.save_microscope_tooltip;
 
       if (this.props.element === "image settings") {
@@ -188,7 +194,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         imgPath_tmp: exportImgPath_tmp,
         imgPath: exportImgPath
       });
-      var homeImg = url.resolve(this.props.imagesPath, _constants.string_home_circle_img);
+      var homeImg = url.resolve(this.props.imagesPath, _constants.string_home_img);
       var homeImgPath = homeImg + (homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var homeButtText = "Home";
 
@@ -219,7 +225,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: homeImgPath,
           alt: homeImg,
-          style: styleImageIcon
+          style: styleImageIconHome
         }), homeButtText))
       });
       return /*#__PURE__*/_react.default.createElement("div", {
