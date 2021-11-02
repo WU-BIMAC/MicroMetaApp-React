@@ -27,7 +27,15 @@ export default class TierSelector extends React.PureComponent {
 	}
 
 	render() {
-		const windowExternalContainer = {
+		const wrapperContainer = {
+			display: "flex",
+			justifyContent: "center",
+			flexFlow: "column",
+			width: "100%",
+			height: "100%",
+			alignItems: "center",
+		};
+		const mainContainer = {
 			display: "flex",
 			justifyContent: "center",
 			flexFlow: "column",
@@ -36,14 +44,14 @@ export default class TierSelector extends React.PureComponent {
 			alignItems: "center",
 		};
 
-		const windowButtonsContainer = {
+		const buttonsContainer = {
 			display: "flex",
 			justifyContent: "center",
 			flexFlow: "column",
 			width: "100%",
-			height: "750px",
+			height: "100%",
 			alignItems: "center",
-			margin: "50px",
+			//margin: "50px",
 		};
 		const buttonModeSelectorStyle = {
 			width: "800px",
@@ -66,12 +74,12 @@ export default class TierSelector extends React.PureComponent {
 			height: "100%",
 			alignItems: "flex-start",
 		};
-		const windowLogoContainer = {
+		const logoContainer = {
 			display: "flex",
-			justifyContent: "flex-end",
+			justifyContent: "flex-start",
 			flexFlow: "column",
 			width: "100%",
-			height: "100%",
+			height: "25%",
 			alignItems: "center",
 		};
 		let styleImageContainer = {
@@ -252,12 +260,14 @@ export default class TierSelector extends React.PureComponent {
 		);
 		//handleMenuItemClick={this.props.onClickTierSelection}
 		return (
-			<div style={windowExternalContainer}>
-				<div style={windowButtonsContainer}>{tiers}</div>
-				<div style={windowLogoContainer}>
-					{homeButton}
-					<div style={styleImageContainer}>
-						<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
+			<div style={wrapperContainer}>
+				<div style={mainContainer}>
+					<div style={buttonsContainer}>{tiers}</div>
+					<div style={logoContainer}>
+						{homeButton}
+						<div style={styleImageContainer}>
+							<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
+						</div>
 					</div>
 				</div>
 			</div>
