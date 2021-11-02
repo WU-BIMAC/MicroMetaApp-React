@@ -1249,10 +1249,11 @@ export default class Canvas extends React.PureComponent {
 	render() {
 		const {
 			backgroundImage,
-			dimensions: { width, height } = {},
 			microscope = null,
 			scalingFactor = 1,
 		} = this.props;
+		let width = this.props.dimensions.width;
+		let height = this.props.dimensions.height;
 		const { linkedFields } = this.state;
 		let occupiedSpots = this.state.occupiedSpots;
 		let elementList = this.state.elementList;
