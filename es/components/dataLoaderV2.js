@@ -310,7 +310,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         padding: "5px",
         margin: "5px"
       };
-      var windowExternalContainer = {
+      var wrapperContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "column",
@@ -318,21 +318,31 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         height: "100%",
         alignItems: "center"
       };
-      var windowButtonsContainer = {
+      var mainContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
+        width: "100%",
+        height: "100%",
+        alignItems: "center"
+      };
+      var buttonsContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "row",
         flexWrap: "wrap",
         width: "".concat(_constants.number_logo_width, "px"),
         height: "100%",
-        alignItems: "center"
+        alignItems: "center",
+        margin: "200px"
       };
-      var windowLogoContainer = {
+      var logoContainer = {
         display: "flex",
         justifyContent: "flex-end",
         flexFlow: "column",
         width: "100%",
-        height: "".concat(_constants.number_logo_height, "px"),
+        //height: `${number_logo_height}px`,
+        height: "25%",
         alignItems: "center",
         marginTop: "100px"
       };
@@ -368,9 +378,11 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
 
       if (!isSchemaLoaded || !isDimensionsLoaded || !isMicroscopesLoaded || !isSettingsLoaded) {
         return /*#__PURE__*/_react.default.createElement("div", {
-          style: windowExternalContainer
+          style: wrapperContainer
         }, /*#__PURE__*/_react.default.createElement("div", {
-          style: windowLogoContainer
+          style: mainContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: logoContainer
         }, /*#__PURE__*/_react.default.createElement("div", {
           style: styleImageContainer
         }, /*#__PURE__*/_react.default.createElement("img", {
@@ -379,7 +391,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: styleImage,
           onLoad: this.onImgLoad
         }))), /*#__PURE__*/_react.default.createElement("div", {
-          style: windowButtonsContainer
+          style: buttonsContainer
         }, /*#__PURE__*/_react.default.createElement("h4", {
           style: {
             textAlign: "center"
@@ -445,12 +457,14 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           now: this.state.progressValueSchema,
           striped: true,
           animated: true
-        })));
+        }))));
       } else if (this.props.is4DNPortal && !isHandledMicPreset) {
         return /*#__PURE__*/_react.default.createElement("div", {
-          style: windowExternalContainer
+          style: wrapperContainer
         }, /*#__PURE__*/_react.default.createElement("div", {
-          style: windowLogoContainer
+          style: mainContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: logoContainer
         }, /*#__PURE__*/_react.default.createElement("div", {
           style: styleImageContainer
         }, /*#__PURE__*/_react.default.createElement("img", {
@@ -459,7 +473,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: styleImage,
           onLoad: this.onImgLoad
         }))), /*#__PURE__*/_react.default.createElement("div", {
-          style: windowButtonsContainer
+          style: buttonsContainer
         }, /*#__PURE__*/_react.default.createElement("h4", {
           style: {
             textAlign: "center"
@@ -476,12 +490,14 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           now: this.state.progressValueMicPreset,
           striped: true,
           animated: true
-        })));
+        }))));
       } else {
         return /*#__PURE__*/_react.default.createElement("div", {
-          style: windowExternalContainer
+          style: wrapperContainer
         }, /*#__PURE__*/_react.default.createElement("div", {
-          style: windowLogoContainer
+          style: mainContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: logoContainer
         }, /*#__PURE__*/_react.default.createElement("div", {
           style: styleImageContainer
         }, /*#__PURE__*/_react.default.createElement("img", {
@@ -489,7 +505,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           alt: this.props.logoImg,
           style: styleImage,
           onLoad: this.onImgLoad
-        }))));
+        })))));
       }
     }
   }]);

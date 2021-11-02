@@ -165,7 +165,15 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
   _createClass(ModeSelector, [{
     key: "render",
     value: function render() {
-      var windowExternalContainer = {
+      var wrapperContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
+        width: "100%",
+        height: "100%",
+        alignItems: "center"
+      };
+      var mainContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "column",
@@ -182,12 +190,13 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
       // 	alignItems: "center",
       // };
 
-      var windowLogoContainer = {
+      var logoContainer = {
         display: "flex",
         justifyContent: "flex-end",
         flexFlow: "column",
         width: "100%",
-        height: "".concat(_constants.number_logo_height, "px"),
+        //height: `${number_logo_height}px`,
+        height: "25%",
         alignItems: "center",
         marginTop: "100px"
       };
@@ -428,9 +437,11 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
       var hardwareImgPath = hardwareImg + (hardwareImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var settingsImgPath = settingsImg + (settingsImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       return /*#__PURE__*/_react.default.createElement("div", {
-        style: windowExternalContainer
+        style: wrapperContainer
       }, /*#__PURE__*/_react.default.createElement("div", {
-        style: windowLogoContainer
+        style: mainContainer
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        style: logoContainer
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: styleImageContainer
       }, /*#__PURE__*/_react.default.createElement("img", {
@@ -481,7 +492,7 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
         }, "Manage Settings"), /*#__PURE__*/_react.default.createElement("p", {
           style: styleText_2
         }, "Collect information about the acquisition settings that were used to produce your image.")))
-      }))); //}
+      })))); //}
     }
   }]);
 

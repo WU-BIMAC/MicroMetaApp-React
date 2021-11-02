@@ -55,7 +55,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
     value: function render() {
       var _this = this;
 
-      var windowExternalContainer = {
+      var wrapperContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "column",
@@ -63,14 +63,22 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         height: "100%",
         alignItems: "center"
       };
-      var windowButtonsContainer = {
+      var mainContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "column",
         width: "100%",
-        height: "750px",
-        alignItems: "center",
-        margin: "50px"
+        height: "100%",
+        alignItems: "center"
+      };
+      var buttonsContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
+        width: "100%",
+        height: "100%",
+        alignItems: "center" //margin: "50px",
+
       };
       var buttonModeSelectorStyle = {
         width: "800px",
@@ -93,12 +101,12 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         height: "100%",
         alignItems: "flex-start"
       };
-      var windowLogoContainer = {
+      var logoContainer = {
         display: "flex",
-        justifyContent: "flex-end",
+        justifyContent: "flex-start",
         flexFlow: "column",
         width: "100%",
-        height: "100%",
+        height: "25%",
         alignItems: "center"
       };
       var styleImageContainer = {
@@ -251,18 +259,20 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
 
 
       return /*#__PURE__*/_react.default.createElement("div", {
-        style: windowExternalContainer
+        style: wrapperContainer
       }, /*#__PURE__*/_react.default.createElement("div", {
-        style: windowButtonsContainer
+        style: mainContainer
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        style: buttonsContainer
       }, tiers), /*#__PURE__*/_react.default.createElement("div", {
-        style: windowLogoContainer
+        style: logoContainer
       }, homeButton, /*#__PURE__*/_react.default.createElement("div", {
         style: styleImageContainer
       }, /*#__PURE__*/_react.default.createElement("img", {
         src: logoPath,
         alt: this.props.logoImg,
         style: styleImage
-      }))));
+      })))));
     }
   }]);
 

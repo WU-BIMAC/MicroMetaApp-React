@@ -1297,14 +1297,12 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
       var _this$props = this.props,
           backgroundImage = _this$props.backgroundImage,
-          _this$props$dimension = _this$props.dimensions;
-      _this$props$dimension = _this$props$dimension === void 0 ? {} : _this$props$dimension;
-      var width = _this$props$dimension.width,
-          height = _this$props$dimension.height,
           _this$props$microscop = _this$props.microscope,
           microscope = _this$props$microscop === void 0 ? null : _this$props$microscop,
           _this$props$scalingFa = _this$props.scalingFactor,
           scalingFactor = _this$props$scalingFa === void 0 ? 1 : _this$props$scalingFa;
+      var width = this.props.dimensions.width;
+      var height = this.props.dimensions.height;
       var linkedFields = this.state.linkedFields;
       var occupiedSpots = this.state.occupiedSpots;
       var elementList = this.state.elementList; // if (bool_isDebug) {

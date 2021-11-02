@@ -2099,17 +2099,19 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var linkedFields = this.state.linkedFields;
       var scalingFactor = this.props.scalingFactor;
       var headerFooterHeight = 80;
-      width = Math.max(1100, width);
-      height = Math.max(600, height - (headerFooterHeight + 10) * 2);
+      var headerFooterMargin = 2;
+      width = Math.max(800, width);
+      height = Math.max(600, height);
       var toolbarWidth = 300;
 
       if (this.state.isToolbarHidden) {
         toolbarWidth = 50;
       }
 
-      var toolbarHeight = height;
       var canvasWidth = width - toolbarWidth;
-      var canvasHeight = height;
+      var canvasHeight = height - (headerFooterHeight + headerFooterMargin) * 2;
+      var toolbarHeight = canvasHeight;
+      console.log("Canvas Height: " + canvasHeight);
       var settingsWidth = width;
       var headerFooterWidth = width;
 
@@ -2461,12 +2463,14 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           ,
           onLoadMetadata: this.props.onLoadMetadata
         }));
-      }
+      } //FIXME why do I need this?
 
-      var style = {
+
+      var canvasContainerStyle = {
         display: "flex",
         flexFlow: "row",
-        height: height
+        height: canvasHeight //width: "100%"
+
       }; //TODO should be passing these to canvas and toolbar instead of
       // using percentage size inside the component
 
@@ -2609,10 +2613,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }));
       } else {
         if (this.state.isViewOnly) {
-          canvasDims = {
-            width: width,
-            height: canvasHeight + headerFooterHeight
-          };
+          canvasDims.height = canvasHeight + headerFooterHeight + headerFooterMargin;
+          canvasContainerStyle.height = canvasHeight + headerFooterHeight + headerFooterMargin;
           return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
@@ -2622,9 +2624,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             imagesPathPNG: imagesPathPNG,
             imagesPathSVG: imagesPathSVG,
             isDebug: this.props.isDebug,
-            isViewOnly: isViewOnly
+            isViewOnly: this.state.isViewOnly
           }), /*#__PURE__*/_react.default.createElement("div", {
-            style: style
+            style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
             microscope: microscope,
             stand: microscope.MicroscopeStand,
@@ -2677,7 +2679,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             is4DNPortal: this.state.is4DNPortal,
             overlaysContainer: this.overlaysContainerRef.current
           }), /*#__PURE__*/_react.default.createElement("div", {
-            style: style
+            style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
             microscope: microscope,
             stand: microscope.MicroscopeStand,
@@ -3012,6 +3014,14 @@ var MicroMetaAppReactContainer = /*#__PURE__*/function (_React$PureComponent2) {
   _createClass(MicroMetaAppReactContainer, [{
     key: "render",
     value: function render() {
+      // const wrapperContainer = {
+      // 	display: "flex",
+      // 	justifyContent: "center",
+      // 	flexFlow: "column",
+      // 	width: "100%",
+      // 	height: "100%",
+      // 	alignItems: "center",
+      // };
       var _this$props2 = this.props,
           height = _this$props2.height,
           width = _this$props2.width,

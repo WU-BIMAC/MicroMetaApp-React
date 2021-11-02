@@ -292,10 +292,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "flex-end",
         flexFlow: "column",
         width: "100%",
-        height: "150px",
+        height: "100px",
+        margin: "25px",
         alignItems: "center"
       };
-      var windowExternalContainer = {
+      var wrapperContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "column",
@@ -303,15 +304,15 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         height: "100%",
         alignItems: "center"
       };
-      var windowMainContainer = {
+      var mainContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "column",
         width: "100%",
-        height: "750px",
+        height: "100%",
         alignItems: "center"
       };
-      var windowStepContainer = {
+      var stepContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "row",
@@ -320,7 +321,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         alignItems: "center",
         alignContent: "stretch"
       };
-      var windowButtonsContainer = {
+      var buttonsContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "row",
@@ -328,15 +329,15 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         height: "550px",
         alignItems: "center"
       };
-      var windowLogoContainer = {
+      var logoContainer = {
         display: "flex",
-        justifyContent: "flex-end",
+        justifyContent: "flex-start",
         flexFlow: "column",
         width: "100%",
-        height: "100%",
+        height: "25%",
         alignItems: "center"
       };
-      var windowBottomButtonsContainer = {
+      var bottomButtonsContainer = {
         display: "flex",
         justifyContent: "center",
         flexFlow: "row",
@@ -702,7 +703,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }, "Load Microscope file"), dropbox));
         } else if (modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder) {
           //windowButtonsContainer.flexFlow = "row";
-          var windowRadioButtonsContainer = {
+          var radioButtonsContainer = {
             display: "flex",
             justifyContent: "center",
             flexFlow: "column",
@@ -750,7 +751,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           list.push( /*#__PURE__*/_react.default.createElement("div", {
             key: "radio-manufactorer-container",
             id: "radio-manufactorer-container",
-            style: windowRadioButtonsContainer
+            style: radioButtonsContainer
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "select-manufacturer"
           }, "Select Manufacturer"), manufacturerRadio));
@@ -810,7 +811,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             list.push( /*#__PURE__*/_react.default.createElement("div", {
               key: "radio-microscope-options",
               id: "radio-microscope-options",
-              style: windowRadioButtonsContainer
+              style: radioButtonsContainer
             }, /*#__PURE__*/_react.default.createElement("h4", {
               key: "select-microscope"
             }, "Select Microscope file"), microscopeRadio));
@@ -894,19 +895,19 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       });
 
       return /*#__PURE__*/_react.default.createElement("div", {
-        style: windowExternalContainer
+        style: wrapperContainer
       }, /*#__PURE__*/_react.default.createElement("div", {
-        style: windowMainContainer
+        style: mainContainer
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: titleContainer
       }, /*#__PURE__*/_react.default.createElement("h1", null, this.props.title)), /*#__PURE__*/_react.default.createElement("div", {
-        style: windowStepContainer
+        style: stepContainer
       }, stepRadios), /*#__PURE__*/_react.default.createElement("div", {
-        style: windowButtonsContainer
+        style: buttonsContainer
       }, list), /*#__PURE__*/_react.default.createElement("div", {
-        style: windowBottomButtonsContainer
+        style: bottomButtonsContainer
       }, buttons)), /*#__PURE__*/_react.default.createElement("div", {
-        style: windowLogoContainer
+        style: logoContainer
       }, homeButton, /*#__PURE__*/_react.default.createElement("div", {
         style: styleImageContainer
       }, /*#__PURE__*/_react.default.createElement("img", {
