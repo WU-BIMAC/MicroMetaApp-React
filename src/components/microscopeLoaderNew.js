@@ -238,10 +238,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 			justifyContent: "flex-end",
 			flexFlow: "column",
 			width: "100%",
-			height: "150px",
+			height: "100px",
+			margin: "25px",
 			alignItems: "center",
 		};
-		const windowExternalContainer = {
+		const wrapperContainer = {
 			display: "flex",
 			justifyContent: "center",
 			flexFlow: "column",
@@ -249,15 +250,15 @@ export default class MicroscopeLoader extends React.PureComponent {
 			height: "100%",
 			alignItems: "center",
 		};
-		const windowMainContainer = {
+		const mainContainer = {
 			display: "flex",
 			justifyContent: "center",
 			flexFlow: "column",
 			width: "100%",
-			height: "750px",
+			height: "100%",
 			alignItems: "center",
 		};
-		const windowStepContainer = {
+		const stepContainer = {
 			display: "flex",
 			justifyContent: "center",
 			flexFlow: "row",
@@ -266,7 +267,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			alignItems: "center",
 			alignContent: "stretch",
 		};
-		const windowButtonsContainer = {
+		const buttonsContainer = {
 			display: "flex",
 			justifyContent: "center",
 			flexFlow: "row",
@@ -274,15 +275,15 @@ export default class MicroscopeLoader extends React.PureComponent {
 			height: "550px",
 			alignItems: "center",
 		};
-		const windowLogoContainer = {
+		const logoContainer = {
 			display: "flex",
-			justifyContent: "flex-end",
+			justifyContent: "flex-start",
 			flexFlow: "column",
 			width: "100%",
-			height: "100%",
+			height: "25%",
 			alignItems: "center",
 		};
-		const windowBottomButtonsContainer = {
+		const bottomButtonsContainer = {
 			display: "flex",
 			justifyContent: "center",
 			flexFlow: "row",
@@ -689,7 +690,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				modeSelection === string_loadFromHomeFolder
 			) {
 				//windowButtonsContainer.flexFlow = "row";
-				const windowRadioButtonsContainer = {
+				const radioButtonsContainer = {
 					display: "flex",
 					justifyContent: "center",
 					flexFlow: "column",
@@ -746,7 +747,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					<div
 						key="radio-manufactorer-container"
 						id="radio-manufactorer-container"
-						style={windowRadioButtonsContainer}
+						style={radioButtonsContainer}
 					>
 						<h4 key={"select-manufacturer"}>Select Manufacturer</h4>
 						{manufacturerRadio}
@@ -813,7 +814,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						<div
 							key="radio-microscope-options"
 							id="radio-microscope-options"
-							style={windowRadioButtonsContainer}
+							style={radioButtonsContainer}
 						>
 							<h4 key={"select-microscope"}>Select Microscope file</h4>
 							{microscopeRadio}
@@ -929,16 +930,16 @@ export default class MicroscopeLoader extends React.PureComponent {
 		);
 
 		return (
-			<div style={windowExternalContainer}>
-				<div style={windowMainContainer}>
+			<div style={wrapperContainer}>
+				<div style={mainContainer}>
 					<div style={titleContainer}>
 						<h1>{this.props.title}</h1>
 					</div>
-					<div style={windowStepContainer}>{stepRadios}</div>
-					<div style={windowButtonsContainer}>{list}</div>
-					<div style={windowBottomButtonsContainer}>{buttons}</div>
+					<div style={stepContainer}>{stepRadios}</div>
+					<div style={buttonsContainer}>{list}</div>
+					<div style={bottomButtonsContainer}>{buttons}</div>
 				</div>
-				<div style={windowLogoContainer}>
+				<div style={logoContainer}>
 					{homeButton}
 					<div style={styleImageContainer}>
 						<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
