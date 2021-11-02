@@ -148,7 +148,15 @@ export default class ModeSelector extends React.PureComponent {
 	// }
 
 	render() {
-		const windowExternalContainer = {
+		const wrapperContainer = {
+			display: "flex",
+			justifyContent: "center",
+			flexFlow: "column",
+			width: "100%",
+			height: "100%",
+			alignItems: "center",
+		};
+		const mainContainer = {
 			display: "flex",
 			justifyContent: "center",
 			flexFlow: "column",
@@ -165,12 +173,13 @@ export default class ModeSelector extends React.PureComponent {
 		// 	height: "15%",
 		// 	alignItems: "center",
 		// };
-		const windowLogoContainer = {
+		const logoContainer = {
 			display: "flex",
 			justifyContent: "flex-end",
 			flexFlow: "column",
 			width: "100%",
-			height: `${number_logo_height}px`,
+			//height: `${number_logo_height}px`,
+			height: "25%",
 			alignItems: "center",
 			marginTop: "100px",
 		};
@@ -434,73 +443,74 @@ export default class ModeSelector extends React.PureComponent {
 				? "?sanitize=true"
 				: "");
 		return (
-			<div style={windowExternalContainer}>
-				<div style={windowLogoContainer}>
-					<div style={styleImageContainer}>
-						<img src={logoPath} alt={logoImg} style={styleImage} />
+			<div style={wrapperContainer}>
+				<div style={mainContainer}>
+					<div style={logoContainer}>
+						<div style={styleImageContainer}>
+							<img src={logoPath} alt={logoImg} style={styleImage} />
+						</div>
 					</div>
-				</div>
-				<div style={windowModeSelectorContainer}>
-					<PopoverTooltip
-						position={manage_instrument_tooltip.position}
-						title={manage_instrument_tooltip.title}
-						content={manage_instrument_tooltip.content}
-						element={
-							<Button
-								disabled={!selectionEnabled}
-								onClick={this.props.onClickCreateNewMicroscope}
-								style={buttonModeSelectorStyle}
-								size="lg"
-								variant="light"
-							>
-								{
-									<div style={buttonsInnerContainer}>
-										<img
-											src={hardwareImgPath}
-											alt={this.props.hardwareImg}
-											style={styleIconImage}
-										/>
-										<h2 style={styleText_1}>Manage Instrument</h2>
-										<p style={styleText_2}>
-											Collect information about the hardware components of your
-											microscope.
-										</p>
-									</div>
-								}
-							</Button>
-						}
-					/>
-					<PopoverTooltip
-						position={manage_settings_tooltip.position}
-						title={manage_settings_tooltip.title}
-						content={manage_settings_tooltip.content}
-						element={
-							<Button
-								disabled={!selectionEnabled || !this.props.hasSettings}
-								onClick={this.props.onClickLoadMicroscope}
-								style={buttonModeSelectorStyle}
-								size="lg"
-								variant="light"
-							>
-								{
-									<div style={buttonsInnerContainer}>
-										<img
-											src={settingsImgPath}
-											alt={settingsImg}
-											style={styleIconImage}
-										/>
-										<h2 style={styleText_1}>Manage Settings</h2>
-										<p style={styleText_2}>
-											Collect information about the acquisition settings that
-											were used to produce your image.
-										</p>
-									</div>
-								}
-							</Button>
-						}
-					/>
-				</div>
-				{/* <div style={windowButtonsContainer}>
+					<div style={windowModeSelectorContainer}>
+						<PopoverTooltip
+							position={manage_instrument_tooltip.position}
+							title={manage_instrument_tooltip.title}
+							content={manage_instrument_tooltip.content}
+							element={
+								<Button
+									disabled={!selectionEnabled}
+									onClick={this.props.onClickCreateNewMicroscope}
+									style={buttonModeSelectorStyle}
+									size="lg"
+									variant="light"
+								>
+									{
+										<div style={buttonsInnerContainer}>
+											<img
+												src={hardwareImgPath}
+												alt={this.props.hardwareImg}
+												style={styleIconImage}
+											/>
+											<h2 style={styleText_1}>Manage Instrument</h2>
+											<p style={styleText_2}>
+												Collect information about the hardware components of
+												your microscope.
+											</p>
+										</div>
+									}
+								</Button>
+							}
+						/>
+						<PopoverTooltip
+							position={manage_settings_tooltip.position}
+							title={manage_settings_tooltip.title}
+							content={manage_settings_tooltip.content}
+							element={
+								<Button
+									disabled={!selectionEnabled || !this.props.hasSettings}
+									onClick={this.props.onClickLoadMicroscope}
+									style={buttonModeSelectorStyle}
+									size="lg"
+									variant="light"
+								>
+									{
+										<div style={buttonsInnerContainer}>
+											<img
+												src={settingsImgPath}
+												alt={settingsImg}
+												style={styleIconImage}
+											/>
+											<h2 style={styleText_1}>Manage Settings</h2>
+											<p style={styleText_2}>
+												Collect information about the acquisition settings that
+												were used to produce your image.
+											</p>
+										</div>
+									}
+								</Button>
+							}
+						/>
+					</div>
+					{/* <div style={windowButtonsContainer}>
 						<Button
 							ref={this.simulateClickLoadMicroscopes}
 							disabled={isLoadingMicroscopes || isMicroscopesLoaded}
@@ -592,6 +602,7 @@ export default class ModeSelector extends React.PureComponent {
 								: "Load Tier List"}
 						</Button>
 					</div> */}
+				</div>
 			</div>
 		);
 		//}
