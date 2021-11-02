@@ -269,7 +269,7 @@ export default class DataLoader extends React.PureComponent {
 			padding: "5px",
 			margin: "5px",
 		};
-		const windowExternalContainer = {
+		const wrapperContainer = {
 			display: "flex",
 			justifyContent: "center",
 			flexFlow: "column",
@@ -277,7 +277,15 @@ export default class DataLoader extends React.PureComponent {
 			height: "100%",
 			alignItems: "center",
 		};
-		const windowButtonsContainer = {
+		const mainContainer = {
+			display: "flex",
+			justifyContent: "center",
+			flexFlow: "column",
+			width: "100%",
+			height: "100%",
+			alignItems: "center",
+		};
+		const buttonsContainer = {
 			display: "flex",
 			justifyContent: "center",
 			flexFlow: "row",
@@ -285,13 +293,15 @@ export default class DataLoader extends React.PureComponent {
 			width: `${number_logo_width}px`,
 			height: "100%",
 			alignItems: "center",
+			margin: "200px",
 		};
-		const windowLogoContainer = {
+		const logoContainer = {
 			display: "flex",
 			justifyContent: "flex-end",
 			flexFlow: "column",
 			width: "100%",
-			height: `${number_logo_height}px`,
+			//height: `${number_logo_height}px`,
+			height: "25%",
 			alignItems: "center",
 			marginTop: "100px",
 		};
@@ -363,172 +373,178 @@ export default class DataLoader extends React.PureComponent {
 			!isSettingsLoaded
 		) {
 			return (
-				<div style={windowExternalContainer}>
-					<div style={windowLogoContainer}>
-						<div style={styleImageContainer}>
-							<img
-								src={logoPath}
-								alt={this.props.logoImg}
-								style={styleImage}
-								onLoad={this.onImgLoad}
+				<div style={wrapperContainer}>
+					<div style={mainContainer}>
+						<div style={logoContainer}>
+							<div style={styleImageContainer}>
+								<img
+									src={logoPath}
+									alt={this.props.logoImg}
+									style={styleImage}
+									onLoad={this.onImgLoad}
+								/>
+							</div>
+						</div>
+						<div style={buttonsContainer}>
+							<h4 style={{ textAlign: "center" }}>Loading data</h4>
+							<Button
+								ref={this.simulateClickLoadMicroscopes}
+								disabled={isLoadingMicroscopes || isMicroscopesLoaded}
+								onClick={
+									!isLoadingMicroscopes && !isMicroscopesLoaded
+										? this.onClickLoadMicroscopes
+										: null
+								}
+								style={buttonStyle}
+								size="lg"
+							>
+								{microscopesLabel}
+							</Button>
+							<ProgressBar
+								style={progressStyle}
+								label={microscopesLabel}
+								now={this.state.progressValueMicroscopes}
+								striped
+								animated
+							/>
+							<Button
+								ref={this.simulateClickLoadSettings}
+								disabled={isLoadingSettings || isSettingsLoaded}
+								onClick={
+									!isLoadingSettings && !isSettingsLoaded
+										? this.onClickLoadSettings
+										: null
+								}
+								style={buttonStyle}
+								size="lg"
+							>
+								{settingsLabel}
+							</Button>
+							<ProgressBar
+								style={progressStyle}
+								label={settingsLabel}
+								now={this.state.progressValueSettings}
+								striped
+								animated
+							/>
+							<Button
+								ref={this.simulateClickLoadDimensions}
+								disabled={isLoadingDimensions || isDimensionsLoaded}
+								onClick={
+									!isLoadingDimensions && !isDimensionsLoaded
+										? this.onClickLoadDimensions
+										: null
+								}
+								style={buttonStyle}
+								size="lg"
+							>
+								{dimensionsLabel}
+							</Button>
+							<ProgressBar
+								style={progressStyle}
+								label={dimensionsLabel}
+								now={this.state.progressValueDimensions}
+								striped
+								animated
+							/>
+							<Button
+								ref={this.simulateClickLoadTierList}
+								disabled={isLoadingTierList || isTierListLoaded}
+								onClick={
+									!isLoadingTierList && !isTierListLoaded
+										? this.onClickLoadTierList
+										: null
+								}
+								style={buttonStyle}
+								size="lg"
+								variant="secondary"
+							>
+								{tierListLabel}
+							</Button>
+							<ProgressBar
+								style={progressStyle}
+								label={tierListLabel}
+								now={this.state.progressValueTierList}
+								striped
+								animated
+							/>
+							<Button
+								ref={this.simulateClickLoadSchema}
+								disabled={isLoadingSchema || isSchemaLoaded}
+								onClick={
+									!isLoadingSchema && !isSchemaLoaded
+										? this.onClickLoadSchema
+										: null
+								}
+								style={buttonStyle}
+								size="lg"
+							>
+								{schemaLabel}
+							</Button>
+							<ProgressBar
+								style={progressStyle}
+								label={schemaLabel}
+								now={this.state.progressValueSchema}
+								striped
+								animated
 							/>
 						</div>
-					</div>
-					<div style={windowButtonsContainer}>
-						<h4 style={{ textAlign: "center" }}>Loading data</h4>
-						<Button
-							ref={this.simulateClickLoadMicroscopes}
-							disabled={isLoadingMicroscopes || isMicroscopesLoaded}
-							onClick={
-								!isLoadingMicroscopes && !isMicroscopesLoaded
-									? this.onClickLoadMicroscopes
-									: null
-							}
-							style={buttonStyle}
-							size="lg"
-						>
-							{microscopesLabel}
-						</Button>
-						<ProgressBar
-							style={progressStyle}
-							label={microscopesLabel}
-							now={this.state.progressValueMicroscopes}
-							striped
-							animated
-						/>
-						<Button
-							ref={this.simulateClickLoadSettings}
-							disabled={isLoadingSettings || isSettingsLoaded}
-							onClick={
-								!isLoadingSettings && !isSettingsLoaded
-									? this.onClickLoadSettings
-									: null
-							}
-							style={buttonStyle}
-							size="lg"
-						>
-							{settingsLabel}
-						</Button>
-						<ProgressBar
-							style={progressStyle}
-							label={settingsLabel}
-							now={this.state.progressValueSettings}
-							striped
-							animated
-						/>
-						<Button
-							ref={this.simulateClickLoadDimensions}
-							disabled={isLoadingDimensions || isDimensionsLoaded}
-							onClick={
-								!isLoadingDimensions && !isDimensionsLoaded
-									? this.onClickLoadDimensions
-									: null
-							}
-							style={buttonStyle}
-							size="lg"
-						>
-							{dimensionsLabel}
-						</Button>
-						<ProgressBar
-							style={progressStyle}
-							label={dimensionsLabel}
-							now={this.state.progressValueDimensions}
-							striped
-							animated
-						/>
-						<Button
-							ref={this.simulateClickLoadTierList}
-							disabled={isLoadingTierList || isTierListLoaded}
-							onClick={
-								!isLoadingTierList && !isTierListLoaded
-									? this.onClickLoadTierList
-									: null
-							}
-							style={buttonStyle}
-							size="lg"
-							variant="secondary"
-						>
-							{tierListLabel}
-						</Button>
-						<ProgressBar
-							style={progressStyle}
-							label={tierListLabel}
-							now={this.state.progressValueTierList}
-							striped
-							animated
-						/>
-						<Button
-							ref={this.simulateClickLoadSchema}
-							disabled={isLoadingSchema || isSchemaLoaded}
-							onClick={
-								!isLoadingSchema && !isSchemaLoaded
-									? this.onClickLoadSchema
-									: null
-							}
-							style={buttonStyle}
-							size="lg"
-						>
-							{schemaLabel}
-						</Button>
-						<ProgressBar
-							style={progressStyle}
-							label={schemaLabel}
-							now={this.state.progressValueSchema}
-							striped
-							animated
-						/>
 					</div>
 				</div>
 			);
 		} else if (this.props.is4DNPortal && !isHandledMicPreset) {
 			return (
-				<div style={windowExternalContainer}>
-					<div style={windowLogoContainer}>
-						<div style={styleImageContainer}>
-							<img
-								src={logoPath}
-								alt={this.props.logoImg}
-								style={styleImage}
-								onLoad={this.onImgLoad}
+				<div style={wrapperContainer}>
+					<div style={mainContainer}>
+						<div style={logoContainer}>
+							<div style={styleImageContainer}>
+								<img
+									src={logoPath}
+									alt={this.props.logoImg}
+									style={styleImage}
+									onLoad={this.onImgLoad}
+								/>
+							</div>
+						</div>
+						<div style={buttonsContainer}>
+							<h4 style={{ textAlign: "center" }}>Loading preset</h4>
+							<Button
+								ref={this.simulateClickHandleMicPreset}
+								disabled={isHandlingMicPreset || isHandledMicPreset}
+								onClick={
+									!isHandlingMicPreset && !isHandledMicPreset
+										? this.onClickHandleMicPreset
+										: null
+								}
+								style={buttonStyle}
+								size="lg"
+							>
+								{presetLabel}
+							</Button>
+							<ProgressBar
+								style={progressStyle}
+								label={presetLabel}
+								now={this.state.progressValueMicPreset}
+								striped
+								animated
 							/>
 						</div>
-					</div>
-					<div style={windowButtonsContainer}>
-						<h4 style={{ textAlign: "center" }}>Loading preset</h4>
-						<Button
-							ref={this.simulateClickHandleMicPreset}
-							disabled={isHandlingMicPreset || isHandledMicPreset}
-							onClick={
-								!isHandlingMicPreset && !isHandledMicPreset
-									? this.onClickHandleMicPreset
-									: null
-							}
-							style={buttonStyle}
-							size="lg"
-						>
-							{presetLabel}
-						</Button>
-						<ProgressBar
-							style={progressStyle}
-							label={presetLabel}
-							now={this.state.progressValueMicPreset}
-							striped
-							animated
-						/>
 					</div>
 				</div>
 			);
 		} else {
 			return (
-				<div style={windowExternalContainer}>
-					<div style={windowLogoContainer}>
-						<div style={styleImageContainer}>
-							<img
-								src={logoPath}
-								alt={this.props.logoImg}
-								style={styleImage}
-								onLoad={this.onImgLoad}
-							/>
+				<div style={wrapperContainer}>
+					<div style={mainContainer}>
+						<div style={logoContainer}>
+							<div style={styleImageContainer}>
+								<img
+									src={logoPath}
+									alt={this.props.logoImg}
+									style={styleImage}
+									onLoad={this.onImgLoad}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
