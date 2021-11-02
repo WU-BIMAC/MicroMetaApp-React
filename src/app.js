@@ -2836,18 +2836,21 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let scalingFactor = this.props.scalingFactor;
 
 		let headerFooterHeight = 80;
+		let headerFooterMargin = 2;
 
-		width = Math.max(1100, width);
-		height = Math.max(600, height - (headerFooterHeight + 10) * 2);
+		width = Math.max(800, width);
+		height = Math.max(600, height);
 
 		let toolbarWidth = 300;
 		if (this.state.isToolbarHidden) {
 			toolbarWidth = 50;
 		}
-		let toolbarHeight = height;
 
 		let canvasWidth = width - toolbarWidth;
-		let canvasHeight = height;
+		let canvasHeight = height - (headerFooterHeight + headerFooterMargin) * 2;
+		let toolbarHeight = canvasHeight;
+
+		console.log("Canvas Height: " + canvasHeight);
 
 		let settingsWidth = width;
 
@@ -2884,8 +2887,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				this.state.isLoadingMicroscope == null) ||
 			(this.state.is4DNPortal && !this.state.microscopePresetHandled)
 		) {
-			
-
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
@@ -3035,11 +3036,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						<div style={windowExternalContainer}>
 							<div style={windowInternalContainer}>
 								<div style={styleImageContainer}>
-									<img
-										src={logoPath}
-										alt={logoImg}
-										style={styleImage}
-									/>
+									<img src={logoPath} alt={logoImg} style={styleImage} />
 								</div>
 								<Button
 									ref={this.simulateClickLoadMicroscopeFromPortal}
@@ -3271,10 +3268,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			);
 		}
 
-		const style = {
+		//FIXME why do I need this?
+		let canvasContainerStyle = {
 			display: "flex",
 			flexFlow: "row",
-			height: height,
+			height: canvasHeight,
+			//width: "100%"
 		};
 
 		//TODO should be passing these to canvas and toolbar instead of
@@ -3431,10 +3430,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			);
 		} else {
 			if (this.state.isViewOnly) {
-				canvasDims = {
-					width: width,
-					height: canvasHeight + headerFooterHeight,
-				};
+				canvasDims.height =
+					canvasHeight + headerFooterHeight + headerFooterMargin;
+				canvasContainerStyle.height =
+					canvasHeight + headerFooterHeight + headerFooterMargin;
 				return (
 					<MicroMetaAppReactContainer
 						width={width}
@@ -3446,9 +3445,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							imagesPathPNG={imagesPathPNG}
 							imagesPathSVG={imagesPathSVG}
 							isDebug={this.props.isDebug}
-							isViewOnly={isViewOnly}
+							isViewOnly={this.state.isViewOnly}
 						/>
-						<div style={style}>
+						<div style={canvasContainerStyle}>
 							<Canvas
 								microscope={microscope}
 								stand={microscope.MicroscopeStand}
@@ -3509,7 +3508,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							is4DNPortal={this.state.is4DNPortal}
 							overlaysContainer={this.overlaysContainerRef.current}
 						/>
-						<div style={style}>
+						<div style={canvasContainerStyle}>
 							<Canvas
 								microscope={microscope}
 								stand={microscope.MicroscopeStand}
@@ -3571,6 +3570,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 class MicroMetaAppReactContainer extends React.PureComponent {
 	render() {
+		// const wrapperContainer = {
+		// 	display: "flex",
+		// 	justifyContent: "center",
+		// 	flexFlow: "column",
+		// 	width: "100%",
+		// 	height: "100%",
+		// 	alignItems: "center",
+		// };
 		var { height, width, forwardedRef } = this.props;
 		var style = { height, width, boxSizing: "border-box" };
 		// border-box allows element to account for padding and border
