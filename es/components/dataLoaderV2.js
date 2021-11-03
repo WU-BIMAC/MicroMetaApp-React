@@ -332,7 +332,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "row",
         flexWrap: "wrap",
         width: "".concat(_constants.number_logo_width, "px"),
-        height: "100%",
+        height: "50%",
         alignItems: "center",
         margin: "200px"
       };
@@ -342,7 +342,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         //height: `${number_logo_height}px`,
-        height: "25%",
+        height: "50%",
         alignItems: "center",
         marginTop: "100px"
       };

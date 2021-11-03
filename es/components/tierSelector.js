@@ -107,7 +107,8 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         height: "25%",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: "10px"
       };
       var styleImageContainer = {
         width: "".concat(_constants.number_small_logo_width, "px"),

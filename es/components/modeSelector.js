@@ -196,7 +196,7 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         //height: `${number_logo_height}px`,
-        height: "25%",
+        height: "50%",
         alignItems: "center",
         marginTop: "100px"
       };
@@ -388,12 +388,12 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "center",
         flexFlow: "row",
         width: "100%",
-        height: "100%",
+        height: "50%",
         alignItems: "center"
       };
       var buttonModeSelectorStyle = {
-        width: "500px",
-        height: "600px",
+        width: "400px",
+        height: "500px",
         margin: "50px"
       };
       var buttonsInnerContainer = {

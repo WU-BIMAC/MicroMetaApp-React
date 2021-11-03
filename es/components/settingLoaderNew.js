@@ -577,7 +577,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "100px",
         alignItems: "center",
-        alignContent: "stretch"
+        alignContent: "stretch",
+        margin: "10px"
       };
       var buttonsContainer = {
         display: "flex",
@@ -585,7 +586,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "row",
         width: "100%",
         height: "550px",
-        alignItems: "center"
+        alignItems: "center",
+        margin: "10px"
       };
       var logoContainer = {
         display: "flex",
@@ -593,7 +595,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         height: "25%",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: "10px"
       };
       var bottomButtonsContainer = {
         display: "flex",
@@ -601,7 +604,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "row",
         width: "100%",
         height: "50px",
-        alignItems: "center"
+        alignItems: "center",
+        margin: "10px"
       };
       var buttonsInnerTextContainer = {
         display: "flex",
