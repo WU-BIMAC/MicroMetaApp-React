@@ -266,6 +266,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			height: "100px",
 			alignItems: "center",
 			alignContent: "stretch",
+			margin: "10px"
 		};
 		const buttonsContainer = {
 			display: "flex",
@@ -274,6 +275,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			width: "100%",
 			height: "550px",
 			alignItems: "center",
+			margin: "10px"
 		};
 		const logoContainer = {
 			display: "flex",
@@ -282,6 +284,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			width: "100%",
 			height: "25%",
 			alignItems: "center",
+			marginTop: "10px",
 		};
 		const bottomButtonsContainer = {
 			display: "flex",
@@ -290,6 +293,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			width: "100%",
 			height: "50px",
 			alignItems: "center",
+			margin: "10px"
 		};
 		const buttonsInnerTextContainer = {
 			display: "flex",

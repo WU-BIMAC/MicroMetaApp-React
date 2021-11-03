@@ -81,6 +81,7 @@ export default class TierSelector extends React.PureComponent {
 			width: "100%",
 			height: "25%",
 			alignItems: "center",
+			marginTop: "10px",
 		};
 		let styleImageContainer = {
 			width: `${number_small_logo_width}px`,
