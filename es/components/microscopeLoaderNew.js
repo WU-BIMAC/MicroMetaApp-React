@@ -302,7 +302,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         height: "100%",
-        alignItems: "center"
+        alignItems: "center",
+        minWidth: "950px",
+        minHeight: "1050px"
       };
       var mainContainer = {
         display: "flex",
@@ -310,6 +312,15 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         height: "100%",
+        alignItems: "center",
+        maxHeight: "1050px"
+      };
+      var workingContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
+        width: "100%",
+        height: "80%",
         alignItems: "center"
       };
       var stepContainer = {
@@ -336,7 +347,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "flex-start",
         flexFlow: "column",
         width: "100%",
-        height: "25%",
+        height: "20%",
         alignItems: "center",
         marginTop: "10px"
       };
@@ -347,7 +358,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "50px",
         alignItems: "center",
-        margin: "10px"
+        marginTop: "10px",
+        marginBottom: "10px"
       };
       var buttonsInnerTextContainer = {
         display: "flex",
@@ -903,6 +915,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: mainContainer
       }, /*#__PURE__*/_react.default.createElement("div", {
+        style: workingContainer
+      }, /*#__PURE__*/_react.default.createElement("div", {
         style: titleContainer
       }, /*#__PURE__*/_react.default.createElement("h1", null, this.props.title)), /*#__PURE__*/_react.default.createElement("div", {
         style: stepContainer
@@ -918,7 +932,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         src: logoPath,
         alt: this.props.logoImg,
         style: styleImage
-      }))));
+      })))));
     }
   }], [{
     key: "getDerivedStateFromProps",

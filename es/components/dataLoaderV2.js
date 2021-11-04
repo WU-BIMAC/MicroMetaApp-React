@@ -300,7 +300,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       var buttonStyle = {
         display: "none",
         width: "200px",
-        height: "50px",
+        height: "40px",
         padding: "5px",
         margin: "5px"
       };
@@ -316,7 +316,8 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         height: "100%",
-        alignItems: "center"
+        alignItems: "center",
+        minHeight: "800px"
       };
       var mainContainer = {
         display: "flex",
@@ -332,9 +333,9 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "row",
         flexWrap: "wrap",
         width: "".concat(_constants.number_logo_width, "px"),
-        height: "50%",
-        alignItems: "center",
-        margin: "200px"
+        height: "60%",
+        alignItems: "flex-start",
+        alignContent: "flex-start"
       };
       var logoContainer = {
         display: "flex",
@@ -342,9 +343,8 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         //height: `${number_logo_height}px`,
-        height: "50%",
-        alignItems: "center",
-        marginTop: "100px"
+        height: "40%",
+        alignItems: "center"
       };
       var styleImageContainer = {
         width: "".concat(_constants.number_logo_width, "px"),
