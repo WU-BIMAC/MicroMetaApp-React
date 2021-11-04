@@ -511,6 +511,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 			width: "100%",
 			height: "100%",
 			alignItems: "center",
+			minWidth: "950px",
+			minHeight: "1050px",
 		};
 		const mainContainer = {
 			display: "flex",
@@ -518,6 +520,15 @@ export default class MicroscopeLoader extends React.PureComponent {
 			flexFlow: "column",
 			width: "100%",
 			height: "100%",
+			alignItems: "center",
+			maxHeight: "1050px",
+		};
+		const workingContainer = {
+			display: "flex",
+			justifyContent: "center",
+			flexFlow: "column",
+			width: "100%",
+			height: "80%",
 			alignItems: "center",
 		};
 		const stepContainer = {
@@ -529,7 +540,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			height: "100px",
 			alignItems: "center",
 			alignContent: "stretch",
-			margin: "10px"
+			margin: "10px",
 		};
 		let buttonsContainer = {
 			display: "flex",
@@ -538,14 +549,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 			width: "100%",
 			height: "550px",
 			alignItems: "center",
-			margin: "10px"
+			margin: "10px",
 		};
 		const logoContainer = {
 			display: "flex",
 			justifyContent: "flex-start",
 			flexFlow: "column",
 			width: "100%",
-			height: "25%",
+			height: "20%",
 			alignItems: "center",
 			marginTop: "10px",
 		};
@@ -556,7 +567,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 			width: "100%",
 			height: "50px",
 			alignItems: "center",
-			margin: "10px"
+			marginTop: "10px",
+			marginBottom: "10px",
 		};
 		const buttonsInnerTextContainer = {
 			display: "flex",
@@ -1959,6 +1971,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		return (
 			<div style={wrapperContainer}>
 				<div style={mainContainer}>
+				<div style={workingContainer}>
 					<div style={titleContainer}>
 						<h1>{this.props.title}</h1>
 					</div>
@@ -1971,6 +1984,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					<div style={styleImageContainer}>
 						<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
 					</div>
+				</div>
 				</div>
 			</div>
 		);

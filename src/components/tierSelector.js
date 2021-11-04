@@ -34,7 +34,10 @@ export default class TierSelector extends React.PureComponent {
 			width: "100%",
 			height: "100%",
 			alignItems: "center",
+			minWidth: "950px",
+			minHeight: "1050px",
 		};
+
 		const mainContainer = {
 			display: "flex",
 			justifyContent: "center",
@@ -42,6 +45,7 @@ export default class TierSelector extends React.PureComponent {
 			width: "100%",
 			height: "100%",
 			alignItems: "center",
+			maxHeight: "1050px",
 		};
 
 		const buttonsContainer = {
@@ -49,18 +53,18 @@ export default class TierSelector extends React.PureComponent {
 			justifyContent: "center",
 			flexFlow: "column",
 			width: "100%",
-			height: "100%",
+			height: "80%",
 			alignItems: "center",
 			//margin: "50px",
 		};
 		const buttonModeSelectorStyle = {
-			width: "800px",
+			width: "900px",
 			height: "200px",
 			margin: "25px",
 		};
 		const buttonsInnerContainer = {
 			display: "flex",
-			justifyContent: "center",
+			justifyContent: "flex-end",
 			flexFlow: "row",
 			width: "100%",
 			height: "100%",
@@ -79,7 +83,7 @@ export default class TierSelector extends React.PureComponent {
 			justifyContent: "flex-start",
 			flexFlow: "column",
 			width: "100%",
-			height: "25%",
+			height: "20%",
 			alignItems: "center",
 			marginTop: "10px",
 		};

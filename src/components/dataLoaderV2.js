@@ -258,7 +258,7 @@ export default class DataLoader extends React.PureComponent {
 		const buttonStyle = {
 			display: "none",
 			width: "200px",
-			height: "50px",
+			height: "40px",
 			padding: "5px",
 			margin: "5px",
 		};
@@ -276,6 +276,7 @@ export default class DataLoader extends React.PureComponent {
 			width: "100%",
 			height: "100%",
 			alignItems: "center",
+			minHeight: "800px",
 		};
 		const mainContainer = {
 			display: "flex",
@@ -291,9 +292,9 @@ export default class DataLoader extends React.PureComponent {
 			flexFlow: "row",
 			flexWrap: "wrap",
 			width: `${number_logo_width}px`,
-			height: "50%",
-			alignItems: "center",
-			margin: "200px",
+			height: "60%",
+			alignItems: "flex-start",
+			alignContent: "flex-start",
 		};
 		const logoContainer = {
 			display: "flex",
@@ -301,9 +302,8 @@ export default class DataLoader extends React.PureComponent {
 			flexFlow: "column",
 			width: "100%",
 			//height: `${number_logo_height}px`,
-			height: "50%",
+			height: "40%",
 			alignItems: "center",
-			marginTop: "100px",
 		};
 		let styleImageContainer = {
 			width: `${number_logo_width}px`,
