@@ -327,9 +327,8 @@ export default class SettingMainView extends React.PureComponent {
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
 		const styleMainContainer = {
-			width: width,
-			height: height,
-			boxSizing: "border-box",
+			width: `${width}px`,
+			height: `${height}px`,
 			display: "flex",
 			flexDirection: "column",
 			flexWap: "wrap",
@@ -486,8 +485,8 @@ export default class SettingMainView extends React.PureComponent {
 			const containerStyle = {
 				display: "flex",
 				flexDirection: "column",
-				width: "100%",
-				height: "100%",
+				width: `${width}px`,
+				height: `${height}px`,
 			};
 			const infoStyle = {
 				position: "absolute",
@@ -818,9 +817,8 @@ export default class SettingMainView extends React.PureComponent {
 
 			index = elements.indexOf("objSettings");
 			schema_id = schemas[index];
-			let immersionLiquidSchema = this.state.experimentalSchemas[
-				"ImmersionLiquid.json"
-			];
+			let immersionLiquidSchema =
+				this.state.experimentalSchemas["ImmersionLiquid.json"];
 			object = this.state.objSettings;
 			schema = this.state.settingSchemas[schema_id];
 			schemaHasProp = false;
@@ -997,9 +995,8 @@ export default class SettingMainView extends React.PureComponent {
 			object = this.state.channels;
 			schema = this.state.settingSchemas[schema_id];
 			let lightPathSchema = this.state.settingSchemas["LightPath.json"];
-			let fluorophoreSchema = this.state.experimentalSchemas[
-				"Fluorophore.json"
-			];
+			let fluorophoreSchema =
+				this.state.experimentalSchemas["Fluorophore.json"];
 			validated = false;
 			if (object !== null && object !== undefined) {
 				if (Array.isArray(object)) {

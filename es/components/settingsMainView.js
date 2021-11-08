@@ -322,9 +322,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height;
       var styleMainContainer = {
-        width: width,
-        height: height,
-        boxSizing: "border-box",
+        width: "".concat(width, "px"),
+        height: "".concat(height, "px"),
         display: "flex",
         flexDirection: "column",
         flexWap: "wrap",
@@ -472,8 +471,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
         var containerStyle = {
           display: "flex",
           flexDirection: "column",
-          width: "100%",
-          height: "100%"
+          width: "".concat(width, "px"),
+          height: "".concat(height, "px")
         };
         var infoStyle = {
           position: "absolute",

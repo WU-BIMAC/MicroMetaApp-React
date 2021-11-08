@@ -1,6 +1,6 @@
 {
 	"name": "micro-meta-app-react",
-	"version": "1.6.3-b1",
+	"version": "1.6.4-b1",
 	"main": "./dist/MicroMetaAppReact.min.js",
 	"unpkg": "./dist/MicroMetaAppReact.min.js",
 	"module": "./es/app.js",

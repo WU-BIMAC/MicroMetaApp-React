@@ -2111,7 +2111,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var canvasWidth = width - toolbarWidth;
       var canvasHeight = height - (headerFooterHeight + headerFooterMargin) * 2;
       var toolbarHeight = canvasHeight;
-      console.log("Canvas Height: " + canvasHeight);
       var settingsWidth = width;
       var headerFooterWidth = width;
 
@@ -2547,6 +2546,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       if (!this.state.isCreatingNewMicroscope) {
         console.log("setting");
         console.log(setting);
+        console.log("Settings Height: " + settingsMainViewDims.height);
         var footerSettingsSchemas = [imageSchema, pixelsSchema];
         var footerSettingsInput = [setting, setting.Pixels]; //{overlayImporter}
 

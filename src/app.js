@@ -2850,8 +2850,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let canvasHeight = height - (headerFooterHeight + headerFooterMargin) * 2;
 		let toolbarHeight = canvasHeight;
 
-		console.log("Canvas Height: " + canvasHeight);
-
 		let settingsWidth = width;
 
 		let headerFooterWidth = width;
@@ -3358,6 +3356,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		if (!this.state.isCreatingNewMicroscope) {
 			console.log("setting");
 			console.log(setting);
+			console.log("Settings Height: " + settingsMainViewDims.height);
 			let footerSettingsSchemas = [imageSchema, pixelsSchema];
 			let footerSettingsInput = [setting, setting.Pixels];
 			//{overlayImporter}
