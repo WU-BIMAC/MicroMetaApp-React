@@ -300,7 +300,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       var buttonStyle = {
         display: "none",
         width: "200px",
-        height: "40px",
+        height: "20px",
         padding: "5px",
         margin: "5px"
       };
@@ -317,7 +317,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "100%",
         alignItems: "center",
-        minHeight: "800px"
+        minHeight: "600px"
       };
       var mainContainer = {
         display: "flex",
@@ -335,7 +335,8 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "".concat(_constants.number_logo_width, "px"),
         height: "60%",
         alignItems: "flex-start",
-        alignContent: "flex-start"
+        alignContent: "flex-start" //marginTop: "10px",
+
       };
       var logoContainer = {
         display: "flex",
@@ -392,8 +393,9 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           onLoad: this.onImgLoad
         }))), /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsContainer
-        }, /*#__PURE__*/_react.default.createElement("h4", {
+        }, /*#__PURE__*/_react.default.createElement("h5", {
           style: {
+            marginTop: "20px",
             textAlign: "center"
           }
         }, "Loading data"), /*#__PURE__*/_react.default.createElement(_Button.default, {

@@ -62,8 +62,8 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "100%",
         alignItems: "center",
-        minWidth: "950px",
-        minHeight: "1050px"
+        //minWidth: "800px",
+        minHeight: "600px"
       };
       var mainContainer = {
         display: "flex",
@@ -71,28 +71,36 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         flexFlow: "column",
         width: "100%",
         height: "100%",
-        alignItems: "center",
-        maxHeight: "1050px"
+        alignItems: "center" //maxHeight: "600px",
+
       };
       var buttonsContainer = {
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "flex-end",
         flexFlow: "column",
         width: "100%",
-        height: "80%",
+        height: "60%",
         alignItems: "center" //margin: "50px",
 
       };
       var buttonModeSelectorStyle = {
-        width: "900px",
-        height: "200px",
-        margin: "25px"
+        width: "800px",
+        height: "150px",
+        margin: "5px"
       };
       var buttonsInnerContainer = {
         display: "flex",
-        justifyContent: "flex-end",
+        justifyContent: "flex-start",
         flexFlow: "row",
         width: "100%",
+        height: "100%",
+        alignItems: "center"
+      };
+      var buttonsInnerImgContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
+        width: "20%",
         height: "100%",
         alignItems: "center"
       };
@@ -100,7 +108,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         display: "flex",
         justifyContent: "flex-start",
         flexFlow: "column",
-        width: "100%",
+        width: "80%",
         height: "100%",
         alignItems: "flex-start"
       };
@@ -109,7 +117,7 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "flex-start",
         flexFlow: "column",
         width: "100%",
-        height: "20%",
+        height: "40%",
         alignItems: "center",
         marginTop: "10px"
       };
@@ -123,9 +131,9 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         margin: "auto"
       };
       var styleIconImage = {
-        width: "25%",
-        height: "75%",
-        margin: "20px"
+        width: "100%",
+        height: "100%",
+        margin: "5px"
       };
       var styleText_1 = {
         textAlign: "left",
@@ -215,13 +223,15 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
             key: "tier-button-" + index
           }, /*#__PURE__*/_react.default.createElement("div", {
             style: buttonsInnerContainer
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: buttonsInnerImgContainer
           }, /*#__PURE__*/_react.default.createElement("img", {
             src: iconPath,
             alt: iconImg,
             style: styleIconImage
-          }), /*#__PURE__*/_react.default.createElement("div", {
+          })), /*#__PURE__*/_react.default.createElement("div", {
             style: buttonsInnerTextContainer
-          }, /*#__PURE__*/_react.default.createElement("h2", {
+          }, /*#__PURE__*/_react.default.createElement("h4", {
             style: styleText_1
           }, tier.Name), /*#__PURE__*/_react.default.createElement("p", {
             style: styleText_2

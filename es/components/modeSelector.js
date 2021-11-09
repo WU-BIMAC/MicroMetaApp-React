@@ -64,7 +64,7 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "100%",
         alignItems: "center",
-        minHeight: "800px"
+        minHeight: "600px"
       };
       var mainContainer = {
         display: "flex",
@@ -101,9 +101,11 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
         alignItems: "flex-start"
       };
       var buttonModeSelectorStyle = {
-        width: "400px",
-        height: "500px",
-        margin: "50px"
+        width: "388px",
+        height: "300px",
+        marginTop: "20px",
+        marginLeft: "10px",
+        marginRight: "10px"
       };
       var buttonsInnerContainer = {
         display: "flex",
@@ -113,10 +115,26 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
         height: "100%",
         alignItems: "center"
       };
-      var styleIconImage = {
+      var buttonsInnerTopContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexFlow: "column",
         width: "100%",
         height: "50%",
-        margin: "30px"
+        alignItems: "center"
+      };
+      var buttonsInnerBottomContainer = {
+        display: "flex",
+        justifyContent: "flex-start",
+        flexFlow: "column",
+        width: "100%",
+        height: "50%",
+        alignItems: "center"
+      };
+      var styleIconImage = {
+        width: "100%",
+        height: "100%",
+        margin: "5px"
       };
       var styleText_1 = {
         wordBreak: "break-word",
@@ -163,15 +181,19 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
           variant: "light"
         }, /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: buttonsInnerTopContainer
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: hardwareImgPath,
           alt: this.props.hardwareImg,
           style: styleIconImage
-        }), /*#__PURE__*/_react.default.createElement("h2", {
+        })), /*#__PURE__*/_react.default.createElement("div", {
+          style: buttonsInnerBottomContainer
+        }, /*#__PURE__*/_react.default.createElement("h2", {
           style: styleText_1
         }, "Manage Instrument"), /*#__PURE__*/_react.default.createElement("p", {
           style: styleText_2
-        }, "Collect information about the hardware components of your microscope.")))
+        }, "Collect information about the hardware components of your microscope."))))
       }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         position: _constants.manage_settings_tooltip.position,
         title: _constants.manage_settings_tooltip.title,
@@ -184,15 +206,19 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
           variant: "light"
         }, /*#__PURE__*/_react.default.createElement("div", {
           style: buttonsInnerContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: buttonsInnerTopContainer
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: settingsImgPath,
           alt: settingsImg,
           style: styleIconImage
-        }), /*#__PURE__*/_react.default.createElement("h2", {
+        })), /*#__PURE__*/_react.default.createElement("div", {
+          style: buttonsInnerBottomContainer
+        }, /*#__PURE__*/_react.default.createElement("h2", {
           style: styleText_1
         }, "Manage Settings"), /*#__PURE__*/_react.default.createElement("p", {
           style: styleText_2
-        }, "Collect information about the acquisition settings that were used to produce your image.")))
+        }, "Collect information about the acquisition settings that were used to produce your image."))))
       })))); //}
     }
   }]);

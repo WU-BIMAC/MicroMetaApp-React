@@ -321,9 +321,13 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
       });
       var width = this.props.dimensions.width;
       var height = this.props.dimensions.height;
-      var styleMainContainer = {
+      var containerStyle = {
         width: "".concat(width, "px"),
-        height: "".concat(height, "px"),
+        height: "".concat(height, "px")
+      };
+      var styleMainContainer = {
+        width: "100%",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         flexWap: "wrap",
@@ -377,6 +381,8 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
 
         if (editingElement == elements.indexOf("planes")) {
           return /*#__PURE__*/_react.default.createElement("div", {
+            style: containerStyle
+          }, /*#__PURE__*/_react.default.createElement("div", {
             style: styleMainContainer
           }, /*#__PURE__*/_react.default.createElement(_planeView.default, {
             schema: schema,
@@ -387,9 +393,13 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             onCancel: this.onElementDataCancel,
             overlaysContainer: this.props.overlaysContainer,
             isDebug: this.props.isDebug
-          }));
+          })));
         } else if (editingElement == elements.indexOf("channels")) {
-          return /*#__PURE__*/_react.default.createElement(_channelView.default, {
+          return /*#__PURE__*/_react.default.createElement("div", {
+            style: containerStyle
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: styleMainContainer
+          }, /*#__PURE__*/_react.default.createElement(_channelView.default, {
             settingSchemas: this.props.settingSchemas,
             componentSchemas: this.props.componentSchemas,
             experimentalSchemas: this.props.experimentalSchemas,
@@ -411,7 +421,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             objective: this.state.objective,
             objectiveSettings: this.state.objSettings,
             isDebug: this.props.isDebug
-          });
+          })));
         } else if (editingElement == elements.indexOf("imgEnv") || editingElement == elements.indexOf("tirfSettings") || editingElement == elements.indexOf("objSettings") || editingElement == elements.indexOf("samplePosSettings") || editingElement == elements.indexOf("micTableSettings")) {
           var maxNumberElement = -1;
 
@@ -419,7 +429,11 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             maxNumberElement = 1;
           }
 
-          return /*#__PURE__*/_react.default.createElement(_settingComponentSelector.default, {
+          return /*#__PURE__*/_react.default.createElement("div", {
+            style: containerStyle
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: styleMainContainer
+          }, /*#__PURE__*/_react.default.createElement(_settingComponentSelector.default, {
             settingSchemas: this.props.settingSchemas,
             componentSchemas: this.props.componentSchemas,
             experimentalSchemas: this.props.experimentalSchemas,
@@ -438,9 +452,11 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             elementByType: elementByType,
             maxNumberElement: maxNumberElement,
             isDebug: this.props.isDebug
-          });
+          })));
         } else {
           return /*#__PURE__*/_react.default.createElement("div", {
+            style: containerStyle
+          }, /*#__PURE__*/_react.default.createElement("div", {
             style: styleMainContainer
           }, /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
             settings: this.props.settingSchemas,
@@ -456,7 +472,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             elementByType: elementByType,
             editable: true,
             isDebug: this.props.isDebug
-          }));
+          })));
         }
       } else {
         var styleButton = {
@@ -467,12 +483,6 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
           margin: "5px" // marginLeft: "5px",
           // marginRight: "5px",
 
-        };
-        var containerStyle = {
-          display: "flex",
-          flexDirection: "column",
-          width: "".concat(width, "px"),
-          height: "".concat(height, "px")
         };
         var infoStyle = {
           position: "absolute",

@@ -2544,9 +2544,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       });
 
       if (!this.state.isCreatingNewMicroscope) {
-        console.log("setting");
-        console.log(setting);
-        console.log("Settings Height: " + settingsMainViewDims.height);
         var footerSettingsSchemas = [imageSchema, pixelsSchema];
         var footerSettingsInput = [setting, setting.Pixels]; //{overlayImporter}
 
