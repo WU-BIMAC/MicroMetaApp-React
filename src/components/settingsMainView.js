@@ -326,9 +326,15 @@ export default class SettingMainView extends React.PureComponent {
 
 		let width = this.props.dimensions.width;
 		let height = this.props.dimensions.height;
-		const styleMainContainer = {
+
+		const containerStyle = {
 			width: `${width}px`,
 			height: `${height}px`,
+		};
+
+		const styleMainContainer = {
+			width: "100%",
+			height: "100%",
 			display: "flex",
 			flexDirection: "column",
 			flexWap: "wrap",
@@ -377,44 +383,50 @@ export default class SettingMainView extends React.PureComponent {
 			}
 			if (editingElement == elements.indexOf("planes")) {
 				return (
-					<div style={styleMainContainer}>
-						<PlaneView
-							schema={schema}
-							inputData={obj}
-							imageMetadata={this.props.imageMetadata}
-							id={editingElement}
-							onConfirm={this.onElementDataSave}
-							onCancel={this.onElementDataCancel}
-							overlaysContainer={this.props.overlaysContainer}
-							isDebug={this.props.isDebug}
-						/>
+					<div style={containerStyle}>
+						<div style={styleMainContainer}>
+							<PlaneView
+								schema={schema}
+								inputData={obj}
+								imageMetadata={this.props.imageMetadata}
+								id={editingElement}
+								onConfirm={this.onElementDataSave}
+								onCancel={this.onElementDataCancel}
+								overlaysContainer={this.props.overlaysContainer}
+								isDebug={this.props.isDebug}
+							/>
+						</div>
 					</div>
 				);
 			} else if (editingElement == elements.indexOf("channels")) {
 				return (
-					<ChannelView
-						settingSchemas={this.props.settingSchemas}
-						componentSchemas={this.props.componentSchemas}
-						experimentalSchemas={this.props.experimentalSchemas}
-						schema={schema}
-						inputData={obj}
-						imageMetadata={this.props.imageMetadata}
-						id={editingElement}
-						imagesPath={this.props.imagesPath}
-						settingData={this.props.settingData}
-						componentData={this.props.componentData}
-						linkedFields={this.props.linkedFields}
-						onConfirm={this.onElementDataSave}
-						onCancel={this.onElementDataCancel}
-						overlaysContainer={this.props.overlaysContainer}
-						elementByType={elementByType}
-						containerOffsetTop={this.props.containerOffsetTop}
-						containerOffsetLeft={this.props.containerOffsetLeft}
-						headerOffset={this.props.headerOffset}
-						objective={this.state.objective}
-						objectiveSettings={this.state.objSettings}
-						isDebug={this.props.isDebug}
-					/>
+					<div style={containerStyle}>
+						<div style={styleMainContainer}>
+							<ChannelView
+								settingSchemas={this.props.settingSchemas}
+								componentSchemas={this.props.componentSchemas}
+								experimentalSchemas={this.props.experimentalSchemas}
+								schema={schema}
+								inputData={obj}
+								imageMetadata={this.props.imageMetadata}
+								id={editingElement}
+								imagesPath={this.props.imagesPath}
+								settingData={this.props.settingData}
+								componentData={this.props.componentData}
+								linkedFields={this.props.linkedFields}
+								onConfirm={this.onElementDataSave}
+								onCancel={this.onElementDataCancel}
+								overlaysContainer={this.props.overlaysContainer}
+								elementByType={elementByType}
+								containerOffsetTop={this.props.containerOffsetTop}
+								containerOffsetLeft={this.props.containerOffsetLeft}
+								headerOffset={this.props.headerOffset}
+								objective={this.state.objective}
+								objectiveSettings={this.state.objSettings}
+								isDebug={this.props.isDebug}
+							/>
+						</div>
+					</div>
 				);
 			} else if (
 				editingElement == elements.indexOf("imgEnv") ||
@@ -428,47 +440,53 @@ export default class SettingMainView extends React.PureComponent {
 					maxNumberElement = 1;
 				}
 				return (
-					<SettingComponentSelector
-						settingSchemas={this.props.settingSchemas}
-						componentSchemas={this.props.componentSchemas}
-						experimentalSchemas={this.props.experimentalSchemas}
-						schema={schema}
-						inputData={obj}
-						imageMetadata={this.props.imageMetadata}
-						id={editingElement}
-						category={category}
-						imagesPath={this.props.imagesPath}
-						settingData={this.props.settingData}
-						componentData={this.props.componentData}
-						linkedFields={this.props.linkedFields}
-						onConfirm={this.onElementDataSave}
-						onCancel={this.onElementDataCancel}
-						overlaysContainer={this.props.overlaysContainer}
-						elementByType={elementByType}
-						maxNumberElement={maxNumberElement}
-						isDebug={this.props.isDebug}
-					/>
+					<div style={containerStyle}>
+						<div style={styleMainContainer}>
+							<SettingComponentSelector
+								settingSchemas={this.props.settingSchemas}
+								componentSchemas={this.props.componentSchemas}
+								experimentalSchemas={this.props.experimentalSchemas}
+								schema={schema}
+								inputData={obj}
+								imageMetadata={this.props.imageMetadata}
+								id={editingElement}
+								category={category}
+								imagesPath={this.props.imagesPath}
+								settingData={this.props.settingData}
+								componentData={this.props.componentData}
+								linkedFields={this.props.linkedFields}
+								onConfirm={this.onElementDataSave}
+								onCancel={this.onElementDataCancel}
+								overlaysContainer={this.props.overlaysContainer}
+								elementByType={elementByType}
+								maxNumberElement={maxNumberElement}
+								isDebug={this.props.isDebug}
+							/>
+						</div>
+					</div>
 				);
 			} else {
 				return (
-					<div style={styleMainContainer}>
-						<MultiTabFormWithHeaderV3
-							settings={this.props.settingSchemas}
-							schema={schema}
-							inputData={obj}
-							id={editingElement}
-							onConfirm={this.onElementDataSave}
-							onCancel={this.onElementDataCancel}
-							overlaysContainer={this.props.overlaysContainer}
-							currentChildrenComponentIdentifier={
-								string_currentNumberOf_identifier
-							}
-							minChildrenComponentIdentifier={string_minNumberOf_identifier}
-							maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
-							elementByType={elementByType}
-							editable={true}
-							isDebug={this.props.isDebug}
-						/>
+					<div style={containerStyle}>
+						<div style={styleMainContainer}>
+							<MultiTabFormWithHeaderV3
+								settings={this.props.settingSchemas}
+								schema={schema}
+								inputData={obj}
+								id={editingElement}
+								onConfirm={this.onElementDataSave}
+								onCancel={this.onElementDataCancel}
+								overlaysContainer={this.props.overlaysContainer}
+								currentChildrenComponentIdentifier={
+									string_currentNumberOf_identifier
+								}
+								minChildrenComponentIdentifier={string_minNumberOf_identifier}
+								maxChildrenComponentIdentifier={string_maxNumberOf_identifier}
+								elementByType={elementByType}
+								editable={true}
+								isDebug={this.props.isDebug}
+							/>
+						</div>
 					</div>
 				);
 			}
@@ -481,12 +499,6 @@ export default class SettingMainView extends React.PureComponent {
 				margin: "5px",
 				// marginLeft: "5px",
 				// marginRight: "5px",
-			};
-			const containerStyle = {
-				display: "flex",
-				flexDirection: "column",
-				width: `${width}px`,
-				height: `${height}px`,
 			};
 			const infoStyle = {
 				position: "absolute",

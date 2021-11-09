@@ -28,7 +28,7 @@ export default class ModeSelector extends React.PureComponent {
 			width: "100%",
 			height: "100%",
 			alignItems: "center",
-			minHeight: "800px",
+			minHeight: "600px",
 		};
 
 		const mainContainer = {
@@ -68,9 +68,11 @@ export default class ModeSelector extends React.PureComponent {
 			alignItems: "flex-start",
 		};
 		const buttonModeSelectorStyle = {
-			width: "400px",
-			height: "500px",
-			margin: "50px",
+			width: "388px",
+			height: "300px",
+			marginTop: "20px",
+			marginLeft: "10px",
+			marginRight: "10px",
 		};
 		const buttonsInnerContainer = {
 			display: "flex",
@@ -80,10 +82,27 @@ export default class ModeSelector extends React.PureComponent {
 			height: "100%",
 			alignItems: "center",
 		};
-		let styleIconImage = {
+		const buttonsInnerTopContainer = {
+			display: "flex",
+			justifyContent: "center",
+			flexFlow: "column",
 			width: "100%",
 			height: "50%",
-			margin: "30px",
+			alignItems: "center",
+		};
+		const buttonsInnerBottomContainer = {
+			display: "flex",
+			justifyContent: "flex-start",
+			flexFlow: "column",
+			width: "100%",
+			height: "50%",
+			alignItems: "center",
+		};
+
+		let styleIconImage = {
+			width: "100%",
+			height: "100%",
+			margin: "5px",
 		};
 		let styleText_1 = {
 			wordBreak: "break-word",
@@ -148,16 +167,20 @@ export default class ModeSelector extends React.PureComponent {
 								>
 									{
 										<div style={buttonsInnerContainer}>
-											<img
-												src={hardwareImgPath}
-												alt={this.props.hardwareImg}
-												style={styleIconImage}
-											/>
-											<h2 style={styleText_1}>Manage Instrument</h2>
-											<p style={styleText_2}>
-												Collect information about the hardware components of
-												your microscope.
-											</p>
+											<div style={buttonsInnerTopContainer}>
+												<img
+													src={hardwareImgPath}
+													alt={this.props.hardwareImg}
+													style={styleIconImage}
+												/>
+											</div>
+											<div style={buttonsInnerBottomContainer}>
+												<h2 style={styleText_1}>Manage Instrument</h2>
+												<p style={styleText_2}>
+													Collect information about the hardware components of
+													your microscope.
+												</p>
+											</div>
 										</div>
 									}
 								</Button>
@@ -177,16 +200,20 @@ export default class ModeSelector extends React.PureComponent {
 								>
 									{
 										<div style={buttonsInnerContainer}>
-											<img
-												src={settingsImgPath}
-												alt={settingsImg}
-												style={styleIconImage}
-											/>
-											<h2 style={styleText_1}>Manage Settings</h2>
-											<p style={styleText_2}>
-												Collect information about the acquisition settings that
-												were used to produce your image.
-											</p>
+											<div style={buttonsInnerTopContainer}>
+												<img
+													src={settingsImgPath}
+													alt={settingsImg}
+													style={styleIconImage}
+												/>
+											</div>
+											<div style={buttonsInnerBottomContainer}>
+												<h2 style={styleText_1}>Manage Settings</h2>
+												<p style={styleText_2}>
+													Collect information about the acquisition settings
+													that were used to produce your image.
+												</p>
+											</div>
 										</div>
 									}
 								</Button>

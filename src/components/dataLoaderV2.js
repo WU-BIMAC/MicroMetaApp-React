@@ -258,7 +258,7 @@ export default class DataLoader extends React.PureComponent {
 		const buttonStyle = {
 			display: "none",
 			width: "200px",
-			height: "40px",
+			height: "20px",
 			padding: "5px",
 			margin: "5px",
 		};
@@ -276,7 +276,7 @@ export default class DataLoader extends React.PureComponent {
 			width: "100%",
 			height: "100%",
 			alignItems: "center",
-			minHeight: "800px",
+			minHeight: "600px",
 		};
 		const mainContainer = {
 			display: "flex",
@@ -295,6 +295,7 @@ export default class DataLoader extends React.PureComponent {
 			height: "60%",
 			alignItems: "flex-start",
 			alignContent: "flex-start",
+			//marginTop: "10px",
 		};
 		const logoContainer = {
 			display: "flex",
@@ -386,7 +387,9 @@ export default class DataLoader extends React.PureComponent {
 							</div>
 						</div>
 						<div style={buttonsContainer}>
-							<h4 style={{ textAlign: "center" }}>Loading data</h4>
+							<h5 style={{ marginTop: "20px", textAlign: "center" }}>
+								Loading data
+							</h5>
 							<Button
 								ref={this.simulateClickLoadMicroscopes}
 								disabled={isLoadingMicroscopes || isMicroscopesLoaded}

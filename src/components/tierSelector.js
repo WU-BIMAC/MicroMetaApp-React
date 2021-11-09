@@ -34,8 +34,8 @@ export default class TierSelector extends React.PureComponent {
 			width: "100%",
 			height: "100%",
 			alignItems: "center",
-			minWidth: "950px",
-			minHeight: "1050px",
+			//minWidth: "800px",
+			minHeight: "600px",
 		};
 
 		const mainContainer = {
@@ -45,28 +45,36 @@ export default class TierSelector extends React.PureComponent {
 			width: "100%",
 			height: "100%",
 			alignItems: "center",
-			maxHeight: "1050px",
+			//maxHeight: "600px",
 		};
 
 		const buttonsContainer = {
 			display: "flex",
-			justifyContent: "center",
+			justifyContent: "flex-end",
 			flexFlow: "column",
 			width: "100%",
-			height: "80%",
+			height: "60%",
 			alignItems: "center",
 			//margin: "50px",
 		};
 		const buttonModeSelectorStyle = {
-			width: "900px",
-			height: "200px",
-			margin: "25px",
+			width: "800px",
+			height: "150px",
+			margin: "5px",
 		};
 		const buttonsInnerContainer = {
 			display: "flex",
-			justifyContent: "flex-end",
+			justifyContent: "flex-start",
 			flexFlow: "row",
 			width: "100%",
+			height: "100%",
+			alignItems: "center",
+		};
+		const buttonsInnerImgContainer = {
+			display: "flex",
+			justifyContent: "center",
+			flexFlow: "column",
+			width: "20%",
 			height: "100%",
 			alignItems: "center",
 		};
@@ -74,7 +82,7 @@ export default class TierSelector extends React.PureComponent {
 			display: "flex",
 			justifyContent: "flex-start",
 			flexFlow: "column",
-			width: "100%",
+			width: "80%",
 			height: "100%",
 			alignItems: "flex-start",
 		};
@@ -83,7 +91,7 @@ export default class TierSelector extends React.PureComponent {
 			justifyContent: "flex-start",
 			flexFlow: "column",
 			width: "100%",
-			height: "20%",
+			height: "40%",
 			alignItems: "center",
 			marginTop: "10px",
 		};
@@ -97,9 +105,9 @@ export default class TierSelector extends React.PureComponent {
 			margin: "auto",
 		};
 		let styleIconImage = {
-			width: "25%",
-			height: "75%",
-			margin: "20px",
+			width: "100%",
+			height: "100%",
+			margin: "5px",
 		};
 		let styleText_1 = {
 			textAlign: "left",
@@ -212,9 +220,11 @@ export default class TierSelector extends React.PureComponent {
 						>
 							{
 								<div style={buttonsInnerContainer}>
-									<img src={iconPath} alt={iconImg} style={styleIconImage} />
+									<div style={buttonsInnerImgContainer}>
+										<img src={iconPath} alt={iconImg} style={styleIconImage} />
+									</div>
 									<div style={buttonsInnerTextContainer}>
-										<h2 style={styleText_1}>{tier.Name}</h2>
+										<h4 style={styleText_1}>{tier.Name}</h4>
 										<p style={styleText_2}>{tier.Description}</p>
 										{/* <p style={styleText_3}>
 											{"Minimum components: " + minComp}

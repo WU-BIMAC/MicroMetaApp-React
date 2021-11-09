@@ -3354,9 +3354,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		});
 
 		if (!this.state.isCreatingNewMicroscope) {
-			console.log("setting");
-			console.log(setting);
-			console.log("Settings Height: " + settingsMainViewDims.height);
 			let footerSettingsSchemas = [imageSchema, pixelsSchema];
 			let footerSettingsInput = [setting, setting.Pixels];
 			//{overlayImporter}
