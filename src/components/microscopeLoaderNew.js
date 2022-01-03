@@ -861,8 +861,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 		)
 			disabled = true;
 		else if (
-			modeSelection === string_loadFromRepository ||
-			(modeSelection === string_loadFromHomeFolder && filename === null)
+			(modeSelection === string_loadFromRepository ||
+				modeSelection === string_loadFromHomeFolder) &&
+			filename === null
 		)
 			disabled = true;
 

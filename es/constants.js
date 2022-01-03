@@ -38,11 +38,13 @@ var string_maxNumberOf_identifier = "Max_Number_Of_";
 exports.string_maxNumberOf_identifier = string_maxNumberOf_identifier;
 var string_json_ext = ".json";
 exports.string_json_ext = string_json_ext;
-var string_logo_img_no_bk = "MicroMetaApp_noBkg_noOutline.png";
+var string_logo_img_no_bk = "MicroMetaApp_noBkg_noOutline_3.png"; //"MicroMetaApp_noBkg_noOutline.png";
+
 exports.string_logo_img_no_bk = string_logo_img_no_bk;
 var string_logo_img_cell_bk = "MicroMetaApp_cellBkg.png";
 exports.string_logo_img_cell_bk = string_logo_img_cell_bk;
-var string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_2.png";
+var string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_4.png"; //"MicroMetaApp_TESMBkg_2.png";
+
 exports.string_logo_img_micro_bk = string_logo_img_micro_bk;
 var string_add_img = "add-button.svg";
 exports.string_add_img = string_add_img;
