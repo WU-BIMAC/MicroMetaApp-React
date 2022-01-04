@@ -1990,7 +1990,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	createOrUseMicroscopeFromSelectedFile(resolve) {
-		let modifiedMic = this.state.microscopes[this.state.micName];
+		let modifiedMic = this.state.microscopes[this.state.micName].microscope;
 		let activeTier = this.state.activeTier;
 		if (activeTier !== modifiedMic.Tier) {
 			//TODO warning tier is different ask if continue?
@@ -2080,8 +2080,19 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 		let isLoadingMicroscope = this.state.isLoadingMicroscope;
 		let microscope = newMicroscope;
-		if (!isCreateNewScratch && loadingOption !== string_createFromFile) {
-			microscope = this.state.microscopes[filename];
+		let microscopes = this.state.microscopes;
+		if (!isCreateNewScratch && loadingOption !== string_createFromFile && isDefined(microscopes)) {
+			microscope = this.state.microscopes[filename].microscope;
+			if(isDefined(this.props.onLoadMicroscope)) {
+				let id = this.state.microscopes[filename].id;
+				if(isDefined(id)) {
+					this.props.onLoadMicroscope(id);
+				} else {
+					this.props.onLoadMicroscope(-1);
+				}
+			}
+		} else if(isDefined(this.onLoadMicroscope)) {
+			this.props.onLoadMicroscope(-1)
 		}
 		if (
 			microscope !== null &&
@@ -2108,6 +2119,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				} else {
 					this.createOrUseMicroscopeFromSelectedFile(resolve);
 				}
+				if(isDefined(this.props.onModeSelection))
+					this.props.onModeSelection(1);
 			}
 		);
 	}
@@ -2447,6 +2460,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		newSetting,
 		newMetadata
 	) {
+
 		let promiseMicroscope = new Promise((resolve, reject) => {
 			this.createOrUseMicroscope(
 				micLoadingOption,
@@ -2513,7 +2527,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				);
 			});
 			promiseSetting.then(() => {
-				this.setState({ isLoadingImage: false });
+				this.setState({ isLoadingImage: false }, () => {
+					if (isDefined(this.props.onModeSelection))
+						this.props.onModeSelection(2);
+				});
 			});
 		});
 	}
@@ -3075,7 +3092,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let microscopeNames = {};
 			if (microscopes) {
 				Object.keys(microscopes).forEach((key) => {
-					let mic = microscopes[key];
+					let mic = microscopes[key].microscope;
 					if (
 						mic.MicroscopeStand !== null &&
 						mic.MicroscopeStand !== undefined &&
@@ -3178,7 +3195,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let microscopeNames = {};
 			if (microscopes) {
 				Object.keys(microscopes).forEach((key) => {
-					let mic = microscopes[key];
+					let mic = microscopes[key].microscope;
 					if (
 						mic.MicroscopeStand !== null &&
 						mic.MicroscopeStand !== undefined &&
@@ -3617,6 +3634,10 @@ MicroMetaAppReact.defaultProps = {
 	hasSettings: false,
 	hasAdvancedModel: false,
 	hasExperimentalModel: false,
+
+	onModeSelection: null,
+	onLoadMicroscope: null,
+
 	onLoadDimensions: function (complete, resolve) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {

@@ -1281,7 +1281,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createOrUseMicroscopeFromSelectedFile",
     value: function createOrUseMicroscopeFromSelectedFile(resolve) {
-      var modifiedMic = this.state.microscopes[this.state.micName];
+      var modifiedMic = this.state.microscopes[this.state.micName].microscope;
       var activeTier = this.state.activeTier;
 
       if (activeTier !== modifiedMic.Tier) {
@@ -1368,9 +1368,22 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       var isLoadingMicroscope = this.state.isLoadingMicroscope;
       var microscope = newMicroscope;
+      var microscopes = this.state.microscopes;
 
-      if (!isCreateNewScratch && loadingOption !== _constants.string_createFromFile) {
-        microscope = this.state.microscopes[filename];
+      if (!isCreateNewScratch && loadingOption !== _constants.string_createFromFile && (0, _genericUtilities.isDefined)(microscopes)) {
+        microscope = this.state.microscopes[filename].microscope;
+
+        if ((0, _genericUtilities.isDefined)(this.props.onLoadMicroscope)) {
+          var id = this.state.microscopes[filename].id;
+
+          if ((0, _genericUtilities.isDefined)(id)) {
+            this.props.onLoadMicroscope(id);
+          } else {
+            this.props.onLoadMicroscope(-1);
+          }
+        }
+      } else if ((0, _genericUtilities.isDefined)(this.onLoadMicroscope)) {
+        this.props.onLoadMicroscope(-1);
       }
 
       if (microscope !== null && microscope !== undefined && isLoadingMicroscope) {
@@ -1391,6 +1404,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         } else {
           _this11.createOrUseMicroscopeFromSelectedFile(resolve);
         }
+
+        if ((0, _genericUtilities.isDefined)(_this11.props.onModeSelection)) _this11.props.onModeSelection(1);
       });
     }
   }, {
@@ -1759,6 +1774,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         promiseSetting.then(function () {
           _this12.setState({
             isLoadingImage: false
+          }, function () {
+            if ((0, _genericUtilities.isDefined)(_this12.props.onModeSelection)) _this12.props.onModeSelection(2);
           });
         });
       });
@@ -2302,7 +2319,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
         if (microscopes) {
           Object.keys(microscopes).forEach(function (key) {
-            var mic = microscopes[key];
+            var mic = microscopes[key].microscope;
 
             if (mic.MicroscopeStand !== null && mic.MicroscopeStand !== undefined && mic.MicroscopeStand.Manufacturer !== null && mic.MicroscopeStand.Manufacturer !== undefined) {
               var catNames = microscopeNames[mic.MicroscopeStand.Manufacturer];
@@ -2389,7 +2406,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
         if (microscopes) {
           Object.keys(microscopes).forEach(function (key) {
-            var mic = microscopes[key];
+            var mic = microscopes[key].microscope;
 
             if (mic.MicroscopeStand !== null && mic.MicroscopeStand !== undefined && mic.MicroscopeStand.Manufacturer !== null && mic.MicroscopeStand.Manufacturer !== undefined) {
               var catNames = _microscopeNames[mic.MicroscopeStand.Manufacturer];
@@ -3072,6 +3089,8 @@ MicroMetaAppReact.defaultProps = {
   hasSettings: false,
   hasAdvancedModel: false,
   hasExperimentalModel: false,
+  onModeSelection: null,
+  onLoadMicroscope: null,
   onLoadDimensions: function onLoadDimensions(complete, resolve) {
     // Do some stuff... show pane for people to browse/select schema.. etc.
     setTimeout(function () {

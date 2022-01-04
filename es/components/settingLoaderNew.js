@@ -307,9 +307,10 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     value: function onClickMicroscopeSelection(item) {
       //console.log("onClickMicroscopeSelection - " + item);
       var loadedMicroscope = null;
+      var microscopes = this.props.microscopes;
 
-      if ((0, _genericUtilities.isDefined)(this.props.microscopes)) {
-        loadedMicroscope = this.props.microscopes[item];
+      if ((0, _genericUtilities.isDefined)(microscopes)) {
+        loadedMicroscope = microscopes[item].microscope;
       }
 
       this.setState({

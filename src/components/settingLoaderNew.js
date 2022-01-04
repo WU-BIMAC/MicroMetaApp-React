@@ -276,8 +276,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 	onClickMicroscopeSelection(item) {
 		//console.log("onClickMicroscopeSelection - " + item);
 		let loadedMicroscope = null;
-		if (isDefined(this.props.microscopes)) {
-			loadedMicroscope = this.props.microscopes[item];
+		let microscopes = this.props.microscopes;
+		if (isDefined(microscopes)) {
+			loadedMicroscope = microscopes[item].microscope;
 		}
 		this.setState({ micFilename: item, loadedMicroscope: loadedMicroscope });
 	}
@@ -1971,20 +1972,20 @@ export default class MicroscopeLoader extends React.PureComponent {
 		return (
 			<div style={wrapperContainer}>
 				<div style={mainContainer}>
-				<div style={workingContainer}>
-					<div style={titleContainer}>
-						<h1>{this.props.title}</h1>
+					<div style={workingContainer}>
+						<div style={titleContainer}>
+							<h1>{this.props.title}</h1>
+						</div>
+						<div style={stepContainer}>{stepRadios}</div>
+						<div style={buttonsContainer}>{list}</div>
+						<div style={bottomButtonsContainer}>{buttons}</div>
 					</div>
-					<div style={stepContainer}>{stepRadios}</div>
-					<div style={buttonsContainer}>{list}</div>
-					<div style={bottomButtonsContainer}>{buttons}</div>
-				</div>
-				<div style={logoContainer}>
-					{homeButton}
-					<div style={styleImageContainer}>
-						<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
+					<div style={logoContainer}>
+						{homeButton}
+						<div style={styleImageContainer}>
+							<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
+						</div>
 					</div>
-				</div>
 				</div>
 			</div>
 		);
