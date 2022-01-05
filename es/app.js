@@ -1404,8 +1404,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         } else {
           _this11.createOrUseMicroscopeFromSelectedFile(resolve);
         }
-
-        if ((0, _genericUtilities.isDefined)(_this11.props.onModeSelection)) _this11.props.onModeSelection(1);
       });
     }
   }, {
@@ -1774,8 +1772,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         promiseSetting.then(function () {
           _this12.setState({
             isLoadingImage: false
-          }, function () {
-            if ((0, _genericUtilities.isDefined)(_this12.props.onModeSelection)) _this12.props.onModeSelection(2);
           });
         });
       });
@@ -3089,7 +3085,6 @@ MicroMetaAppReact.defaultProps = {
   hasSettings: false,
   hasAdvancedModel: false,
   hasExperimentalModel: false,
-  onModeSelection: null,
   onLoadMicroscope: null,
   onLoadDimensions: function onLoadDimensions(complete, resolve) {
     // Do some stuff... show pane for people to browse/select schema.. etc.

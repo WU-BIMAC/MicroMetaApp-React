@@ -2119,8 +2119,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				} else {
 					this.createOrUseMicroscopeFromSelectedFile(resolve);
 				}
-				if(isDefined(this.props.onModeSelection))
-					this.props.onModeSelection(1);
 			}
 		);
 	}
@@ -2527,10 +2525,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				);
 			});
 			promiseSetting.then(() => {
-				this.setState({ isLoadingImage: false }, () => {
-					if (isDefined(this.props.onModeSelection))
-						this.props.onModeSelection(2);
-				});
+				this.setState({ isLoadingImage: false });
 			});
 		});
 	}
@@ -3635,7 +3630,6 @@ MicroMetaAppReact.defaultProps = {
 	hasAdvancedModel: false,
 	hasExperimentalModel: false,
 
-	onModeSelection: null,
 	onLoadMicroscope: null,
 
 	onLoadDimensions: function (complete, resolve) {
