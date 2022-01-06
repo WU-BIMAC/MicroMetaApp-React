@@ -383,14 +383,21 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "onClickImageSelection",
-    value: function onClickImageSelection(item) {
-      var imageMap = this.props.imageMap;
-      var image = imageMap[item]; //this.props.handleLoadMetadataComplete(image);
+    value: function onClickImageSelection(mode, item) {
+      if (mode === 0) {
+        var imageMap = this.state.imageMap;
+        var image = imageMap[item]; //this.props.handleLoadMetadataComplete(image);
 
-      if (this.props.isDebug) console.log("Loaded metadata: " + loadedMetadata);
-      this.setState({
-        loadedMetadata: image
-      });
+        if (this.props.isDebug) console.log("Loaded metadata: " + image);
+        this.setState({
+          loadedMetadata: image
+        });
+      } else if (mode === 1) {
+        this.setState({
+          imgFilename: item
+        });
+        this.props.onLoadMetadata(this.handleLoadMetadataComplete);
+      }
     }
   }, {
     key: "handleLoadMetadataComplete",
@@ -400,7 +407,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         this.setState({
           errorMsg: "Error: " + imageMetadata.Error
         });
-      } else if (imageMetadata.Images !== null && imageMetadata.Images !== undefined) {
+      } else if ((0, _genericUtilities.isDefined)(imageMetadata.Images)) {
         var images = imageMetadata.Images;
         var firstImage = null;
         var imageMap = {};
@@ -425,7 +432,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         // console.log(image);
         //this.props.handleLoadMetadataComplete(image);
 
-        if (this.props.isDebug) console.log("Loaded metadata: " + loadedMetadata);
+        if (this.props.isDebug) console.log("Loaded metadata: " + _image);
         this.setState({
           imgFileLoaded: true,
           loadedMetadata: _image
@@ -703,6 +710,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var loadedSetting = this.state.loadedSetting;
       var selectedManu = this.state.selectedManu;
       var selectedMic = this.state.selectedMic;
+      var selectedGroup = this.state.selectedGroup;
+      var selectedProject = this.state.selectedProject;
+      var selectedDataset = this.state.selectedDataset;
       var selectedImg = this.state.selectedImg;
       var selectedSett = this.state.selectedSett;
       var micLoadingOptions = this.props.microscopeLoadingOptions;
@@ -1135,8 +1145,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       if (step === 1) {
         var loadRadios = [];
 
-        var _loop = function _loop(i) {
-          var loadingOption = micLoadingOptions[i];
+        var _loop = function _loop(_i) {
+          var loadingOption = micLoadingOptions[_i];
           var tooltip = _constants.microscope_loader_load_from_file;
 
           if (loadingOption === _constants.string_loadFromHomeFolder) {
@@ -1166,8 +1176,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }));
         };
 
-        for (var i = 0; i < micLoadingOptions.length; i++) {
-          _loop(i);
+        for (var _i = 0; _i < micLoadingOptions.length; _i++) {
+          _loop(_i);
         }
 
         var toggles = [];
@@ -1261,14 +1271,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
           var manufacturerRadios = [];
 
-          for (var _i = 0; _i < manufacturers.length; _i++) {
+          for (var _i2 = 0; _i2 < manufacturers.length; _i2++) {
             manufacturerRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-              id: "rmo-radio-" + _i,
-              key: "rmo-radio-" + _i,
-              value: manufacturers[_i],
+              id: "rmo-radio-" + _i2,
+              key: "rmo-radio-" + _i2,
+              value: manufacturers[_i2],
               variant: "outline-primary",
               style: buttonStyleWide
-            }, manufacturers[_i]));
+            }, manufacturers[_i2]));
           }
 
           var manufacturerRadio = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -1302,8 +1312,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             var microscopesManu = microscopeNames[selectedManu];
             var microscopeRadios = [];
 
-            for (var _i2 = 0; _i2 < microscopesManu.length; _i2++) {
-              var _fullMicName = microscopesManu[_i2];
+            for (var _i3 = 0; _i3 < microscopesManu.length; _i3++) {
+              var _fullMicName = microscopesManu[_i3];
 
               var _lastIndexBeforeID2 = _fullMicName.lastIndexOf("_") + 1;
 
@@ -1314,8 +1324,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               var _micLabel = _micName + "\n" + _micID;
 
               microscopeRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-                id: "rmico-radio-" + _i2,
-                key: "rmico-radio-" + _i2,
+                id: "rmico-radio-" + _i3,
+                key: "rmico-radio-" + _i3,
                 value: _fullMicName,
                 variant: "outline-primary",
                 style: buttonStyleWide
@@ -1359,12 +1369,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       } else if (step === 2) {
         var _loadRadios = [];
 
-        var _loop2 = function _loop2(_i3) {
-          var loadingOption = imgLoadingOptions[_i3];
+        var _loop2 = function _loop2(_i4) {
+          var loadingOption = imgLoadingOptions[_i4];
           var tooltip = _constants.loadImage_load_tooltip;
 
           if (loadingOption === _constants.string_noImageLoad) {
             tooltip = _constants.loadImage_skip_tooltip;
+          } else if (loadingOption === _constants.string_loadFromRepository) {
+            tooltip = _constants.loadImage_loadFromRepo_tooltip;
           }
 
           _loadRadios.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -1388,8 +1400,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }));
         };
 
-        for (var _i3 = 0; _i3 < imgLoadingOptions.length; _i3++) {
-          _loop2(_i3);
+        for (var _i4 = 0; _i4 < imgLoadingOptions.length; _i4++) {
+          _loop2(_i4);
         }
 
         var _toggles = [];
@@ -1454,14 +1466,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
             var imageRadios = [];
 
-            for (var _i4 = 0; _i4 < imageKeys.length; _i4++) {
+            for (var _i5 = 0; _i5 < imageKeys.length; _i5++) {
               imageRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-                id: "rio-radio-" + _i4,
-                key: "rio-radio-" + _i4,
-                value: imageKeys[_i4],
+                id: "rio-radio-" + _i5,
+                key: "rio-radio-" + _i5,
+                value: imageKeys[_i5],
                 variant: "outline-primary",
                 style: buttonStyleWide
-              }, imageKeys[_i4]));
+              }, imageKeys[_i5]));
             }
 
             imageRadio = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -1477,7 +1489,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 name: "radio-image-options",
                 value: selectedImg,
                 onChange: function onChange(e) {
-                  _this3.onClickImageSelection(e);
+                  _this3.onClickImageSelection(0, e);
                 },
                 vertical: true
               }, imageRadios)
@@ -1530,12 +1542,60 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               key: "select-manufacturer"
             }, "Select Image file"), imageRadio));
           }
+        } else if (imgModeSelection === _constants.string_loadFromRepository) {
+          var _radioButtonsContainer2 = {
+            display: "flex",
+            justifyContent: "center",
+            flexFlow: "column",
+            width: "430px",
+            height: "550px",
+            alignItems: "flex-start",
+            maxHeight: "550px",
+            overflow: "auto"
+          };
+          var imageName = this.props.imageName;
+          var _imageRadios = [];
+
+          _imageRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
+            id: "image-radio-" + i,
+            key: "image-radio-" + i,
+            value: imageName,
+            variant: "outline-primary",
+            style: buttonStyleWide
+          }, imageName));
+
+          var _imageRadio = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+            id: "popover-radio-image-options",
+            key: "popover-radio-image-options",
+            position: _constants.loadImage_from_repo_image_tooltip.position,
+            title: _constants.loadImage_from_repo_image_tooltip.title,
+            content: _constants.loadImage_from_repo_image_tooltip.content,
+            element: /*#__PURE__*/_react.default.createElement(_ToggleButtonGroup.default, {
+              id: "radio-image-options",
+              key: "radio-image-options",
+              type: "radio",
+              name: "radio-image-options",
+              value: selectedImg,
+              onChange: function onChange(e) {
+                _this3.onClickImageSelection(1, e);
+              },
+              vertical: true
+            }, _imageRadios)
+          });
+
+          list.push( /*#__PURE__*/_react.default.createElement("div", {
+            key: "radio-image-container",
+            id: "radio-image-container",
+            style: _radioButtonsContainer2
+          }, /*#__PURE__*/_react.default.createElement("h4", {
+            key: "select-image"
+          }, "Select Image"), _imageRadio));
         }
       } else if (step === 3) {
         var createRadios = [];
 
-        var _loop3 = function _loop3(_i5) {
-          var creatingOption = settCreatingOptions[_i5];
+        var _loop3 = function _loop3(_i6) {
+          var creatingOption = settCreatingOptions[_i6];
           var tooltip = _constants.setting_loader_scratch;
           createRadios.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
             key: "popover" + creatingOption,
@@ -1558,14 +1618,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }));
         };
 
-        for (var _i5 = 0; _i5 < settCreatingOptions.length; _i5++) {
-          _loop3(_i5);
+        for (var _i6 = 0; _i6 < settCreatingOptions.length; _i6++) {
+          _loop3(_i6);
         }
 
         var _loadRadios2 = [];
 
-        var _loop4 = function _loop4(_i6) {
-          var loadingOption = settLoadingOptions[_i6];
+        var _loop4 = function _loop4(_i7) {
+          var loadingOption = settLoadingOptions[_i7];
           var tooltip = _constants.setting_loader_load_from_file;
 
           if (loadingOption === _constants.string_loadFromHomeFolder) {
@@ -1595,8 +1655,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }));
         };
 
-        for (var _i6 = 0; _i6 < settLoadingOptions.length; _i6++) {
-          _loop4(_i6);
+        for (var _i7 = 0; _i7 < settLoadingOptions.length; _i7++) {
+          _loop4(_i7);
         }
 
         var _toggles2 = [];
@@ -1682,7 +1742,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             key: "dropzone"
           }, "Load Setting file"), _dropbox2));
         } else if (settModeSelection === _constants.string_loadFromRepository || settModeSelection === _constants.string_loadFromHomeFolder) {
-          var _radioButtonsContainer2 = {
+          var _radioButtonsContainer3 = {
             display: "flex",
             justifyContent: "center",
             flexFlow: "column",
@@ -1708,15 +1768,15 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
           var settingRadios = [];
 
-          for (var _i7 = 0; _i7 < settingsNames.length; _i7++) {
-            var _fullSettName = settingsNames[_i7]; // let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
+          for (var _i8 = 0; _i8 < settingsNames.length; _i8++) {
+            var _fullSettName = settingsNames[_i8]; // let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
             // let settName = fullSettName.substring(0, lastIndexBeforeID);
             // let settID = fullSettName.substring(lastIndexBeforeID);
             // let settLabel = settName + "\n" + settID;
 
             settingRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-              id: "rmo-radio-" + _i7,
-              key: "rmo-radio-" + _i7,
+              id: "rmo-radio-" + _i8,
+              key: "rmo-radio-" + _i8,
               value: _fullSettName,
               variant: "outline-primary",
               style: buttonStyleWide
@@ -1761,7 +1821,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           list.push( /*#__PURE__*/_react.default.createElement("div", {
             key: "radio-setting-container",
             id: "radio-setting-container",
-            style: _radioButtonsContainer2
+            style: _radioButtonsContainer3
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "select-setting"
           }, "Select Settings file"), settingRadio));

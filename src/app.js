@@ -390,7 +390,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			isLoadingMicroscope: false,
 			isLoadingSettings: false,
 			isLoadingImage: false,
-		});
+		}, () => this.props.onModeSelection(1));
 		//this.handleLoadingOptionSelection(createFromScratch);
 	}
 
@@ -400,7 +400,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			isLoadingMicroscope: true,
 			isLoadingSettings: true,
 			isLoadingImage: true,
-		});
+		}, () => this.props.onModeSelection(2));
 		//this.handleLoadingOptionSelection(createFromFile);
 	}
 
@@ -3184,7 +3184,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			this.state.isLoadingSettings
 		) {
 			//console.log("SETTINGS LOADER");
-			let imgLoadingOptions = [string_noImageLoad, string_createFromFile];
+			let imgLoadingOptions = [string_noImageLoad];
+			if(this.props.isElectron) {
+				imgLoadingOptions.push(string_createFromFile);
+			}
+			if(isDefined(this.props.metadataChoices)) {
+				imgLoadingOptions.push(string_loadFromRepository);
+			}
 			let micLoadingOptions = [];
 			micLoadingOptions.push(string_createFromFile);
 			let microscopeNames = {};
@@ -3239,7 +3245,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					settLoadingOptions.push(string_loadFromRepository);
 				}
 			}
-			let hasMetadataLoader = false;
+			//let hasMetadataLoader = false;
 			//if (isDefined(this.props.onLoadMetadata)) hasMetadataLoader = true;
 			return (
 				<MicroMetaAppReactContainer
@@ -3273,6 +3279,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						isDebug={this.props.isDebug}
 						//hasMetadataLoader={hasMetadataLoader}
 						onLoadMetadata={this.props.onLoadMetadata}
+						imageName={this.props.imageName}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3631,6 +3638,8 @@ MicroMetaAppReact.defaultProps = {
 	hasExperimentalModel: false,
 
 	onLoadMicroscope: null,
+	onModeSelection: null,
+	imageName: null,
 
 	onLoadDimensions: function (complete, resolve) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.

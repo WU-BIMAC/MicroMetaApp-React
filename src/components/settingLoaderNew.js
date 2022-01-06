@@ -32,7 +32,9 @@ import {
 	create_from_repo_manufacturer_tooltip,
 	create_from_repo_names_tooltip,
 	//create_mode_continue_settings_tooltip,
+	loadImage_from_repo_image_tooltip,
 	loadImage_load_tooltip,
+	loadImage_loadFromRepo_tooltip,
 	loadImage_from_file_tooltip,
 	loadImage_from_names_tooltip,
 	loadImage_skip_tooltip,
@@ -344,22 +346,24 @@ export default class MicroscopeLoader extends React.PureComponent {
 		this.setState({ step: item });
 	}
 
-	onClickImageSelection(item) {
-		let imageMap = this.props.imageMap;
-		let image = imageMap[item];
-		//this.props.handleLoadMetadataComplete(image);
-		if (this.props.isDebug) console.log("Loaded metadata: " + loadedMetadata);
-		this.setState({ loadedMetadata: image });
+	onClickImageSelection(mode, item) {
+		if (mode === 0) {
+			let imageMap = this.state.imageMap;
+			let image = imageMap[item];
+			//this.props.handleLoadMetadataComplete(image);
+			if (this.props.isDebug) console.log("Loaded metadata: " + image);
+			this.setState({ loadedMetadata: image });
+		} else if (mode === 1) {
+			this.setState({ imgFilename: item });
+			this.props.onLoadMetadata(this.handleLoadMetadataComplete);
+		}
 	}
 
 	handleLoadMetadataComplete(imageMetadata) {
 		//console.log("IM HERE");
 		if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
 			this.setState({ errorMsg: "Error: " + imageMetadata.Error });
-		} else if (
-			imageMetadata.Images !== null &&
-			imageMetadata.Images !== undefined
-		) {
+		} else if (isDefined(imageMetadata.Images)) {
 			let images = imageMetadata.Images;
 			let firstImage = null;
 			let imageMap = {};
@@ -379,7 +383,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			// console.log("image");
 			// console.log(image);
 			//this.props.handleLoadMetadataComplete(image);
-			if (this.props.isDebug) console.log("Loaded metadata: " + loadedMetadata);
+			if (this.props.isDebug) console.log("Loaded metadata: " + image);
 			this.setState({ imgFileLoaded: true, loadedMetadata: image });
 		}
 	}
@@ -661,6 +665,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 		let selectedManu = this.state.selectedManu;
 		let selectedMic = this.state.selectedMic;
+		let selectedGroup = this.state.selectedGroup;
+		let selectedProject = this.state.selectedProject;
+		let selectedDataset = this.state.selectedDataset;
 		let selectedImg = this.state.selectedImg;
 		let selectedSett = this.state.selectedSett;
 
@@ -1421,6 +1428,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 				let tooltip = loadImage_load_tooltip;
 				if (loadingOption === string_noImageLoad) {
 					tooltip = loadImage_skip_tooltip;
+				} else if (loadingOption === string_loadFromRepository) {
+					tooltip = loadImage_loadFromRepo_tooltip;
 				}
 				loadRadios.push(
 					<PopoverTooltip
@@ -1532,7 +1541,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 									name="radio-image-options"
 									value={selectedImg}
 									onChange={(e) => {
-										this.onClickImageSelection(e);
+										this.onClickImageSelection(0, e);
 									}}
 									vertical={true}
 								>
@@ -1598,6 +1607,64 @@ export default class MicroscopeLoader extends React.PureComponent {
 						</div>
 					);
 				}
+			} else if (imgModeSelection === string_loadFromRepository) {
+				const radioButtonsContainer = {
+					display: "flex",
+					justifyContent: "center",
+					flexFlow: "column",
+					width: "430px",
+					height: "550px",
+					alignItems: "flex-start",
+					maxHeight: "550px",
+					overflow: "auto",
+				};
+				let imageName = this.props.imageName;
+				let imageRadios = [];
+				imageRadios.push(
+					<ToggleButton
+						id={"image-radio-" + i}
+						key={"image-radio-" + i}
+						value={imageName}
+						variant={"outline-primary"}
+						style={buttonStyleWide}
+					>
+						{imageName}
+					</ToggleButton>
+				);
+				let imageRadio = (
+					<PopoverTooltip
+						id={"popover-radio-image-options"}
+						key={"popover-radio-image-options"}
+						position={loadImage_from_repo_image_tooltip.position}
+						title={loadImage_from_repo_image_tooltip.title}
+						content={loadImage_from_repo_image_tooltip.content}
+						element={
+							<ToggleButtonGroup
+								id="radio-image-options"
+								key="radio-image-options"
+								type="radio"
+								name="radio-image-options"
+								value={selectedImg}
+								onChange={(e) => {
+									this.onClickImageSelection(1, e);
+								}}
+								vertical={true}
+							>
+								{imageRadios}
+							</ToggleButtonGroup>
+						}
+					/>
+				);
+				list.push(
+					<div
+						key="radio-image-container"
+						id="radio-image-container"
+						style={radioButtonsContainer}
+					>
+						<h4 key={"select-image"}>Select Image</h4>
+						{imageRadio}
+					</div>
+				);
 			}
 		} else if (step === 3) {
 			let createRadios = [];

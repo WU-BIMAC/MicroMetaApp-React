@@ -531,6 +531,17 @@ export const loadImage_load_tooltip = {
 	position: "bottom",
 };
 
+export const loadImage_loadFromRepo_tooltip = {
+	title: "Load image ",
+	content: (
+		<p>
+			Click here to select the Image data file you wish to work with from the
+			repository.
+		</p>
+	),
+	position: "bottom",
+};
+
 export const loadImage_skip_tooltip = {
 	title: "Skip load image ",
 	content: <p>Click here to continue without an Image data file.</p>,
@@ -589,6 +600,12 @@ export const createSettings_from_repo_names_tooltip = {
 export const loadImage_from_names_tooltip = {
 	title: "Load from multi file",
 	content: <p>Select the Image entry you want to load.</p>,
+	position: "bottom",
+};
+
+export const loadImage_from_repo_image_tooltip = {
+	title: "Select Image",
+	content: <p>Select the Image you want to load.</p>,
 	position: "bottom",
 };
 
