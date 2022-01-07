@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.isDefined = isDefined;
+exports.replaceLast = replaceLast;
 exports.verifyAppVersion = verifyAppVersion;
 exports.validateAcquisitionSettings = validateAcquisitionSettings;
 exports.validateMicroscope = validateMicroscope;
@@ -19,6 +20,13 @@ var validate = require("jsonschema").validate;
 function isDefined(object) {
   if (object !== null && object !== undefined) return true;
   return false;
+}
+
+function replaceLast(str, pattern, replacement) {
+  var match = typeof pattern === "string" ? pattern : (str.match(new RegExp(pattern.source, "g")) || []).slice(-1)[0];
+  if (!match) return str;
+  var last = str.lastIndexOf(match);
+  return last !== -1 ? "".concat(str.slice(0, last)).concat(replacement).concat(str.slice(last + match.length)) : str;
 }
 
 function verifyAppVersion(microscope) {
