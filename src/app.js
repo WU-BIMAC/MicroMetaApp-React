@@ -3188,7 +3188,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			if(this.props.isElectron) {
 				imgLoadingOptions.push(string_createFromFile);
 			}
-			if(isDefined(this.props.metadataChoices)) {
+			if(isDefined(this.props.imageName)) {
 				imgLoadingOptions.push(string_loadFromRepository);
 			}
 			let micLoadingOptions = [];

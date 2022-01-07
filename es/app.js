@@ -2409,7 +2409,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           imgLoadingOptions.push(_constants.string_createFromFile);
         }
 
-        if ((0, _genericUtilities.isDefined)(this.props.metadataChoices)) {
+        if ((0, _genericUtilities.isDefined)(this.props.imageName)) {
           imgLoadingOptions.push(_constants.string_loadFromRepository);
         }
 
