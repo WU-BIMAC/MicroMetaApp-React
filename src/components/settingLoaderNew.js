@@ -1622,8 +1622,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 				let imageRadios = [];
 				imageRadios.push(
 					<ToggleButton
-						id={"image-radio-" + i}
-						key={"image-radio-" + i}
+						id={"image-radio-" + 0}
+						key={"image-radio-" + 0}
 						value={imageName}
 						variant={"outline-primary"}
 						style={buttonStyleWide}

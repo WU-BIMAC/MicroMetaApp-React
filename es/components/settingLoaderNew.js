@@ -1145,8 +1145,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       if (step === 1) {
         var loadRadios = [];
 
-        var _loop = function _loop(_i) {
-          var loadingOption = micLoadingOptions[_i];
+        var _loop = function _loop(i) {
+          var loadingOption = micLoadingOptions[i];
           var tooltip = _constants.microscope_loader_load_from_file;
 
           if (loadingOption === _constants.string_loadFromHomeFolder) {
@@ -1176,8 +1176,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }));
         };
 
-        for (var _i = 0; _i < micLoadingOptions.length; _i++) {
-          _loop(_i);
+        for (var i = 0; i < micLoadingOptions.length; i++) {
+          _loop(i);
         }
 
         var toggles = [];
@@ -1271,14 +1271,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
           var manufacturerRadios = [];
 
-          for (var _i2 = 0; _i2 < manufacturers.length; _i2++) {
+          for (var _i = 0; _i < manufacturers.length; _i++) {
             manufacturerRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-              id: "rmo-radio-" + _i2,
-              key: "rmo-radio-" + _i2,
-              value: manufacturers[_i2],
+              id: "rmo-radio-" + _i,
+              key: "rmo-radio-" + _i,
+              value: manufacturers[_i],
               variant: "outline-primary",
               style: buttonStyleWide
-            }, manufacturers[_i2]));
+            }, manufacturers[_i]));
           }
 
           var manufacturerRadio = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -1312,8 +1312,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             var microscopesManu = microscopeNames[selectedManu];
             var microscopeRadios = [];
 
-            for (var _i3 = 0; _i3 < microscopesManu.length; _i3++) {
-              var _fullMicName = microscopesManu[_i3];
+            for (var _i2 = 0; _i2 < microscopesManu.length; _i2++) {
+              var _fullMicName = microscopesManu[_i2];
 
               var _lastIndexBeforeID2 = _fullMicName.lastIndexOf("_") + 1;
 
@@ -1324,8 +1324,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               var _micLabel = _micName + "\n" + _micID;
 
               microscopeRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-                id: "rmico-radio-" + _i3,
-                key: "rmico-radio-" + _i3,
+                id: "rmico-radio-" + _i2,
+                key: "rmico-radio-" + _i2,
                 value: _fullMicName,
                 variant: "outline-primary",
                 style: buttonStyleWide
@@ -1369,8 +1369,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       } else if (step === 2) {
         var _loadRadios = [];
 
-        var _loop2 = function _loop2(_i4) {
-          var loadingOption = imgLoadingOptions[_i4];
+        var _loop2 = function _loop2(_i3) {
+          var loadingOption = imgLoadingOptions[_i3];
           var tooltip = _constants.loadImage_load_tooltip;
 
           if (loadingOption === _constants.string_noImageLoad) {
@@ -1400,8 +1400,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }));
         };
 
-        for (var _i4 = 0; _i4 < imgLoadingOptions.length; _i4++) {
-          _loop2(_i4);
+        for (var _i3 = 0; _i3 < imgLoadingOptions.length; _i3++) {
+          _loop2(_i3);
         }
 
         var _toggles = [];
@@ -1466,14 +1466,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
             var imageRadios = [];
 
-            for (var _i5 = 0; _i5 < imageKeys.length; _i5++) {
+            for (var _i4 = 0; _i4 < imageKeys.length; _i4++) {
               imageRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-                id: "rio-radio-" + _i5,
-                key: "rio-radio-" + _i5,
-                value: imageKeys[_i5],
+                id: "rio-radio-" + _i4,
+                key: "rio-radio-" + _i4,
+                value: imageKeys[_i4],
                 variant: "outline-primary",
                 style: buttonStyleWide
-              }, imageKeys[_i5]));
+              }, imageKeys[_i4]));
             }
 
             imageRadio = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -1557,8 +1557,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           var _imageRadios = [];
 
           _imageRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-            id: "image-radio-" + i,
-            key: "image-radio-" + i,
+            id: "image-radio-" + 0,
+            key: "image-radio-" + 0,
             value: imageName,
             variant: "outline-primary",
             style: buttonStyleWide
@@ -1594,8 +1594,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       } else if (step === 3) {
         var createRadios = [];
 
-        var _loop3 = function _loop3(_i6) {
-          var creatingOption = settCreatingOptions[_i6];
+        var _loop3 = function _loop3(_i5) {
+          var creatingOption = settCreatingOptions[_i5];
           var tooltip = _constants.setting_loader_scratch;
           createRadios.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
             key: "popover" + creatingOption,
@@ -1618,14 +1618,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }));
         };
 
-        for (var _i6 = 0; _i6 < settCreatingOptions.length; _i6++) {
-          _loop3(_i6);
+        for (var _i5 = 0; _i5 < settCreatingOptions.length; _i5++) {
+          _loop3(_i5);
         }
 
         var _loadRadios2 = [];
 
-        var _loop4 = function _loop4(_i7) {
-          var loadingOption = settLoadingOptions[_i7];
+        var _loop4 = function _loop4(_i6) {
+          var loadingOption = settLoadingOptions[_i6];
           var tooltip = _constants.setting_loader_load_from_file;
 
           if (loadingOption === _constants.string_loadFromHomeFolder) {
@@ -1655,8 +1655,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }));
         };
 
-        for (var _i7 = 0; _i7 < settLoadingOptions.length; _i7++) {
-          _loop4(_i7);
+        for (var _i6 = 0; _i6 < settLoadingOptions.length; _i6++) {
+          _loop4(_i6);
         }
 
         var _toggles2 = [];
@@ -1768,15 +1768,15 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
           var settingRadios = [];
 
-          for (var _i8 = 0; _i8 < settingsNames.length; _i8++) {
-            var _fullSettName = settingsNames[_i8]; // let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
+          for (var _i7 = 0; _i7 < settingsNames.length; _i7++) {
+            var _fullSettName = settingsNames[_i7]; // let lastIndexBeforeID = fullSettName.lastIndexOf("_") + 1;
             // let settName = fullSettName.substring(0, lastIndexBeforeID);
             // let settID = fullSettName.substring(lastIndexBeforeID);
             // let settLabel = settName + "\n" + settID;
 
             settingRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
-              id: "rmo-radio-" + _i8,
-              key: "rmo-radio-" + _i8,
+              id: "rmo-radio-" + _i7,
+              key: "rmo-radio-" + _i7,
               value: _fullSettName,
               variant: "outline-primary",
               style: buttonStyleWide
