@@ -1831,7 +1831,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				let settingsNames = [];
 				let mic_ID = loadedMicroscope.ID;
 				Object.keys(settings).forEach((key) => {
-					let sett = settings[key];
+					let sett = settings[key].setting;
 					let sett_ID = sett.InstrumentID;
 					if (sett_ID === mic_ID) {
 						settingsNames.push(key);
@@ -1881,7 +1881,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				}
 
 				let settingRadio = (
-					<PopoverTooltip
+					<PopoverTooltip 
 						id={"popover-radio-setting-options"}
 						key={"popover-radio-setting-options"}
 						position={createSettings_from_repo_names_tooltip.position}

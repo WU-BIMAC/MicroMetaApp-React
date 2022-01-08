@@ -1633,7 +1633,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         console.log(this.state.settingName);
       }
 
-      var setting = this.state.settings[this.state.settingName];
+      var setting = this.state.settings[this.state.settingName].setting;
       var modifiedSetting = setting;
       var activeTier = this.state.activeTier;
 
@@ -1743,7 +1743,19 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         var microscope = _this14.state.microscope;
 
         if (settLoadingOption !== modifiedCreateString && settLoadingOption !== _constants.string_createFromFile) {
-          setting = _this14.state.settings[settFilename];
+          setting = _this14.state.settings[settFilename].setting;
+
+          if ((0, _genericUtilities.isDefined)(_this14.props.onLoadSetting)) {
+            var id = _this14.state.settings[settFilename].id;
+
+            if ((0, _genericUtilities.isDefined)(id)) {
+              _this14.props.onLoadSetting(id);
+            } else {
+              _this14.props.onLoadSetting(-1);
+            }
+          }
+        } else if ((0, _genericUtilities.isDefined)(_this14.onLoadSetting)) {
+          _this14.props.onLoadSetting(-1);
         } //console.log("SetSettingState3");
 
 
@@ -2417,7 +2429,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         micLoadingOptions.push(_constants.string_createFromFile);
         var _microscopeNames = {};
 
-        if (microscopes) {
+        if ((0, _genericUtilities.isDefined)(microscopes)) {
           Object.keys(microscopes).forEach(function (key) {
             var mic = microscopes[key].microscope;
 
@@ -2447,7 +2459,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         var settLoadingOptions = [_constants.string_createFromFile];
         var settingsNames = {};
 
-        if (settings) {
+        if ((0, _genericUtilities.isDefined)(settings)) {
           settingsNames = settings;
         }
 
@@ -3104,6 +3116,7 @@ MicroMetaAppReact.defaultProps = {
   hasAdvancedModel: false,
   hasExperimentalModel: false,
   onLoadMicroscope: null,
+  onLoadSetting: null,
   onModeSelection: null,
   imageName: null,
   onLoadDimensions: function onLoadDimensions(complete, resolve) {

@@ -2352,7 +2352,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			console.log("settingName");
 			console.log(this.state.settingName);
 		}
-		let setting = this.state.settings[this.state.settingName];
+		let setting = this.state.settings[this.state.settingName].setting;
 		let modifiedSetting = setting;
 		let activeTier = this.state.activeTier;
 		if (activeTier !== microscope.Tier) {
@@ -2485,8 +2485,18 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				settLoadingOption !== modifiedCreateString &&
 				settLoadingOption !== string_createFromFile
 			) {
-				setting = this.state.settings[settFilename];
+				setting = this.state.settings[settFilename].setting;
+			if(isDefined(this.props.onLoadSetting)) {
+				let id = this.state.settings[settFilename].id;
+				if(isDefined(id)) {
+					this.props.onLoadSetting(id);
+				} else {
+					this.props.onLoadSetting(-1);
+				}
 			}
+		} else if(isDefined(this.onLoadSetting)) {
+			this.props.onLoadSetting(-1)
+		}
 
 			//console.log("SetSettingState3");
 			if (isDefined(setting)) {
@@ -3194,7 +3204,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let micLoadingOptions = [];
 			micLoadingOptions.push(string_createFromFile);
 			let microscopeNames = {};
-			if (microscopes) {
+			if (isDefined(microscopes)) {
 				Object.keys(microscopes).forEach((key) => {
 					let mic = microscopes[key].microscope;
 					if (
@@ -3231,7 +3241,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let settCreatingOptions = [modifiedCreateString];
 			let settLoadingOptions = [string_createFromFile];
 			let settingsNames = {};
-			if (settings) {
+			if (isDefined(settings)) {
 				settingsNames = settings;
 			}
 			if (
@@ -3638,6 +3648,7 @@ MicroMetaAppReact.defaultProps = {
 	hasExperimentalModel: false,
 
 	onLoadMicroscope: null,
+	onLoadSetting: null,
 	onModeSelection: null,
 	imageName: null,
 

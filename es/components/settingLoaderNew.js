@@ -1755,7 +1755,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           var settingsNames = [];
           var mic_ID = loadedMicroscope.ID;
           Object.keys(settings).forEach(function (key) {
-            var sett = settings[key];
+            var sett = settings[key].setting;
             var sett_ID = sett.InstrumentID;
 
             if (sett_ID === mic_ID) {
