@@ -2,12 +2,9 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: Micro-Meta App - Electron implementation
+title: Micro-Meta App - React implementation
 message: >-
-  If you use this software please cite both the
-  software using the metadata indicated below, and
-  the papers as indicated in the scope of each
-  reference
+  If you use this software please cite both the software using the metadata indicated below, and the papers as indicated in the scope of each reference
 type: software
 authors:
   - given-names: Alessandro
@@ -53,32 +50,7 @@ url: 'https://wu-bimac.github.io/MicroMetaApp.github.io/'
 repository-artifact: >-
   https://github.com/WU-BIMAC/MicroMetaApp-Electron/releases/latest
 abstract: >-
-  Micro-Meta App is an intuitive Graphical User
-  Interface (GUI)-based open-source software that
-  helps scientists to interactively build graphical
-  representations of microscope hardware by
-  dragging-and-dropping individual components onto
-  the workspace and entering the relevant attribute
-  values based on the 4D Nucleome (4DN) - BioImaging
-  North America (BINA) Microscopy Metadata guidelines
-  that scale experimental complexity. From this,
-  Micro-Meta App automatically generates structured
-  Microscope files that can be saved locally,
-  consumed by existing data portals, shared with
-  other scientists, and used repeatedly whenever the
-  same microscope is used to produce image data.
-  Thus, when the image acquisition settings utilized
-  to produce a given image dataset need to be
-  recorded, the user selects the desired image data
-  alongside the relevant Microscope file. Then,
-  Micro-Meta App imports the relevant metadata from
-  the header of image data files to be annotated and
-  interactively guides the user through the
-  collection of all missing attributes. Finally, the
-  App generates a Settings-file, which coupled with
-  the Microscope-file contains comprehensive
-  descriptions of the conditions utilized to produce
-  individual microscopy datasets.
+  Micro-Meta App is an intuitive Graphical User Interface (GUI)-based open-source software that helps scientists to interactively build graphical representations of microscope hardware by dragging-and-dropping individual components onto the workspace and entering the relevant attribute values based on the 4D Nucleome (4DN) - BioImaging North America (BINA) Microscopy Metadata guidelines that scale experimental complexity. From this, Micro-Meta App automatically generates structured Microscope files that can be saved locally, consumed by existing data portals, shared with other scientists, and used repeatedly whenever the same microscope is used to produce image data. Thus, when the image acquisition settings utilized to produce a given image dataset need to be recorded, the user selects the desired image data alongside the relevant Microscope file. Then, Micro-Meta App imports the relevant metadata from the header of image data files to be annotated and interactively guides the user through the collection of all missing attributes. Finally, the App generates a Settings-file, which coupled with the Microscope-file contains comprehensive descriptions of the conditions utilized to produce individual microscopy datasets.
 keywords:
   - metadata
   - microscopy
@@ -92,3 +64,4 @@ keywords:
 license: GPL-3.0-or-later
 version: 1.1.0-b1-1 stable beta
 date-released: '2021-04-29'
+
