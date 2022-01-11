@@ -45,7 +45,7 @@ authors:
     family-names: Strambio-De-Castillia
     given-names: Caterina
     email: caterina.strambio@umassmed.edu
-repository-code: 'https://github.com/WU-BIMAC/MicroMetaApp-Electron'
+repository-code: 'https://github.com/WU-BIMAC/MicroMetaApp-React'
 url: 'https://wu-bimac.github.io/MicroMetaApp.github.io/'
 repository-artifact: >-
   https://github.com/WU-BIMAC/MicroMetaApp-Electron/releases/latest
