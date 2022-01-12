@@ -410,7 +410,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         isLoadingSettings: false,
         isLoadingImage: false
       }, function () {
-        return _this9.props.onModeSelection(1);
+        if ((0, _genericUtilities.isDefined)(_this9.props.onModeSelection())) _this9.props.onModeSelection(1);
       }); //this.handleLoadingOptionSelection(createFromScratch);
     }
   }, {
@@ -424,7 +424,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         isLoadingSettings: true,
         isLoadingImage: true
       }, function () {
-        return _this10.props.onModeSelection(2);
+        if ((0, _genericUtilities.isDefined)(_this10.props.onModeSelection())) _this10.props.onModeSelection(2);
       }); //this.handleLoadingOptionSelection(createFromFile);
     } // handleLoadingOptionSelection(item) {
     // 	let loadingMode = 0;
