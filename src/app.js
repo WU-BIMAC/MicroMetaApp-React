@@ -391,7 +391,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			isLoadingSettings: false,
 			isLoadingImage: false,
 		}, () => {
-			if(isDefined(this.props.onModeSelection()))
+			if(isDefined(this.props.onModeSelection))
 				this.props.onModeSelection(1)}
 			);
 		//this.handleLoadingOptionSelection(createFromScratch);
@@ -404,7 +404,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			isLoadingSettings: true,
 			isLoadingImage: true,
 		}, () => {
-			if(isDefined(this.props.onModeSelection()))
+			if(isDefined(this.props.onModeSelection))
 				this.props.onModeSelection(2)
 		});
 		//this.handleLoadingOptionSelection(createFromFile);
