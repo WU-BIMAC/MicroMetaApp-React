@@ -1,4 +1,4 @@
-<img align="right" src="https://github.com/WU-BIMAC/MicroMetaApp.github.io/blob/master/images/CoverDraft_5-1_CROP_tight.png">
+<img align="right" src="https://github.com/WU-BIMAC/MicroMetaApp.github.io/blob/master/images/Nature%20Methods_COVER.png">
 
 **Micro-Meta App** was developed as part of a **global community initiative** including the **[4D Nucleome Imaging Working Group](https://www.4dnucleome.org/)**, **[BINA Quality Control and Data Management Working Group](https://www.bioimagingna.org/qc-dm-wg)** and **[QUAREP-LiMi](https://quarep.org/)**. 
 
