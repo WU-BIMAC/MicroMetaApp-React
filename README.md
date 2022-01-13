@@ -4,6 +4,8 @@
 
 > **Learn More!** For a thorought description of Micro-Meta App consult our recent **[Nature Methods](https://doi.org/10.1038/s41592-021-01315-z)** and **[BioRxiv.org](https://doi.org/10.1101/2021.05.31.446382)** publications!
 
+<img align="right" src="https://github.com/WU-BIMAC/MicroMetaApp.github.io/blob/master/images/CoverDraft_5-1_CROP_tight.png">
+
 ![Nature Methods FOCUS ISSUE](https://github.com/WU-BIMAC/MicroMetaApp.github.io/blob/master/images/CoverDraft_5-1_CROP_tight.png)
 
 **Background** If you are a newby and you want to learn more about the importannce of metadata and quality control to ensure full reproducibility, quality and scientific value in light microscopy, please take a look at our recently posted overview manuscript entitled **"A perspective on Microscopy Metadata: data provenance and quality control"**, which is available on [ArXiv.org](https://arxiv.org/abs/1910.11370).
