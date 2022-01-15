@@ -1300,7 +1300,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					width: "430px",
 					height: "550px",
 					alignItems: "flex-start",
-					//maxHeight: "550px",
+					maxHeight: "550px",
 					//overflow: "auto",
 				};
 				const toggleStyle = {
@@ -1499,6 +1499,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				}
 				let imageRadio = null;
 				let radioButtonsContainer = null;
+				let toggleStyle = null;
 				if (imageMap !== null) {
 					//windowButtonsContainer.flexFlow = "row";
 					radioButtonsContainer = {
@@ -1509,9 +1510,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 						height: "550px",
 						alignItems: "center",
 						maxHeight: "550px",
-						overflow: "auto",
+						//overflow: "auto",
 					};
-					const toggleStyle = {
+					toggleStyle = {
 						maxHeight: "500px",
 						overflow: "auto",
 					};
@@ -1625,7 +1626,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					height: "550px",
 					alignItems: "flex-start",
 					maxHeight: "550px",
-					overflow: "auto",
+					//overflow: "auto",
 				};
 				const toggleStyle = {
 					maxHeight: "500px",
@@ -1839,6 +1840,10 @@ export default class MicroscopeLoader extends React.PureComponent {
 					height: "550px",
 					alignItems: "center",
 					maxHeight: "550px",
+					//overflow: "auto",
+				};
+				const toggleStyle = {
+					maxHeight: "500px",
 					overflow: "auto",
 				};
 
@@ -1925,7 +1930,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						style={radioButtonsContainer}
 					>
 						<h4 key={"select-setting"}>Select Settings file</h4>
-						{settingRadio}
+						<div style={toggleStyle}>{settingRadio}</div>
 					</div>
 				);
 			}

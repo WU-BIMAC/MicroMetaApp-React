@@ -1262,11 +1262,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             flexFlow: "column",
             width: "430px",
             height: "550px",
-            alignItems: "flex-start" //maxHeight: "550px",
-            //overflow: "auto",
+            alignItems: "flex-start",
+            maxHeight: "550px" //overflow: "auto",
 
           };
-          var _toggleStyle = {
+          var toggleStyle = {
             maxHeight: "500px",
             overflow: "auto"
           };
@@ -1312,7 +1312,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "select-manufacturer"
           }, "Select Manufacturer"), /*#__PURE__*/_react.default.createElement("div", {
-            style: _toggleStyle
+            style: toggleStyle
           }, manufacturerRadio)));
 
           if ((0, _genericUtilities.isDefined)(selectedManu)) {
@@ -1371,7 +1371,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             }, /*#__PURE__*/_react.default.createElement("h4", {
               key: "select-microscope"
             }, "Select Microscope file"), /*#__PURE__*/_react.default.createElement("div", {
-              style: _toggleStyle
+              style: toggleStyle
             }, microscopeRadio)));
           }
         }
@@ -1455,6 +1455,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
           var imageRadio = null;
           var _radioButtonsContainer = null;
+          var _toggleStyle = null;
 
           if (imageMap !== null) {
             //windowButtonsContainer.flexFlow = "row";
@@ -1465,10 +1466,10 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               width: "430px",
               height: "550px",
               alignItems: "center",
-              maxHeight: "550px",
-              overflow: "auto"
+              maxHeight: "550px" //overflow: "auto",
+
             };
-            var _toggleStyle2 = {
+            _toggleStyle = {
               maxHeight: "500px",
               overflow: "auto"
             };
@@ -1554,7 +1555,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             }, /*#__PURE__*/_react.default.createElement("h4", {
               key: "select-manufacturer"
             }, "Select Image file"), /*#__PURE__*/_react.default.createElement("div", {
-              style: toggleStyle
+              style: _toggleStyle
             }, imageRadio)));
           }
         } else if (imgModeSelection === _constants.string_loadFromRepository) {
@@ -1565,10 +1566,10 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             width: "430px",
             height: "550px",
             alignItems: "flex-start",
-            maxHeight: "550px",
-            overflow: "auto"
+            maxHeight: "550px" //overflow: "auto",
+
           };
-          var _toggleStyle3 = {
+          var _toggleStyle2 = {
             maxHeight: "500px",
             overflow: "auto"
           };
@@ -1599,7 +1600,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 _this3.onClickImageSelection(1, e);
               },
               vertical: true,
-              style: _toggleStyle3
+              style: _toggleStyle2
             }, _imageRadios)
           });
 
@@ -1769,7 +1770,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             width: "430px",
             height: "550px",
             alignItems: "center",
-            maxHeight: "550px",
+            maxHeight: "550px" //overflow: "auto",
+
+          };
+          var _toggleStyle3 = {
+            maxHeight: "500px",
             overflow: "auto"
           };
           var settingsNames = [];
@@ -1844,7 +1849,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             style: _radioButtonsContainer3
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "select-setting"
-          }, "Select Settings file"), settingRadio));
+          }, "Select Settings file"), /*#__PURE__*/_react.default.createElement("div", {
+            style: _toggleStyle3
+          }, settingRadio)));
         }
       }
 
