@@ -53,6 +53,8 @@ var _constants = require("./constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2587,6 +2589,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       });
 
       if (!this.state.isCreatingNewMicroscope) {
+        var _React$createElement;
+
         var footerSettingsSchemas = [imageSchema, pixelsSchema];
         var footerSettingsInput = [setting, setting.Pixels]; //{overlayImporter}
 
@@ -2594,7 +2598,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           width: width,
           height: height,
           forwardedRef: this.overlaysContainerRef
-        }, /*#__PURE__*/_react.default.createElement(_header.default, {
+        }, /*#__PURE__*/_react.default.createElement(_header.default, (_React$createElement = {
           dimensions: headerFooterDims,
           imagesPathPNG: imagesPathPNG,
           imagesPathSVG: imagesPathSVG,
@@ -2608,12 +2612,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           activeTier: this.state.activeTier,
           validationTier: this.state.validationTier,
           componentSchemas: componentsSchema,
-          schema: footerSettingsSchemas,
-          ["inputData"]: footerSettingsInput,
-          elementByType: elementByType,
-          is4DNPortal: this.state.is4DNPortal,
-          overlaysContainer: this.overlaysContainerRef.current
-        }), /*#__PURE__*/_react.default.createElement(_settingsMainView.default, {
+          schema: footerSettingsSchemas
+        }, _defineProperty(_React$createElement, "inputData", footerSettingsInput), _defineProperty(_React$createElement, "elementByType", elementByType), _defineProperty(_React$createElement, "is4DNPortal", this.state.is4DNPortal), _defineProperty(_React$createElement, "overlaysContainer", this.overlaysContainerRef.current), _React$createElement)), /*#__PURE__*/_react.default.createElement(_settingsMainView.default, {
           microscope: microscope,
           microscopeComponents: elementData,
           activeTier: this.state.activeTier,
@@ -2694,12 +2694,14 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             isDebug: this.props.isDebug
           })));
         } else {
+          var _React$createElement2;
+
           //{overlayImporter}
           return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
             forwardedRef: this.overlaysContainerRef
-          }, /*#__PURE__*/_react.default.createElement(_header.default, {
+          }, /*#__PURE__*/_react.default.createElement(_header.default, (_React$createElement2 = {
             dimensions: headerFooterDims,
             imagesPathPNG: imagesPathPNG,
             imagesPathSVG: imagesPathSVG,
@@ -2713,12 +2715,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             activeTier: this.state.activeTier,
             validationTier: this.state.validationTier,
             componentSchemas: componentsSchema,
-            schema: footerMicroscopeSchemas,
-            ["inputData"]: footerMicroscopeInput,
-            elementByType: elementByType,
-            is4DNPortal: this.state.is4DNPortal,
-            overlaysContainer: this.overlaysContainerRef.current
-          }), /*#__PURE__*/_react.default.createElement("div", {
+            schema: footerMicroscopeSchemas
+          }, _defineProperty(_React$createElement2, "inputData", footerMicroscopeInput), _defineProperty(_React$createElement2, "elementByType", elementByType), _defineProperty(_React$createElement2, "is4DNPortal", this.state.is4DNPortal), _defineProperty(_React$createElement2, "overlaysContainer", this.overlaysContainerRef.current), _React$createElement2)), /*#__PURE__*/_react.default.createElement("div", {
             style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
             microscope: microscope,

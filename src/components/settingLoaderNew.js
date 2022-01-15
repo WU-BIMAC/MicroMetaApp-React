@@ -1327,29 +1327,21 @@ export default class MicroscopeLoader extends React.PureComponent {
 					);
 				}
 				let manufacturerRadio = (
-					<PopoverTooltip
-						id={"popover-radio-manufactorer-options"}
-						key={"popover-radio-manufactorer-options"}
-						position={create_from_repo_manufacturer_tooltip.position}
-						title={create_from_repo_manufacturer_tooltip.title}
-						content={create_from_repo_manufacturer_tooltip.content}
-						element={
-							<ToggleButtonGroup
-								id="radio-manufactorer-options"
-								key="radio-manufactorer-options"
-								type="radio"
-								name="radio-manufactorer-options"
-								value={selectedManu}
-								onChange={(e) => {
-									this.onClickManufacturerSelection(e);
-								}}
-								vertical={true}
-							>
-								{manufacturerRadios}
-							</ToggleButtonGroup>
-						}
-					/>
+					<ToggleButtonGroup
+						id="radio-manufactorer-options"
+						key="radio-manufactorer-options"
+						type="radio"
+						name="radio-manufactorer-options"
+						value={selectedManu}
+						onChange={(e) => {
+							this.onClickManufacturerSelection(e);
+						}}
+						vertical={true}
+					>
+						{manufacturerRadios}
+					</ToggleButtonGroup>
 				);
+
 				list.push(
 					<div
 						key="radio-manufactorer-container"
@@ -1357,7 +1349,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 						style={radioButtonsContainer}
 					>
 						<h4 key={"select-manufacturer"}>Select Manufacturer</h4>
-						<div style={toggleStyle}>{manufacturerRadio}</div>
+						<PopoverTooltip
+							id={"popover-radio-manufactorer-options"}
+							key={"popover-radio-manufactorer-options"}
+							position={create_from_repo_manufacturer_tooltip.position}
+							title={create_from_repo_manufacturer_tooltip.title}
+							content={create_from_repo_manufacturer_tooltip.content}
+							element={<div style={toggleStyle}>{manufacturerRadio}</div>}
+						/>
 					</div>
 				);
 
@@ -1391,29 +1390,21 @@ export default class MicroscopeLoader extends React.PureComponent {
 						);
 					}
 					let microscopeRadio = (
-						<PopoverTooltip
-							id={"popover-radio-microscope-options"}
-							key={"popover-radio-microscope-options"}
-							position={create_from_repo_names_tooltip.position}
-							title={create_from_repo_names_tooltip.title}
-							content={create_from_repo_names_tooltip.content}
-							element={
-								<ToggleButtonGroup
-									id="radio-microscope-options"
-									key="radio-microscope-options"
-									type="radio"
-									name="radio-microscope-options"
-									value={micFilename}
-									onChange={(e) => {
-										this.onClickMicroscopeSelection(e);
-									}}
-									vertical={true}
-								>
-									{microscopeRadios}
-								</ToggleButtonGroup>
-							}
-						/>
+						<ToggleButtonGroup
+							id="radio-microscope-options"
+							key="radio-microscope-options"
+							type="radio"
+							name="radio-microscope-options"
+							value={micFilename}
+							onChange={(e) => {
+								this.onClickMicroscopeSelection(e);
+							}}
+							vertical={true}
+						>
+							{microscopeRadios}
+						</ToggleButtonGroup>
 					);
+
 					list.push(
 						<div
 							key="radio-microscope-options"
@@ -1421,7 +1412,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 							style={radioButtonsContainer}
 						>
 							<h4 key={"select-microscope"}>Select Microscope file</h4>
-							<div style={toggleStyle}>{microscopeRadio}</div>
+							<PopoverTooltip
+								id={"popover-radio-microscope-options"}
+								key={"popover-radio-microscope-options"}
+								position={create_from_repo_names_tooltip.position}
+								title={create_from_repo_names_tooltip.title}
+								content={create_from_repo_names_tooltip.content}
+								element={<div style={toggleStyle}>{microscopeRadio}</div>}
+							/>
 						</div>
 					);
 				}
@@ -1537,28 +1535,19 @@ export default class MicroscopeLoader extends React.PureComponent {
 						);
 					}
 					imageRadio = (
-						<PopoverTooltip
-							id={"popover-radio-images-options"}
-							key={"popover-radio-images-options"}
-							position={loadImage_from_names_tooltip.position}
-							title={loadImage_from_names_tooltip.title}
-							content={loadImage_from_names_tooltip.content}
-							element={
-								<ToggleButtonGroup
-									id="radio-image-options"
-									key="radio-image-options"
-									type="radio"
-									name="radio-image-options"
-									value={selectedImg}
-									onChange={(e) => {
-										this.onClickImageSelection(0, e);
-									}}
-									vertical={true}
-								>
-									{imageRadios}
-								</ToggleButtonGroup>
-							}
-						/>
+						<ToggleButtonGroup
+							id="radio-image-options"
+							key="radio-image-options"
+							type="radio"
+							name="radio-image-options"
+							value={selectedImg}
+							onChange={(e) => {
+								this.onClickImageSelection(0, e);
+							}}
+							vertical={true}
+						>
+							{imageRadios}
+						</ToggleButtonGroup>
 					);
 				}
 				let dropbox = (
@@ -1613,7 +1602,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 							style={radioButtonsContainer}
 						>
 							<h4 key={"select-manufacturer"}>Select Image file</h4>
-							<div style={toggleStyle}>{imageRadio}</div>
+							<PopoverTooltip
+								id={"popover-radio-images-options"}
+								key={"popover-radio-images-options"}
+								position={loadImage_from_names_tooltip.position}
+								title={loadImage_from_names_tooltip.title}
+								content={loadImage_from_names_tooltip.content}
+								element={<div style={toggleStyle}>{imageRadio}</div>}
+							/>
 						</div>
 					);
 				}
@@ -1646,29 +1642,19 @@ export default class MicroscopeLoader extends React.PureComponent {
 					</ToggleButton>
 				);
 				let imageRadio = (
-					<PopoverTooltip
-						id={"popover-radio-image-options"}
-						key={"popover-radio-image-options"}
-						position={loadImage_from_repo_image_tooltip.position}
-						title={loadImage_from_repo_image_tooltip.title}
-						content={loadImage_from_repo_image_tooltip.content}
-						element={
-							<ToggleButtonGroup
-								id="radio-image-options"
-								key="radio-image-options"
-								type="radio"
-								name="radio-image-options"
-								value={selectedImg}
-								onChange={(e) => {
-									this.onClickImageSelection(1, e);
-								}}
-								vertical={true}
-								style={toggleStyle}
-							>
-								{imageRadios}
-							</ToggleButtonGroup>
-						}
-					/>
+					<ToggleButtonGroup
+						id="radio-image-options"
+						key="radio-image-options"
+						type="radio"
+						name="radio-image-options"
+						value={selectedImg}
+						onChange={(e) => {
+							this.onClickImageSelection(1, e);
+						}}
+						vertical={true}
+					>
+						{imageRadios}
+					</ToggleButtonGroup>
 				);
 				list.push(
 					<div
@@ -1677,7 +1663,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 						style={radioButtonsContainer}
 					>
 						<h4 key={"select-image"}>Select Image</h4>
-						{imageRadio}
+						<PopoverTooltip
+							id={"popover-radio-image-options"}
+							key={"popover-radio-image-options"}
+							position={loadImage_from_repo_image_tooltip.position}
+							title={loadImage_from_repo_image_tooltip.title}
+							content={loadImage_from_repo_image_tooltip.content}
+							element={<div style={toggleStyle}>{imageRadio}</div>}
+						/>
 					</div>
 				);
 			}
@@ -1760,7 +1753,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					name="radio-createLoad-options"
 					//value={modeSelection}
 					//onChange={this.handleCreateOrLoadRadioChange}
-					vertical
+					vertical={true}
 				>
 					{toggles}
 				</ToggleButtonGroup>
@@ -1900,28 +1893,19 @@ export default class MicroscopeLoader extends React.PureComponent {
 				}
 
 				let settingRadio = (
-					<PopoverTooltip
-						id={"popover-radio-setting-options"}
-						key={"popover-radio-setting-options"}
-						position={createSettings_from_repo_names_tooltip.position}
-						title={createSettings_from_repo_names_tooltip.title}
-						content={createSettings_from_repo_names_tooltip.content}
-						element={
-							<ToggleButtonGroup
-								id="radio-setting-options"
-								key="radio-setting-options"
-								type="radio"
-								name="radio-setting-options"
-								value={settFilename}
-								onChange={(e) => {
-									this.onClickSettingSelection(e);
-								}}
-								vertical={true}
-							>
-								{settingRadios}
-							</ToggleButtonGroup>
-						}
-					/>
+					<ToggleButtonGroup
+						id="radio-setting-options"
+						key="radio-setting-options"
+						type="radio"
+						name="radio-setting-options"
+						value={settFilename}
+						onChange={(e) => {
+							this.onClickSettingSelection(e);
+						}}
+						vertical={true}
+					>
+						{settingRadios}
+					</ToggleButtonGroup>
 				);
 				list.push(
 					<div
@@ -1930,12 +1914,18 @@ export default class MicroscopeLoader extends React.PureComponent {
 						style={radioButtonsContainer}
 					>
 						<h4 key={"select-setting"}>Select Settings file</h4>
-						<div style={toggleStyle}>{settingRadio}</div>
+						<PopoverTooltip
+							id={"popover-radio-setting-options"}
+							key={"popover-radio-setting-options"}
+							position={createSettings_from_repo_names_tooltip.position}
+							title={createSettings_from_repo_names_tooltip.title}
+							content={createSettings_from_repo_names_tooltip.content}
+							element={<div style={toggleStyle}>{settingRadio}</div>}
+						/>
 					</div>
 				);
 			}
 		}
-
 		let continue_tooltip = createSettings_mode_continue_tooltip;
 		let buttons = [];
 		let backDisabled = false;
