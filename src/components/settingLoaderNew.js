@@ -492,7 +492,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			paddingRight: "50px",
 		};
 		const buttonStyleWide = {
-			width: "420px",
+			width: "410px",
 			height: "50px",
 			margin: "5px",
 		};
@@ -1300,11 +1300,12 @@ export default class MicroscopeLoader extends React.PureComponent {
 					width: "430px",
 					height: "550px",
 					alignItems: "flex-start",
-					maxHeight: "550px",
-					overflow: "auto",
+					//maxHeight: "550px",
+					//overflow: "auto",
 				};
 				const toggleStyle = {
 					maxHeight: "500px",
+					overflow: "auto",
 				};
 
 				let manufacturers = Object.keys(microscopeNames);
@@ -1343,7 +1344,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 									this.onClickManufacturerSelection(e);
 								}}
 								vertical={true}
-								style={toggleStyle}
 							>
 								{manufacturerRadios}
 							</ToggleButtonGroup>
@@ -1357,7 +1357,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						style={radioButtonsContainer}
 					>
 						<h4 key={"select-manufacturer"}>Select Manufacturer</h4>
-						{manufacturerRadio}
+						<div style={toggleStyle}>{manufacturerRadio}</div>
 					</div>
 				);
 
@@ -1408,7 +1408,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 										this.onClickMicroscopeSelection(e);
 									}}
 									vertical={true}
-									style={toggleStyle}
 								>
 									{microscopeRadios}
 								</ToggleButtonGroup>
@@ -1422,7 +1421,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							style={radioButtonsContainer}
 						>
 							<h4 key={"select-microscope"}>Select Microscope file</h4>
-							{microscopeRadio}
+							<div style={toggleStyle}>{microscopeRadio}</div>
 						</div>
 					);
 				}
@@ -1514,6 +1513,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					};
 					const toggleStyle = {
 						maxHeight: "500px",
+						overflow: "auto",
 					};
 					dropzoneContainer.width = "25%";
 
@@ -1553,7 +1553,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 										this.onClickImageSelection(0, e);
 									}}
 									vertical={true}
-									style={toggleStyle}
 								>
 									{imageRadios}
 								</ToggleButtonGroup>
@@ -1613,7 +1612,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							style={radioButtonsContainer}
 						>
 							<h4 key={"select-manufacturer"}>Select Image file</h4>
-							{imageRadio}
+							<div style={toggleStyle}>{imageRadio}</div>
 						</div>
 					);
 				}
@@ -1630,6 +1629,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				};
 				const toggleStyle = {
 					maxHeight: "500px",
+					overflow: "auto",
 				};
 				let imageName = this.props.imageName;
 				let imageRadios = [];

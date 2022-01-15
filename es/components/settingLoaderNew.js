@@ -544,7 +544,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         paddingRight: "50px"
       };
       var buttonStyleWide = {
-        width: "420px",
+        width: "410px",
         height: "50px",
         margin: "5px"
       };
@@ -1262,12 +1262,13 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             flexFlow: "column",
             width: "430px",
             height: "550px",
-            alignItems: "flex-start",
-            maxHeight: "550px",
-            overflow: "auto"
+            alignItems: "flex-start" //maxHeight: "550px",
+            //overflow: "auto",
+
           };
-          var toggleStyle = {
-            maxHeight: "500px"
+          var _toggleStyle = {
+            maxHeight: "500px",
+            overflow: "auto"
           };
           var manufacturers = Object.keys(microscopeNames); // let defaultManu = isDefined(selectedManu)
           // 	? manufacturers.indexOf(selectedManu)
@@ -1300,8 +1301,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               onChange: function onChange(e) {
                 _this3.onClickManufacturerSelection(e);
               },
-              vertical: true,
-              style: toggleStyle
+              vertical: true
             }, manufacturerRadios)
           });
 
@@ -1311,7 +1311,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             style: radioButtonsContainer
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "select-manufacturer"
-          }, "Select Manufacturer"), manufacturerRadio));
+          }, "Select Manufacturer"), /*#__PURE__*/_react.default.createElement("div", {
+            style: _toggleStyle
+          }, manufacturerRadio)));
 
           if ((0, _genericUtilities.isDefined)(selectedManu)) {
             var microscopesManu = microscopeNames[selectedManu];
@@ -1358,8 +1360,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 onChange: function onChange(e) {
                   _this3.onClickMicroscopeSelection(e);
                 },
-                vertical: true,
-                style: toggleStyle
+                vertical: true
               }, microscopeRadios)
             });
 
@@ -1369,7 +1370,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               style: radioButtonsContainer
             }, /*#__PURE__*/_react.default.createElement("h4", {
               key: "select-microscope"
-            }, "Select Microscope file"), microscopeRadio));
+            }, "Select Microscope file"), /*#__PURE__*/_react.default.createElement("div", {
+              style: _toggleStyle
+            }, microscopeRadio)));
           }
         }
       } else if (step === 2) {
@@ -1465,8 +1468,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               maxHeight: "550px",
               overflow: "auto"
             };
-            var _toggleStyle = {
-              maxHeight: "500px"
+            var _toggleStyle2 = {
+              maxHeight: "500px",
+              overflow: "auto"
             };
             dropzoneContainer.width = "25%";
             var imageKeys = Object.keys(imageMap); // let defaultManu = isDefined(selectedManu)
@@ -1500,8 +1504,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 onChange: function onChange(e) {
                   _this3.onClickImageSelection(0, e);
                 },
-                vertical: true,
-                style: _toggleStyle
+                vertical: true
               }, imageRadios)
             });
           }
@@ -1550,7 +1553,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               style: _radioButtonsContainer
             }, /*#__PURE__*/_react.default.createElement("h4", {
               key: "select-manufacturer"
-            }, "Select Image file"), imageRadio));
+            }, "Select Image file"), /*#__PURE__*/_react.default.createElement("div", {
+              style: toggleStyle
+            }, imageRadio)));
           }
         } else if (imgModeSelection === _constants.string_loadFromRepository) {
           var _radioButtonsContainer2 = {
@@ -1563,8 +1568,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             maxHeight: "550px",
             overflow: "auto"
           };
-          var _toggleStyle2 = {
-            maxHeight: "500px"
+          var _toggleStyle3 = {
+            maxHeight: "500px",
+            overflow: "auto"
           };
           var imageName = this.props.imageName;
           var _imageRadios = [];
@@ -1593,7 +1599,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 _this3.onClickImageSelection(1, e);
               },
               vertical: true,
-              style: _toggleStyle2
+              style: _toggleStyle3
             }, _imageRadios)
           });
 
