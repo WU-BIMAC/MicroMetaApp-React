@@ -351,7 +351,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             imgFileLoading: false,
             imgFileLoaded: false,
             imgFilename: null,
-            loadedMetadata: null
+            loadedMetadata: null,
+            imageMap: null
           });
         }
 
@@ -1265,6 +1266,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             maxHeight: "550px",
             overflow: "auto"
           };
+          var toggleStyle = {
+            maxHeight: "500px"
+          };
           var manufacturers = Object.keys(microscopeNames); // let defaultManu = isDefined(selectedManu)
           // 	? manufacturers.indexOf(selectedManu)
           // 	: 0;
@@ -1296,7 +1300,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               onChange: function onChange(e) {
                 _this3.onClickManufacturerSelection(e);
               },
-              vertical: true
+              vertical: true,
+              style: toggleStyle
             }, manufacturerRadios)
           });
 
@@ -1353,7 +1358,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 onChange: function onChange(e) {
                   _this3.onClickMicroscopeSelection(e);
                 },
-                vertical: true
+                vertical: true,
+                style: toggleStyle
               }, microscopeRadios)
             });
 
@@ -1459,6 +1465,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               maxHeight: "550px",
               overflow: "auto"
             };
+            var _toggleStyle = {
+              maxHeight: "500px"
+            };
             dropzoneContainer.width = "25%";
             var imageKeys = Object.keys(imageMap); // let defaultManu = isDefined(selectedManu)
             // 	? manufacturers.indexOf(selectedManu)
@@ -1491,7 +1500,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 onChange: function onChange(e) {
                   _this3.onClickImageSelection(0, e);
                 },
-                vertical: true
+                vertical: true,
+                style: _toggleStyle
               }, imageRadios)
             });
           }
@@ -1553,6 +1563,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             maxHeight: "550px",
             overflow: "auto"
           };
+          var _toggleStyle2 = {
+            maxHeight: "500px"
+          };
           var imageName = this.props.imageName;
           var _imageRadios = [];
 
@@ -1579,7 +1592,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               onChange: function onChange(e) {
                 _this3.onClickImageSelection(1, e);
               },
-              vertical: true
+              vertical: true,
+              style: _toggleStyle2
             }, _imageRadios)
           });
 

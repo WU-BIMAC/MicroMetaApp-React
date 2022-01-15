@@ -319,6 +319,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					imgFileLoaded: false,
 					imgFilename: null,
 					loadedMetadata: null,
+					imageMap: null,
 				});
 			}
 			this.setState({ imgModeSelection: item });
@@ -1302,6 +1303,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 					maxHeight: "550px",
 					overflow: "auto",
 				};
+				const toggleStyle = {
+					maxHeight: "500px",
+				};
 
 				let manufacturers = Object.keys(microscopeNames);
 				// let defaultManu = isDefined(selectedManu)
@@ -1339,6 +1343,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 									this.onClickManufacturerSelection(e);
 								}}
 								vertical={true}
+								style={toggleStyle}
 							>
 								{manufacturerRadios}
 							</ToggleButtonGroup>
@@ -1403,6 +1408,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 										this.onClickMicroscopeSelection(e);
 									}}
 									vertical={true}
+									style={toggleStyle}
 								>
 									{microscopeRadios}
 								</ToggleButtonGroup>
@@ -1468,7 +1474,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					name="radio-createLoad-options"
 					//value={modeSelection}
 					//onChange={this.handleCreateOrLoadRadioChange}
-					vertical
+					vertical={true}
 				>
 					{toggles}
 				</ToggleButtonGroup>
@@ -1505,6 +1511,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 						alignItems: "center",
 						maxHeight: "550px",
 						overflow: "auto",
+					};
+					const toggleStyle = {
+						maxHeight: "500px",
 					};
 					dropzoneContainer.width = "25%";
 
@@ -1544,6 +1553,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 										this.onClickImageSelection(0, e);
 									}}
 									vertical={true}
+									style={toggleStyle}
 								>
 									{imageRadios}
 								</ToggleButtonGroup>
@@ -1618,6 +1628,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 					maxHeight: "550px",
 					overflow: "auto",
 				};
+				const toggleStyle = {
+					maxHeight: "500px",
+				};
 				let imageName = this.props.imageName;
 				let imageRadios = [];
 				imageRadios.push(
@@ -1649,6 +1662,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 									this.onClickImageSelection(1, e);
 								}}
 								vertical={true}
+								style={toggleStyle}
 							>
 								{imageRadios}
 							</ToggleButtonGroup>
@@ -1881,7 +1895,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				}
 
 				let settingRadio = (
-					<PopoverTooltip 
+					<PopoverTooltip
 						id={"popover-radio-setting-options"}
 						key={"popover-radio-setting-options"}
 						position={createSettings_from_repo_names_tooltip.position}
