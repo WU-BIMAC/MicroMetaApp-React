@@ -47,8 +47,9 @@ authors:
     email: caterina.strambio@umassmed.edu
 repository-code: 'https://github.com/WU-BIMAC/MicroMetaApp-React'
 url: 'https://wu-bimac.github.io/MicroMetaApp.github.io/'
+doi: 10.5281/zenodo.5082713
 repository-artifact: >-
-  https://github.com/WU-BIMAC/MicroMetaApp-Electron/releases/latest
+  hhttps://github.com/WU-BIMAC/MicroMetaApp-React/releases/latest
 abstract: >-
   Micro-Meta App is an intuitive Graphical User Interface (GUI)-based open-source software that helps scientists to interactively build graphical representations of microscope hardware by dragging-and-dropping individual components onto the workspace and entering the relevant attribute values based on the 4D Nucleome (4DN) - BioImaging North America (BINA) Microscopy Metadata guidelines that scale experimental complexity. From this, Micro-Meta App automatically generates structured Microscope files that can be saved locally, consumed by existing data portals, shared with other scientists, and used repeatedly whenever the same microscope is used to produce image data. Thus, when the image acquisition settings utilized to produce a given image dataset need to be recorded, the user selects the desired image data alongside the relevant Microscope file. Then, Micro-Meta App imports the relevant metadata from the header of image data files to be annotated and interactively guides the user through the collection of all missing attributes. Finally, the App generates a Settings-file, which coupled with the Microscope-file contains comprehensive descriptions of the conditions utilized to produce individual microscopy datasets.
 keywords:
@@ -62,9 +63,248 @@ keywords:
   - quality control
   - data provenance
 license: GPL-3.0-or-later
-version: 1.1.0-b1-1 stable beta
-date-released: '2021-04-29'
+version: 4DN Integration Release
+date-released: '2021-08-21'
 references:
+  - authors:
+      - family-names: Rigano
+        given-names: Alessandro
+        affiliation: Program in Molecular Medicine, University of Massachusetts Chan Medical School, Worcester MA 01605, USA
+        email: alex.rigano@umassmed.edu
+      - family-names: Ehmsen
+        given-names: Shannon
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Ozturk
+        given-names: Serkan Utku
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+        orcid: https://orcid.org/0000-0001-8835-787
+      - family-names: Ryan
+        given-names: Joel
+        affiliation: Advanced BioImaging Facility (ABIF), McGill University, Montreal, Quebec, H3G 0B1, Canada
+      - family-names: Balashov
+        given-names: Alexander
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Hammer
+        given-names: Mathias
+        affiliation: RNA Therapeutics Institute, University of Massachusetts Chan Medical School, Worcester MA 01605, USA
+      - family-names: Kirli
+        given-names: Koray
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Boehm
+        given-names: Ulrike
+        affiliation: Janelia Research Campus, Howard Hughes Medical Institute, Ashburn, VA 20147, USA
+        orcid: https://orcid.org/0000-0001-7471-2244
+      - family-names: Brown
+        given-names: Claire M. 
+        affiliation: Advanced BioImaging Facility (ABIF), McGill University, Montreal, Quebec, H3G 0B1, Canada
+        orcid: https://orcid.org/0000-0003-1622-663X
+      - family-names: Bellve
+        given-names: Karl
+        affiliation: Program in Molecular Medicine, University of Massachusetts Chan Medical School, Worcester MA 01605, USA
+      - family-names: Chambers
+        given-names: James
+        affiliation: Institute for Applied Life Sciences, University of Massachusetts, Amherst, MA 01003, USA
+        orcid: https://orcid.org/0000-0003-3883-8215
+      - family-names: Cosolo
+        given-names: Andrea
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Coleman
+        given-names: Robert
+        affiliation: Gruss-Lipper Biophotonics Center, Department of Anatomy and Structural Biology, Albert Einstein College of Medicine, Bronx, NY 10461
+      - family-names: Faklaris
+        given-names: Orestis
+        affiliation: Biocampus, CNRS UMS 3426, Montpellier 34293, France
+        orcid: https://orcid.org/0000-0001-5965-5405
+      - family-names: Fogarty
+        given-names: Kevin
+        affiliation: Program in Molecular Medicine, University of Massachusetts Chan Medical School, Worcester MA 01605, USA
+      - family-names: Guilbert
+        given-names: Thomas
+        affiliation:  Plateforme IMAG'IC, Institut Cochin, Inserm U1016-CNRS UMR8104-Université de Paris, 75014 Paris
+      - family-names: Hamacher
+        given-names: Anna B.
+        affiliation: Center for Advanced Imaging, Heinrich-Heine University Duesseldorf, 40225 Düsseldorf, Germany
+      - family-names: Itano
+        given-names: Michelle
+        affiliation: UNC Neuroscience Microscopy Core Facility, Chapel Hill, NC 27599-7250
+      - family-names: Keeley
+        given-names: Daniel P.
+        affiliation: UNC Neuroscience Microscopy Core Facility, Chapel Hill, NC 27599-7250
+      - family-names: Kunis
+        given-names: Susanne
+        affiliation: Department of Biology/Chemistry and Centre for Cellular Nanoanalytics, University Osnabrueck, 49076 Osnabrück, Germany
+      - family-names: Lacoste
+        given-names: Judith
+        affiliation: MIA Cellavie Inc., Montreal, Quebec, H1K 4G6, Canada
+      - family-names: Laude
+        given-names: Alex
+        affiliation: Bioimaging Unit, Newcastle University, Newcastle upon Tyne, NE2 4HH, UK
+        orcid: https://orcid.org/0000-0002-3853-1187
+      - family-names: Ma
+        given-names: Willa Y.
+        affiliation: UNC Neuroscience Microscopy Core Facility, Chapel Hill, NC 27599-7250
+      - family-names: Marcello
+        given-names: Marco
+        affiliation: Center for Cell Imaging, University of Liverpool, Liverpool, L69 3BE, UK
+      - family-names: Montero-Llopis
+        given-names: Paula
+        affiliation: Microscopy Resources of the North Quad, University of Harvard Medical School, Boston, MA 02115
+        orcid: https://orcid.org/0000-0002-5983-2296
+      - family-names: Nelson
+        given-names: Glyn
+        affiliation: Bioimaging Unit, Newcastle University, Newcastle upon Tyne, NE2 4HH, UK
+        orcid: http://orcid.org/0000-0002-1895-4772
+      - family-names: Nitschke
+        given-names: Roland
+        affiliation: Life Imaging Center and BIOSS Centre for Biological Signaling Studies, Albert-Ludwigs-University Freiburg, Freiburg, 79104, Germany
+        orcid: https://orcid.org/0000-0002-9397-8475
+      - family-names: Pimentel
+        given-names: Jaime A.
+        affiliation: Instituto de Biotecnologıa, Universidad Nacional Autonoma de Mexico, Cuernavaca, Morelos, 62210, México
+        orcid: https://orcid.org/0000-0001-8569-0466
+      - family-names: Weidtkamp-Peters
+        given-names: Stefanie
+        affiliation: Center for Advanced Imaging, Heinrich-Heine University Duesseldorf, 40225 Düsseldorf, Germany
+      - family-names: Park
+        given-names: Peter
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Alver
+        given-names: Burak
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+        orcid: https://orcid.org/https://orcid.org/0000-0002-5019-7652
+      - family-names: Grunwald
+        given-names: David
+        affiliation: RNA Therapeutics Institute, University of Massachusetts Chan Medical School, Worcester MA 01605, USA
+      - family-names: Strambio-De-Castillia
+        given-names: Caterina
+        affiliation: Program in Molecular Medicine, University of Massachusetts Chan Medical School, Worcester MA 01605, USA
+        email: caterina.strambio@umassmed.edu
+        orcid: https://orcid.org/0000-0002-1069-1816
+    doi: 10.1038/s41592-021-01315-z
+    journal: "Nature Methods"
+    volume: 18
+    pages: 1489
+    scope: "Cite this paper every time you use this software."
+    title: "Micro-Meta App: an interactive tool for collecting microscopy metadata based on community specifications"
+    type: article
+    year: 2021
+  - authors:
+      - family-names: Rigano
+        given-names: Alessandro
+        affiliation: Program in Molecular Medicine, University of Massachusetts Chan Medical School, Worcester MA 01605, USA
+        email: alex.rigano@umassmed.edu
+      - family-names: Ehmsen
+        given-names: Shannon
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Ozturk
+        given-names: Serkan Utku
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+        orcid: https://orcid.org/0000-0001-8835-787
+      - family-names: Ryan
+        given-names: Joel
+        affiliation: Advanced BioImaging Facility (ABIF), McGill University, Montreal, Quebec, H3G 0B1, Canada
+      - family-names: Balashov
+        given-names: Alexander
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Hammer
+        given-names: Mathias
+        affiliation: RNA Therapeutics Institute, University of Massachusetts Chan Medical School, Worcester MA 01605, USA
+      - family-names: Kirli
+        given-names: Koray
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Boehm
+        given-names: Ulrike
+        affiliation: Janelia Research Campus, Howard Hughes Medical Institute, Ashburn, VA 20147, USA
+        orcid: https://orcid.org/0000-0001-7471-2244
+      - family-names: Brown
+        given-names: Claire M. 
+        affiliation: Advanced BioImaging Facility (ABIF), McGill University, Montreal, Quebec, H3G 0B1, Canada
+        orcid: https://orcid.org/0000-0003-1622-663X
+      - family-names: Chambers
+        given-names: James
+        affiliation: Institute for Applied Life Sciences, University of Massachusetts, Amherst, MA 01003, USA
+        orcid: https://orcid.org/0000-0003-3883-8215
+      - family-names: Coleman
+        given-names: Robert
+        affiliation: Gruss-Lipper Biophotonics Center, Department of Anatomy and Structural Biology, Albert Einstein College of Medicine, Bronx, NY 10461
+      - family-names: Cosolo
+        given-names: Andrea
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Faklaris
+        given-names: Orestis
+        affiliation: Biocampus, CNRS UMS 3426, Montpellier 34293, France
+        orcid: https://orcid.org/0000-0001-5965-5405
+      - family-names: Fogarty
+        given-names: Kevin
+        affiliation: Program in Molecular Medicine, University of Massachusetts Chan Medical School, Worcester MA 01605, USA
+      - family-names: Guilbert
+        given-names: Thomas
+        affiliation:  Plateforme IMAG'IC, Institut Cochin, Inserm U1016-CNRS UMR8104-Université de Paris, 75014 Paris
+      - family-names: Hamacher
+        given-names: Anna B.
+        affiliation: Center for Advanced Imaging, Heinrich-Heine University Duesseldorf, 40225 Düsseldorf, Germany
+      - family-names: Itano
+        given-names: Michelle
+        affiliation: UNC Neuroscience Microscopy Core Facility, Chapel Hill, NC 27599-7250
+      - family-names: Keeley
+        given-names: Daniel P.
+        affiliation: UNC Neuroscience Microscopy Core Facility, Chapel Hill, NC 27599-7250
+      - family-names: Kunis
+        given-names: Susanne
+        affiliation: Department of Biology/Chemistry and Centre for Cellular Nanoanalytics, University Osnabrueck, 49076 Osnabrück, Germany
+      - family-names: Lacoste
+        given-names: Judith
+        affiliation: MIA Cellavie Inc., Montreal, Quebec, H1K 4G6, Canada
+      - family-names: Laude
+        given-names: Alex
+        affiliation: Bioimaging Unit, Newcastle University, Newcastle upon Tyne, NE2 4HH, UK
+        orcid: https://orcid.org/0000-0002-3853-1187
+      - family-names: Ma
+        given-names: Willa
+        affiliation: UNC Neuroscience Microscopy Core Facility, Chapel Hill, NC 27599-7250
+      - family-names: Marcello
+        given-names: Marco
+        affiliation: Center for Cell Imaging, University of Liverpool, Liverpool, L69 3BE, UK
+      - family-names: Montero-Llopis
+        given-names: Paula
+        affiliation: Microscopy Resources of the North Quad, University of Harvard Medical School, Boston, MA 02115
+        orcid: https://orcid.org/0000-0002-5983-2296
+      - family-names: Nelson
+        given-names: Glyn
+        affiliation: Bioimaging Unit, Newcastle University, Newcastle upon Tyne, NE2 4HH, UK
+        orcid: http://orcid.org/0000-0002-1895-4772
+      - family-names: Nitschke
+        given-names: Roland
+        affiliation: Life Imaging Center and BIOSS Centre for Biological Signaling Studies, Albert-Ludwigs-University Freiburg, Freiburg, 79104, Germany
+        orcid: https://orcid.org/0000-0002-9397-8475
+      - family-names: Pimentel
+        given-names: Jaime A.
+        affiliation: Instituto de Biotecnologıa, Universidad Nacional Autonoma de Mexico, Cuernavaca, Morelos, 62210, México
+        orcid: https://orcid.org/0000-0001-8569-0466
+      - family-names: Weidtkamp-Peters
+        given-names: Stefanie
+        affiliation: Center for Advanced Imaging, Heinrich-Heine University Duesseldorf, 40225 Düsseldorf, Germany
+      - family-names: Park
+        given-names: Peter
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+      - family-names: Alver
+        given-names: Burak
+        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
+        orcid: https://orcid.org/https://orcid.org/0000-0002-5019-7652
+      - family-names: Grunwald
+        given-names: David
+        affiliation: RNA Therapeutics Institute, University of Massachusetts Chan Medical School, Worcester MA 01605, USA
+      - family-names: Strambio-De-Castillia
+        given-names: Caterina
+        affiliation: Program in Molecular Medicine, University of Massachusetts Chan Medical School, Worcester MA 01605, USA
+        email: caterina.strambio@umassmed.edu
+        orcid: https://orcid.org/0000-0002-1069-1816
+    doi: 10.1101/2021.05.31.44638
+    journal: "BioRxiv.org"
+    scope: "Cite this paper every time you use this software."
+    title: "Micro-Meta App: an interactive software tool to facilitate the collection of microscopy metadata based on community-driven specifications"
+    type: article
+    year: 2021
   - authors:
       - family-names: Mathias
         given-names: Hammer
@@ -149,7 +389,7 @@ references:
         orcid: https://orcid.org/0000-0002-1069-1816
     doi: 10.1101/2021.04.25.441198
     journal: "BioRxiv.org"
-    scope: "Cite this paper every time you use these specifications."
+    scope: "Cite this paper when you want to discuss the background context for this software."
     title: "Towards community-driven metadata standards for light microscopy: tiered specifications extending the OME model"
     type: article
     year: 2021
@@ -228,7 +468,7 @@ references:
         orcid: https://orcid.org/0000-0002-1069-1816
     url: https://arxiv.org/abs/1910.11370
     journal: "arXiv.org"
-    scope: "Cite this paper every time you use this software."
+    scope: "Cite this paper when you want to discuss the background context for this software."
     title: "A perspective on Microscopy Metadata: data provenance and quality control"
     type: article
     year: 2021
@@ -318,102 +558,7 @@ references:
     journal: "Nature Methods"
     volume: 18
     pages: 1428
-    scope: "Cite this paper every time you use this software."
+    scope: "Cite this paper when you want to discuss the background context for this software."
     title: "Towards community-driven metadata standards for light microscopy: tiered specifications extending the OME model"
-    type: article
-    year: 2021
-  - authors:
-      - family-names: Rigano
-        given-names: Alessandro
-        affiliation: University of Massachusetts Medical School
-        email: alex.rigano@umassmed.edu
-      - family-names: Balashov
-        given-names: Alexander
-        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
-      - family-names: Ozturk
-        given-names: Serkan Utku
-        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
-        orcid: https://orcid.org/0000-0001-8835-787
-      - family-names: Ehmsen
-        given-names: Shannon
-        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
-      - family-names: Ryan
-        given-names: Joel
-        affiliation: Advanced BioImaging Facility (ABIF), McGill University, Montreal, Quebec, H3G 0B1, Canada
-      - family-names: Hammer
-        given-names: Mathias
-        affiliation: RNA Therapeutics Institute, UMass Medical School, Worcester MA 01605, USA
-      - family-names: Kirli
-        given-names: Koray
-        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
-      - family-names: Boehm
-        given-names: Ulrike
-        affiliation: Janelia Research Campus, Howard Hughes Medical Institute, Ashburn, VA 20147, USA
-        orcid: https://orcid.org/0000-0001-7471-2244
-      - family-names: Brown
-        given-names: Claire M. 
-        affiliation: Advanced BioImaging Facility (ABIF), McGill University, Montreal, Quebec, H3G 0B1, Canada
-        orcid: https://orcid.org/0000-0003-1622-663X
-      - family-names: Chambers
-        given-names: James
-        affiliation: Institute for Applied Life Sciences, University of Massachusetts, Amherst, MA 01003, USA
-        orcid: https://orcid.org/0000-0003-3883-8215
-      - family-names: Coleman
-        given-names: Robert
-        affiliation: Gruss-Lipper Biophotonics Center, Department of Anatomy and Structural Biology, Albert Einstein College of Medicine, Bronx, NY 10461
-      - family-names: Faklaris
-        given-names: Orestis
-        affiliation: Biocampus, CNRS UMS 3426, Montpellier 34293, France
-        orcid: https://orcid.org/0000-0001-5965-5405
-      - family-names: Guilbert
-        given-names: Thomas
-        affiliation:  Plateforme IMAG'IC, Institut Cochin, Inserm U1016-CNRS UMR8104-Université de Paris, 75014 Paris
-      - family-names: Itano
-        given-names: Michelle
-        affiliation: UNC Neuroscience Microscopy Core Facility, Chapel Hill, NC 27599-7250
-      - family-names: Lacoste
-        given-names: Judith
-        affiliation: MIA Cellavie Inc., Montreal, Quebec, H1K 4G6, Canada
-      - family-names: Laude
-        given-names: Alex
-        affiliation: Bioimaging Unit, Newcastle University, Newcastle upon Tyne, NE2 4HH, UK
-        orcid: https://orcid.org/0000-0002-3853-1187
-      - family-names: Montero-Llopis
-        given-names: Paula
-        affiliation: Microscopy Resources of the North Quad, University of Harvard Medical School, Boston, MA 02115
-        orcid: https://orcid.org/0000-0002-5983-2296
-      - family-names: Nelson
-        given-names: Glyn
-        affiliation: Bioimaging Unit, Newcastle University, Newcastle upon Tyne, NE2 4HH, UK
-        orcid: http://orcid.org/0000-0002-1895-4772
-      - family-names: Nitschke
-        given-names: Roland
-        affiliation: Life Imaging Center and BIOSS Centre for Biological Signaling Studies, Albert-Ludwigs-University Freiburg, Freiburg, 79104, Germany
-        orcid: https://orcid.org/0000-0002-9397-8475
-      - family-names: Pimentel
-        given-names: Arturo
-        affiliation: Instituto de Biotecnologıa, Universidad Nacional Autonoma de Mexico, Cuernavaca, Morelos, 62210, México
-        orcid: https://orcid.org/0000-0001-8569-0466
-      - family-names: Park
-        given-names: Peter
-        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
-      - family-names: Alver
-        given-names: Burak
-        affiliation: Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA
-        orcid: https://orcid.org/https://orcid.org/0000-0002-5019-7652
-      - family-names: Grunwald
-        given-names: David
-        affiliation: RNA Therapeutics Institute, UMass Medical School, Worcester MA 01605, USA
-      - family-names: Strambio-De-Castillia
-        given-names: Caterina
-        affiliation: University of Massachusetts Medical School
-        email: caterina.strambio@umassmed.edu
-        orcid: https://orcid.org/0000-0002-1069-1816
-    doi: 10.1038/s41592-021-01315-z
-    journal: "Nature Methods"
-    volume: 18
-    pages: 1489
-    scope: "Cite this paper every time you use this software."
-    title: "Micro-Meta App: an interactive tool for collecting microscopy metadata based on community specifications"
     type: article
     year: 2021

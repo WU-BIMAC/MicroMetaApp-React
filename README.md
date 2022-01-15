@@ -1,23 +1,36 @@
-# 4DN Micro-Meta App React implementation
+<img align="right" src="https://github.com/WU-BIMAC/MicroMetaApp.github.io/blob/master/images/Nature%20Methods_COVER.png">
 
-1. [Summary](#summary)
-2. [Background](#background)
-3. [Description](#description)
-4. [Website](https://wu-bimac.github.io/MicroMetaApp.github.io/)
-5. [Installation](https://micrometaapp-docs.readthedocs.io/en/latest/docs/intro/installation.html)
-6. [Documentation](https://micrometaapp-docs.readthedocs.io/en/latest/index.html)
-7. [Step-by-Step Instructions](https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/index.html#step-by-step-instructions)
-8. [Tutorial Videos](https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/VideoTutorials.html#micro-meta-app-video-tutorials)
-9. [Example data files](https://doi.org/10.5281/zenodo.4891883)
-10. Use these videos to get started with using Micro-Meta App after downloading the example data files available at point 9.
+**Micro-Meta App** was developed as part of a **global community initiative** including the **[4D Nucleome Imaging Working Group](https://www.4dnucleome.org/)**, **[BINA Quality Control and Data Management Working Group](https://www.bioimagingna.org/qc-dm-wg)** and **[QUAREP-LiMi](https://quarep.org/)**. 
 
-- [Part 1/2](https://vimeo.com/562022222)
+> **News!** The works of this **global community effort** resulted in multiple publications featured on a recent **Nature Methods FOCUS ISSUE** dedicated to **[Reporting and reproducibility in microscopy](https://www.nature.com/collections/djiciihhjh)**. 
 
-- [Part 2/2](https://vimeo.com/562022281) 
+> **Learn More!** For a thorought description of Micro-Meta App consult our recent **[Nature Methods](https://doi.org/10.1038/s41592-021-01315-z)** and **[BioRxiv.org](https://doi.org/10.1101/2021.05.31.446382)** publications!
+
+**Background** If you want to learn more about the importannce of metadata and quality control to ensure full reproducibility, quality and scientific value in light microscopy, please take a look at our recent publications describing the development of **community-driven light microscopy metadata specifications** (**[Nature Methods](https://doi.org/10.1038/s41592-021-01327-9)** and **[BioRxiv.org](https://doi.org/10.1101/2021.04.25.441198)**) and our _overview manuscript_ entitled **"A perspective on Microscopy Metadata: data provenance and quality control"**, which is available on [ArXiv.org](https://arxiv.org/abs/1910.11370).
+
+
+# Micro-Meta App React implementation
+
+1. [Quick start guide](#quick-start-guide)
+2. [Summary](#summary)
+3. [Background](#background)
+4. [Description](#description)
+5. [Website](https://wu-bimac.github.io/MicroMetaApp.github.io/)
+6. [Installation](https://micrometaapp-docs.readthedocs.io/en/latest/docs/intro/installation.html)
+7. [Documentation](https://micrometaapp-docs.readthedocs.io/en/latest/index.html)
+8. [Step-by-Step Instructions](https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/index.html#step-by-step-instructions)
+9. [Tutorial Videos](https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/VideoTutorials.html#micro-meta-app-video-tutorials)
+10. [Example data files](https://doi.org/10.5281/zenodo.4891883)
+
+## Quick start guide
+Use these videos to get started with using Micro-Meta App after downloading the example data files:
+1. [Video 1](https://vimeo.com/562022222)
+2. [Video 2](https://vimeo.com/562022281)
 
 ## Summary
-Micro-Meta App is an interactive tool that was developed by Alex Rigano in the Strambio De Castillia's lab at UMMS to facilitate the documentation of fluorescence microscopy experiments. 
-It is designed around an interactive graphical interface that intuitively guides bench scientists through the often laborious process of collecting and reporting the minimal microscopy and image acquisition metadata defined by the 4DN microscopy metadata tiered system of guidelines. 
+**Micro-Meta App** is an interactive tool that was developed by Alex Rigano in the Strambio De Castillia's lab at the University of Massachusetts Chan Medical School to facilitate the documentation of light microscopy experiments on the basis of the scalable [4DN-BINA-OME](https://zenodo.org/record/4710731) Microscopy Metadata specifications that extend the [OME Data Model](https://www.openmicroscopy.org/Schemas/Documentation/Generated/OME-2016-06/ome.html).
+
+**Micro-Meta App** is used to visually and intuitively document the microscopy conditions used to acquire specific datasets based on community-driven 4DN-BINA-OME Microscopy Metadata specifications. 
 
 This repository contains a web app version of the tool implemented in Javascript [React](https://reactjs.org/).
 
