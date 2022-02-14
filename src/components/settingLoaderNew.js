@@ -362,7 +362,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 
 	handleLoadMetadataComplete(imageMetadata) {
 		//console.log("IM HERE");
-		if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
+		if (isDefined(imageMetadata.Error)) {
 			this.setState({ errorMsg: "Error: " + imageMetadata.Error });
 		} else if (isDefined(imageMetadata.Images)) {
 			let images = imageMetadata.Images;
@@ -991,6 +991,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 				step2Completed = false;
 			} else if (
 				imgModeSelection === string_createFromFile &&
+				(!imgFileLoaded || loadedMetadata === null)
+			) {
+				step2Completed = false;
+			} else if (
+				imgModeSelection === string_loadFromRepository &&
 				(!imgFileLoaded || loadedMetadata === null)
 			) {
 				step2Completed = false;
@@ -1673,6 +1678,16 @@ export default class MicroscopeLoader extends React.PureComponent {
 						/>
 					</div>
 				);
+				if (errorMsg !== null) {
+					//<p style={styleCenterText}>{string_dropbox_image_replace}</p>
+					list.push(
+						<div>
+							<p style={styleCenterText}>{imgFilename}</p>
+							<p style={styleCenterText}>{errorMsg}</p>
+							<p style={styleCenterText}>{"Select a different image or skip."}</p>
+						</div>
+					);
+				}
 			}
 		} else if (step === 3) {
 			let createRadios = [];

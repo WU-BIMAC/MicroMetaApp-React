@@ -404,7 +404,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     key: "handleLoadMetadataComplete",
     value: function handleLoadMetadataComplete(imageMetadata) {
       //console.log("IM HERE");
-      if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
+      if ((0, _genericUtilities.isDefined)(imageMetadata.Error)) {
         this.setState({
           errorMsg: "Error: " + imageMetadata.Error
         });
@@ -1039,6 +1039,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             step2Completed = false;
           } else if (imgModeSelection === _constants.string_createFromFile && (!imgFileLoaded || loadedMetadata === null)) {
             step2Completed = false;
+          } else if (imgModeSelection === _constants.string_loadFromRepository && (!imgFileLoaded || loadedMetadata === null)) {
+            step2Completed = false;
           }
         } else {
         step2Inactive = true;
@@ -1612,6 +1614,17 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               style: _toggleStyle2
             }, _imageRadio)
           })));
+
+          if (errorMsg !== null) {
+            //<p style={styleCenterText}>{string_dropbox_image_replace}</p>
+            list.push( /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, imgFilename), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, errorMsg), /*#__PURE__*/_react.default.createElement("p", {
+              style: styleCenterText
+            }, "Select a different image or skip.")));
+          }
         }
       } else if (step === 3) {
         var createRadios = [];
