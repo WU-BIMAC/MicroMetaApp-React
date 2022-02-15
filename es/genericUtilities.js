@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.isDefined = isDefined;
 exports.replaceLast = replaceLast;
-exports.verifyAppVersion = verifyAppVersion;
 exports.validateAcquisitionSettings = validateAcquisitionSettings;
 exports.validateMicroscope = validateMicroscope;
+exports.verifyAppVersion = verifyAppVersion;
 
 var _react = _interopRequireDefault(require("react"));
 
