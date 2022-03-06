@@ -2149,25 +2149,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var settingsWidth = width;
       var headerFooterWidth = width;
 
-      if (this.state.is4DNPortal && !this.state.microscopePresetHandled || !this.state.isDataLoaded) {
-        return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
-          width: width,
-          height: height,
-          forwardedRef: this.overlaysContainerRef
-        }, /*#__PURE__*/_react.default.createElement(_dataLoaderV.default, {
-          imagesPathPNG: imagesPathPNG,
-          onClickLoadSchema: this.handleLoadSchema,
-          onClickLoadDimensions: this.handleLoadDimensions,
-          onClickLoadMicroscopes: this.handleLoadMicroscopes,
-          onClickLoadSettings: this.handleLoadSettings,
-          onClickLoadTierList: this.handleLoadTierList,
-          onClickHandleMicPreset: this.handleMicPreset,
-          onDataLoaded: this.setDataLoaded,
-          is4DNPortal: this.state.is4DNPortal,
-          isDebug: this.props.isDebug
-        }));
-      }
-
       if (this.state.isCreatingNewMicroscope == null && this.state.isLoadingMicroscope == null || this.state.is4DNPortal && !this.state.microscopePresetHandled) {
         return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
@@ -2186,6 +2167,25 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           onClickLoadMicroscope: this.setLoadMicroscope // is4DNPortal={this.state.is4DNPortal}
           ,
           hasSettings: this.props.hasSettings,
+          isDebug: this.props.isDebug
+        }));
+      }
+
+      if (this.state.is4DNPortal && !this.state.microscopePresetHandled || !this.state.isDataLoaded) {
+        return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
+          width: width,
+          height: height,
+          forwardedRef: this.overlaysContainerRef
+        }, /*#__PURE__*/_react.default.createElement(_dataLoaderV.default, {
+          imagesPathPNG: imagesPathPNG,
+          onClickLoadSchema: this.handleLoadSchema,
+          onClickLoadDimensions: this.handleLoadDimensions,
+          onClickLoadMicroscopes: this.handleLoadMicroscopes,
+          onClickLoadSettings: this.handleLoadSettings,
+          onClickLoadTierList: this.handleLoadTierList,
+          onClickHandleMicPreset: this.handleMicPreset,
+          onDataLoaded: this.setDataLoaded,
+          is4DNPortal: this.state.is4DNPortal,
           isDebug: this.props.isDebug
         }));
       } // if (microscope === null && this.state.isCreatingNewMicroscope === null) {

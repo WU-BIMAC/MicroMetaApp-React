@@ -2883,32 +2883,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let headerFooterWidth = width;
 
 		if (
-			(this.state.is4DNPortal && !this.state.microscopePresetHandled) ||
-			!this.state.isDataLoaded
-		) {
-			return (
-				<MicroMetaAppReactContainer
-					width={width}
-					height={height}
-					forwardedRef={this.overlaysContainerRef}
-				>
-					<DataLoaderV2
-						imagesPathPNG={imagesPathPNG}
-						onClickLoadSchema={this.handleLoadSchema}
-						onClickLoadDimensions={this.handleLoadDimensions}
-						onClickLoadMicroscopes={this.handleLoadMicroscopes}
-						onClickLoadSettings={this.handleLoadSettings}
-						onClickLoadTierList={this.handleLoadTierList}
-						onClickHandleMicPreset={this.handleMicPreset}
-						onDataLoaded={this.setDataLoaded}
-						is4DNPortal={this.state.is4DNPortal}
-						isDebug={this.props.isDebug}
-					/>
-				</MicroMetaAppReactContainer>
-			);
-		}
-
-		if (
 			(this.state.isCreatingNewMicroscope == null &&
 				this.state.isLoadingMicroscope == null) ||
 			(this.state.is4DNPortal && !this.state.microscopePresetHandled)
@@ -2932,6 +2906,32 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickLoadMicroscope={this.setLoadMicroscope}
 						// is4DNPortal={this.state.is4DNPortal}
 						hasSettings={this.props.hasSettings}
+						isDebug={this.props.isDebug}
+					/>
+				</MicroMetaAppReactContainer>
+			);
+		}
+
+		if (
+			(this.state.is4DNPortal && !this.state.microscopePresetHandled) ||
+			!this.state.isDataLoaded
+		) {
+			return (
+				<MicroMetaAppReactContainer
+					width={width}
+					height={height}
+					forwardedRef={this.overlaysContainerRef}
+				>
+					<DataLoaderV2
+						imagesPathPNG={imagesPathPNG}
+						onClickLoadSchema={this.handleLoadSchema}
+						onClickLoadDimensions={this.handleLoadDimensions}
+						onClickLoadMicroscopes={this.handleLoadMicroscopes}
+						onClickLoadSettings={this.handleLoadSettings}
+						onClickLoadTierList={this.handleLoadTierList}
+						onClickHandleMicPreset={this.handleMicPreset}
+						onDataLoaded={this.setDataLoaded}
+						is4DNPortal={this.state.is4DNPortal}
 						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
