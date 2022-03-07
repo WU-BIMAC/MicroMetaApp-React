@@ -1756,7 +1756,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
               _this14.props.onLoadSetting(-1);
             }
           }
-        } else if ((0, _genericUtilities.isDefined)(_this14.onLoadSetting)) {
+        } else if ((0, _genericUtilities.isDefined)(_this14.props.onLoadSetting)) {
           _this14.props.onLoadSetting(-1);
         } //console.log("SetSettingState3");
 
@@ -1843,6 +1843,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onClickHome",
     value: function onClickHome(item) {
+      var _this16 = this;
+
       var isCreatingNewMicroscope = null;
       var isLoadingMicroscope = null;
       var isLoadingImage = null;
@@ -1880,25 +1882,27 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         settingData: null,
         imageMetadata: null,
         isDataLoaded: false
-      });
-
-      if (this.state.is4DNPortal) {
-        if (item === "Back to list" && (0, _genericUtilities.isDefined)(this.props.onReturnToMicroscopeList)) {
-          this.props.onReturnToMicroscopeList();
-        } else if (item === "Import"
-        /*&& isDefined(this.props.onImportFromFile*/
-        ) {
-          //this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
-          this.setState({
-            isSpecialImporterActive: true,
-            oldMicroscope: oldMicroscope,
-            oldElementData: oldElementData,
-            oldSetting: oldSetting,
-            oldSettingData: oldSettingData,
-            oldImageMetadata: oldImageMetadata
-          });
+      }, function () {
+        if (_this16.state.is4DNPortal) {
+          if (item === "Back to list" && (0, _genericUtilities.isDefined)(_this16.props.onReturnToMicroscopeList)) {
+            _this16.props.onReturnToMicroscopeList();
+          } else if (item === "Import"
+          /*&& isDefined(this.props.onImportFromFile*/
+          ) {
+            //this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
+            _this16.setState({
+              isSpecialImporterActive: true,
+              oldMicroscope: oldMicroscope,
+              oldElementData: oldElementData,
+              oldSetting: oldSetting,
+              oldSettingData: oldSettingData,
+              oldImageMetadata: oldImageMetadata
+            });
+          }
         }
-      }
+
+        if ((0, _genericUtilities.isDefined)(_this16.props.onModeSelection)) _this16.props.onModeSelection(-1);
+      });
     }
   }, {
     key: "updateElementData",

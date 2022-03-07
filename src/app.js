@@ -2492,17 +2492,17 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				settLoadingOption !== string_createFromFile
 			) {
 				setting = this.state.settings[settFilename].setting;
-			if(isDefined(this.props.onLoadSetting)) {
-				let id = this.state.settings[settFilename].id;
-				if(isDefined(id)) {
-					this.props.onLoadSetting(id);
-				} else {
-					this.props.onLoadSetting(-1);
+				if(isDefined(this.props.onLoadSetting)) {
+					let id = this.state.settings[settFilename].id;
+					if(isDefined(id)) {
+						this.props.onLoadSetting(id);
+					} else {
+						this.props.onLoadSetting(-1);
+					}
 				}
+			} else if(isDefined(this.props.onLoadSetting)) {
+				this.props.onLoadSetting(-1);
 			}
-		} else if(isDefined(this.onLoadSetting)) {
-			this.props.onLoadSetting(-1)
-		}
 
 			//console.log("SetSettingState3");
 			if (isDefined(setting)) {
@@ -2626,8 +2626,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			settingData: null,
 			imageMetadata: null,
 			isDataLoaded: false,
-		});
-		if (this.state.is4DNPortal) {
+		}, () => {
+			if (this.state.is4DNPortal) {
 			if (
 				item === "Back to list" &&
 				isDefined(this.props.onReturnToMicroscopeList)
@@ -2647,6 +2647,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				});
 			}
 		}
+			if(isDefined(this.props.onModeSelection))
+				this.props.onModeSelection(-1)
+			}
+		);
 	}
 
 	updateElementData(elementData, areComponentsValidated) {
