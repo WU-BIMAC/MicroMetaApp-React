@@ -2148,8 +2148,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var toolbarHeight = canvasHeight;
       var settingsWidth = width;
       var headerFooterWidth = width;
+      var waitForDataLoad = false;
 
-      if (this.state.isCreatingNewMicroscope == null && this.state.isLoadingMicroscope == null || this.state.is4DNPortal && !this.state.microscopePresetHandled) {
+      if ((0, _genericUtilities.isDefined)(this.props.waitForDataLoad)) {
+        waitForDataLoad = this.props.waitForDataLoad;
+      }
+
+      if (this.state.isCreatingNewMicroscope == null && this.state.isLoadingMicroscope == null || this.state.is4DNPortal && !this.state.microscopePresetHandled || waitForDataLoad) {
         return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,

@@ -151,7 +151,7 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
 
       var dropdownToggleWrapped = null;
 
-      if (this.props.tooltip !== undefined && this.props.tooltip !== null && this.props.tooltip.position !== undefined && this.props.position !== null && this.props.tooltip.title !== undefined && this.props.title !== null && this.props.tooltip.content !== undefined && this.props.content !== null && this.state.showTooltip) {
+      if ((0, _genericUtilities.isDefined)(this.props.tooltip) && (0, _genericUtilities.isDefined)(this.props.tooltip.position) && (0, _genericUtilities.isDefined)(this.props.tooltip.title) && (0, _genericUtilities.isDefined)(this.props.tooltip.content) && this.state.showTooltip) {
         dropdownToggleWrapped = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           position: this.props.tooltip.position,
           title: this.props.tooltip.title,

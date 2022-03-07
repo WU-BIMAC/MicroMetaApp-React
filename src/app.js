@@ -2882,10 +2882,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		let headerFooterWidth = width;
 
+		let waitForDataLoad = false;
+		if(isDefined(this.props.waitForDataLoad)) {
+			waitForDataLoad = this.props.waitForDataLoad;
+		}
+
 		if (
 			(this.state.isCreatingNewMicroscope == null &&
 				this.state.isLoadingMicroscope == null) ||
-			(this.state.is4DNPortal && !this.state.microscopePresetHandled)
+			(this.state.is4DNPortal && !this.state.microscopePresetHandled) || waitForDataLoad
 		) {
 			return (
 				<MicroMetaAppReactContainer

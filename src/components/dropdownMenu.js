@@ -121,14 +121,10 @@ export default class DropdownMenu extends React.PureComponent {
 		);
 		let dropdownToggleWrapped = null;
 		if (
-			this.props.tooltip !== undefined &&
-			this.props.tooltip !== null &&
-			this.props.tooltip.position !== undefined &&
-			this.props.position !== null &&
-			this.props.tooltip.title !== undefined &&
-			this.props.title !== null &&
-			this.props.tooltip.content !== undefined &&
-			this.props.content !== null &&
+			isDefined(this.props.tooltip) &&
+			isDefined(this.props.tooltip.position) &&
+			isDefined(this.props.tooltip.title) &&
+			isDefined(this.props.tooltip.content) &&
 			this.state.showTooltip
 		) {
 			dropdownToggleWrapped = (
