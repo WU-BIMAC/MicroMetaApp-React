@@ -1390,6 +1390,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }
         }
       } else if (step === 2) {
+        var buttonDisabled = false;
+        if (imgSelectionDisabled) buttonDisabled = true;
         var _loadRadios = [];
 
         var _loop2 = function _loop2(_i3) {
@@ -1412,13 +1414,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               key: loadingOption,
               id: loadingOption,
               value: loadingOption,
-              onChange: function onChange() {
+              onChange: !buttonDisabled ? function () {
                 return _this3.handleCreateOrLoadRadioChange(loadingOption);
-              },
+              } : null,
               checked: loadingOption === imgModeSelection,
               style: buttonStyleWide,
               size: "lg",
-              variant: "outline-primary"
+              variant: "outline-primary",
+              disabled: buttonDisabled
             }, loadingOption)
           }));
         };
