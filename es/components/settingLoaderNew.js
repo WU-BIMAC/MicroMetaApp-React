@@ -556,7 +556,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var buttonStyleWide = {
         width: "410px",
         height: "50px",
-        margin: "5px"
+        margin: "5px",
+        whiteSpace: "break-spaces",
+        wordBreak: "break-all"
       };
       var buttonStyle = {
         width: "200px",

@@ -224,9 +224,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 			paddingRight: "50px",
 		};
 		const buttonStyleWide = {
-			width: "420px",
+			width: "410px",
 			height: "50px",
 			margin: "5px",
+			whiteSpace: "break-spaces",
+			wordBreak: "break-all",
 		};
 		const buttonStyle = {
 			width: "200px",
