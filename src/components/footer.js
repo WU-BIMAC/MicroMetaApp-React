@@ -117,17 +117,18 @@ export default class Footer extends React.PureComponent {
 
 		//Rethink this, maybe drop down split button with multi actions?
 		let index = 0;
+
 		if (this.props.is4DNPortal && this.props.hasImport) {
 			let importButtText = "Import";
 			buttonsRight[index] = (
 				<PopoverTooltip
-					key={"TooltipButtonRight-0"}
+					key={"TooltipButtonRight-" + index}
 					position={import_tooltip.position}
 					title={import_tooltip.title}
 					content={import_tooltip.content}
 					element={
 						<Button
-							key={"ButtonRight-0"}
+							key={"ButtonRight-" + index}
 							onClick={() => this.props.onClickHome(importButtText)}
 							style={styleButton}
 							size="lg"

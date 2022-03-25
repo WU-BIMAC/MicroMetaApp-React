@@ -15,6 +15,8 @@ var _reactDragDropContainer = require("react-drag-drop-container");
 
 var _canvasElement = _interopRequireWildcard(require("./canvasElement"));
 
+var _genericUtilities = require("../genericUtilities");
+
 var _url = require("url");
 
 var _uuid = require("uuid");
@@ -66,7 +68,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
     _this = _super.call(this, props);
     _this.state = {
       elementList: [],
-      elementData: Object.assign({}, _this.props.inputData),
+      elementData: {},
       componentsSchema: {},
       linkedFields: props.linkedFields || {},
       imgHeight: null,
@@ -82,57 +84,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       occupiedSpots: [],
       originalDimensions: {}
     };
-    Object.keys(props.componentSchemas).forEach(function (schemaIndex) {
-      var schema = props.componentSchemas[schemaIndex];
-      var schema_id = schema.ID; //Validate schemas using jsonschema????
-
-      Object.keys(props.inputData).forEach(function (objIndex) {
-        var object = props.inputData[objIndex];
-        if (props.activeTier < object.tier) return;
-        if (schema_id !== object.Schema_ID) return;
-        var validation = validate(object, schema); //if (schema_id === "CCD.json") console.log(validation);
-
-        var validated = validation.valid;
-        var positionZ = object.PositionZ === undefined ? 0 : object.PositionZ;
-        var newElement = {
-          ID: schema.title + "_" + object.ID,
-          schema_ID: schema_id,
-          name: object.Name,
-          validated: validated,
-          dragged: false,
-          obj: object,
-          x: object.PositionX,
-          y: object.PositionY,
-          z: positionZ,
-          width: object.Width,
-          height: object.Height,
-          occupiedSpot: object.OccupiedSpot
-        };
-
-        if (object.Rotate !== null && object.Rotate !== undefined) {
-          newElement.rotate = object.Rotate;
-        } else {
-          newElement.rotate = null;
-        }
-
-        var occupiedSpot = object.OccupiedSpot;
-
-        if (occupiedSpot !== undefined) {
-          newElement = Object.assign(newElement, {
-            occupiedSpot: occupiedSpot
-          });
-        } else {
-          newElement = Object.assign(newElement, {
-            occupiedSpot: null
-          });
-        }
-
-        if (occupiedSpot !== undefined && occupiedSpot !== null) _this.state.occupiedSpots.push(occupiedSpot);
-
-        _this.state.elementList.push(newElement);
-      });
-      _this.state.componentsSchema[schema_id] = schema;
-    });
     _this.setEditingOnCanvas = _this.setEditingOnCanvas.bind(_assertThisInitialized(_this));
     _this.addComponentsIndexesIfMissing = _this.addComponentsIndexesIfMissing.bind(_assertThisInitialized(_this));
     _this.dragged = _this.dragged.bind(_assertThisInitialized(_this));
@@ -140,6 +91,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
     _this.isDragging = _this.isDragging.bind(_assertThisInitialized(_this));
     _this.isNotDragging = _this.isNotDragging.bind(_assertThisInitialized(_this));
     _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
+    _this.onCopy = _this.onCopy.bind(_assertThisInitialized(_this));
     _this.handleMouseIn = _this.handleMouseIn.bind(_assertThisInitialized(_this));
     _this.handleMouseOut = _this.handleMouseOut.bind(_assertThisInitialized(_this));
     _this.onCanvasElementDataSave = _this.onCanvasElementDataSave.bind(_assertThisInitialized(_this));
@@ -898,6 +850,13 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       });
     }
   }, {
+    key: "onCopy",
+    value: function onCopy(index) {
+      var elementList = this.state.elementList;
+      var id = elementList[index].ID;
+      this.props.onCopy(id);
+    }
+  }, {
     key: "onDelete",
     value: function onDelete(index) {
       var elementList = this.state.elementList.slice();
@@ -1105,11 +1064,15 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
       var hoverFontSize = 120 * scalingFactor;
       var styleNameHover = {
+        //background: "white",
         overflow: "unset",
         fontSize: "".concat(hoverFontSize, "%"),
         textAlign: "left",
         lineHeight: "".concat(hoverSize, "%"),
-        color: "#0275d8"
+        color: "#0275d8" //wordBreak: "break-word",
+        //whiteSpace: "break-spaces",
+        //width: "200%",
+
       };
       var styleNameRegular = {
         display: "none"
@@ -1245,7 +1208,13 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/_react.default.createElement("div", {
             className: "grabber",
             style: styleGrabber
-          }, "\u2237"), validated, /*#__PURE__*/_react.default.createElement(_canvasElement.CanvasElementDeleteButton, {
+          }, "\u2237"), /*#__PURE__*/_react.default.createElement(_canvasElement.CanvasElementCopyButton, {
+            index: index,
+            handleCopy: _this3.onCopy,
+            myStyle: styleCloser,
+            isViewOnly: _this3.props.isViewOnly,
+            imagesPath: _this3.props.imagesPath
+          }), validated, /*#__PURE__*/_react.default.createElement(_canvasElement.CanvasElementDeleteButton, {
             index: index,
             handleDelete: _this3.onDelete,
             myStyle: styleCloser,
@@ -1626,31 +1595,101 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
   }], [{
     key: "getDerivedStateFromProps",
     value: function getDerivedStateFromProps(props, state) {
-      if (props.componentSchemas !== null) {
+      if ((0, _genericUtilities.isDefined)(props.componentSchemas)) {
         var componentsSchema = {};
         Object.keys(props.componentSchemas).forEach(function (schemaIndex) {
           var schema = props.componentSchemas[schemaIndex];
           var schema_id = schema.ID;
           componentsSchema[schema_id] = schema;
         });
-        var elementList = state.elementList;
 
-        for (var i = 0; i < elementList.length; i++) {
-          var element = elementList[i];
-          var schema_id = element.schema_ID;
-          var schema = componentsSchema[schema_id];
-          var object = element.obj; // 	console.log("schema");
-          // console.log(schema);
-          // console.log("object");
-          // console.log(object);
+        if (JSON.stringify(componentsSchema) !== JSON.stringify(state.componentsSchema)) {
+          var elementList = state.elementList;
 
-          var validation = validate(object, schema);
-          var validated = validation.valid;
-          element.validated = validated;
+          for (var i = 0; i < elementList.length; i++) {
+            var element = elementList[i];
+            var schema_id = element.schema_ID;
+            var schema = componentsSchema[schema_id];
+            var object = element.obj; // 	console.log("schema");
+            // console.log(schema);
+            // console.log("object");
+            // console.log(object);
+
+            var validation = validate(object, schema);
+            var validated = validation.valid;
+            element.validated = validated;
+          }
+
+          console.log("getDerivedStateFromProps - componentSchemas");
+          return {
+            componentsSchema: componentsSchema
+          };
         }
+      }
 
+      if ((0, _genericUtilities.isDefined)(props.inputData) && JSON.stringify(props.inputData) !== JSON.stringify(state.elementData)) {
+        console.log(JSON.stringify(props.inputData));
+        console.log(JSON.stringify(state.elementData));
+        var _componentsSchema = {};
+        var _elementList = [];
+        var occupiedSpots = [];
+        Object.keys(props.componentSchemas).forEach(function (schemaIndex) {
+          var schema = props.componentSchemas[schemaIndex];
+          var schema_id = schema.ID; //Validate schemas using jsonschema????
+
+          Object.keys(props.inputData).forEach(function (objIndex) {
+            var object = props.inputData[objIndex];
+            if (props.activeTier < object.tier) return;
+            if (schema_id !== object.Schema_ID) return;
+            var validation = validate(object, schema); //if (schema_id === "CCD.json") console.log(validation);
+
+            var validated = validation.valid;
+            var positionZ = object.PositionZ === undefined ? 0 : object.PositionZ;
+            var newElement = {
+              ID: schema.title + "_" + object.ID,
+              schema_ID: schema_id,
+              name: object.Name,
+              validated: validated,
+              dragged: false,
+              obj: object,
+              x: object.PositionX,
+              y: object.PositionY,
+              z: positionZ,
+              width: object.Width,
+              height: object.Height,
+              occupiedSpot: object.OccupiedSpot
+            };
+
+            if (object.Rotate !== null && object.Rotate !== undefined) {
+              newElement.rotate = object.Rotate;
+            } else {
+              newElement.rotate = null;
+            }
+
+            var occupiedSpot = object.OccupiedSpot;
+
+            if (occupiedSpot !== undefined) {
+              newElement = Object.assign(newElement, {
+                occupiedSpot: occupiedSpot
+              });
+            } else {
+              newElement = Object.assign(newElement, {
+                occupiedSpot: null
+              });
+            }
+
+            if (occupiedSpot !== undefined && occupiedSpot !== null) occupiedSpots.push(occupiedSpot);
+
+            _elementList.push(newElement);
+          });
+          _componentsSchema[schema_id] = schema;
+        });
+        console.log("getDerivedStateFromProps - inputData");
         return {
-          componentsSchema: componentsSchema
+          occupiedSpots: occupiedSpots,
+          componentsSchema: _componentsSchema,
+          elementList: _elementList,
+          elementData: Object.assign({}, props.inputData)
         };
       }
 

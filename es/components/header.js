@@ -155,6 +155,8 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
       var helpImg = url.resolve(this.props.imagesPathSVG, _constants.string_help_img);
       var logoPath = logoImg + (logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var helpPath = helpImg + (helpImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var pasteImg = url.resolve(this.props.imagesPathSVG, _constants.string_paste_img);
+      var pastePath = pasteImg + (pasteImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var validated = null;
 
       if (this.props.isSchemaValidated) {
@@ -183,20 +185,22 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var buttons = [];
+      var index = 0;
 
       if (!this.props.isViewOnly) {
-        buttons[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-          key: "TooltipButton-0",
+        buttons[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-" + index,
           position: editTooltip.position,
           title: editTooltip.title,
           content: editTooltip.content,
           element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-            key: "Button-0",
+            key: "Button-" + index,
             onClick: this.onClickEdit,
             style: styleButton,
             size: "lg"
           }, validated, "Edit ".concat(this.props.element))
         });
+        index++;
         var inputData = [];
 
         for (var i = 1; i <= this.props.activeTier; i++) {
@@ -204,8 +208,8 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         var defaultValidationTier = this.props.validationTier - 1;
-        buttons[1] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
-          key: "Button-1",
+        buttons[index] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+          key: "Button-" + index,
           title: _constants.string_validationTier,
           handleMenuItemClick: this.onClickChangeValidation,
           inputData: inputData,
@@ -215,13 +219,31 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           direction: "down",
           tooltip: validationTooltip
         });
-        buttons[2] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-          key: "TooltipButton-2",
+        index++;
+        buttons[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-" + index,
+          position: _constants.paste_tooltip.position,
+          title: _constants.paste_tooltip.title,
+          content: _constants.paste_tooltip.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-" + index,
+            onClick: this.props.onPaste,
+            style: styleButtonHelp,
+            size: "lg"
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            src: pastePath,
+            alt: pasteImg,
+            style: styleImage
+          }))
+        });
+        index++;
+        buttons[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-" + index,
           position: _constants.help_tooltip.position,
           title: _constants.help_tooltip.title,
           content: _constants.help_tooltip.content,
           element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-            key: "Button-2",
+            key: "Button-" + index,
             onClick: this.onClickHelp,
             style: styleButtonHelp,
             size: "lg"
@@ -231,9 +253,10 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
             style: styleImage
           }))
         });
+        index++;
       } else {
-        buttons[0] = /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "Button-0",
+        buttons[index] = /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "Button-" + index,
           onClick: this.onClickHelp,
           style: styleButtonHelp,
           size: "lg"
@@ -242,6 +265,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           alt: this.props.helpImg,
           style: styleImage
         }));
+        index++;
       }
 
       if (this.state.editing) {

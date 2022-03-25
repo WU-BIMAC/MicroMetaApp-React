@@ -89,6 +89,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			hasImport: props.hasImport || false,
 			microscopePresetHandled: false,
 			isDataLoaded: false,
+			tmpCopyElementFromData: null,
 		};
 
 		for (let i = 0; i < current_stands.length; i++) {
@@ -213,6 +214,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.loadMicroscopeFromPortal = this.loadMicroscopeFromPortal.bind(this);
 
 		this.setDataLoaded = this.setDataLoaded.bind(this);
+
+		this.onCopy = this.onCopy.bind(this);
+		this.onPaste = this.onPaste.bind(this);
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -258,6 +262,33 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	componentWillUnmount() {
 		this.setState({ mounted: false });
+	}
+
+
+	onPaste() {
+		let elementData = Object.assign({}, this.state.elementData);
+		let newElementData = Object.assign({}, this.state.tmpCopyElementFromData);
+		let schemaTitle = newElementData["_TMPCOPYDATA"];
+		delete newElementData["_TMPCOPYDATA"];
+		let uuid = uuidv4();
+		newElementData.Name= `Copy of ${newElementData.Name}`;
+		newElementData.ID= uuid;
+		newElementData.PositionX = newElementData.PositionX + 20;
+		newElementData.PositionY = newElementData.PositionY + 20;
+		newElementData.PositionZ = newElementData.PositionZ + 1;
+		newElementData.OccupiedSpot = null;
+		let id = schemaTitle + "_" + uuid;
+		elementData[id] = newElementData;
+		this.setState({elementData: elementData});
+	}
+
+	onCopy(elementID) {
+		let elementData = this.state.elementData;
+		let elementFromData = elementData[elementID];
+		let newElementData = Object.assign({}, elementFromData);
+		let index = elementID.indexOf("_");
+		newElementData["_TMPCOPYDATA"] = elementID.substring(0, index);
+		this.setState({tmpCopyElementFromData: newElementData});
 	}
 
 	setDataLoaded() {
@@ -2628,29 +2659,29 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			isDataLoaded: false,
 		}, () => {
 			if (this.state.is4DNPortal) {
-			if (
-				item === "Back to list" &&
-				isDefined(this.props.onReturnToMicroscopeList)
-			) {
-				this.props.onReturnToMicroscopeList();
-			} else if (
-				item === "Import" /*&& isDefined(this.props.onImportFromFile*/
-			) {
-				//this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
-				this.setState({
-					isSpecialImporterActive: true,
-					oldMicroscope: oldMicroscope,
-					oldElementData: oldElementData,
-					oldSetting: oldSetting,
-					oldSettingData: oldSettingData,
-					oldImageMetadata: oldImageMetadata,
-				});
+				if (
+					item === "Back to list" &&
+					isDefined(this.props.onReturnToMicroscopeList)
+				) {
+					this.props.onReturnToMicroscopeList();
+				} else if (
+					item === "Import" /*&& isDefined(this.props.onImportFromFile*/
+				) {
+					//this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
+					this.setState({
+						isSpecialImporterActive: true,
+						oldMicroscope: oldMicroscope,
+						oldElementData: oldElementData,
+						oldSetting: oldSetting,
+						oldSettingData: oldSettingData,
+						oldImageMetadata: oldImageMetadata,
+					});
+				}
 			}
-		}
-			if(isDefined(this.props.onModeSelection))
-				this.props.onModeSelection(-1)
+			if (isDefined(this.props.onModeSelection)) {
+				this.props.onModeSelection(-1);
 			}
-		);
+		});;
 	}
 
 	updateElementData(elementData, areComponentsValidated) {
@@ -3505,6 +3536,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								)}
 								updateElementData={this.updateElementData}
 								updateLinkedFields={this.updateLinkedFields}
+								onCopy={this.onCopy}
 								overlaysContainer={this.overlaysContainerRef.current}
 								areComponentsValidated={this.state.areComponentsValidated}
 								canvasElementsDimensions={typeDimensions}
@@ -3547,6 +3579,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							elementByType={elementByType}
 							is4DNPortal={this.state.is4DNPortal}
 							overlaysContainer={this.overlaysContainerRef.current}
+							onPaste={this.onPaste}
 						/>
 						<div style={canvasContainerStyle}>
 							<Canvas
@@ -3566,6 +3599,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								)}
 								updateElementData={this.updateElementData}
 								updateLinkedFields={this.updateLinkedFields}
+								onCopy={this.onCopy}
 								overlaysContainer={this.overlaysContainerRef.current}
 								areComponentsValidated={this.state.areComponentsValidated}
 								canvasElementsDimensions={typeDimensions}

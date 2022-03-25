@@ -138,12 +138,12 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       if (this.props.is4DNPortal && this.props.hasImport) {
         var importButtText = "Import";
         buttonsRight[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-          key: "TooltipButtonRight-0",
+          key: "TooltipButtonRight-" + index,
           position: _constants.import_tooltip.position,
           title: _constants.import_tooltip.title,
           content: _constants.import_tooltip.content,
           element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-            key: "ButtonRight-0",
+            key: "ButtonRight-" + index,
             onClick: function onClick() {
               return _this.props.onClickHome(importButtText);
             },

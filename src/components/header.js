@@ -18,6 +18,8 @@ import {
 	validation_setting_tooltip,
 	string_logo_img_no_bk,
 	string_help_img,
+	string_paste_img,
+	paste_tooltip,
 } from "../constants";
 
 export default class Header extends React.PureComponent {
@@ -109,18 +111,19 @@ export default class Header extends React.PureComponent {
 			fontWeight: "bold",
 			textAlign: "center",
 		};
-			let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_no_bk);
-			let helpImg = url.resolve(this.props.imagesPathSVG, string_help_img);
+		let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_no_bk);
+		let helpImg = url.resolve(this.props.imagesPathSVG, string_help_img);
 		let logoPath =
 			logoImg +
-			(logoImg.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
+			(logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 		let helpPath =
 			helpImg +
-			(helpImg.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
+			(helpImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+
+		let pasteImg = url.resolve(this.props.imagesPathSVG, string_paste_img);
+		let pastePath =
+			pasteImg +
+			(pasteImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
 		let validated = null;
 		if (this.props.isSchemaValidated) {
@@ -143,16 +146,17 @@ export default class Header extends React.PureComponent {
 		}
 
 		let buttons = [];
+		let index = 0;
 		if (!this.props.isViewOnly) {
-			buttons[0] = (
+			buttons[index] = (
 				<PopoverTooltip
-					key={"TooltipButton-0"}
+					key={"TooltipButton-" + index}
 					position={editTooltip.position}
 					title={editTooltip.title}
 					content={editTooltip.content}
 					element={
 						<Button
-							key={"Button-0"}
+							key={"Button-" + index}
 							onClick={this.onClickEdit}
 							style={styleButton}
 							size="lg"
@@ -163,6 +167,7 @@ export default class Header extends React.PureComponent {
 					}
 				/>
 			);
+			index++;
 
 			let inputData = [];
 			for (let i = 1; i <= this.props.activeTier; i++) {
@@ -170,9 +175,9 @@ export default class Header extends React.PureComponent {
 			}
 			let defaultValidationTier = this.props.validationTier - 1;
 
-			buttons[1] = (
+			buttons[index] = (
 				<DropdownMenu
-					key={"Button-1"}
+					key={"Button-" + index}
 					title={string_validationTier}
 					handleMenuItemClick={this.onClickChangeValidation}
 					inputData={inputData}
@@ -183,16 +188,36 @@ export default class Header extends React.PureComponent {
 					tooltip={validationTooltip}
 				/>
 			);
-
-			buttons[2] = (
+			index++;
+			buttons[index] = (
 				<PopoverTooltip
-					key={"TooltipButton-2"}
+					key={"TooltipButton-" + index}
+					position={paste_tooltip.position}
+					title={paste_tooltip.title}
+					content={paste_tooltip.content}
+					element={
+						<Button
+							key={"Button-" + index}
+							onClick={this.props.onPaste}
+							style={styleButtonHelp}
+							size="lg"
+						>
+							<img src={pastePath} alt={pasteImg} style={styleImage} />
+						</Button>
+					}
+				/>
+			);
+			index++;
+
+			buttons[index] = (
+				<PopoverTooltip
+					key={"TooltipButton-" + index}
 					position={help_tooltip.position}
 					title={help_tooltip.title}
 					content={help_tooltip.content}
 					element={
 						<Button
-							key={"Button-2"}
+							key={"Button-" + index}
 							onClick={this.onClickHelp}
 							style={styleButtonHelp}
 							size="lg"
@@ -202,10 +227,11 @@ export default class Header extends React.PureComponent {
 					}
 				/>
 			);
+			index++;
 		} else {
-			buttons[0] = (
+			buttons[index] = (
 				<Button
-					key={"Button-0"}
+					key={"Button-" + index}
 					onClick={this.onClickHelp}
 					style={styleButtonHelp}
 					size="lg"
@@ -213,6 +239,7 @@ export default class Header extends React.PureComponent {
 					<img src={helpPath} alt={this.props.helpImg} style={styleImage} />
 				</Button>
 			);
+			index++;
 		}
 
 		if (this.state.editing) {

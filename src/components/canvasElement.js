@@ -6,6 +6,10 @@ import { ResizableBox } from "react-resizable";
 import ImageElement from "./imageElement";
 import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
 
+const url = require("url");
+
+import { string_copy_img } from "../constants";
+
 export default class CanvasElement extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -199,6 +203,37 @@ export class CanvasElementDeleteButton extends React.PureComponent {
 				style={this.props.myStyle}
 			>
 				x
+			</button>
+		);
+	}
+}
+
+export class CanvasElementCopyButton extends React.PureComponent {
+	constructor(props) {
+		super(props);
+		this.handleClick = this.handleClick.bind(this);
+	}
+
+	handleClick() {
+		if (!this.props.isViewOnly) this.props.handleCopy(this.props.index);
+	}
+
+	render() {
+		let styleImage = {
+			width: "7px",
+			height: "7px",
+		};
+		let copyImg = url.resolve(this.props.imagesPath, string_copy_img);
+		let copyPath =
+			copyImg +
+			(copyImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+		return (
+			<button
+				type="button"
+				onClick={this.handleClick}
+				style={this.props.myStyle}
+			>
+				<img src={copyPath} alt={copyImg} style={styleImage} />
 			</button>
 		);
 	}

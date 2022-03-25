@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.CanvasElementDeleteButton = void 0;
+exports.default = exports.CanvasElementDeleteButton = exports.CanvasElementCopyButton = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -14,6 +14,8 @@ var _reactResizable = require("react-resizable");
 var _imageElement = _interopRequireDefault(require("./imageElement"));
 
 var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
+
+var _constants = require("../constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,6 +38,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var url = require("url");
 
 var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(CanvasElement, _React$PureComponent);
@@ -255,3 +259,49 @@ var CanvasElementDeleteButton = /*#__PURE__*/function (_React$PureComponent2) {
 }(_react.default.PureComponent);
 
 exports.CanvasElementDeleteButton = CanvasElementDeleteButton;
+
+var CanvasElementCopyButton = /*#__PURE__*/function (_React$PureComponent3) {
+  _inherits(CanvasElementCopyButton, _React$PureComponent3);
+
+  var _super3 = _createSuper(CanvasElementCopyButton);
+
+  function CanvasElementCopyButton(props) {
+    var _this3;
+
+    _classCallCheck(this, CanvasElementCopyButton);
+
+    _this3 = _super3.call(this, props);
+    _this3.handleClick = _this3.handleClick.bind(_assertThisInitialized(_this3));
+    return _this3;
+  }
+
+  _createClass(CanvasElementCopyButton, [{
+    key: "handleClick",
+    value: function handleClick() {
+      if (!this.props.isViewOnly) this.props.handleCopy(this.props.index);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var styleImage = {
+        width: "7px",
+        height: "7px"
+      };
+      var copyImg = url.resolve(this.props.imagesPath, _constants.string_copy_img);
+      var copyPath = copyImg + (copyImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      return /*#__PURE__*/_react.default.createElement("button", {
+        type: "button",
+        onClick: this.handleClick,
+        style: this.props.myStyle
+      }, /*#__PURE__*/_react.default.createElement("img", {
+        src: copyPath,
+        alt: copyImg,
+        style: styleImage
+      }));
+    }
+  }]);
+
+  return CanvasElementCopyButton;
+}(_react.default.PureComponent);
+
+exports.CanvasElementCopyButton = CanvasElementCopyButton;

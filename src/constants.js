@@ -36,6 +36,9 @@ export const string_manage_hardware_circle_img = "hardware-large-circle.svg";
 export const string_manage_settings_circle_img = "settings-large-circle.svg";
 export const string_help_img = "question-mark-small.svg";
 
+export const string_copy_img = "copy-solid.svg";
+export const string_paste_img = "paste-solid.svg";
+
 export const string_hardware_tier_1_img = "hardware-tier-1.svg";
 export const string_hardware_tier_2_img = "hardware-tier-2.svg";
 export const string_hardware_tier_3_img = "hardware-tier-3.svg";
@@ -325,6 +328,12 @@ export const settings_settings_step_tooltip = {
 			home folder.
 		</p>
 	),
+	position: "bottom",
+};
+
+export const paste_tooltip = {
+	title: "Paste",
+	content: <p>Click here to paste the current copied component next to it.</p>,
 	position: "bottom",
 };
 

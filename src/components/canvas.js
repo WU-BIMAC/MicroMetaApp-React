@@ -5,6 +5,9 @@ import { DragDropContainer } from "react-drag-drop-container";
 
 import CanvasElement from "./canvasElement";
 import { CanvasElementDeleteButton } from "./canvasElement";
+import { CanvasElementCopyButton } from "./canvasElement";
+
+import { isDefined } from "../genericUtilities";
 
 import { pathToFileURL } from "url";
 import { v4 as uuidv4 } from "uuid";
@@ -36,7 +39,7 @@ export default class Canvas extends React.PureComponent {
 
 		this.state = {
 			elementList: [],
-			elementData: Object.assign({}, this.props.inputData),
+			elementData: {},
 			componentsSchema: {},
 			linkedFields: props.linkedFields || {},
 			imgHeight: null,
@@ -53,52 +56,6 @@ export default class Canvas extends React.PureComponent {
 			originalDimensions: {},
 		};
 
-		Object.keys(props.componentSchemas).forEach((schemaIndex) => {
-			let schema = props.componentSchemas[schemaIndex];
-			let schema_id = schema.ID;
-			//Validate schemas using jsonschema????
-			Object.keys(props.inputData).forEach((objIndex) => {
-				let object = props.inputData[objIndex];
-				if (props.activeTier < object.tier) return;
-				if (schema_id !== object.Schema_ID) return;
-				let validation = validate(object, schema);
-				//if (schema_id === "CCD.json") console.log(validation);
-				let validated = validation.valid;
-				let positionZ = object.PositionZ === undefined ? 0 : object.PositionZ;
-				let newElement = {
-					ID: schema.title + "_" + object.ID,
-					schema_ID: schema_id,
-					name: object.Name,
-					validated: validated,
-					dragged: false,
-					obj: object,
-					x: object.PositionX,
-					y: object.PositionY,
-					z: positionZ,
-					width: object.Width,
-					height: object.Height,
-					occupiedSpot: object.OccupiedSpot,
-				};
-				if (object.Rotate !== null && object.Rotate !== undefined) {
-					newElement.rotate = object.Rotate;
-				} else {
-					newElement.rotate = null;
-				}
-				let occupiedSpot = object.OccupiedSpot;
-				if (occupiedSpot !== undefined) {
-					newElement = Object.assign(newElement, {
-						occupiedSpot: occupiedSpot,
-					});
-				} else {
-					newElement = Object.assign(newElement, { occupiedSpot: null });
-				}
-				if (occupiedSpot !== undefined && occupiedSpot !== null)
-					this.state.occupiedSpots.push(occupiedSpot);
-				this.state.elementList.push(newElement);
-			});
-			this.state.componentsSchema[schema_id] = schema;
-		});
-
 		this.setEditingOnCanvas = this.setEditingOnCanvas.bind(this);
 		this.addComponentsIndexesIfMissing =
 			this.addComponentsIndexesIfMissing.bind(this);
@@ -108,6 +65,8 @@ export default class Canvas extends React.PureComponent {
 		this.isDragging = this.isDragging.bind(this);
 		this.isNotDragging = this.isNotDragging.bind(this);
 		this.onDelete = this.onDelete.bind(this);
+
+		this.onCopy = this.onCopy.bind(this);
 
 		this.handleMouseIn = this.handleMouseIn.bind(this);
 		this.handleMouseOut = this.handleMouseOut.bind(this);
@@ -129,29 +88,97 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.componentSchemas !== null) {
+		if (isDefined(props.componentSchemas)) {
 			let componentsSchema = {};
 			Object.keys(props.componentSchemas).forEach((schemaIndex) => {
 				let schema = props.componentSchemas[schemaIndex];
 				let schema_id = schema.ID;
 				componentsSchema[schema_id] = schema;
 			});
-			let elementList = state.elementList;
-			for (let i = 0; i < elementList.length; i++) {
-				let element = elementList[i];
-				let schema_id = element.schema_ID;
-				let schema = componentsSchema[schema_id];
-				let object = element.obj;
-				// 	console.log("schema");
-				// console.log(schema);
-				// console.log("object");
-				// console.log(object);
-				let validation = validate(object, schema);
-				let validated = validation.valid;
-				element.validated = validated;
+			if (
+				JSON.stringify(componentsSchema) !==
+				JSON.stringify(state.componentsSchema)
+			) {
+				let elementList = state.elementList;
+				for (let i = 0; i < elementList.length; i++) {
+					let element = elementList[i];
+					let schema_id = element.schema_ID;
+					let schema = componentsSchema[schema_id];
+					let object = element.obj;
+					// 	console.log("schema");
+					// console.log(schema);
+					// console.log("object");
+					// console.log(object);
+					let validation = validate(object, schema);
+					let validated = validation.valid;
+					element.validated = validated;
+				}
+				console.log("getDerivedStateFromProps - componentSchemas");
+				return {
+					componentsSchema: componentsSchema,
+				};
 			}
+		}
+		if (
+			isDefined(props.inputData) &&
+			JSON.stringify(props.inputData) !== JSON.stringify(state.elementData)
+		) {
+			console.log(JSON.stringify(props.inputData));
+			console.log(JSON.stringify(state.elementData));
+			let componentsSchema = {};
+			let elementList = [];
+			let occupiedSpots = [];
+			Object.keys(props.componentSchemas).forEach((schemaIndex) => {
+				let schema = props.componentSchemas[schemaIndex];
+				let schema_id = schema.ID;
+				//Validate schemas using jsonschema????
+				Object.keys(props.inputData).forEach((objIndex) => {
+					let object = props.inputData[objIndex];
+					if (props.activeTier < object.tier) return;
+					if (schema_id !== object.Schema_ID) return;
+					let validation = validate(object, schema);
+					//if (schema_id === "CCD.json") console.log(validation);
+					let validated = validation.valid;
+					let positionZ = object.PositionZ === undefined ? 0 : object.PositionZ;
+					let newElement = {
+						ID: schema.title + "_" + object.ID,
+						schema_ID: schema_id,
+						name: object.Name,
+						validated: validated,
+						dragged: false,
+						obj: object,
+						x: object.PositionX,
+						y: object.PositionY,
+						z: positionZ,
+						width: object.Width,
+						height: object.Height,
+						occupiedSpot: object.OccupiedSpot,
+					};
+					if (object.Rotate !== null && object.Rotate !== undefined) {
+						newElement.rotate = object.Rotate;
+					} else {
+						newElement.rotate = null;
+					}
+					let occupiedSpot = object.OccupiedSpot;
+					if (occupiedSpot !== undefined) {
+						newElement = Object.assign(newElement, {
+							occupiedSpot: occupiedSpot,
+						});
+					} else {
+						newElement = Object.assign(newElement, { occupiedSpot: null });
+					}
+					if (occupiedSpot !== undefined && occupiedSpot !== null)
+						occupiedSpots.push(occupiedSpot);
+					elementList.push(newElement);
+				});
+				componentsSchema[schema_id] = schema;
+			});
+			console.log("getDerivedStateFromProps - inputData");
 			return {
+				occupiedSpots: occupiedSpots,
 				componentsSchema: componentsSchema,
+				elementList: elementList,
+				elementData: Object.assign({}, props.inputData),
 			};
 		}
 
@@ -846,6 +873,12 @@ export default class Canvas extends React.PureComponent {
 		});
 	}
 
+	onCopy(index) {
+		let elementList = this.state.elementList;
+		let id = elementList[index].ID;
+		this.props.onCopy(id);
+	}
+
 	onDelete(index) {
 		let elementList = this.state.elementList.slice();
 		let elementData = Object.assign({}, this.state.elementData);
@@ -1051,11 +1084,15 @@ export default class Canvas extends React.PureComponent {
 		let hoverSize = 125; //* scalingFactor;
 		let hoverFontSize = 120 * scalingFactor;
 		let styleNameHover = {
+			//background: "white",
 			overflow: "unset",
 			fontSize: `${hoverFontSize}%`,
 			textAlign: "left",
 			lineHeight: `${hoverSize}%`,
 			color: "#0275d8",
+			//wordBreak: "break-word",
+			//whiteSpace: "break-spaces",
+			//width: "200%",
 		};
 		let styleNameRegular = {
 			display: "none",
@@ -1193,6 +1230,13 @@ export default class Canvas extends React.PureComponent {
 									<div className="grabber" style={styleGrabber}>
 										&#8759;
 									</div>
+									<CanvasElementCopyButton
+										index={index}
+										handleCopy={this.onCopy}
+										myStyle={styleCloser}
+										isViewOnly={this.props.isViewOnly}
+										imagesPath={this.props.imagesPath}
+									/>
 									{validated}
 									<CanvasElementDeleteButton
 										index={index}

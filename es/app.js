@@ -128,7 +128,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       is4DNPortal: props.is4DNPortal || false,
       hasImport: props.hasImport || false,
       microscopePresetHandled: false,
-      isDataLoaded: false
+      isDataLoaded: false,
+      tmpCopyElementFromData: null
     };
 
     for (var i = 0; i < _constants.current_stands.length; i++) {
@@ -219,6 +220,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.simulateClickLoadMicroscopeFromPortal = _this.simulateClickLoadMicroscopeFromPortal.bind(_assertThisInitialized(_this));
     _this.loadMicroscopeFromPortal = _this.loadMicroscopeFromPortal.bind(_assertThisInitialized(_this));
     _this.setDataLoaded = _this.setDataLoaded.bind(_assertThisInitialized(_this));
+    _this.onCopy = _this.onCopy.bind(_assertThisInitialized(_this));
+    _this.onPaste = _this.onPaste.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -234,6 +237,38 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     value: function componentWillUnmount() {
       this.setState({
         mounted: false
+      });
+    }
+  }, {
+    key: "onPaste",
+    value: function onPaste() {
+      var elementData = Object.assign({}, this.state.elementData);
+      var newElementData = Object.assign({}, this.state.tmpCopyElementFromData);
+      var schemaTitle = newElementData["_TMPCOPYDATA"];
+      delete newElementData["_TMPCOPYDATA"];
+      var uuid = (0, _uuid.v4)();
+      newElementData.Name = "Copy of ".concat(newElementData.Name);
+      newElementData.ID = uuid;
+      newElementData.PositionX = newElementData.PositionX + 20;
+      newElementData.PositionY = newElementData.PositionY + 20;
+      newElementData.PositionZ = newElementData.PositionZ + 1;
+      newElementData.OccupiedSpot = null;
+      var id = schemaTitle + "_" + uuid;
+      elementData[id] = newElementData;
+      this.setState({
+        elementData: elementData
+      });
+    }
+  }, {
+    key: "onCopy",
+    value: function onCopy(elementID) {
+      var elementData = this.state.elementData;
+      var elementFromData = elementData[elementID];
+      var newElementData = Object.assign({}, elementFromData);
+      var index = elementID.indexOf("_");
+      newElementData["_TMPCOPYDATA"] = elementID.substring(0, index);
+      this.setState({
+        tmpCopyElementFromData: newElementData
       });
     }
   }, {
@@ -1901,8 +1936,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           }
         }
 
-        if ((0, _genericUtilities.isDefined)(_this16.props.onModeSelection)) _this16.props.onModeSelection(-1);
+        if ((0, _genericUtilities.isDefined)(_this16.props.onModeSelection)) {
+          _this16.props.onModeSelection(-1);
+        }
       });
+      ;
     }
   }, {
     key: "updateElementData",
@@ -2690,6 +2728,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             backgroundImage: url.resolve(imagesPathSVG, microscopeStandSchema.image),
             updateElementData: this.updateElementData,
             updateLinkedFields: this.updateLinkedFields,
+            onCopy: this.onCopy,
             overlaysContainer: this.overlaysContainerRef.current,
             areComponentsValidated: this.state.areComponentsValidated,
             canvasElementsDimensions: typeDimensions,
@@ -2725,7 +2764,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             validationTier: this.state.validationTier,
             componentSchemas: componentsSchema,
             schema: footerMicroscopeSchemas
-          }, _defineProperty(_React$createElement2, "inputData", footerMicroscopeInput), _defineProperty(_React$createElement2, "elementByType", elementByType), _defineProperty(_React$createElement2, "is4DNPortal", this.state.is4DNPortal), _defineProperty(_React$createElement2, "overlaysContainer", this.overlaysContainerRef.current), _React$createElement2)), /*#__PURE__*/_react.default.createElement("div", {
+          }, _defineProperty(_React$createElement2, "inputData", footerMicroscopeInput), _defineProperty(_React$createElement2, "elementByType", elementByType), _defineProperty(_React$createElement2, "is4DNPortal", this.state.is4DNPortal), _defineProperty(_React$createElement2, "overlaysContainer", this.overlaysContainerRef.current), _defineProperty(_React$createElement2, "onPaste", this.onPaste), _React$createElement2)), /*#__PURE__*/_react.default.createElement("div", {
             style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
             microscope: microscope,
@@ -2741,6 +2780,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             backgroundImage: url.resolve(imagesPathSVG, microscopeStandSchema.image),
             updateElementData: this.updateElementData,
             updateLinkedFields: this.updateLinkedFields,
+            onCopy: this.onCopy,
             overlaysContainer: this.overlaysContainerRef.current,
             areComponentsValidated: this.state.areComponentsValidated,
             canvasElementsDimensions: typeDimensions,
