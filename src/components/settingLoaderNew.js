@@ -374,7 +374,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			this.setState({
 				errorMsg: "Error: " + imageMetadata.Error,
 				imgSelectionDisabled: false,
-				cursor:"default",
+				cursor: "default",
 			});
 		} else if (isDefined(imageMetadata.Images)) {
 			let images = imageMetadata.Images;
@@ -404,7 +404,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				imgFileLoaded: true,
 				loadedMetadata: image,
 				imgSelectionDisabled: false,
-				cursor:"default",
+				cursor: "default",
 			});
 		}
 	}
@@ -700,6 +700,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 		let micModeSelection = this.state.micModeSelection;
 		let imgModeSelection = this.state.imgModeSelection;
 		let settModeSelection = this.state.settModeSelection;
+
+		let imgSelectionDisabled = this.state.imgSelectionDisabled;
 
 		let step1Disabled = false;
 		let step2Disabled = false;
@@ -1656,7 +1658,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 				};
 				let imageName = this.props.imageName;
 				let imageRadios = [];
-				let imgSelectionDisabled = this.state.imgSelectionDisabled;
 				imageRadios.push(
 					<ToggleButton
 						id={"image-radio-" + 0}
@@ -1970,10 +1971,10 @@ export default class MicroscopeLoader extends React.PureComponent {
 				);
 			}
 		}
-		let continue_tooltip = createSettings_mode_continue_tooltip;
+
 		let buttons = [];
 		let backDisabled = false;
-		if (step === 1) {
+		if (step === 1 || imgSelectionDisabled) {
 			backDisabled = true;
 		}
 
@@ -2009,6 +2010,10 @@ export default class MicroscopeLoader extends React.PureComponent {
 				}
 			/>
 		);
+
+		if (imgSelectionDisabled) {
+			continueDisabled = true;
+		}
 
 		let forwardImg = url.resolve(this.props.imagesPathSVG, string_next_img);
 		let forwardImgPath =
@@ -2059,6 +2064,12 @@ export default class MicroscopeLoader extends React.PureComponent {
 			homeImg +
 			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 		let buttText = "Home";
+
+		let homeDisabled = false;
+		if (imgSelectionDisabled) {
+			homeDisabled = true;
+		}
+
 		let homeButton = (
 			<PopoverTooltip
 				key={"TooltipButtonLeft-0"}
@@ -2068,10 +2079,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 				element={
 					<Button
 						key={"ButtonLeft-0"}
-						onClick={() => this.props.onClickHome(buttText)}
+						onClick={
+							!homeDisabled ? () => this.props.onClickHome(buttText) : null
+						}
 						style={styleButton}
 						size="lg"
 						variant="outline-dark"
+						disabled={homeDisabled}
 					>
 						<div
 							style={{

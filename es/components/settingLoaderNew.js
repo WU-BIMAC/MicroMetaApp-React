@@ -734,6 +734,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var micModeSelection = this.state.micModeSelection;
       var imgModeSelection = this.state.imgModeSelection;
       var settModeSelection = this.state.settModeSelection;
+      var imgSelectionDisabled = this.state.imgSelectionDisabled;
       var step1Disabled = false;
       var step2Disabled = false;
       var step3Disabled = false;
@@ -1588,7 +1589,6 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           };
           var imageName = this.props.imageName;
           var _imageRadios = [];
-          var imgSelectionDisabled = this.state.imgSelectionDisabled;
 
           _imageRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
             id: "image-radio-" + 0,
@@ -1882,11 +1882,10 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
-      var continue_tooltip = _constants.createSettings_mode_continue_tooltip;
       var buttons = [];
       var backDisabled = false;
 
-      if (step === 1) {
+      if (step === 1 || imgSelectionDisabled) {
         backDisabled = true;
       }
 
@@ -1915,6 +1914,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: styleImageIcon
         }), "Back"))
       }));
+
+      if (imgSelectionDisabled) {
+        continueDisabled = true;
+      }
+
       var forwardImg = url.resolve(this.props.imagesPathSVG, _constants.string_next_img);
       var forwardImgPath = forwardImg + (forwardImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -1945,6 +1949,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var homeImg = url.resolve(this.props.imagesPathSVG, _constants.string_home_img);
       var homeImgPath = homeImg + (homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var buttText = "Home";
+      var homeDisabled = false;
+
+      if (imgSelectionDisabled) {
+        homeDisabled = true;
+      }
 
       var homeButton = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "TooltipButtonLeft-0",
@@ -1953,12 +1962,13 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         content: _constants.home_tooltip.content,
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "ButtonLeft-0",
-          onClick: function onClick() {
+          onClick: !homeDisabled ? function () {
             return _this3.props.onClickHome(buttText);
-          },
+          } : null,
           style: styleButton,
           size: "lg",
-          variant: "outline-dark"
+          variant: "outline-dark",
+          disabled: homeDisabled
         }, /*#__PURE__*/_react.default.createElement("div", {
           style: {
             display: "flex",
