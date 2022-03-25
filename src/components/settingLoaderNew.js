@@ -90,6 +90,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 			step: 1,
 			errorMsg: null,
 			imgSelectionDisabled: false,
+
+			cursor: "default",
 		};
 
 		this.dropzoneDropAccepted = this.dropzoneDropAccepted.bind(this);
@@ -360,6 +362,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				imgFilename: item,
 				selectedImg: item,
 				imgSelectionDisabled: true,
+				cursor: "wait",
 			});
 			this.props.onLoadMetadata(this.handleLoadMetadataComplete);
 		}
@@ -371,6 +374,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			this.setState({
 				errorMsg: "Error: " + imageMetadata.Error,
 				imgSelectionDisabled: false,
+				cursor:"default",
 			});
 		} else if (isDefined(imageMetadata.Images)) {
 			let images = imageMetadata.Images;
@@ -400,6 +404,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				imgFileLoaded: true,
 				loadedMetadata: image,
 				imgSelectionDisabled: false,
+				cursor:"default",
 			});
 		}
 	}
@@ -534,6 +539,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			alignItems: "center",
 			minWidth: "950px",
 			minHeight: "1050px",
+			cursor: `${this.state.cursor}`,
 		};
 		const mainContainer = {
 			display: "flex",
