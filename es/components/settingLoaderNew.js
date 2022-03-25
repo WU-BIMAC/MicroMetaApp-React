@@ -86,7 +86,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       loadedSetting: null,
       step: 1,
       errorMsg: null,
-      imgSelectionDisabled: false
+      imgSelectionDisabled: false,
+      cursor: "default"
     };
     _this.dropzoneDropAccepted = _this.dropzoneDropAccepted.bind(_assertThisInitialized(_this));
     _this.dropzoneDropRejected = _this.dropzoneDropRejected.bind(_assertThisInitialized(_this));
@@ -399,7 +400,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         this.setState({
           imgFilename: item,
           selectedImg: item,
-          imgSelectionDisabled: true
+          imgSelectionDisabled: true,
+          cursor: "wait"
         });
         this.props.onLoadMetadata(this.handleLoadMetadataComplete);
       }
@@ -411,7 +413,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       if ((0, _genericUtilities.isDefined)(imageMetadata.Error)) {
         this.setState({
           errorMsg: "Error: " + imageMetadata.Error,
-          imgSelectionDisabled: false
+          imgSelectionDisabled: false,
+          cursor: "default"
         });
       } else if ((0, _genericUtilities.isDefined)(imageMetadata.Images)) {
         var images = imageMetadata.Images;
@@ -442,7 +445,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         this.setState({
           imgFileLoaded: true,
           loadedMetadata: _image,
-          imgSelectionDisabled: false
+          imgSelectionDisabled: false,
+          cursor: "default"
         });
       }
     }
@@ -576,7 +580,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         height: "100%",
         alignItems: "center",
         minWidth: "950px",
-        minHeight: "1050px"
+        minHeight: "1050px",
+        cursor: "".concat(this.state.cursor)
       };
       var mainContainer = {
         display: "flex",
