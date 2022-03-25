@@ -1453,6 +1453,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 				}
 			}
 		} else if (step === 2) {
+			let buttonDisabled = false;
+			if (imgSelectionDisabled) buttonDisabled = true;
 			let loadRadios = [];
 			for (let i = 0; i < imgLoadingOptions.length; i++) {
 				let loadingOption = imgLoadingOptions[i];
@@ -1474,13 +1476,16 @@ export default class MicroscopeLoader extends React.PureComponent {
 								key={loadingOption}
 								id={loadingOption}
 								value={loadingOption}
-								onChange={() =>
-									this.handleCreateOrLoadRadioChange(loadingOption)
+								onChange={
+									!buttonDisabled
+										? () => this.handleCreateOrLoadRadioChange(loadingOption)
+										: null
 								}
 								checked={loadingOption === imgModeSelection}
 								style={buttonStyleWide}
 								size="lg"
 								variant="outline-primary"
+								disabled={buttonDisabled}
 							>
 								{loadingOption}
 							</ToggleButton>
