@@ -89,6 +89,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			loadedSetting: null,
 			step: 1,
 			errorMsg: null,
+			imgSelectionDisabled: false,
 		};
 
 		this.dropzoneDropAccepted = this.dropzoneDropAccepted.bind(this);
@@ -353,9 +354,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 			let image = imageMap[item];
 			//this.props.handleLoadMetadataComplete(image);
 			if (this.props.isDebug) console.log("Loaded metadata: " + image);
-			this.setState({ loadedMetadata: image });
+			this.setState({ loadedMetadata: image, selectedImg: item });
 		} else if (mode === 1) {
-			this.setState({ imgFilename: item });
+			this.setState({
+				imgFilename: item,
+				selectedImg: item,
+				imgSelectionDisabled: true,
+			});
 			this.props.onLoadMetadata(this.handleLoadMetadataComplete);
 		}
 	}
@@ -363,7 +368,10 @@ export default class MicroscopeLoader extends React.PureComponent {
 	handleLoadMetadataComplete(imageMetadata) {
 		//console.log("IM HERE");
 		if (isDefined(imageMetadata.Error)) {
-			this.setState({ errorMsg: "Error: " + imageMetadata.Error });
+			this.setState({
+				errorMsg: "Error: " + imageMetadata.Error,
+				imgSelectionDisabled: false,
+			});
 		} else if (isDefined(imageMetadata.Images)) {
 			let images = imageMetadata.Images;
 			let firstImage = null;
@@ -378,14 +386,21 @@ export default class MicroscopeLoader extends React.PureComponent {
 			// console.log("image");
 			// console.log(firstImage);
 			//this.props.handleLoadMetadataComplete(firstImage);
-			this.setState({ imageMap: imageMap, imgFileLoaded: true });
+			this.setState({
+				imageMap: imageMap,
+				imgFileLoaded: true,
+			});
 		} else {
 			let image = imageMetadata.Image;
 			// console.log("image");
 			// console.log(image);
 			//this.props.handleLoadMetadataComplete(image);
 			if (this.props.isDebug) console.log("Loaded metadata: " + image);
-			this.setState({ imgFileLoaded: true, loadedMetadata: image });
+			this.setState({
+				imgFileLoaded: true,
+				loadedMetadata: image,
+				imgSelectionDisabled: false,
+			});
 		}
 	}
 
@@ -1635,6 +1650,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				};
 				let imageName = this.props.imageName;
 				let imageRadios = [];
+				let imgSelectionDisabled = this.state.imgSelectionDisabled;
 				imageRadios.push(
 					<ToggleButton
 						id={"image-radio-" + 0}
@@ -1642,6 +1658,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						value={imageName}
 						variant={"outline-primary"}
 						style={buttonStyleWide}
+						disabled={imgSelectionDisabled}
 					>
 						{imageName}
 					</ToggleButton>
@@ -1653,9 +1670,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 						type="radio"
 						name="radio-image-options"
 						value={selectedImg}
-						onChange={(e) => {
-							this.onClickImageSelection(1, e);
-						}}
+						onChange={
+							imgSelectionDisabled
+								? null
+								: (e) => {
+										this.onClickImageSelection(1, e);
+								  }
+						}
 						vertical={true}
 					>
 						{imageRadios}
@@ -1684,7 +1705,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 						<div>
 							<p style={styleCenterText}>{imgFilename}</p>
 							<p style={styleCenterText}>{errorMsg}</p>
-							<p style={styleCenterText}>{"Select a different image or skip."}</p>
+							<p style={styleCenterText}>
+								{"Select a different image or skip."}
+							</p>
 						</div>
 					);
 				}

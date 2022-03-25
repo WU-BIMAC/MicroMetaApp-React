@@ -85,7 +85,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       loadedMetadata: null,
       loadedSetting: null,
       step: 1,
-      errorMsg: null
+      errorMsg: null,
+      imgSelectionDisabled: false
     };
     _this.dropzoneDropAccepted = _this.dropzoneDropAccepted.bind(_assertThisInitialized(_this));
     _this.dropzoneDropRejected = _this.dropzoneDropRejected.bind(_assertThisInitialized(_this));
@@ -391,11 +392,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
         if (this.props.isDebug) console.log("Loaded metadata: " + image);
         this.setState({
-          loadedMetadata: image
+          loadedMetadata: image,
+          selectedImg: item
         });
       } else if (mode === 1) {
         this.setState({
-          imgFilename: item
+          imgFilename: item,
+          selectedImg: item,
+          imgSelectionDisabled: true
         });
         this.props.onLoadMetadata(this.handleLoadMetadataComplete);
       }
@@ -406,7 +410,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       //console.log("IM HERE");
       if ((0, _genericUtilities.isDefined)(imageMetadata.Error)) {
         this.setState({
-          errorMsg: "Error: " + imageMetadata.Error
+          errorMsg: "Error: " + imageMetadata.Error,
+          imgSelectionDisabled: false
         });
       } else if ((0, _genericUtilities.isDefined)(imageMetadata.Images)) {
         var images = imageMetadata.Images;
@@ -436,7 +441,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         if (this.props.isDebug) console.log("Loaded metadata: " + _image);
         this.setState({
           imgFileLoaded: true,
-          loadedMetadata: _image
+          loadedMetadata: _image,
+          imgSelectionDisabled: false
         });
       }
     }
@@ -1577,13 +1583,15 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           };
           var imageName = this.props.imageName;
           var _imageRadios = [];
+          var imgSelectionDisabled = this.state.imgSelectionDisabled;
 
           _imageRadios.push( /*#__PURE__*/_react.default.createElement(_ToggleButton.default, {
             id: "image-radio-" + 0,
             key: "image-radio-" + 0,
             value: imageName,
             variant: "outline-primary",
-            style: buttonStyleWide
+            style: buttonStyleWide,
+            disabled: imgSelectionDisabled
           }, imageName));
 
           var _imageRadio = /*#__PURE__*/_react.default.createElement(_ToggleButtonGroup.default, {
@@ -1592,7 +1600,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             type: "radio",
             name: "radio-image-options",
             value: selectedImg,
-            onChange: function onChange(e) {
+            onChange: imgSelectionDisabled ? null : function (e) {
               _this3.onClickImageSelection(1, e);
             },
             vertical: true
