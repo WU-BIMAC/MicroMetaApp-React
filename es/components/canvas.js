@@ -100,9 +100,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
     _this.areAllElementsValidated = _this.areAllElementsValidated.bind(_assertThisInitialized(_this)); //this.onImgLoad = this.onImgLoad.bind(this);
 
     _this.handleScroll = _this.handleScroll.bind(_assertThisInitialized(_this));
-    _this.clearOccupiedSpotOnElements = _this.clearOccupiedSpotOnElements.bind(_assertThisInitialized(_this));
-
-    _this.props.updateElementData(_this.state.elementData, true);
+    _this.clearOccupiedSpotOnElements = _this.clearOccupiedSpotOnElements.bind(_assertThisInitialized(_this)); //this.props.updateElementData(this.state.elementData, true);
 
     return _this;
   }
@@ -1595,6 +1593,21 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
   }], [{
     key: "getDerivedStateFromProps",
     value: function getDerivedStateFromProps(props, state) {
+      //console.log("canvas-getDerivedStateFromProps-1");
+      var returnValue = {};
+      var stringProps1 = JSON.stringify(props.componentSchemas);
+      var stringProps2 = JSON.stringify(props.inputData);
+      var stringProps = {
+        componentSchemas: stringProps1,
+        inputData: stringProps2
+      };
+      if (state.previousProps.componentSchemas === stringProps1 && state.previousProps.inputData === stringProps2) return returnValue;
+      console.log("canvas-getDerivedStateFromProps-2");
+      returnValue.previousProps = stringProps; // console.log("props.inputData");
+      // console.log(props.inputData);
+      // console.log("state.elementData");
+      // console.log(state.elementData);
+
       if ((0, _genericUtilities.isDefined)(props.componentSchemas)) {
         var componentsSchema = {};
         Object.keys(props.componentSchemas).forEach(function (schemaIndex) {
@@ -1621,9 +1634,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           }
 
           console.log("getDerivedStateFromProps - componentSchemas");
-          return {
-            componentsSchema: componentsSchema
-          };
+          returnValue.componentsSchema = componentsSchema;
         }
       }
 
@@ -1685,15 +1696,13 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           _componentsSchema[schema_id] = schema;
         });
         console.log("getDerivedStateFromProps - inputData");
-        return {
-          occupiedSpots: occupiedSpots,
-          componentsSchema: _componentsSchema,
-          elementList: _elementList,
-          elementData: Object.assign({}, props.inputData)
-        };
+        returnValue.occupiedSpots = occupiedSpots;
+        returnValue.componentsSchema = _componentsSchema;
+        returnValue.elementList = _elementList;
+        returnValue.elementData = Object.assign({}, props.inputData);
       }
 
-      return null;
+      return returnValue;
     }
   }]);
 

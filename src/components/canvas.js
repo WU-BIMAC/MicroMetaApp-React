@@ -84,10 +84,29 @@ export default class Canvas extends React.PureComponent {
 		this.clearOccupiedSpotOnElements =
 			this.clearOccupiedSpotOnElements.bind(this);
 
-		this.props.updateElementData(this.state.elementData, true);
+		//this.props.updateElementData(this.state.elementData, true);
 	}
 
 	static getDerivedStateFromProps(props, state) {
+		//console.log("canvas-getDerivedStateFromProps-1");
+		let returnValue = {};
+		let stringProps1 = JSON.stringify(props.componentSchemas);
+		let stringProps2 = JSON.stringify(props.inputData);
+		let stringProps = {
+			componentSchemas: stringProps1,
+			inputData: stringProps2,
+		};
+		if (
+			state.previousProps.componentSchemas === stringProps1 &&
+			state.previousProps.inputData === stringProps2
+		)
+			return returnValue;
+		console.log("canvas-getDerivedStateFromProps-2");
+		returnValue.previousProps = stringProps;
+		// console.log("props.inputData");
+		// console.log(props.inputData);
+		// console.log("state.elementData");
+		// console.log(state.elementData);
 		if (isDefined(props.componentSchemas)) {
 			let componentsSchema = {};
 			Object.keys(props.componentSchemas).forEach((schemaIndex) => {
@@ -114,9 +133,7 @@ export default class Canvas extends React.PureComponent {
 					element.validated = validated;
 				}
 				console.log("getDerivedStateFromProps - componentSchemas");
-				return {
-					componentsSchema: componentsSchema,
-				};
+				returnValue.componentsSchema = componentsSchema;
 			}
 		}
 		if (
@@ -174,15 +191,13 @@ export default class Canvas extends React.PureComponent {
 				componentsSchema[schema_id] = schema;
 			});
 			console.log("getDerivedStateFromProps - inputData");
-			return {
-				occupiedSpots: occupiedSpots,
-				componentsSchema: componentsSchema,
-				elementList: elementList,
-				elementData: Object.assign({}, props.inputData),
-			};
+			returnValue.occupiedSpots = occupiedSpots;
+			returnValue.componentsSchema = componentsSchema;
+			returnValue.elementList = elementList;
+			returnValue.elementData = Object.assign({}, props.inputData);
 		}
 
-		return null;
+		return returnValue;
 	}
 
 	setEditingOnCanvas(isEditing) {

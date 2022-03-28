@@ -264,22 +264,21 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.setState({ mounted: false });
 	}
 
-
 	onPaste() {
 		let elementData = Object.assign({}, this.state.elementData);
 		let newElementData = Object.assign({}, this.state.tmpCopyElementFromData);
 		let schemaTitle = newElementData["_TMPCOPYDATA"];
 		delete newElementData["_TMPCOPYDATA"];
 		let uuid = uuidv4();
-		newElementData.Name= `Copy of ${newElementData.Name}`;
-		newElementData.ID= uuid;
+		newElementData.Name = `Copy of ${newElementData.Name}`;
+		newElementData.ID = uuid;
 		newElementData.PositionX = newElementData.PositionX + 20;
 		newElementData.PositionY = newElementData.PositionY + 20;
 		newElementData.PositionZ = newElementData.PositionZ + 1;
 		newElementData.OccupiedSpot = null;
 		let id = schemaTitle + "_" + uuid;
 		elementData[id] = newElementData;
-		this.setState({elementData: elementData});
+		this.setState({ elementData: elementData });
 	}
 
 	onCopy(elementID) {
@@ -288,7 +287,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let newElementData = Object.assign({}, elementFromData);
 		let index = elementID.indexOf("_");
 		newElementData["_TMPCOPYDATA"] = elementID.substring(0, index);
-		this.setState({tmpCopyElementFromData: newElementData});
+		this.setState({ tmpCopyElementFromData: newElementData });
 	}
 
 	setDataLoaded() {
@@ -416,28 +415,34 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	setCreateNewMicroscope() {
-		this.setState({
-			isCreatingNewMicroscope: true,
-			isLoadingMicroscope: false,
-			isLoadingSettings: false,
-			isLoadingImage: false,
-		}, () => {
-			if(isDefined(this.props.onModeSelection))
-				this.props.onModeSelection(1)}
-			);
+		this.setState(
+			{
+				isCreatingNewMicroscope: true,
+				isLoadingMicroscope: false,
+				isLoadingSettings: false,
+				isLoadingImage: false,
+			},
+			() => {
+				if (isDefined(this.props.onModeSelection))
+					this.props.onModeSelection(1);
+			}
+		);
 		//this.handleLoadingOptionSelection(createFromScratch);
 	}
 
 	setLoadMicroscope() {
-		this.setState({
-			isCreatingNewMicroscope: false,
-			isLoadingMicroscope: true,
-			isLoadingSettings: true,
-			isLoadingImage: true,
-		}, () => {
-			if(isDefined(this.props.onModeSelection))
-				this.props.onModeSelection(2)
-		});
+		this.setState(
+			{
+				isCreatingNewMicroscope: false,
+				isLoadingMicroscope: true,
+				isLoadingSettings: true,
+				isLoadingImage: true,
+			},
+			() => {
+				if (isDefined(this.props.onModeSelection))
+					this.props.onModeSelection(2);
+			}
+		);
 		//this.handleLoadingOptionSelection(createFromFile);
 	}
 
@@ -2118,18 +2123,22 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let isLoadingMicroscope = this.state.isLoadingMicroscope;
 		let microscope = newMicroscope;
 		let microscopes = this.state.microscopes;
-		if (!isCreateNewScratch && loadingOption !== string_createFromFile && isDefined(microscopes)) {
+		if (
+			!isCreateNewScratch &&
+			loadingOption !== string_createFromFile &&
+			isDefined(microscopes)
+		) {
 			microscope = this.state.microscopes[filename].microscope;
-			if(isDefined(this.props.onLoadMicroscope)) {
+			if (isDefined(this.props.onLoadMicroscope)) {
 				let id = this.state.microscopes[filename].id;
-				if(isDefined(id)) {
+				if (isDefined(id)) {
 					this.props.onLoadMicroscope(id);
 				} else {
 					this.props.onLoadMicroscope(-1);
 				}
 			}
-		} else if(isDefined(this.onLoadMicroscope)) {
-			this.props.onLoadMicroscope(-1)
+		} else if (isDefined(this.onLoadMicroscope)) {
+			this.props.onLoadMicroscope(-1);
 		}
 		if (
 			microscope !== null &&
@@ -2495,7 +2504,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		newSetting,
 		newMetadata
 	) {
-
 		let promiseMicroscope = new Promise((resolve, reject) => {
 			this.createOrUseMicroscope(
 				micLoadingOption,
@@ -2523,15 +2531,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				settLoadingOption !== string_createFromFile
 			) {
 				setting = this.state.settings[settFilename].setting;
-				if(isDefined(this.props.onLoadSetting)) {
+				if (isDefined(this.props.onLoadSetting)) {
 					let id = this.state.settings[settFilename].id;
-					if(isDefined(id)) {
+					if (isDefined(id)) {
 						this.props.onLoadSetting(id);
 					} else {
 						this.props.onLoadSetting(-1);
 					}
 				}
-			} else if(isDefined(this.props.onLoadSetting)) {
+			} else if (isDefined(this.props.onLoadSetting)) {
 				this.props.onLoadSetting(-1);
 			}
 
@@ -2641,51 +2649,55 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let oldImageMetadata = this.state.imageMetadata;
 		//activeTier: 1,
 		//validationTier: 1,
-		this.setState({
-			microscope: null,
-			microscopes: null,
-			setting: null,
-			settings: null,
-			isTierSelected: false,
-			isCreatingNewMicroscope: isCreatingNewMicroscope,
-			isLoadingMicroscope: isLoadingMicroscope,
-			isLoadingImage: isLoadingImage,
-			isLoadingSettings: isLoadingSettings,
-			micName: null,
-			schema: schema,
-			elementData: null,
-			settingData: null,
-			imageMetadata: null,
-			isDataLoaded: false,
-		}, () => {
-			if (this.state.is4DNPortal) {
-				if (
-					item === "Back to list" &&
-					isDefined(this.props.onReturnToMicroscopeList)
-				) {
-					this.props.onReturnToMicroscopeList();
-				} else if (
-					item === "Import" /*&& isDefined(this.props.onImportFromFile*/
-				) {
-					//this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
-					this.setState({
-						isSpecialImporterActive: true,
-						oldMicroscope: oldMicroscope,
-						oldElementData: oldElementData,
-						oldSetting: oldSetting,
-						oldSettingData: oldSettingData,
-						oldImageMetadata: oldImageMetadata,
-					});
+		this.setState(
+			{
+				microscope: null,
+				microscopes: null,
+				setting: null,
+				settings: null,
+				isTierSelected: false,
+				isCreatingNewMicroscope: isCreatingNewMicroscope,
+				isLoadingMicroscope: isLoadingMicroscope,
+				isLoadingImage: isLoadingImage,
+				isLoadingSettings: isLoadingSettings,
+				micName: null,
+				schema: schema,
+				elementData: null,
+				settingData: null,
+				imageMetadata: null,
+				isDataLoaded: false,
+			},
+			() => {
+				if (this.state.is4DNPortal) {
+					if (
+						item === "Back to list" &&
+						isDefined(this.props.onReturnToMicroscopeList)
+					) {
+						this.props.onReturnToMicroscopeList();
+					} else if (
+						item === "Import" /*&& isDefined(this.props.onImportFromFile*/
+					) {
+						//this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
+						this.setState({
+							isSpecialImporterActive: true,
+							oldMicroscope: oldMicroscope,
+							oldElementData: oldElementData,
+							oldSetting: oldSetting,
+							oldSettingData: oldSettingData,
+							oldImageMetadata: oldImageMetadata,
+						});
+					}
+				}
+				if (isDefined(this.props.onModeSelection)) {
+					this.props.onModeSelection(-1);
 				}
 			}
-			if (isDefined(this.props.onModeSelection)) {
-				this.props.onModeSelection(-1);
-			}
-		});;
+		);
 	}
 
 	updateElementData(elementData, areComponentsValidated) {
-		//console.log(elementData);
+		console.log("updateElementData");
+		//console.log(elementData)
 		this.setState({
 			elementData: elementData,
 			areComponentsValidated: areComponentsValidated,
@@ -2918,14 +2930,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let headerFooterWidth = width;
 
 		let waitForDataLoad = false;
-		if(isDefined(this.props.waitForDataLoad)) {
+		if (isDefined(this.props.waitForDataLoad)) {
 			waitForDataLoad = this.props.waitForDataLoad;
 		}
 
 		if (
 			(this.state.isCreatingNewMicroscope == null &&
 				this.state.isLoadingMicroscope == null) ||
-			(this.state.is4DNPortal && !this.state.microscopePresetHandled) || waitForDataLoad
+			(this.state.is4DNPortal && !this.state.microscopePresetHandled) ||
+			waitForDataLoad
 		) {
 			return (
 				<MicroMetaAppReactContainer
@@ -3241,10 +3254,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		) {
 			//console.log("SETTINGS LOADER");
 			let imgLoadingOptions = [string_noImageLoad];
-			if(this.props.isElectron) {
+			if (this.props.isElectron) {
 				imgLoadingOptions.push(string_createFromFile);
 			}
-			if(isDefined(this.props.imageName)) {
+			if (isDefined(this.props.imageName)) {
 				imgLoadingOptions.push(string_loadFromRepository);
 			}
 			let micLoadingOptions = [];

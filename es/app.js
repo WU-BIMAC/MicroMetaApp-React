@@ -1940,12 +1940,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           _this16.props.onModeSelection(-1);
         }
       });
-      ;
     }
   }, {
     key: "updateElementData",
     value: function updateElementData(elementData, areComponentsValidated) {
-      //console.log(elementData);
+      console.log("updateElementData"); //console.log(elementData)
+
       this.setState({
         elementData: elementData,
         areComponentsValidated: areComponentsValidated
