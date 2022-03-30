@@ -82,7 +82,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       draggingID: null,
       showcasedSpot: null,
       occupiedSpots: [],
-      originalDimensions: {}
+      originalDimensions: {},
+      previousProps: {}
     };
     _this.setEditingOnCanvas = _this.setEditingOnCanvas.bind(_assertThisInitialized(_this));
     _this.addComponentsIndexesIfMissing = _this.addComponentsIndexesIfMissing.bind(_assertThisInitialized(_this));
@@ -1601,7 +1602,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         componentSchemas: stringProps1,
         inputData: stringProps2
       };
-      if (state.previousProps.componentSchemas === stringProps1 && state.previousProps.inputData === stringProps2) return returnValue;
+      var prevCompSchemas = state.previousProps.componentSchemas;
+      var prevInputData = state.previousProps.inputData;
+      if ((0, _genericUtilities.isDefined)(prevCompSchemas) && prevCompSchemas === stringProps1 && (0, _genericUtilities.isDefined)(prevInputData) && prevInputData === stringProps2) return returnValue;
       console.log("canvas-getDerivedStateFromProps-2");
       returnValue.previousProps = stringProps; // console.log("props.inputData");
       // console.log(props.inputData);

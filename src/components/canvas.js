@@ -54,6 +54,7 @@ export default class Canvas extends React.PureComponent {
 			showcasedSpot: null,
 			occupiedSpots: [],
 			originalDimensions: {},
+			previousProps: {},
 		};
 
 		this.setEditingOnCanvas = this.setEditingOnCanvas.bind(this);
@@ -96,9 +97,13 @@ export default class Canvas extends React.PureComponent {
 			componentSchemas: stringProps1,
 			inputData: stringProps2,
 		};
+		let prevCompSchemas = state.previousProps.componentSchemas;
+		let prevInputData = state.previousProps.inputData;
 		if (
-			state.previousProps.componentSchemas === stringProps1 &&
-			state.previousProps.inputData === stringProps2
+			isDefined(prevCompSchemas) &&
+			prevCompSchemas === stringProps1 &&
+			isDefined(prevInputData) &&
+			prevInputData === stringProps2
 		)
 			return returnValue;
 		console.log("canvas-getDerivedStateFromProps-2");
