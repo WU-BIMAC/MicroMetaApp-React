@@ -220,8 +220,8 @@ export class CanvasElementCopyButton extends React.PureComponent {
 
 	render() {
 		let styleImage = {
-			width: "7px",
-			height: "7px",
+			width: "12.5px",
+			height: "12.5px",
 		};
 		let copyImg = url.resolve(this.props.imagesPath, string_copy_img);
 		let copyPath =

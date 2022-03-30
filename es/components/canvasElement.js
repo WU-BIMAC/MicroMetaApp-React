@@ -284,8 +284,8 @@ var CanvasElementCopyButton = /*#__PURE__*/function (_React$PureComponent3) {
     key: "render",
     value: function render() {
       var styleImage = {
-        width: "7px",
-        height: "7px"
+        width: "12.5px",
+        height: "12.5px"
       };
       var copyImg = url.resolve(this.props.imagesPath, _constants.string_copy_img);
       var copyPath = copyImg + (copyImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
