@@ -80,7 +80,7 @@ export const number_small_logo_height = 60;
 export const number_canvas_element_min_width = 25;
 export const number_canvas_element_min_height = 25;
 export const number_canvas_element_icons_height = 20;
-export const number_canvas_element_offset_default = 6.67;
+export const number_canvas_element_offset_default = 0.67;
 
 export const number_max_name_length = 55;
 
