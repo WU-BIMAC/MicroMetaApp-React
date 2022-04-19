@@ -358,7 +358,7 @@ export const tier_selector_tooltip = {
 			<a
 				target="_blank"
 				rel="noopener noreferrer"
-				href="https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
+				href="https://doi.org/10.1038/s41592-021-01327-9"
 			>
 				link
 			</a>
@@ -711,7 +711,7 @@ export const validation_microscope_tooltip = {
 			<a
 				target="_blank"
 				rel="noopener noreferrer"
-				href="https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
+				href="https://doi.org/10.1038/s41592-021-01327-9"
 			>
 				link
 			</a>
@@ -730,7 +730,7 @@ export const validation_setting_tooltip = {
 			<a
 				target="_blank"
 				rel="noopener noreferrer"
-				href="https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
+				href="https://doi.org/10.1038/s41592-021-01327-9"
 			>
 				link
 			</a>

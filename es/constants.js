@@ -243,7 +243,7 @@ var tier_selector_tooltip = {
   content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the Tier level you want to utilize to document Instrument Hardware Specifications and Image Acquisition Settings. For more details about Tier definition please refer to the following", " ", /*#__PURE__*/_react.default.createElement("a", {
     target: "_blank",
     rel: "noopener noreferrer",
-    href: "https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
+    href: "https://doi.org/10.1038/s41592-021-01327-9"
   }, "link"), "."),
   position: "bottom"
 };
@@ -469,7 +469,7 @@ var validation_microscope_tooltip = {
   content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the Tier level you want to use to validate this Microscope file. For more details about Tier definition please refer to the following", " ", /*#__PURE__*/_react.default.createElement("a", {
     target: "_blank",
     rel: "noopener noreferrer",
-    href: "https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
+    href: "https://doi.org/10.1038/s41592-021-01327-9"
   }, "link"), "."),
   position: "bottom"
 };
@@ -479,7 +479,7 @@ var validation_setting_tooltip = {
   content: /*#__PURE__*/_react.default.createElement("p", null, "Choose the Tier level you want to use to validate this Settings file. For more details about Tier definition please refer to the following", " ", /*#__PURE__*/_react.default.createElement("a", {
     target: "_blank",
     rel: "noopener noreferrer",
-    href: "https://arxiv.org/ftp/arxiv/papers/1910/1910.11370.pdf"
+    href: "https://doi.org/10.1038/s41592-021-01327-9"
   }, "link"), "."),
   position: "bottom"
 };
