@@ -454,7 +454,11 @@ export default class MicroscopeLoader extends React.PureComponent {
 		} else if (micModeSelection === string_createFromFile) {
 			microscope = this.state.loadedMicroscope;
 		}
-		if (imgModeSelection === string_createFromFile) {
+		if (
+			imgModeSelection === string_createFromFile ||
+			imgModeSelection === string_loadFromRepository ||
+			imgModeSelection === string_loadFromHomeFolder
+		) {
 			metadata = this.state.loadedMetadata;
 		}
 		if (

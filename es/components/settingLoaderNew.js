@@ -504,7 +504,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         microscope = this.state.loadedMicroscope;
       }
 
-      if (imgModeSelection === _constants.string_createFromFile) {
+      if (imgModeSelection === _constants.string_createFromFile || imgModeSelection === _constants.string_loadFromRepository || imgModeSelection === _constants.string_loadFromHomeFolder) {
         metadata = this.state.loadedMetadata;
       }
 
