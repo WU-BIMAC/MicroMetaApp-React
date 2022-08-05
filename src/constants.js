@@ -348,6 +348,12 @@ export const help_tooltip = {
 	position: "bottom",
 };
 
+export const about_tooltip = {
+	title: "About",
+	content: <p>Click here to view information about Micro-Meta App.</p>,
+	position: "bottom",
+};
+
 export const tier_selector_tooltip = {
 	title: "Tier Selector",
 	content: (
