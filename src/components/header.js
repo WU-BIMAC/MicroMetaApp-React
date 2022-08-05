@@ -6,26 +6,31 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
+import ModalWindow from "./modalWindow";
 
 const url = require("url");
 
 import {
 	help_tooltip,
+	about_tooltip,
 	string_validationTier,
 	edit_microscope_tooltip,
 	edit_setting_tooltip,
 	validation_microscope_tooltip,
 	validation_setting_tooltip,
+	string_logo_img_micro_bk,
 	string_logo_img_no_bk,
 	string_help_img,
 	string_paste_img,
 	paste_tooltip,
+	number_logo_width,
+	number_logo_height,
 } from "../constants";
-
 export default class Header extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
+			viewAbout: false,
 			editing: false,
 		};
 
@@ -35,6 +40,8 @@ export default class Header extends React.PureComponent {
 
 		this.onClickChangeValidation = this.onClickChangeValidation.bind(this);
 		this.onClickHelp = this.onClickHelp.bind(this);
+		this.onClickAbout = this.onClickAbout.bind(this);
+		this.onCloseAbout = this.onCloseAbout.bind(this);
 	}
 
 	onClickHelp() {
@@ -42,6 +49,14 @@ export default class Header extends React.PureComponent {
 			"https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/index.html#step-by-step-instructions",
 			"_blank"
 		);
+	}
+
+	onClickAbout() {
+		this.setState({ viewAbout: true });
+	}
+
+	onCloseAbout() {
+		this.setState({ viewAbout: false });
 	}
 
 	onClickEdit() {
@@ -98,7 +113,6 @@ export default class Header extends React.PureComponent {
 			height: "50px",
 			margin: "5px",
 		};
-
 		let styleButtonHelp = {
 			width: "50px",
 			minWidth: "50px",
@@ -111,6 +125,17 @@ export default class Header extends React.PureComponent {
 			fontWeight: "bold",
 			textAlign: "center",
 		};
+
+		let bigLogoImg = url.resolve(
+			this.props.imagesPathPNG,
+			string_logo_img_micro_bk
+		);
+		let bigLogoPath =
+			bigLogoImg +
+			(bigLogoImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+
 		let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_no_bk);
 		let helpImg = url.resolve(this.props.imagesPathSVG, string_help_img);
 		let logoPath =
@@ -228,6 +253,26 @@ export default class Header extends React.PureComponent {
 				/>
 			);
 			index++;
+
+			buttons[index] = (
+				<PopoverTooltip
+					key={"TooltipButton-" + index}
+					position={about_tooltip.position}
+					title={about_tooltip.title}
+					content={about_tooltip.content}
+					element={
+						<Button
+							key={"Button-" + index}
+							onClick={this.onClickAbout}
+							style={styleButtonHelp}
+							size="lg"
+						>
+							<img src={helpPath} alt={this.props.helpImg} style={styleImage} />
+						</Button>
+					}
+				/>
+			);
+			index++;
 		} else {
 			buttons[index] = (
 				<Button
@@ -241,22 +286,155 @@ export default class Header extends React.PureComponent {
 			);
 			index++;
 		}
-
-		if (this.state.editing) {
+		if (this.state.viewAbout) {
+			const wrapperContainer = {
+				display: "flex",
+				justifyContent: "center",
+				flexFlow: "column",
+				width: "100%",
+				height: "100%",
+				alignItems: "center",
+				minHeight: "600px",
+			};
+			const mainContainer = {
+				display: "flex",
+				justifyContent: "center",
+				flexFlow: "column",
+				width: "80%",
+				height: "80%",
+				alignItems: "center",
+			};
+			const buttonsContainer = {
+				display: "flex",
+				justifyContent: "center",
+				flexFlow: "row",
+				flexWrap: "wrap",
+				width: `${number_logo_width}px`,
+				height: "60%",
+				alignItems: "flex-start",
+				alignContent: "flex-start",
+				//marginTop: "10px",
+			};
+			const logoContainer = {
+				display: "flex",
+				justifyContent: "flex-end",
+				flexFlow: "column",
+				width: "100%",
+				//height: `${number_logo_height}px`,
+				height: "40%",
+				alignItems: "center",
+			};
+			let styleImageContainer = {
+				width: `${number_logo_width}px`,
+				height: `${number_logo_height}px`,
+			};
+			let styleImage = {
+				width: "100%",
+				height: "100%",
+				margin: "auto",
+			};
+			const container1 = {
+				display: "flex",
+				justifyContent: "center",
+				flexFlow: "column",
+				width: "65%",
+				height: "100%",
+				alignItems: "center",
+			};
 			return (
-				<MultiTabFormWithHeaderV3
-					title={"Edit " + this.props.formTitle}
-					//schemas={this.props.componentSchemas}
-					schema={this.props.schema}
-					inputData={this.props.inputData}
-					//id={this.props.id}
-					onConfirm={this.onFormConfirm}
-					onCancel={this.onFormCancel}
-					overlaysContainer={this.props.overlaysContainer}
-					editable={true}
-					elementByType={this.props.elementByType}
-					isDebug={this.props.isDebug}
-				/>
+				<div style={style}>
+					<div style={styleImageContainer}>
+						<img
+							src={logoPath}
+							alt={this.props.logoImg}
+							style={styleImage}
+							onLoad={this.onImgLoad}
+						/>
+					</div>
+					<div style={styleButtonContainer}>{buttons}</div>
+					<ModalWindow overlaysContainer={this.props.overlaysContainer}>
+						<div style={wrapperContainer}>
+							<div style={mainContainer}>
+								<div style={logoContainer}>
+									<div style={styleImageContainer}>
+										<img
+											src={bigLogoPath}
+											alt={this.props.bigLogoImg}
+											style={styleImage}
+											onLoad={this.onImgLoad}
+										/>
+									</div>
+								</div>
+								<div style={container1}>
+									<p>
+										Micro Meta App is an open, easy-to-use, and powerful
+										software platform that provides an intuitive visual guide to
+										capturing and managing Microscopy Metadata on the basis of
+										the{" "}
+										<a href="https://github.com/WU-BIMAC/NBOMicroscopyMetadataSpecs/tree/master/Model/stable%20version/v02-01">
+											4DN-BINA extension
+										</a>{" "}
+										of the{" "}
+										<a href="https://docs.openmicroscopy.org/ome-model/6.1.1/developers/model-overview.html">
+											OME data model
+										</a>{" "}
+										.
+										<br />
+										<br />
+										App version: {this.props.appVersion}
+										<br />
+										Model version: {this.props.modelVersion}
+										<br />
+										<br />
+										(c) Copyright 2018-2023 University of Massachusetts Chan
+										Medical School. All Rights Reserved.
+										<br />
+										The software is distributed under the terms of the{" "}
+										<a href="https://www.gnu.org/licenses/gpl-3.0.html">
+											GNU General Public License v3.0.
+										</a>
+									</p>
+								</div>
+								<div style={buttonsContainer}>
+									<Button
+										style={styleButton}
+										size="lg"
+										onClick={this.onCloseAbout}
+									>
+										Close
+									</Button>
+								</div>
+							</div>
+						</div>
+					</ModalWindow>
+				</div>
+			);
+		} else if (this.state.editing) {
+			return (
+				<div style={style}>
+					<div style={styleImageContainer}>
+						<img
+							src={logoPath}
+							alt={this.props.logoImg}
+							style={styleImage}
+							onLoad={this.onImgLoad}
+						/>
+					</div>
+					<div style={styleButtonContainer}>{buttons}</div>
+					<MultiTabFormWithHeaderV3
+						title={"Edit " + this.props.formTitle}
+						//schemas={this.props.componentSchemas}
+						schema={this.props.schema}
+						inputData={this.props.inputData}
+						//id={this.props.id}
+						onConfirm={this.onFormConfirm}
+						onCancel={this.onFormCancel}
+						overlaysContainer={this.props.overlaysContainer}
+						editable={true}
+						elementByType={this.props.elementByType}
+						isDebug={this.props.isDebug}
+					/>
+				</div>
 			);
 		}
 		return (
