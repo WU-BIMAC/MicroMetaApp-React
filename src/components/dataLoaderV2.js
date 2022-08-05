@@ -492,6 +492,15 @@ export default class DataLoader extends React.PureComponent {
 								animated
 							/>
 						</div>
+						<p>
+							(c) Copyright 2018-2023 University of Massachusetts Chan Medical
+							School. All Rights Reserved.
+							<br />
+							The software is distributed under the terms of the{" "}
+							<a href="https://www.gnu.org/licenses/gpl-3.0.html">
+								GNU General Public License v3.0.
+							</a>
+						</p>
 					</div>
 				</div>
 			);
@@ -532,6 +541,15 @@ export default class DataLoader extends React.PureComponent {
 								animated
 							/>
 						</div>
+						<p>
+							(c) Copyright 2018-2023 University of Massachusetts Chan Medical
+							School. All Rights Reserved.
+							<br />
+							The software is distributed under the terms of the{" "}
+							<a href="https://www.gnu.org/licenses/gpl-3.0.html">
+								GNU General Public License v3.0.
+							</a>
+						</p>
 					</div>
 				</div>
 			);
@@ -549,6 +567,15 @@ export default class DataLoader extends React.PureComponent {
 								/>
 							</div>
 						</div>
+						<p>
+							(c) Copyright 2018-2023 University of Massachusetts Chan Medical
+							School. All Rights Reserved.
+							<br />
+							The software is distributed under the terms of the{" "}
+							<a href="https://www.gnu.org/licenses/gpl-3.0.html">
+								GNU General Public License v3.0.
+							</a>
+						</p>
 					</div>
 				</div>
 			);
