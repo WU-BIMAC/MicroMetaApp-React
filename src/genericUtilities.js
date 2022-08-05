@@ -21,6 +21,35 @@ export function replaceLast(str, pattern, replacement) {
 		: str;
 }
 
+export function verifyModelVersion(microscope, currentModelVersion) {
+	let oldModelVersion = microscope.ModelVersion;
+	let oldMainVersion = null;
+	let oldSubVersion = null;
+	let oldPatchVersion = null;
+	let hasModelVersion = true;
+	if (isDefined(oldModelVersion)) {
+		let oldModelVersionSplit = oldModelVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+		oldMainVersion = Number(oldModelVersionSplit[0]);
+		oldSubVersion = Number(oldModelVersionSplit[1]);
+		oldPatchVersion = Number(oldModelVersionSplit[2]);
+	} else {
+		hasModelVersion = false;
+	}
+	let modelVersionSplit = currentModelVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+	let modelMainVersion = Number(modelVersionSplit[0]);
+	let modelSubVersion = Number(modelVersionSplit[1]);
+	let modelPatchVersion = Number(modelVersionSplit[2]);
+	if (
+		!hasModelVersion ||
+		oldMainVersion > modelMainVersion ||
+		oldSubVersion > modelSubVersion ||
+		oldPatchVersion > modelPatchVersion
+	) {
+		return false;
+	}
+	return true;
+}
+
 export function verifyAppVersion(microscope) {
 	let oldAppVersion = microscope.AppVersion;
 	let oldMainVersion = null;
@@ -28,7 +57,7 @@ export function verifyAppVersion(microscope) {
 	let oldPatchVersion = null;
 	let oldBetaVersion = null;
 	let hasAppVersion = true;
-	if (oldAppVersion !== undefined && oldAppVersion !== null) {
+	if (isDefined(oldAppVersion)) {
 		let oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
 		oldMainVersion = Number(oldAppVersionSplit[0]);
 		oldSubVersion = Number(oldAppVersionSplit[1]);
