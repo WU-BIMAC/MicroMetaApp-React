@@ -22,7 +22,7 @@ import ModalWindow from "./components/modalWindow";
 
 import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
-import { isDefined, verifyAppVersion } from "./genericUtilities";
+import { isDefined, verifyAppVersion, verifyModelVersion, validateMicroscope } from "./genericUtilities";
 
 const url = require("url");
 const validate = require("jsonschema").validate;
@@ -90,6 +90,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			microscopePresetHandled: false,
 			isDataLoaded: false,
 			tmpCopyElementFromData: null,
+			modelVersion: null,
 		};
 
 		for (let i = 0; i < current_stands.length; i++) {
@@ -217,6 +218,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		this.onCopy = this.onCopy.bind(this);
 		this.onPaste = this.onPaste.bind(this);
+
+		// Set up API
+		const {
+			public: api/*, destroy: apiDestroy, publish: apiPublish*/
+		} = createApi(this);
+		this.api = api;
 	}
 
 	static getDerivedStateFromProps(props, state) {
@@ -354,7 +361,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleCompleteLoadSchema(newSchema, resolve) {
-		this.setState({ schema: newSchema }, resolve());
+		let modelVersion = null;
+		Object.keys(newSchema).forEach((schemaIndex) => {
+			let singleSchema = newSchema[schemaIndex];
+			if (singleSchema.title === "Instrument") {
+				modelVersion = singleSchema.modelVersion;
+			}
+		});
+		this.setState({ schema: newSchema, modelVersion: modelVersion}, resolve());
 	}
 
 	simulateClickLoadMicroscopeFromPortal(loadMicroscopeFromPortalButtonRef) {
@@ -584,6 +598,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			);
 			if (singleSchema.title === "Instrument") {
 				microscopeSchema = Object.assign(microscopeSchema, singleSchema);
+				
 			} else if (singleSchema.title === currentStandType) {
 				microscopeStandSchema = Object.assign(
 					microscopeStandSchema,
@@ -2141,15 +2156,21 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			this.props.onLoadMicroscope(-1);
 		}
 		if (
-			microscope !== null &&
-			microscope !== undefined &&
-			isLoadingMicroscope
+			isDefined(microscope)
 		) {
+			if(isLoadingMicroscope) {
 			if (!verifyAppVersion(microscope)) {
 				window.alert(
 					"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again."
 				);
 				return;
+			}} else {
+				if (!verifyModelVersion(microscope, this.state.modelVersion)) {
+				window.alert(
+					"The Microscope file you are trying to use was saved with a more recent model version. You have to open it using a matching version of Micro-Meta App."
+				);
+				return;
+			}
 			}
 		}
 		this.setState(
@@ -3470,6 +3491,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						elementByType={elementByType}
 						is4DNPortal={this.state.is4DNPortal}
 						overlaysContainer={this.overlaysContainerRef.current}
+						appVersion={appVersion}
+						modelVersion={this.state.modelVersion}
 					/>
 					<SettingsMainView
 						microscope={microscope}
@@ -3530,6 +3553,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							imagesPathSVG={imagesPathSVG}
 							isDebug={this.props.isDebug}
 							isViewOnly={this.state.isViewOnly}
+							appVersion={appVersion}
+							modelVersion={this.state.modelVersion}
 						/>
 						<div style={canvasContainerStyle}>
 							<Canvas
@@ -3588,11 +3613,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							validationTier={this.state.validationTier}
 							componentSchemas={componentsSchema}
 							schema={footerMicroscopeSchemas}
-							inputData={footerMicroscopeInput}
 							elementByType={elementByType}
 							is4DNPortal={this.state.is4DNPortal}
 							overlaysContainer={this.overlaysContainerRef.current}
 							onPaste={this.onPaste}
+							appVersion={appVersion}
+							modelVersion={this.state.modelVersion}
 						/>
 						<div style={canvasContainerStyle}>
 							<Canvas
@@ -3752,3 +3778,38 @@ MicroMetaAppReact.defaultProps = {
 		}, 1000);
 	},
 };
+
+const createApi = function api(context) {
+	const self = context;
+
+	return {
+		public: {
+			// saveMicroscope(){
+			// 	self.handleSaveMicroscope("Save microscope");
+			// },
+			exportMicroscopeConfString(){
+				let elementData = self.state.elementData;
+				let components = [];
+				Object.keys(elementData).forEach((item, index) => {
+					components[index] = elementData[item];
+				});
+				let comps = { components };
+				let microscope = Object.assign(self.state.microscope, comps);
+				microscope.linkedFields = self.state.linkedFields;
+
+				return JSON.stringify(microscope, null, 2);
+			},
+
+			updateMicroscopeDescription(description) {
+				const newMicroscope = Object.assign(self.state.microscope, { "Description": description || "" });
+				this.setState({ microscope: newMicroscope });
+			},
+
+			validateMicroscope(microscope, schemas, checkForMicroscopeStand){
+				return validateMicroscope(microscope, schemas, checkForMicroscopeStand);
+			}
+		}
+	};
+};
+
+export const AppVersion = appVersion;
