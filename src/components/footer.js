@@ -226,8 +226,13 @@ export default class Footer extends React.PureComponent {
 				}
 			/>
 		);
+		let pStyle = {
+			marginBottom: "0rem",
+		};
+		// /<div style={pStyle}>
+		//</div>
 		buttonsLeft[1] = (
-			<p>
+			<p style={pStyle}>
 				(c) Copyright 2018-2023 University of Massachusetts Chan Medical School.
 				All Rights Reserved.
 				<br />
