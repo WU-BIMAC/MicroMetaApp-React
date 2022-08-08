@@ -22,7 +22,12 @@ import ModalWindow from "./components/modalWindow";
 
 import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
-import { isDefined, verifyAppVersion, verifyModelVersion, validateMicroscope } from "./genericUtilities";
+import {
+	isDefined,
+	verifyAppVersion,
+	verifyModelVersion,
+	validateMicroscope,
+} from "./genericUtilities";
 
 const url = require("url");
 const validate = require("jsonschema").validate;
@@ -220,9 +225,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.onPaste = this.onPaste.bind(this);
 
 		// Set up API
-		const {
-			public: api/*, destroy: apiDestroy, publish: apiPublish*/
-		} = createApi(this);
+		const { public: api /*, destroy: apiDestroy, publish: apiPublish*/ } =
+			createApi(this);
 		this.api = api;
 	}
 
@@ -368,7 +372,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				modelVersion = singleSchema.modelVersion;
 			}
 		});
-		this.setState({ schema: newSchema, modelVersion: modelVersion}, resolve());
+		this.setState({ schema: newSchema, modelVersion: modelVersion }, resolve());
 	}
 
 	simulateClickLoadMicroscopeFromPortal(loadMicroscopeFromPortalButtonRef) {
@@ -598,7 +602,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			);
 			if (singleSchema.title === "Instrument") {
 				microscopeSchema = Object.assign(microscopeSchema, singleSchema);
-				
 			} else if (singleSchema.title === currentStandType) {
 				microscopeStandSchema = Object.assign(
 					microscopeStandSchema,
@@ -2155,22 +2158,21 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		} else if (isDefined(this.onLoadMicroscope)) {
 			this.props.onLoadMicroscope(-1);
 		}
-		if (
-			isDefined(microscope)
-		) {
-			if(isLoadingMicroscope) {
-			if (!verifyAppVersion(microscope)) {
-				window.alert(
-					"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again."
-				);
-				return;
-			}} else {
+		if (isDefined(microscope)) {
+			if (isLoadingMicroscope) {
+				if (!verifyAppVersion(microscope)) {
+					window.alert(
+						"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again."
+					);
+					return;
+				}
+			} else {
 				if (!verifyModelVersion(microscope, this.state.modelVersion)) {
-				window.alert(
-					"The Microscope file you are trying to use was saved with a more recent model version. You have to open it using a matching version of Micro-Meta App."
-				);
-				return;
-			}
+					window.alert(
+						"The Microscope file you are trying to use was saved with a more recent model version. You have to open it using a matching version of Micro-Meta App."
+					);
+					return;
+				}
 			}
 		}
 		this.setState(
@@ -3787,7 +3789,7 @@ const createApi = function api(context) {
 			// saveMicroscope(){
 			// 	self.handleSaveMicroscope("Save microscope");
 			// },
-			exportMicroscopeConfString(){
+			exportMicroscopeConfString() {
 				let elementData = self.state.elementData;
 				let components = [];
 				Object.keys(elementData).forEach((item, index) => {
@@ -3801,14 +3803,30 @@ const createApi = function api(context) {
 			},
 
 			updateMicroscopeDescription(description) {
-				const newMicroscope = Object.assign(self.state.microscope, { "Description": description || "" });
+				const newMicroscope = Object.assign(self.state.microscope, {
+					Description: description || "",
+				});
 				this.setState({ microscope: newMicroscope });
 			},
 
-			validateMicroscope(microscope, schemas, checkForMicroscopeStand){
-				return validateMicroscope(microscope, schemas, checkForMicroscopeStand);
-			}
-		}
+			validateMicroscope(
+				microscope,
+				schemas,
+				checkForMicroscopeStand,
+				checkForModelVersion,
+				checkForAppVersion
+			) {
+				return validateMicroscope(
+					microscope,
+					schemas,
+					checkForMicroscopeStand,
+					checkForModelVersion,
+					checkForAppVersion
+				);
+			},
+
+			// TODO add verifyModelVersion //
+		},
 	};
 };
 
