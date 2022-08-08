@@ -7,7 +7,7 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
-import { isDefined, validateMicroscope } from "../genericUtilities";
+import { isDefined, validateMicroscopeFile } from "../genericUtilities";
 
 const url = require("url");
 
@@ -94,7 +94,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		let errorMsg = null;
 		try {
 			microscope = JSON.parse(binaryStr);
-			if (validateMicroscope(microscope, this.props.schema, true)) {
+			if (validateMicroscopeFile(microscope, this.props.schema, true)) {
 				this.setState({ fileLoaded: true, loadedMicroscope: microscope });
 			} else {
 				errorMsg =
