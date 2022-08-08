@@ -1,4 +1,5 @@
 import React from "react";
+import { isFunctionDeclaration } from "typescript";
 
 import { version as appVersion } from "../package.json";
 
@@ -89,7 +90,7 @@ export function verifyAppVersion(microscope) {
 	return true;
 }
 
-export function validateAcquisitionSettings(settings, schemas) {
+export function validateAcquisitionSettingsFile(settings, schemas) {
 	let imageSchema = null;
 	let pixelsSchema = null;
 	for (let i = 0; i < schemas.length; i++) {
@@ -110,7 +111,7 @@ export function validateAcquisitionSettings(settings, schemas) {
 	return validated;
 }
 
-export function validateMicroscope(
+export function validateMicroscopeFile(
 	microscope,
 	schemas,
 	checkForMicroscopeStand
@@ -151,4 +152,59 @@ export function validateMicroscope(
 	}
 
 	return validated;
+}
+
+export function validateMicroscope(
+	microscope,
+	schemas,
+	checkForMicroscopeStand,
+	checkForModelVersion,
+	checkForAppVersion
+) {
+	let isValidMicroscopeFile = validate(
+		microscope,
+		schemas,
+		checkForMicroscopeStand
+	);
+
+	if (!isValidMicroscopeFile) {
+		return {
+			isValid: false,
+			errorMsg:
+				"The Microscope file you are trying to load does not contain a proper MicroMetaApp Microscope",
+		};
+	}
+
+	if (checkForModelVersion) {
+		let modelVersion = null;
+		Object.keys(schemas).forEach((schemaIndex) => {
+			let singleSchema = schemas[schemaIndex];
+			if (singleSchema.title === "Instrument") {
+				modelVersion = singleSchema.modelVersion;
+			}
+		});
+		let isValidModelNumber = verifyModelVersion(microscope, modelVersion);
+		if (!isValidModelNumber) {
+			return {
+				isValid: false,
+				errorMsg:
+					"The Microscope file you are trying to use was saved with a more recent model version. You have to open it using a matching version of Micro-Meta App.",
+			};
+		}
+	}
+
+	if (checkForAppVersion) {
+		let isValidAppNumber = verifyAppVersion(microscope);
+		if (!isValidAppNumber) {
+			return {
+				isValid: false,
+				errorMsg:
+					"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again.",
+			};
+		}
+	}
+
+	return {
+		isValid: true,
+	};
 }
