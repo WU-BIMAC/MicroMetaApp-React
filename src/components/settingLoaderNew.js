@@ -11,8 +11,8 @@ const url = require("url");
 
 import {
 	isDefined,
-	validateMicroscope,
-	validateAcquisitionSettings,
+	validateMicroscopeFile,
+	validateAcquisitionSettingsFile,
 } from "../genericUtilities";
 
 import {
@@ -142,7 +142,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		try {
 			if (step === 1) {
 				microscope = JSON.parse(binaryStr);
-				if (validateMicroscope(microscope, this.props.schema, true)) {
+				if (validateMicroscopeFile(microscope, this.props.schema, true)) {
 					this.setState({ micFileLoaded: true, loadedMicroscope: microscope });
 				} else {
 					errorMsg =
@@ -150,7 +150,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 				}
 			} else if (step === 3) {
 				let settings = JSON.parse(binaryStr);
-				if (validateAcquisitionSettings(settings, this.props.schema)) {
+				if (validateAcquisitionSettingsFile(settings, this.props.schema)) {
 					//this.props.onFileDrop(settings);
 					this.setState({ settFileLoaded: true, loadedSetting: settings });
 				} else {
