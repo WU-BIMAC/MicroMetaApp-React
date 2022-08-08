@@ -5,11 +5,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.isDefined = isDefined;
 exports.replaceLast = replaceLast;
-exports.validateAcquisitionSettings = validateAcquisitionSettings;
+exports.validateAcquisitionSettingsFile = validateAcquisitionSettingsFile;
 exports.validateMicroscope = validateMicroscope;
+exports.validateMicroscopeFile = validateMicroscopeFile;
 exports.verifyAppVersion = verifyAppVersion;
+exports.verifyModelVersion = verifyModelVersion;
 
 var _react = _interopRequireDefault(require("react"));
+
+var _typescript = require("typescript");
 
 var _package = require("../package.json");
 
@@ -29,6 +33,36 @@ function replaceLast(str, pattern, replacement) {
   return last !== -1 ? "".concat(str.slice(0, last)).concat(replacement).concat(str.slice(last + match.length)) : str;
 }
 
+function verifyModelVersion(microscope, currentModelVersion) {
+  var oldModelVersion = microscope.ModelVersion;
+  var oldMainVersion = null;
+  var oldSubVersion = null;
+  var oldPatchVersion = null;
+  var hasModelVersion = true;
+
+  if (isDefined(oldModelVersion)) {
+    var oldModelVersionSplit = oldModelVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+
+    oldMainVersion = Number(oldModelVersionSplit[0]);
+    oldSubVersion = Number(oldModelVersionSplit[1]);
+    oldPatchVersion = Number(oldModelVersionSplit[2]);
+  } else {
+    hasModelVersion = false;
+  }
+
+  var modelVersionSplit = currentModelVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+
+  var modelMainVersion = Number(modelVersionSplit[0]);
+  var modelSubVersion = Number(modelVersionSplit[1]);
+  var modelPatchVersion = Number(modelVersionSplit[2]);
+
+  if (!hasModelVersion || oldMainVersion > modelMainVersion || oldSubVersion > modelSubVersion || oldPatchVersion > modelPatchVersion) {
+    return false;
+  }
+
+  return true;
+}
+
 function verifyAppVersion(microscope) {
   var oldAppVersion = microscope.AppVersion;
   var oldMainVersion = null;
@@ -37,7 +71,7 @@ function verifyAppVersion(microscope) {
   var oldBetaVersion = null;
   var hasAppVersion = true;
 
-  if (oldAppVersion !== undefined && oldAppVersion !== null) {
+  if (isDefined(oldAppVersion)) {
     var oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
 
     oldMainVersion = Number(oldAppVersionSplit[0]);
@@ -67,7 +101,7 @@ function verifyAppVersion(microscope) {
   return true;
 }
 
-function validateAcquisitionSettings(settings, schemas) {
+function validateAcquisitionSettingsFile(settings, schemas) {
   var imageSchema = null;
   var pixelsSchema = null;
 
@@ -89,7 +123,7 @@ function validateAcquisitionSettings(settings, schemas) {
   return validated;
 }
 
-function validateMicroscope(microscope, schemas, checkForMicroscopeStand) {
+function validateMicroscopeFile(microscope, schemas, checkForMicroscopeStand) {
   var micStandSchemaName = null;
   var microscopeSchema = null;
 
@@ -124,4 +158,49 @@ function validateMicroscope(microscope, schemas, checkForMicroscopeStand) {
   }
 
   return validated;
+}
+
+function validateMicroscope(microscope, schemas, checkForMicroscopeStand, checkForModelVersion, checkForAppVersion) {
+  var isValidMicroscopeFile = validate(microscope, schemas, checkForMicroscopeStand);
+
+  if (!isValidMicroscopeFile) {
+    return {
+      isValid: false,
+      errorMsg: "The Microscope file you are trying to load does not contain a proper MicroMetaApp Microscope"
+    };
+  }
+
+  if (checkForModelVersion) {
+    var modelVersion = null;
+    Object.keys(schemas).forEach(function (schemaIndex) {
+      var singleSchema = schemas[schemaIndex];
+
+      if (singleSchema.title === "Instrument") {
+        modelVersion = singleSchema.modelVersion;
+      }
+    });
+    var isValidModelNumber = verifyModelVersion(microscope, modelVersion);
+
+    if (!isValidModelNumber) {
+      return {
+        isValid: false,
+        errorMsg: "The Microscope file you are trying to use was saved with a more recent model version. You have to open it using a matching version of Micro-Meta App."
+      };
+    }
+  }
+
+  if (checkForAppVersion) {
+    var isValidAppNumber = verifyAppVersion(microscope);
+
+    if (!isValidAppNumber) {
+      return {
+        isValid: false,
+        errorMsg: "The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again."
+      };
+    }
+  }
+
+  return {
+    isValid: true
+  };
 }

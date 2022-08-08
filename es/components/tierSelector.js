@@ -286,7 +286,9 @@ var TierSelector = /*#__PURE__*/function (_React$PureComponent) {
         src: logoPath,
         alt: this.props.logoImg,
         style: styleImage
-      })))));
+      }))), /*#__PURE__*/_react.default.createElement("p", null, "(c) Copyright 2018-2023 University of Massachusetts Chan Medical School. All Rights Reserved.", /*#__PURE__*/_react.default.createElement("br", null), "The software is distributed under the terms of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+        href: "https://www.gnu.org/licenses/gpl-3.0.html"
+      }, "GNU General Public License v3.0."))));
     }
   }]);
 

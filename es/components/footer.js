@@ -228,6 +228,16 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
           style: styleImageIconHome
         }), homeButtText))
       });
+      var pStyle = {
+        marginBottom: "0rem"
+      }; // /<div style={pStyle}>
+      //</div>
+
+      buttonsLeft[1] = /*#__PURE__*/_react.default.createElement("p", {
+        style: pStyle
+      }, "(c) Copyright 2018-2023 University of Massachusetts Chan Medical School. All Rights Reserved.", /*#__PURE__*/_react.default.createElement("br", null), "The software is distributed under the terms of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+        href: "https://www.gnu.org/licenses/gpl-3.0.html"
+      }, "GNU General Public License v3.0."));
       return /*#__PURE__*/_react.default.createElement("div", {
         style: style
       }, /*#__PURE__*/_react.default.createElement("div", {

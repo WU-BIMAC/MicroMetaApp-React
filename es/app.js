@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = exports.AppVersion = void 0;
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -129,7 +129,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       hasImport: props.hasImport || false,
       microscopePresetHandled: false,
       isDataLoaded: false,
-      tmpCopyElementFromData: null
+      tmpCopyElementFromData: null,
+      modelVersion: null
     };
 
     for (var i = 0; i < _constants.current_stands.length; i++) {
@@ -221,7 +222,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.loadMicroscopeFromPortal = _this.loadMicroscopeFromPortal.bind(_assertThisInitialized(_this));
     _this.setDataLoaded = _this.setDataLoaded.bind(_assertThisInitialized(_this));
     _this.onCopy = _this.onCopy.bind(_assertThisInitialized(_this));
-    _this.onPaste = _this.onPaste.bind(_assertThisInitialized(_this));
+    _this.onPaste = _this.onPaste.bind(_assertThisInitialized(_this)); // Set up API
+
+    var _createApi = createApi(_assertThisInitialized(_this)),
+        api = _createApi.public;
+
+    _this.api = api;
     return _this;
   }
 
@@ -364,8 +370,17 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleCompleteLoadSchema",
     value: function handleCompleteLoadSchema(newSchema, resolve) {
+      var modelVersion = null;
+      Object.keys(newSchema).forEach(function (schemaIndex) {
+        var singleSchema = newSchema[schemaIndex];
+
+        if (singleSchema.title === "Instrument") {
+          modelVersion = singleSchema.modelVersion;
+        }
+      });
       this.setState({
-        schema: newSchema
+        schema: newSchema,
+        modelVersion: modelVersion
       }, resolve());
     }
   }, {
@@ -1431,10 +1446,17 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         this.props.onLoadMicroscope(-1);
       }
 
-      if (microscope !== null && microscope !== undefined && isLoadingMicroscope) {
-        if (!(0, _genericUtilities.verifyAppVersion)(microscope)) {
-          window.alert("The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again.");
-          return;
+      if ((0, _genericUtilities.isDefined)(microscope)) {
+        if (isLoadingMicroscope) {
+          if (!(0, _genericUtilities.verifyAppVersion)(microscope)) {
+            window.alert("The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again.");
+            return;
+          }
+        } else {
+          if (!(0, _genericUtilities.verifyModelVersion)(microscope, this.state.modelVersion)) {
+            window.alert("The Microscope file you are trying to use was saved with a more recent model version. You have to open it using a matching version of Micro-Meta App.");
+            return;
+          }
         }
       }
 
@@ -2660,7 +2682,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           validationTier: this.state.validationTier,
           componentSchemas: componentsSchema,
           schema: footerSettingsSchemas
-        }, _defineProperty(_React$createElement, "inputData", footerSettingsInput), _defineProperty(_React$createElement, "elementByType", elementByType), _defineProperty(_React$createElement, "is4DNPortal", this.state.is4DNPortal), _defineProperty(_React$createElement, "overlaysContainer", this.overlaysContainerRef.current), _React$createElement)), /*#__PURE__*/_react.default.createElement(_settingsMainView.default, {
+        }, _defineProperty(_React$createElement, "inputData", footerSettingsInput), _defineProperty(_React$createElement, "elementByType", elementByType), _defineProperty(_React$createElement, "is4DNPortal", this.state.is4DNPortal), _defineProperty(_React$createElement, "overlaysContainer", this.overlaysContainerRef.current), _defineProperty(_React$createElement, "appVersion", _package.version), _defineProperty(_React$createElement, "modelVersion", this.state.modelVersion), _React$createElement)), /*#__PURE__*/_react.default.createElement(_settingsMainView.default, {
           microscope: microscope,
           microscopeComponents: elementData,
           activeTier: this.state.activeTier,
@@ -2711,7 +2733,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             imagesPathPNG: imagesPathPNG,
             imagesPathSVG: imagesPathSVG,
             isDebug: this.props.isDebug,
-            isViewOnly: this.state.isViewOnly
+            isViewOnly: this.state.isViewOnly,
+            appVersion: _package.version,
+            modelVersion: this.state.modelVersion
           }), /*#__PURE__*/_react.default.createElement("div", {
             style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
@@ -2742,14 +2766,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             isDebug: this.props.isDebug
           })));
         } else {
-          var _React$createElement2;
-
           //{overlayImporter}
           return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
             forwardedRef: this.overlaysContainerRef
-          }, /*#__PURE__*/_react.default.createElement(_header.default, (_React$createElement2 = {
+          }, /*#__PURE__*/_react.default.createElement(_header.default, {
             dimensions: headerFooterDims,
             imagesPathPNG: imagesPathPNG,
             imagesPathSVG: imagesPathSVG,
@@ -2763,8 +2785,14 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             activeTier: this.state.activeTier,
             validationTier: this.state.validationTier,
             componentSchemas: componentsSchema,
-            schema: footerMicroscopeSchemas
-          }, _defineProperty(_React$createElement2, "inputData", footerMicroscopeInput), _defineProperty(_React$createElement2, "elementByType", elementByType), _defineProperty(_React$createElement2, "is4DNPortal", this.state.is4DNPortal), _defineProperty(_React$createElement2, "overlaysContainer", this.overlaysContainerRef.current), _defineProperty(_React$createElement2, "onPaste", this.onPaste), _React$createElement2)), /*#__PURE__*/_react.default.createElement("div", {
+            schema: footerMicroscopeSchemas,
+            elementByType: elementByType,
+            is4DNPortal: this.state.is4DNPortal,
+            overlaysContainer: this.overlaysContainerRef.current,
+            onPaste: this.onPaste,
+            appVersion: _package.version,
+            modelVersion: this.state.modelVersion
+          }), /*#__PURE__*/_react.default.createElement("div", {
             style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
             microscope: microscope,
@@ -3203,3 +3231,42 @@ MicroMetaAppReact.defaultProps = {
     }, 1000);
   }
 };
+
+var createApi = function api(context) {
+  var self = context;
+  return {
+    public: {
+      // saveMicroscope(){
+      // 	self.handleSaveMicroscope("Save microscope");
+      // },
+      exportMicroscopeConfString: function exportMicroscopeConfString() {
+        var elementData = self.state.elementData;
+        var components = [];
+        Object.keys(elementData).forEach(function (item, index) {
+          components[index] = elementData[item];
+        });
+        var comps = {
+          components: components
+        };
+        var microscope = Object.assign(self.state.microscope, comps);
+        microscope.linkedFields = self.state.linkedFields;
+        return JSON.stringify(microscope, null, 2);
+      },
+      updateMicroscopeDescription: function updateMicroscopeDescription(description) {
+        var newMicroscope = Object.assign(self.state.microscope, {
+          Description: description || ""
+        });
+        this.setState({
+          microscope: newMicroscope
+        });
+      },
+      validateMicroscope: function validateMicroscope(microscope, schemas, checkForMicroscopeStand, checkForModelVersion, checkForAppVersion) {
+        return (0, _genericUtilities.validateMicroscope)(microscope, schemas, checkForMicroscopeStand, checkForModelVersion, checkForAppVersion);
+      } // TODO add verifyModelVersion //
+
+    }
+  };
+};
+
+var AppVersion = _package.version;
+exports.AppVersion = AppVersion;

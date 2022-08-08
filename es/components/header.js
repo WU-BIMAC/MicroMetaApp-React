@@ -21,6 +21,8 @@ var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
 
 var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
 
+var _modalWindow = _interopRequireDefault(require("./modalWindow"));
+
 var _constants = require("../constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -59,6 +61,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
 
     _this = _super.call(this, props);
     _this.state = {
+      viewAbout: false,
       editing: false
     };
     _this.onClickEdit = _this.onClickEdit.bind(_assertThisInitialized(_this));
@@ -66,6 +69,8 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
     _this.onFormCancel = _this.onFormCancel.bind(_assertThisInitialized(_this));
     _this.onClickChangeValidation = _this.onClickChangeValidation.bind(_assertThisInitialized(_this));
     _this.onClickHelp = _this.onClickHelp.bind(_assertThisInitialized(_this));
+    _this.onClickAbout = _this.onClickAbout.bind(_assertThisInitialized(_this));
+    _this.onCloseAbout = _this.onCloseAbout.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -73,6 +78,20 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
     key: "onClickHelp",
     value: function onClickHelp() {
       window.open("https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/index.html#step-by-step-instructions", "_blank");
+    }
+  }, {
+    key: "onClickAbout",
+    value: function onClickAbout() {
+      this.setState({
+        viewAbout: true
+      });
+    }
+  }, {
+    key: "onCloseAbout",
+    value: function onCloseAbout() {
+      this.setState({
+        viewAbout: false
+      });
     }
   }, {
     key: "onClickEdit",
@@ -151,6 +170,8 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         fontWeight: "bold",
         textAlign: "center"
       };
+      var bigLogoImg = url.resolve(this.props.imagesPathPNG, _constants.string_logo_img_micro_bk);
+      var bigLogoPath = bigLogoImg + (bigLogoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var logoImg = url.resolve(this.props.imagesPathPNG, _constants.string_logo_img_no_bk);
       var helpImg = url.resolve(this.props.imagesPathSVG, _constants.string_help_img);
       var logoPath = logoImg + (logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
@@ -254,6 +275,23 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           }))
         });
         index++;
+        buttons[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButton-" + index,
+          position: _constants.about_tooltip.position,
+          title: _constants.about_tooltip.title,
+          content: _constants.about_tooltip.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "Button-" + index,
+            onClick: this.onClickAbout,
+            style: styleButtonHelp,
+            size: "lg"
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            src: helpPath,
+            alt: this.props.helpImg,
+            style: styleImage
+          }))
+        });
+        index++;
       } else {
         buttons[index] = /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "Button-" + index,
@@ -268,8 +306,115 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         index++;
       }
 
-      if (this.state.editing) {
-        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+      if (this.state.viewAbout) {
+        var wrapperContainer = {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "100%",
+          height: "100%",
+          alignItems: "center",
+          minHeight: "600px"
+        };
+        var mainContainer = {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "80%",
+          height: "80%",
+          alignItems: "center"
+        };
+        var buttonsContainer = {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "row",
+          flexWrap: "wrap",
+          width: "".concat(_constants.number_logo_width, "px"),
+          height: "60%",
+          alignItems: "flex-start",
+          alignContent: "flex-start" //marginTop: "10px",
+
+        };
+        var logoContainer = {
+          display: "flex",
+          justifyContent: "flex-end",
+          flexFlow: "column",
+          width: "100%",
+          //height: `${number_logo_height}px`,
+          height: "40%",
+          alignItems: "center"
+        };
+        var _styleImageContainer = {
+          width: "".concat(_constants.number_logo_width, "px"),
+          height: "".concat(_constants.number_logo_height, "px")
+        };
+        var _styleImage = {
+          width: "100%",
+          height: "100%",
+          margin: "auto"
+        };
+        var container1 = {
+          display: "flex",
+          justifyContent: "center",
+          flexFlow: "column",
+          width: "65%",
+          height: "100%",
+          alignItems: "center"
+        };
+        return /*#__PURE__*/_react.default.createElement("div", {
+          style: style
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: _styleImageContainer
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: logoPath,
+          alt: this.props.logoImg,
+          style: _styleImage,
+          onLoad: this.onImgLoad
+        })), /*#__PURE__*/_react.default.createElement("div", {
+          style: styleButtonContainer
+        }, buttons), /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+          overlaysContainer: this.props.overlaysContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: wrapperContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: mainContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: logoContainer
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: _styleImageContainer
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: bigLogoPath,
+          alt: this.props.bigLogoImg,
+          style: _styleImage,
+          onLoad: this.onImgLoad
+        }))), /*#__PURE__*/_react.default.createElement("div", {
+          style: container1
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Micro Meta App is an open, easy-to-use, and powerful software platform that provides an intuitive visual guide to capturing and managing Microscopy Metadata on the basis of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+          href: "https://github.com/WU-BIMAC/NBOMicroscopyMetadataSpecs/tree/master/Model/stable%20version/v02-01"
+        }, "4DN-BINA extension"), " ", "of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+          href: "https://docs.openmicroscopy.org/ome-model/6.1.1/developers/model-overview.html"
+        }, "OME data model"), " ", ".", /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), "App version: ", this.props.appVersion, /*#__PURE__*/_react.default.createElement("br", null), "Model version: ", this.props.modelVersion, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), "(c) Copyright 2018-2023 University of Massachusetts Chan Medical School. All Rights Reserved.", /*#__PURE__*/_react.default.createElement("br", null), "The software is distributed under the terms of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+          href: "https://www.gnu.org/licenses/gpl-3.0.html"
+        }, "GNU General Public License v3.0."))), /*#__PURE__*/_react.default.createElement("div", {
+          style: buttonsContainer
+        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+          style: styleButton,
+          size: "lg",
+          onClick: this.onCloseAbout
+        }, "Close"))))));
+      } else if (this.state.editing) {
+        return /*#__PURE__*/_react.default.createElement("div", {
+          style: style
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: styleImageContainer
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: logoPath,
+          alt: this.props.logoImg,
+          style: styleImage,
+          onLoad: this.onImgLoad
+        })), /*#__PURE__*/_react.default.createElement("div", {
+          style: styleButtonContainer
+        }, buttons), /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
           title: "Edit " + this.props.formTitle //schemas={this.props.componentSchemas}
           ,
           schema: this.props.schema,
@@ -281,7 +426,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           editable: true,
           elementByType: this.props.elementByType,
           isDebug: this.props.isDebug
-        });
+        }));
       }
 
       return /*#__PURE__*/_react.default.createElement("div", {

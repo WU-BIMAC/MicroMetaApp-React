@@ -141,7 +141,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         if (step === 1) {
           microscope = JSON.parse(binaryStr);
 
-          if ((0, _genericUtilities.validateMicroscope)(microscope, this.props.schema, true)) {
+          if ((0, _genericUtilities.validateMicroscopeFile)(microscope, this.props.schema, true)) {
             this.setState({
               micFileLoaded: true,
               loadedMicroscope: microscope
@@ -152,7 +152,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         } else if (step === 3) {
           var settings = JSON.parse(binaryStr);
 
-          if ((0, _genericUtilities.validateAcquisitionSettings)(settings, this.props.schema)) {
+          if ((0, _genericUtilities.validateAcquisitionSettingsFile)(settings, this.props.schema)) {
             //this.props.onFileDrop(settings);
             this.setState({
               settFileLoaded: true,
@@ -2010,7 +2010,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         src: logoPath,
         alt: this.props.logoImg,
         style: styleImage
-      })))));
+      }))), /*#__PURE__*/_react.default.createElement("p", null, "(c) Copyright 2018-2023 University of Massachusetts Chan Medical School. All Rights Reserved.", /*#__PURE__*/_react.default.createElement("br", null), "The software is distributed under the terms of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+        href: "https://www.gnu.org/licenses/gpl-3.0.html"
+      }, "GNU General Public License v3.0."))));
     }
   }]);
 

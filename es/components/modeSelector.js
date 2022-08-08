@@ -219,7 +219,9 @@ var ModeSelector = /*#__PURE__*/function (_React$PureComponent) {
         }, "Manage Settings"), /*#__PURE__*/_react.default.createElement("p", {
           style: styleText_2
         }, "Collect information about the acquisition settings that were used to produce your image."))))
-      })))); //}
+      })), /*#__PURE__*/_react.default.createElement("p", null, "(c) Copyright 2018-2023 University of Massachusetts Chan Medical School. All Rights Reserved.", /*#__PURE__*/_react.default.createElement("br", null), "The software is distributed under the terms of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+        href: "https://www.gnu.org/licenses/gpl-3.0.html"
+      }, "GNU General Public License v3.0.")))); //}
     }
   }]);
 

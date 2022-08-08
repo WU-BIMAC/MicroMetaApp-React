@@ -459,7 +459,9 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           now: this.state.progressValueSchema,
           striped: true,
           animated: true
-        }))));
+        })), /*#__PURE__*/_react.default.createElement("p", null, "(c) Copyright 2018-2023 University of Massachusetts Chan Medical School. All Rights Reserved.", /*#__PURE__*/_react.default.createElement("br", null), "The software is distributed under the terms of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+          href: "https://www.gnu.org/licenses/gpl-3.0.html"
+        }, "GNU General Public License v3.0."))));
       } else if (this.props.is4DNPortal && !isHandledMicPreset) {
         return /*#__PURE__*/_react.default.createElement("div", {
           style: wrapperContainer
@@ -492,7 +494,9 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           now: this.state.progressValueMicPreset,
           striped: true,
           animated: true
-        }))));
+        })), /*#__PURE__*/_react.default.createElement("p", null, "(c) Copyright 2018-2023 University of Massachusetts Chan Medical School. All Rights Reserved.", /*#__PURE__*/_react.default.createElement("br", null), "The software is distributed under the terms of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+          href: "https://www.gnu.org/licenses/gpl-3.0.html"
+        }, "GNU General Public License v3.0."))));
       } else {
         return /*#__PURE__*/_react.default.createElement("div", {
           style: wrapperContainer
@@ -507,7 +511,9 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           alt: this.props.logoImg,
           style: styleImage,
           onLoad: this.onImgLoad
-        })))));
+        }))), /*#__PURE__*/_react.default.createElement("p", null, "(c) Copyright 2018-2023 University of Massachusetts Chan Medical School. All Rights Reserved.", /*#__PURE__*/_react.default.createElement("br", null), "The software is distributed under the terms of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+          href: "https://www.gnu.org/licenses/gpl-3.0.html"
+        }, "GNU General Public License v3.0."))));
       }
     }
   }]);
