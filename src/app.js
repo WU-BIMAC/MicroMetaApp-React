@@ -217,6 +217,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.onSpecialImporterConfirm = this.onSpecialImporterConfirm.bind(this);
 		this.simulateClickLoadMicroscopeFromPortal =
 			this.simulateClickLoadMicroscopeFromPortal.bind(this);
+		this.simulateClickHardwareModeFromPortal =
+			this.simulateClickHardwareModeFromPortal.bind(this);
 		this.loadMicroscopeFromPortal = this.loadMicroscopeFromPortal.bind(this);
 
 		this.setDataLoaded = this.setDataLoaded.bind(this);
@@ -379,6 +381,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		if (loadMicroscopeFromPortalButtonRef === null) return;
 		loadMicroscopeFromPortalButtonRef.click();
 	}
+	simulateClickHardwareModeFromPortal(selectHardwareModeFromPortalButtonRef) {
+		if (selectHardwareModeFromPortalButtonRef === null) return;
+		selectHardwareModeFromPortalButtonRef.click();
+	}
+
+	//Same for settings when its time
 
 	loadMicroscopeFromPortal() {
 		if (this.state.is4DNPortal && this.state.isCreatingNewMicroscope) {
@@ -2960,36 +2968,98 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		if (
 			(this.state.isCreatingNewMicroscope == null &&
 				this.state.isLoadingMicroscope == null) ||
-			(this.state.is4DNPortal && !this.state.microscopePresetHandled) ||
 			waitForDataLoad
 		) {
-			return (
-				<MicroMetaAppReactContainer
-					width={width}
-					height={height}
-					forwardedRef={this.overlaysContainerRef}
-				>
-					<ModeSelector
-						imagesPathPNG={imagesPathPNG}
-						imagesPathSVG={imagesPathSVG}
-						// onClickLoadSchema={this.handleLoadSchema}
-						// onClickLoadDimensions={this.handleLoadDimensions}
-						// onClickLoadMicroscopes={this.handleLoadMicroscopes}
-						// onClickLoadSettings={this.handleLoadSettings}
-						// onClickLoadTierList={this.handleLoadTierList}
-						// onClickHandleMicPreset={this.handleMicPreset}
-						onClickCreateNewMicroscope={this.setCreateNewMicroscope}
-						onClickLoadMicroscope={this.setLoadMicroscope}
-						// is4DNPortal={this.state.is4DNPortal}
-						hasSettings={this.props.hasSettings}
-						isDebug={this.props.isDebug}
-					/>
-				</MicroMetaAppReactContainer>
-			);
+			if (!this.state.is4DNPortal) {
+				return (
+					<MicroMetaAppReactContainer
+						width={width}
+						height={height}
+						forwardedRef={this.overlaysContainerRef}
+					>
+						<ModeSelector
+							imagesPathPNG={imagesPathPNG}
+							imagesPathSVG={imagesPathSVG}
+							// onClickLoadSchema={this.handleLoadSchema}
+							// onClickLoadDimensions={this.handleLoadDimensions}
+							// onClickLoadMicroscopes={this.handleLoadMicroscopes}
+							// onClickLoadSettings={this.handleLoadSettings}
+							// onClickLoadTierList={this.handleLoadTierList}
+							// onClickHandleMicPreset={this.handleMicPreset}
+							onClickCreateNewMicroscope={this.setCreateNewMicroscope}
+							onClickLoadMicroscope={this.setLoadMicroscope}
+							// is4DNPortal={this.state.is4DNPortal}
+							hasSettings={this.props.hasSettings}
+							isDebug={this.props.isDebug}
+						/>
+					</MicroMetaAppReactContainer>
+				);
+			} else {
+				const buttonStyle = {
+					width: "400px",
+					height: "50px",
+					padding: "5px",
+					margin: "5px",
+				};
+				const windowExternalContainer = {
+					display: "flex",
+					justifyContent: "center",
+					flexFlow: "column",
+					width: "100%",
+					height: "100%",
+					alignItems: "center",
+				};
+				const windowInternalContainer = {
+					display: "flex",
+					justifyContent: "center",
+					flexFlow: "column",
+					width: "100%",
+					height: "100%",
+					alignItems: "center",
+				};
+				let logoImg = url.resolve(imagesPathPNG, string_logo_img_micro_bk);
+				let logoPath =
+					logoImg +
+					(logoImg.indexOf("githubusercontent.com") > -1
+						? "?sanitize=true"
+						: "");
+				let styleImageContainer = {
+					width: `${number_logo_width}px`,
+					height: `${number_logo_height}px`,
+				};
+				let styleImage = {
+					width: "100%",
+					height: "100%",
+					margin: "auto",
+				};
+				return (
+					<MicroMetaAppReactContainer
+						width={width}
+						height={height}
+						forwardedRef={this.overlaysContainerRef}
+					>
+						<div style={windowExternalContainer}>
+							<div style={windowInternalContainer}>
+								<div style={styleImageContainer}>
+									<img src={logoPath} alt={logoImg} style={styleImage} />
+								</div>
+								<Button
+									ref={this.simulateClickLoadMicroscopeFromPortal}
+									style={buttonStyle}
+									size="lg"
+									onClick={this.setCreateNewMicroscope}
+								>
+									{"Manage instrument"}
+								</Button>
+							</div>
+						</div>
+					</MicroMetaAppReactContainer>
+				);
+			}
 		}
 
 		if (
-			(this.state.is4DNPortal && !this.state.microscopePresetHandled) ||
+			//(this.state.is4DNPortal && !this.state.microscopePresetHandled) ||
 			!this.state.isDataLoaded
 		) {
 			return (
