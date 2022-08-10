@@ -1,6 +1,6 @@
 {
 	"name": "micro-meta-app-react",
-	"version": "1.7.14-b1",
+	"version": "1.7.15-b1",
 	"main": "./dist/MicroMetaAppReact.min.js",
 	"unpkg": "./dist/MicroMetaAppReact.min.js",
 	"module": "./es/app.js",
@@ -41,7 +41,8 @@
 		"resolve": "^1.20.0",
 		"url": "^0.11.0",
 		"url-loader": "^4.1.1",
-		"uuid": "^8.3.2"
+		"uuid": "^8.3.2",
+		"typescript": "^4.5.5"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -82,7 +83,6 @@
 		"ts-node": "^10.5.0",
 		"@swc/core": "^1.2.140",
 		"@swc/wasm": "^1.2.140",
-		"typescript": "^4.5.5",
 		"encoding": "^0.1.13",
 		"less": "^4.1.2",
 		"less-loader": "^10.2.0",
