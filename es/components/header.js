@@ -174,8 +174,10 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
       var bigLogoPath = bigLogoImg + (bigLogoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var logoImg = url.resolve(this.props.imagesPathPNG, _constants.string_logo_img_no_bk);
       var helpImg = url.resolve(this.props.imagesPathSVG, _constants.string_help_img);
+      var aboutImg = url.resolve(this.props.imagesPathSVG, _constants.string_about_img);
       var logoPath = logoImg + (logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var helpPath = helpImg + (helpImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var aboutPath = aboutImg + (aboutImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var pasteImg = url.resolve(this.props.imagesPathSVG, _constants.string_paste_img);
       var pastePath = pasteImg + (pasteImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var validated = null;
@@ -270,7 +272,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
             size: "lg"
           }, /*#__PURE__*/_react.default.createElement("img", {
             src: helpPath,
-            alt: this.props.helpImg,
+            alt: helpImg,
             style: styleImage
           }))
         });
@@ -286,8 +288,8 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
             style: styleButtonHelp,
             size: "lg"
           }, /*#__PURE__*/_react.default.createElement("img", {
-            src: helpPath,
-            alt: this.props.helpImg,
+            src: aboutPath,
+            alt: aboutImg,
             style: styleImage
           }))
         });
@@ -300,7 +302,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           size: "lg"
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: helpPath,
-          alt: this.props.helpImg,
+          alt: helpImg,
           style: styleImage
         }));
         index++;
@@ -357,7 +359,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           display: "flex",
           justifyContent: "center",
           flexFlow: "column",
-          width: "65%",
+          width: "".concat(_constants.number_logo_width, "px"),
           height: "100%",
           alignItems: "center"
         };
