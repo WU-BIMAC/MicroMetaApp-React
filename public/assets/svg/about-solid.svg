@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21" height="21" viewBox="0 0 21 21">
+  <defs>
+    <clipPath id="clip-Question_Mark_Icon_-_Small_1">
+      <rect width="21" height="21"/>
+    </clipPath>
+  </defs>
+  <g id="Question_Mark_Icon_-_Small_1" data-name="Question Mark Icon - Small – 1" clip-path="url(#clip-Question_Mark_Icon_-_Small_1)">
+    <path id="question-circle-regular" d="M18.491,8A10.491,10.491,0,1,0,28.981,18.491,10.492,10.492,0,0,0,18.491,8Zm0,18.951a8.46,8.46,0,1,1,8.46-8.46A8.455,8.455,0,0,1,18.491,26.951Z" transform="translate(-8 -8)" fill="#fff"/>
+    <g id="Group_1" data-name="Group 1">
+      <rect id="Rectangle_42" data-name="Rectangle 42" width="3" height="7" rx="0.75" transform="translate(9 10)" fill="#fff"/>
+      <circle id="Ellipse_16" data-name="Ellipse 16" cx="1.5" cy="1.5" r="1.5" transform="translate(9 5)" fill="#fff" stroke="#fff" stroke-width="0.25"/>
+    </g>
+  </g>
+</svg>
