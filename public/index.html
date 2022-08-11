@@ -115,9 +115,6 @@
 							//isDebug: true,
 							hasSettings: true,
 							onLoadSchema: function (complete, resolve) {
-								// Maybe some UI to select something...
-								// Not all browsers have `window.fetch`, used for demoing purposes.
-								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
 								window
 									.fetch(
 										"https://raw.githubusercontent.com/WU-BIMAC/4DNMetadataSchemaXSD2JSONConverter/master/latest/fullSchema.json"
@@ -132,9 +129,6 @@
 									});
 							},
 							onLoadDimensions: function (complete, resolve) {
-								// Maybe some UI to select something...
-								// Not all browsers have `window.fetch`, used for demoing purposes.
-								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
 								window
 									.fetch(
 										"https://raw.githubusercontent.com/WU-BIMAC/4DNMetadataSchemaXSD2JSONConverter/master/latest/dimensions/MicroscopeDimensions.json"
@@ -149,9 +143,6 @@
 									});
 							},
 							onLoadTierList: function (complete, resolve) {
-								// Maybe some UI to select something...
-								// Not all browsers have `window.fetch`, used for demoing purposes.
-								// Also, window.fetch requires HTTP so we getting this from GitHub... lol
 								window
 									.fetch(
 										"https://raw.githubusercontent.com/WU-BIMAC/4DNMetadataSchemaXSD2JSONConverter/master/latest/tiers/TierList.json"
