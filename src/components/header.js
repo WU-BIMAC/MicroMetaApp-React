@@ -21,6 +21,7 @@ import {
 	string_logo_img_micro_bk,
 	string_logo_img_no_bk,
 	string_help_img,
+	string_about_img,
 	string_paste_img,
 	paste_tooltip,
 	number_logo_width,
@@ -138,12 +139,16 @@ export default class Header extends React.PureComponent {
 
 		let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_no_bk);
 		let helpImg = url.resolve(this.props.imagesPathSVG, string_help_img);
+		let aboutImg = url.resolve(this.props.imagesPathSVG, string_about_img);
 		let logoPath =
 			logoImg +
 			(logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 		let helpPath =
 			helpImg +
 			(helpImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+		let aboutPath =
+			aboutImg +
+			(aboutImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
 		let pasteImg = url.resolve(this.props.imagesPathSVG, string_paste_img);
 		let pastePath =
@@ -247,7 +252,7 @@ export default class Header extends React.PureComponent {
 							style={styleButtonHelp}
 							size="lg"
 						>
-							<img src={helpPath} alt={this.props.helpImg} style={styleImage} />
+							<img src={helpPath} alt={helpImg} style={styleImage} />
 						</Button>
 					}
 				/>
@@ -267,7 +272,7 @@ export default class Header extends React.PureComponent {
 							style={styleButtonHelp}
 							size="lg"
 						>
-							<img src={helpPath} alt={this.props.helpImg} style={styleImage} />
+							<img src={aboutPath} alt={aboutImg} style={styleImage} />
 						</Button>
 					}
 				/>
@@ -281,7 +286,7 @@ export default class Header extends React.PureComponent {
 					style={styleButtonHelp}
 					size="lg"
 				>
-					<img src={helpPath} alt={this.props.helpImg} style={styleImage} />
+					<img src={helpPath} alt={helpImg} style={styleImage} />
 				</Button>
 			);
 			index++;
@@ -337,7 +342,7 @@ export default class Header extends React.PureComponent {
 				display: "flex",
 				justifyContent: "center",
 				flexFlow: "column",
-				width: "65%",
+				width: `${number_logo_width}px`,
 				height: "100%",
 				alignItems: "center",
 			};
