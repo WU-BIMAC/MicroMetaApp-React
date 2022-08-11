@@ -35,6 +35,7 @@ export const string_microscope_img = "microscope-solid.svg";
 export const string_manage_hardware_circle_img = "hardware-large-circle.svg";
 export const string_manage_settings_circle_img = "settings-large-circle.svg";
 export const string_help_img = "question-mark-small.svg";
+export const string_about_img = "about-solid.svg";
 
 export const string_copy_img = "copy-solid.svg";
 export const string_paste_img = "paste-solid.svg";
