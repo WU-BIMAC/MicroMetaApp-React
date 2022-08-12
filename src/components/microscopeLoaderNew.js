@@ -50,7 +50,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			modeSelection: props.modeSelection || null,
 			filename: null,
 			loadedMicroscope: null,
-			step: !props.isImporter ? 1 : 2,
+			step: 1,
 			errorMsg: null,
 		};
 
@@ -209,6 +209,12 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	render() {
+		let buttonContainerHeight = "550px";
+		let dropzoneContainerSize = "420px";
+		if (this.props.isImporter) {
+			buttonContainerHeight = "300px";
+			dropzoneContainerSize = "220px";
+		}
 		const buttonStyleWideNoMarginSelected = {
 			width: "600px",
 			height: "125px",
@@ -251,8 +257,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 			width: "100%",
 			height: "100%",
 			alignItems: "center",
-			minWidth: "950px",
-			minHeight: "1050px",
+			minWidth: "100%",
+			minHeight: "100%",
 		};
 		const mainContainer = {
 			display: "flex",
@@ -286,7 +292,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			justifyContent: "center",
 			flexFlow: "row",
 			width: "100%",
-			height: "550px",
+			height: buttonContainerHeight,
 			alignItems: "center",
 			margin: "10px",
 		};
@@ -324,7 +330,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			justifyContent: "center",
 			alignItems: "flex-start",
 			width: "420px",
-			height: "420px",
+			height: dropzoneContainerSize,
 			cursor: "pointer",
 		};
 		let styleDropzone = {
@@ -621,10 +627,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 				);
 			}
 			let toggles = [];
-			toggles.push(<h4 key={"create-options"}>Create options</h4>);
-			toggles.push(createRadios);
-			toggles.push(<h4 key={"load-options"}>Load options</h4>);
-			toggles.push(loadRadios);
+			if (createRadios.length > 0) {
+				toggles.push(<h4 key={"create-options"}>Create options</h4>);
+				toggles.push(createRadios);
+			}
+			if (loadRadios.length > 0) {
+				toggles.push(<h4 key={"load-options"}>Load options</h4>);
+				toggles.push(loadRadios);
+			}
 			list.push(
 				<ToggleButtonGroup
 					id="radio-createLoad-options"
@@ -713,9 +723,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 					justifyContent: "center",
 					flexFlow: "column",
 					width: "430px",
-					height: "550px",
+					height: buttonContainerHeight,
 					alignItems: "flex-start",
-					maxHeight: "550px",
+					maxHeight: buttonContainerHeight,
 					overflow: "auto",
 				};
 
