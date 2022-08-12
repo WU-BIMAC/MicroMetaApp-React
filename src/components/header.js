@@ -219,6 +219,7 @@ export default class Header extends React.PureComponent {
 				/>
 			);
 			index++;
+			let isPasteEnabled = this.props.isPasteEnabled;
 			buttons[index] = (
 				<PopoverTooltip
 					key={"TooltipButton-" + index}
@@ -228,9 +229,10 @@ export default class Header extends React.PureComponent {
 					element={
 						<Button
 							key={"Button-" + index}
-							onClick={this.props.onPaste}
+							onClick={isPasteEnabled ? this.props.onPaste : null}
 							style={styleButtonHelp}
 							size="lg"
+							disabled={!isPasteEnabled}
 						>
 							<img src={pastePath} alt={pasteImg} style={styleImage} />
 						</Button>
