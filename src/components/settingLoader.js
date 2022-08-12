@@ -6,7 +6,7 @@ import Dropzone from "react-dropzone";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
-import { validateAcquisitionSettings } from "../genericUtilities";
+import { validateAcquisitionSettingsFile } from "../genericUtilities";
 
 const url = require("url");
 
@@ -83,7 +83,7 @@ export default class SettingLoader extends React.PureComponent {
 		let errorMsg = null;
 		try {
 			let settings = JSON.parse(binaryStr);
-			if (validateAcquisitionSettings(settings, this.props.schema)) {
+			if (validateAcquisitionSettingsFile(settings, this.props.schema)) {
 				this.props.onFileDrop(settings);
 				this.setState({ fileLoaded: true });
 			} else {
