@@ -2666,12 +2666,16 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let isLoadingImage = null;
 		let isLoadingSettings = null;
 		let schema = null;
+		let isDataLoaded = false;
 		if (this.state.is4DNPortal) {
-			isCreatingNewMicroscope = this.state.isCreatingNewMicroscope;
-			isLoadingMicroscope = this.state.isLoadingMicroscope;
-			isLoadingImage = this.state.isLoadingImage;
-			isLoadingSettings = this.state.isLoadingSettings;
-			schema = this.state.schema;
+			if (item === "Import") {
+				isCreatingNewMicroscope = this.state.isCreatingNewMicroscope;
+				isLoadingMicroscope = this.state.isLoadingMicroscope;
+				isLoadingImage = this.state.isLoadingImage;
+				isLoadingSettings = this.state.isLoadingSettings;
+				schema = this.state.schema;
+				isDataLoaded = true;
+			}
 		}
 		let oldMicroscope = this.state.microscope;
 		let oldElementData = this.state.elementData;
@@ -2696,7 +2700,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				elementData: null,
 				settingData: null,
 				imageMetadata: null,
-				isDataLoaded: false,
+				isDataLoaded: isDataLoaded,
 			},
 			() => {
 				if (this.state.is4DNPortal) {
@@ -3127,7 +3131,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		//let overlayImporter = null;
 		if (
 			this.state.is4DNPortal &&
-			(microscope === null || elementData === null)
+			(microscope === null ||
+				elementData === null ||
+				this.state.isSpecialImporterActive)
 		) {
 			const buttonStyle = {
 				width: "400px",
@@ -3152,7 +3158,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				alignItems: "center",
 			};
 			if (microscope === null || this.state.isSpecialImporterActive) {
-				//console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
+				console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
 				let creatingOptions = [];
 				let loadingOptions = [];
 				loadingOptions.push(string_createFromFile);
@@ -3165,6 +3171,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						<MicroscopeLoaderNew
 							imagesPathPNG={imagesPathPNG}
 							imagesPathSVG={imagesPathSVG}
+							title={"Import as a Tier " + this.state.activeTier + " Microscope"}
 							creatingOptions={creatingOptions}
 							loadingOptions={loadingOptions}
 							modeSelection={string_createFromFile}
@@ -3664,6 +3671,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				);
 			} else {
 				//{overlayImporter}
+				let isPasteEnabled = isDefined(this.state.tmpCopyElementFromData)
+					? true
+					: false;
 				return (
 					<MicroMetaAppReactContainer
 						width={width}
@@ -3688,6 +3698,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							elementByType={elementByType}
 							is4DNPortal={this.state.is4DNPortal}
 							overlaysContainer={this.overlaysContainerRef.current}
+							isPasteEnabled={isPasteEnabled}
 							onPaste={this.onPaste}
 							appVersion={appVersion}
 							modelVersion={this.state.modelVersion}
