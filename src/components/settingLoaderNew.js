@@ -543,8 +543,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 			width: "100%",
 			height: "100%",
 			alignItems: "center",
-			minWidth: "950px",
-			minHeight: "1050px",
+			minWidth: "100%",
+			minHeight: "100%",
 			cursor: `${this.state.cursor}`,
 		};
 		const mainContainer = {
