@@ -243,6 +243,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           tooltip: validationTooltip
         });
         index++;
+        var isPasteEnabled = this.props.isPasteEnabled;
         buttons[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           key: "TooltipButton-" + index,
           position: _constants.paste_tooltip.position,
@@ -250,9 +251,10 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           content: _constants.paste_tooltip.content,
           element: /*#__PURE__*/_react.default.createElement(_Button.default, {
             key: "Button-" + index,
-            onClick: this.props.onPaste,
+            onClick: isPasteEnabled ? this.props.onPaste : null,
             style: styleButtonHelp,
-            size: "lg"
+            size: "lg",
+            disabled: !isPasteEnabled
           }, /*#__PURE__*/_react.default.createElement("img", {
             src: pastePath,
             alt: pasteImg,

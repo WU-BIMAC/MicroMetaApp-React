@@ -1915,13 +1915,17 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var isLoadingImage = null;
       var isLoadingSettings = null;
       var schema = null;
+      var isDataLoaded = false;
 
       if (this.state.is4DNPortal) {
-        isCreatingNewMicroscope = this.state.isCreatingNewMicroscope;
-        isLoadingMicroscope = this.state.isLoadingMicroscope;
-        isLoadingImage = this.state.isLoadingImage;
-        isLoadingSettings = this.state.isLoadingSettings;
-        schema = this.state.schema;
+        if (item === "Import") {
+          isCreatingNewMicroscope = this.state.isCreatingNewMicroscope;
+          isLoadingMicroscope = this.state.isLoadingMicroscope;
+          isLoadingImage = this.state.isLoadingImage;
+          isLoadingSettings = this.state.isLoadingSettings;
+          schema = this.state.schema;
+          isDataLoaded = true;
+        }
       }
 
       var oldMicroscope = this.state.microscope;
@@ -1946,7 +1950,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         elementData: null,
         settingData: null,
         imageMetadata: null,
-        isDataLoaded: false
+        isDataLoaded: isDataLoaded
       }, function () {
         if (_this16.state.is4DNPortal) {
           if (item === "Back to list" && (0, _genericUtilities.isDefined)(_this16.props.onReturnToMicroscopeList)) {
@@ -2360,7 +2364,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       } //let overlayImporter = null;
 
 
-      if (this.state.is4DNPortal && (microscope === null || elementData === null)) {
+      if (this.state.is4DNPortal && (microscope === null || elementData === null || this.state.isSpecialImporterActive)) {
         var _buttonStyle = {
           width: "400px",
           height: "50px",
@@ -2385,7 +2389,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         };
 
         if (microscope === null || this.state.isSpecialImporterActive) {
-          //console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
+          console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
           var creatingOptions = [];
           var loadingOptions = [];
           loadingOptions.push(_constants.string_createFromFile);
@@ -2396,6 +2400,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/_react.default.createElement(_microscopeLoaderNew.default, {
             imagesPathPNG: imagesPathPNG,
             imagesPathSVG: imagesPathSVG,
+            title: "Import as a Tier " + this.state.activeTier + " Microscope",
             creatingOptions: creatingOptions,
             loadingOptions: loadingOptions,
             modeSelection: _constants.string_createFromFile //microscopes={microscopeNames}
@@ -2835,6 +2840,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           })));
         } else {
           //{overlayImporter}
+          var isPasteEnabled = (0, _genericUtilities.isDefined)(this.state.tmpCopyElementFromData) ? true : false;
           return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
@@ -2857,6 +2863,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             elementByType: elementByType,
             is4DNPortal: this.state.is4DNPortal,
             overlaysContainer: this.overlaysContainerRef.current,
+            isPasteEnabled: isPasteEnabled,
             onPaste: this.onPaste,
             appVersion: _package.version,
             modelVersion: this.state.modelVersion

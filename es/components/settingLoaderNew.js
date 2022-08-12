@@ -581,8 +581,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "100%",
         alignItems: "center",
-        minWidth: "950px",
-        minHeight: "1050px",
+        minWidth: "100%",
+        minHeight: "100%",
         cursor: "".concat(this.state.cursor)
       };
       var mainContainer = {

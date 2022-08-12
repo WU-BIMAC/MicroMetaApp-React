@@ -110,7 +110,7 @@ var SettingLoader = /*#__PURE__*/function (_React$PureComponent) {
       try {
         var settings = JSON.parse(binaryStr);
 
-        if ((0, _genericUtilities.validateAcquisitionSettings)(settings, this.props.schema)) {
+        if ((0, _genericUtilities.validateAcquisitionSettingsFile)(settings, this.props.schema)) {
           this.props.onFileDrop(settings);
           this.setState({
             fileLoaded: true

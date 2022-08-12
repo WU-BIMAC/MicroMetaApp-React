@@ -72,7 +72,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       modeSelection: props.modeSelection || null,
       filename: null,
       loadedMicroscope: null,
-      step: !props.isImporter ? 1 : 2,
+      step: 1,
       errorMsg: null
     };
     _this.dropzoneDropAccepted = _this.dropzoneDropAccepted.bind(_assertThisInitialized(_this));
@@ -263,6 +263,14 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
     value: function render() {
       var _this4 = this;
 
+      var buttonContainerHeight = "550px";
+      var dropzoneContainerSize = "420px";
+
+      if (this.props.isImporter) {
+        buttonContainerHeight = "300px";
+        dropzoneContainerSize = "220px";
+      }
+
       var buttonStyleWideNoMarginSelected = {
         width: "600px",
         height: "125px",
@@ -305,8 +313,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: "100%",
         alignItems: "center",
-        minWidth: "950px",
-        minHeight: "1050px"
+        minWidth: "100%",
+        minHeight: "100%"
       };
       var mainContainer = {
         display: "flex",
@@ -340,7 +348,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "center",
         flexFlow: "row",
         width: "100%",
-        height: "550px",
+        height: buttonContainerHeight,
         alignItems: "center",
         margin: "10px"
       };
@@ -377,7 +385,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         justifyContent: "center",
         alignItems: "flex-start",
         width: "420px",
-        height: "420px",
+        height: dropzoneContainerSize,
         cursor: "pointer"
       };
       var styleDropzone = {
@@ -643,14 +651,21 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         }
 
         var toggles = [];
-        toggles.push( /*#__PURE__*/_react.default.createElement("h4", {
-          key: "create-options"
-        }, "Create options"));
-        toggles.push(createRadios);
-        toggles.push( /*#__PURE__*/_react.default.createElement("h4", {
-          key: "load-options"
-        }, "Load options"));
-        toggles.push(loadRadios);
+
+        if (createRadios.length > 0) {
+          toggles.push( /*#__PURE__*/_react.default.createElement("h4", {
+            key: "create-options"
+          }, "Create options"));
+          toggles.push(createRadios);
+        }
+
+        if (loadRadios.length > 0) {
+          toggles.push( /*#__PURE__*/_react.default.createElement("h4", {
+            key: "load-options"
+          }, "Load options"));
+          toggles.push(loadRadios);
+        }
+
         list.push( /*#__PURE__*/_react.default.createElement(_ToggleButtonGroup.default, {
           id: "radio-createLoad-options",
           key: "radio-createLoad-options",
@@ -726,9 +741,9 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             justifyContent: "center",
             flexFlow: "column",
             width: "430px",
-            height: "550px",
+            height: buttonContainerHeight,
             alignItems: "flex-start",
-            maxHeight: "550px",
+            maxHeight: buttonContainerHeight,
             overflow: "auto"
           };
           var manufacturers = Object.keys(inputData); // let defaultManu = isDefined(selectedManu)
