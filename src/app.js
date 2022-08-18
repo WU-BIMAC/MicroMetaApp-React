@@ -409,7 +409,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	//HAVE TO DO THE SAME FOR SETTINGS?
 	handleMicroscopePreset(resolve) {
-		console.log("handleMicroscopePreset");
+		if (this.props.isDebug) console.log("handleMicroscopePreset");
 		let microscope = this.state.microscope;
 		let tier = microscope.Tier;
 		let vTier = microscope.ValidationTier;
@@ -2845,7 +2845,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		this.setState({ microscope: microscope });
 
-		console.log(microscope);
+		if (this.props.isDebug) {console.log("save microscope");console.log(microscope);}
 		if (lowerCaseItem.includes("save")) {
 			this.props.onSaveMicroscope(microscope, this.handleCompleteSave);
 		} else if (lowerCaseItem.includes("export")) {
@@ -3158,7 +3158,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				alignItems: "center",
 			};
 			if (microscope === null || this.state.isSpecialImporterActive) {
-				console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
+				if (this.props.isDebug) console.log("4DN Microscope special importer view");
 				let creatingOptions = [];
 				let loadingOptions = [];
 				loadingOptions.push(string_createFromFile);
@@ -3189,8 +3189,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					</MicroMetaAppReactContainer>
 				);
 			} else if (microscope !== null && elementData === null) {
-				console.log("IM GOING THROUGH LOADING MICROSCOPE");
-				console.log(microscope);
+				if (this.props.isDebug) {console.log("4DN Microscope preset view");
+				console.log(microscope);}
 				let logoImg = url.resolve(imagesPathPNG, string_logo_img_micro_bk);
 				let logoPath =
 					logoImg +

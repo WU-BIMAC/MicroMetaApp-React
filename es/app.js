@@ -429,7 +429,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleMicroscopePreset(resolve) {
       var _this8 = this;
 
-      console.log("handleMicroscopePreset");
+      if (this.props.isDebug) console.log("handleMicroscopePreset");
       var microscope = this.state.microscope;
       var tier = microscope.Tier;
       var vTier = microscope.ValidationTier;
@@ -2094,7 +2094,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         microscope: microscope
       });
-      console.log(microscope);
+
+      if (this.props.isDebug) {
+        console.log("save microscope");
+        console.log(microscope);
+      }
 
       if (lowerCaseItem.includes("save")) {
         this.props.onSaveMicroscope(microscope, this.handleCompleteSave);
@@ -2389,7 +2393,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         };
 
         if (microscope === null || this.state.isSpecialImporterActive) {
-          console.log("IM GOING THROUGH SPECIAL IMPORTER VIEW");
+          if (this.props.isDebug) console.log("4DN Microscope special importer view");
           var creatingOptions = [];
           var loadingOptions = [];
           loadingOptions.push(_constants.string_createFromFile);
@@ -2416,8 +2420,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             isImporter: true
           }));
         } else if (microscope !== null && elementData === null) {
-          console.log("IM GOING THROUGH LOADING MICROSCOPE");
-          console.log(microscope);
+          if (this.props.isDebug) {
+            console.log("4DN Microscope preset view");
+            console.log(microscope);
+          }
 
           var _logoImg = url.resolve(imagesPathPNG, _constants.string_logo_img_micro_bk);
 

@@ -104,9 +104,10 @@ export default class Canvas extends React.PureComponent {
 			prevCompSchemas === stringProps1 &&
 			isDefined(prevInputData) &&
 			prevInputData === stringProps2
-		)
+		) {
 			return returnValue;
-		console.log("canvas-getDerivedStateFromProps-2");
+		}
+		if (props.isDebug) console.log("canvas-getDerivedStateFromProps-2");
 		returnValue.previousProps = stringProps;
 		// console.log("props.inputData");
 		// console.log(props.inputData);
@@ -137,7 +138,7 @@ export default class Canvas extends React.PureComponent {
 					let validated = validation.valid;
 					element.validated = validated;
 				}
-				console.log("getDerivedStateFromProps - componentSchemas");
+				if (props.isDebug) console.log("getDerivedStateFromProps - componentSchemas");
 				returnValue.componentsSchema = componentsSchema;
 			}
 		}
@@ -195,7 +196,7 @@ export default class Canvas extends React.PureComponent {
 				});
 				componentsSchema[schema_id] = schema;
 			});
-			console.log("getDerivedStateFromProps - inputData");
+			if (props.isDebug) console.log("getDerivedStateFromProps - inputData");
 			returnValue.occupiedSpots = occupiedSpots;
 			returnValue.componentsSchema = componentsSchema;
 			returnValue.elementList = elementList;

@@ -15,6 +15,8 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
+var _genericUtilities = require("../genericUtilities");
+
 var _constants = require("../constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -373,6 +375,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var localForms = this.formRefs;
       var index = -1;
       var id = -1;
+      if (this.props.isDebug) console.log("multi tab form onSubmit - find form");
 
       for (var currentID in localForms) {
         var forms = localForms[currentID];
@@ -388,6 +391,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
+      if (this.props.isDebug) console.log("multi tab form onSubmit - find linked field");
       var linkedFields = this.state.linkedFields;
 
       for (var key in data.formData) {
@@ -450,6 +454,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         linkedFields: linkedFields
       });
+      if (this.props.isDebug) console.log("multi tab form onSubmit - process data");
       var currentData = [];
       var currentErrors = [];
       if (this.data[id] !== null && this.data[id] !== undefined) currentData = this.data[id].slice();
@@ -466,6 +471,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var localForms = this.formRefs;
       var index = -1;
       var id = -1;
+      if (this.props.isDebug) console.log("multi tab form onError - find form");
 
       for (var currentID in localForms) {
         var forms = localForms[currentID];
@@ -481,6 +487,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
+      if (this.props.isDebug) console.log("multi tab form onError - process error");
       var currentData = [];
       var currentErrors = [];
       if (this.data[id] !== null && this.data[id] !== undefined) currentData = this.data[id].slice();
@@ -506,13 +513,15 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       // }
       //console.log("I SHOULD BE HERE1");
 
+      if (this.props.isDebug) console.log("multi tab form processData - data process");
+
       var _loop3 = function _loop3(currentID) {
         var forms = localForms[currentID];
         var currentData = localData[currentID];
         var numberOfForms = forms.length;
 
-        if (currentData === null || currentData === undefined || currentData.length < numberOfForms || currentData.includes(null)) {
-          //console.log("I SHOULD NOT BE HERE");
+        if (!(0, _genericUtilities.isDefined)(currentData) || currentData.length < numberOfForms || currentData.includes(null)) {
+          if (_this3.props.isDebug) console.log("multi tab form processData - data not found");
           return {
             v: void 0
           };
@@ -537,11 +546,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var _ret = _loop3(currentID);
 
         if (_typeof(_ret) === "object") return _ret.v;
-      } //console.log("I SHOULD BE HERE2");
+      }
 
+      if (this.props.isDebug) console.log("multi tab form processData - modal check");
 
       if (this.props.notModal) {
-        //console.log("CONFIRM CLICK");
+        if (this.props.isDebug) console.log("multi tab form processData - not modal");
         this.props.onConfirm(this.props.id);
         return;
       } // let currentData = this.data;
@@ -558,6 +568,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var consolidatedData = partialConsolidatedData[mainID];
+      if (this.props.isDebug) console.log("multi tab form processData - process consolidated data");
       var subComponents = {};
 
       for (var id in partialConsolidatedData) {
@@ -576,6 +587,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         subComponents[schemaTitle] = localSubComponents;
       }
 
+      if (this.props.isDebug) console.log("multi tab form processData - organize data");
+
       for (var _schemaTitle in subComponents) {
         var _localSubComponents = subComponents[_schemaTitle];
 
@@ -588,6 +601,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       // console.log(consolidatedData);
 
 
+      if (this.props.isDebug) console.log("multi tab form processData - return consolidated data");
       var linkedFields = Object.assign({}, this.state.linkedFields);
       this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
     }
@@ -596,13 +610,18 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     value: function processErrors() {
       var localForms = this.formRefs;
       if (this.props.notModal) return;
+      if (this.props.isDebug) console.log("multi tab form processErrors - error process");
 
       for (var currentID in localForms) {
         var forms = localForms[currentID];
         var currentErrors = this.errors[currentID];
         var numberOfForms = forms.length;
-        if (currentErrors === null || currentErrors === undefined //  ||currentErrors.length < numberOfForms
-        ) return;
+
+        if (!(0, _genericUtilities.isDefined)(currentErrors) //  ||currentErrors.length < numberOfForms
+        ) {
+          if (this.props.isDebug) console.log("multi tab form processErrors - data not found");
+          return;
+        }
 
         for (var i = 0; i < currentErrors.length; i++) {
           if (currentErrors[i] !== null) {
@@ -611,6 +630,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
               activeKey: i
             }); //`${i}` });
 
+            if (this.props.isDebug) console.log("multi tab form processErrors - set error view");
             return;
           }
         }
@@ -654,12 +674,14 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var localForms = this.formRefs;
       this.data = {};
       this.errors = {};
+      if (this.props.isDebug) console.log("multi tab form onConfirm - submit all forms");
 
       for (var id in localForms) {
         var forms = localForms[id];
 
         for (var i = 0; i < forms.length; i++) {
           var ref = forms[i];
+          if (this.props.isDebug) console.log("multi tab form onConfirm - submit form " + i);
           ref.submit();
         }
       }

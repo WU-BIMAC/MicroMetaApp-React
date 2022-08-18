@@ -1604,8 +1604,12 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       };
       var prevCompSchemas = state.previousProps.componentSchemas;
       var prevInputData = state.previousProps.inputData;
-      if ((0, _genericUtilities.isDefined)(prevCompSchemas) && prevCompSchemas === stringProps1 && (0, _genericUtilities.isDefined)(prevInputData) && prevInputData === stringProps2) return returnValue;
-      console.log("canvas-getDerivedStateFromProps-2");
+
+      if ((0, _genericUtilities.isDefined)(prevCompSchemas) && prevCompSchemas === stringProps1 && (0, _genericUtilities.isDefined)(prevInputData) && prevInputData === stringProps2) {
+        return returnValue;
+      }
+
+      if (props.isDebug) console.log("canvas-getDerivedStateFromProps-2");
       returnValue.previousProps = stringProps; // console.log("props.inputData");
       // console.log(props.inputData);
       // console.log("state.elementData");
@@ -1636,7 +1640,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             element.validated = validated;
           }
 
-          console.log("getDerivedStateFromProps - componentSchemas");
+          if (props.isDebug) console.log("getDerivedStateFromProps - componentSchemas");
           returnValue.componentsSchema = componentsSchema;
         }
       }
@@ -1698,7 +1702,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           });
           _componentsSchema[schema_id] = schema;
         });
-        console.log("getDerivedStateFromProps - inputData");
+        if (props.isDebug) console.log("getDerivedStateFromProps - inputData");
         returnValue.occupiedSpots = occupiedSpots;
         returnValue.componentsSchema = _componentsSchema;
         returnValue.elementList = _elementList;
