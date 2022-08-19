@@ -672,17 +672,24 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     key: "onConfirm",
     value: function onConfirm() {
       var localForms = this.formRefs;
+      var localButtons = this.buttonsRefs;
       this.data = {};
       this.errors = {};
       if (this.props.isDebug) console.log("multi tab form onConfirm - submit all forms");
 
       for (var id in localForms) {
         var forms = localForms[id];
+        var buttons = localButtons[id];
 
         for (var i = 0; i < forms.length; i++) {
-          var ref = forms[i];
-          if (this.props.isDebug) console.log("multi tab form onConfirm - submit form " + i);
-          ref.submit();
+          var refForm = forms[i];
+          var refButton = buttons[i];
+          if (this.props.isDebug) console.log("multi tab form onConfirm - submit form " + i); //refForm.submit();
+
+          refForm.formElement.dispatchEvent(new CustomEvent("submit", {
+            bubbles: true
+          })); //refForm.validate();
+          //refButton.click();
         }
       }
     }
@@ -791,6 +798,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           overflow: "hidden"
         }
       }, /*#__PURE__*/_react.default.createElement("button", {
+        type: "submit",
         ref: function ref(btn) {
           if (index != -1) {
             currentButtonsRefs.splice(index, 0, btn);
