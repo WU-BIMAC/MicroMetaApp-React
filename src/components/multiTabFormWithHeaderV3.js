@@ -705,17 +705,25 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 	onConfirm() {
 		let localForms = this.formRefs;
+		let localButtons = this.buttonsRefs;
 		this.data = {};
 		this.errors = {};
 		if (this.props.isDebug)
 			console.log("multi tab form onConfirm - submit all forms");
 		for (let id in localForms) {
 			let forms = localForms[id];
+			let buttons = localButtons[id];
 			for (let i = 0; i < forms.length; i++) {
-				let ref = forms[i];
+				let refForm = forms[i];
+				let refButton = buttons[i];
 				if (this.props.isDebug)
 					console.log("multi tab form onConfirm - submit form " + i);
-				ref.submit();
+				//refForm.submit();
+				refForm.formElement.dispatchEvent(
+					new CustomEvent("submit", { bubbles: true })
+				);
+				//refForm.validate();
+				//refButton.click();
 			}
 		}
 	}
@@ -1088,6 +1096,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				style={{ overflow: "hidden" }}
 			>
 				<button
+					type="submit"
 					ref={(btn) => {
 						if (index != -1) {
 							currentButtonsRefs.splice(index, 0, btn);
