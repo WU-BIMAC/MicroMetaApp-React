@@ -687,7 +687,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           if (this.props.isDebug) console.log("multi tab form onConfirm - submit form " + i); //refForm.submit();
 
           refForm.formElement.dispatchEvent(new CustomEvent("submit", {
-            bubbles: true
+            bubbles: true,
+            cancelable: true
           })); //refForm.validate();
           //refButton.click();
         }
