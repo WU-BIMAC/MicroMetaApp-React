@@ -720,7 +720,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					console.log("multi tab form onConfirm - submit form " + i);
 				//refForm.submit();
 				refForm.formElement.dispatchEvent(
-					new CustomEvent("submit", { bubbles: true })
+					new CustomEvent("submit", { bubbles: true, cancelable: true })
 				);
 				//refForm.validate();
 				//refButton.click();
