@@ -2682,6 +2682,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let oldSetting = this.state.setting;
 		let oldSettingData = this.state.settingData;
 		let oldImageMetadata = this.state.imageMetadata;
+		let oldMicName = micName;
 		//activeTier: 1,
 		//validationTier: 1,
 		this.setState(
@@ -2708,7 +2709,18 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						item === "Back to list" &&
 						isDefined(this.props.onReturnToMicroscopeList)
 					) {
-						this.props.onReturnToMicroscopeList();
+						if (!this.props.onReturnToMicroscopeList()) {
+							this.setState({
+								isTierSelected: true,
+								micName : oldMicName,
+								microscope: oldMicroscope,
+								elementData: oldElementData,
+								setting: oldSetting,
+								settingData: oldSettingData,
+								imageMetadata: oldImageMetadata,
+							});
+						}
+						
 					} else if (
 						item === "Import" /*&& isDefined(this.props.onImportFromFile*/
 					) {
@@ -2845,7 +2857,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		this.setState({ microscope: microscope });
 
-		if (this.props.isDebug) {console.log("save microscope");console.log(microscope);}
+		if (this.props.isDebug) {
+			console.log("save microscope");
+			console.log(microscope);
+		}
 		if (lowerCaseItem.includes("save")) {
 			this.props.onSaveMicroscope(microscope, this.handleCompleteSave);
 		} else if (lowerCaseItem.includes("export")) {
@@ -3158,7 +3173,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				alignItems: "center",
 			};
 			if (microscope === null || this.state.isSpecialImporterActive) {
-				if (this.props.isDebug) console.log("4DN Microscope special importer view");
+				if (this.props.isDebug)
+					console.log("4DN Microscope special importer view");
 				let creatingOptions = [];
 				let loadingOptions = [];
 				loadingOptions.push(string_createFromFile);
@@ -3171,7 +3187,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						<MicroscopeLoaderNew
 							imagesPathPNG={imagesPathPNG}
 							imagesPathSVG={imagesPathSVG}
-							title={"Import as a Tier " + this.state.activeTier + " Microscope"}
+							title={
+								"Import as a Tier " + this.state.activeTier + " Microscope"
+							}
 							creatingOptions={creatingOptions}
 							loadingOptions={loadingOptions}
 							modeSelection={string_createFromFile}
@@ -3189,8 +3207,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					</MicroMetaAppReactContainer>
 				);
 			} else if (microscope !== null && elementData === null) {
-				if (this.props.isDebug) {console.log("4DN Microscope preset view");
-				console.log(microscope);}
+				if (this.props.isDebug) {
+					console.log("4DN Microscope preset view");
+					console.log(microscope);
+				}
 				let logoImg = url.resolve(imagesPathPNG, string_logo_img_micro_bk);
 				let logoPath =
 					logoImg +
