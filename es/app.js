@@ -1828,11 +1828,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
         if ((0, _genericUtilities.isDefined)(setting)) {
           var micID = microscope.ID;
-          var micName = microscope.Name;
+          var _micName = microscope.Name;
           var instrumentID = setting.InstrumentID;
           var instrumentName = setting.InstrumentName;
 
-          if (micID !== instrumentID || micName !== instrumentName) {
+          if (micID !== instrumentID || _micName !== instrumentName) {
             if (!window.confirm("The unique ID & Name of the Microscope file you have selected do not match those that has been saved in the Settings file you are trying to load. If you continue the Microscope ID and Name stored in the Settings file will be overwritten. Are you sure?")) {
               return;
             }
@@ -1932,7 +1932,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var oldElementData = this.state.elementData;
       var oldSetting = this.state.setting;
       var oldSettingData = this.state.settingData;
-      var oldImageMetadata = this.state.imageMetadata; //activeTier: 1,
+      var oldImageMetadata = this.state.imageMetadata;
+      var oldMicName = micName; //activeTier: 1,
       //validationTier: 1,
 
       this.setState({
@@ -1954,7 +1955,17 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }, function () {
         if (_this16.state.is4DNPortal) {
           if (item === "Back to list" && (0, _genericUtilities.isDefined)(_this16.props.onReturnToMicroscopeList)) {
-            _this16.props.onReturnToMicroscopeList();
+            if (!_this16.props.onReturnToMicroscopeList()) {
+              _this16.setState({
+                isTierSelected: true,
+                micName: oldMicName,
+                microscope: oldMicroscope,
+                elementData: oldElementData,
+                setting: oldSetting,
+                settingData: oldSettingData,
+                imageMetadata: oldImageMetadata
+              });
+            }
           } else if (item === "Import"
           /*&& isDefined(this.props.onImportFromFile*/
           ) {
