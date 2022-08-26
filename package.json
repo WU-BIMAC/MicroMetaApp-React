@@ -1,6 +1,6 @@
 {
 	"name": "micro-meta-app-react",
-	"version": "1.7.16-b1",
+	"version": "1.7.17-b1",
 	"main": "./dist/MicroMetaAppReact.min.js",
 	"unpkg": "./dist/MicroMetaAppReact.min.js",
 	"module": "./es/app.js",
@@ -39,10 +39,10 @@
 		"react-tabs": "3.2.1",
 		"reactstrap": "8.9.0",
 		"resolve": "^1.20.0",
+		"typescript": "^4.5.5",
 		"url": "^0.11.0",
 		"url-loader": "^4.1.1",
-		"uuid": "^8.3.2",
-		"typescript": "^4.5.5"
+		"uuid": "^8.3.2"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
