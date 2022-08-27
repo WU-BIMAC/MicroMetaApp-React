@@ -75,6 +75,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+var _ = require("lodash");
+
 var url = require("url");
 
 var validate = require("jsonschema").validate;
@@ -1942,13 +1944,22 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.state.is4DNPortal) {
         if (item === "Back to list" && (0, _genericUtilities.isDefined)(this.props.onReturnToMicroscopeList)) {
+          console.log("Back to list click");
           var originalMicroscope = this.state.originalMicroscope;
-          if (_.isEqual(oldMicroscope, originalMicroscope)) if (!window.confirm("You have unsaved changes. Are you sure you want to leave this page?")) {
-            return;
+
+          if (!_.isEqual(oldMicroscope, originalMicroscope)) {
+            console.log(oldMicroscope);
+            console.log(originalMicroscope);
+            console.log("Back to list click 2");
+
+            if (!window.confirm("You have unsaved changes. Are you sure you want to leave this page?")) {
+              return;
+            }
           }
         }
       }
 
+      console.log("Back to list click 3");
       this.setState({
         microscope: null,
         microscopes: null,
