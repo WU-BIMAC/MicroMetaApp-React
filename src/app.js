@@ -2685,6 +2685,22 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let oldMicName = micName;
 		//activeTier: 1,
 		//validationTier: 1,
+
+		if (this.state.is4DNPortal) {
+			if (
+				item === "Back to list" &&
+				isDefined(this.props.onReturnToMicroscopeList)
+			) {
+				if (
+					!window.confirm(
+						"You may have unsaved changes. Are you sure you want to leave this page?"
+					)
+				) {
+					return;
+				}
+			}
+		}
+
 		this.setState(
 			{
 				microscope: null,
@@ -2709,18 +2725,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						item === "Back to list" &&
 						isDefined(this.props.onReturnToMicroscopeList)
 					) {
-						if (!this.props.onReturnToMicroscopeList()) {
-							this.setState({
-								isTierSelected: true,
-								micName : oldMicName,
-								microscope: oldMicroscope,
-								elementData: oldElementData,
-								setting: oldSetting,
-								settingData: oldSettingData,
-								imageMetadata: oldImageMetadata,
-							});
-						}
-						
+						this.props.onReturnToMicroscopeList();
 					} else if (
 						item === "Import" /*&& isDefined(this.props.onImportFromFile*/
 					) {
