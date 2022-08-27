@@ -1936,6 +1936,14 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var oldMicName = micName; //activeTier: 1,
       //validationTier: 1,
 
+      if (this.state.is4DNPortal) {
+        if (item === "Back to list" && (0, _genericUtilities.isDefined)(this.props.onReturnToMicroscopeList)) {
+          if (!window.confirm("You may have unsaved changes. Are you sure you want to leave this page?")) {
+            return;
+          }
+        }
+      }
+
       this.setState({
         microscope: null,
         microscopes: null,
@@ -1955,17 +1963,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }, function () {
         if (_this16.state.is4DNPortal) {
           if (item === "Back to list" && (0, _genericUtilities.isDefined)(_this16.props.onReturnToMicroscopeList)) {
-            if (!_this16.props.onReturnToMicroscopeList()) {
-              _this16.setState({
-                isTierSelected: true,
-                micName: oldMicName,
-                microscope: oldMicroscope,
-                elementData: oldElementData,
-                setting: oldSetting,
-                settingData: oldSettingData,
-                imageMetadata: oldImageMetadata
-              });
-            }
+            _this16.props.onReturnToMicroscopeList();
           } else if (item === "Import"
           /*&& isDefined(this.props.onImportFromFile*/
           ) {
