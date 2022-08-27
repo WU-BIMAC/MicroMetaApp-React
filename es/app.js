@@ -93,6 +93,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.state = {
       microscope: props.microscope || null,
       setting: props.setting || null,
+      originalMicroscope: Object.assign({}, props.microscope) || null,
+      originalSetting: Object.assign({}, props.setting) || null,
       schema: props.schema || null,
       microscopes: props.microscopes || null,
       settings: props.settings || null,
@@ -1470,7 +1472,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       this.setState({
         micName: filename,
-        microscope: microscope
+        microscope: microscope,
+        originalMicroscope: Object.assign({}, microscope)
       }, function () {
         if (isCreateNewScratch) {
           _this13.createNewMicroscopeFromScratch(standType);
@@ -1828,11 +1831,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
         if ((0, _genericUtilities.isDefined)(setting)) {
           var micID = microscope.ID;
-          var _micName = microscope.Name;
+          var micName = microscope.Name;
           var instrumentID = setting.InstrumentID;
           var instrumentName = setting.InstrumentName;
 
-          if (micID !== instrumentID || _micName !== instrumentName) {
+          if (micID !== instrumentID || micName !== instrumentName) {
             if (!window.confirm("The unique ID & Name of the Microscope file you have selected do not match those that has been saved in the Settings file you are trying to load. If you continue the Microscope ID and Name stored in the Settings file will be overwritten. Are you sure?")) {
               return;
             }
@@ -1843,7 +1846,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         var promiseSetting = new Promise(function (resolve, reject) {
           _this14.setState({
             settingName: settFilename,
-            setting: setting
+            setting: setting,
+            originalSetting: Object.assign({}, setting)
           }, function () {
             //console.log("SetSettingState-callback");
             if (settLoadingOption === modifiedCreateString) {
@@ -1933,12 +1937,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var oldSetting = this.state.setting;
       var oldSettingData = this.state.settingData;
       var oldImageMetadata = this.state.imageMetadata;
-      var oldMicName = micName; //activeTier: 1,
+      var oldMicName = this.state.micName; //activeTier: 1,
       //validationTier: 1,
 
       if (this.state.is4DNPortal) {
         if (item === "Back to list" && (0, _genericUtilities.isDefined)(this.props.onReturnToMicroscopeList)) {
-          if (!window.confirm("You may have unsaved changes. Are you sure you want to leave this page?")) {
+          var originalMicroscope = this.state.originalMicroscope;
+          if (_.isEqual(oldMicroscope, originalMicroscope)) if (!window.confirm("You have unsaved changes. Are you sure you want to leave this page?")) {
             return;
           }
         }
