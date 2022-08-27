@@ -29,6 +29,7 @@ import {
 	validateMicroscope,
 } from "./genericUtilities";
 
+const _ = require("lodash");
 const url = require("url");
 const validate = require("jsonschema").validate;
 
@@ -2696,8 +2697,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				item === "Back to list" &&
 				isDefined(this.props.onReturnToMicroscopeList)
 			) {
+				console.log("Back to list click");
 				let originalMicroscope = this.state.originalMicroscope;
-				if (_.isEqual(oldMicroscope, originalMicroscope))
+				if (!_.isEqual(oldMicroscope, originalMicroscope)) {
+					console.log(oldMicroscope);
+					console.log(originalMicroscope);
+					console.log("Back to list click 2");
 					if (
 						!window.confirm(
 							"You have unsaved changes. Are you sure you want to leave this page?"
@@ -2705,9 +2710,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					) {
 						return;
 					}
+				}
 			}
 		}
 
+		console.log("Back to list click 3");
 		this.setState(
 			{
 				microscope: null,
