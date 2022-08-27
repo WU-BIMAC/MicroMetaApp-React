@@ -1,6 +1,6 @@
 {
 	"name": "micro-meta-app-react",
-	"version": "1.7.18-b1",
+	"version": "1.7.19-b1",
 	"main": "./dist/MicroMetaAppReact.min.js",
 	"unpkg": "./dist/MicroMetaAppReact.min.js",
 	"module": "./es/app.js",
@@ -28,6 +28,7 @@
 		"identity-obj-proxy": "^3.0.0",
 		"jquery": "^3.6.0",
 		"jsonschema": "^1.4.0",
+		"lodash": "^4.17.21",
 		"react-app-polyfill": "^3.0.0",
 		"react-archer": "3.3.0",
 		"react-bootstrap": "1.4.0",
