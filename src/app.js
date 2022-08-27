@@ -58,6 +58,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.state = {
 			microscope: props.microscope || null,
 			setting: props.setting || null,
+			originalMicroscope: Object.assign({}, props.microscope) || null,
+			originalSetting: Object.assign({}, props.setting) || null,
 			schema: props.schema || null,
 			microscopes: props.microscopes || null,
 			settings: props.settings || null,
@@ -2187,6 +2189,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			{
 				micName: filename,
 				microscope: microscope,
+				originalMicroscope: Object.assign({}, microscope),
 			},
 			() => {
 				if (isCreateNewScratch) {
@@ -2596,6 +2599,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					{
 						settingName: settFilename,
 						setting: setting,
+						originalSetting: Object.assign({}, setting),
 					},
 					() => {
 						//console.log("SetSettingState-callback");
@@ -2682,7 +2686,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let oldSetting = this.state.setting;
 		let oldSettingData = this.state.settingData;
 		let oldImageMetadata = this.state.imageMetadata;
-		let oldMicName = micName;
+		let oldMicName = this.state.micName;
+
 		//activeTier: 1,
 		//validationTier: 1,
 
@@ -2691,13 +2696,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				item === "Back to list" &&
 				isDefined(this.props.onReturnToMicroscopeList)
 			) {
-				if (
-					!window.confirm(
-						"You may have unsaved changes. Are you sure you want to leave this page?"
-					)
-				) {
-					return;
-				}
+				let originalMicroscope = this.state.originalMicroscope;
+				if (_.isEqual(oldMicroscope, originalMicroscope))
+					if (
+						!window.confirm(
+							"You have unsaved changes. Are you sure you want to leave this page?"
+						)
+					) {
+						return;
+					}
 			}
 		}
 
