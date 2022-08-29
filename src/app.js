@@ -2815,9 +2815,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			"data:" + contentType + "," + encodeURIComponent(JSON.stringify(setting));
 		a.target = "_blank";
 		document.body.appendChild(a);
-
 		a.click();
-
 		document.body.removeChild(a);
 		// 	complete(settingName);
 	}
@@ -2885,6 +2883,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		} else if (lowerCaseItem.includes("export")) {
 			this.handleExportMicroscope(microscope, this.handleCompleteExport);
 		}
+		this.setState({originalMicroscope: microscope})
 	}
 
 	handleSaveSetting(item) {
@@ -2925,6 +2924,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		} else if (lowerCaseItem.includes("export")) {
 			this.handleExportSetting(setting, this.handleCompleteExport);
 		}
+		this.setState({originalSetting: setting})
 	}
 
 	handleCompleteSave(name) {
