@@ -2130,6 +2130,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       } else if (lowerCaseItem.includes("export")) {
         this.handleExportMicroscope(microscope, this.handleCompleteExport);
       }
+
+      this.setState({
+        originalMicroscope: microscope
+      });
     }
   }, {
     key: "handleSaveSetting",
@@ -2175,6 +2179,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       } else if (lowerCaseItem.includes("export")) {
         this.handleExportSetting(setting, this.handleCompleteExport);
       }
+
+      this.setState({
+        originalSetting: setting
+      });
     }
   }, {
     key: "handleCompleteSave",
