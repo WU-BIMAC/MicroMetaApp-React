@@ -1,6 +1,6 @@
 {
 	"name": "micro-meta-app-react",
-	"version": "1.7.20-b1",
+	"version": "1.7.21-b1",
 	"main": "./dist/MicroMetaAppReact.min.js",
 	"unpkg": "./dist/MicroMetaAppReact.min.js",
 	"module": "./es/app.js",
@@ -94,7 +94,6 @@
 		"string-replace-loader": "^3.1.0",
 		"style-loader": "^3.3.1",
 		"terser-webpack-plugin": "^5.3.5",
-		"canvas": "^2.9.0",
 		"bufferutil": "^4.0.6",
 		"utf-8-validate": "^5.0.8",
 		"webpack": "^5.74.0",
