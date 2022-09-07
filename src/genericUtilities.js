@@ -1,5 +1,4 @@
 import React from "react";
-import { isFunctionDeclaration } from "typescript";
 
 import { version as appVersion } from "../package.json";
 
