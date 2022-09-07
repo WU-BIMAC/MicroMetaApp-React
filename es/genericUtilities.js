@@ -13,8 +13,6 @@ exports.verifyModelVersion = verifyModelVersion;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _typescript = require("typescript");
-
 var _package = require("../package.json");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
