@@ -3598,7 +3598,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						isSchemaValidated={this.state.isSettingValidated}
 						onFormConfirm={this.onSettingDataSave}
 						onClickChangeValidation={this.createAdaptedSchemas}
-						inputData={footerSettingsInput}
 						element={"image settings"}
 						formTitle={setting.Name}
 						activeTier={this.state.activeTier}
@@ -3727,13 +3726,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							isSchemaValidated={this.state.isMicroscopeValidated}
 							onFormConfirm={this.onMicroscopeDataSave}
 							onClickChangeValidation={this.createAdaptedSchemas}
-							inputData={footerMicroscopeInput}
 							element={"microscope"}
 							formTitle={microscope.Name}
 							activeTier={this.state.activeTier}
 							validationTier={this.state.validationTier}
 							componentSchemas={componentsSchema}
 							schema={footerMicroscopeSchemas}
+							inputData={footerMicroscopeInput}
 							elementByType={elementByType}
 							is4DNPortal={this.state.is4DNPortal}
 							overlaysContainer={this.overlaysContainerRef.current}
