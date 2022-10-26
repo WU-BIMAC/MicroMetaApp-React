@@ -15,6 +15,7 @@ export default class CanvasElement extends React.PureComponent {
 		super(props);
 		this.state = {
 			editing: false,
+			editForm: null,
 		};
 
 		this.handleClick = this.handleClick.bind(this);
@@ -32,19 +33,42 @@ export default class CanvasElement extends React.PureComponent {
 	handleClick() {
 		if (!this.props.isViewOnly) {
 			this.props.setEditingOnCanvas(true);
-			this.setState({ editing: true });
+			let editForm = (
+				<MultiTabFormWithHeaderV3
+					title={"Edit " + this.props.formTitle}
+					schema={this.props.schema}
+					inputData={this.props.inputData}
+					id={this.props.id}
+					onConfirm={this.handleConfirm}
+					onCancel={this.handleCancel}
+					overlaysContainer={this.props.overlaysContainer}
+					currentChildrenComponentIdentifier={
+						this.props.currentChildrenComponentIdentifier
+					}
+					minChildrenComponentIdentifier={
+						this.props.minChildrenComponentIdentifier
+					}
+					maxChildrenComponentIdentifier={
+						this.props.maxChildrenComponentIdentifier
+					}
+					elementByType={this.props.elementByType}
+					editable={true}
+					isDebug={this.props.isDebug}
+				/>
+			);
+			this.setState({ editing: true, editForm: editForm });
 		}
 	}
 
 	handleConfirm(id, data, linkedFields) {
-		this.setState({ editing: false });
+		this.setState({ editing: false, editForm: null });
 		this.props.setEditingOnCanvas(false);
 		this.props.handleConfirm(id, data, linkedFields);
 	}
 
 	handleCancel() {
 		this.props.setEditingOnCanvas(false);
-		this.setState({ editing: false });
+		this.setState({ editing: false, editForm: null });
 	}
 
 	handleResize(e, data) {
@@ -84,32 +108,6 @@ export default class CanvasElement extends React.PureComponent {
 	}
 
 	render() {
-		if (this.state.editing) {
-			return (
-				<MultiTabFormWithHeaderV3
-					title={"Edit " + this.props.formTitle}
-					schema={this.props.schema}
-					inputData={this.props.inputData}
-					id={this.props.id}
-					onConfirm={this.handleConfirm}
-					onCancel={this.handleCancel}
-					overlaysContainer={this.props.overlaysContainer}
-					currentChildrenComponentIdentifier={
-						this.props.currentChildrenComponentIdentifier
-					}
-					minChildrenComponentIdentifier={
-						this.props.minChildrenComponentIdentifier
-					}
-					maxChildrenComponentIdentifier={
-						this.props.maxChildrenComponentIdentifier
-					}
-					elementByType={this.props.elementByType}
-					editable={true}
-					isDebug={this.props.isDebug}
-				/>
-			);
-		}
-
 		let style = {
 			textAlign: "center",
 			height: "100%",
@@ -148,30 +146,37 @@ export default class CanvasElement extends React.PureComponent {
 		let minHeight = this.props.minHeight;
 		let maxWidth = this.props.maxWidth;
 		let maxHeight = this.props.maxHeight;
+		let editForm = null;
+		if (this.state.editing) {
+			editForm = this.state.editForm;
+		}
 
 		return (
-			<ResizableBox
-				width={width}
-				height={height}
-				minConstraints={[minWidth, minHeight]}
-				maxConstraints={[maxWidth, maxHeight]}
-				lockAspectRatio={true}
-				onResizeStart={this.handleResizeStart}
-				onResize={this.handleResize}
-				onResizeStop={this.handleResizeStop}
-				style={resizableStyle}
-			>
-				<button style={style} onClick={this.handleClick}>
-					<ImageElement
-						updateMinMaxDimensions={this.updateMinMaxDimensions}
-						id={this.props.id}
-						rotate={this.props.rotate}
-						image={this.props.image}
-						name={this.props.schema.title}
-						style={styleImage}
-					/>
-				</button>
-			</ResizableBox>
+			<div>
+				<ResizableBox
+					width={width}
+					height={height}
+					minConstraints={[minWidth, minHeight]}
+					maxConstraints={[maxWidth, maxHeight]}
+					lockAspectRatio={true}
+					onResizeStart={this.handleResizeStart}
+					onResize={this.handleResize}
+					onResizeStop={this.handleResizeStop}
+					style={resizableStyle}
+				>
+					<button style={style} onClick={this.handleClick}>
+						<ImageElement
+							updateMinMaxDimensions={this.updateMinMaxDimensions}
+							id={this.props.id}
+							rotate={this.props.rotate}
+							image={this.props.image}
+							name={this.props.schema.title}
+							style={styleImage}
+						/>
+					</button>
+				</ResizableBox>
+				{editForm}
+			</div>
 		);
 	}
 }
