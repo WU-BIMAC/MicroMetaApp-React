@@ -62,7 +62,8 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
     _this = _super.call(this, props);
     _this.state = {
       viewAbout: false,
-      editing: false
+      editing: false,
+      editForm: null
     };
     _this.onClickEdit = _this.onClickEdit.bind(_assertThisInitialized(_this));
     _this.onFormConfirm = _this.onFormConfirm.bind(_assertThisInitialized(_this));
@@ -96,15 +97,31 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onClickEdit",
     value: function onClickEdit() {
+      var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+        title: "Edit " + this.props.formTitle //schemas={this.props.componentSchemas}
+        ,
+        schema: this.props.schema,
+        inputData: this.props.inputData //id={this.props.id}
+        ,
+        onConfirm: this.onFormConfirm,
+        onCancel: this.onFormCancel,
+        overlaysContainer: this.props.overlaysContainer,
+        editable: true,
+        elementByType: this.props.elementByType,
+        isDebug: this.props.isDebug
+      });
+
       this.setState({
-        editing: true
+        editing: true,
+        editForm: editForm
       });
     }
   }, {
     key: "onFormConfirm",
     value: function onFormConfirm(id, data) {
       this.setState({
-        editing: false
+        editing: false,
+        editForm: null
       });
       this.props.onFormConfirm(id, data);
     }
@@ -112,7 +129,8 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
     key: "onFormCancel",
     value: function onFormCancel() {
       this.setState({
-        editing: false
+        editing: false,
+        editForm: null
       });
     }
   }, {
@@ -310,6 +328,10 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         index++;
       }
 
+      if (this.props.isDebug) {
+        console.log("RERENDER");
+      }
+
       if (this.state.viewAbout) {
         var wrapperContainer = {
           display: "flex",
@@ -372,8 +394,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: logoPath,
           alt: this.props.logoImg,
-          style: _styleImage,
-          onLoad: this.onImgLoad
+          style: _styleImage
         })), /*#__PURE__*/_react.default.createElement("div", {
           style: styleButtonContainer
         }, buttons), /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
@@ -389,8 +410,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: bigLogoPath,
           alt: this.props.bigLogoImg,
-          style: _styleImage,
-          onLoad: this.onImgLoad
+          style: _styleImage
         }))), /*#__PURE__*/_react.default.createElement("div", {
           style: container1
         }, /*#__PURE__*/_react.default.createElement("p", null, "Micro Meta App is an open, easy-to-use, and powerful software platform that provides an intuitive visual guide to capturing and managing Microscopy Metadata on the basis of the", " ", /*#__PURE__*/_react.default.createElement("a", {
@@ -414,23 +434,10 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: logoPath,
           alt: this.props.logoImg,
-          style: styleImage,
-          onLoad: this.onImgLoad
+          style: styleImage
         })), /*#__PURE__*/_react.default.createElement("div", {
           style: styleButtonContainer
-        }, buttons), /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
-          title: "Edit " + this.props.formTitle //schemas={this.props.componentSchemas}
-          ,
-          schema: this.props.schema,
-          inputData: this.props.inputData //id={this.props.id}
-          ,
-          onConfirm: this.onFormConfirm,
-          onCancel: this.onFormCancel,
-          overlaysContainer: this.props.overlaysContainer,
-          editable: true,
-          elementByType: this.props.elementByType,
-          isDebug: this.props.isDebug
-        }));
+        }, buttons), this.state.editForm);
       }
 
       return /*#__PURE__*/_react.default.createElement("div", {
@@ -440,8 +447,7 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
       }, /*#__PURE__*/_react.default.createElement("img", {
         src: logoPath,
         alt: this.props.logoImg,
-        style: styleImage,
-        onLoad: this.onImgLoad
+        style: styleImage
       })), /*#__PURE__*/_react.default.createElement("div", {
         style: styleButtonContainer
       }, buttons));

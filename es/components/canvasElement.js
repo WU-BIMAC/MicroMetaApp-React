@@ -53,7 +53,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
 
     _this = _super.call(this, props);
     _this.state = {
-      editing: false
+      editing: false,
+      editForm: null
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     _this.handleConfirm = _this.handleConfirm.bind(_assertThisInitialized(_this));
@@ -69,8 +70,26 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleClick() {
       if (!this.props.isViewOnly) {
         this.props.setEditingOnCanvas(true);
+
+        var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          title: "Edit " + this.props.formTitle,
+          schema: this.props.schema,
+          inputData: this.props.inputData,
+          id: this.props.id,
+          onConfirm: this.handleConfirm,
+          onCancel: this.handleCancel,
+          overlaysContainer: this.props.overlaysContainer,
+          currentChildrenComponentIdentifier: this.props.currentChildrenComponentIdentifier,
+          minChildrenComponentIdentifier: this.props.minChildrenComponentIdentifier,
+          maxChildrenComponentIdentifier: this.props.maxChildrenComponentIdentifier,
+          elementByType: this.props.elementByType,
+          editable: true,
+          isDebug: this.props.isDebug
+        });
+
         this.setState({
-          editing: true
+          editing: true,
+          editForm: editForm
         });
       }
     }
@@ -78,7 +97,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     key: "handleConfirm",
     value: function handleConfirm(id, data, linkedFields) {
       this.setState({
-        editing: false
+        editing: false,
+        editForm: null
       });
       this.props.setEditingOnCanvas(false);
       this.props.handleConfirm(id, data, linkedFields);
@@ -88,7 +108,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleCancel() {
       this.props.setEditingOnCanvas(false);
       this.setState({
-        editing: false
+        editing: false,
+        editForm: null
       });
     }
   }, {
@@ -131,24 +152,6 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
-      if (this.state.editing) {
-        return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
-          title: "Edit " + this.props.formTitle,
-          schema: this.props.schema,
-          inputData: this.props.inputData,
-          id: this.props.id,
-          onConfirm: this.handleConfirm,
-          onCancel: this.handleCancel,
-          overlaysContainer: this.props.overlaysContainer,
-          currentChildrenComponentIdentifier: this.props.currentChildrenComponentIdentifier,
-          minChildrenComponentIdentifier: this.props.minChildrenComponentIdentifier,
-          maxChildrenComponentIdentifier: this.props.maxChildrenComponentIdentifier,
-          elementByType: this.props.elementByType,
-          editable: true,
-          isDebug: this.props.isDebug
-        });
-      }
-
       var style = {
         textAlign: "center",
         height: "100%",
@@ -187,7 +190,13 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       var minHeight = this.props.minHeight;
       var maxWidth = this.props.maxWidth;
       var maxHeight = this.props.maxHeight;
-      return /*#__PURE__*/_react.default.createElement(_reactResizable.ResizableBox, {
+      var editForm = null;
+
+      if (this.state.editing) {
+        editForm = this.state.editForm;
+      }
+
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactResizable.ResizableBox, {
         width: width,
         height: height,
         minConstraints: [minWidth, minHeight],
@@ -207,7 +216,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
         image: this.props.image,
         name: this.props.schema.title,
         style: styleImage
-      })));
+      }))), editForm);
     }
   }]);
 

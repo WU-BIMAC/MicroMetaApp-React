@@ -15,8 +15,6 @@ var _Dropdown = _interopRequireDefault(require("react-bootstrap/Dropdown"));
 
 var _ButtonGroup = _interopRequireDefault(require("react-bootstrap/ButtonGroup"));
 
-var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
-
 var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
 
 var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
