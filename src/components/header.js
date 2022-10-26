@@ -33,6 +33,7 @@ export default class Header extends React.PureComponent {
 		this.state = {
 			viewAbout: false,
 			editing: false,
+			editForm: null,
 		};
 
 		this.onClickEdit = this.onClickEdit.bind(this);
@@ -61,16 +62,31 @@ export default class Header extends React.PureComponent {
 	}
 
 	onClickEdit() {
-		this.setState({ editing: true });
+		let editForm = (
+			<MultiTabFormWithHeaderV3
+				title={"Edit " + this.props.formTitle}
+				//schemas={this.props.componentSchemas}
+				schema={this.props.schema}
+				inputData={this.props.inputData}
+				//id={this.props.id}
+				onConfirm={this.onFormConfirm}
+				onCancel={this.onFormCancel}
+				overlaysContainer={this.props.overlaysContainer}
+				editable={true}
+				elementByType={this.props.elementByType}
+				isDebug={this.props.isDebug}
+			/>
+		);
+		this.setState({ editing: true, editForm: editForm });
 	}
 
 	onFormConfirm(id, data) {
-		this.setState({ editing: false });
+		this.setState({ editing: false, editForm: null });
 		this.props.onFormConfirm(id, data);
 	}
 
 	onFormCancel() {
-		this.setState({ editing: false });
+		this.setState({ editing: false, editForm: null });
 	}
 
 	onClickChangeValidation(item) {
@@ -293,6 +309,9 @@ export default class Header extends React.PureComponent {
 			);
 			index++;
 		}
+		if (this.props.isDebug) {
+			console.log("RERENDER");
+		}
 		if (this.state.viewAbout) {
 			const wrapperContainer = {
 				display: "flex",
@@ -351,12 +370,7 @@ export default class Header extends React.PureComponent {
 			return (
 				<div style={style}>
 					<div style={styleImageContainer}>
-						<img
-							src={logoPath}
-							alt={this.props.logoImg}
-							style={styleImage}
-							onLoad={this.onImgLoad}
-						/>
+						<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
 					</div>
 					<div style={styleButtonContainer}>{buttons}</div>
 					<ModalWindow overlaysContainer={this.props.overlaysContainer}>
@@ -368,7 +382,6 @@ export default class Header extends React.PureComponent {
 											src={bigLogoPath}
 											alt={this.props.bigLogoImg}
 											style={styleImage}
-											onLoad={this.onImgLoad}
 										/>
 									</div>
 								</div>
@@ -420,39 +433,17 @@ export default class Header extends React.PureComponent {
 			return (
 				<div style={style}>
 					<div style={styleImageContainer}>
-						<img
-							src={logoPath}
-							alt={this.props.logoImg}
-							style={styleImage}
-							onLoad={this.onImgLoad}
-						/>
+						<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
 					</div>
 					<div style={styleButtonContainer}>{buttons}</div>
-					<MultiTabFormWithHeaderV3
-						title={"Edit " + this.props.formTitle}
-						//schemas={this.props.componentSchemas}
-						schema={this.props.schema}
-						inputData={this.props.inputData}
-						//id={this.props.id}
-						onConfirm={this.onFormConfirm}
-						onCancel={this.onFormCancel}
-						overlaysContainer={this.props.overlaysContainer}
-						editable={true}
-						elementByType={this.props.elementByType}
-						isDebug={this.props.isDebug}
-					/>
+					{this.state.editForm}
 				</div>
 			);
 		}
 		return (
 			<div style={style}>
 				<div style={styleImageContainer}>
-					<img
-						src={logoPath}
-						alt={this.props.logoImg}
-						style={styleImage}
-						onLoad={this.onImgLoad}
-					/>
+					<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
 				</div>
 				<div style={styleButtonContainer}>{buttons}</div>
 			</div>
