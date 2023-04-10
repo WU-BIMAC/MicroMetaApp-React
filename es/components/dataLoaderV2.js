@@ -462,7 +462,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
         })), /*#__PURE__*/_react.default.createElement("p", null, "(c) Copyright 2018-2023 University of Massachusetts Chan Medical School. All Rights Reserved.", /*#__PURE__*/_react.default.createElement("br", null), "The software is distributed under the terms of the", " ", /*#__PURE__*/_react.default.createElement("a", {
           href: "https://www.gnu.org/licenses/gpl-3.0.html"
         }, "GNU General Public License v3.0."))));
-      } else if (this.props.is4DNPortal && !isHandledMicPreset) {
+      } else if ((this.props.is4DNPortal || this.props.isMMEOpen) && !isHandledMicPreset) {
         return /*#__PURE__*/_react.default.createElement("div", {
           style: wrapperContainer
         }, /*#__PURE__*/_react.default.createElement("div", {

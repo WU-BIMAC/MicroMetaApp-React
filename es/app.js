@@ -206,6 +206,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.createOrUseSettingFromSelectedFile = _this.createOrUseSettingFromSelectedFile.bind(_assertThisInitialized(_this)); //this.createOrUseMetadata = this.createOrUseMetadata.bind(this);
 
     _this.onClickHome = _this.onClickHome.bind(_assertThisInitialized(_this));
+    _this.onClickParentHome = _this.onClickParentHome.bind(_assertThisInitialized(_this));
     _this.createAdaptedSchemas = _this.createAdaptedSchemas.bind(_assertThisInitialized(_this));
     _this.createAdaptedSchema = _this.createAdaptedSchema.bind(_assertThisInitialized(_this));
     _this.handleExportMicroscope = _this.handleExportMicroscope.bind(_assertThisInitialized(_this));
@@ -1999,6 +2000,40 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       });
     }
   }, {
+    key: "onClickParentHome",
+    value: function onClickParentHome() {
+      var isCreatingNewMicroscope = null;
+      var isLoadingMicroscope = null;
+      var isLoadingImage = null;
+      var isLoadingSettings = null;
+      var schema = null;
+      var isDataLoaded = false;
+      var oldMicroscope = this.state.microscope;
+      var oldElementData = this.state.elementData;
+      var oldSetting = this.state.setting;
+      var oldSettingData = this.state.settingData;
+      var oldImageMetadata = this.state.imageMetadata;
+      var oldMicName = this.state.micName;
+      console.log("Back to parent");
+      this.setState({
+        microscope: null,
+        microscopes: null,
+        setting: null,
+        settings: null,
+        isTierSelected: false,
+        isCreatingNewMicroscope: isCreatingNewMicroscope,
+        isLoadingMicroscope: isLoadingMicroscope,
+        isLoadingImage: isLoadingImage,
+        isLoadingSettings: isLoadingSettings,
+        micName: null,
+        schema: schema,
+        elementData: null,
+        settingData: null,
+        imageMetadata: null,
+        isDataLoaded: isDataLoaded
+      }, this.props.onClickHome);
+    }
+  }, {
     key: "updateElementData",
     value: function updateElementData(elementData, areComponentsValidated) {
       console.log("updateElementData"); //console.log(elementData)
@@ -2359,6 +2394,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           onClickHandleMicPreset: this.handleMicPreset,
           onDataLoaded: this.setDataLoaded,
           is4DNPortal: this.state.is4DNPortal,
+          isMMEOpen: this.props.isMMEOpen,
           isDebug: this.props.isDebug
         }));
       } // if (microscope === null && this.state.isCreatingNewMicroscope === null) {
@@ -2824,6 +2860,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }), /*#__PURE__*/_react.default.createElement(_footer.default, {
           onClickSave: this.handleSaveSetting,
           onClickHome: this.onClickHome,
+          onClickParentHome: !(0, _genericUtilities.isDefined)(this.props.onClickHome) ? this.onClickParentHome : null,
           hasSaveOption: this.props.onSaveSetting ? true : false,
           overlaysContainer: this.overlaysContainerRef.current,
           dimensions: headerFooterDims,
@@ -2947,6 +2984,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           })), /*#__PURE__*/_react.default.createElement(_footer.default, {
             onClickSave: this.handleSaveMicroscope,
             onClickHome: this.onClickHome,
+            onClickParentHome: !(0, _genericUtilities.isDefined)(this.props.onClickHome) ? this.onClickParentHome : null,
             hasSaveOption: this.props.onSaveMicroscope ? true : false,
             overlaysContainer: this.overlaysContainerRef.current,
             dimensions: headerFooterDims,
