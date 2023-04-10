@@ -197,6 +197,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		//this.createOrUseMetadata = this.createOrUseMetadata.bind(this);
 
 		this.onClickHome = this.onClickHome.bind(this);
+		this.onClickParentHome = this.onClickParentHome.bind(this);
 
 		this.createAdaptedSchemas = this.createAdaptedSchemas.bind(this);
 		this.createAdaptedSchema = this.createAdaptedSchema.bind(this);
@@ -2761,6 +2762,44 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		);
 	}
 
+	onClickParentHome() {
+		let isCreatingNewMicroscope = null;
+		let isLoadingMicroscope = null;
+		let isLoadingImage = null;
+		let isLoadingSettings = null;
+		let schema = null;
+		let isDataLoaded = false;
+
+		let oldMicroscope = this.state.microscope;
+		let oldElementData = this.state.elementData;
+		let oldSetting = this.state.setting;
+		let oldSettingData = this.state.settingData;
+		let oldImageMetadata = this.state.imageMetadata;
+		let oldMicName = this.state.micName;
+
+		console.log("Back to parent");
+		this.setState(
+			{
+				microscope: null,
+				microscopes: null,
+				setting: null,
+				settings: null,
+				isTierSelected: false,
+				isCreatingNewMicroscope: isCreatingNewMicroscope,
+				isLoadingMicroscope: isLoadingMicroscope,
+				isLoadingImage: isLoadingImage,
+				isLoadingSettings: isLoadingSettings,
+				micName: null,
+				schema: schema,
+				elementData: null,
+				settingData: null,
+				imageMetadata: null,
+				isDataLoaded: isDataLoaded,
+			},
+			this.props.onClickHome
+		);
+	}
+
 	updateElementData(elementData, areComponentsValidated) {
 		console.log("updateElementData");
 		//console.log(elementData)
@@ -3116,6 +3155,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickHandleMicPreset={this.handleMicPreset}
 						onDataLoaded={this.setDataLoaded}
 						is4DNPortal={this.state.is4DNPortal}
+						isMMEOpen={this.props.isMMEOpen}
 						isDebug={this.props.isDebug}
 					/>
 				</MicroMetaAppReactContainer>
@@ -3641,6 +3681,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					<Footer
 						onClickSave={this.handleSaveSetting}
 						onClickHome={this.onClickHome}
+						onClickParentHome={
+							!isDefined(this.props.onClickHome) ? this.onClickParentHome : null
+						}
 						hasSaveOption={this.props.onSaveSetting ? true : false}
 						overlaysContainer={this.overlaysContainerRef.current}
 						dimensions={headerFooterDims}
@@ -3786,6 +3829,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						<Footer
 							onClickSave={this.handleSaveMicroscope}
 							onClickHome={this.onClickHome}
+							onClickParentHome={
+							!isDefined(this.props.onClickHome) ? this.onClickParentHome : null
+						}
 							hasSaveOption={this.props.onSaveMicroscope ? true : false}
 							overlaysContainer={this.overlaysContainerRef.current}
 							dimensions={headerFooterDims}

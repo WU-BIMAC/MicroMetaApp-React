@@ -504,7 +504,7 @@ export default class DataLoader extends React.PureComponent {
 					</div>
 				</div>
 			);
-		} else if (this.props.is4DNPortal && !isHandledMicPreset) {
+		} else if ((this.props.is4DNPortal || this.props.isMMEOpen) && !isHandledMicPreset) {
 			return (
 				<div style={wrapperContainer}>
 					<div style={mainContainer}>
