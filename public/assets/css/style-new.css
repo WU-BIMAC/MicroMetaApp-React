@@ -92,8 +92,8 @@
   cursor: default;
 }
 #microscopy-app-container .react-tabs__tab:focus {
-  box-shadow: 0 0 5px #0188fe;
-  border-color: #0188fe;
+  box-shadow: 0 0 5px hsl(208, 99%, 50%);
+  border-color: hsl(208, 99%, 50%);
   outline: none;
 }
 #microscopy-app-container .react-tabs__tab:focus:after {
