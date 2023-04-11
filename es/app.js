@@ -2426,7 +2426,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       // }
 
 
-      if (!this.state.is4DNPortal && !this.state.isTierSelected) {
+      if (!this.state.is4DNPortal && !this.state.isMMEOpen && !this.state.isTierSelected) {
         return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
           width: width,
           height: height,

@@ -3184,7 +3184,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		// 	);
 		// }
 
-		if (!this.state.is4DNPortal && !this.state.isTierSelected) {
+		if (
+			!this.state.is4DNPortal &&
+			!this.state.isMMEOpen &&
+			!this.state.isTierSelected
+		) {
 			return (
 				<MicroMetaAppReactContainer
 					width={width}
