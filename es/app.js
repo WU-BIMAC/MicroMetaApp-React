@@ -2305,7 +2305,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (this.state.isCreatingNewMicroscope == null && this.state.isLoadingMicroscope == null || waitForDataLoad) {
-        if (!this.state.is4DNPortal) {
+        if (!this.state.is4DNPortal && !this.props.isMMEOpen) {
           return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,

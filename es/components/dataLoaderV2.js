@@ -110,7 +110,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           });
 
           clearInterval(interval);
-          if (_this2.state.isDimensionsLoaded && _this2.state.isMicroscopesLoaded && _this2.state.isSettingsLoaded && _this2.state.isTierListLoaded && _this2.state.isSchemaLoaded) if (!_this2.props.is4DNPortal && !_this2.props.isMMEOpen) _this2.props.onDataLoaded();
+          if (_this2.state.isDimensionsLoaded && _this2.state.isMicroscopesLoaded && _this2.state.isSettingsLoaded && _this2.state.isTierListLoaded && _this2.state.isSchemaLoaded) _this2.props.onDataLoaded();
         });
       });
     }
@@ -139,7 +139,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           });
 
           clearInterval(interval);
-          if (_this3.state.isDimensionsLoaded && _this3.state.isMicroscopesLoaded && _this3.state.isSettingsLoaded && _this3.state.isTierListLoaded && _this3.state.isSchemaLoaded) if (!_this3.props.is4DNPortal && !_this3.props.isMMEOpen) _this3.props.onDataLoaded();
+          if (_this3.state.isDimensionsLoaded && _this3.state.isMicroscopesLoaded && _this3.state.isSettingsLoaded && _this3.state.isTierListLoaded && _this3.state.isSchemaLoaded) _this3.props.onDataLoaded();
         });
       });
     }
@@ -168,7 +168,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           });
 
           clearInterval(interval);
-          if (_this4.state.isDimensionsLoaded && _this4.state.isMicroscopesLoaded && _this4.state.isSettingsLoaded && _this4.state.isTierListLoaded && _this4.state.isSchemaLoaded) if (!_this4.props.is4DNPortal && !_this4.props.isMMEOpen) _this4.props.onDataLoaded();
+          if (_this4.state.isDimensionsLoaded && _this4.state.isMicroscopesLoaded && _this4.state.isSettingsLoaded && _this4.state.isTierListLoaded && _this4.state.isSchemaLoaded) _this4.props.onDataLoaded();
         });
       });
     }
@@ -197,7 +197,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           });
 
           clearInterval(interval);
-          if (_this5.state.isDimensionsLoaded && _this5.state.isMicroscopesLoaded && _this5.state.isSettingsLoaded && _this5.state.isTierListLoaded && _this5.state.isSchemaLoaded) if (!_this5.props.is4DNPortal && !_this5.props.isMMEOpen) _this5.props.onDataLoaded();
+          if (_this5.state.isDimensionsLoaded && _this5.state.isMicroscopesLoaded && _this5.state.isSettingsLoaded && _this5.state.isTierListLoaded && _this5.state.isSchemaLoaded) _this5.props.onDataLoaded();
         });
       });
     }
@@ -226,7 +226,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           });
 
           clearInterval(interval);
-          if (_this6.state.isDimensionsLoaded && _this6.state.isMicroscopesLoaded && _this6.state.isSettingsLoaded && _this6.state.isTierListLoaded && _this6.state.isSchemaLoaded) if (!_this6.props.is4DNPortal && !_this6.props.isMMEOpen) _this6.props.onDataLoaded();
+          if (_this6.state.isDimensionsLoaded && _this6.state.isMicroscopesLoaded && _this6.state.isSettingsLoaded && _this6.state.isTierListLoaded && _this6.state.isSchemaLoaded) _this6.props.onDataLoaded();
         });
       });
     }
@@ -255,8 +255,6 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           });
 
           clearInterval(interval);
-
-          _this7.props.onDataLoaded();
         });
       });
     }

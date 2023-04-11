@@ -82,8 +82,7 @@ export default class DataLoader extends React.PureComponent {
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
 				)
-					if (!this.props.is4DNPortal && !this.props.isMMEOpen)
-						this.props.onDataLoaded();
+					this.props.onDataLoaded();
 			});
 		});
 	}
@@ -112,8 +111,7 @@ export default class DataLoader extends React.PureComponent {
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
 				)
-					if (!this.props.is4DNPortal && !this.props.isMMEOpen)
-						this.props.onDataLoaded();
+					this.props.onDataLoaded();
 			});
 		});
 	}
@@ -142,8 +140,7 @@ export default class DataLoader extends React.PureComponent {
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
 				)
-					if (!this.props.is4DNPortal && !this.props.isMMEOpen)
-						this.props.onDataLoaded();
+					this.props.onDataLoaded();
 			});
 		});
 	}
@@ -172,8 +169,7 @@ export default class DataLoader extends React.PureComponent {
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
 				)
-					if (!this.props.is4DNPortal && !this.props.isMMEOpen)
-						this.props.onDataLoaded();
+					this.props.onDataLoaded();
 			});
 		});
 	}
@@ -202,8 +198,7 @@ export default class DataLoader extends React.PureComponent {
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
 				)
-					if (!this.props.is4DNPortal && !this.props.isMMEOpen)
-						this.props.onDataLoaded();
+					this.props.onDataLoaded();
 			});
 		});
 	}
@@ -225,7 +220,6 @@ export default class DataLoader extends React.PureComponent {
 					progressValueMicPreset: 100,
 				});
 				clearInterval(interval);
-				this.props.onDataLoaded();
 			});
 		});
 	}

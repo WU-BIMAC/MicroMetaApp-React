@@ -3047,7 +3047,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				this.state.isLoadingMicroscope == null) ||
 			waitForDataLoad
 		) {
-			if (!this.state.is4DNPortal) {
+			if (!this.state.is4DNPortal && !this.props.isMMEOpen) {
 				return (
 					<MicroMetaAppReactContainer
 						width={width}
