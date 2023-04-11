@@ -3682,7 +3682,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickSave={this.handleSaveSetting}
 						onClickHome={this.onClickHome}
 						onClickParentHome={
-							!isDefined(this.props.onClickHome) ? this.onClickParentHome : null
+							isDefined(this.props.onClickHome) ? this.onClickParentHome : null
 						}
 						hasSaveOption={this.props.onSaveSetting ? true : false}
 						overlaysContainer={this.overlaysContainerRef.current}
@@ -3830,7 +3830,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							onClickSave={this.handleSaveMicroscope}
 							onClickHome={this.onClickHome}
 							onClickParentHome={
-								!isDefined(this.props.onClickHome)
+								isDefined(this.props.onClickHome)
 									? this.onClickParentHome
 									: null
 							}

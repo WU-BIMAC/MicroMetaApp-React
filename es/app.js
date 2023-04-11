@@ -2864,7 +2864,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }), /*#__PURE__*/_react.default.createElement(_footer.default, {
           onClickSave: this.handleSaveSetting,
           onClickHome: this.onClickHome,
-          onClickParentHome: !(0, _genericUtilities.isDefined)(this.props.onClickHome) ? this.onClickParentHome : null,
+          onClickParentHome: (0, _genericUtilities.isDefined)(this.props.onClickHome) ? this.onClickParentHome : null,
           hasSaveOption: this.props.onSaveSetting ? true : false,
           overlaysContainer: this.overlaysContainerRef.current,
           dimensions: headerFooterDims,
@@ -2988,7 +2988,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           })), /*#__PURE__*/_react.default.createElement(_footer.default, {
             onClickSave: this.handleSaveMicroscope,
             onClickHome: this.onClickHome,
-            onClickParentHome: !(0, _genericUtilities.isDefined)(this.props.onClickHome) ? this.onClickParentHome : null,
+            onClickParentHome: (0, _genericUtilities.isDefined)(this.props.onClickHome) ? this.onClickParentHome : null,
             hasSaveOption: this.props.onSaveMicroscope ? true : false,
             overlaysContainer: this.overlaysContainerRef.current,
             dimensions: headerFooterDims,
