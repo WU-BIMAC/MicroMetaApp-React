@@ -2796,7 +2796,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				imageMetadata: null,
 				isDataLoaded: isDataLoaded,
 			},
-			this.props.onClickHome
+			() => this.props.onClickHome()
 		);
 	}
 
@@ -2922,7 +2922,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		} else if (lowerCaseItem.includes("export")) {
 			this.handleExportMicroscope(microscope, this.handleCompleteExport);
 		}
-		this.setState({originalMicroscope: microscope})
+		this.setState({ originalMicroscope: microscope });
 	}
 
 	handleSaveSetting(item) {
@@ -2963,7 +2963,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		} else if (lowerCaseItem.includes("export")) {
 			this.handleExportSetting(setting, this.handleCompleteExport);
 		}
-		this.setState({originalSetting: setting})
+		this.setState({ originalSetting: setting });
 	}
 
 	handleCompleteSave(name) {
@@ -3830,8 +3830,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							onClickSave={this.handleSaveMicroscope}
 							onClickHome={this.onClickHome}
 							onClickParentHome={
-							!isDefined(this.props.onClickHome) ? this.onClickParentHome : null
-						}
+								!isDefined(this.props.onClickHome)
+									? this.onClickParentHome
+									: null
+							}
 							hasSaveOption={this.props.onSaveMicroscope ? true : false}
 							overlaysContainer={this.overlaysContainerRef.current}
 							dimensions={headerFooterDims}

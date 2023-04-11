@@ -2002,6 +2002,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onClickParentHome",
     value: function onClickParentHome() {
+      var _this17 = this;
+
       var isCreatingNewMicroscope = null;
       var isLoadingMicroscope = null;
       var isLoadingImage = null;
@@ -2031,7 +2033,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         settingData: null,
         imageMetadata: null,
         isDataLoaded: isDataLoaded
-      }, this.props.onClickHome);
+      }, function () {
+        return _this17.props.onClickHome();
+      });
     }
   }, {
     key: "updateElementData",
