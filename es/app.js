@@ -432,8 +432,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleMicroscopePreset(resolve) {
       var _this8 = this;
 
-      if (this.props.isDebug) console.log("handleMicroscopePreset");
       var microscope = this.state.microscope;
+
+      if (this.props.isDebug) {
+        console.log("handleMicroscopePreset");
+      }
+
       var tier = microscope.Tier;
       var vTier = microscope.ValidationTier;
       this.setState({

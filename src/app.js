@@ -413,8 +413,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	//HAVE TO DO THE SAME FOR SETTINGS?
 	handleMicroscopePreset(resolve) {
-		if (this.props.isDebug) console.log("handleMicroscopePreset");
 		let microscope = this.state.microscope;
+		if (this.props.isDebug) {
+			console.log("handleMicroscopePreset");
+		}
 		let tier = microscope.Tier;
 		let vTier = microscope.ValidationTier;
 
