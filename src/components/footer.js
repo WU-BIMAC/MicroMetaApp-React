@@ -21,6 +21,7 @@ import {
 	string_import_img,
 	import_tooltip,
 } from "../constants";
+import { isDefined } from "../genericUtilities";
 
 export default class Footer extends React.PureComponent {
 	render() {
@@ -155,7 +156,7 @@ export default class Footer extends React.PureComponent {
 		}
 		buttonsRight[index] = (
 			<DropdownMenu
-				key={"ButtonRight-1"}
+				key={"ButtonRight-" + index}
 				title={"Save"}
 				handleMenuItemClick={this.props.onClickSave}
 				inputData={saveOptions}
@@ -169,9 +170,10 @@ export default class Footer extends React.PureComponent {
 				imgPath={saveImgPath}
 			/>
 		);
-		buttonsRight[index + 1] = (
+		index++;
+		buttonsRight[index] = (
 			<DropdownMenu
-				key={"ButtonRight-2"}
+				key={"ButtonRight-" + index}
 				title={"Export"}
 				handleMenuItemClick={this.props.onClickSave}
 				inputData={exportOptions}
@@ -186,24 +188,62 @@ export default class Footer extends React.PureComponent {
 			/>
 		);
 
+		index = 0;
 		let homeImg = url.resolve(this.props.imagesPath, string_home_img);
 		let homeImgPath =
 			homeImg +
 			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-		let homeButtText = "Home";
+		if (isDefined(this.props.onClickParentHome)) {
+			let homeButtText = "Parent Home";
+			buttonsLeft[index] = (
+				<PopoverTooltip
+					key={"TooltipButtonLeft-" + index}
+					position={"top"}
+					title={home_tooltip.title}
+					content={home_tooltip.content}
+					element={
+						<Button
+							key={"ButtonLeft-" + index}
+							onClick={() => this.props.onClickParentHome()}
+							style={styleButton}
+							size="lg"
+							variant="outline-dark"
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									//gap: "10px",
+								}}
+							>
+								<img
+									src={homeImgPath}
+									alt={homeImg}
+									style={styleImageIconHome}
+								/>
+								{homeButtText}
+							</div>
+						</Button>
+					}
+				/>
+			);
+			index++;
+		}
 
+		let homeButtText = "Home";
 		if (this.props.is4DNPortal) {
 			homeButtText = "Back to list";
 		}
-		buttonsLeft[0] = (
+		buttonsLeft[index] = (
 			<PopoverTooltip
-				key={"TooltipButtonLeft-0"}
+				key={"TooltipButtonLeft-" + index}
 				position={"top"}
 				title={home_tooltip.title}
 				content={home_tooltip.content}
 				element={
 					<Button
-						key={"ButtonLeft-0"}
+						key={"ButtonLeft-" + index}
 						onClick={() => this.props.onClickHome(homeButtText)}
 						style={styleButton}
 						size="lg"

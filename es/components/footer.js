@@ -21,6 +21,8 @@ var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
 
 var _constants = require("../constants");
 
+var _genericUtilities = require("../genericUtilities");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -165,7 +167,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       buttonsRight[index] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
-        key: "ButtonRight-1",
+        key: "ButtonRight-" + index,
         title: "Save",
         handleMenuItemClick: this.props.onClickSave,
         inputData: saveOptions,
@@ -178,8 +180,9 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         imgPath_tmp: saveImgPath_tmp,
         imgPath: saveImgPath
       });
-      buttonsRight[index + 1] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
-        key: "ButtonRight-2",
+      index++;
+      buttonsRight[index] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+        key: "ButtonRight-" + index,
         title: "Export",
         handleMenuItemClick: this.props.onClickSave,
         inputData: exportOptions,
@@ -192,21 +195,54 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
         imgPath_tmp: exportImgPath_tmp,
         imgPath: exportImgPath
       });
+      index = 0;
       var homeImg = url.resolve(this.props.imagesPath, _constants.string_home_img);
       var homeImgPath = homeImg + (homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+
+      if ((0, _genericUtilities.isDefined)(this.props.onClickParentHome)) {
+        var _homeButtText = "Parent Home";
+        buttonsLeft[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "TooltipButtonLeft-" + index,
+          position: "top",
+          title: _constants.home_tooltip.title,
+          content: _constants.home_tooltip.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "ButtonLeft-" + index,
+            onClick: function onClick() {
+              return _this.props.onClickParentHome();
+            },
+            style: styleButton,
+            size: "lg",
+            variant: "outline-dark"
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: {
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center" //gap: "10px",
+
+            }
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            src: homeImgPath,
+            alt: homeImg,
+            style: styleImageIconHome
+          }), _homeButtText))
+        });
+        index++;
+      }
+
       var homeButtText = "Home";
 
       if (this.props.is4DNPortal) {
         homeButtText = "Back to list";
       }
 
-      buttonsLeft[0] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        key: "TooltipButtonLeft-0",
+      buttonsLeft[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "TooltipButtonLeft-" + index,
         position: "top",
         title: _constants.home_tooltip.title,
         content: _constants.home_tooltip.content,
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "ButtonLeft-0",
+          key: "ButtonLeft-" + index,
           onClick: function onClick() {
             return _this.props.onClickHome(homeButtText);
           },
