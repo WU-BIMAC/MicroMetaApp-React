@@ -3186,7 +3186,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		if (
 			!this.state.is4DNPortal &&
-			!this.state.isMMEOpen &&
+			!this.props.isMMEOpen &&
 			!this.state.isTierSelected
 		) {
 			return (
