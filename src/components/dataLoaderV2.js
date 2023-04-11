@@ -82,7 +82,8 @@ export default class DataLoader extends React.PureComponent {
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
 				)
-					this.props.onDataLoaded();
+					if (!this.props.is4DNPortal && !this.props.isMMEOpen)
+						this.props.onDataLoaded();
 			});
 		});
 	}
@@ -111,7 +112,8 @@ export default class DataLoader extends React.PureComponent {
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
 				)
-					this.props.onDataLoaded();
+					if (!this.props.is4DNPortal && !this.props.isMMEOpen)
+						this.props.onDataLoaded();
 			});
 		});
 	}
@@ -140,7 +142,8 @@ export default class DataLoader extends React.PureComponent {
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
 				)
-					this.props.onDataLoaded();
+					if (!this.props.is4DNPortal && !this.props.isMMEOpen)
+						this.props.onDataLoaded();
 			});
 		});
 	}
@@ -169,7 +172,8 @@ export default class DataLoader extends React.PureComponent {
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
 				)
-					this.props.onDataLoaded();
+					if (!this.props.is4DNPortal && !this.props.isMMEOpen)
+						this.props.onDataLoaded();
 			});
 		});
 	}
@@ -198,7 +202,8 @@ export default class DataLoader extends React.PureComponent {
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
 				)
-					this.props.onDataLoaded();
+					if (!this.props.is4DNPortal && !this.props.isMMEOpen)
+						this.props.onDataLoaded();
 			});
 		});
 	}
@@ -220,6 +225,7 @@ export default class DataLoader extends React.PureComponent {
 					progressValueMicPreset: 100,
 				});
 				clearInterval(interval);
+				this.props.onDataLoaded();
 			});
 		});
 	}
@@ -504,7 +510,10 @@ export default class DataLoader extends React.PureComponent {
 					</div>
 				</div>
 			);
-		} else if ((this.props.is4DNPortal || this.props.isMMEOpen) && !isHandledMicPreset) {
+		} else if (
+			(this.props.is4DNPortal || this.props.isMMEOpen) &&
+			!isHandledMicPreset
+		) {
 			return (
 				<div style={wrapperContainer}>
 					<div style={mainContainer}>
