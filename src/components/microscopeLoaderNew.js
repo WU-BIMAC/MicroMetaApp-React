@@ -870,7 +870,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 		if (this.props.isDebug) {
 			console.log("mode : " + modeSelection);
 		}
-		if (
+		if (!isDefined(modeSelection)) disabled = true;
+		else if (
 			modeSelection === string_createFromFile &&
 			(!fileLoaded || loadedMicroscope === null)
 		)
