@@ -868,6 +868,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       // );
 
       var disabled = false;
+
+      if (this.props.isDebug) {
+        console.log("mode : " + modeSelection);
+      }
+
       if (modeSelection === _constants.string_createFromFile && (!fileLoaded || loadedMicroscope === null)) disabled = true;else if ((modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder) && filename === null) disabled = true;
       var forwardImg = url.resolve(this.props.imagesPathSVG, _constants.string_next_img);
       var forwardImgPath = forwardImg + (forwardImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
