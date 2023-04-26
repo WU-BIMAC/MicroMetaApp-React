@@ -1996,6 +1996,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
               oldImageMetadata: oldImageMetadata
             });
           }
+        } else if (_this16.props.isMMEOpen) {
+          _this16.setState({
+            microscope: _this16.props.microscope || null
+          });
         }
 
         if ((0, _genericUtilities.isDefined)(_this16.props.onModeSelection)) {

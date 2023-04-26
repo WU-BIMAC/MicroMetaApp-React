@@ -2756,6 +2756,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							oldImageMetadata: oldImageMetadata,
 						});
 					}
+				} else if (this.props.isMMEOpen) {
+					this.setState({
+						microscope: this.props.microscope || null,
+					});
 				}
 				if (isDefined(this.props.onModeSelection)) {
 					this.props.onModeSelection(-1);
