@@ -200,7 +200,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       var homeImgPath = homeImg + (homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
       if ((0, _genericUtilities.isDefined)(this.props.onClickParentHome)) {
-        var _homeButtText = "Parent Home";
+        var _homeButtText = "Component Selector";
         buttonsLeft[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           key: "TooltipButtonLeft-" + index,
           position: "top",

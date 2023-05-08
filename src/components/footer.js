@@ -194,7 +194,7 @@ export default class Footer extends React.PureComponent {
 			homeImg +
 			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 		if (isDefined(this.props.onClickParentHome)) {
-			let homeButtText = "Parent Home";
+			let homeButtText = "Component Selector";
 			buttonsLeft[index] = (
 				<PopoverTooltip
 					key={"TooltipButtonLeft-" + index}
