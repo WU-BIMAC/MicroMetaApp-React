@@ -413,9 +413,9 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           style: _styleImage
         }))), /*#__PURE__*/_react.default.createElement("div", {
           style: container1
-        }, /*#__PURE__*/_react.default.createElement("p", null, "Micro Meta App is an open, easy-to-use, and powerful software platform that provides an intuitive visual guide to capturing and managing Microscopy Metadata on the basis of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Micro Meta App is an open-source, community-defined, and easy-to-use software platform that provides an intuitive visual guide to capturing and managing Microscopy Metadata based on the", /*#__PURE__*/_react.default.createElement("a", {
           href: "https://github.com/WU-BIMAC/NBOMicroscopyMetadataSpecs/tree/master/Model/stable%20version/v02-01"
-        }, "4DN-BINA extension"), " ", "of the", " ", /*#__PURE__*/_react.default.createElement("a", {
+        }, "4DN-BINA-QUAREP extension"), " ", "of the", " ", /*#__PURE__*/_react.default.createElement("a", {
           href: "https://docs.openmicroscopy.org/ome-model/6.1.1/developers/model-overview.html"
         }, "OME data model"), " ", ".", /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), "App version: ", this.props.appVersion, /*#__PURE__*/_react.default.createElement("br", null), "Model version: ", this.props.modelVersion, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), "(c) Copyright 2018-2023 University of Massachusetts Chan Medical School. All Rights Reserved.", /*#__PURE__*/_react.default.createElement("br", null), "The software is distributed under the terms of the", " ", /*#__PURE__*/_react.default.createElement("a", {
           href: "https://www.gnu.org/licenses/gpl-3.0.html"

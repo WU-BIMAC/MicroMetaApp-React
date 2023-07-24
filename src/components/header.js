@@ -387,12 +387,12 @@ export default class Header extends React.PureComponent {
 								</div>
 								<div style={container1}>
 									<p>
-										Micro Meta App is an open, easy-to-use, and powerful
-										software platform that provides an intuitive visual guide to
-										capturing and managing Microscopy Metadata on the basis of
-										the{" "}
+										Micro Meta App is an open-source, community-defined, and
+										easy-to-use software platform that provides an intuitive
+										visual guide to capturing and managing Microscopy Metadata
+										based on the
 										<a href="https://github.com/WU-BIMAC/NBOMicroscopyMetadataSpecs/tree/master/Model/stable%20version/v02-01">
-											4DN-BINA extension
+											4DN-BINA-QUAREP extension
 										</a>{" "}
 										of the{" "}
 										<a href="https://docs.openmicroscopy.org/ome-model/6.1.1/developers/model-overview.html">
