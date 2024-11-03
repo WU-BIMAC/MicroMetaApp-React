@@ -1432,7 +1432,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					size="lg"
 					onClick={this.onCancel}
 				>
-					Cancel
+					Delete
 				</Button>
 			);
 		}
