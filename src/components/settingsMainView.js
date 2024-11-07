@@ -290,6 +290,7 @@ export default class SettingMainView extends React.PureComponent {
 
 	onElementDataCancel() {
 		this.setState({ editingElement: -1 });
+		console.log('Cancel called from: settingsMainViews');
 	}
 
 	onClickEditSettings(editingElement) {

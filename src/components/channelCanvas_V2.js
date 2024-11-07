@@ -476,6 +476,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		} else {
 			this.setState({ editing: false, editingSettings: false });
 		}
+		console.log('Cancel called from: settingsMainViews');
 	}
 
 	onEditElement() {

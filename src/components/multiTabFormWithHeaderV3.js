@@ -145,11 +145,17 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		this.onConfirm = this.onConfirm.bind(this);
 		this.onCancel = this.onCancel.bind(this);
+		this.onSave = this.onSave.bind(this);
+		this.onLoad = this.onLoad.bind(this);
 
 		this.createForm = this.createForm.bind(this);
 		this.createForms = this.createForms.bind(this);
 
 		this.onEditComponents = this.onEditComponents.bind(this);
+
+		this.onEditComponentsSave = this.onEditComponentsSave.bind(this);
+		this.onEditComponentsLoad = this.onEditComponentsLoad.bind(this);
+
 		this.onEditComponentsConfirm = this.onEditComponentsConfirm.bind(this);
 		this.onEditComponentsCancel = this.onEditComponentsCancel.bind(this);
 		this.createChildrenComponentsButton =
@@ -693,6 +699,18 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.setState({ showForm: false });
 	}
 
+	onEditComponentsSave() {
+		this.initializeForms();
+		this.setState({ showForm: true });
+		console.log("Save button clicked");
+	}
+
+	onEditComponentsLoad() {
+		this.initializeForms();
+		this.setState({ showForm: true });
+		console.log("Load button clicked");
+	}
+
 	onEditComponentsConfirm() {
 		this.initializeForms();
 		this.setState({ showForm: true });
@@ -730,6 +748,18 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 	onCancel() {
 		this.props.onCancel();
+	}
+
+	onSave() {
+		// this.props.onSave();
+		this.props.onCancel();
+		console.log("called onSave function");
+	}
+
+	onLoad() {
+		// this.props.onLoad();
+		this.props.onCancel();
+		console.log("called onLoad function");
 	}
 
 	transformOutputData(data) {
@@ -1270,6 +1300,11 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			marginLeft: "5px",
 			marginRight: "5px",
 		};
+		const smallButton = {
+			width: "150px", 
+			// marginLeft: "5px",
+			marginRight: "5px",
+		};
 		const button2 = {
 			width: "510px",
 			marginLeft: "5px",
@@ -1278,6 +1313,12 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		const containerStyle = {
 			display: "flex",
 			flexDirection: "column",
+		};
+		const headerContainerStyle = {
+			display: "flex",
+			justifyContent: "space-between", 
+			alignItems: "center", 
+			marginBottom: "10px", 
 		};
 		const buttonContainerColumnExternal = {
 			display: "flex",
@@ -1300,6 +1341,13 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			flexDirection: "row",
 			flexWap: "wrap",
 			justifyContent: "center",
+			marginBottom: "5px",
+		};
+		const topButtonContainer = {
+			display: "flex",
+			flexDirection: "row",
+			flexWrap: "wrap",
+			justifyContent: "flex-end", 
 			marginBottom: "5px",
 		};
 		let currentChildrenComponents = this.state.currentChildrenComponents;
@@ -1360,6 +1408,20 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 							>
 								Cancel
 							</Button>
+							<Button
+								style={button}
+								size="lg"
+								onClick={this.onEditComponentsSave} 
+							>
+								Save
+							</Button>
+							<Button
+								style={button}
+								size="lg"
+								onClick={this.onEditComponentsLoad}
+							>
+								Load
+							</Button>
 						</div>
 					</div>
 				</ModalWindow>
@@ -1406,6 +1468,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		// }
 
 		let buttons = [];
+		let topButtons = [];
 		if (
 			!this.props.notModal ||
 			(this.props.notModal && this.props.onConfirm !== null)
@@ -1433,6 +1496,32 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					onClick={this.onCancel}
 				>
 					Cancel
+				</Button>
+			);
+		}
+
+		if (!this.props.notModal) {
+			topButtons.push(
+				<Button
+					key="button-save"
+					style={smallButton}
+					size="lg"
+					onClick={this.onSave}
+				>
+					Save
+				</Button>
+			);
+		}
+
+		if (!this.props.notModal) {
+			topButtons.push(
+				<Button
+					key="button-load"
+					style={smallButton}
+					size="lg"
+					onClick={this.onLoad}
+				>
+					Load
 				</Button>
 			);
 		}
@@ -1497,7 +1586,10 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		let form = (
 			<div style={containerStyle}>
+				<div style={headerContainerStyle}>
 				<h3>{this.props.title}</h3>
+				<div style={topButtonContainer}>{topButtons}</div>
+				</div>
 				<Tabs
 					// tabPosition={"top"}
 					// tabBarStyle={{

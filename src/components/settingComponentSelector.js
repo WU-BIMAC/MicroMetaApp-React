@@ -286,6 +286,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 		// 	this.setState({ editing: false, editingSettings: false });
 		// }
 		this.setState({ editing: false });
+		console.log('Cancel called from: settingsComponentSelector');
 	}
 
 	onAddConfirm() {

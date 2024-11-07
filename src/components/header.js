@@ -39,6 +39,8 @@ export default class Header extends React.PureComponent {
 		this.onClickEdit = this.onClickEdit.bind(this);
 		this.onFormConfirm = this.onFormConfirm.bind(this);
 		this.onFormCancel = this.onFormCancel.bind(this);
+		this.onFormSave = this.onFormSave.bind(this);
+		this.onFormLoad = this.onFormLoad.bind(this);
 
 		this.onClickChangeValidation = this.onClickChangeValidation.bind(this);
 		this.onClickHelp = this.onClickHelp.bind(this);
@@ -71,6 +73,8 @@ export default class Header extends React.PureComponent {
 				//id={this.props.id}
 				onConfirm={this.onFormConfirm}
 				onCancel={this.onFormCancel}
+				// onSave={this.onFormSave}
+				// onLoad={this.onFormLoad}
 				overlaysContainer={this.props.overlaysContainer}
 				editable={true}
 				elementByType={this.props.elementByType}
@@ -86,6 +90,15 @@ export default class Header extends React.PureComponent {
 	}
 
 	onFormCancel() {
+		this.setState({ editing: false, editForm: null });
+		console.log('Cancel called from: header');
+	}
+
+	onFormSave() {
+		this.setState({ editing: false, editForm: null });
+	}
+
+	onFormLoad() {
 		this.setState({ editing: false, editForm: null });
 	}
 

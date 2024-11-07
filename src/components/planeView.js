@@ -317,6 +317,7 @@ export default class PlaneView extends React.PureComponent {
 			editing: false,
 			addingMultiplePlanesSetup: null,
 		});
+		console.log('Cancel called from: planeView');
 	}
 
 	onSelectElement(e) {
