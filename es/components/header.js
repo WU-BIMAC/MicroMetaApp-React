@@ -68,6 +68,8 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
     _this.onClickEdit = _this.onClickEdit.bind(_assertThisInitialized(_this));
     _this.onFormConfirm = _this.onFormConfirm.bind(_assertThisInitialized(_this));
     _this.onFormCancel = _this.onFormCancel.bind(_assertThisInitialized(_this));
+    _this.onFormSave = _this.onFormSave.bind(_assertThisInitialized(_this));
+    _this.onFormLoad = _this.onFormLoad.bind(_assertThisInitialized(_this));
     _this.onClickChangeValidation = _this.onClickChangeValidation.bind(_assertThisInitialized(_this));
     _this.onClickHelp = _this.onClickHelp.bind(_assertThisInitialized(_this));
     _this.onClickAbout = _this.onClickAbout.bind(_assertThisInitialized(_this));
@@ -104,7 +106,9 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         inputData: this.props.inputData //id={this.props.id}
         ,
         onConfirm: this.onFormConfirm,
-        onCancel: this.onFormCancel,
+        onCancel: this.onFormCancel // onSave={this.onFormSave}
+        // onLoad={this.onFormLoad}
+        ,
         overlaysContainer: this.props.overlaysContainer,
         editable: true,
         elementByType: this.props.elementByType,
@@ -128,6 +132,23 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onFormCancel",
     value: function onFormCancel() {
+      this.setState({
+        editing: false,
+        editForm: null
+      });
+      console.log('Cancel called from: header');
+    }
+  }, {
+    key: "onFormSave",
+    value: function onFormSave() {
+      this.setState({
+        editing: false,
+        editForm: null
+      });
+    }
+  }, {
+    key: "onFormLoad",
+    value: function onFormLoad() {
       this.setState({
         editing: false,
         editForm: null

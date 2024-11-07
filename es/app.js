@@ -212,6 +212,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleExportMicroscope = _this.handleExportMicroscope.bind(_assertThisInitialized(_this));
     _this.handleExportSetting = _this.handleExportSetting.bind(_assertThisInitialized(_this));
     _this.handleExportMicroscopeImage = _this.handleExportMicroscopeImage.bind(_assertThisInitialized(_this));
+    _this.handleSaveComponent = _this.handleSaveComponent.bind(_assertThisInitialized(_this));
     _this.handleSaveMicroscope = _this.handleSaveMicroscope.bind(_assertThisInitialized(_this));
     _this.handleSaveSetting = _this.handleSaveSetting.bind(_assertThisInitialized(_this));
     _this.handleCompleteSave = _this.handleCompleteSave.bind(_assertThisInitialized(_this));
@@ -2124,6 +2125,14 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       document.body.removeChild(a);
     }
   }, {
+    key: "handleSaveComponent",
+    value: function handleSaveComponent(item) {
+      var lowerCaseItem = item.toLowerCase();
+      console.log(lowerCaseItem);
+      console.log("inside app.js in the handleSaveComponent function");
+      this.props.onSaveMicroscope(microscope, this.handleCompleteSave);
+    }
+  }, {
     key: "handleSaveMicroscope",
     value: function handleSaveMicroscope(item) {
       var validated = true;
@@ -2159,8 +2168,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         // ) {
         // 	microscope.MicroscopeStand.ID = uuidv4();
         // }
-      }
+      } // Console log only the "components" section of the microscope JSON
 
+
+      console.log("Microscope components:", microscope.components);
       this.setState({
         microscope: microscope
       });
@@ -2935,6 +2946,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             height: height,
             forwardedRef: this.overlaysContainerRef
           }, /*#__PURE__*/_react.default.createElement(_header.default, {
+            onClickSave: this.handleSaveComponent,
             dimensions: headerFooterDims,
             imagesPathPNG: imagesPathPNG,
             imagesPathSVG: imagesPathSVG,

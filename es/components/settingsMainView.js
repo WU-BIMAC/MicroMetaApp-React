@@ -287,6 +287,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         editingElement: -1
       });
+      console.log('Cancel called from: settingsMainViews');
     }
   }, {
     key: "onClickEditSettings",

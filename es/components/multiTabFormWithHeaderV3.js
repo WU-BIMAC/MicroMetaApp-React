@@ -13,6 +13,8 @@ var _reactTabs = require("react-tabs");
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
+var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
+
 var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
 var _genericUtilities = require("../genericUtilities");
@@ -156,9 +158,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     _this.onTabChange = _this.onTabChange.bind(_assertThisInitialized(_this));
     _this.onConfirm = _this.onConfirm.bind(_assertThisInitialized(_this));
     _this.onCancel = _this.onCancel.bind(_assertThisInitialized(_this));
+    _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
+    _this.onLoad = _this.onLoad.bind(_assertThisInitialized(_this));
     _this.createForm = _this.createForm.bind(_assertThisInitialized(_this));
     _this.createForms = _this.createForms.bind(_assertThisInitialized(_this));
     _this.onEditComponents = _this.onEditComponents.bind(_assertThisInitialized(_this));
+    _this.onEditComponentsSave = _this.onEditComponentsSave.bind(_assertThisInitialized(_this));
+    _this.onEditComponentsLoad = _this.onEditComponentsLoad.bind(_assertThisInitialized(_this));
     _this.onEditComponentsConfirm = _this.onEditComponentsConfirm.bind(_assertThisInitialized(_this));
     _this.onEditComponentsCancel = _this.onEditComponentsCancel.bind(_assertThisInitialized(_this));
     _this.createChildrenComponentsButton = _this.createChildrenComponentsButton.bind(_assertThisInitialized(_this));
@@ -653,6 +659,24 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       });
     }
   }, {
+    key: "onEditComponentsSave",
+    value: function onEditComponentsSave() {
+      this.initializeForms();
+      this.setState({
+        showForm: true
+      });
+      console.log("Save button clicked");
+    }
+  }, {
+    key: "onEditComponentsLoad",
+    value: function onEditComponentsLoad() {
+      this.initializeForms();
+      this.setState({
+        showForm: true
+      });
+      console.log("Load button clicked");
+    }
+  }, {
     key: "onEditComponentsConfirm",
     value: function onEditComponentsConfirm() {
       this.initializeForms();
@@ -698,6 +722,20 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     key: "onCancel",
     value: function onCancel() {
       this.props.onCancel();
+    }
+  }, {
+    key: "onSave",
+    value: function onSave() {
+      // this.props.onSave();
+      this.props.onCancel();
+      console.log("called onSave function");
+    }
+  }, {
+    key: "onLoad",
+    value: function onLoad() {
+      // this.props.onLoad();
+      this.props.onCancel();
+      console.log("called onLoad function");
     }
   }, {
     key: "transformOutputData",
@@ -969,6 +1007,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         marginLeft: "5px",
         marginRight: "5px"
       };
+      var smallButton = {
+        width: "150px",
+        // marginLeft: "5px",
+        marginRight: "5px"
+      };
       var button2 = {
         width: "510px",
         marginLeft: "5px",
@@ -977,6 +1020,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var containerStyle = {
         display: "flex",
         flexDirection: "column"
+      };
+      var headerContainerStyle = {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: "10px"
       };
       var buttonContainerColumnExternal = {
         display: "flex",
@@ -999,6 +1048,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         flexDirection: "row",
         flexWap: "wrap",
         justifyContent: "center",
+        marginBottom: "5px"
+      };
+      var topButtonContainer = {
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "flex-end",
         marginBottom: "5px"
       };
       var currentChildrenComponents = this.state.currentChildrenComponents;
@@ -1059,7 +1115,15 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           style: button,
           size: "lg",
           onClick: this.onEditComponentsCancel
-        }, "Cancel"))));
+        }, "Cancel"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          style: button,
+          size: "lg",
+          onClick: this.onEditComponentsSave
+        }, "Save"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          style: button,
+          size: "lg",
+          onClick: this.onEditComponentsLoad
+        }, "Load"))));
       }
 
       var tabNames = {};
@@ -1071,15 +1135,15 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         tabNames[_id3] = [];
         tabs[_id3] = [];
 
-        for (var index in currentForms) {
-          var item = currentForms[index];
+        for (var _index3 in currentForms) {
+          var item = currentForms[_index3];
 
           tabNames[_id3].push( /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
-            key: "ContainerTabName-" + currentNames[index]
-          }, currentNames[index]));
+            key: "ContainerTabName-" + currentNames[_index3]
+          }, currentNames[_index3]));
 
           tabs[_id3].push( /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
-            key: "ContainerTab-" + currentNames[index],
+            key: "ContainerTab-" + currentNames[_index3],
             forceRender: true
           }, item));
         } //let currentTabs = currentForms.map(function (item, index) {
@@ -1098,7 +1162,16 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       // }
 
 
+      var saveTooltip = _constants.save_component_tooltip;
+      var loadTooltip = _constants.load_component_tooltip;
+      var saveOptions = [];
+      saveOptions.push("Save component");
+      saveOptions.push("Save as new component");
+      var loadOptions = [];
+      loadOptions.push("Import from file");
+      loadOptions.push("Load from the local home folder");
       var buttons = [];
+      var topButtons = [];
 
       if (!this.props.notModal || this.props.notModal && this.props.onConfirm !== null) {
         var text = "Confirm";
@@ -1118,6 +1191,64 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           size: "lg",
           onClick: this.onCancel
         }, "Cancel"));
+      }
+
+      var index = 0;
+
+      if (!this.props.notModal) {
+        // topButtons.push(
+        // 	<Button
+        // 		key="button-save"
+        // 		style={smallButton}
+        // 		size="lg"
+        // 		onClick={this.onSave}
+        // 	>
+        // 		Save
+        // 	</Button>
+        // );
+        topButtons[index] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+          key: "topButton-" + index,
+          title: "Save",
+          handleMenuItemClick: this.props.onClickSave,
+          inputData: saveOptions,
+          width: 250,
+          margin: 5,
+          direction: "down",
+          tooltip: saveTooltip,
+          hasFixedTitle: true,
+          variant: "dark",
+          imgPath_tmp: null,
+          imgPath: null
+        });
+      }
+
+      index++;
+
+      if (!this.props.notModal) {
+        // topButtons.push(
+        // 	<Button
+        // 		key="button-load"
+        // 		style={smallButton}
+        // 		size="lg"
+        // 		onClick={this.onLoad}
+        // 	>
+        // 		Load
+        // 	</Button>
+        // );
+        topButtons[index] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+          key: "topButton-" + index,
+          title: "Load",
+          handleMenuItemClick: this.props.onClickSave,
+          inputData: loadOptions,
+          width: 250,
+          margin: 5,
+          direction: "down",
+          tooltip: loadTooltip,
+          hasFixedTitle: true,
+          variant: "dark",
+          imgPath_tmp: null,
+          imgPath: null
+        });
       }
 
       var containerFormNames = [];
@@ -1169,7 +1300,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       var form = /*#__PURE__*/_react.default.createElement("div", {
         style: containerStyle
-      }, /*#__PURE__*/_react.default.createElement("h3", null, this.props.title), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs // tabPosition={"top"}
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        style: headerContainerStyle
+      }, /*#__PURE__*/_react.default.createElement("h3", null, this.props.title), /*#__PURE__*/_react.default.createElement("div", {
+        style: topButtonContainer
+      }, topButtons)), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs // tabPosition={"top"}
       // tabBarStyle={{
       // 	border: "none",
       // }}

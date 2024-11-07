@@ -313,6 +313,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         editing: false
       });
+      console.log('Cancel called from: settingsComponentSelector');
     }
   }, {
     key: "onAddConfirm",

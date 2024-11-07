@@ -332,6 +332,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
         editing: false,
         addingMultiplePlanesSetup: null
       });
+      console.log('Cancel called from: planeView');
     }
   }, {
     key: "onSelectElement",

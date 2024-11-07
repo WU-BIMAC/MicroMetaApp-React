@@ -6,12 +6,14 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // import ScrollableTabBar from "rc-tabs/lib/";
 //import "rc-tabs/assets/index.css"
 import Button from "react-bootstrap/Button";
+import DropdownMenu from "./dropdownMenu";
 
 import ModalWindow from "./modalWindow";
 
 import { isDefined } from "../genericUtilities";
 
 import {
+	load_component_tooltip,
 	string_na,
 	string_not_assigned,
 	string_default,
@@ -1466,6 +1468,15 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		// if (this.props.schema !== null) {
 		// 	title = this.props.schema.title;
 		// }
+		let saveTooltip = save_component_tooltip;
+		let loadTooltip = load_component_tooltip;
+		let saveOptions = [];
+		saveOptions.push("Save component");
+		saveOptions.push("Save as new component");
+
+		let loadOptions = [];
+		loadOptions.push("Import from file");
+		loadOptions.push("Load from the local home folder");
 
 		let buttons = [];
 		let topButtons = [];
@@ -1500,29 +1511,63 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			);
 		}
 
+		let index = 0;
 		if (!this.props.notModal) {
-			topButtons.push(
-				<Button
-					key="button-save"
-					style={smallButton}
-					size="lg"
-					onClick={this.onSave}
-				>
-					Save
-				</Button>
+			// topButtons.push(
+			// 	<Button
+			// 		key="button-save"
+			// 		style={smallButton}
+			// 		size="lg"
+			// 		onClick={this.onSave}
+			// 	>
+			// 		Save
+			// 	</Button>
+			// );
+
+			topButtons[index] = (
+				<DropdownMenu
+					key={"topButton-" + index}
+					title={"Save"}
+					handleMenuItemClick={this.props.onClickSave}
+					inputData={saveOptions}
+					width={250}
+					margin={5}
+					direction={"down"}
+					tooltip={saveTooltip}
+					hasFixedTitle={true}
+					variant="dark"
+					imgPath_tmp={null}
+					imgPath={null}
+				/>
 			);
 		}
-
+		index++;
 		if (!this.props.notModal) {
-			topButtons.push(
-				<Button
-					key="button-load"
-					style={smallButton}
-					size="lg"
-					onClick={this.onLoad}
-				>
-					Load
-				</Button>
+			// topButtons.push(
+			// 	<Button
+			// 		key="button-load"
+			// 		style={smallButton}
+			// 		size="lg"
+			// 		onClick={this.onLoad}
+			// 	>
+			// 		Load
+			// 	</Button>
+			// );
+			topButtons[index] = (
+				<DropdownMenu
+					key={"topButton-" + index}
+					title={"Load"}
+					handleMenuItemClick={this.props.onClickSave}
+					inputData={loadOptions}
+					width={250}
+					margin={5}
+					direction={"down"}
+					tooltip={loadTooltip}
+					hasFixedTitle={true}
+					variant="dark"
+					imgPath_tmp={null}
+					imgPath={null}
+				/>
 			);
 		}
 

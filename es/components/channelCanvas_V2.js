@@ -493,6 +493,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           editingSettings: false
         });
       }
+
+      console.log('Cancel called from: settingsMainViews');
     }
   }, {
     key: "onEditElement",
