@@ -206,6 +206,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.handleExportSetting = this.handleExportSetting.bind(this);
 		this.handleExportMicroscopeImage =
 			this.handleExportMicroscopeImage.bind(this);
+
+		this.handleSaveComponent = this.handleSaveComponent.bind(this);
+
 		this.handleSaveMicroscope = this.handleSaveMicroscope.bind(this);
 		this.handleSaveSetting = this.handleSaveSetting.bind(this);
 
@@ -2883,6 +2886,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		document.body.removeChild(a);
 	}
 
+	handleSaveComponent(item) {
+		let lowerCaseItem = item.toLowerCase();
+		console.log(lowerCaseItem);
+		console.log("inside app.js in the handleSaveComponent function");
+		this.props.onSaveMicroscope(microscope, this.handleCompleteSave);
+	}
+
 	handleSaveMicroscope(item) {
 		let validated = true;
 		if (!this.state.isMicroscopeValidated) {
@@ -2901,6 +2911,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		Object.keys(elementData).forEach((item, index) => {
 			components[index] = elementData[item];
 		});
+
 		let comps = { components };
 
 		let microscope = Object.assign({}, this.state.microscope, comps);
@@ -2917,6 +2928,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			// }
 		}
 
+		// Console log only the "components" section of the microscope JSON
+		console.log("Microscope components:", microscope.components);
+		
 		this.setState({ microscope: microscope });
 
 		if (this.props.isDebug) {
@@ -3772,6 +3786,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						forwardedRef={this.overlaysContainerRef}
 					>
 						<Header
+							onClickSave={this.handleSaveComponent}
 							dimensions={headerFooterDims}
 							imagesPathPNG={imagesPathPNG}
 							imagesPathSVG={imagesPathSVG}

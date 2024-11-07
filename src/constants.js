@@ -752,12 +752,25 @@ export const save_component_tooltip = {
 	content: (
 		<p>
 			Save the JSON file for this Component to the active Micro-Meta App
-			pository or to the local home folder. You have one of two options: 1) 've'
-			allows to save the Component JSON file in its current status. 2) 've as
+			pository or to the local home folder. You have one of two options: 1) 'Save'
+			allows to save the Component JSON file in its current status. 2) 'Save as
 			new' allows to save the Component JSON file with a new Unique ID.
 		</p>
 	),
-	position: "top",
+	position: "bottom",
+};
+
+export const load_component_tooltip = {
+	title: "Save component",
+	content: (
+		<p>
+			Load the JSON file for this Component from the active Micro-Meta App
+			repository or to the local home folder. You have one of two options: 1) 'Import from file'
+			allows to load the Component JSON file from your own file system. 2) 'Load from the local home folder' 
+			allows to load the Component JSON file from the Micro-Meta App.
+		</p>
+	),
+	position: "bottom",
 };
 
 export const export_component_tooltip = {
