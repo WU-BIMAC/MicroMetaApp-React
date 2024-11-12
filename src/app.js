@@ -2890,7 +2890,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		if (this.props.isDebug) {
 			console.log("inside app.js in the handleSaveComponent function");
 		}
-		//this.props.onSaveComponent();
+		this.props.onSaveComponent();
 	}
 
 	handleSaveMicroscope(item) {
