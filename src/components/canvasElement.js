@@ -22,6 +22,8 @@ export default class CanvasElement extends React.PureComponent {
 
 		this.handleConfirm = this.handleConfirm.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
+		this.handleSave = this.handleSave.bind(this);
+		this.handleLoad = this.handleLoad.bind(this);
 
 		this.handleResize = this.handleResize.bind(this);
 
@@ -37,13 +39,15 @@ export default class CanvasElement extends React.PureComponent {
 			this.props.setEditingOnCanvas(true);
 			let editForm = (
 				<MultiTabFormWithHeaderV3
-					onClickSaveC={this.props.onClickSaveC}
+					onClickSave={this.props.onClickSave}
 					title={"Edit " + this.props.formTitle}
 					schema={this.props.schema}
 					inputData={this.props.inputData}
 					id={this.props.id}
 					onConfirm={this.handleConfirm}
 					onCancel={this.handleCancel}
+					onSave={this.handleSave}
+					onLoad={this.handleLoad}
 					overlaysContainer={this.props.overlaysContainer}
 					currentChildrenComponentIdentifier={
 						this.props.currentChildrenComponentIdentifier
@@ -73,6 +77,18 @@ export default class CanvasElement extends React.PureComponent {
 		if(this.props.isDebug) console.log("inside of function handleCancel in canvasElement.js");
 		this.props.setEditingOnCanvas(false);
 		this.setState({ editing: false, editForm: null });
+	}
+
+	handleSave() {
+		if(this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
+		this.props.setEditingOnCanvas(false);
+		this.setState({ editing: false, editForm: null });  //might have to change this line to be similar to the "handleConfirm" logic
+	}
+
+	handleLoad() {
+		if(this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
+		this.props.setEditingOnCanvas(false);
+		this.setState({ editing: false, editForm: null });  //might have to change this line 
 	}
 
 	handleResize(e, data) {

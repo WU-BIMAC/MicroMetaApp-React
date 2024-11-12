@@ -1270,7 +1270,7 @@ export default class Canvas extends React.PureComponent {
 								</div>
 								<div style={styleElementNameContainer}>
 									<CanvasElement
-										onClickSaveC={this.props.onClickSaveC}
+										onClickSave={this.props.onClickSave}
 										activeTier={this.props.activeTier}
 										id={item.ID}
 										rotate={item.rotate}

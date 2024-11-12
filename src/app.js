@@ -2886,12 +2886,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		document.body.removeChild(a);
 	}
 
-	handleSaveComponent(item) {
-		let lowerCaseItem = item.toLowerCase();
+	handleSaveComponent() {
 		if (this.props.isDebug) {
-			console.log(lowerCaseItem);
 			console.log("inside app.js in the handleSaveComponent function");
 		}
+		//this.props.onSaveComponent();
 	}
 
 	handleSaveMicroscope(item) {
@@ -3749,7 +3748,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						/>
 						<div style={canvasContainerStyle}>
 							<Canvas
-								onClickSaveC={this.handleSaveComponent}
 								microscope={microscope}
 								stand={microscope.MicroscopeStand}
 								activeTier={this.state.activeTier}
@@ -3819,6 +3817,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						/>
 						<div style={canvasContainerStyle}>
 							<Canvas
+								onClickSave={this.handleSaveComponent}
 								microscope={microscope}
 								stand={microscope.MicroscopeStand}
 								activeTier={this.state.activeTier}

@@ -140,6 +140,10 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.data = {};
 		this.errors = {};
 
+		this.onClickSave = this.onClickSave.bind(this);
+		this.onSave = this.onSave.bind(this);
+		this.onLoad = this.onLoad.bind(this);
+
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onError = this.onError.bind(this);
 		this.onContainerTabChange = this.onContainerTabChange.bind(this);
@@ -147,7 +151,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		this.onConfirm = this.onConfirm.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-		this.onSave = this.onSave.bind(this);
 		this.onLoad = this.onLoad.bind(this);
 
 		this.createForm = this.createForm.bind(this);
@@ -173,6 +176,11 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			Object.keys(this.state.partialInputData).length === 0
 		)
 			this.initializeForms();
+	}
+
+	onClickSave() {
+		if (this.props.isDebug) console.log("INSIDE MULTITABFORMWITHHEADERV3.JS IN ONCLICKSAVE FUNCTION");
+		this.props.onClickSave();
 	}
 
 	initializeForms() {
@@ -752,16 +760,14 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.props.onCancel();
 	}
 
-	onSave() {
-		// this.props.onSave();
-		this.props.onCancel();
-		console.log("called onSave function");
+	onLoad() {
+		this.props.onLoad();
+		console.log("called onLoad function in multiTabFormWithHeaderV3");
 	}
 
-	onLoad() {
-		// this.props.onLoad();
-		this.props.onCancel();
-		console.log("called onLoad function");
+	onSave() {
+		this.props.onSave();
+		console.log("called onSave function in multiTabFormWithHeaderV3");
 	}
 
 	transformOutputData(data) {
@@ -1468,15 +1474,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		// if (this.props.schema !== null) {
 		// 	title = this.props.schema.title;
 		// }
-		let saveTooltip = save_component_tooltip;
-		let loadTooltip = load_component_tooltip;
-		let saveOptions = [];
-		saveOptions.push("Save component");
-		saveOptions.push("Save as new component");
-
-		let loadOptions = [];
-		loadOptions.push("Import from file");
-		loadOptions.push("Load from the local home folder");
 
 		let buttons = [];
 		let topButtons = [];
