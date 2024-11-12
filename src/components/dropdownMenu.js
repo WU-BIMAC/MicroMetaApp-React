@@ -15,8 +15,10 @@ export default class DropdownMenu extends React.PureComponent {
 			}`,
 			showTooltip: true,
 		};
+		if (this.props.isDebug) console.log('Input Data:', props.inputData);
 
 		this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
+		this.handleMenuItemClickC = this.handleMenuItemClickC.bind(this);
 		this.handleToggleClick = this.handleToggleClick.bind(this);
 	}
 
@@ -43,10 +45,15 @@ export default class DropdownMenu extends React.PureComponent {
 	}
 
 	handleMenuItemClick(e) {
+		if (this.props.isDebug) console.log("INSIDE DROPDOWNMENU.JS IN HANDLEMENUITEMCLICK FUNCTION");
 		let item = e.target.id;
 		let currentTitle = `${this.state.title} ${item}`;
 		this.props.handleMenuItemClick(item);
 		this.setState({ currentTitle: currentTitle });
+	}
+
+	handleMenuItemClickC(e) {
+		if (this.props.isDebug) console.log("INSIDE DROPDOWNMENU.JS IN HANDLEMENUITEMCLICKC FUNCTION");
 	}
 
 	render() {

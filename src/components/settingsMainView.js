@@ -467,6 +467,7 @@ export default class SettingMainView extends React.PureComponent {
 					</div>
 				);
 			} else {
+				if (this.props.isDebug) console.log("inside of settingsMainView.js");
 				return (
 					<div style={containerStyle}>
 						<div style={styleMainContainer}>

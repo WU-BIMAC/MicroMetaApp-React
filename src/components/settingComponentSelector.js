@@ -710,6 +710,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 			//let settingsName = selectedSchema.modelSettings + string_json_ext;
 			//let settings = settingsSchemas[settingsName];
 			let settings = this.props.schema;
+			if (this.props.isDebug) console.log("inside of settingsMainView.js1");
 			return (
 				<MultiTabFormWithHeaderV3
 					schema={settings}
@@ -965,7 +966,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 			Object.assign(modalGridPanel, { height: "60%" });
 			//}
-
+			if (this.props.isDebug) console.log("inside of settingsComponentSelector.js2");
 			let multiTabPanel = null;
 			if (selectedComp !== null && selectedComp !== undefined)
 				multiTabPanel = (

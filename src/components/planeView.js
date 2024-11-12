@@ -360,6 +360,7 @@ export default class PlaneView extends React.PureComponent {
 
 		let index = this.state.selectedIndex;
 		let planes = this.state.planes;
+		if (this.props.isDebug) console.log("inside of planeView.js1");
 		if (this.state.addingMultiplePlanes) {
 			return (
 				<MultiTabFormWithHeaderV3
@@ -380,6 +381,7 @@ export default class PlaneView extends React.PureComponent {
 		} else if (this.state.addingMultiplePlanes2) {
 			let schema = this.props.schema;
 			//let obj = planes[index];
+			if (this.props.isDebug) console.log("inside of planeView.js2");
 			return (
 				<MultiTabFormWithHeaderV3
 					schema={schema}
@@ -407,6 +409,7 @@ export default class PlaneView extends React.PureComponent {
 		} else if (this.state.editing) {
 			let schema = this.props.schema;
 			let obj = planes[index];
+			if (this.props.isDebug) console.log("inside of planeView.js3");
 			return (
 				<MultiTabFormWithHeaderV3
 					schema={schema}

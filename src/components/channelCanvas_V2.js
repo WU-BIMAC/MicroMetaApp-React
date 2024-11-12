@@ -1077,6 +1077,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		}
 
 		if (this.state.editing) {
+			console.log("INSIDE CHANNELCANVAS_V2 1");
 			if (this.state.editingSettings) {
 				let settingsName = selectedSchema.modelSettings + string_json_ext;
 				let settings = null;

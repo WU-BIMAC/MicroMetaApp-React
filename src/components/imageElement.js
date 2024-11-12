@@ -45,8 +45,8 @@ export default class ImageElement extends React.PureComponent {
 		let rotate = this.props.rotate;
 		let rotateImageStyle = null;
 		if (rotate !== null && rotate !== undefined) {
-			console.log("rotate");
-			console.log(rotate);
+			// console.log("rotate");
+			// console.log(rotate);
 			rotateImageStyle = Object.assign(
 				{ transform: `rotate(${rotate}deg)` },
 				imageStyle

@@ -2810,7 +2810,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	updateElementData(elementData, areComponentsValidated) {
-		console.log("updateElementData");
+		if (this.props.isDebug) console.log("updateElementData");
 		//console.log(elementData)
 		this.setState({
 			elementData: elementData,
@@ -2888,9 +2888,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	handleSaveComponent(item) {
 		let lowerCaseItem = item.toLowerCase();
-		console.log(lowerCaseItem);
-		console.log("inside app.js in the handleSaveComponent function");
-		this.props.onSaveMicroscope(microscope, this.handleCompleteSave);
+		if (this.props.isDebug) {
+			console.log(lowerCaseItem);
+			console.log("inside app.js in the handleSaveComponent function");
+		}
 	}
 
 	handleSaveMicroscope(item) {
@@ -2929,7 +2930,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 
 		// Console log only the "components" section of the microscope JSON
-		console.log("Microscope components:", microscope.components);
+		if (this.props.isDebug) console.log("Microscope components:", microscope.components);
 		
 		this.setState({ microscope: microscope });
 
@@ -2975,8 +2976,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		this.setState({ setting: setting });
 
-		// console.log("setting");
-		// console.log(setting);
+		if (this.props.isDebug) {
+			console.log("setting");
+			console.log(setting);
+		}
 
 		if (lowerCaseItem.includes("save")) {
 			this.props.onSaveSetting(setting, this.handleCompleteSave);
@@ -3614,8 +3617,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			comps[localSchema.ID] = localSchema;
 		}
 
-		// console.log("elementData");
-		// console.log(elementData);
+		if (this.props.isDebug) {
+			console.log("elementData");
+			console.log(elementData);
+		}
 		// console.log("componentsSchema");
 		// console.log(componentsSchema);
 		let elementByType = {};
@@ -3645,6 +3650,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		});
 
 		if (!this.state.isCreatingNewMicroscope) {
+			if (this.props.isDebug) console.log("IN APP.JS REACT 0");
 			let footerSettingsSchemas = [imageSchema, pixelsSchema];
 			let footerSettingsInput = [setting, setting.Pixels];
 			//{overlayImporter}
@@ -3721,6 +3727,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			);
 		} else {
 			if (this.state.isViewOnly) {
+				if (this.props.isDebug) console.log("IN APP.JS REACT 1");
 				canvasDims.height =
 					canvasHeight + headerFooterHeight + headerFooterMargin;
 				canvasContainerStyle.height =
@@ -3742,6 +3749,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						/>
 						<div style={canvasContainerStyle}>
 							<Canvas
+								onClickSaveC={this.handleSaveComponent}
 								microscope={microscope}
 								stand={microscope.MicroscopeStand}
 								activeTier={this.state.activeTier}
@@ -3775,6 +3783,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					</MicroMetaAppReactContainer>
 				);
 			} else {
+				if (this.props.isDebug) console.log("IN APP.JS REACT 2");
 				//{overlayImporter}
 				let isPasteEnabled = isDefined(this.state.tmpCopyElementFromData)
 					? true
@@ -3786,7 +3795,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						forwardedRef={this.overlaysContainerRef}
 					>
 						<Header
-							onClickSave={this.handleSaveComponent}
 							dimensions={headerFooterDims}
 							imagesPathPNG={imagesPathPNG}
 							imagesPathSVG={imagesPathSVG}

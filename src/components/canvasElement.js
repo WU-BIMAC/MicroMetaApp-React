@@ -31,10 +31,13 @@ export default class CanvasElement extends React.PureComponent {
 	}
 
 	handleClick() {
+		if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick");
 		if (!this.props.isViewOnly) {
+			if (this.props.isDebug) console.log("INSIDE CANVASELEMENT 1");
 			this.props.setEditingOnCanvas(true);
 			let editForm = (
 				<MultiTabFormWithHeaderV3
+					onClickSaveC={this.props.onClickSaveC}
 					title={"Edit " + this.props.formTitle}
 					schema={this.props.schema}
 					inputData={this.props.inputData}
@@ -67,6 +70,7 @@ export default class CanvasElement extends React.PureComponent {
 	}
 
 	handleCancel() {
+		if(this.props.isDebug) console.log("inside of function handleCancel in canvasElement.js");
 		this.props.setEditingOnCanvas(false);
 		this.setState({ editing: false, editForm: null });
 	}

@@ -37,6 +37,7 @@ export default class Header extends React.PureComponent {
 		};
 
 		this.onClickEdit = this.onClickEdit.bind(this);
+
 		this.onFormConfirm = this.onFormConfirm.bind(this);
 		this.onFormCancel = this.onFormCancel.bind(this);
 		this.onFormSave = this.onFormSave.bind(this);
@@ -64,6 +65,9 @@ export default class Header extends React.PureComponent {
 	}
 
 	onClickEdit() {
+		if (this.props.isDebug) {
+			console.log("inside of header.js in function onClickEdit");
+		}
 		let editForm = (
 			<MultiTabFormWithHeaderV3
 				title={"Edit " + this.props.formTitle}

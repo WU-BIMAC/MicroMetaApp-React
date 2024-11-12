@@ -109,10 +109,11 @@ export default class Canvas extends React.PureComponent {
 		}
 		if (props.isDebug) console.log("canvas-getDerivedStateFromProps-2");
 		returnValue.previousProps = stringProps;
-		// console.log("props.inputData");
-		// console.log(props.inputData);
-		// console.log("state.elementData");
-		// console.log(state.elementData);
+		console.log("props.inputData");
+		console.log(props.inputData);
+		console.log("state.elementData");
+		console.log(state.elementData);
+	
 		if (isDefined(props.componentSchemas)) {
 			let componentsSchema = {};
 			Object.keys(props.componentSchemas).forEach((schemaIndex) => {
@@ -130,10 +131,10 @@ export default class Canvas extends React.PureComponent {
 					let schema_id = element.schema_ID;
 					let schema = componentsSchema[schema_id];
 					let object = element.obj;
-					// 	console.log("schema");
-					// console.log(schema);
-					// console.log("object");
-					// console.log(object);
+					console.log("schema");
+					console.log(schema);
+					console.log("object");
+					console.log(object);
 					let validation = validate(object, schema);
 					let validated = validation.valid;
 					element.validated = validated;
@@ -1231,6 +1232,7 @@ export default class Canvas extends React.PureComponent {
 					});
 					validated = <div style={styleNotValidated}>&#9679;</div>;
 				}
+				console.log("INSIDE OF CANVAS");
 				droppableElement.push(
 					<div
 						style={stylesContainer[item.ID]}
@@ -1268,6 +1270,7 @@ export default class Canvas extends React.PureComponent {
 								</div>
 								<div style={styleElementNameContainer}>
 									<CanvasElement
+										onClickSaveC={this.props.onClickSaveC}
 										activeTier={this.props.activeTier}
 										id={item.ID}
 										rotate={item.rotate}

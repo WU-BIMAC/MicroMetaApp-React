@@ -1190,7 +1190,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           style: button,
           size: "lg",
           onClick: this.onCancel
-        }, "Cancel"));
+        }, "Cancelling"));
       }
 
       var index = 0;

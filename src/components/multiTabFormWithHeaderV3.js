@@ -651,8 +651,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			}
 		}
 
-		// console.log("consolidatedData");
-		// console.log(consolidatedData);
+		console.log("consolidatedData");
+		console.log(consolidatedData);
 
 		if (this.props.isDebug)
 			console.log("multi tab form processData - return consolidated data");
@@ -1506,68 +1506,36 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					size="lg"
 					onClick={this.onCancel}
 				>
-					Cancelling
+					Cancel
 				</Button>
 			);
 		}
 
 		let index = 0;
 		if (!this.props.notModal) {
-			// topButtons.push(
-			// 	<Button
-			// 		key="button-save"
-			// 		style={smallButton}
-			// 		size="lg"
-			// 		onClick={this.onSave}
-			// 	>
-			// 		Save
-			// 	</Button>
-			// );
-
-			topButtons[index] = (
-				<DropdownMenu
-					key={"topButton-" + index}
-					title={"Save"}
-					handleMenuItemClick={this.props.onClickSave}
-					inputData={saveOptions}
-					width={250}
-					margin={5}
-					direction={"down"}
-					tooltip={saveTooltip}
-					hasFixedTitle={true}
-					variant="dark"
-					imgPath_tmp={null}
-					imgPath={null}
-				/>
+			topButtons.push(
+				<Button
+					key="button-save"
+					style={smallButton}
+					size="lg"
+					onClick={this.onSave}
+				>
+					Save
+				</Button>
 			);
+
 		}
 		index++;
 		if (!this.props.notModal) {
-			// topButtons.push(
-			// 	<Button
-			// 		key="button-load"
-			// 		style={smallButton}
-			// 		size="lg"
-			// 		onClick={this.onLoad}
-			// 	>
-			// 		Load
-			// 	</Button>
-			// );
-			topButtons[index] = (
-				<DropdownMenu
-					key={"topButton-" + index}
-					title={"Load"}
-					handleMenuItemClick={this.props.onClickSave}
-					inputData={loadOptions}
-					width={250}
-					margin={5}
-					direction={"down"}
-					tooltip={loadTooltip}
-					hasFixedTitle={true}
-					variant="dark"
-					imgPath_tmp={null}
-					imgPath={null}
-				/>
+			topButtons.push(
+				<Button
+					key="button-load"
+					style={smallButton}
+					size="lg"
+					onClick={this.onLoad}
+				>
+					Load
+				</Button>
 			);
 		}
 
