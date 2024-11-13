@@ -152,13 +152,15 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     _this.formRefs = {};
     _this.data = {};
     _this.errors = {};
+    _this.onClickSave = _this.onClickSave.bind(_assertThisInitialized(_this));
+    _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
+    _this.onLoad = _this.onLoad.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.onError = _this.onError.bind(_assertThisInitialized(_this));
     _this.onContainerTabChange = _this.onContainerTabChange.bind(_assertThisInitialized(_this));
     _this.onTabChange = _this.onTabChange.bind(_assertThisInitialized(_this));
     _this.onConfirm = _this.onConfirm.bind(_assertThisInitialized(_this));
     _this.onCancel = _this.onCancel.bind(_assertThisInitialized(_this));
-    _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
     _this.onLoad = _this.onLoad.bind(_assertThisInitialized(_this));
     _this.createForm = _this.createForm.bind(_assertThisInitialized(_this));
     _this.createForms = _this.createForms.bind(_assertThisInitialized(_this));
@@ -176,6 +178,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }
 
   _createClass(MultiTabFormWithHeaderV3, [{
+    key: "onClickSave",
+    value: function onClickSave() {
+      if (this.props.isDebug) console.log("INSIDE MULTITABFORMWITHHEADERV3.JS IN ONCLICKSAVE FUNCTION");
+      this.props.onClickSave();
+    }
+  }, {
     key: "initializeForms",
     value: function initializeForms() {
       //console.log("INITIALIZE FORMS");
@@ -603,10 +611,10 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         } else {
           consolidatedData[_schemaTitle] = _localSubComponents[0];
         }
-      } // console.log("consolidatedData");
-      // console.log(consolidatedData);
+      }
 
-
+      console.log("consolidatedData");
+      console.log(consolidatedData);
       if (this.props.isDebug) console.log("multi tab form processData - return consolidated data");
       var linkedFields = Object.assign({}, this.state.linkedFields);
       this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
@@ -724,18 +732,16 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       this.props.onCancel();
     }
   }, {
-    key: "onSave",
-    value: function onSave() {
-      // this.props.onSave();
-      this.props.onCancel();
-      console.log("called onSave function");
-    }
-  }, {
     key: "onLoad",
     value: function onLoad() {
-      // this.props.onLoad();
-      this.props.onCancel();
-      console.log("called onLoad function");
+      this.props.onLoad();
+      console.log("called onLoad function in multiTabFormWithHeaderV3");
+    }
+  }, {
+    key: "onSave",
+    value: function onSave() {
+      this.props.onSave();
+      console.log("called onSave function in multiTabFormWithHeaderV3");
     }
   }, {
     key: "transformOutputData",
@@ -1162,14 +1168,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       // }
 
 
-      var saveTooltip = _constants.save_component_tooltip;
-      var loadTooltip = _constants.load_component_tooltip;
-      var saveOptions = [];
-      saveOptions.push("Save component");
-      saveOptions.push("Save as new component");
-      var loadOptions = [];
-      loadOptions.push("Import from file");
-      loadOptions.push("Load from the local home folder");
       var buttons = [];
       var topButtons = [];
 
@@ -1190,65 +1188,29 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           style: button,
           size: "lg",
           onClick: this.onCancel
-        }, "Cancelling"));
+        }, "Cancel"));
       }
 
       var index = 0;
 
       if (!this.props.notModal) {
-        // topButtons.push(
-        // 	<Button
-        // 		key="button-save"
-        // 		style={smallButton}
-        // 		size="lg"
-        // 		onClick={this.onSave}
-        // 	>
-        // 		Save
-        // 	</Button>
-        // );
-        topButtons[index] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
-          key: "topButton-" + index,
-          title: "Save",
-          handleMenuItemClick: this.props.onClickSave,
-          inputData: saveOptions,
-          width: 250,
-          margin: 5,
-          direction: "down",
-          tooltip: saveTooltip,
-          hasFixedTitle: true,
-          variant: "dark",
-          imgPath_tmp: null,
-          imgPath: null
-        });
+        topButtons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "button-save",
+          style: smallButton,
+          size: "lg",
+          onClick: this.onSave
+        }, "Save"));
       }
 
       index++;
 
       if (!this.props.notModal) {
-        // topButtons.push(
-        // 	<Button
-        // 		key="button-load"
-        // 		style={smallButton}
-        // 		size="lg"
-        // 		onClick={this.onLoad}
-        // 	>
-        // 		Load
-        // 	</Button>
-        // );
-        topButtons[index] = /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
-          key: "topButton-" + index,
-          title: "Load",
-          handleMenuItemClick: this.props.onClickSave,
-          inputData: loadOptions,
-          width: 250,
-          margin: 5,
-          direction: "down",
-          tooltip: loadTooltip,
-          hasFixedTitle: true,
-          variant: "dark",
-          imgPath_tmp: null,
-          imgPath: null
-        });
+        topButtons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "button-load",
+          style: smallButton,
+          size: "lg",
+          onClick: this.onLoad
+        }, "Load"));
       }
 
       var containerFormNames = [];

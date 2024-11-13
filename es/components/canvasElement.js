@@ -59,6 +59,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     _this.handleConfirm = _this.handleConfirm.bind(_assertThisInitialized(_this));
     _this.handleCancel = _this.handleCancel.bind(_assertThisInitialized(_this));
+    _this.handleSave = _this.handleSave.bind(_assertThisInitialized(_this));
+    _this.handleLoad = _this.handleLoad.bind(_assertThisInitialized(_this));
     _this.handleResize = _this.handleResize.bind(_assertThisInitialized(_this));
     _this.updateMinMaxDimensions = _this.updateMinMaxDimensions.bind(_assertThisInitialized(_this));
     _this.counter = 0;
@@ -68,16 +70,22 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
   _createClass(CanvasElement, [{
     key: "handleClick",
     value: function handleClick() {
+      if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick");
+
       if (!this.props.isViewOnly) {
+        if (this.props.isDebug) console.log("INSIDE CANVASELEMENT 1");
         this.props.setEditingOnCanvas(true);
 
         var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          onClickSave: this.props.onClickSave,
           title: "Edit " + this.props.formTitle,
           schema: this.props.schema,
           inputData: this.props.inputData,
           id: this.props.id,
           onConfirm: this.handleConfirm,
           onCancel: this.handleCancel,
+          onSave: this.handleSave,
+          onLoad: this.handleLoad,
           overlaysContainer: this.props.overlaysContainer,
           currentChildrenComponentIdentifier: this.props.currentChildrenComponentIdentifier,
           minChildrenComponentIdentifier: this.props.minChildrenComponentIdentifier,
@@ -106,11 +114,32 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleCancel",
     value: function handleCancel() {
+      if (this.props.isDebug) console.log("inside of function handleCancel in canvasElement.js");
       this.props.setEditingOnCanvas(false);
       this.setState({
         editing: false,
         editForm: null
       });
+    }
+  }, {
+    key: "handleSave",
+    value: function handleSave() {
+      if (this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
+      this.props.setEditingOnCanvas(false);
+      this.setState({
+        editing: false,
+        editForm: null
+      }); //might have to change this line to be similar to the "handleConfirm" logic
+    }
+  }, {
+    key: "handleLoad",
+    value: function handleLoad() {
+      if (this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
+      this.props.setEditingOnCanvas(false);
+      this.setState({
+        editing: false,
+        editForm: null
+      }); //might have to change this line 
     }
   }, {
     key: "handleResize",

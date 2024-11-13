@@ -986,6 +986,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (this.state.editing) {
+        console.log("INSIDE CHANNELCANVAS_V2 1");
+
         if (this.state.editingSettings) {
           var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
           var settings = null;

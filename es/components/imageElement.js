@@ -86,8 +86,8 @@ var ImageElement = /*#__PURE__*/function (_React$PureComponent) {
       var rotateImageStyle = null;
 
       if (rotate !== null && rotate !== undefined) {
-        console.log("rotate");
-        console.log(rotate);
+        // console.log("rotate");
+        // console.log(rotate);
         rotateImageStyle = Object.assign({
           transform: "rotate(".concat(rotate, "deg)")
         }, imageStyle);

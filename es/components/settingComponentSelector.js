@@ -728,6 +728,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
         //let settings = settingsSchemas[settingsName];
 
         var settings = this.props.schema;
+        if (this.props.isDebug) console.log("inside of settingsMainView.js1");
         return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
           schema: settings,
           inputData: settingsObj,
@@ -953,6 +954,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
           height: "60%"
         }); //}
 
+        if (this.props.isDebug) console.log("inside of settingsComponentSelector.js2");
         var multiTabPanel = null;
         if (selectedComp !== null && selectedComp !== undefined) multiTabPanel = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
           schema: selectedSchema,

@@ -99,6 +99,10 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onClickEdit",
     value: function onClickEdit() {
+      if (this.props.isDebug) {
+        console.log("inside of header.js in function onClickEdit");
+      }
+
       var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
         title: "Edit " + this.props.formTitle //schemas={this.props.componentSchemas}
         ,

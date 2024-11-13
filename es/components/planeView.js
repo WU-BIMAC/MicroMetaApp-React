@@ -392,6 +392,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
 
       var index = this.state.selectedIndex;
       var planes = this.state.planes;
+      if (this.props.isDebug) console.log("inside of planeView.js1");
 
       if (this.state.addingMultiplePlanes) {
         return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
@@ -413,6 +414,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       } else if (this.state.addingMultiplePlanes2) {
         var schema = this.props.schema; //let obj = planes[index];
 
+        if (this.props.isDebug) console.log("inside of planeView.js2");
         return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
           schema: schema,
           inputData: {
@@ -438,6 +440,7 @@ var PlaneView = /*#__PURE__*/function (_React$PureComponent) {
       } else if (this.state.editing) {
         var _schema = this.props.schema;
         var obj = planes[index];
+        if (this.props.isDebug) console.log("inside of planeView.js3");
         return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
           schema: _schema,
           inputData: obj,

@@ -54,6 +54,7 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
       currentTitle: "".concat(props.title, " ").concat(props.inputData[props.defaultValue || 0]),
       showTooltip: true
     };
+    if (_this.props.isDebug) console.log('Input Data:', props.inputData);
     _this.handleMenuItemClick = _this.handleMenuItemClick.bind(_assertThisInitialized(_this));
     _this.handleToggleClick = _this.handleToggleClick.bind(_assertThisInitialized(_this));
     return _this;
@@ -69,6 +70,7 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleMenuItemClick",
     value: function handleMenuItemClick(e) {
+      if (this.props.isDebug) console.log("INSIDE DROPDOWNMENU.JS IN HANDLEMENUITEMCLICK FUNCTION");
       var item = e.target.id;
       var currentTitle = "".concat(this.state.title, " ").concat(item);
       this.props.handleMenuItemClick(item);

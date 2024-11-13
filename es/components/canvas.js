@@ -1183,6 +1183,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             }, "\u25CF");
           }
 
+          console.log("INSIDE OF CANVAS");
           droppableElement.push( /*#__PURE__*/_react.default.createElement("div", {
             style: stylesContainer[item.ID],
             key: "draggableWrapper" + index,
@@ -1221,6 +1222,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           })), /*#__PURE__*/_react.default.createElement("div", {
             style: styleElementNameContainer
           }, /*#__PURE__*/_react.default.createElement(_canvasElement.default, {
+            onClickSave: _this3.props.onClickSave,
             activeTier: _this3.props.activeTier,
             id: item.ID,
             rotate: item.rotate,
@@ -1610,10 +1612,11 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (props.isDebug) console.log("canvas-getDerivedStateFromProps-2");
-      returnValue.previousProps = stringProps; // console.log("props.inputData");
-      // console.log(props.inputData);
-      // console.log("state.elementData");
-      // console.log(state.elementData);
+      returnValue.previousProps = stringProps;
+      console.log("props.inputData");
+      console.log(props.inputData);
+      console.log("state.elementData");
+      console.log(state.elementData);
 
       if ((0, _genericUtilities.isDefined)(props.componentSchemas)) {
         var componentsSchema = {};
@@ -1630,11 +1633,11 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             var element = elementList[i];
             var schema_id = element.schema_ID;
             var schema = componentsSchema[schema_id];
-            var object = element.obj; // 	console.log("schema");
-            // console.log(schema);
-            // console.log("object");
-            // console.log(object);
-
+            var object = element.obj;
+            console.log("schema");
+            console.log(schema);
+            console.log("object");
+            console.log(object);
             var validation = validate(object, schema);
             var validated = validation.valid;
             element.validated = validated;

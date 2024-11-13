@@ -2049,7 +2049,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "updateElementData",
     value: function updateElementData(elementData, areComponentsValidated) {
-      console.log("updateElementData"); //console.log(elementData)
+      if (this.props.isDebug) console.log("updateElementData"); //console.log(elementData)
 
       this.setState({
         elementData: elementData,
@@ -2126,11 +2126,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleSaveComponent",
-    value: function handleSaveComponent(item) {
-      var lowerCaseItem = item.toLowerCase();
-      console.log(lowerCaseItem);
-      console.log("inside app.js in the handleSaveComponent function");
-      this.props.onSaveMicroscope(microscope, this.handleCompleteSave);
+    value: function handleSaveComponent() {
+      if (this.props.isDebug) {
+        console.log("inside app.js in the handleSaveComponent function");
+      }
+
+      this.props.onSaveComponent();
     }
   }, {
     key: "handleSaveMicroscope",
@@ -2171,7 +2172,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       } // Console log only the "components" section of the microscope JSON
 
 
-      console.log("Microscope components:", microscope.components);
+      if (this.props.isDebug) console.log("Microscope components:", microscope.components);
       this.setState({
         microscope: microscope
       });
@@ -2227,8 +2228,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       this.setState({
         setting: setting
-      }); // console.log("setting");
-      // console.log(setting);
+      });
+
+      if (this.props.isDebug) {
+        console.log("setting");
+        console.log(setting);
+      }
 
       if (lowerCaseItem.includes("save")) {
         this.props.onSaveSetting(setting, this.handleCompleteSave);
@@ -2797,9 +2802,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       for (var _i2 in componentsSchema) {
         var _localSchema = componentsSchema[_i2];
         comps[_localSchema.ID] = _localSchema;
-      } // console.log("elementData");
-      // console.log(elementData);
-      // console.log("componentsSchema");
+      }
+
+      if (this.props.isDebug) {
+        console.log("elementData");
+        console.log(elementData);
+      } // console.log("componentsSchema");
       // console.log(componentsSchema);
 
 
@@ -2827,6 +2835,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       });
 
       if (!this.state.isCreatingNewMicroscope) {
+        if (this.props.isDebug) console.log("IN APP.JS REACT 0");
         var footerSettingsSchemas = [imageSchema, pixelsSchema];
         var footerSettingsInput = [setting, setting.Pixels]; //{overlayImporter}
 
@@ -2895,6 +2904,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }));
       } else {
         if (this.state.isViewOnly) {
+          if (this.props.isDebug) console.log("IN APP.JS REACT 1");
           canvasDims.height = canvasHeight + headerFooterHeight + headerFooterMargin;
           canvasContainerStyle.height = canvasHeight + headerFooterHeight + headerFooterMargin;
           return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
@@ -2939,14 +2949,14 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             isDebug: this.props.isDebug
           })));
         } else {
-          //{overlayImporter}
+          if (this.props.isDebug) console.log("IN APP.JS REACT 2"); //{overlayImporter}
+
           var isPasteEnabled = (0, _genericUtilities.isDefined)(this.state.tmpCopyElementFromData) ? true : false;
           return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
             width: width,
             height: height,
             forwardedRef: this.overlaysContainerRef
           }, /*#__PURE__*/_react.default.createElement(_header.default, {
-            onClickSave: this.handleSaveComponent,
             dimensions: headerFooterDims,
             imagesPathPNG: imagesPathPNG,
             imagesPathSVG: imagesPathSVG,
@@ -2971,6 +2981,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           }), /*#__PURE__*/_react.default.createElement("div", {
             style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
+            onClickSave: this.handleSaveComponent,
             microscope: microscope,
             stand: microscope.MicroscopeStand,
             activeTier: this.state.activeTier,

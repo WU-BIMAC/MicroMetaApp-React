@@ -455,6 +455,7 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
             isDebug: this.props.isDebug
           })));
         } else {
+          if (this.props.isDebug) console.log("inside of settingsMainView.js");
           return /*#__PURE__*/_react.default.createElement("div", {
             style: containerStyle
           }, /*#__PURE__*/_react.default.createElement("div", {
