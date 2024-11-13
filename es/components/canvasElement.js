@@ -126,6 +126,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleSave() {
       if (this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
       this.props.setEditingOnCanvas(false);
+      this.props.onClickSave();
       this.setState({
         editing: false,
         editForm: null

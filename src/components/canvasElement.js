@@ -82,6 +82,7 @@ export default class CanvasElement extends React.PureComponent {
 	handleSave() {
 		if(this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
 		this.props.setEditingOnCanvas(false);
+		this.props.onClickSave();
 		this.setState({ editing: false, editForm: null });  //might have to change this line to be similar to the "handleConfirm" logic
 	}
 

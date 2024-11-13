@@ -2888,7 +2888,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	handleSaveComponent() {
 		if (this.props.isDebug) {
-			console.log("inside app.js in the handleSaveComponent function");
+			console.log("inside React app.js in the handleSaveComponent function");
 		}
 		this.props.onSaveComponent();
 	}
@@ -2930,6 +2930,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		// Console log only the "components" section of the microscope JSON
 		if (this.props.isDebug) console.log("Microscope components:", microscope.components);
+		if (this.props.isDebug) console.log("Microscope linkedFields:", microscope.linkedFields);
 		
 		this.setState({ microscope: microscope });
 

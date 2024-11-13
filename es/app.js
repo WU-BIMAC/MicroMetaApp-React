@@ -2128,7 +2128,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     key: "handleSaveComponent",
     value: function handleSaveComponent() {
       if (this.props.isDebug) {
-        console.log("inside app.js in the handleSaveComponent function");
+        console.log("inside React app.js in the handleSaveComponent function");
       }
 
       this.props.onSaveComponent();
@@ -2173,6 +2173,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
 
       if (this.props.isDebug) console.log("Microscope components:", microscope.components);
+      if (this.props.isDebug) console.log("Microscope linkedFields:", microscope.linkedFields);
       this.setState({
         microscope: microscope
       });
