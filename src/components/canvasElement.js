@@ -39,7 +39,7 @@ export default class CanvasElement extends React.PureComponent {
 			this.props.setEditingOnCanvas(true);
 			let editForm = (
 				<MultiTabFormWithHeaderV3
-					onClickSave={this.props.onClickSave}
+					// onClickSave={this.props.onClickSave}
 					title={"Edit " + this.props.formTitle}
 					schema={this.props.schema}
 					inputData={this.props.inputData}
@@ -79,11 +79,11 @@ export default class CanvasElement extends React.PureComponent {
 		this.setState({ editing: false, editForm: null });
 	}
 
-	handleSave() {
+	handleSave(consolidatedData) {
 		if(this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
 		this.props.setEditingOnCanvas(false);
-		this.props.onClickSave();
-		this.setState({ editing: false, editForm: null });  //might have to change this line to be similar to the "handleConfirm" logic
+		this.props.onClickSave(consolidatedData);
+		// this.setState({ editing: false, editForm: null });  //might have to change this line to be similar to the "handleConfirm" logic
 	}
 
 	handleLoad() {

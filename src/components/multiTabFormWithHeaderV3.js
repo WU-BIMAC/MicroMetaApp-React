@@ -140,7 +140,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.data = {};
 		this.errors = {};
 
-		this.onClickSave = this.onClickSave.bind(this);
+		// this.onClickSave = this.onClickSave.bind(this);
 		this.onSave = this.onSave.bind(this);
 		this.onLoad = this.onLoad.bind(this);
 
@@ -175,16 +175,16 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			props.schema !== undefined &&
 			Object.keys(this.state.partialInputData).length === 0
 		)
+		if (this.props.isDebug) console.log("calling INITIALIZE FORMS 1");
 			this.initializeForms();
 	}
 
-	onClickSave() {
-		if (this.props.isDebug) console.log("INSIDE MULTITABFORMWITHHEADERV3.JS IN ONCLICKSAVE FUNCTION");
-		this.props.onClickSave();
-	}
+	// onClickSave() {
+	// 	if (this.props.isDebug) console.log("INSIDE MULTITABFORMWITHHEADERV3.JS IN ONCLICKSAVE FUNCTION");
+	// }
 
 	initializeForms() {
-		//console.log("INITIALIZE FORMS");
+		if (this.props.isDebug) console.log("inside of INITIALIZE FORMS");
 		let counter = 0;
 		let linkedFields = this.state.linkedFields;
 		let currentChildrenComponents = this.state.currentChildrenComponents;
@@ -429,6 +429,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					});
 				}
 			}
+			if (this.props.isDebug) console.log("calling INITIALIZE FORMS 2");
 			this.initializeForms();
 			// this.setState({
 			// 	activeID: activeID,
@@ -564,6 +565,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	}
 
 	processData() {
+		if (this.props.isDebug) console.log("inside of processData function");
 		let partialInputData = this.state.partialInputData;
 		let localData = this.data;
 		let localForms = this.formRefs;
@@ -582,6 +584,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		for (let currentID in localForms) {
 			let forms = localForms[currentID];
 			let currentData = localData[currentID];
+			if (this.props.isDebug)
+				console.log("inside processData function and the currentData is", currentData);
 			let numberOfForms = forms.length;
 			if (
 				!isDefined(currentData) ||
@@ -659,13 +663,15 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			}
 		}
 
-		console.log("consolidatedData");
-		console.log(consolidatedData);
+		if (this.props.isDebug) console.log("consolidatedData ", consolidatedData);
 
 		if (this.props.isDebug)
 			console.log("multi tab form processData - return consolidated data");
 		let linkedFields = Object.assign({}, this.state.linkedFields);
 		this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
+
+		this.props.onSave(consolidatedData);
+		console.log("finished calling onSave function in multiTabFormWithHeaderV3");
 	}
 
 	processErrors() {
@@ -722,16 +728,19 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	}
 
 	onEditComponentsConfirm() {
+		if (this.props.isDebug) console.log("inside of onEditComponentsConfirm function after clicking on Confirm button");
 		this.initializeForms();
 		this.setState({ showForm: true });
 	}
 
 	onEditComponentsCancel() {
+		if (this.props.isDebug) console.log("calling INITIALIZE FORMS 3");
 		this.initializeForms();
 		this.setState({ showForm: true });
 	}
 
 	onConfirm() {
+		if (this.props.isDebug) console.log("inside of onConfirm function after clicking on Confirm button");
 		let localForms = this.formRefs;
 		let localButtons = this.buttonsRefs;
 		this.data = {};
@@ -743,6 +752,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			let buttons = localButtons[id];
 			for (let i = 0; i < forms.length; i++) {
 				let refForm = forms[i];
+				if (this.props.isDebug)
+					console.log("value stored in refForm at i = " + i, refForm);
 				let refButton = buttons[i];
 				if (this.props.isDebug)
 					console.log("multi tab form onConfirm - submit form " + i);
@@ -766,11 +777,35 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	}
 
 	onSave() {
-		this.props.onSave();
-		console.log("called onSave function in multiTabFormWithHeaderV3");
+		if (this.props.isDebug) console.log("inside of onSave function after clicking on Save button");
+		let localForms = this.formRefs;
+		let localButtons = this.buttonsRefs;
+		this.data = {};
+		this.errors = {};
+		if (this.props.isDebug)
+			console.log("multi tab form onSave - submit all forms");
+		for (let id in localForms) {
+			let forms = localForms[id];
+			let buttons = localButtons[id];
+			for (let i = 0; i < forms.length; i++) {
+				let refForm = forms[i];
+				if (this.props.isDebug)
+					console.log("value stored in refForm at i = " + i, refForm);
+				let refButton = buttons[i];
+				if (this.props.isDebug)
+					console.log("multi tab form onSave - submit form " + i);
+				//refForm.submit();
+				refForm.formElement.dispatchEvent(
+					new CustomEvent("submit", { bubbles: true, cancelable: true })
+				);
+				//refForm.validate();
+				//refButton.click();
+			}
+		}
 	}
 
 	transformOutputData(data) {
+		if (this.props.isDebug) console.log("component's data before transforming: ", data);
 		let consolidatedData = {};
 		data.map(function (item) {
 			if (item === null || item === undefined) return;
@@ -793,7 +828,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				}
 			});
 		});
+		if (this.props.isDebug) console.log("component's consolidatedData before returning: ", consolidatedData);
 		return consolidatedData;
+
 	}
 
 	static findInputPropKeyValue(groupKey, index, propKey, inputData) {

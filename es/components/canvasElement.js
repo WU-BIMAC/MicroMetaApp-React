@@ -76,8 +76,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
         if (this.props.isDebug) console.log("INSIDE CANVASELEMENT 1");
         this.props.setEditingOnCanvas(true);
 
-        var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
-          onClickSave: this.props.onClickSave,
+        var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default // onClickSave={this.props.onClickSave}
+        , {
           title: "Edit " + this.props.formTitle,
           schema: this.props.schema,
           inputData: this.props.inputData,
@@ -123,14 +123,10 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleSave",
-    value: function handleSave() {
+    value: function handleSave(consolidatedData) {
       if (this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
       this.props.setEditingOnCanvas(false);
-      this.props.onClickSave();
-      this.setState({
-        editing: false,
-        editForm: null
-      }); //might have to change this line to be similar to the "handleConfirm" logic
+      this.props.onClickSave(consolidatedData); // this.setState({ editing: false, editForm: null });  //might have to change this line to be similar to the "handleConfirm" logic
     }
   }, {
     key: "handleLoad",

@@ -91,6 +91,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
     _this = _super.call(this, props);
     _this.state = {
+      // component: {},
       microscope: props.microscope || null,
       setting: props.setting || null,
       originalMicroscope: Object.assign({}, props.microscope) || null,
@@ -2049,7 +2050,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "updateElementData",
     value: function updateElementData(elementData, areComponentsValidated) {
-      if (this.props.isDebug) console.log("updateElementData"); //console.log(elementData)
+      if (this.props.isDebug) console.log("inisde of function updateElementData in app.js"); //console.log(elementData)
 
       this.setState({
         elementData: elementData,
@@ -2059,6 +2060,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "updateLinkedFields",
     value: function updateLinkedFields(linkedFields) {
+      if (this.props.isDebug) console.log("inisde of function updateLinkedFields in app.js");
       this.setState({
         linkedFields: linkedFields
       });
@@ -2126,12 +2128,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleSaveComponent",
-    value: function handleSaveComponent() {
+    value: function handleSaveComponent(consolidatedData) {
       if (this.props.isDebug) {
         console.log("inside React app.js in the handleSaveComponent function");
-      }
+      } // const component = this.state.component;
 
-      this.props.onSaveComponent();
+
+      this.props.onSaveComponent(consolidatedData, this.handleCompleteSave);
     }
   }, {
     key: "handleSaveMicroscope",
@@ -2151,6 +2154,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var elementData = this.state.elementData;
+      if (this.props.isDebug) console.log("elementData from React app:", elementData);
       var components = [];
       Object.keys(elementData).forEach(function (item, index) {
         components[index] = elementData[item];
@@ -3412,6 +3416,9 @@ MicroMetaAppReact.defaultProps = {
     setTimeout(function () {
       complete(microscope.Name);
     }, 1000);
+  },
+  onSaveComponent: function onSaveComponent(consolidatedData, complete) {
+    console.log(consolidatedData);
   },
   onSaveSetting: function onSaveSetting(setting, complete) {
     // Do some stuff... show pane for people to browse/select schema.. etc.

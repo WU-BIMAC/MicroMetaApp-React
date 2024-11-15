@@ -57,6 +57,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
+			// component: {},
 			microscope: props.microscope || null,
 			setting: props.setting || null,
 			originalMicroscope: Object.assign({}, props.microscope) || null,
@@ -2810,7 +2811,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	updateElementData(elementData, areComponentsValidated) {
-		if (this.props.isDebug) console.log("updateElementData");
+		if (this.props.isDebug) console.log("inisde of function updateElementData in app.js");
 		//console.log(elementData)
 		this.setState({
 			elementData: elementData,
@@ -2819,6 +2820,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	updateLinkedFields(linkedFields) {
+		if (this.props.isDebug) console.log("inisde of function updateLinkedFields in app.js");
 		this.setState({
 			linkedFields: linkedFields,
 		});
@@ -2886,11 +2888,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		document.body.removeChild(a);
 	}
 
-	handleSaveComponent() {
+	handleSaveComponent(consolidatedData) {
 		if (this.props.isDebug) {
 			console.log("inside React app.js in the handleSaveComponent function");
 		}
-		this.props.onSaveComponent();
+
+		// const component = this.state.component;
+		this.props.onSaveComponent(consolidatedData, this.handleCompleteSave);
 	}
 
 	handleSaveMicroscope(item) {
@@ -2907,6 +2911,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 
 		let elementData = this.state.elementData;
+		if (this.props.isDebug) console.log("elementData from React app:", elementData);
 		let components = [];
 		Object.keys(elementData).forEach((item, index) => {
 			components[index] = elementData[item];
@@ -3972,6 +3977,9 @@ MicroMetaAppReact.defaultProps = {
 		setTimeout(function () {
 			complete(microscope.Name);
 		}, 1000);
+	},
+	onSaveComponent: function (consolidatedData, complete) {
+		console.log(consolidatedData);
 	},
 	onSaveSetting: function (setting, complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.

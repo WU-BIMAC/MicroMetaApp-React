@@ -278,6 +278,7 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	onCanvasElementDataSave(id, data, dataLinkedFields) {
+		if (this.props.isDebug) console.log("in the function onCanvasElementDataSave(id, data, dataLinkedFields) of canvas");
 		let linkedFields = this.state.linkedFields;
 		if (
 			dataLinkedFields !== undefined &&

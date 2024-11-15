@@ -191,6 +191,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onCanvasElementDataSave",
     value: function onCanvasElementDataSave(id, data, dataLinkedFields) {
+      if (this.props.isDebug) console.log("in the function onCanvasElementDataSave(id, data, dataLinkedFields) of canvas");
       var linkedFields = this.state.linkedFields;
 
       if (dataLinkedFields !== undefined && Object.keys(dataLinkedFields).length > 0) {
