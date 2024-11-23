@@ -386,7 +386,15 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
   }, {
     key: "onSubmit",
-    value: function onSubmit(data) {
+    value: function onSubmit(data, event) {
+      console.log('Event:', event); // console.log("status of Event is", event.status);
+
+      var isConfirm = event.nativeEvent.detail.isConfirm; // Use optional chaining and fallback to an empty object
+
+      if (isConfirm === false) {
+        console.log('isConfirm is false');
+      }
+
       var localForms = this.formRefs;
       var index = -1;
       var id = -1;
@@ -435,34 +443,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             linkedFieldsValues = _newValue;
           }
 
-          linkedFields[key].value = linkedFieldsValues; // console.log("linkedFields");
-          // console.log(linkedFields[key]);
-          // if (Array.isArray(values)) {
-          // 	let i = 0;
-          // 	console.log("values");
-          // 	console.log(values);
-          // 	for (let key in values) {
-          // 		let value = values[key];
-          // 		console.log("value");
-          // 		console.log(value);
-          // 		let index = value.indexOf("/");
-          // 		let newValue = value.substring(index + 1);
-          // 		if (
-          // 			linkedFields[key].value === null ||
-          // 			linkedFields[key].value === undefined
-          // 		)
-          // 			linkedFields[key].value = [];
-          // 		linkedFields[key][i] = newValue;
-          // 		i++;
-          // 	}
-          // } else {
-          // 	let value = values;
-          // 	console.log("value");
-          // 	console.log(value);
-          // 	let index = value.indexOf("/");
-          // 	let newValue = value.substring(index + 1);
-          // 	linkedFields[key][value] = newValue;
-          // }
+          linkedFields[key].value = linkedFieldsValues;
         }
       }
 
@@ -478,7 +459,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       currentErrors.splice(index, 0, null);
       this.data[id] = currentData;
       this.errors[id] = currentErrors;
-      this.processData();
+      this.processData(isConfirm);
     }
   }, {
     key: "onError",
@@ -515,7 +496,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "processData",
-    value: function processData() {
+    value: function processData(isConfirm) {
       var _this3 = this;
 
       if (this.props.isDebug) console.log("inside of processData function");
@@ -619,8 +600,17 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       if (this.props.isDebug) console.log("consolidatedData ", consolidatedData);
       if (this.props.isDebug) console.log("multi tab form processData - return consolidated data");
       var linkedFields = Object.assign({}, this.state.linkedFields);
-      this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
-      this.props.onSave(consolidatedData);
+
+      if (isConfirm) {
+        console.log("isConfirm function will get called");
+        this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
+      } else {
+        console.log("isSave function will get called");
+        this.props.onSave(consolidatedData);
+      } // this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
+      // this.props.onSave(consolidatedData);
+
+
       console.log("finished calling onSave function in multiTabFormWithHeaderV3");
     }
   }, {
@@ -726,9 +716,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           var refButton = buttons[i];
           if (this.props.isDebug) console.log("multi tab form onConfirm - submit form " + i); //refForm.submit();
 
+          refForm.isConfirm = true;
           refForm.formElement.dispatchEvent(new CustomEvent("submit", {
             bubbles: true,
-            cancelable: true
+            cancelable: true,
+            detail: {
+              isConfirm: true
+            }
           })); //refForm.validate();
           //refButton.click();
         }
@@ -767,7 +761,10 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
           refForm.formElement.dispatchEvent(new CustomEvent("submit", {
             bubbles: true,
-            cancelable: true
+            cancelable: true,
+            detail: {
+              isConfirm: false
+            }
           })); //refForm.validate();
           //refButton.click();
         }
@@ -856,6 +853,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createForm",
     value: function createForm(schema, uiSchema, input, index, currentFormRefs, currentButtonsRefs) {
+      console.log("Creating form with schema:", schema);
       return /*#__PURE__*/_react.default.createElement(_bootstrap.default, {
         schema: schema,
         uiSchema: uiSchema,

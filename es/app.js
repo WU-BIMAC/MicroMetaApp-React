@@ -3418,7 +3418,9 @@ MicroMetaAppReact.defaultProps = {
     }, 1000);
   },
   onSaveComponent: function onSaveComponent(consolidatedData, complete) {
-    console.log(consolidatedData);
+    console.log(consolidatedData); // setTimeout(function () {
+    // 	complete(consolidatedData.Name);
+    // }, 1000);
   },
   onSaveSetting: function onSaveSetting(setting, complete) {
     // Do some stuff... show pane for people to browse/select schema.. etc.

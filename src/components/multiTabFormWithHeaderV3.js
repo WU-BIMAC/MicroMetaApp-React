@@ -444,7 +444,14 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	// 	return { state };
 	// }
 
-	onSubmit(data) {
+	onSubmit(data, event) {
+		console.log('Event:', event);
+		// console.log("status of Event is", event.status);
+		const isConfirm = event.nativeEvent.detail.isConfirm;  // Use optional chaining and fallback to an empty object
+		if (isConfirm === false) {
+			console.log('isConfirm is false');
+		}
+
 		let localForms = this.formRefs;
 		let index = -1;
 		let id = -1;
@@ -485,34 +492,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					linkedFieldsValues = newValue;
 				}
 				linkedFields[key].value = linkedFieldsValues;
-				// console.log("linkedFields");
-				// console.log(linkedFields[key]);
-				// if (Array.isArray(values)) {
-				// 	let i = 0;
-				// 	console.log("values");
-				// 	console.log(values);
-				// 	for (let key in values) {
-				// 		let value = values[key];
-				// 		console.log("value");
-				// 		console.log(value);
-				// 		let index = value.indexOf("/");
-				// 		let newValue = value.substring(index + 1);
-				// 		if (
-				// 			linkedFields[key].value === null ||
-				// 			linkedFields[key].value === undefined
-				// 		)
-				// 			linkedFields[key].value = [];
-				// 		linkedFields[key][i] = newValue;
-				// 		i++;
-				// 	}
-				// } else {
-				// 	let value = values;
-				// 	console.log("value");
-				// 	console.log(value);
-				// 	let index = value.indexOf("/");
-				// 	let newValue = value.substring(index + 1);
-				// 	linkedFields[key][value] = newValue;
-				// }
+
 			}
 		}
 		this.setState({ linkedFields: linkedFields });
@@ -529,7 +509,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		currentErrors.splice(index, 0, null);
 		this.data[id] = currentData;
 		this.errors[id] = currentErrors;
-		this.processData();
+		this.processData(isConfirm);
 	}
 
 	onError(errors) {
@@ -564,7 +544,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.processErrors();
 	}
 
-	processData() {
+	processData(isConfirm) {
 		if (this.props.isDebug) console.log("inside of processData function");
 		let partialInputData = this.state.partialInputData;
 		let localData = this.data;
@@ -668,9 +648,20 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		if (this.props.isDebug)
 			console.log("multi tab form processData - return consolidated data");
 		let linkedFields = Object.assign({}, this.state.linkedFields);
-		this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
 
-		this.props.onSave(consolidatedData);
+		if (isConfirm) 
+		{
+			console.log("isConfirm function will get called");
+			this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
+		} else 
+		{
+			console.log("isSave function will get called");
+			this.props.onSave(consolidatedData);
+		}
+
+		// this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
+
+		// this.props.onSave(consolidatedData);
 		console.log("finished calling onSave function in multiTabFormWithHeaderV3");
 	}
 
@@ -758,9 +749,15 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				if (this.props.isDebug)
 					console.log("multi tab form onConfirm - submit form " + i);
 				//refForm.submit();
+
+				refForm.isConfirm = true;
+
 				refForm.formElement.dispatchEvent(
-					new CustomEvent("submit", { bubbles: true, cancelable: true })
+					new CustomEvent("submit", { bubbles: true, 
+												cancelable: true, 
+												detail: { isConfirm: true } })
 				);
+
 				//refForm.validate();
 				//refButton.click();
 			}
@@ -796,7 +793,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					console.log("multi tab form onSave - submit form " + i);
 				//refForm.submit();
 				refForm.formElement.dispatchEvent(
-					new CustomEvent("submit", { bubbles: true, cancelable: true })
+					new CustomEvent("submit", { bubbles: true, 
+												cancelable: true, 
+												detail: { isConfirm: false } })
 				);
 				//refForm.validate();
 				//refButton.click();
@@ -1152,6 +1151,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		currentFormRefs,
 		currentButtonsRefs
 	) {
+		console.log("Creating form with schema:", schema);
 		return (
 			<Form
 				schema={schema}
