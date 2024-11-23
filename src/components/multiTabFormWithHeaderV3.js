@@ -445,12 +445,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	// }
 
 	onSubmit(data, event) {
-		console.log('Event:', event);
-		// console.log("status of Event is", event.status);
-		const isConfirm = event.nativeEvent.detail.isConfirm;  // Use optional chaining and fallback to an empty object
-		if (isConfirm === false) {
-			console.log('isConfirm is false');
-		}
+		const isConfirm = event.nativeEvent.detail.isConfirm; 
 
 		let localForms = this.formRefs;
 		let index = -1;
@@ -651,18 +646,15 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		if (isConfirm) 
 		{
-			console.log("isConfirm function will get called");
+			if (this.props.isDebug) console.log("props.onConfirm function will get called");
 			this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
 		} else 
 		{
-			console.log("isSave function will get called");
-			this.props.onSave(consolidatedData);
+			if (this.props.isDebug) console.log("props.onSave function will get called");
+			if (this.props.isDebug) console.log("this is the id: ", this.props.id);
+			if (this.props.isDebug) console.log("this is the linkedFields: ", linkedFields);
+			this.props.onSave(this.props.id, consolidatedData, linkedFields);
 		}
-
-		// this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
-
-		// this.props.onSave(consolidatedData);
-		console.log("finished calling onSave function in multiTabFormWithHeaderV3");
 	}
 
 	processErrors() {
@@ -749,8 +741,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				if (this.props.isDebug)
 					console.log("multi tab form onConfirm - submit form " + i);
 				//refForm.submit();
-
-				refForm.isConfirm = true;
 
 				refForm.formElement.dispatchEvent(
 					new CustomEvent("submit", { bubbles: true, 

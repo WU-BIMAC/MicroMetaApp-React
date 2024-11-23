@@ -123,10 +123,10 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleSave",
-    value: function handleSave(consolidatedData) {
+    value: function handleSave(id, consolidatedData, linkedFields) {
       if (this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
       this.props.setEditingOnCanvas(false);
-      this.props.onClickSave(consolidatedData); // this.setState({ editing: false, editForm: null });  //might have to change this line to be similar to the "handleConfirm" logic
+      this.props.onClickSave(id, consolidatedData, linkedFields); // this.setState({ editing: false, editForm: null });  //might have to change this line to be similar to the "handleConfirm" logic
     }
   }, {
     key: "handleLoad",
