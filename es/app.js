@@ -2128,13 +2128,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleSaveComponent",
-    value: function handleSaveComponent(id, consolidatedData, linkedFields) {
+    value: function handleSaveComponent(consolidatedData, linkedFields) {
       if (this.props.isDebug) {
         console.log("inside React app.js in the handleSaveComponent function");
       } // const component = this.state.component;
 
 
-      this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave);
+      this.props.onSaveComponent(consolidatedData, linkedFields, this.handleCompleteSave);
     }
   }, {
     key: "handleSaveMicroscope",
@@ -3417,7 +3417,7 @@ MicroMetaAppReact.defaultProps = {
       complete(microscope.Name);
     }, 1000);
   },
-  onSaveComponent: function onSaveComponent(consolidatedData, complete) {
+  onSaveComponent: function onSaveComponent(consolidatedData, linkedFields, complete) {
     console.log(consolidatedData); // setTimeout(function () {
     // 	complete(consolidatedData.Name);
     // }, 1000);

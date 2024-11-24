@@ -2888,13 +2888,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		document.body.removeChild(a);
 	}
 
-	handleSaveComponent(id, consolidatedData, linkedFields) {
+	handleSaveComponent(consolidatedData, linkedFields) {
 		if (this.props.isDebug) {
 			console.log("inside React app.js in the handleSaveComponent function");
 		}
 
 		// const component = this.state.component;
-		this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave);
+		this.props.onSaveComponent(consolidatedData, linkedFields, this.handleCompleteSave);
 	}
 
 	handleSaveMicroscope(item) {
@@ -3978,7 +3978,7 @@ MicroMetaAppReact.defaultProps = {
 			complete(microscope.Name);
 		}, 1000);
 	},
-	onSaveComponent: function (consolidatedData, complete) {
+	onSaveComponent: function (consolidatedData, linkedFields, complete) {
 		console.log(consolidatedData);
 		// setTimeout(function () {
 		// 	complete(consolidatedData.Name);
