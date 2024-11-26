@@ -2911,7 +2911,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 
 		let elementData = this.state.elementData;
-		if (this.props.isDebug) console.log("elementData from React app:", elementData);
 		let components = [];
 		Object.keys(elementData).forEach((item, index) => {
 			components[index] = elementData[item];
@@ -3880,6 +3879,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							hasImport={this.state.hasImport}
 							isDebug={this.props.isDebug}
 							element={"microscope"}
+							subElements={"components"}
 						/>
 					</MicroMetaAppReactContainer>
 				);

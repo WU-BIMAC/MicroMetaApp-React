@@ -120,6 +120,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       if (this.props.hasSaveOption) {
         saveOptions.push("Save " + this.props.element);
         saveOptions.push("Save as new " + this.props.element);
+        saveOptions.push("Save all " + this.props.subElements);
       } //saveOptions.push("Export " + this.props.element + " image");
 
 

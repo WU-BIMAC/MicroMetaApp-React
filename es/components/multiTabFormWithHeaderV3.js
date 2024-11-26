@@ -602,6 +602,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         if (this.props.isDebug) console.log("this is the id: ", this.props.id);
         if (this.props.isDebug) console.log("this is the linkedFields: ", linkedFields);
         this.props.onSave(consolidatedData, linkedFields);
+        this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
       }
     }
   }, {

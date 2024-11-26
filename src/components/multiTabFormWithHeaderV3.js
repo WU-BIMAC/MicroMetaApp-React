@@ -654,6 +654,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			if (this.props.isDebug) console.log("this is the id: ", this.props.id);
 			if (this.props.isDebug) console.log("this is the linkedFields: ", linkedFields);
 			this.props.onSave(consolidatedData, linkedFields);
+			this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
 		}
 	}
 

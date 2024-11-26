@@ -2154,7 +2154,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var elementData = this.state.elementData;
-      if (this.props.isDebug) console.log("elementData from React app:", elementData);
       var components = [];
       Object.keys(elementData).forEach(function (item, index) {
         components[index] = elementData[item];
@@ -3032,7 +3031,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             is4DNPortal: this.state.is4DNPortal,
             hasImport: this.state.hasImport,
             isDebug: this.props.isDebug,
-            element: "microscope"
+            element: "microscope",
+            subElements: "components"
           }));
         }
       }

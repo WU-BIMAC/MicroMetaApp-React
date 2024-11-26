@@ -72,6 +72,7 @@ var DropdownMenu = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleMenuItemClick(e) {
       if (this.props.isDebug) console.log("INSIDE DROPDOWNMENU.JS IN HANDLEMENUITEMCLICK FUNCTION");
       var item = e.target.id;
+      console.log("Clicked item:", item);
       var currentTitle = "".concat(this.state.title, " ").concat(item);
       this.props.handleMenuItemClick(item);
       this.setState({
