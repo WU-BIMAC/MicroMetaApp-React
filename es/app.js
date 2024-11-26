@@ -2128,13 +2128,18 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleSaveComponent",
-    value: function handleSaveComponent(consolidatedData, linkedFields) {
+    value: function handleSaveComponent(id, consolidatedData, linkedFields) {
       if (this.props.isDebug) {
-        console.log("inside React app.js in the handleSaveComponent function");
+        console.log("inside handleSaveComponent function");
+      }
+
+      if (this.props.isDebug) {
+        console.log("elementData is ", elementData);
+        console.log("component's id is ", id);
       } // const component = this.state.component;
 
 
-      this.props.onSaveComponent(consolidatedData, linkedFields, this.handleCompleteSave);
+      this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave);
     }
   }, {
     key: "handleSaveMicroscope",
