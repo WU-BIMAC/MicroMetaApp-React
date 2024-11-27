@@ -1162,15 +1162,15 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         tabNames[_id3] = [];
         tabs[_id3] = [];
 
-        for (var _index3 in currentForms) {
-          var item = currentForms[_index3];
+        for (var index in currentForms) {
+          var item = currentForms[index];
 
           tabNames[_id3].push( /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
-            key: "ContainerTabName-" + currentNames[_index3]
-          }, currentNames[_index3]));
+            key: "ContainerTabName-" + currentNames[index]
+          }, currentNames[index]));
 
           tabs[_id3].push( /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
-            key: "ContainerTab-" + currentNames[_index3],
+            key: "ContainerTab-" + currentNames[index],
             forceRender: true
           }, item));
         } //let currentTabs = currentForms.map(function (item, index) {
@@ -1210,20 +1210,18 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           size: "lg",
           onClick: this.onCancel
         }, "Cancel"));
-      }
+      } // let index = 0;
 
-      var index = 0;
 
       if (!this.props.notModal) {
-        topButtons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
+        buttons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "button-save",
-          style: smallButton,
+          style: button,
           size: "lg",
           onClick: this.onSave
         }, "Save"));
-      }
+      } // index++;
 
-      index++;
 
       if (!this.props.notModal) {
         topButtons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {

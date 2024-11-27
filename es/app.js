@@ -2134,7 +2134,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (this.props.isDebug) {
-        console.log("elementData is ", elementData);
         console.log("component's id is ", id);
       } // const component = this.state.component;
 

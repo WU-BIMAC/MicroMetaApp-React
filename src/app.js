@@ -2893,7 +2893,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			console.log("inside handleSaveComponent function");
 		}
 		if (this.props.isDebug) {
-			console.log("elementData is ", elementData);
 			console.log("component's id is ", id);
 		}
 

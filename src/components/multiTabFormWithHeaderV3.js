@@ -653,7 +653,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			if (this.props.isDebug) console.log("props.onSave function will get called");
 			if (this.props.isDebug) console.log("this is the id: ", this.props.id);
 			if (this.props.isDebug) console.log("this is the linkedFields: ", linkedFields);
-			
+
 			this.props.onSave(this.props.id, consolidatedData, linkedFields);
 			this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
 		}
@@ -1537,12 +1537,12 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			);
 		}
 
-		let index = 0;
+		// let index = 0;
 		if (!this.props.notModal) {
-			topButtons.push(
+			buttons.push(
 				<Button
 					key="button-save"
-					style={smallButton}
+					style={button}
 					size="lg"
 					onClick={this.onSave}
 				>
@@ -1551,7 +1551,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			);
 
 		}
-		index++;
+		// index++;
 		if (!this.props.notModal) {
 			topButtons.push(
 				<Button
