@@ -1223,6 +1223,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           })), /*#__PURE__*/_react.default.createElement("div", {
             style: styleElementNameContainer
           }, /*#__PURE__*/_react.default.createElement(_canvasElement.default, {
+            validationTier: _this3.props.validationTier,
             getComponent: _this3.props.getComponent,
             onClickSave: _this3.props.onClickSave,
             activeTier: _this3.props.activeTier,

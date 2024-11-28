@@ -3043,6 +3043,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           }), /*#__PURE__*/_react.default.createElement("div", {
             style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
+            validationTier: this.state.validationTier,
             saveAllComponents: this.props.saveAllComponents,
             onClickSave: this.handleSaveComponent,
             getComponent: this.handleConfirmComponent,

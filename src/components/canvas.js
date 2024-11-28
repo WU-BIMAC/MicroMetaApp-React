@@ -1268,6 +1268,7 @@ export default class Canvas extends React.PureComponent {
 								</div>
 								<div style={styleElementNameContainer}>
 									<CanvasElement
+										validationTier={this.props.validationTier}
 										getComponent={this.props.getComponent}
 										onClickSave={this.props.onClickSave}
 										activeTier={this.props.activeTier}

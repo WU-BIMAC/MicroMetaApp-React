@@ -647,6 +647,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		if (isConfirm) 
 		{
 			if (this.props.isDebug) console.log("props.onConfirm function will get called");
+			console.log("ValidationTier which this component is validated at after clicking on Confirm", this.props.validationTier);
 			this.props.getComponent(this.props.id, consolidatedData, linkedFields);
 			this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
 
@@ -656,6 +657,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			if (this.props.isDebug) console.log("this is the id: ", this.props.id);
 			if (this.props.isDebug) console.log("this is the linkedFields: ", linkedFields);
 
+			console.log("ValidationTier which this component is validated at after clicking on Save", this.props.validationTier);
 			this.props.onSave(this.props.id, consolidatedData, linkedFields);
 			this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
 		}

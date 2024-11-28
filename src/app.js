@@ -2899,6 +2899,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 
 		// const component = this.state.component;
+		
 		this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave);
 	}
 
@@ -3872,6 +3873,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						/>
 						<div style={canvasContainerStyle}>
 							<Canvas
+								validationTier={this.state.validationTier}
 								saveAllComponents={this.props.saveAllComponents}
 								onClickSave={this.handleSaveComponent}
 								getComponent={this.handleConfirmComponent}
