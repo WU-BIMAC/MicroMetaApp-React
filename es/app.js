@@ -2139,7 +2139,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       } // const component = this.state.component;
 
 
-      this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave);
+      this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
     }
   }, {
     key: "handleSaveMicroscope",
@@ -2171,7 +2171,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var lowerCaseItem = item.toLowerCase();
 
       if (lowerCaseItem.includes("save all")) {
-        this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents);
+        this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents, this.state.validationTier);
         return;
       } else if (lowerCaseItem.includes("as new")) {
         microscope.ID = (0, _uuid.v4)(); // if (
@@ -3478,12 +3478,12 @@ MicroMetaAppReact.defaultProps = {
       complete(microscope.Name);
     }, 1000);
   },
-  onSaveComponent: function onSaveComponent(consolidatedData, linkedFields, complete) {
+  onSaveComponent: function onSaveComponent(id, consolidatedData, linkedFields, complete, validationTier) {
     console.log(consolidatedData); // setTimeout(function () {
     // 	complete(consolidatedData.Name);
     // }, 1000);
   },
-  saveAllComponents: function saveAllComponents(allComponents, complete, clear) {
+  saveAllComponents: function saveAllComponents(allComponents, complete, clear, validationTier) {
     console.log("In default props saveAllComponents of React");
     setTimeout(function () {
       complete();

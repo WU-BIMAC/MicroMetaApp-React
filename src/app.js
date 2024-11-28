@@ -2900,7 +2900,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		// const component = this.state.component;
 		
-		this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave);
+		this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
 	}
 
 	handleSaveMicroscope(item) {
@@ -2929,7 +2929,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		let lowerCaseItem = item.toLowerCase();
 		if (lowerCaseItem.includes("save all")){
-			this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents);
+			this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents, this.state.validationTier);
 			return;
 		}
 		else if (lowerCaseItem.includes("as new")) {
@@ -4032,13 +4032,13 @@ MicroMetaAppReact.defaultProps = {
 			complete(microscope.Name);
 		}, 1000);
 	},
-	onSaveComponent: function (consolidatedData, linkedFields, complete) {
+	onSaveComponent: function (id, consolidatedData, linkedFields, complete, validationTier) {
 		console.log(consolidatedData);
 		// setTimeout(function () {
 		// 	complete(consolidatedData.Name);
 		// }, 1000);
 	},
-	saveAllComponents: function (allComponents, complete, clear) {
+	saveAllComponents: function (allComponents, complete, clear, validationTier) {
 		console.log("In default props saveAllComponents of React");
 		setTimeout(function () {
 			complete();
