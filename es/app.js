@@ -2173,8 +2173,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var lowerCaseItem = item.toLowerCase();
 
       if (lowerCaseItem.includes("save all")) {
-        console.log("We are going to save all the components");
-        console.log("state allComponents", this.state.allComponents);
         this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents);
         return;
       } else if (lowerCaseItem.includes("as new")) {
@@ -2873,11 +2871,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       for (var _i2 in componentsSchema) {
         var _localSchema = componentsSchema[_i2];
         comps[_localSchema.ID] = _localSchema;
-      }
-
-      if (this.props.isDebug) {
-        console.log("elementData");
-        console.log(elementData);
       } // console.log("componentsSchema");
       // console.log(componentsSchema);
 

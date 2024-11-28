@@ -2930,8 +2930,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		let lowerCaseItem = item.toLowerCase();
 		if (lowerCaseItem.includes("save all")){
-			console.log("We are going to save all the components");
-			console.log("state allComponents", this.state.allComponents);
 			this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents);
 			return;
 		}
@@ -3678,11 +3676,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let localSchema = componentsSchema[i];
 			comps[localSchema.ID] = localSchema;
 		}
-
-		if (this.props.isDebug) {
-			console.log("elementData");
-			console.log(elementData);
-		}
+		
 		// console.log("componentsSchema");
 		// console.log(componentsSchema);
 		let elementByType = {};
