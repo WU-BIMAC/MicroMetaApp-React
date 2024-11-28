@@ -2815,7 +2815,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	updateElementData(elementData, areComponentsValidated) {
-		if (this.props.isDebug) console.log("inisde of function updateElementData in app.js");
 		//console.log(elementData)
 		this.setState({
 			elementData: elementData,
@@ -2824,7 +2823,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	updateLinkedFields(linkedFields) {
-		if (this.props.isDebug) console.log("inisde of function updateLinkedFields in app.js");
 		this.setState({
 			linkedFields: linkedFields,
 		});
@@ -3676,7 +3674,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let localSchema = componentsSchema[i];
 			comps[localSchema.ID] = localSchema;
 		}
-		
+
 		// console.log("componentsSchema");
 		// console.log(componentsSchema);
 		let elementByType = {};
@@ -3874,6 +3872,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						/>
 						<div style={canvasContainerStyle}>
 							<Canvas
+								saveAllComponents={this.props.saveAllComponents}
 								onClickSave={this.handleSaveComponent}
 								getComponent={this.handleConfirmComponent}
 								microscope={microscope}

@@ -301,7 +301,7 @@ export default class Canvas extends React.PureComponent {
 		let validated = this.areAllElementsValidated();
 		this.props.updateElementData(currentElementData, validated);
 		this.props.updateLinkedFields(linkedFields);
-		this.props.getComponent(id, data, dataLinkedFields);
+		//this.props.getComponent(id, data, dataLinkedFields);
 	}
 
 	getElementData() {
@@ -1268,6 +1268,7 @@ export default class Canvas extends React.PureComponent {
 								</div>
 								<div style={styleElementNameContainer}>
 									<CanvasElement
+										getComponent={this.props.getComponent}
 										onClickSave={this.props.onClickSave}
 										activeTier={this.props.activeTier}
 										id={item.ID}

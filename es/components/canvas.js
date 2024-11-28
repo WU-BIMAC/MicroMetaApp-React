@@ -216,8 +216,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       });
       var validated = this.areAllElementsValidated();
       this.props.updateElementData(currentElementData, validated);
-      this.props.updateLinkedFields(linkedFields);
-      this.props.getComponent(id, data, dataLinkedFields);
+      this.props.updateLinkedFields(linkedFields); //this.props.getComponent(id, data, dataLinkedFields);
     }
   }, {
     key: "getElementData",
@@ -1224,6 +1223,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           })), /*#__PURE__*/_react.default.createElement("div", {
             style: styleElementNameContainer
           }, /*#__PURE__*/_react.default.createElement(_canvasElement.default, {
+            getComponent: _this3.props.getComponent,
             onClickSave: _this3.props.onClickSave,
             activeTier: _this3.props.activeTier,
             id: item.ID,

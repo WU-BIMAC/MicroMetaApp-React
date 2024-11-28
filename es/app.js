@@ -2053,8 +2053,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "updateElementData",
     value: function updateElementData(elementData, areComponentsValidated) {
-      if (this.props.isDebug) console.log("inisde of function updateElementData in app.js"); //console.log(elementData)
-
+      //console.log(elementData)
       this.setState({
         elementData: elementData,
         areComponentsValidated: areComponentsValidated
@@ -2063,7 +2062,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "updateLinkedFields",
     value: function updateLinkedFields(linkedFields) {
-      if (this.props.isDebug) console.log("inisde of function updateLinkedFields in app.js");
       this.setState({
         linkedFields: linkedFields
       });
@@ -3045,6 +3043,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           }), /*#__PURE__*/_react.default.createElement("div", {
             style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
+            saveAllComponents: this.props.saveAllComponents,
             onClickSave: this.handleSaveComponent,
             getComponent: this.handleConfirmComponent,
             microscope: microscope,
