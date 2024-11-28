@@ -179,7 +179,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleActiveTierSelection = _this.handleActiveTierSelection.bind(_assertThisInitialized(_this));
     _this.setCreateNewMicroscope = _this.setCreateNewMicroscope.bind(_assertThisInitialized(_this));
     _this.setLoadMicroscope = _this.setLoadMicroscope.bind(_assertThisInitialized(_this));
-    _this.handleConfirmComponent = _this.handleConfirmComponent.bind(_assertThisInitialized(_this)); // this.uploadMicroscopeFromDropzone =
+    _this.handleConfirmComponent = _this.handleConfirmComponent.bind(_assertThisInitialized(_this));
+    _this.clearAllComponents = _this.clearAllComponents.bind(_assertThisInitialized(_this)); // this.uploadMicroscopeFromDropzone =
     // 	this.uploadMicroscopeFromDropzone.bind(this);
     //this.uploadSettingFromDropzone = this.uploadSettingFromDropzone.bind(this);
     // this.handleLoadMetadataComplete =
@@ -218,6 +219,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleSaveMicroscope = _this.handleSaveMicroscope.bind(_assertThisInitialized(_this));
     _this.handleSaveSetting = _this.handleSaveSetting.bind(_assertThisInitialized(_this));
     _this.handleCompleteSave = _this.handleCompleteSave.bind(_assertThisInitialized(_this));
+    _this.handleCompleteSaveAllComponents = _this.handleCompleteSaveAllComponents.bind(_assertThisInitialized(_this));
     _this.handleCompleteExport = _this.handleCompleteExport.bind(_assertThisInitialized(_this));
     _this.handleMicroscopePreset = _this.handleMicroscopePreset.bind(_assertThisInitialized(_this));
     _this.onHideToolbar = _this.onHideToolbar.bind(_assertThisInitialized(_this)); //this.toDataUrl = this.toDataUrl.bind(this);
@@ -2173,7 +2175,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       if (lowerCaseItem.includes("save all")) {
         console.log("We are going to save all the components");
         console.log("state allComponents", this.state.allComponents);
-        this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSave);
+        this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents);
         return;
       } else if (lowerCaseItem.includes("as new")) {
         microscope.ID = (0, _uuid.v4)(); // if (
@@ -2302,11 +2304,24 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       });
     }
   }, {
+    key: "clearAllComponents",
+    value: function clearAllComponents() {
+      console.log("Clearing allComponents...");
+      this.setState({
+        allComponents: []
+      });
+    }
+  }, {
     key: "handleCompleteSave",
     value: function handleCompleteSave(name) {
       //console.log(micName + " saved");
       //WARN Microscope save
       window.alert(name + " saved");
+    }
+  }, {
+    key: "handleCompleteSaveAllComponents",
+    value: function handleCompleteSaveAllComponents() {
+      window.alert("All components saved");
     }
   }, {
     key: "handleCompleteExport",
@@ -3475,8 +3490,12 @@ MicroMetaAppReact.defaultProps = {
     // 	complete(consolidatedData.Name);
     // }, 1000);
   },
-  saveAllComponents: function saveAllComponents(allComponents, complete) {
-    console.log("In function saveAllComponents of React");
+  saveAllComponents: function saveAllComponents(allComponents, complete, clear) {
+    console.log("In default props saveAllComponents of React");
+    setTimeout(function () {
+      complete();
+    }, 1000);
+    clear();
   },
   onSaveSetting: function onSaveSetting(setting, complete) {
     // Do some stuff... show pane for people to browse/select schema.. etc.

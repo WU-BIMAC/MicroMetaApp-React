@@ -153,6 +153,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.setLoadMicroscope = this.setLoadMicroscope.bind(this);
 
 		this.handleConfirmComponent = this.handleConfirmComponent.bind(this);
+		this.clearAllComponents = this.clearAllComponents.bind(this);
 
 		// this.uploadMicroscopeFromDropzone =
 		// 	this.uploadMicroscopeFromDropzone.bind(this);
@@ -216,6 +217,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.handleSaveSetting = this.handleSaveSetting.bind(this);
 
 		this.handleCompleteSave = this.handleCompleteSave.bind(this);
+		this.handleCompleteSaveAllComponents = this.handleCompleteSaveAllComponents.bind(this);
 		this.handleCompleteExport = this.handleCompleteExport.bind(this);
 
 		this.handleMicroscopePreset = this.handleMicroscopePreset.bind(this);
@@ -2930,8 +2932,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		if (lowerCaseItem.includes("save all")){
 			console.log("We are going to save all the components");
 			console.log("state allComponents", this.state.allComponents);
-			this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSave);
-			
+			this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents);
 			return;
 		}
 		else if (lowerCaseItem.includes("as new")) {
@@ -3041,10 +3042,19 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		});
 	}
 
+	clearAllComponents() {
+		console.log("Clearing allComponents...");
+    	this.setState({ allComponents: [] });
+	}
+
 	handleCompleteSave(name) {
 		//console.log(micName + " saved");
 		//WARN Microscope save
 		window.alert(name + " saved");
+	}
+
+	handleCompleteSaveAllComponents() {
+		window.alert("All components saved");
 	}
 
 	handleCompleteExport(name) {
@@ -4033,8 +4043,12 @@ MicroMetaAppReact.defaultProps = {
 		// 	complete(consolidatedData.Name);
 		// }, 1000);
 	},
-	saveAllComponents: function (allComponents, complete) {
-		console.log("In function saveAllComponents of React");
+	saveAllComponents: function (allComponents, complete, clear) {
+		console.log("In default props saveAllComponents of React");
+		setTimeout(function () {
+			complete();
+		}, 1000);
+		clear();
 	},
 	onSaveSetting: function (setting, complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
