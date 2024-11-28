@@ -217,6 +217,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var validated = this.areAllElementsValidated();
       this.props.updateElementData(currentElementData, validated);
       this.props.updateLinkedFields(linkedFields);
+      this.props.getComponent(id, data, dataLinkedFields);
     }
   }, {
     key: "getElementData",
@@ -1614,10 +1615,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
 
       if (props.isDebug) console.log("canvas-getDerivedStateFromProps-2");
       returnValue.previousProps = stringProps;
-      console.log("props.inputData");
-      console.log(props.inputData);
-      console.log("state.elementData");
-      console.log(state.elementData);
 
       if ((0, _genericUtilities.isDefined)(props.componentSchemas)) {
         var componentsSchema = {};

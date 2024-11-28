@@ -39,7 +39,6 @@ export default class CanvasElement extends React.PureComponent {
 			this.props.setEditingOnCanvas(true);
 			let editForm = (
 				<MultiTabFormWithHeaderV3
-					// onClickSave={this.props.onClickSave}
 					title={"Edit " + this.props.formTitle}
 					schema={this.props.schema}
 					inputData={this.props.inputData}
@@ -68,6 +67,7 @@ export default class CanvasElement extends React.PureComponent {
 	}
 
 	handleConfirm(id, data, linkedFields) {
+		console.log("inside of handleConfirm");
 		this.setState({ editing: false, editForm: null });
 		this.props.setEditingOnCanvas(false);
 		this.props.handleConfirm(id, data, linkedFields);

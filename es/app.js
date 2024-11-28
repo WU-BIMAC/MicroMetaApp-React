@@ -91,7 +91,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
     _this = _super.call(this, props);
     _this.state = {
-      // component: {},
+      allComponents: [],
       microscope: props.microscope || null,
       setting: props.setting || null,
       originalMicroscope: Object.assign({}, props.microscope) || null,
@@ -178,7 +178,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.onSettingDataSave = _this.onSettingDataSave.bind(_assertThisInitialized(_this));
     _this.handleActiveTierSelection = _this.handleActiveTierSelection.bind(_assertThisInitialized(_this));
     _this.setCreateNewMicroscope = _this.setCreateNewMicroscope.bind(_assertThisInitialized(_this));
-    _this.setLoadMicroscope = _this.setLoadMicroscope.bind(_assertThisInitialized(_this)); // this.uploadMicroscopeFromDropzone =
+    _this.setLoadMicroscope = _this.setLoadMicroscope.bind(_assertThisInitialized(_this));
+    _this.handleConfirmComponent = _this.handleConfirmComponent.bind(_assertThisInitialized(_this)); // this.uploadMicroscopeFromDropzone =
     // 	this.uploadMicroscopeFromDropzone.bind(this);
     //this.uploadSettingFromDropzone = this.uploadSettingFromDropzone.bind(this);
     // this.handleLoadMetadataComplete =
@@ -2169,6 +2170,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       microscope.linkedFields = this.state.linkedFields;
       var lowerCaseItem = item.toLowerCase();
 
+      if (lowerCaseItem.includes("save all")) {
+        console.log("We are going to save all the components");
+        this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSave);
+        return; // this.props.onSaveComponent
+      }
+
       if (lowerCaseItem.includes("as new")) {
         microscope.ID = (0, _uuid.v4)(); // if (
         // 	microscope.MicroscopeStand !== null &&
@@ -2177,10 +2184,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         // 	microscope.MicroscopeStand.ID = uuidv4();
         // }
       } // Console log only the "components" section of the microscope JSON
+      // if (this.props.isDebug) console.log("Microscope components:", microscope.components);
+      // if (this.props.isDebug) console.log("Microscope linkedFields:", microscope.linkedFields);
 
 
-      if (this.props.isDebug) console.log("Microscope components:", microscope.components);
-      if (this.props.isDebug) console.log("Microscope linkedFields:", microscope.linkedFields);
       this.setState({
         microscope: microscope
       });
@@ -2251,6 +2258,48 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       this.setState({
         originalSetting: setting
+      });
+    }
+  }, {
+    key: "handleConfirmComponent",
+    value: function handleConfirmComponent(id, data, linkedFields) {
+      this.setState(function (prevState) {
+        // Find the index of the component with the given ID in allComponents
+        var existingComponentIndex = prevState.allComponents.findIndex(function (component) {
+          return component.id === id;
+        });
+
+        if (existingComponentIndex === -1) {
+          // If the component doesn't exist, add it to allComponents
+          var newComponents = prevState.allComponents.concat({
+            id: id,
+            // Add the component's ID
+            consolidatedData: data,
+            // Add the component's data
+            linkedFields: linkedFields // Add the linkedFields
+
+          });
+          console.log("Updated allComponents state:", newComponents);
+          return {
+            allComponents: newComponents
+          };
+        } else {
+          // If the component exists, update its data and linkedFields
+          var updatedComponents = prevState.allComponents.slice(); // Create a shallow copy of the array
+
+          updatedComponents[existingComponentIndex] = {
+            id: id,
+            // Retain the component's ID
+            consolidatedData: data,
+            // Update the component's data
+            linkedFields: linkedFields // Update the linkedFields
+
+          };
+          console.log("Updated allComponents state:", updatedComponents);
+          return {
+            allComponents: updatedComponents
+          };
+        }
       });
     }
   }, {
@@ -2990,6 +3039,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
             onClickSave: this.handleSaveComponent,
+            getComponent: this.handleConfirmComponent,
             microscope: microscope,
             stand: microscope.MicroscopeStand,
             activeTier: this.state.activeTier,
@@ -3425,6 +3475,9 @@ MicroMetaAppReact.defaultProps = {
     console.log(consolidatedData); // setTimeout(function () {
     // 	complete(consolidatedData.Name);
     // }, 1000);
+  },
+  saveAllComponents: function saveAllComponents(allComponents, complete) {
+    console.log("In function saveAllComponents of React");
   },
   onSaveSetting: function onSaveSetting(setting, complete) {
     // Do some stuff... show pane for people to browse/select schema.. etc.

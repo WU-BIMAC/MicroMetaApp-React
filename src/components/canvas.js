@@ -109,10 +109,6 @@ export default class Canvas extends React.PureComponent {
 		}
 		if (props.isDebug) console.log("canvas-getDerivedStateFromProps-2");
 		returnValue.previousProps = stringProps;
-		console.log("props.inputData");
-		console.log(props.inputData);
-		console.log("state.elementData");
-		console.log(state.elementData);
 	
 		if (isDefined(props.componentSchemas)) {
 			let componentsSchema = {};
@@ -305,6 +301,7 @@ export default class Canvas extends React.PureComponent {
 		let validated = this.areAllElementsValidated();
 		this.props.updateElementData(currentElementData, validated);
 		this.props.updateLinkedFields(linkedFields);
+		this.props.getComponent(id, data, dataLinkedFields);
 	}
 
 	getElementData() {

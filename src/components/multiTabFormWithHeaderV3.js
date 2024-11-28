@@ -648,6 +648,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		{
 			if (this.props.isDebug) console.log("props.onConfirm function will get called");
 			this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
+
 		} else 
 		{
 			if (this.props.isDebug) console.log("props.onSave function will get called");
