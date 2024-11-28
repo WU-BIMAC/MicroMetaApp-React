@@ -2172,11 +2172,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (lowerCaseItem.includes("save all")) {
         console.log("We are going to save all the components");
+        console.log("state allComponents", this.state.allComponents);
         this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSave);
-        return; // this.props.onSaveComponent
-      }
-
-      if (lowerCaseItem.includes("as new")) {
+        return;
+      } else if (lowerCaseItem.includes("as new")) {
         microscope.ID = (0, _uuid.v4)(); // if (
         // 	microscope.MicroscopeStand !== null &&
         // 	microscope.MicroscopeStand !== undefined

@@ -2929,11 +2929,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let lowerCaseItem = item.toLowerCase();
 		if (lowerCaseItem.includes("save all")){
 			console.log("We are going to save all the components");
+			console.log("state allComponents", this.state.allComponents);
 			this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSave);
+			
 			return;
-			// this.props.onSaveComponent
 		}
-		if (lowerCaseItem.includes("as new")) {
+		else if (lowerCaseItem.includes("as new")) {
 			microscope.ID = uuidv4();
 			// if (
 			// 	microscope.MicroscopeStand !== null &&
