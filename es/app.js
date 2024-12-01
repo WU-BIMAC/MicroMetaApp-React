@@ -2133,10 +2133,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       if (this.props.isDebug) {
         console.log("inside handleSaveComponent function");
         console.log("component's id is ", id);
+        console.log("this component's linkedFields is: ", linkedFields);
       } // const component = this.state.component;
 
 
-      this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
+      this.props.onSaveComponent(consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
     }
   }, {
     key: "handleSaveMicroscope",
@@ -2170,7 +2171,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (lowerCaseItem.includes("save all")) {
         // this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents, this.state.validationTier);
-        this.props.saveAllComponents(elementData, this.handleCompleteSave, this.state.validationTier);
+        this.props.q(elementData, this.handleCompleteSaveAllComponents, this.state.validationTier);
         return;
       } else if (lowerCaseItem.includes("as new")) {
         microscope.ID = (0, _uuid.v4)(); // if (
@@ -3464,7 +3465,7 @@ MicroMetaAppReact.defaultProps = {
       complete(microscope.Name);
     }, 1000);
   },
-  onSaveComponent: function onSaveComponent(id, consolidatedData, linkedFields, complete, validationTier) {
+  onSaveComponent: function onSaveComponent(consolidatedData, linkedFields, complete, validationTier) {
     console.log(consolidatedData); // setTimeout(function () {
     // 	complete(consolidatedData.Name);
     // }, 1000);
