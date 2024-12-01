@@ -596,8 +596,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (isConfirm) {
         if (this.props.isDebug) console.log("props.onConfirm function will get called");
-        console.log("ValidationTier which this component is validated at after clicking on Confirm", this.props.validationTier);
-        this.props.getComponent(this.props.id, consolidatedData, linkedFields);
+        console.log("ValidationTier which this component is validated at after clicking on Confirm", this.props.validationTier); // this.props.getComponent(this.props.id, consolidatedData, linkedFields);
+
         this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
       } else {
         if (this.props.isDebug) console.log("props.onSave function will get called");

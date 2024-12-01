@@ -44,7 +44,7 @@ export default class CanvasElement extends React.PureComponent {
 					inputData={this.props.inputData}
 					id={this.props.id}
 					validationTier={this.props.validationTier}
-					getComponent={this.props.getComponent}
+					// getComponent={this.props.getComponent}
 					onConfirm={this.handleConfirm}
 					onCancel={this.handleCancel}
 					onSave={this.handleSave}

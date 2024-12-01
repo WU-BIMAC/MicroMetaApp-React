@@ -152,7 +152,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.setCreateNewMicroscope = this.setCreateNewMicroscope.bind(this);
 		this.setLoadMicroscope = this.setLoadMicroscope.bind(this);
 
-		this.handleConfirmComponent = this.handleConfirmComponent.bind(this);
+		// this.handleConfirmComponent = this.handleConfirmComponent.bind(this);
 		this.clearAllComponents = this.clearAllComponents.bind(this);
 
 		// this.uploadMicroscopeFromDropzone =
@@ -2893,8 +2893,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	handleSaveComponent(id, consolidatedData, linkedFields) {
 		if (this.props.isDebug) {
 			console.log("inside handleSaveComponent function");
-		}
-		if (this.props.isDebug) {
 			console.log("component's id is ", id);
 		}
 
@@ -2917,6 +2915,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 
 		let elementData = this.state.elementData;
+		console.log("!!!! elementData is ", elementData);
+
 		let components = [];
 		Object.keys(elementData).forEach((item, index) => {
 			components[index] = elementData[item];
@@ -2929,7 +2929,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		let lowerCaseItem = item.toLowerCase();
 		if (lowerCaseItem.includes("save all")){
-			this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents, this.state.validationTier);
+			// this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents, this.state.validationTier);
+			this.props.saveAllComponents(elementData, this.handleCompleteSave, this.state.validationTier);
 			return;
 		}
 		else if (lowerCaseItem.includes("as new")) {
@@ -2941,10 +2942,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			// 	microscope.MicroscopeStand.ID = uuidv4();
 			// }
 		}
-
-		// Console log only the "components" section of the microscope JSON
-		// if (this.props.isDebug) console.log("Microscope components:", microscope.components);
-		// if (this.props.isDebug) console.log("Microscope linkedFields:", microscope.linkedFields);
 		
 		this.setState({ microscope: microscope });
 
@@ -3003,41 +3000,41 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.setState({ originalSetting: setting });
 	}
 
-	handleConfirmComponent(id, data, linkedFields) {
-		this.setState(function (prevState) {
-			// Find the index of the component with the given ID in allComponents
-			const existingComponentIndex = prevState.allComponents.findIndex(function (component) {
-			  return component.id === id;
-			});
+	// handleConfirmComponent(id, data, linkedFields) {
+	// 	this.setState(function (prevState) {
+	// 		// Find the index of the component with the given ID in allComponents
+	// 		const existingComponentIndex = prevState.allComponents.findIndex(function (component) {
+	// 		  return component.id === id;
+	// 		});
 		
-			if (existingComponentIndex === -1) {
-			  // If the component doesn't exist, add it to allComponents
-			  const newComponents = prevState.allComponents.concat({
-				id: id, // Add the component's ID
-				consolidatedData: data, // Add the component's data
-				linkedFields: linkedFields, // Add the linkedFields
-			  });
+	// 		if (existingComponentIndex === -1) {
+	// 		  // If the component doesn't exist, add it to allComponents
+	// 		  const newComponents = prevState.allComponents.concat({
+	// 			id: id, // Add the component's ID
+	// 			consolidatedData: data, // Add the component's data
+	// 			linkedFields: linkedFields, // Add the linkedFields
+	// 		  });
 		
-			  console.log("Updated allComponents state:", newComponents);
-			  return {
-				allComponents: newComponents,
-			  };
-			} else {
-			  // If the component exists, update its data and linkedFields
-			  const updatedComponents = prevState.allComponents.slice(); // Create a shallow copy of the array
-			  updatedComponents[existingComponentIndex] = {
-				id: id, // Retain the component's ID
-				consolidatedData: data, // Update the component's data
-				linkedFields: linkedFields, // Update the linkedFields
-			  };
+	// 		  console.log("Updated allComponents state:", newComponents);
+	// 		  return {
+	// 			allComponents: newComponents,
+	// 		  };
+	// 		} else {
+	// 		  // If the component exists, update its data and linkedFields
+	// 		  const updatedComponents = prevState.allComponents.slice(); // Create a shallow copy of the array
+	// 		  updatedComponents[existingComponentIndex] = {
+	// 			id: id, // Retain the component's ID
+	// 			consolidatedData: data, // Update the component's data
+	// 			linkedFields: linkedFields, // Update the linkedFields
+	// 		  };
 		
-			  console.log("Updated allComponents state:", updatedComponents);
-			  return {
-				allComponents: updatedComponents,
-			  };
-			}
-		});
-	}
+	// 		  console.log("Updated allComponents state:", updatedComponents);
+	// 		  return {
+	// 			allComponents: updatedComponents,
+	// 		  };
+	// 		}
+	// 	});
+	// }
 
 	clearAllComponents() {
 		console.log("Clearing allComponents...");
@@ -3874,9 +3871,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						<div style={canvasContainerStyle}>
 							<Canvas
 								validationTier={this.state.validationTier}
-								saveAllComponents={this.props.saveAllComponents}
+								// saveAllComponents={this.props.saveAllComponents}
 								onClickSave={this.handleSaveComponent}
-								getComponent={this.handleConfirmComponent}
+								// getComponent={this.handleConfirmComponent}
 								microscope={microscope}
 								stand={microscope.MicroscopeStand}
 								activeTier={this.state.activeTier}
@@ -4038,12 +4035,11 @@ MicroMetaAppReact.defaultProps = {
 		// 	complete(consolidatedData.Name);
 		// }, 1000);
 	},
-	saveAllComponents: function (allComponents, complete, clear, validationTier) {
+	saveAllComponents: function (allComponents, complete, validationTier) {
 		console.log("In default props saveAllComponents of React");
 		setTimeout(function () {
 			complete();
 		}, 1000);
-		clear();
 	},
 	onSaveSetting: function (setting, complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.

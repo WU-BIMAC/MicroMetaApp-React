@@ -178,8 +178,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.onSettingDataSave = _this.onSettingDataSave.bind(_assertThisInitialized(_this));
     _this.handleActiveTierSelection = _this.handleActiveTierSelection.bind(_assertThisInitialized(_this));
     _this.setCreateNewMicroscope = _this.setCreateNewMicroscope.bind(_assertThisInitialized(_this));
-    _this.setLoadMicroscope = _this.setLoadMicroscope.bind(_assertThisInitialized(_this));
-    _this.handleConfirmComponent = _this.handleConfirmComponent.bind(_assertThisInitialized(_this));
+    _this.setLoadMicroscope = _this.setLoadMicroscope.bind(_assertThisInitialized(_this)); // this.handleConfirmComponent = this.handleConfirmComponent.bind(this);
+
     _this.clearAllComponents = _this.clearAllComponents.bind(_assertThisInitialized(_this)); // this.uploadMicroscopeFromDropzone =
     // 	this.uploadMicroscopeFromDropzone.bind(this);
     //this.uploadSettingFromDropzone = this.uploadSettingFromDropzone.bind(this);
@@ -2132,9 +2132,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleSaveComponent(id, consolidatedData, linkedFields) {
       if (this.props.isDebug) {
         console.log("inside handleSaveComponent function");
-      }
-
-      if (this.props.isDebug) {
         console.log("component's id is ", id);
       } // const component = this.state.component;
 
@@ -2159,6 +2156,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var elementData = this.state.elementData;
+      console.log("!!!! elementData is ", elementData);
       var components = [];
       Object.keys(elementData).forEach(function (item, index) {
         components[index] = elementData[item];
@@ -2171,7 +2169,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var lowerCaseItem = item.toLowerCase();
 
       if (lowerCaseItem.includes("save all")) {
-        this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents, this.state.validationTier);
+        // this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents, this.state.validationTier);
+        this.props.saveAllComponents(elementData, this.handleCompleteSave, this.state.validationTier);
         return;
       } else if (lowerCaseItem.includes("as new")) {
         microscope.ID = (0, _uuid.v4)(); // if (
@@ -2180,10 +2179,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         // ) {
         // 	microscope.MicroscopeStand.ID = uuidv4();
         // }
-      } // Console log only the "components" section of the microscope JSON
-      // if (this.props.isDebug) console.log("Microscope components:", microscope.components);
-      // if (this.props.isDebug) console.log("Microscope linkedFields:", microscope.linkedFields);
-
+      }
 
       this.setState({
         microscope: microscope
@@ -2256,49 +2252,39 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         originalSetting: setting
       });
-    }
-  }, {
-    key: "handleConfirmComponent",
-    value: function handleConfirmComponent(id, data, linkedFields) {
-      this.setState(function (prevState) {
-        // Find the index of the component with the given ID in allComponents
-        var existingComponentIndex = prevState.allComponents.findIndex(function (component) {
-          return component.id === id;
-        });
+    } // handleConfirmComponent(id, data, linkedFields) {
+    // 	this.setState(function (prevState) {
+    // 		// Find the index of the component with the given ID in allComponents
+    // 		const existingComponentIndex = prevState.allComponents.findIndex(function (component) {
+    // 		  return component.id === id;
+    // 		});
+    // 		if (existingComponentIndex === -1) {
+    // 		  // If the component doesn't exist, add it to allComponents
+    // 		  const newComponents = prevState.allComponents.concat({
+    // 			id: id, // Add the component's ID
+    // 			consolidatedData: data, // Add the component's data
+    // 			linkedFields: linkedFields, // Add the linkedFields
+    // 		  });
+    // 		  console.log("Updated allComponents state:", newComponents);
+    // 		  return {
+    // 			allComponents: newComponents,
+    // 		  };
+    // 		} else {
+    // 		  // If the component exists, update its data and linkedFields
+    // 		  const updatedComponents = prevState.allComponents.slice(); // Create a shallow copy of the array
+    // 		  updatedComponents[existingComponentIndex] = {
+    // 			id: id, // Retain the component's ID
+    // 			consolidatedData: data, // Update the component's data
+    // 			linkedFields: linkedFields, // Update the linkedFields
+    // 		  };
+    // 		  console.log("Updated allComponents state:", updatedComponents);
+    // 		  return {
+    // 			allComponents: updatedComponents,
+    // 		  };
+    // 		}
+    // 	});
+    // }
 
-        if (existingComponentIndex === -1) {
-          // If the component doesn't exist, add it to allComponents
-          var newComponents = prevState.allComponents.concat({
-            id: id,
-            // Add the component's ID
-            consolidatedData: data,
-            // Add the component's data
-            linkedFields: linkedFields // Add the linkedFields
-
-          });
-          console.log("Updated allComponents state:", newComponents);
-          return {
-            allComponents: newComponents
-          };
-        } else {
-          // If the component exists, update its data and linkedFields
-          var updatedComponents = prevState.allComponents.slice(); // Create a shallow copy of the array
-
-          updatedComponents[existingComponentIndex] = {
-            id: id,
-            // Retain the component's ID
-            consolidatedData: data,
-            // Update the component's data
-            linkedFields: linkedFields // Update the linkedFields
-
-          };
-          console.log("Updated allComponents state:", updatedComponents);
-          return {
-            allComponents: updatedComponents
-          };
-        }
-      });
-    }
   }, {
     key: "clearAllComponents",
     value: function clearAllComponents() {
@@ -3043,10 +3029,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           }), /*#__PURE__*/_react.default.createElement("div", {
             style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
-            validationTier: this.state.validationTier,
-            saveAllComponents: this.props.saveAllComponents,
-            onClickSave: this.handleSaveComponent,
-            getComponent: this.handleConfirmComponent,
+            validationTier: this.state.validationTier // saveAllComponents={this.props.saveAllComponents}
+            ,
+            onClickSave: this.handleSaveComponent // getComponent={this.handleConfirmComponent}
+            ,
             microscope: microscope,
             stand: microscope.MicroscopeStand,
             activeTier: this.state.activeTier,
@@ -3483,12 +3469,11 @@ MicroMetaAppReact.defaultProps = {
     // 	complete(consolidatedData.Name);
     // }, 1000);
   },
-  saveAllComponents: function saveAllComponents(allComponents, complete, clear, validationTier) {
+  saveAllComponents: function saveAllComponents(allComponents, complete, validationTier) {
     console.log("In default props saveAllComponents of React");
     setTimeout(function () {
       complete();
     }, 1000);
-    clear();
   },
   onSaveSetting: function onSaveSetting(setting, complete) {
     // Do some stuff... show pane for people to browse/select schema.. etc.

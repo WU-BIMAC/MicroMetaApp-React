@@ -81,8 +81,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
           schema: this.props.schema,
           inputData: this.props.inputData,
           id: this.props.id,
-          validationTier: this.props.validationTier,
-          getComponent: this.props.getComponent,
+          validationTier: this.props.validationTier // getComponent={this.props.getComponent}
+          ,
           onConfirm: this.handleConfirm,
           onCancel: this.handleCancel,
           onSave: this.handleSave,
