@@ -2895,12 +2895,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			console.log("inside handleSaveComponent function");
 			console.log("component's id is ", id);
 			console.log("this component's linkedFields is: ", linkedFields);
+			console.log("this component's consolidatedData is: ", consolidatedData);
+			console.log("this is elementData: ", this.state.elementData);
 		}
 
-		// const component = this.state.component;
-
-		
-		this.props.onSaveComponent(consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
+		this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
 	}
 
 	handleSaveMicroscope(item) {
@@ -2932,7 +2931,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let lowerCaseItem = item.toLowerCase();
 		if (lowerCaseItem.includes("save all")){
 			// this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents, this.state.validationTier);
-			this.props.q(elementData, this.handleCompleteSaveAllComponents, this.state.validationTier);
+			this.props.saveAllComponents(elementData, this.handleCompleteSaveAllComponents, this.state.validationTier);
 			return;
 		}
 		else if (lowerCaseItem.includes("as new")) {
@@ -4031,8 +4030,8 @@ MicroMetaAppReact.defaultProps = {
 			complete(microscope.Name);
 		}, 1000);
 	},
-	onSaveComponent: function (consolidatedData, linkedFields, complete, validationTier) {
-		console.log(consolidatedData);
+	onSaveComponent: function (id, consolidatedData, linkedFields, complete, validationTier) {
+		console.log("default props for onSaveComponent called");
 		// setTimeout(function () {
 		// 	complete(consolidatedData.Name);
 		// }, 1000);
