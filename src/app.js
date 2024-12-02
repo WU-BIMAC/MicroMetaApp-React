@@ -2895,6 +2895,18 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		document.body.removeChild(a);
 	}
 
+	// handleSaveComponent(id, consolidatedData, linkedFields) {
+	// 	if (this.props.isDebug) {
+	// 		console.log("inside handleSaveComponent function");
+	// 		console.log("component's id is ", id);
+	// 		console.log("this component's linkedFields is: ", linkedFields);
+	// 		console.log("this component's consolidatedData is: ", consolidatedData);
+	// 		console.log("this is elementData: ", this.state.elementData);
+	// 	}
+
+	// 	this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
+	// }
+
 	handleSaveComponent(id, consolidatedData, linkedFields) {
 		if (this.props.isDebug) {
 			console.log("inside handleSaveComponent function");
@@ -2904,7 +2916,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			console.log("this is elementData: ", this.state.elementData);
 		}
 
-		this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
+		const elementData = this.state.elementData[id];
+		if (this.props.isDebug) {
+			console.log("Extracted element from elementData: ", elementData);
+		}
+
+		this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier);
+		// this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
 	}
 
 	handleSaveMicroscope(item) {
@@ -4036,7 +4054,7 @@ MicroMetaAppReact.defaultProps = {
 			complete(microscope.Name);
 		}, 1000);
 	},
-	onSaveComponent: function (id, consolidatedData, linkedFields, complete, validationTier) {
+	onSaveComponent: function (elementData, complete, validationTier) {
 		console.log("default props for onSaveComponent called");
 		// setTimeout(function () {
 		// 	complete(consolidatedData.Name);
