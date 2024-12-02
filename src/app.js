@@ -652,6 +652,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let validated = false;
 		if (microscope !== null && microscope !== undefined) {
 			microscope.ValidationTier = validationTier;
+			console.log("#1 call to validate");
 			let validation = validate(microscope, microscopeSchema);
 			validated = validation.valid;
 		}
@@ -2035,8 +2036,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			});
 		}
 		let linkedFields = Object.assign({}, modifiedMic.linkedFields);
+		console.log("#2 call to validate");
 		let validationMicroscope = validate(modifiedMic, microscopeSchema);
 		let validatedMicroscope = validationMicroscope.valid;
+		console.log("#3 call to validate");
 		let validationStand = validate(
 			modifiedMic.MicroscopeStand,
 			microscopeStandSchema
@@ -2110,8 +2113,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			});
 		}
 		let linkedFields = Object.assign({}, modifiedMic.linkedFields);
+		console.log("#4 call to validate");
 		let validationMicroscope = validate(modifiedMic, microscopeSchema);
 		let validatedMicroscope = validationMicroscope.valid;
+		console.log("#5 call to validate");
 		let validationStand = validate(
 			modifiedMic.MicroscopeStand,
 			microscopeStandSchema
@@ -2911,12 +2916,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			validated = false;
 		}
 		if (!validated) {
+			console.log("the microscope or at least one component is not valid");
 			//TODO throw warning instead of stopping validation
 			//return;
 		}
 
 		let elementData = this.state.elementData;
-		console.log("!!!! elementData is ", elementData);
+		// console.log("!!!! elementData is ", elementData);
 
 		let components = [];
 		Object.keys(elementData).forEach((item, index) => {

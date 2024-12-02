@@ -648,6 +648,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (microscope !== null && microscope !== undefined) {
         microscope.ValidationTier = validationTier;
+        console.log("#1 call to validate");
         var validation = validate(microscope, microscopeSchema);
         validated = validation.valid;
       }
@@ -1333,8 +1334,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var linkedFields = Object.assign({}, modifiedMic.linkedFields);
+      console.log("#2 call to validate");
       var validationMicroscope = validate(modifiedMic, microscopeSchema);
       var validatedMicroscope = validationMicroscope.valid;
+      console.log("#3 call to validate");
       var validationStand = validate(modifiedMic.MicroscopeStand, microscopeStandSchema);
       var validatedStand = validationStand.valid;
       var validated = validatedMicroscope && validatedStand;
@@ -1398,8 +1401,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var linkedFields = Object.assign({}, modifiedMic.linkedFields);
+      console.log("#4 call to validate");
       var validationMicroscope = validate(modifiedMic, microscopeSchema);
       var validatedMicroscope = validationMicroscope.valid;
+      console.log("#5 call to validate");
       var validationStand = validate(modifiedMic.MicroscopeStand, microscopeStandSchema);
       var validatedStand = validationStand.valid;
       var validated = validatedMicroscope && validatedStand;
@@ -2153,12 +2158,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         validated = false;
       }
 
-      if (!validated) {//TODO throw warning instead of stopping validation
+      if (!validated) {
+        console.log("the microscope or at least one component is not valid"); //TODO throw warning instead of stopping validation
         //return;
       }
 
-      var elementData = this.state.elementData;
-      console.log("!!!! elementData is ", elementData);
+      var elementData = this.state.elementData; // console.log("!!!! elementData is ", elementData);
+
       var components = [];
       Object.keys(elementData).forEach(function (item, index) {
         components[index] = elementData[item];
