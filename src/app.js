@@ -109,6 +109,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			this.state.standTypes[modifiedCreateString] = name;
 		}
 
+
 		//this.isMicroscopeValidated = false;
 		this.toolbarRef = React.createRef();
 		this.canvasRef = React.createRef();
@@ -3896,9 +3897,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						<div style={canvasContainerStyle}>
 							<Canvas
 								validationTier={this.state.validationTier}
-								// saveAllComponents={this.props.saveAllComponents}
 								onClickSave={this.handleSaveComponent}
-								// getComponent={this.handleConfirmComponent}
 								microscope={microscope}
 								stand={microscope.MicroscopeStand}
 								activeTier={this.state.activeTier}
@@ -3908,7 +3907,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								childrenSchemas={childrenSchema}
 								inputData={elementData}
 								linkedFields={linkedFields}
-								//backgroundImage={`${imagesPath}${microscopeSchema.image}`}
 								backgroundImage={url.resolve(
 									imagesPathSVG,
 									microscopeStandSchema.image
@@ -3927,6 +3925,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								//setScale={this.setMicroscopeScale}
 								isDebug={this.props.isDebug}
 							/>
+							
 							<Toolbar
 								activeTier={this.state.activeTier}
 								ref={this.toolbarRef}

@@ -6,11 +6,10 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // import ScrollableTabBar from "rc-tabs/lib/";
 //import "rc-tabs/assets/index.css"
 import Button from "react-bootstrap/Button";
-import DropdownMenu from "./dropdownMenu";
-
 import ModalWindow from "./modalWindow";
-
 import { isDefined } from "../genericUtilities";
+
+const url = require("url");
 
 import {
 	load_component_tooltip,
@@ -23,6 +22,9 @@ import {
 	string_array,
 	string_bandpass_warning,
 	save_component_tooltip,
+	string_globe_solid_img,
+	string_plus_solid_img,
+	string_floppy_disk_solid_img,
 } from "../constants";
 
 export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
@@ -37,6 +39,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			activeID: null,
 			activeKey: 0, //"0",
 			partialInputData: {},
+			isValidated: false,
 		};
 
 		if (
@@ -68,9 +71,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 						this.state.currentChildrenComponents[id] = {};
 					}
 					if (this.state.activeID === null) this.state.activeID = id;
-
-					//console.log("inputData");
-					//console.log(inputData);
 
 					Object.keys(inputData).forEach((key) => {
 						if (key.includes(props.minChildrenComponentIdentifier)) {
@@ -111,9 +111,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					this.state.currentChildrenComponents[id] = {};
 				}
 
-				//console.log("inputData");
-				//console.log(inputData);
-
 				Object.keys(inputData).forEach((key) => {
 					if (key.includes(props.minChildrenComponentIdentifier)) {
 						let name = key.replace(props.minChildrenComponentIdentifier, "");
@@ -131,6 +128,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				});
 			}
 		}
+		
 		//this.formDescs = [];
 		this.buttonsRefs = {};
 		this.containerFormNames = {};
@@ -139,11 +137,13 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.formRefs = {};
 		this.data = {};
 		this.errors = {};
-
-		// this.onClickSave = this.onClickSave.bind(this);
+		this.action = null;
+		this.handleAction = this.handleAction.bind(this);
 		this.onSave = this.onSave.bind(this);
-		this.onLoad = this.onLoad.bind(this);
+		//this.onLoad = this.onLoad.bind(this);
+		this.onValidate = this.onValidate.bind(this);
 
+		this.handleChange = this.handleChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onError = this.onError.bind(this);
 		this.onContainerTabChange = this.onContainerTabChange.bind(this);
@@ -151,15 +151,11 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		this.onConfirm = this.onConfirm.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-		this.onLoad = this.onLoad.bind(this);
 
 		this.createForm = this.createForm.bind(this);
 		this.createForms = this.createForms.bind(this);
 
 		this.onEditComponents = this.onEditComponents.bind(this);
-
-		this.onEditComponentsSave = this.onEditComponentsSave.bind(this);
-		this.onEditComponentsLoad = this.onEditComponentsLoad.bind(this);
 
 		this.onEditComponentsConfirm = this.onEditComponentsConfirm.bind(this);
 		this.onEditComponentsCancel = this.onEditComponentsCancel.bind(this);
@@ -179,10 +175,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			this.initializeForms();
 	}
 
-	// onClickSave() {
-	// 	if (this.props.isDebug) console.log("INSIDE MULTITABFORMWITHHEADERV3.JS IN ONCLICKSAVE FUNCTION");
-	// }
-
 	initializeForms() {
 		if (this.props.isDebug) console.log("inside of INITIALIZE FORMS");
 		let counter = 0;
@@ -191,12 +183,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let newActiveID = this.state.activeID;
 		let partialInputData = {};
 		let inputDataIDs = [];
-
-		// console.log("currentChildrenComponents");
-		// console.log(currentChildrenComponents);
-
-		// console.log("elementByType - Init");
-		// console.log(this.props.elementByType);
 
 		if (this.props.inputData !== undefined && this.props.inputData !== null) {
 			if (Array.isArray(this.props.inputData)) {
@@ -257,14 +243,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			}
 		}
 
-		// console.log("partialInputData");
-		// console.log(partialInputData);
-
 		for (let id in partialInputData) {
-			// console.log("partialInputData");
-			// console.log(partialInputData[id].data);
-			// console.log("partialSchema");
-			// console.log(partialInputData[id].schema);
 			let localPartialInputData = partialInputData[id].data;
 			let partialSchema = partialInputData[id].schema;
 			let subCategoriesOrder = partialInputData[id].subCategoriesOrder;
@@ -276,9 +255,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			);
 			this.forms[id] = partialForms;
 		}
-
-		// console.log("forms");
-		// console.log(this.forms);
 
 		if (Object.keys(this.state.partialInputData).length === 0) {
 			this.state.partialInputData = partialInputData;
@@ -295,8 +271,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			prevProps.inputData === undefined ||
 			this.props.inputData !== prevProps.inputData
 		) {
-			//console.log("FORM UPDATE with OBJ");
-			//console.log(this.props.inputData);
 			let activeID = null;
 			if (Array.isArray(this.props.inputData)) {
 				let inputData = this.props.inputData[0];
@@ -314,6 +288,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			this.formRefs = {};
 			this.data = {};
 			this.errors = {};
+			this.action = {};
 			this.state.currentChildrenComponents = {};
 			this.state.minChildrenComponents = {};
 			this.state.maxChildrenComponents = {};
@@ -431,22 +406,20 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			}
 			if (this.props.isDebug) console.log("calling INITIALIZE FORMS 2");
 			this.initializeForms();
-			// this.setState({
-			// 	activeID: activeID,
-			// 	activeKey: "0",
-			// 	currentChildrenComponents: currentChildrenComponents,
-			// 	maxChildrenComponents: maxChildrenComponents,
-			// 	minChildrenComponents: minChildrenComponents,
-			// });
 		}
 	}
-	// static getDerivedStateFromProps(props, state) {
-	// 	return { state };
-	// }
 
-	onSubmit(data, event) {
-		const isConfirm = event.nativeEvent.detail.isConfirm; 
+	handleChange = () => {
+		this.setState({ isValidated: false });
+	};
 
+	onSubmit(data) {
+		if (!this.action) {
+			console.error("No action set before onSubmit call.");
+			return;
+		}
+
+		let action = this.action;
 		let localForms = this.formRefs;
 		let index = -1;
 		let id = -1;
@@ -455,7 +428,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			let forms = localForms[currentID];
 			for (let i = 0; i < forms.length; i++) {
 				let ref = forms[i];
-				if (ref.state.formData === data.formData) {
+				if (ref.state.formData === data.formData) {		//**** the level above is formData is what is being passed to onSubmit, I think we need to pass ref.state to onSubmit function and not ref.state.formData
 					index = i;
 					id = currentID;
 					break;
@@ -469,8 +442,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let linkedFields = this.state.linkedFields;
 		for (let key in data.formData) {
 			if (linkedFields[key] !== undefined) {
-				// console.log("linkedFields");
-				// console.log(linkedFields[key]);
 				let values = data.formData[key];
 				let linkedFieldsValues = [];
 				if (Array.isArray(values)) {
@@ -500,15 +471,18 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			currentData = this.data[id].slice();
 		if (this.errors[id] !== null && this.errors[id] !== undefined)
 			currentErrors = this.errors[id].slice();
-		currentData.splice(index, 0, data);
+		currentData.splice(index, 0, data);  
 		currentErrors.splice(index, 0, null);
 		this.data[id] = currentData;
 		this.errors[id] = currentErrors;
-		this.processData(isConfirm);
+		console.log("in onSubmit and calling processData");
+		this.processData(action);
 	}
 
 	onError(errors) {
-		let localForms = this.formRefs;
+		console.log("this is the errors passed to onError: ", errors);
+
+		let localForms = this.formRefs;  //localForms is a reference to all the forms we are currently using
 		let index = -1;
 		let id = -1;
 		if (this.props.isDebug) console.log("multi tab form onError - find form");
@@ -516,10 +490,20 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			let forms = localForms[currentID];
 			for (let i = 0; i < forms.length; i++) {
 				let ref = forms[i];
-				if (ref.state.errors === errors) {
-					index = i;
-					id = currentID;
-					break;
+				if (ref.state.errors === errors) {  
+					////////// check if the error in the state is the same as the error we are getting as a parameter in the function. (if error in parameter is the same as error in the form)
+					if (this.action === "confirm") {
+						this.action = this.action + "OnError";
+						if (this.props.isDebug) console.log("Confirm action detected. Calling onSubmit inside of onError function despite errors.");
+						this.onSubmit(ref.state);
+					} else if (this.action === "confirmOnError") {
+						if (this.props.isDebug) console.log("ConfirmOnError action detected. Calling onSubmit inside of onError function despite errors.");
+						this.onSubmit(ref.state);
+					} else {
+						index = i;
+						id = currentID;
+						break;
+					}
 				}
 			}
 		}
@@ -530,45 +514,44 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let currentErrors = [];
 		if (this.data[id] !== null && this.data[id] !== undefined)
 			currentData = this.data[id].slice();
-		if (this.errors[id] !== null && this.errors[id] !== undefined)
+		if (this.errors[id] !== null && this.errors[id] !== undefined) {
 			currentErrors = this.errors[id].slice();
+		}
 		currentData.splice(index, 0, null);
 		currentErrors.splice(index, 0, errors);
 		this.data[id] = currentData;
 		this.errors[id] = currentErrors;
-		this.processErrors();
+
+		if (this.action === "confirm") {
+			if (this.props.isDebug) console.log("Confirm action detected. Processing data despite errors.");
+			this.processData(this.action);
+		} else if (this.action === "confirmOnError") {
+			if (this.props.isDebug) console.log("CONFIRMONERROR CALLING PROCESSDATA");
+			this.processData(this.action);
+		} else {
+			this.processErrors();
+		}
 	}
 
-	processData(isConfirm) {
+	processData(action) {
 		if (this.props.isDebug) console.log("inside of processData function");
+		if (this.props.isDebug) console.log("this is the action: " + action);
+
 		let partialInputData = this.state.partialInputData;
 		let localData = this.data;
 		let localForms = this.formRefs;
 		let partialConsolidatedData = {};
-
-		// if (this.props.notModal) {
-		// 	console.log("CONFIRM CLICK");
-		// 	this.props.onConfirm(this.props.id);
-		// 	return;
-		// }
-
-		//console.log("I SHOULD BE HERE1");
 
 		if (this.props.isDebug)
 			console.log("multi tab form processData - data process");
 		for (let currentID in localForms) {
 			let forms = localForms[currentID];
 			let currentData = localData[currentID];
-			if (this.props.isDebug)
-				console.log("inside processData function and the currentData is", currentData);
 			let numberOfForms = forms.length;
-			if (
-				!isDefined(currentData) ||
-				currentData.length < numberOfForms ||
-				currentData.includes(null)
-			) {
-				if (this.props.isDebug)
-					console.log("multi tab form processData - data not found");
+
+			if (!isDefined(currentData) || currentData.length < numberOfForms || currentData.includes(null)) {
+				if (this.props.isDebug) console.log("multi tab form processData - data not found");
+
 				return;
 			}
 
@@ -597,9 +580,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			return;
 		}
 
-		// let currentData = this.data;
-		// let numberOfForms = this.formRefs.length;
-		// if (currentData.length < numberOfForms) return;
 		let mainID = null;
 		if (Array.isArray(this.props.inputData)) {
 			mainID = this.props.inputData[0].ID;
@@ -638,28 +618,31 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			}
 		}
 
-		if (this.props.isDebug) console.log("consolidatedData ", consolidatedData);
-
-		if (this.props.isDebug)
-			console.log("multi tab form processData - return consolidated data");
 		let linkedFields = Object.assign({}, this.state.linkedFields);
 
-		if (isConfirm) 
+		if (action === "confirm") 
 		{
 			if (this.props.isDebug) console.log("props.onConfirm function will get called");
-			console.log("ValidationTier which this component is validated at after clicking on Confirm", this.props.validationTier);
-			// this.props.getComponent(this.props.id, consolidatedData, linkedFields);
-			this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
-
-		} else 
+			this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
+		} 
+		else if (action === "confirmOnError") {
+			if (this.props.isDebug) console.log("CONFIRMONERROR: props.onConfirm function will get called");
+			this.props.onConfirm(this.props.id, consolidatedData, linkedFields, true);
+		}
+		else if (action === "save")
 		{
 			if (this.props.isDebug) console.log("props.onSave function will get called");
-			if (this.props.isDebug) console.log("this is the id: ", this.props.id);
-			if (this.props.isDebug) console.log("this is the linkedFields: ", linkedFields);
-
-			console.log("ValidationTier which this component is validated at after clicking on Save", this.props.validationTier);
 			this.props.onSave(this.props.id, consolidatedData, linkedFields);
-			this.props.onConfirm(this.props.id, consolidatedData, linkedFields);
+			this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
+		}
+		else {
+			if (this.props.isDebug) console.log("inside of processData and the action is validate");
+
+			this.setState({ isValidated: true }, () => {
+				if (this.state.isValidated) {
+					window.alert("The component has been successfully validated");
+				}
+			});
 		}
 	}
 
@@ -680,6 +663,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					console.log("multi tab form processErrors - data not found");
 				return;
 			}
+			//this for loop activates the tab where the first error is found
 			for (let i = 0; i < currentErrors.length; i++) {
 				if (currentErrors[i] !== null) {
 					this.setState({ activeID: currentID, activeKey: i }); //`${i}` });
@@ -689,115 +673,62 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				}
 			}
 		}
-		// let currentErrors = this.errors;
-		// let numberOfForms = this.formRefs.length;
-		// if (currentErrors.length < numberOfForms) return;
-		// for (let i = 0; i < currentErrors.length; i++) {
-		// 	if (currentErrors[i] !== null) {
-		// 		this.setState({ activeKey: `${i}` });
-		// 		return;
-		// 	}
-		// }
 	}
 
 	onEditComponents() {
 		this.setState({ showForm: false });
 	}
 
-	onEditComponentsSave() {
-		this.initializeForms();
-		this.setState({ showForm: true });
-		console.log("Save button clicked");
-	}
-
-	onEditComponentsLoad() {
-		this.initializeForms();
-		this.setState({ showForm: true });
-		console.log("Load button clicked");
-	}
-
 	onEditComponentsConfirm() {
-		if (this.props.isDebug) console.log("inside of onEditComponentsConfirm function after clicking on Confirm button");
 		this.initializeForms();
 		this.setState({ showForm: true });
 	}
 
 	onEditComponentsCancel() {
-		if (this.props.isDebug) console.log("calling INITIALIZE FORMS 3");
 		this.initializeForms();
 		this.setState({ showForm: true });
 	}
 
-	onConfirm() {
-		if (this.props.isDebug) console.log("inside of onConfirm function after clicking on Confirm button");
-		let localForms = this.formRefs;
-		let localButtons = this.buttonsRefs;
+	handleAction(action) {
+		if (this.props.isDebug) console.log(`inside of ${action} function`);
+
+		if (action === "save" && !this.state.isValidated) {
+			window.alert("You must validate the form before saving.");
+			return;
+		}
+
 		this.data = {};
 		this.errors = {};
-		if (this.props.isDebug)
-			console.log("multi tab form onConfirm - submit all forms");
-		for (let id in localForms) {
-			let forms = localForms[id];
-			let buttons = localButtons[id];
-			for (let i = 0; i < forms.length; i++) {
-				let refForm = forms[i];
-				if (this.props.isDebug)
-					console.log("value stored in refForm at i = " + i, refForm);
-				let refButton = buttons[i];
-				if (this.props.isDebug)
-					console.log("multi tab form onConfirm - submit form " + i);
-				//refForm.submit();
+		this.action = action;
 
-				refForm.formElement.dispatchEvent(
-					new CustomEvent("submit", { bubbles: true, 
-												cancelable: true, 
-												detail: { isConfirm: true } })
-				);
+		if (this.props.isDebug) console.log(`multi tab form ${action} - submit all forms`);
 
-				//refForm.validate();
-				//refButton.click();
-			}
-		}
+		Object.entries(this.formRefs).forEach(([id, forms]) => {
+			const buttons = this.buttonsRefs[id];
+			forms.forEach((refForm, i) => {
+				if (this.props.isDebug) console.log(`value stored in refForm at index ${i}:`, refForm);
+				if (this.props.isDebug) console.log(`multi tab form ${action} - submit form ${i}`);
+				refForm.formElement.dispatchEvent(new CustomEvent("submit", { bubbles: true, cancelable: true }));
+			});
+		});
+	}
+
+	onConfirm() {
+		this.handleAction("confirm");
+	}
+
+	onValidate() {
+		this.handleAction("validate");
+	}
+
+	onSave() {
+		this.handleAction("save");
 	}
 
 	onCancel() {
 		this.props.onCancel();
 	}
 
-	onLoad() {
-		this.props.onLoad();
-		console.log("called onLoad function in multiTabFormWithHeaderV3");
-	}
-
-	onSave() {
-		if (this.props.isDebug) console.log("inside of onSave function after clicking on Save button");
-		let localForms = this.formRefs;
-		let localButtons = this.buttonsRefs;
-		this.data = {};
-		this.errors = {};
-		if (this.props.isDebug)
-			console.log("multi tab form onSave - submit all forms");
-		for (let id in localForms) {
-			let forms = localForms[id];
-			let buttons = localButtons[id];
-			for (let i = 0; i < forms.length; i++) {
-				let refForm = forms[i];
-				if (this.props.isDebug)
-					console.log("value stored in refForm at i = " + i, refForm);
-				let refButton = buttons[i];
-				if (this.props.isDebug)
-					console.log("multi tab form onSave - submit form " + i);
-				//refForm.submit();
-				refForm.formElement.dispatchEvent(
-					new CustomEvent("submit", { bubbles: true, 
-												cancelable: true, 
-												detail: { isConfirm: false } })
-				);
-				//refForm.validate();
-				//refButton.click();
-			}
-		}
-	}
 
 	transformOutputData(data) {
 		if (this.props.isDebug) console.log("component's data before transforming: ", data);
@@ -1139,21 +1070,31 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		return partialUISchema;
 	}
 
+	// customValidate = (formData, errors) => {
+	// 	console.log("!!!! In customValidate function and the action is:", this.action);
+	// 	if (this.action === 'save') {
+	// 	  Object.keys(errors).forEach((field) => {
+	// 		delete errors[field];  // Remove errors for all fields
+	// 	  });
+	// 	}
+	// 	return errors;
+	// }
+
 	createForm(
 		schema,
 		uiSchema,
 		input,
 		index,
 		currentFormRefs,
-		currentButtonsRefs
+		currentButtonsRefs,
 	) {
-		console.log("Creating form with schema:", schema);
 		return (
 			<Form
 				schema={schema}
 				uiSchema={uiSchema}
 				onSubmit={this.onSubmit}
 				onError={this.onError}
+				onChange={this.handleChange}
 				formData={input}
 				showErrorList={false}
 				idPrefix={"rjsfPrefix"}
@@ -1165,6 +1106,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				}}
 				style={{ overflow: "hidden" }}
+				// transformErrors={(errors) => this.transformErrors(errors, this.state.action)}
 			>
 				<button
 					type="submit"
@@ -1195,13 +1137,13 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				description,
 			});
 			currentFormNames.splice(index, 0, key);
-			let form = this.createForm(
+			let form = this.createForm(         //// check if we can add new parameter to createForm to tell it to display the error or not
 				partialSchema[key],
 				partialUISchema[key],
 				partialInputData[key],
 				index,
 				currentFormRefs,
-				currentButtonsRefs
+				currentButtonsRefs,
 			);
 			currentForms.push(form);
 		});
@@ -1224,7 +1166,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				partialInputData[key],
 				-1,
 				currentFormRefs,
-				currentButtonsRefs
+				currentButtonsRefs,
 			);
 			currentForms.push(form);
 		}
@@ -1341,10 +1283,74 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			marginLeft: "5px",
 			marginRight: "5px",
 		};
-		const smallButton = {
+		const ComponentLibraryButton = {
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "flex-start",
 			width: "150px", 
-			// marginLeft: "5px",
 			marginRight: "5px",
+			width: "100%",
+			height: "36px",
+			fontSize: "16px",
+			fontWeight: 500,
+			backgroundColor: "#F6F6F6",
+			color: "#212121",
+			borderColor: "#bab8b8",
+		};
+		const CreateNewButton = {
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "flex-start",
+			width: "150px", 
+			marginRight: "5px",
+			width: "100%",
+			height: "36px",
+			fontSize: "16px",
+			fontWeight: 500,
+			backgroundColor: "#4099AB",
+			color: "#FFFFFF",
+			borderColor: "#5d8f99",
+		};
+		const ValidateButton = {
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "flex-start",
+			height: "44px",
+			fontSize: "18px",
+			fontWeight: 500,
+			backgroundColor: "#F6F6F6",
+			color: "#212121",
+			borderColor: "#bab8b8",
+			paddingRight: "25px",
+			paddingLeft: "25px",
+			borderRadius: "8px",
+		};
+		const SaveChangesButton = {
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "flex-start",
+			height: "44px",
+			fontSize: "18px",
+			fontWeight: 500,
+			backgroundColor: "#4099AB",
+			color: "#FFFFFF",
+			borderColor: "#5d8f99",
+			paddingRight: "25px",
+			paddingLeft: "25px",
+			borderRadius: "8px",
+		};
+		const CancelButton = {
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "flex-start",
+			height: "44px",
+			fontSize: "18px",
+			fontWeight: 500,
+			backgroundColor: "#FFFFFF",
+			color: "#030303",
+			borderColor: "#FFFFFF",
+			paddingRight: "20px",
+			paddingLeft: "20px",
 		};
 		const button2 = {
 			width: "510px",
@@ -1360,6 +1366,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			justifyContent: "space-between", 
 			alignItems: "center", 
 			marginBottom: "10px", 
+			height: "40px",
+			width: "100%",
 		};
 		const buttonContainerColumnExternal = {
 			display: "flex",
@@ -1384,13 +1392,47 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			justifyContent: "center",
 			marginBottom: "5px",
 		};
+		const buttonContainerRowModal = {
+			display: "flex",
+			flexDirection: "row",
+			flexWap: "wrap",
+			justifyContent: "space-between",
+			marginBottom: "5px",
+			width: "100%",
+		};
 		const topButtonContainer = {
 			display: "flex",
 			flexDirection: "row",
-			flexWrap: "wrap",
+			//flexWrap: "wrap",
 			justifyContent: "flex-end", 
 			marginBottom: "5px",
 		};
+		const styleValidation = {
+			display: "inline-block", // Ensure it behaves like an inline element
+  			position: "relative",
+			marginLeft: "10px",  
+			fontWeight: "bold",
+			textAlign: "center",
+		};
+		let styleImageIcon = {
+			width: "17px",
+			height: "17px",
+			marginRight: "10px",
+		};
+
+		let validated = null;
+		if (this.state.isValidated) {
+			const styleValidated = Object.assign({}, styleValidation, {
+				color: "green",
+			});
+			validated = <div style={styleValidated}>&#9679;</div>;
+		} else {
+			const styleValidated = Object.assign({}, styleValidation, {
+				color: "red",
+			});
+			validated = <div style={styleValidated}>&#9679;</div>;
+		}
+
 		let currentChildrenComponents = this.state.currentChildrenComponents;
 		let minChildrenComponents = this.state.minChildrenComponents;
 		let maxChildrenComponents = this.state.maxChildrenComponents;
@@ -1399,6 +1441,27 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let containerNames = this.containerFormNames;
 		let names = this.formNames;
 		let forms = this.forms;
+
+		let globeImgPath_tmp = url.resolve(this.props.imagesPath, string_globe_solid_img);
+    	let globeImgPath =
+			globeImgPath_tmp +
+			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+
+		let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
+    	let plusImgPath =
+			plusImgPath_tmp +
+			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+
+		let floppyDiskImgPath_tmp = url.resolve(this.props.imagesPath, string_floppy_disk_solid_img);
+		let floppyDiskImgPath =
+			floppyDiskImgPath_tmp +
+			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 
 		for (let id in forms) {
 			let localCurrentChildrenComponents = currentChildrenComponents[id];
@@ -1429,6 +1492,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let childrenButtons = null;
 		if (hasEditableChildren[activeID])
 			childrenButtons = this.createChildrenComponentsButton(activeID);
+
 		if (!showForm) {
 			return (
 				<ModalWindow overlaysContainer={this.props.overlaysContainer}>
@@ -1448,20 +1512,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 								onClick={this.onEditComponentsCancel}
 							>
 								Cancel
-							</Button>
-							<Button
-								style={button}
-								size="lg"
-								onClick={this.onEditComponentsSave} 
-							>
-								Save
-							</Button>
-							<Button
-								style={button}
-								size="lg"
-								onClick={this.onEditComponentsLoad}
-							>
-								Load
 							</Button>
 						</div>
 					</div>
@@ -1510,63 +1560,132 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		let buttons = [];
 		let topButtons = [];
+
+		if (!this.props.notModal) {
+			buttons.push(
+				<Button
+					key="button-validate"
+					style={ValidateButton}
+					size="lg"
+					onClick={this.onValidate}
+				>
+					Validate Input
+				</Button>
+			);
+		}
+
+		// if (!this.props.notModal) {
+		// 	buttons.push(
+		// 		<Button
+		// 			key="button-cancel"
+		// 			style={button}
+		// 			size="lg"
+		// 			onClick={this.onCancel}
+		// 		>
+		// 			Cancel
+		// 		</Button>
+		// 	);
+		// }
+
 		if (
 			!this.props.notModal ||
 			(this.props.notModal && this.props.onConfirm !== null)
 		) {
-			let text = "Confirm";
+			let text = "Save Changes";
 			if (this.props.notModal && this.props.onConfirm !== null) text = "Add";
 			buttons.push(
-				<Button
-					key="button-confirm"
-					style={button}
-					size="lg"
-					onClick={this.onConfirm}
+
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "flex-end",
+						alignItems: "center",
+					}}
 				>
-					{text}
-				</Button>
+					<Button
+						key="button-cancel"
+						style={CancelButton}
+						size="lg"
+						onClick={this.onCancel}
+					>
+						Cancel
+					</Button>
+
+					<Button
+						key="button-confirm"
+						style={SaveChangesButton}
+						size="lg"
+						onClick={this.onConfirm}
+					>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+							}}
+						>
+							<img
+								src={floppyDiskImgPath} alt="FloppyDisk Icon" style={styleImageIcon}
+							/>
+							{text}
+						</div>
+					</Button>
+				</div>
 			);
 		}
 
-		if (!this.props.notModal) {
-			buttons.push(
-				<Button
-					key="button-cancel"
-					style={button}
-					size="lg"
-					onClick={this.onCancel}
-				>
-					Cancel
-				</Button>
-			);
-		}
-
-		// let index = 0;
-		if (!this.props.notModal) {
-			buttons.push(
-				<Button
-					key="button-save"
-					style={button}
-					size="lg"
-					onClick={this.onSave}
-				>
-					Save
-				</Button>
-			);
-
-		}
-		// index++;
 		if (!this.props.notModal) {
 			topButtons.push(
 				<Button
 					key="button-load"
-					style={smallButton}
+					style={ComponentLibraryButton}
 					size="lg"
 					onClick={this.onLoad}
 				>
-					Load
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							paddingLeft: "2px",
+							paddingRight: "2px",
+						}}
+					>
+						<img
+							src={globeImgPath} alt="Globe Icon" style={styleImageIcon}
+						/>
+						<span style={{ whiteSpace: "nowrap" }}>Component Library</span>
+					</div>
+
 				</Button>
 			);
+		}
+
+		if (!this.props.notModal) {
+			topButtons.push(
+				<Button
+					key="button-save"
+					style={CreateNewButton}
+					size="lg"
+					onClick={this.onSave}
+					>
+					<div
+						style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						paddingLeft: "2px",
+						paddingRight: "2px",
+						}}
+					>
+						<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
+						<span style={{ display: "flex", alignItems: "center" }}>
+						Create New {validated}
+						</span>
+					</div>
+				</Button>
+			);
+
 		}
 
 		let containerFormNames = [];
@@ -1651,7 +1770,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					<TabList>{containerFormNames}</TabList>
 					{containerForms}
 				</Tabs>
-				<div style={buttonContainerRow}>{buttons}</div>
+				<div style={buttonContainerRowModal}>{buttons}</div>
 			</div>
 		);
 		//<div>{this.props.schema.description}</div>

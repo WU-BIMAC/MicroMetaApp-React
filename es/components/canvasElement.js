@@ -57,6 +57,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       editForm: null
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    _this.handleDummy = _this.handleDummy.bind(_assertThisInitialized(_this));
     _this.handleConfirm = _this.handleConfirm.bind(_assertThisInitialized(_this));
     _this.handleCancel = _this.handleCancel.bind(_assertThisInitialized(_this));
     _this.handleSave = _this.handleSave.bind(_assertThisInitialized(_this));
@@ -77,14 +78,16 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
         this.props.setEditingOnCanvas(true);
 
         var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          imagesPath: this.props.imagesPath,
+          validationUpdate: this.props.validationUpdate,
           title: "Edit " + this.props.formTitle,
           schema: this.props.schema,
           inputData: this.props.inputData,
           id: this.props.id,
-          validationTier: this.props.validationTier // getComponent={this.props.getComponent}
-          ,
+          validationTier: this.props.validationTier,
           onConfirm: this.handleConfirm,
           onCancel: this.handleCancel,
+          onDummy: this.handleDummy,
           onSave: this.handleSave,
           onLoad: this.handleLoad,
           overlaysContainer: this.props.overlaysContainer,
@@ -104,14 +107,14 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleConfirm",
-    value: function handleConfirm(id, data, linkedFields) {
+    value: function handleConfirm(id, data, linkedFields, isOnError) {
       console.log("inside of handleConfirm");
       this.setState({
         editing: false,
         editForm: null
       });
       this.props.setEditingOnCanvas(false);
-      this.props.handleConfirm(id, data, linkedFields);
+      this.props.handleConfirm(id, data, linkedFields, isOnError);
     }
   }, {
     key: "handleCancel",
@@ -124,12 +127,21 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       });
     }
   }, {
+    key: "handleDummy",
+    value: function handleDummy() {
+      if (this.props.isDebug) console.log("inside of function handleDummy in canvasElement.js");
+      this.props.setEditingOnCanvas(true);
+      this.setState({
+        editing: true
+      });
+    }
+  }, {
     key: "handleSave",
     value: function handleSave(id, consolidatedData, linkedFields) {
       if (this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
       this.props.setEditingOnCanvas(false);
       this.props.handleConfirm(id, consolidatedData, linkedFields);
-      this.props.onClickSave(id, consolidatedData, linkedFields); // this.setState({ editing: false, editForm: null });  //might have to change this line to be similar to the "handleConfirm" logic
+      this.props.onClickSave(id, consolidatedData, linkedFields);
     }
   }, {
     key: "handleLoad",
@@ -139,7 +151,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         editing: false,
         editForm: null
-      }); //might have to change this line 
+      });
     }
   }, {
     key: "handleResize",

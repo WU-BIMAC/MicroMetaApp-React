@@ -785,6 +785,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 					let validation = validate(comp, compSchema);
 					let validated = validation.valid;
 					let valid = null;
+					console.log("ALERT COMPONENT COLOR");
 					if (validated) {
 						valid = isValid1;
 					} else {

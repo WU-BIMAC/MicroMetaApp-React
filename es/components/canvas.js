@@ -190,7 +190,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "onCanvasElementDataSave",
-    value: function onCanvasElementDataSave(id, data, dataLinkedFields) {
+    value: function onCanvasElementDataSave(id, data, dataLinkedFields, isOnError) {
       if (this.props.isDebug) console.log("in the function onCanvasElementDataSave(id, data, dataLinkedFields) of canvas");
       var linkedFields = this.state.linkedFields;
 
@@ -199,10 +199,15 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var elementList = this.state.elementList;
+      var validationBool = false;
+
+      if (!isOnError) {
+        validationBool = true;
+      }
 
       for (var i = 0; i < elementList.length; i++) {
         if (elementList[i].ID === id) {
-          elementList[i].validated = true;
+          elementList[i].validated = validationBool;
           elementList[i].name = data.Name;
           break;
         }
@@ -216,7 +221,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       });
       var validated = this.areAllElementsValidated();
       this.props.updateElementData(currentElementData, validated);
-      this.props.updateLinkedFields(linkedFields); //this.props.getComponent(id, data, dataLinkedFields);
+      this.props.updateLinkedFields(linkedFields);
     }
   }, {
     key: "getElementData",
@@ -1223,7 +1228,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           })), /*#__PURE__*/_react.default.createElement("div", {
             style: styleElementNameContainer
           }, /*#__PURE__*/_react.default.createElement(_canvasElement.default, {
-            validationTier: _this3.props.validationTier // getComponent={this.props.getComponent}
+            validationTier: _this3.props.validationTier,
+            imagesPath: _this3.props.imagesPath // getComponent={this.props.getComponent}
             ,
             onClickSave: _this3.props.onClickSave,
             activeTier: _this3.props.activeTier,

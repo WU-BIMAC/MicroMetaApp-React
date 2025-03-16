@@ -56,7 +56,6 @@ export default class Canvas extends React.PureComponent {
 			originalDimensions: {},
 			previousProps: {},
 		};
-
 		this.setEditingOnCanvas = this.setEditingOnCanvas.bind(this);
 		this.addComponentsIndexesIfMissing =
 			this.addComponentsIndexesIfMissing.bind(this);
@@ -273,7 +272,7 @@ export default class Canvas extends React.PureComponent {
 		return true;
 	}
 
-	onCanvasElementDataSave(id, data, dataLinkedFields) {
+	onCanvasElementDataSave(id, data, dataLinkedFields, isOnError) {
 		if (this.props.isDebug) console.log("in the function onCanvasElementDataSave(id, data, dataLinkedFields) of canvas");
 		let linkedFields = this.state.linkedFields;
 		if (
@@ -284,9 +283,15 @@ export default class Canvas extends React.PureComponent {
 		}
 
 		let elementList = this.state.elementList;
+		let validationBool = false;
+
+		if (!isOnError) {
+			validationBool = true;
+		}
+
 		for (let i = 0; i < elementList.length; i++) {
 			if (elementList[i].ID === id) {
-				elementList[i].validated = true;
+				elementList[i].validated = validationBool;
 				elementList[i].name = data.Name;
 				break;
 			}
@@ -301,7 +306,6 @@ export default class Canvas extends React.PureComponent {
 		let validated = this.areAllElementsValidated();
 		this.props.updateElementData(currentElementData, validated);
 		this.props.updateLinkedFields(linkedFields);
-		//this.props.getComponent(id, data, dataLinkedFields);
 	}
 
 	getElementData() {
@@ -1269,6 +1273,7 @@ export default class Canvas extends React.PureComponent {
 								<div style={styleElementNameContainer}>
 									<CanvasElement
 										validationTier={this.props.validationTier}
+										imagesPath={this.props.imagesPath}
 										// getComponent={this.props.getComponent}
 										onClickSave={this.props.onClickSave}
 										activeTier={this.props.activeTier}
@@ -1303,6 +1308,7 @@ export default class Canvas extends React.PureComponent {
 										formTitle={item.name}
 										isDebug={this.props.isDebug}
 									/>
+									
 									<div style={styleName}>{item.name}</div>
 								</div>
 							</div>

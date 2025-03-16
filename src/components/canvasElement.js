@@ -19,6 +19,7 @@ export default class CanvasElement extends React.PureComponent {
 		};
 
 		this.handleClick = this.handleClick.bind(this);
+		this.handleDummy = this.handleDummy.bind(this);
 
 		this.handleConfirm = this.handleConfirm.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
@@ -39,14 +40,16 @@ export default class CanvasElement extends React.PureComponent {
 			this.props.setEditingOnCanvas(true);
 			let editForm = (
 				<MultiTabFormWithHeaderV3
+					imagesPath={this.props.imagesPath}
+					validationUpdate={this.props.validationUpdate}
 					title={"Edit " + this.props.formTitle}
 					schema={this.props.schema}
 					inputData={this.props.inputData}
 					id={this.props.id}
 					validationTier={this.props.validationTier}
-					// getComponent={this.props.getComponent}
 					onConfirm={this.handleConfirm}
 					onCancel={this.handleCancel}
+					onDummy={this.handleDummy}
 					onSave={this.handleSave}
 					onLoad={this.handleLoad}
 					overlaysContainer={this.props.overlaysContainer}
@@ -68,11 +71,11 @@ export default class CanvasElement extends React.PureComponent {
 		}
 	}
 
-	handleConfirm(id, data, linkedFields) {
+	handleConfirm(id, data, linkedFields, isOnError) {
 		console.log("inside of handleConfirm");
 		this.setState({ editing: false, editForm: null });
 		this.props.setEditingOnCanvas(false);
-		this.props.handleConfirm(id, data, linkedFields);
+		this.props.handleConfirm(id, data, linkedFields, isOnError);
 	}
 
 	handleCancel() {
@@ -81,18 +84,23 @@ export default class CanvasElement extends React.PureComponent {
 		this.setState({ editing: false, editForm: null });
 	}
 
+	handleDummy() {
+		if(this.props.isDebug) console.log("inside of function handleDummy in canvasElement.js");
+		this.props.setEditingOnCanvas(true);
+		this.setState({ editing: true});
+	}
+
 	handleSave(id, consolidatedData, linkedFields) {
 		if(this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
 		this.props.setEditingOnCanvas(false);
 		this.props.handleConfirm(id, consolidatedData, linkedFields);
 		this.props.onClickSave(id, consolidatedData, linkedFields);
-		// this.setState({ editing: false, editForm: null });  //might have to change this line to be similar to the "handleConfirm" logic
 	}
 
 	handleLoad() {
 		if(this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
 		this.props.setEditingOnCanvas(false);
-		this.setState({ editing: false, editForm: null });  //might have to change this line 
+		this.setState({ editing: false, editForm: null });  
 	}
 
 	handleResize(e, data) {

@@ -789,6 +789,7 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
             var validation = validate(comp, compSchema);
             var validated = validation.valid;
             var valid = null;
+            console.log("ALERT COMPONENT COLOR");
 
             if (validated) {
               valid = isValid1;

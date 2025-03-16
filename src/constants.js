@@ -23,6 +23,10 @@ export const string_logo_img_no_bk = "MicroMetaApp_noBkg_noOutline_3.png"; //"Mi
 export const string_logo_img_cell_bk = "MicroMetaApp_cellBkg.png";
 export const string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_4.png"; //"MicroMetaApp_TESMBkg_2.png";
 
+export const string_globe_solid_img = "globe-solid.svg";
+export const string_plus_solid_img = "plus-solid.svg";
+export const string_floppy_disk_solid_img = "floppy-disk-solid.svg";
+
 export const string_add_img = "add-button.svg";
 export const string_home_img = "home.svg";
 export const string_home_circle_img = "home-circle.svg";
