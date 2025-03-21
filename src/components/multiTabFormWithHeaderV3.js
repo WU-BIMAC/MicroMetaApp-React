@@ -142,7 +142,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.onSave = this.onSave.bind(this);
 		this.onLoad = this.onLoad.bind(this);
 		this.onValidate = this.onValidate.bind(this);
-		this.resolve = this.resolve.bind(this);
+		//this.resolve = this.resolve.bind(this);
 
 		this.handleChange = this.handleChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -1205,15 +1205,15 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.setState({ currentChildrenComponents: currentChildrenComponents });
 	}
 
-	resolve(from, to) {
-		const resolvedUrl = new URL(to, new URL(from, 'resolve://'));
-		if (resolvedUrl.protocol === 'resolve:') {
-		  // `from` is a relative URL.
-		  const { pathname, search, hash } = resolvedUrl;
-		  return pathname + search + hash;
-		}
-		return resolvedUrl.toString();
-	}
+	// resolve(from, to) {
+	// 	const resolvedUrl = new URL(to, new URL(from, 'resolve://'));
+	// 	if (resolvedUrl.protocol === 'resolve:') {
+	// 	  // `from` is a relative URL.
+	// 	  const { pathname, search, hash } = resolvedUrl;
+	// 	  return pathname + search + hash;
+	// 	}
+	// 	return resolvedUrl.toString();
+	// }
 
 	createChildrenComponentsButton(id) {
 		let currentChildrenComponents = this.state.currentChildrenComponents[id];
@@ -1447,31 +1447,31 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let names = this.formNames;
 		let forms = this.forms;
 
-		let globeImgPath_tmp = this.resolve(this.props.imagesPath, string_globe_solid_img);
-    	let globeImgPath =
-			globeImgPath_tmp.substring(1) +
-			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
+		// let globeImgPath_tmp = this.resolve(this.props.imagesPath, string_globe_solid_img);
+    	// let globeImgPath =
+		// 	globeImgPath_tmp.substring(1) +
+		// 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
+		// 		? "?sanitize=true"
+		// 		: "");
 
-		//let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
-		let plusImgPath_tmp = this.resolve(this.props.imagesPath, string_plus_solid_img);
-    	let plusImgPath =
-			plusImgPath_tmp.substring(1) +
-			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
+		// //let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
+		// let plusImgPath_tmp = this.resolve(this.props.imagesPath, string_plus_solid_img);
+    	// let plusImgPath =
+		// 	plusImgPath_tmp.substring(1) +
+		// 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
+		// 		? "?sanitize=true"
+		// 		: "");
 
-		let floppyDiskImgPath_tmp = this.resolve(this.props.imagesPath, string_floppy_disk_solid_img);
-		let floppyDiskImgPath =
-			floppyDiskImgPath_tmp.substring(1) +
-			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
-				? "?sanitize=true"
-				: "");
+		// let floppyDiskImgPath_tmp = this.resolve(this.props.imagesPath, string_floppy_disk_solid_img);
+		// let floppyDiskImgPath =
+		// 	floppyDiskImgPath_tmp.substring(1) +
+		// 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
+		// 		? "?sanitize=true"
+		// 		: "");
 
-		console.log('Globe Image Path:', globeImgPath_tmp);
-		console.log('Plus Image Path:', plusImgPath_tmp);
-		console.log('Floppy Disk Image Path:', floppyDiskImgPath_tmp);
+		// console.log('Globe Image Path:', globeImgPath_tmp);
+		// console.log('Plus Image Path:', plusImgPath_tmp);
+		// console.log('Floppy Disk Image Path:', floppyDiskImgPath_tmp);
 
 		for (let id in forms) {
 			let localCurrentChildrenComponents = currentChildrenComponents[id];
@@ -1621,9 +1621,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 								alignItems: "center",
 							}}
 						>
-							<img
+							{/* <img
 								src={floppyDiskImgPath} alt="FloppyDisk Icon" style={styleImageIcon}
-							/>
+							/> */}
 							{text}
 						</div>
 					</Button>
@@ -1648,9 +1648,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 						paddingRight: "2px",
 					}}
 				>
-					<img
+					{/* <img
 						src={globeImgPath} alt="Globe Icon" style={styleImageIcon}
-					/>
+					/> */}
 					<span style={{ whiteSpace: "nowrap" }}>Component Library</span>
 				</div>
 
@@ -1676,7 +1676,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 						paddingRight: "2px",
 						}}
 					>
-						<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
+						{/* <img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} /> */}
 						<span style={{ display: "flex", alignItems: "center" }}>
 						Create New {validated}
 						</span>

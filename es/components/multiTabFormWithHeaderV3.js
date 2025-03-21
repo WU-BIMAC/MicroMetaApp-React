@@ -172,8 +172,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleAction = _this.handleAction.bind(_assertThisInitialized(_this));
     _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
     _this.onLoad = _this.onLoad.bind(_assertThisInitialized(_this));
-    _this.onValidate = _this.onValidate.bind(_assertThisInitialized(_this));
-    _this.resolve = _this.resolve.bind(_assertThisInitialized(_this));
+    _this.onValidate = _this.onValidate.bind(_assertThisInitialized(_this)); //this.resolve = this.resolve.bind(this);
+
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.onError = _this.onError.bind(_assertThisInitialized(_this));
@@ -948,22 +948,16 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         currentChildrenComponents: currentChildrenComponents
       });
-    }
-  }, {
-    key: "resolve",
-    value: function resolve(from, to) {
-      var resolvedUrl = new URL(to, new URL(from, 'resolve://'));
+    } // resolve(from, to) {
+    // 	const resolvedUrl = new URL(to, new URL(from, 'resolve://'));
+    // 	if (resolvedUrl.protocol === 'resolve:') {
+    // 	  // `from` is a relative URL.
+    // 	  const { pathname, search, hash } = resolvedUrl;
+    // 	  return pathname + search + hash;
+    // 	}
+    // 	return resolvedUrl.toString();
+    // }
 
-      if (resolvedUrl.protocol === 'resolve:') {
-        // `from` is a relative URL.
-        var pathname = resolvedUrl.pathname,
-            search = resolvedUrl.search,
-            hash = resolvedUrl.hash;
-        return pathname + search + hash;
-      }
-
-      return resolvedUrl.toString();
-    }
   }, {
     key: "createChildrenComponentsButton",
     value: function createChildrenComponentsButton(id) {
@@ -1180,17 +1174,28 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var hasEditableChildren = [];
       var containerNames = this.containerFormNames;
       var names = this.formNames;
-      var forms = this.forms;
-      var globeImgPath_tmp = this.resolve(this.props.imagesPath, _constants.string_globe_solid_img);
-      var globeImgPath = globeImgPath_tmp.substring(1) + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""); //let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
-
-      var plusImgPath_tmp = this.resolve(this.props.imagesPath, _constants.string_plus_solid_img);
-      var plusImgPath = plusImgPath_tmp.substring(1) + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var floppyDiskImgPath_tmp = this.resolve(this.props.imagesPath, _constants.string_floppy_disk_solid_img);
-      var floppyDiskImgPath = floppyDiskImgPath_tmp.substring(1) + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      console.log('Globe Image Path:', globeImgPath_tmp);
-      console.log('Plus Image Path:', plusImgPath_tmp);
-      console.log('Floppy Disk Image Path:', floppyDiskImgPath_tmp);
+      var forms = this.forms; // let globeImgPath_tmp = this.resolve(this.props.imagesPath, string_globe_solid_img);
+      // let globeImgPath =
+      // 	globeImgPath_tmp.substring(1) +
+      // 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
+      // 		? "?sanitize=true"
+      // 		: "");
+      // //let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
+      // let plusImgPath_tmp = this.resolve(this.props.imagesPath, string_plus_solid_img);
+      // let plusImgPath =
+      // 	plusImgPath_tmp.substring(1) +
+      // 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
+      // 		? "?sanitize=true"
+      // 		: "");
+      // let floppyDiskImgPath_tmp = this.resolve(this.props.imagesPath, string_floppy_disk_solid_img);
+      // let floppyDiskImgPath =
+      // 	floppyDiskImgPath_tmp.substring(1) +
+      // 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
+      // 		? "?sanitize=true"
+      // 		: "");
+      // console.log('Globe Image Path:', globeImgPath_tmp);
+      // console.log('Plus Image Path:', plusImgPath_tmp);
+      // console.log('Floppy Disk Image Path:', floppyDiskImgPath_tmp);
 
       for (var id in forms) {
         var localCurrentChildrenComponents = currentChildrenComponents[id];
@@ -1317,11 +1322,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             justifyContent: "center",
             alignItems: "center"
           }
-        }, /*#__PURE__*/_react.default.createElement("img", {
-          src: floppyDiskImgPath,
-          alt: "FloppyDisk Icon",
-          style: styleImageIcon
-        }), text))));
+        }, text))));
       }
 
       if (!this.props.notModal) {
@@ -1338,11 +1339,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             paddingLeft: "2px",
             paddingRight: "2px"
           }
-        }, /*#__PURE__*/_react.default.createElement("img", {
-          src: globeImgPath,
-          alt: "Globe Icon",
-          style: styleImageIcon
-        }), /*#__PURE__*/_react.default.createElement("span", {
+        }, /*#__PURE__*/_react.default.createElement("span", {
           style: {
             whiteSpace: "nowrap"
           }
@@ -1363,11 +1360,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             paddingLeft: "2px",
             paddingRight: "2px"
           }
-        }, /*#__PURE__*/_react.default.createElement("img", {
-          src: plusImgPath,
-          alt: "Plus Icon",
-          style: styleImageIcon
-        }), /*#__PURE__*/_react.default.createElement("span", {
+        }, /*#__PURE__*/_react.default.createElement("span", {
           style: {
             display: "flex",
             alignItems: "center"
