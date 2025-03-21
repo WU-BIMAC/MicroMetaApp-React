@@ -147,12 +147,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     key: "handleLoad",
     value: function handleLoad() {
       if (this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
-      this.props.onClickLoad();
-      this.props.setEditingOnCanvas(false);
-      this.setState({
-        editing: false,
-        editForm: null
-      });
+      this.props.onClickLoad(); //this.props.setEditingOnCanvas(false);
+      //this.setState({ editing: false, editForm: null });
     }
   }, {
     key: "handleResize",
