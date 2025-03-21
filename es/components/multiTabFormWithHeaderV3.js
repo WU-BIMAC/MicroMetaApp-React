@@ -57,8 +57,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var url = require("url");
-
 var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(MultiTabFormWithHeaderV3, _React$PureComponent);
 
@@ -172,9 +170,10 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     _this.errors = {};
     _this.action = null;
     _this.handleAction = _this.handleAction.bind(_assertThisInitialized(_this));
-    _this.onSave = _this.onSave.bind(_assertThisInitialized(_this)); //this.onLoad = this.onLoad.bind(this);
-
+    _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
+    _this.onLoad = _this.onLoad.bind(_assertThisInitialized(_this));
     _this.onValidate = _this.onValidate.bind(_assertThisInitialized(_this));
+    _this.resolve = _this.resolve.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.onError = _this.onError.bind(_assertThisInitialized(_this));
@@ -731,6 +730,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       this.handleAction("save");
     }
   }, {
+    key: "onLoad",
+    value: function onLoad() {
+      if (this.props.isDebug) console.log("calling onLoad props in multiTabFormWithHeaderV3");
+      this.props.onLoad();
+    }
+  }, {
     key: "onCancel",
     value: function onCancel() {
       this.props.onCancel();
@@ -814,16 +819,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         });
       });
       return partialUISchema;
-    } // customValidate = (formData, errors) => {
-    // 	console.log("!!!! In customValidate function and the action is:", this.action);
-    // 	if (this.action === 'save') {
-    // 	  Object.keys(errors).forEach((field) => {
-    // 		delete errors[field];  // Remove errors for all fields
-    // 	  });
-    // 	}
-    // 	return errors;
-    // }
-
+    }
   }, {
     key: "createForm",
     value: function createForm(schema, uiSchema, input, index, currentFormRefs, currentButtonsRefs) {
@@ -845,8 +841,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         },
         style: {
           overflow: "hidden"
-        } // transformErrors={(errors) => this.transformErrors(errors, this.state.action)}
-
+        }
       }, /*#__PURE__*/_react.default.createElement("button", {
         type: "submit",
         ref: function ref(btn) {
@@ -953,6 +948,21 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         currentChildrenComponents: currentChildrenComponents
       });
+    }
+  }, {
+    key: "resolve",
+    value: function resolve(from, to) {
+      var resolvedUrl = new URL(to, new URL(from, 'resolve://'));
+
+      if (resolvedUrl.protocol === 'resolve:') {
+        // `from` is a relative URL.
+        var pathname = resolvedUrl.pathname,
+            search = resolvedUrl.search,
+            hash = resolvedUrl.hash;
+        return pathname + search + hash;
+      }
+
+      return resolvedUrl.toString();
     }
   }, {
     key: "createChildrenComponentsButton",
@@ -1171,12 +1181,16 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var containerNames = this.containerFormNames;
       var names = this.formNames;
       var forms = this.forms;
-      var globeImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_globe_solid_img);
-      var globeImgPath = globeImgPath_tmp + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var plusImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_plus_solid_img);
-      var plusImgPath = plusImgPath_tmp + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var floppyDiskImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_floppy_disk_solid_img);
-      var floppyDiskImgPath = floppyDiskImgPath_tmp + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var globeImgPath_tmp = this.resolve(this.props.imagesPath, _constants.string_globe_solid_img);
+      var globeImgPath = globeImgPath_tmp.substring(1) + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : ""); //let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
+
+      var plusImgPath_tmp = this.resolve(this.props.imagesPath, _constants.string_plus_solid_img);
+      var plusImgPath = plusImgPath_tmp.substring(1) + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var floppyDiskImgPath_tmp = this.resolve(this.props.imagesPath, _constants.string_floppy_disk_solid_img);
+      var floppyDiskImgPath = floppyDiskImgPath_tmp.substring(1) + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      console.log('Globe Image Path:', globeImgPath_tmp);
+      console.log('Plus Image Path:', plusImgPath_tmp);
+      console.log('Floppy Disk Image Path:', floppyDiskImgPath_tmp);
 
       for (var id in forms) {
         var localCurrentChildrenComponents = currentChildrenComponents[id];
@@ -1276,19 +1290,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           size: "lg",
           onClick: this.onValidate
         }, "Validate Input"));
-      } // if (!this.props.notModal) {
-      // 	buttons.push(
-      // 		<Button
-      // 			key="button-cancel"
-      // 			style={button}
-      // 			size="lg"
-      // 			onClick={this.onCancel}
-      // 		>
-      // 			Cancel
-      // 		</Button>
-      // 	);
-      // }
-
+      }
 
       if (!this.props.notModal || this.props.notModal && this.props.onConfirm !== null) {
         var text = "Save Changes";

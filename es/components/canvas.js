@@ -696,6 +696,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           occupiedSpot: occupiedSpot
         };
         newElementList.push(newElement);
+        if (this.props.isDebug) console.log("newElement", newElement);
+        if (this.props.isDebug) console.log("newElementList", newElementList);
+        if (this.props.isDebug) console.log("newElementData", newElementData);
         var newElementData = {
           Name: "New ".concat(schema.title),
           ID: uuid,
@@ -1232,6 +1235,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             imagesPath: _this3.props.imagesPath // getComponent={this.props.getComponent}
             ,
             onClickSave: _this3.props.onClickSave,
+            onClickLoad: _this3.props.onClickLoad,
             activeTier: _this3.props.activeTier,
             id: item.ID,
             rotate: item.rotate,

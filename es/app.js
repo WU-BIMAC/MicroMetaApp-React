@@ -98,6 +98,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       originalSetting: Object.assign({}, props.setting) || null,
       schema: props.schema || null,
       microscopes: props.microscopes || null,
+      components: null,
       settings: props.settings || null,
       adaptedMicroscopeSchema: null,
       adaptedComponentsSchema: null,
@@ -164,7 +165,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleLoadSchema = _this.handleLoadSchema.bind(_assertThisInitialized(_this));
     _this.handleCompleteLoadSchema = _this.handleCompleteLoadSchema.bind(_assertThisInitialized(_this));
     _this.handleLoadMicroscopes = _this.handleLoadMicroscopes.bind(_assertThisInitialized(_this));
+    _this.handleLoadComponents = _this.handleLoadComponents.bind(_assertThisInitialized(_this));
     _this.handleCompleteLoadMicroscopes = _this.handleCompleteLoadMicroscopes.bind(_assertThisInitialized(_this));
+    _this.handleCompleteLoadComponents = _this.handleCompleteLoadComponents.bind(_assertThisInitialized(_this));
     _this.handleLoadSettings = _this.handleLoadSettings.bind(_assertThisInitialized(_this));
     _this.handleCompleteLoadSettings = _this.handleCompleteLoadSettings.bind(_assertThisInitialized(_this));
     _this.handleLoadDimensions = _this.handleLoadDimensions.bind(_assertThisInitialized(_this));
@@ -316,24 +319,35 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       });
     }
   }, {
-    key: "handleLoadSettings",
-    value: function handleLoadSettings(e) {
+    key: "handleLoadComponents",
+    value: function handleLoadComponents(e) {
       var _this4 = this;
 
       return new Promise(function (resolve, reject) {
         return setTimeout(function () {
-          _this4.props.onLoadSettings(_this4.handleCompleteLoadSettings, resolve);
+          _this4.props.onLoadComponent(_this4.handleCompleteLoadComponents, resolve);
+        }, 1000);
+      });
+    }
+  }, {
+    key: "handleLoadSettings",
+    value: function handleLoadSettings(e) {
+      var _this5 = this;
+
+      return new Promise(function (resolve, reject) {
+        return setTimeout(function () {
+          _this5.props.onLoadSettings(_this5.handleCompleteLoadSettings, resolve);
         }, 1000);
       });
     }
   }, {
     key: "handleLoadTierList",
     value: function handleLoadTierList(e) {
-      var _this5 = this;
+      var _this6 = this;
 
       return new Promise(function (resolve, reject) {
         return setTimeout(function () {
-          _this5.props.onLoadTierList(_this5.handleCompleteLoadTierList, resolve);
+          _this6.props.onLoadTierList(_this6.handleCompleteLoadTierList, resolve);
         }, 1000);
       });
     }
@@ -349,6 +363,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleCompleteLoadMicroscopes(newMicroscopes, resolve) {
       this.setState({
         microscopes: newMicroscopes
+      }, resolve());
+    }
+  }, {
+    key: "handleCompleteLoadComponents",
+    value: function handleCompleteLoadComponents(newComponents, resolve) {
+      this.setState({
+        components: newComponents
       }, resolve());
     }
   }, {
@@ -368,11 +389,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleLoadSchema",
     value: function handleLoadSchema(e) {
-      var _this6 = this;
+      var _this7 = this;
 
       return new Promise(function (resolve, reject) {
         return setTimeout(function () {
-          _this6.props.onLoadSchema(_this6.handleCompleteLoadSchema, resolve);
+          _this7.props.onLoadSchema(_this7.handleCompleteLoadSchema, resolve);
         }, 1000);
       });
     }
@@ -423,11 +444,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleMicPreset",
     value: function handleMicPreset(e) {
-      var _this7 = this;
+      var _this8 = this;
 
       return new Promise(function (resolve, reject) {
         return setTimeout(function () {
-          _this7.handleMicroscopePreset(resolve);
+          _this8.handleMicroscopePreset(resolve);
         }, 1000);
       });
     } //HAVE TO DO THE SAME FOR SETTINGS?
@@ -435,7 +456,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleMicroscopePreset",
     value: function handleMicroscopePreset(resolve) {
-      var _this8 = this;
+      var _this9 = this;
 
       var microscope = this.state.microscope;
 
@@ -449,9 +470,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         activeTier: tier,
         validationTier: vTier
       }, function () {
-        _this8.createOrUseMicroscopeFromDroppedFile();
+        _this9.createOrUseMicroscopeFromDroppedFile();
 
-        _this8.setState({
+        _this9.setState({
           microscopePresetHandled: true
         }, function () {
           if ((0, _genericUtilities.isDefined)(resolve)) {
@@ -474,7 +495,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "setCreateNewMicroscope",
     value: function setCreateNewMicroscope() {
-      var _this9 = this;
+      var _this10 = this;
 
       this.setState({
         isCreatingNewMicroscope: true,
@@ -482,13 +503,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         isLoadingSettings: false,
         isLoadingImage: false
       }, function () {
-        if ((0, _genericUtilities.isDefined)(_this9.props.onModeSelection)) _this9.props.onModeSelection(1);
+        if ((0, _genericUtilities.isDefined)(_this10.props.onModeSelection)) _this10.props.onModeSelection(1);
       }); //this.handleLoadingOptionSelection(createFromScratch);
     }
   }, {
     key: "setLoadMicroscope",
     value: function setLoadMicroscope() {
-      var _this10 = this;
+      var _this11 = this;
 
       this.setState({
         isCreatingNewMicroscope: false,
@@ -496,7 +517,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         isLoadingSettings: true,
         isLoadingImage: true
       }, function () {
-        if ((0, _genericUtilities.isDefined)(_this10.props.onModeSelection)) _this10.props.onModeSelection(2);
+        if ((0, _genericUtilities.isDefined)(_this11.props.onModeSelection)) _this11.props.onModeSelection(2);
       }); //this.handleLoadingOptionSelection(createFromFile);
     } // handleLoadingOptionSelection(item) {
     // 	let loadingMode = 0;
@@ -532,7 +553,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createAdaptedSchema",
     value: function createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier) {
-      var _this11 = this;
+      var _this12 = this;
 
       var singleSchema = Object.assign({}, singleSchemaOriginal);
       singleSchema.properties = Object.assign({}, singleSchemaOriginal.properties);
@@ -560,7 +581,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         var property = properties[propKey];
 
         if (property.type === _constants.string_object || property.type === _constants.string_array && property.items.properties !== null && property.items.properties !== undefined) {
-          var newProp = _this11.createAdaptedSchema(property, activeTier, validationTier);
+          var newProp = _this12.createAdaptedSchema(property, activeTier, validationTier);
 
           properties[propKey] = newProp;
         }
@@ -600,7 +621,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createAdaptedSchemas",
     value: function createAdaptedSchemas(validationTier, standType) {
-      var _this12 = this;
+      var _this13 = this;
 
       var activeTier = this.state.activeTier;
       var schema = this.state.schema;
@@ -622,7 +643,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       Object.keys(schema).forEach(function (schemaIndex) {
         var singleSchemaOriginal = schema[schemaIndex];
 
-        var singleSchema = _this12.createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier);
+        var singleSchema = _this13.createAdaptedSchema(singleSchemaOriginal, activeTier, validationTier);
 
         if (singleSchema.title === "Instrument") {
           microscopeSchema = Object.assign(microscopeSchema, singleSchema);
@@ -1428,7 +1449,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createOrUseMicroscope",
     value: function createOrUseMicroscope(loadingOption, filename, newMicroscope, resolve) {
-      var _this13 = this;
+      var _this14 = this;
 
       var isCreateNewScratch = false;
       var standType = null;
@@ -1491,11 +1512,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         originalMicroscope: Object.assign({}, microscope)
       }, function () {
         if (isCreateNewScratch) {
-          _this13.createNewMicroscopeFromScratch(standType);
+          _this14.createNewMicroscopeFromScratch(standType);
         } else if (loadingOption === _constants.string_createFromFile) {
-          _this13.createOrUseMicroscopeFromDroppedFile(resolve);
+          _this14.createOrUseMicroscopeFromDroppedFile(resolve);
         } else {
-          _this13.createOrUseMicroscopeFromSelectedFile(resolve);
+          _this14.createOrUseMicroscopeFromSelectedFile(resolve);
         }
       });
     }
@@ -1805,10 +1826,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createOrUseSetting",
     value: function createOrUseSetting(micLoadingOption, imgLoadingOption, settLoadingOption, micFilename, newMicroscope, settFilename, newSetting, newMetadata) {
-      var _this14 = this;
+      var _this15 = this;
 
       var promiseMicroscope = new Promise(function (resolve, reject) {
-        _this14.createOrUseMicroscope(micLoadingOption, micFilename, newMicroscope, resolve);
+        _this15.createOrUseMicroscope(micLoadingOption, micFilename, newMicroscope, resolve);
       });
       promiseMicroscope.then(function () {
         //console.log("SetSettingState1");
@@ -1816,7 +1837,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         if (imgLoadingOption !== _constants.string_noImageLoad) imageMetadata = newMetadata;
 
         if ((0, _genericUtilities.isDefined)(imageMetadata)) {
-          _this14.setState({
+          _this15.setState({
             imageMetadata: imageMetadata
           });
         } //console.log("SetSettingState2");
@@ -1825,22 +1846,22 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         var modifiedCreateString = _constants.string_createFromScratch.replace("# ", "");
 
         var setting = newSetting;
-        var microscope = _this14.state.microscope;
+        var microscope = _this15.state.microscope;
 
         if (settLoadingOption !== modifiedCreateString && settLoadingOption !== _constants.string_createFromFile) {
-          setting = _this14.state.settings[settFilename].setting;
+          setting = _this15.state.settings[settFilename].setting;
 
-          if ((0, _genericUtilities.isDefined)(_this14.props.onLoadSetting)) {
-            var id = _this14.state.settings[settFilename].id;
+          if ((0, _genericUtilities.isDefined)(_this15.props.onLoadSetting)) {
+            var id = _this15.state.settings[settFilename].id;
 
             if ((0, _genericUtilities.isDefined)(id)) {
-              _this14.props.onLoadSetting(id);
+              _this15.props.onLoadSetting(id);
             } else {
-              _this14.props.onLoadSetting(-1);
+              _this15.props.onLoadSetting(-1);
             }
           }
-        } else if ((0, _genericUtilities.isDefined)(_this14.props.onLoadSetting)) {
-          _this14.props.onLoadSetting(-1);
+        } else if ((0, _genericUtilities.isDefined)(_this15.props.onLoadSetting)) {
+          _this15.props.onLoadSetting(-1);
         } //console.log("SetSettingState3");
 
 
@@ -1859,24 +1880,24 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
 
         var promiseSetting = new Promise(function (resolve, reject) {
-          _this14.setState({
+          _this15.setState({
             settingName: settFilename,
             setting: setting,
             originalSetting: Object.assign({}, setting)
           }, function () {
             //console.log("SetSettingState-callback");
             if (settLoadingOption === modifiedCreateString) {
-              _this14.createNewSettingFromScratch(resolve);
+              _this15.createNewSettingFromScratch(resolve);
             } else if (settLoadingOption === _constants.string_createFromFile) {
               //console.log("Calling - createOrUseSettingFromDroppedFile");
-              _this14.createOrUseSettingFromDroppedFile(resolve);
+              _this15.createOrUseSettingFromDroppedFile(resolve);
             } else {
-              _this14.createOrUseSettingFromSelectedFile(resolve);
+              _this15.createOrUseSettingFromSelectedFile(resolve);
             }
           });
         });
         promiseSetting.then(function () {
-          _this14.setState({
+          _this15.setState({
             isLoadingImage: false
           });
         });
@@ -1901,13 +1922,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onSpecialImporterConfirm",
     value: function onSpecialImporterConfirm(loadingOption, filename, newMicroscope) {
-      var _this15 = this;
+      var _this16 = this;
 
       var promiseMicroscope = new Promise(function (resolve, reject) {
-        _this15.createOrUseMicroscope(loadingOption, loadingOption, newMicroscope, resolve);
+        _this16.createOrUseMicroscope(loadingOption, loadingOption, newMicroscope, resolve);
       });
       promiseMicroscope.then(function () {
-        _this15.setState({
+        _this16.setState({
           isSpecialImporterActive: false
         });
       });
@@ -1927,7 +1948,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onClickHome",
     value: function onClickHome(item) {
-      var _this16 = this;
+      var _this17 = this;
 
       var isCreatingNewMicroscope = null;
       var isLoadingMicroscope = null;
@@ -1990,14 +2011,14 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         imageMetadata: null,
         isDataLoaded: isDataLoaded
       }, function () {
-        if (_this16.state.is4DNPortal) {
-          if (item === "Back to list" && (0, _genericUtilities.isDefined)(_this16.props.onReturnToMicroscopeList)) {
-            _this16.props.onReturnToMicroscopeList();
+        if (_this17.state.is4DNPortal) {
+          if (item === "Back to list" && (0, _genericUtilities.isDefined)(_this17.props.onReturnToMicroscopeList)) {
+            _this17.props.onReturnToMicroscopeList();
           } else if (item === "Import"
           /*&& isDefined(this.props.onImportFromFile*/
           ) {
             //this.props.onImportFromFile(this.uploadMicroscopeFromDropzone);
-            _this16.setState({
+            _this17.setState({
               isSpecialImporterActive: true,
               oldMicroscope: oldMicroscope,
               oldElementData: oldElementData,
@@ -2006,21 +2027,21 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
               oldImageMetadata: oldImageMetadata
             });
           }
-        } else if (_this16.props.isMMEOpen) {
-          _this16.setState({
-            microscope: _this16.props.microscope || null
+        } else if (_this17.props.isMMEOpen) {
+          _this17.setState({
+            microscope: _this17.props.microscope || null
           });
         }
 
-        if ((0, _genericUtilities.isDefined)(_this16.props.onModeSelection)) {
-          _this16.props.onModeSelection(-1);
+        if ((0, _genericUtilities.isDefined)(_this17.props.onModeSelection)) {
+          _this17.props.onModeSelection(-1);
         }
       });
     }
   }, {
     key: "onClickParentHome",
     value: function onClickParentHome() {
-      var _this17 = this;
+      var _this18 = this;
 
       var isCreatingNewMicroscope = null;
       var isLoadingMicroscope = null;
@@ -2052,7 +2073,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         imageMetadata: null,
         isDataLoaded: isDataLoaded
       }, function () {
-        return _this17.props.onClickHome();
+        return _this18.props.onClickHome();
       });
     }
   }, {
@@ -2131,17 +2152,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       a.target = "_blank";
       a.click();
       document.body.removeChild(a);
-    } // handleSaveComponent(id, consolidatedData, linkedFields) {
-    // 	if (this.props.isDebug) {
-    // 		console.log("inside handleSaveComponent function");
-    // 		console.log("component's id is ", id);
-    // 		console.log("this component's linkedFields is: ", linkedFields);
-    // 		console.log("this component's consolidatedData is: ", consolidatedData);
-    // 		console.log("this is elementData: ", this.state.elementData);
-    // 	}
-    // 	this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
-    // }
-
+    }
   }, {
     key: "handleSaveComponent",
     value: function handleSaveComponent(id, consolidatedData, linkedFields) {
@@ -2159,7 +2170,14 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         console.log("Extracted element from elementData: ", elementData);
       }
 
-      this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier); // this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
+      this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier);
+    }
+  }, {
+    key: "handleLoadComponent",
+    value: function handleLoadComponent() {
+      if (this.props.isDebug) {
+        console.log("inside handleLoadComponent function");
+      }
     }
   }, {
     key: "handleSaveMicroscope",
@@ -3055,6 +3073,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
             validationTier: this.state.validationTier,
             onClickSave: this.handleSaveComponent,
+            onClickLoad: this.handleLoadComponents,
             microscope: microscope,
             stand: microscope.MicroscopeStand,
             activeTier: this.state.activeTier,
@@ -3486,9 +3505,10 @@ MicroMetaAppReact.defaultProps = {
     }, 1000);
   },
   onSaveComponent: function onSaveComponent(elementData, complete, validationTier) {
-    console.log("default props for onSaveComponent called"); // setTimeout(function () {
-    // 	complete(consolidatedData.Name);
-    // }, 1000);
+    console.log("default props for onSaveComponent called");
+  },
+  onLoadComponent: function onLoadComponent(complete, resolve) {
+    console.log("default props for onLoadComponent called");
   },
   saveAllComponents: function saveAllComponents(allComponents, complete, validationTier) {
     console.log("In default props saveAllComponents of React");
