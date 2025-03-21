@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import ModalWindow from "./modalWindow";
 import { isDefined } from "../genericUtilities";
 
-const url = require("url");
+//const url = require("url");
 
 import {
 	load_component_tooltip,
@@ -140,8 +140,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.action = null;
 		this.handleAction = this.handleAction.bind(this);
 		this.onSave = this.onSave.bind(this);
-		//this.onLoad = this.onLoad.bind(this);
+		this.onLoad = this.onLoad.bind(this);
 		this.onValidate = this.onValidate.bind(this);
+		this.resolve = this.resolve.bind(this);
 
 		this.handleChange = this.handleChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -724,6 +725,11 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	onSave() {
 		this.handleAction("save");
 	}
+	
+	onLoad() {
+		if (this.props.isDebug) console.log("calling onLoad props in multiTabFormWithHeaderV3");
+		this.props.onLoad();
+	}
 
 	onCancel() {
 		this.props.onCancel();
@@ -1070,16 +1076,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		return partialUISchema;
 	}
 
-	// customValidate = (formData, errors) => {
-	// 	console.log("!!!! In customValidate function and the action is:", this.action);
-	// 	if (this.action === 'save') {
-	// 	  Object.keys(errors).forEach((field) => {
-	// 		delete errors[field];  // Remove errors for all fields
-	// 	  });
-	// 	}
-	// 	return errors;
-	// }
-
 	createForm(
 		schema,
 		uiSchema,
@@ -1106,7 +1102,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				}}
 				style={{ overflow: "hidden" }}
-				// transformErrors={(errors) => this.transformErrors(errors, this.state.action)}
 			>
 				<button
 					type="submit"
@@ -1208,6 +1203,16 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		);
 		currentChildrenComponents[id][key] = currentChildrenComponents[id][key] - 1;
 		this.setState({ currentChildrenComponents: currentChildrenComponents });
+	}
+
+	resolve(from, to) {
+		const resolvedUrl = new URL(to, new URL(from, 'resolve://'));
+		if (resolvedUrl.protocol === 'resolve:') {
+		  // `from` is a relative URL.
+		  const { pathname, search, hash } = resolvedUrl;
+		  return pathname + search + hash;
+		}
+		return resolvedUrl.toString();
 	}
 
 	createChildrenComponentsButton(id) {
@@ -1442,26 +1447,31 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let names = this.formNames;
 		let forms = this.forms;
 
-		let globeImgPath_tmp = url.resolve(this.props.imagesPath, string_globe_solid_img);
+		let globeImgPath_tmp = this.resolve(this.props.imagesPath, string_globe_solid_img);
     	let globeImgPath =
-			globeImgPath_tmp +
+			globeImgPath_tmp.substring(1) +
 			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
 
-		let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
+		//let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
+		let plusImgPath_tmp = this.resolve(this.props.imagesPath, string_plus_solid_img);
     	let plusImgPath =
-			plusImgPath_tmp +
+			plusImgPath_tmp.substring(1) +
 			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
 
-		let floppyDiskImgPath_tmp = url.resolve(this.props.imagesPath, string_floppy_disk_solid_img);
+		let floppyDiskImgPath_tmp = this.resolve(this.props.imagesPath, string_floppy_disk_solid_img);
 		let floppyDiskImgPath =
-			floppyDiskImgPath_tmp +
+			floppyDiskImgPath_tmp.substring(1) +
 			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
+
+		console.log('Globe Image Path:', globeImgPath_tmp);
+		console.log('Plus Image Path:', plusImgPath_tmp);
+		console.log('Floppy Disk Image Path:', floppyDiskImgPath_tmp);
 
 		for (let id in forms) {
 			let localCurrentChildrenComponents = currentChildrenComponents[id];
@@ -1574,19 +1584,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			);
 		}
 
-		// if (!this.props.notModal) {
-		// 	buttons.push(
-		// 		<Button
-		// 			key="button-cancel"
-		// 			style={button}
-		// 			size="lg"
-		// 			onClick={this.onCancel}
-		// 		>
-		// 			Cancel
-		// 		</Button>
-		// 	);
-		// }
-
 		if (
 			!this.props.notModal ||
 			(this.props.notModal && this.props.onConfirm !== null)
@@ -1636,28 +1633,29 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		if (!this.props.notModal) {
 			topButtons.push(
-				<Button
-					key="button-load"
-					style={ComponentLibraryButton}
-					size="lg"
-					onClick={this.onLoad}
+			<Button
+				key="button-load"
+				style={ComponentLibraryButton}
+				size="lg"
+				onClick={this.onLoad}
+			>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						paddingLeft: "2px",
+						paddingRight: "2px",
+					}}
 				>
-					<div
-						style={{
-							display: "flex",
-							justifyContent: "center",
-							alignItems: "center",
-							paddingLeft: "2px",
-							paddingRight: "2px",
-						}}
-					>
-						<img
-							src={globeImgPath} alt="Globe Icon" style={styleImageIcon}
-						/>
-						<span style={{ whiteSpace: "nowrap" }}>Component Library</span>
-					</div>
+					<img
+						src={globeImgPath} alt="Globe Icon" style={styleImageIcon}
+					/>
+					<span style={{ whiteSpace: "nowrap" }}>Component Library</span>
+				</div>
 
-				</Button>
+			</Button>
+
 			);
 		}
 

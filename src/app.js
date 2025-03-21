@@ -64,6 +64,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			originalSetting: Object.assign({}, props.setting) || null,
 			schema: props.schema || null,
 			microscopes: props.microscopes || null,
+			components: null,
 			settings: props.settings || null,
 			adaptedMicroscopeSchema: null,
 			adaptedComponentsSchema: null,
@@ -130,8 +131,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.handleLoadSchema = this.handleLoadSchema.bind(this);
 		this.handleCompleteLoadSchema = this.handleCompleteLoadSchema.bind(this);
 		this.handleLoadMicroscopes = this.handleLoadMicroscopes.bind(this);
+		this.handleLoadComponents = this.handleLoadComponents.bind(this);
 		this.handleCompleteLoadMicroscopes =
 			this.handleCompleteLoadMicroscopes.bind(this);
+		this.handleCompleteLoadComponents = 
+			this.handleCompleteLoadComponents.bind(this);
 		this.handleLoadSettings = this.handleLoadSettings.bind(this);
 		this.handleCompleteLoadSettings =
 			this.handleCompleteLoadSettings.bind(this);
@@ -339,6 +343,17 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		);
 	}
 
+	handleLoadComponents(e) {
+		return new Promise((resolve, reject) =>
+			setTimeout(() => {
+				this.props.onLoadComponent(
+					this.handleCompleteLoadComponents,
+					resolve
+				);
+			}, 1000)
+		);
+	}
+
 	handleLoadSettings(e) {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
@@ -361,6 +376,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	handleCompleteLoadMicroscopes(newMicroscopes, resolve) {
 		this.setState({ microscopes: newMicroscopes }, resolve());
+	}
+
+	handleCompleteLoadComponents(newComponents, resolve) {
+		this.setState({ components: newComponents }, resolve());
 	}
 
 	handleCompleteLoadSettings(newSettings, resolve) {
@@ -2896,18 +2915,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		document.body.removeChild(a);
 	}
 
-	// handleSaveComponent(id, consolidatedData, linkedFields) {
-	// 	if (this.props.isDebug) {
-	// 		console.log("inside handleSaveComponent function");
-	// 		console.log("component's id is ", id);
-	// 		console.log("this component's linkedFields is: ", linkedFields);
-	// 		console.log("this component's consolidatedData is: ", consolidatedData);
-	// 		console.log("this is elementData: ", this.state.elementData);
-	// 	}
-
-	// 	this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
-	// }
-
 	handleSaveComponent(id, consolidatedData, linkedFields) {
 		if (this.props.isDebug) {
 			console.log("inside handleSaveComponent function");
@@ -2923,7 +2930,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 
 		this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier);
-		// this.props.onSaveComponent(id, consolidatedData, linkedFields, this.handleCompleteSave, this.state.validationTier);
+	}
+
+	handleLoadComponent() {
+		if (this.props.isDebug) {
+			console.log("inside handleLoadComponent function");
+		}
+
+
 	}
 
 	handleSaveMicroscope(item) {
@@ -3898,6 +3912,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							<Canvas
 								validationTier={this.state.validationTier}
 								onClickSave={this.handleSaveComponent}
+								onClickLoad={this.handleLoadComponents}
 								microscope={microscope}
 								stand={microscope.MicroscopeStand}
 								activeTier={this.state.activeTier}
@@ -4055,9 +4070,9 @@ MicroMetaAppReact.defaultProps = {
 	},
 	onSaveComponent: function (elementData, complete, validationTier) {
 		console.log("default props for onSaveComponent called");
-		// setTimeout(function () {
-		// 	complete(consolidatedData.Name);
-		// }, 1000);
+	},
+	onLoadComponent: function (complete, resolve) {
+		console.log("default props for onLoadComponent called");
 	},
 	saveAllComponents: function (allComponents, complete, validationTier) {
 		console.log("In default props saveAllComponents of React");

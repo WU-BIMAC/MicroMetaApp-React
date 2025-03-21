@@ -750,6 +750,9 @@ export default class Canvas extends React.PureComponent {
 				occupiedSpot: occupiedSpot,
 			};
 			newElementList.push(newElement);
+			if (this.props.isDebug) console.log("newElement", newElement);
+			if (this.props.isDebug) console.log("newElementList", newElementList);
+			if (this.props.isDebug) console.log("newElementData", newElementData);
 			let newElementData = {
 				Name: `New ${schema.title}`,
 				ID: uuid,
@@ -1276,6 +1279,7 @@ export default class Canvas extends React.PureComponent {
 										imagesPath={this.props.imagesPath}
 										// getComponent={this.props.getComponent}
 										onClickSave={this.props.onClickSave}
+										onClickLoad={this.props.onClickLoad}
 										activeTier={this.props.activeTier}
 										id={item.ID}
 										rotate={item.rotate}

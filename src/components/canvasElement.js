@@ -99,8 +99,9 @@ export default class CanvasElement extends React.PureComponent {
 
 	handleLoad() {
 		if(this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
+		this.props.onClickLoad();
 		this.props.setEditingOnCanvas(false);
-		this.setState({ editing: false, editForm: null });  
+		this.setState({ editing: false, editForm: null });
 	}
 
 	handleResize(e, data) {
