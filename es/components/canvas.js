@@ -1234,8 +1234,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             validationTier: _this3.props.validationTier,
             imagesPath: _this3.props.imagesPath // getComponent={this.props.getComponent}
             ,
-            onClickSave: _this3.props.onClickSave,
-            onClickLoad: _this3.props.onClickLoad,
+            onClickSave: _this3.props.onClickSave //onClickLoad={this.props.onClickLoad}
+            ,
             activeTier: _this3.props.activeTier,
             id: item.ID,
             rotate: item.rotate,
@@ -1658,8 +1658,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if ((0, _genericUtilities.isDefined)(props.inputData) && JSON.stringify(props.inputData) !== JSON.stringify(state.elementData)) {
-        console.log(JSON.stringify(props.inputData));
-        console.log(JSON.stringify(state.elementData));
         var _componentsSchema = {};
         var _elementList = [];
         var occupiedSpots = [];

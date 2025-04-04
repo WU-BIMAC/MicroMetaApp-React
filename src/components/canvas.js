@@ -142,8 +142,6 @@ export default class Canvas extends React.PureComponent {
 			isDefined(props.inputData) &&
 			JSON.stringify(props.inputData) !== JSON.stringify(state.elementData)
 		) {
-			console.log(JSON.stringify(props.inputData));
-			console.log(JSON.stringify(state.elementData));
 			let componentsSchema = {};
 			let elementList = [];
 			let occupiedSpots = [];
@@ -1279,7 +1277,7 @@ export default class Canvas extends React.PureComponent {
 										imagesPath={this.props.imagesPath}
 										// getComponent={this.props.getComponent}
 										onClickSave={this.props.onClickSave}
-										onClickLoad={this.props.onClickLoad}
+										//onClickLoad={this.props.onClickLoad}
 										activeTier={this.props.activeTier}
 										id={item.ID}
 										rotate={item.rotate}

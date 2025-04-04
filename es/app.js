@@ -325,7 +325,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       return new Promise(function (resolve, reject) {
         return setTimeout(function () {
-          _this4.props.onLoadComponent(_this4.handleCompleteLoadComponents, resolve);
+          _this4.props.onLoadComponents(_this4.handleCompleteLoadComponents, resolve);
         }, 1000);
       });
     }
@@ -2512,6 +2512,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           onClickLoadSchema: this.handleLoadSchema,
           onClickLoadDimensions: this.handleLoadDimensions,
           onClickLoadMicroscopes: this.handleLoadMicroscopes,
+          onClickLoadComponents: this.handleLoadComponents,
           onClickLoadSettings: this.handleLoadSettings,
           onClickLoadTierList: this.handleLoadTierList,
           onClickHandleMicPreset: this.handleMicPreset,
@@ -3072,8 +3073,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
             validationTier: this.state.validationTier,
-            onClickSave: this.handleSaveComponent,
-            onClickLoad: this.handleLoadComponents,
+            onClickSave: this.handleSaveComponent //onClickLoad={this.handleLoadComponents}
+            ,
             microscope: microscope,
             stand: microscope.MicroscopeStand,
             activeTier: this.state.activeTier,
@@ -3492,6 +3493,12 @@ MicroMetaAppReact.defaultProps = {
       complete(null, resolve);
     }, 1000);
   },
+  onLoadComponents: function onLoadComponents(complete, resolve) {
+    console.log("default props for onLoadComponents called");
+    setTimeout(function () {
+      complete(null, resolve);
+    }, 1000);
+  },
   onLoadSettings: function onLoadSettings(complete, resolve) {
     // Do some stuff... show pane for people to browse/select schema.. etc.
     setTimeout(function () {
@@ -3506,9 +3513,6 @@ MicroMetaAppReact.defaultProps = {
   },
   onSaveComponent: function onSaveComponent(elementData, complete, validationTier) {
     console.log("default props for onSaveComponent called");
-  },
-  onLoadComponent: function onLoadComponent(complete, resolve) {
-    console.log("default props for onLoadComponent called");
   },
   saveAllComponents: function saveAllComponents(allComponents, complete, validationTier) {
     console.log("In default props saveAllComponents of React");

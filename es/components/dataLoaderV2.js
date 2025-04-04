@@ -53,11 +53,13 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
     _this.state = {
       isLoadingSchema: false,
       isLoadingMicroscopes: false,
+      isLoadingComponents: false,
       isLoadingDimensions: false,
       isLoadingSettings: false,
       isLoadingTierList: false,
       isSchemaLoaded: false,
       isMicroscopesLoaded: false,
+      isComponentsLoaded: false,
       isDimensionsLoaded: false,
       isSettingsLoaded: false,
       isTierListLoaded: false,
@@ -65,6 +67,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       isHandledMicPreset: false,
       progressValueSchema: 0,
       progressValueMicroscopes: 0,
+      progressValueComponents: 0,
       progressValueSettings: 0,
       progressValueDimensions: 0,
       progressValueTierList: 0,
@@ -73,7 +76,9 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
     _this.simulateClickLoadSchema = _this.simulateClickLoadSchema.bind(_assertThisInitialized(_this));
     _this.onClickLoadSchema = _this.onClickLoadSchema.bind(_assertThisInitialized(_this));
     _this.simulateClickLoadMicroscopes = _this.simulateClickLoadMicroscopes.bind(_assertThisInitialized(_this));
+    _this.simulateClickLoadComponents = _this.simulateClickLoadComponents.bind(_assertThisInitialized(_this));
     _this.onClickLoadMicroscopes = _this.onClickLoadMicroscopes.bind(_assertThisInitialized(_this));
+    _this.onClickLoadComponents = _this.onClickLoadComponents.bind(_assertThisInitialized(_this));
     _this.simulateClickLoadSettings = _this.simulateClickLoadSettings.bind(_assertThisInitialized(_this));
     _this.onClickLoadSettings = _this.onClickLoadSettings.bind(_assertThisInitialized(_this));
     _this.simulateClickLoadDimensions = _this.simulateClickLoadDimensions.bind(_assertThisInitialized(_this));
@@ -110,7 +115,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           });
 
           clearInterval(interval);
-          if (_this2.state.isDimensionsLoaded && _this2.state.isMicroscopesLoaded && _this2.state.isSettingsLoaded && _this2.state.isTierListLoaded && _this2.state.isSchemaLoaded) if (!_this2.props.is4DNPortal && !_this2.props.isMMEOpen) _this2.props.onDataLoaded();
+          if (_this2.state.isDimensionsLoaded && _this2.state.isMicroscopesLoaded && _this2.state.isComponentsLoaded && _this2.state.isSettingsLoaded && _this2.state.isTierListLoaded && _this2.state.isSchemaLoaded) if (!_this2.props.is4DNPortal && !_this2.props.isMMEOpen) _this2.props.onDataLoaded();
         });
       });
     }
@@ -139,7 +144,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           });
 
           clearInterval(interval);
-          if (_this3.state.isDimensionsLoaded && _this3.state.isMicroscopesLoaded && _this3.state.isSettingsLoaded && _this3.state.isTierListLoaded && _this3.state.isSchemaLoaded) if (!_this3.props.is4DNPortal && !_this3.props.isMMEOpen) _this3.props.onDataLoaded();
+          if (_this3.state.isDimensionsLoaded && _this3.state.isMicroscopesLoaded && _this3.state.isComponentsLoaded && _this3.state.isSettingsLoaded && _this3.state.isTierListLoaded && _this3.state.isSchemaLoaded) if (!_this3.props.is4DNPortal && !_this3.props.isMMEOpen) _this3.props.onDataLoaded();
         });
       });
     }
@@ -168,87 +173,116 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           });
 
           clearInterval(interval);
-          if (_this4.state.isDimensionsLoaded && _this4.state.isMicroscopesLoaded && _this4.state.isSettingsLoaded && _this4.state.isTierListLoaded && _this4.state.isSchemaLoaded) if (!_this4.props.is4DNPortal && !_this4.props.isMMEOpen) _this4.props.onDataLoaded();
+          if (_this4.state.isDimensionsLoaded && _this4.state.isMicroscopesLoaded && _this4.state.isComponentsLoaded && _this4.state.isSettingsLoaded && _this4.state.isTierListLoaded && _this4.state.isSchemaLoaded) if (!_this4.props.is4DNPortal && !_this4.props.isMMEOpen) _this4.props.onDataLoaded();
+        });
+      });
+    }
+  }, {
+    key: "onClickLoadComponents",
+    value: function onClickLoadComponents() {
+      var _this5 = this;
+
+      var interval = setInterval(function () {
+        var oldValue = _this5.state.progressValueComponents;
+        var newValue = oldValue + 10;
+        if (newValue === 100) clearInterval(interval);
+
+        _this5.setState({
+          progressValueComponents: newValue
+        });
+      }, 100);
+      this.setState({
+        isLoadingComponents: true
+      }, function () {
+        _this5.props.onClickLoadComponents().then(function () {
+          _this5.setState({
+            isLoadingComponents: false,
+            isComponentsLoaded: true,
+            progressValueComponents: 100
+          });
+
+          clearInterval(interval);
+          if (_this5.state.isDimensionsLoaded && _this5.state.isMicroscopesLoaded && _this5.state.isComponentsLoaded && _this5.state.isSettingsLoaded && _this5.state.isTierListLoaded && _this5.state.isSchemaLoaded) if (!_this5.props.is4DNPortal && !_this5.props.isMMEOpen) _this5.props.onDataLoaded();
         });
       });
     }
   }, {
     key: "onClickLoadSettings",
     value: function onClickLoadSettings() {
-      var _this5 = this;
+      var _this6 = this;
 
       var interval = setInterval(function () {
-        var oldValue = _this5.state.progressValueSettings;
+        var oldValue = _this6.state.progressValueSettings;
         var newValue = oldValue + 10;
         if (newValue === 100) clearInterval(interval);
 
-        _this5.setState({
+        _this6.setState({
           progressValueSettings: newValue
         });
       }, 100);
       this.setState({
         isLoadingSettings: true
       }, function () {
-        _this5.props.onClickLoadSettings().then(function () {
-          _this5.setState({
+        _this6.props.onClickLoadSettings().then(function () {
+          _this6.setState({
             isLoadingSettings: false,
             isSettingsLoaded: true,
             progressValueSettings: 100
           });
 
           clearInterval(interval);
-          if (_this5.state.isDimensionsLoaded && _this5.state.isMicroscopesLoaded && _this5.state.isSettingsLoaded && _this5.state.isTierListLoaded && _this5.state.isSchemaLoaded) if (!_this5.props.is4DNPortal && !_this5.props.isMMEOpen) _this5.props.onDataLoaded();
+          if (_this6.state.isDimensionsLoaded && _this6.state.isMicroscopesLoaded && _this6.state.isComponentsLoaded && _this6.state.isSettingsLoaded && _this6.state.isTierListLoaded && _this6.state.isSchemaLoaded) if (!_this6.props.is4DNPortal && !_this6.props.isMMEOpen) _this6.props.onDataLoaded();
         });
       });
     }
   }, {
     key: "onClickLoadTierList",
     value: function onClickLoadTierList() {
-      var _this6 = this;
+      var _this7 = this;
 
       var interval = setInterval(function () {
-        var oldValue = _this6.state.progressValueTierList;
+        var oldValue = _this7.state.progressValueTierList;
         var newValue = oldValue + 10;
         if (newValue === 100) clearInterval(interval);
 
-        _this6.setState({
+        _this7.setState({
           progressValueTierList: newValue
         });
       }, 100);
       this.setState({
         isLoadingTierList: true
       }, function () {
-        _this6.props.onClickLoadTierList().then(function () {
-          _this6.setState({
+        _this7.props.onClickLoadTierList().then(function () {
+          _this7.setState({
             isLoadingTierList: false,
             isTierListLoaded: true,
             progressValueTierList: 100
           });
 
           clearInterval(interval);
-          if (_this6.state.isDimensionsLoaded && _this6.state.isMicroscopesLoaded && _this6.state.isSettingsLoaded && _this6.state.isTierListLoaded && _this6.state.isSchemaLoaded) if (!_this6.props.is4DNPortal && !_this6.props.isMMEOpen) _this6.props.onDataLoaded();
+          if (_this7.state.isDimensionsLoaded && _this7.state.isMicroscopesLoaded && _this7.state.isComponentsLoaded && _this7.state.isSettingsLoaded && _this7.state.isTierListLoaded && _this7.state.isSchemaLoaded) if (!_this7.props.is4DNPortal && !_this7.props.isMMEOpen) _this7.props.onDataLoaded();
         });
       });
     }
   }, {
     key: "onClickHandleMicPreset",
     value: function onClickHandleMicPreset() {
-      var _this7 = this;
+      var _this8 = this;
 
       var interval = setInterval(function () {
-        var oldValue = _this7.state.progressValueMicPreset;
+        var oldValue = _this8.state.progressValueMicPreset;
         var newValue = oldValue + 10;
         if (newValue === 100) clearInterval(interval);
 
-        _this7.setState({
+        _this8.setState({
           progressValueMicPreset: newValue
         });
       }, 100);
       this.setState({
         isHandlingMicPreset: true
       }, function () {
-        _this7.props.onClickHandleMicPreset().then(function () {
-          _this7.setState({
+        _this8.props.onClickHandleMicPreset().then(function () {
+          _this8.setState({
             isHandlingMicPreset: false,
             isHandledMicPreset: true,
             progressValueMicPreset: 100
@@ -256,7 +290,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
 
           clearInterval(interval);
 
-          _this7.props.onDataLoaded();
+          _this8.props.onDataLoaded();
         });
       });
     }
@@ -279,6 +313,12 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       loadMicroscopesButtonRef.click();
     }
   }, {
+    key: "simulateClickLoadComponents",
+    value: function simulateClickLoadComponents(loadComponentsButtonRef) {
+      if (loadComponentsButtonRef === null) return;
+      loadComponentsButtonRef.click();
+    }
+  }, {
     key: "simulateClickLoadSettings",
     value: function simulateClickLoadSettings(loadSettingsButtonRef) {
       if (loadSettingsButtonRef === null) return;
@@ -299,6 +339,7 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
+      console.log("** inside of dataLoaderV2.js");
       var buttonStyle = {
         display: "none",
         width: "200px",
@@ -360,11 +401,13 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       };
       var isLoadingSchema = this.state.isLoadingSchema;
       var isLoadingMicroscopes = this.state.isLoadingMicroscopes;
+      var isLoadingComponents = this.state.isLoadingComponents;
       var isLoadingSettings = this.state.isLoadingSettings;
       var isLoadingDimensions = this.state.isLoadingDimensions;
       var isLoadingTierList = this.state.isLoadingTierList;
       var isSchemaLoaded = this.state.isSchemaLoaded;
       var isMicroscopesLoaded = this.state.isMicroscopesLoaded;
+      var isComponentsLoaded = this.state.isComponentsLoaded;
       var isSettingsLoaded = this.state.isSettingsLoaded;
       var isDimensionsLoaded = this.state.isDimensionsLoaded;
       var isTierListLoaded = this.state.isTierListLoaded;
@@ -373,13 +416,14 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
       var logoImg = url.resolve(this.props.imagesPathPNG, _constants.string_logo_img_micro_bk);
       var logoPath = logoImg + (logoImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
       var microscopesLabel = isLoadingMicroscopes ? "Loading microscopes: " + this.state.progressValueMicroscopes + "%" : isMicroscopesLoaded ? "Microscopes loaded" : "Load microscopes";
+      var componentsLabel = isLoadingComponents ? "Loading components: " + this.state.progressValueComponents + "%" : isComponentsLoaded ? "Components loaded" : "Load components";
       var settingsLabel = isLoadingSettings ? "Loading settings: " + this.state.progressValueSettings + "%" : isSettingsLoaded ? "Settings loaded" : "Load settings";
       var dimensionsLabel = isLoadingDimensions ? "Loading dimensions: " + this.state.progressValueDimensions + "%" : isDimensionsLoaded ? "Dimensions loaded" : "Load dimensions";
       var tierListLabel = isLoadingTierList ? "Loading Tier list: " + this.state.progressValueTierList + "%" : isTierListLoaded ? "Tier list loaded" : "Load Tier List";
       var schemaLabel = isLoadingSchema ? "Loading schema: " + this.state.progressValueSchema + "%" : isSchemaLoaded ? "Schema loaded" : "Load schema";
       var presetLabel = isHandlingMicPreset ? "Loading microscope: " + this.state.progressValueMicPreset + "%" : isHandledMicPreset ? "Microscope loaded" : "Load Microscope";
 
-      if (!isSchemaLoaded || !isDimensionsLoaded || !isMicroscopesLoaded || !isSettingsLoaded) {
+      if (!isSchemaLoaded || !isDimensionsLoaded || !isMicroscopesLoaded || !isComponentsLoaded || !isSettingsLoaded) {
         return /*#__PURE__*/_react.default.createElement("div", {
           style: wrapperContainer
         }, /*#__PURE__*/_react.default.createElement("div", {
@@ -410,6 +454,18 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
           style: progressStyle,
           label: microscopesLabel,
           now: this.state.progressValueMicroscopes,
+          striped: true,
+          animated: true
+        }), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          ref: this.simulateClickLoadComponents,
+          disabled: isLoadingComponents || isComponentsLoaded,
+          onClick: !isLoadingComponents && !isComponentsLoaded ? this.onClickLoadComponents : null,
+          style: buttonStyle,
+          size: "lg"
+        }, componentsLabel), /*#__PURE__*/_react.default.createElement(_ProgressBar.default, {
+          style: progressStyle,
+          label: componentsLabel,
+          now: this.state.progressValueComponents,
           striped: true,
           animated: true
         }), /*#__PURE__*/_react.default.createElement(_Button.default, {

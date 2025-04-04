@@ -51,7 +51,7 @@ export default class CanvasElement extends React.PureComponent {
 					onCancel={this.handleCancel}
 					onDummy={this.handleDummy}
 					onSave={this.handleSave}
-					onLoad={this.handleLoad}
+					//onLoad={this.handleLoad}
 					overlaysContainer={this.props.overlaysContainer}
 					currentChildrenComponentIdentifier={
 						this.props.currentChildrenComponentIdentifier
@@ -99,7 +99,7 @@ export default class CanvasElement extends React.PureComponent {
 
 	handleLoad() {
 		if(this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
-		this.props.onClickLoad();
+		//this.props.onClickLoad();
 		//this.props.setEditingOnCanvas(false);
 		//this.setState({ editing: false, editForm: null });
 	}

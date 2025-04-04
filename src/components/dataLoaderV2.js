@@ -16,11 +16,13 @@ export default class DataLoader extends React.PureComponent {
 		this.state = {
 			isLoadingSchema: false,
 			isLoadingMicroscopes: false,
+			isLoadingComponents: false,
 			isLoadingDimensions: false,
 			isLoadingSettings: false,
 			isLoadingTierList: false,
 			isSchemaLoaded: false,
 			isMicroscopesLoaded: false,
+			isComponentsLoaded: false,
 			isDimensionsLoaded: false,
 			isSettingsLoaded: false,
 			isTierListLoaded: false,
@@ -30,6 +32,7 @@ export default class DataLoader extends React.PureComponent {
 
 			progressValueSchema: 0,
 			progressValueMicroscopes: 0,
+			progressValueComponents: 0,
 			progressValueSettings: 0,
 			progressValueDimensions: 0,
 			progressValueTierList: 0,
@@ -41,7 +44,9 @@ export default class DataLoader extends React.PureComponent {
 
 		this.simulateClickLoadMicroscopes =
 			this.simulateClickLoadMicroscopes.bind(this);
+		this.simulateClickLoadComponents = this.simulateClickLoadComponents.bind(this);
 		this.onClickLoadMicroscopes = this.onClickLoadMicroscopes.bind(this);
+		this.onClickLoadComponents = this.onClickLoadComponents.bind(this);
 
 		this.simulateClickLoadSettings = this.simulateClickLoadSettings.bind(this);
 		this.onClickLoadSettings = this.onClickLoadSettings.bind(this);
@@ -78,6 +83,7 @@ export default class DataLoader extends React.PureComponent {
 				if (
 					this.state.isDimensionsLoaded &&
 					this.state.isMicroscopesLoaded &&
+					this.state.isComponentsLoaded &&
 					this.state.isSettingsLoaded &&
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
@@ -108,6 +114,7 @@ export default class DataLoader extends React.PureComponent {
 				if (
 					this.state.isDimensionsLoaded &&
 					this.state.isMicroscopesLoaded &&
+					this.state.isComponentsLoaded &&
 					this.state.isSettingsLoaded &&
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
@@ -138,6 +145,38 @@ export default class DataLoader extends React.PureComponent {
 				if (
 					this.state.isDimensionsLoaded &&
 					this.state.isMicroscopesLoaded &&
+					this.state.isComponentsLoaded &&
+					this.state.isSettingsLoaded &&
+					this.state.isTierListLoaded &&
+					this.state.isSchemaLoaded
+				)
+					if (!this.props.is4DNPortal && !this.props.isMMEOpen)
+						this.props.onDataLoaded();
+			});
+		});
+	}
+
+	onClickLoadComponents() {
+		const interval = setInterval(() => {
+			let oldValue = this.state.progressValueComponents;
+			let newValue = oldValue + 10;
+			if (newValue === 100) clearInterval(interval);
+			this.setState({
+				progressValueComponents: newValue,
+			});
+		}, 100);
+		this.setState({ isLoadingComponents: true }, () => {
+			this.props.onClickLoadComponents().then(() => {
+				this.setState({
+					isLoadingComponents: false,
+					isComponentsLoaded: true,
+					progressValueComponents: 100,
+				});
+				clearInterval(interval);
+				if (
+					this.state.isDimensionsLoaded &&
+					this.state.isMicroscopesLoaded &&
+					this.state.isComponentsLoaded &&
 					this.state.isSettingsLoaded &&
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
@@ -168,6 +207,7 @@ export default class DataLoader extends React.PureComponent {
 				if (
 					this.state.isDimensionsLoaded &&
 					this.state.isMicroscopesLoaded &&
+					this.state.isComponentsLoaded &&
 					this.state.isSettingsLoaded &&
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
@@ -198,6 +238,7 @@ export default class DataLoader extends React.PureComponent {
 				if (
 					this.state.isDimensionsLoaded &&
 					this.state.isMicroscopesLoaded &&
+					this.state.isComponentsLoaded &&
 					this.state.isSettingsLoaded &&
 					this.state.isTierListLoaded &&
 					this.state.isSchemaLoaded
@@ -245,6 +286,11 @@ export default class DataLoader extends React.PureComponent {
 		loadMicroscopesButtonRef.click();
 	}
 
+	simulateClickLoadComponents(loadComponentsButtonRef) {
+		if (loadComponentsButtonRef === null) return;
+		loadComponentsButtonRef.click();
+	}
+
 	simulateClickLoadSettings(loadSettingsButtonRef) {
 		if (loadSettingsButtonRef === null) return;
 		loadSettingsButtonRef.click();
@@ -261,6 +307,7 @@ export default class DataLoader extends React.PureComponent {
 	}
 
 	render() {
+		console.log("** inside of dataLoaderV2.js");
 		const buttonStyle = {
 			display: "none",
 			width: "200px",
@@ -323,11 +370,13 @@ export default class DataLoader extends React.PureComponent {
 		};
 		let isLoadingSchema = this.state.isLoadingSchema;
 		let isLoadingMicroscopes = this.state.isLoadingMicroscopes;
+		let isLoadingComponents = this.state.isLoadingComponents;
 		let isLoadingSettings = this.state.isLoadingSettings;
 		let isLoadingDimensions = this.state.isLoadingDimensions;
 		let isLoadingTierList = this.state.isLoadingTierList;
 		let isSchemaLoaded = this.state.isSchemaLoaded;
 		let isMicroscopesLoaded = this.state.isMicroscopesLoaded;
+		let isComponentsLoaded = this.state.isComponentsLoaded;
 		let isSettingsLoaded = this.state.isSettingsLoaded;
 		let isDimensionsLoaded = this.state.isDimensionsLoaded;
 		let isTierListLoaded = this.state.isTierListLoaded;
@@ -348,6 +397,11 @@ export default class DataLoader extends React.PureComponent {
 			: isMicroscopesLoaded
 			? "Microscopes loaded"
 			: "Load microscopes";
+		let componentsLabel = isLoadingComponents
+			? "Loading components: " + this.state.progressValueComponents + "%"
+			: isComponentsLoaded
+			? "Components loaded"
+			: "Load components";
 		let settingsLabel = isLoadingSettings
 			? "Loading settings: " + this.state.progressValueSettings + "%"
 			: isSettingsLoaded
@@ -377,6 +431,7 @@ export default class DataLoader extends React.PureComponent {
 			!isSchemaLoaded ||
 			!isDimensionsLoaded ||
 			!isMicroscopesLoaded ||
+			!isComponentsLoaded ||
 			!isSettingsLoaded
 		) {
 			return (
@@ -413,6 +468,26 @@ export default class DataLoader extends React.PureComponent {
 								style={progressStyle}
 								label={microscopesLabel}
 								now={this.state.progressValueMicroscopes}
+								striped
+								animated
+							/>
+							<Button
+								ref={this.simulateClickLoadComponents}
+								disabled={isLoadingComponents || isComponentsLoaded}
+								onClick={
+									!isLoadingComponents && !isComponentsLoaded
+										? this.onClickLoadComponents
+										: null
+								}
+								style={buttonStyle}
+								size="lg"
+							>
+								{componentsLabel}
+							</Button>
+							<ProgressBar
+								style={progressStyle}
+								label={componentsLabel}
+								now={this.state.progressValueComponents}
 								striped
 								animated
 							/>

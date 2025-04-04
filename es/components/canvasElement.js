@@ -88,8 +88,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
           onConfirm: this.handleConfirm,
           onCancel: this.handleCancel,
           onDummy: this.handleDummy,
-          onSave: this.handleSave,
-          onLoad: this.handleLoad,
+          onSave: this.handleSave //onLoad={this.handleLoad}
+          ,
           overlaysContainer: this.props.overlaysContainer,
           currentChildrenComponentIdentifier: this.props.currentChildrenComponentIdentifier,
           minChildrenComponentIdentifier: this.props.minChildrenComponentIdentifier,
@@ -146,8 +146,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleLoad",
     value: function handleLoad() {
-      if (this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
-      this.props.onClickLoad(); //this.props.setEditingOnCanvas(false);
+      if (this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js"); //this.props.onClickLoad();
+      //this.props.setEditingOnCanvas(false);
       //this.setState({ editing: false, editForm: null });
     }
   }, {

@@ -346,7 +346,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	handleLoadComponents(e) {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
-				this.props.onLoadComponent(
+				this.props.onLoadComponents(
 					this.handleCompleteLoadComponents,
 					resolve
 				);
@@ -3269,6 +3269,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickLoadSchema={this.handleLoadSchema}
 						onClickLoadDimensions={this.handleLoadDimensions}
 						onClickLoadMicroscopes={this.handleLoadMicroscopes}
+						onClickLoadComponents={this.handleLoadComponents}
 						onClickLoadSettings={this.handleLoadSettings}
 						onClickLoadTierList={this.handleLoadTierList}
 						onClickHandleMicPreset={this.handleMicPreset}
@@ -3912,7 +3913,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							<Canvas
 								validationTier={this.state.validationTier}
 								onClickSave={this.handleSaveComponent}
-								onClickLoad={this.handleLoadComponents}
+								//onClickLoad={this.handleLoadComponents}
 								microscope={microscope}
 								stand={microscope.MicroscopeStand}
 								activeTier={this.state.activeTier}
@@ -4055,6 +4056,12 @@ MicroMetaAppReact.defaultProps = {
 			complete(null, resolve);
 		}, 1000);
 	},
+	onLoadComponents: function (complete, resolve) {
+		console.log("default props for onLoadComponents called");
+		setTimeout(function () {
+			complete(null, resolve);
+		}, 1000);
+	},
 	onLoadSettings: function (complete, resolve) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
 		setTimeout(function () {
@@ -4070,9 +4077,6 @@ MicroMetaAppReact.defaultProps = {
 	},
 	onSaveComponent: function (elementData, complete, validationTier) {
 		console.log("default props for onSaveComponent called");
-	},
-	onLoadComponent: function (complete, resolve) {
-		console.log("default props for onLoadComponent called");
 	},
 	saveAllComponents: function (allComponents, complete, validationTier) {
 		console.log("In default props saveAllComponents of React");
