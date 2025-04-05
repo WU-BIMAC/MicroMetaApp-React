@@ -384,6 +384,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleCompleteLoadMicroscopes(newMicroscopes, resolve) {
+		console.log("in function handleCompleteLoadComponents and this is newMicroscopes", newMicroscopes);
 		this.setState({ microscopes: newMicroscopes }, resolve());
 	}
 

@@ -372,6 +372,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleCompleteLoadMicroscopes",
     value: function handleCompleteLoadMicroscopes(newMicroscopes, resolve) {
+      console.log("in function handleCompleteLoadComponents and this is newMicroscopes", newMicroscopes);
       this.setState({
         microscopes: newMicroscopes
       }, resolve());
