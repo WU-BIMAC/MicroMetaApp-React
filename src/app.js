@@ -388,6 +388,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleCompleteLoadComponents(newComponents, resolve) {
+		console.log("in function handleCompleteLoadComponents and this is newComponents", newComponents);
 		this.setState({ components: newComponents }, resolve());
 	}
 
@@ -3885,6 +3886,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				);
 			} else {
 				if (this.props.isDebug) console.log("IN APP.JS REACT 2");
+				console.log("this is components state in React", this.components);
 				//{overlayImporter}
 				let isPasteEnabled = isDefined(this.state.tmpCopyElementFromData)
 					? true
