@@ -64,7 +64,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			originalSetting: Object.assign({}, props.setting) || null,
 			schema: props.schema || null,
 			microscopes: props.microscopes || null,
-			components: null,
+			components: props.components || null,
 			settings: props.settings || null,
 			adaptedMicroscopeSchema: null,
 			adaptedComponentsSchema: null,
