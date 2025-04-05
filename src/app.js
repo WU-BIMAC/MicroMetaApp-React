@@ -353,14 +353,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleLoadComponents(e) {
-		return new Promise((resolve, reject) =>
-			setTimeout(() => {
-				this.props.onLoadComponents(
-					this.handleCompleteLoadComponents,
-					resolve
-				);
-			}, 1000)
-		);
+		return new Promise((resolve, reject) => {
+			this.props.onLoadComponents(
+			  this.handleCompleteLoadComponents,
+			  resolve,
+			);
+		  });
 	}
 
 	handleLoadSettings(e) {

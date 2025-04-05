@@ -335,9 +335,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var _this4 = this;
 
       return new Promise(function (resolve, reject) {
-        return setTimeout(function () {
-          _this4.props.onLoadComponents(_this4.handleCompleteLoadComponents, resolve);
-        }, 1000);
+        _this4.props.onLoadComponents(_this4.handleCompleteLoadComponents, resolve);
       });
     }
   }, {
