@@ -3921,7 +3921,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						/>
 						<div style={canvasContainerStyle}>
 							<Canvas
-								components={this.components}
+								components={this.state.components}
 								validationTier={this.state.validationTier}
 								onClickSave={this.handleSaveComponent}
 								//onClickLoad={this.handleLoadComponents}
