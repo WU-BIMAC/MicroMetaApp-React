@@ -22,6 +22,7 @@ export default class Toolbar extends React.PureComponent {
 		this.state = {
 			elementList: {},
 			imagesDimension: {},
+			//selectedCategory: null,
 		};
 
 		let counter = 0;
@@ -46,7 +47,13 @@ export default class Toolbar extends React.PureComponent {
 		this.updateMinMaxDimensions = this.updateMinMaxDimensions.bind(this);
 
 		this.onHideToolbar = this.onHideToolbar.bind(this);
+		//this.handleCategorySelect = this.handleCategorySelect.bind(this);
 	}
+
+	// handleCategorySelect = (categoryKey) => {
+	// 	console.log("categoryKey is", categoryKey);
+	// 	this.setState({ selectedCategory: categoryKey });
+	// };
 
 	updateMinMaxDimensions(id, width, height) {
 		// let newImagesDimension = Object.assign({}, this.state.imagesDimension);
@@ -321,6 +328,7 @@ export default class Toolbar extends React.PureComponent {
 					<Collapsible
 						key={`Collapsible-${key}`}
 						trigger={
+							// <Button key={`Trigger${key}`} size="lg" style={style} onClick={() => this.handleCategorySelect(key)}>
 							<Button key={`Trigger${key}`} size="lg" style={style}>
 								<div>{simpleKey}</div>
 								<div style={styleTransitionClose}>&#9650;</div>
@@ -342,6 +350,20 @@ export default class Toolbar extends React.PureComponent {
 	}
 
 	render() {
+		// const { selectedCategory } = this.state;
+		// const { components } = this.props;
+
+		// let filteredComponents = [];
+
+		// if (selectedCategory && components && components[selectedCategory]) {
+		// 	filteredComponents = Object.values(components[selectedCategory]).map(
+		// 		(entry) => entry.component
+		// 	);
+		// }
+
+		// console.log("Selected Category:", selectedCategory);
+		// console.log("Filtered Components:", filteredComponents);
+
 		let imagesDimension = this.state.imagesDimension;
 		if (
 			Object.keys(imagesDimension).length !== 0 &&

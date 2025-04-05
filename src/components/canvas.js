@@ -1273,6 +1273,7 @@ export default class Canvas extends React.PureComponent {
 								</div>
 								<div style={styleElementNameContainer}>
 									<CanvasElement
+										components={this.props.components}
 										validationTier={this.props.validationTier}
 										imagesPath={this.props.imagesPath}
 										// getComponent={this.props.getComponent}

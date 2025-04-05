@@ -727,7 +727,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	}
 	
 	onLoad() {
-		if (this.props.isDebug) console.log("calling onLoad props in multiTabFormWithHeaderV3");
+		if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
+
 		//this.props.onLoad();
 	}
 

@@ -39,6 +39,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var url = require("url");
 
 var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
@@ -52,9 +54,29 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     _classCallCheck(this, CanvasElement);
 
     _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "handleOpenMultiTabForm", function () {
+      var _this$props = _this.props,
+          components = _this$props.components,
+          schema = _this$props.schema;
+      var categoryKey = schema.category; // Safety check
+
+      if (!components || !categoryKey) {
+        console.warn("Missing components or categoryKey:", components, categoryKey);
+        return [];
+      }
+
+      var filteredComponents = Object.values(components[categoryKey] || {}).map(function (entry) {
+        return entry.component;
+      });
+      console.log("filteredComponents in canvasElement", filteredComponents);
+      return filteredComponents;
+    });
+
     _this.state = {
       editing: false,
-      editForm: null
+      editForm: null,
+      filteredComponentsForForm: null
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     _this.handleDummy = _this.handleDummy.bind(_assertThisInitialized(_this));
@@ -65,19 +87,22 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleResize = _this.handleResize.bind(_assertThisInitialized(_this));
     _this.updateMinMaxDimensions = _this.updateMinMaxDimensions.bind(_assertThisInitialized(_this));
     _this.counter = 0;
+    _this.handleOpenMultiTabForm = _this.handleOpenMultiTabForm.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(CanvasElement, [{
     key: "handleClick",
     value: function handleClick() {
-      if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick");
+      if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.schema", this.props.schema);
 
       if (!this.props.isViewOnly) {
         if (this.props.isDebug) console.log("INSIDE CANVASELEMENT 1");
         this.props.setEditingOnCanvas(true);
+        var filteredComponents = this.handleOpenMultiTabForm();
 
         var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          filteredComponents: filteredComponents,
           imagesPath: this.props.imagesPath,
           validationUpdate: this.props.validationUpdate,
           title: "Edit " + this.props.formTitle,

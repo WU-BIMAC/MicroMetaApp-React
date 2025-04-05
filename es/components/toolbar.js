@@ -58,7 +58,8 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
     _this = _super.call(this, props);
     _this.state = {
       elementList: {},
-      imagesDimension: {}
+      imagesDimension: {} //selectedCategory: null,
+
     };
     var counter = 0;
 
@@ -83,9 +84,14 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
     _this.state.numberOfElement = counter;
     _this.cachedToolbar = null;
     _this.updateMinMaxDimensions = _this.updateMinMaxDimensions.bind(_assertThisInitialized(_this));
-    _this.onHideToolbar = _this.onHideToolbar.bind(_assertThisInitialized(_this));
+    _this.onHideToolbar = _this.onHideToolbar.bind(_assertThisInitialized(_this)); //this.handleCategorySelect = this.handleCategorySelect.bind(this);
+
     return _this;
-  }
+  } // handleCategorySelect = (categoryKey) => {
+  // 	console.log("categoryKey is", categoryKey);
+  // 	this.setState({ selectedCategory: categoryKey });
+  // };
+
 
   _createClass(Toolbar, [{
     key: "updateMinMaxDimensions",
@@ -343,7 +349,10 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
           if (simpleKey !== name) return;
           toolbar.push( /*#__PURE__*/_react.default.createElement(_reactCollapsible.default, {
             key: "Collapsible-".concat(key),
-            trigger: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            trigger:
+            /*#__PURE__*/
+            // <Button key={`Trigger${key}`} size="lg" style={style} onClick={() => this.handleCategorySelect(key)}>
+            _react.default.createElement(_Button.default, {
               key: "Trigger".concat(key),
               size: "lg",
               style: style
@@ -365,6 +374,16 @@ var Toolbar = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
+      // const { selectedCategory } = this.state;
+      // const { components } = this.props;
+      // let filteredComponents = [];
+      // if (selectedCategory && components && components[selectedCategory]) {
+      // 	filteredComponents = Object.values(components[selectedCategory]).map(
+      // 		(entry) => entry.component
+      // 	);
+      // }
+      // console.log("Selected Category:", selectedCategory);
+      // console.log("Filtered Components:", filteredComponents);
       var imagesDimension = this.state.imagesDimension;
 
       if (Object.keys(imagesDimension).length !== 0 && this.state.numberOfElement !== Object.keys(imagesDimension).length && this.cachedToolbar !== null) {

@@ -73,6 +73,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var _ = require("lodash");
 
 var url = require("url");
@@ -90,6 +92,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _classCallCheck(this, MicroMetaAppReact);
 
     _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "handleFilteredComponent", function (filteredComponents) {
+      _this.setState({
+        filteredComponents: filteredComponents
+      });
+    });
+
     _this.state = {
       allComponents: [],
       microscope: props.microscope || null,
@@ -134,7 +143,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       microscopePresetHandled: false,
       isDataLoaded: false,
       tmpCopyElementFromData: null,
-      modelVersion: null
+      modelVersion: null,
+      filteredComponent: null
     };
 
     for (var i = 0; i < _constants.current_stands.length; i++) {
@@ -234,7 +244,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.loadMicroscopeFromPortal = _this.loadMicroscopeFromPortal.bind(_assertThisInitialized(_this));
     _this.setDataLoaded = _this.setDataLoaded.bind(_assertThisInitialized(_this));
     _this.onCopy = _this.onCopy.bind(_assertThisInitialized(_this));
-    _this.onPaste = _this.onPaste.bind(_assertThisInitialized(_this)); // Set up API
+    _this.onPaste = _this.onPaste.bind(_assertThisInitialized(_this));
+    _this.handleFilteredComponent = _this.handleFilteredComponent(_assertThisInitialized(_this)); // Set up API
 
     var _createApi = createApi(_assertThisInitialized(_this)),
         api = _createApi.public;
@@ -3072,6 +3083,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           }), /*#__PURE__*/_react.default.createElement("div", {
             style: canvasContainerStyle
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
+            components: this.components,
             validationTier: this.state.validationTier,
             onClickSave: this.handleSaveComponent //onClickLoad={this.handleLoadComponents}
             ,
@@ -3099,6 +3111,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             ,
             isDebug: this.props.isDebug
           }), /*#__PURE__*/_react.default.createElement(_toolbar.default, {
+            components: this.components,
             activeTier: this.state.activeTier,
             ref: this.toolbarRef,
             imagesPath: imagesPathSVG,

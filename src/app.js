@@ -101,6 +101,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			isDataLoaded: false,
 			tmpCopyElementFromData: null,
 			modelVersion: null,
+			filteredComponent: null,
 		};
 
 		for (let i = 0; i < current_stands.length; i++) {
@@ -243,11 +244,15 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.onCopy = this.onCopy.bind(this);
 		this.onPaste = this.onPaste.bind(this);
 
+		this.handleFilteredComponent = this.handleFilteredComponent(this);
+
 		// Set up API
 		const { public: api /*, destroy: apiDestroy, publish: apiPublish*/ } =
 			createApi(this);
 		this.api = api;
 	}
+
+
 
 	static getDerivedStateFromProps(props, state) {
 		// if (props.schema !== state.schema && isDefined(props.schema)) {
@@ -285,6 +290,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		// }
 		return null;
 	}
+
+	handleFilteredComponent = (filteredComponents) => {
+		this.setState({ filteredComponents }); 
+	};
 
 	componentDidMount() {
 		this.setState({ mounted: true });
@@ -3911,6 +3920,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						/>
 						<div style={canvasContainerStyle}>
 							<Canvas
+								components={this.components}
 								validationTier={this.state.validationTier}
 								onClickSave={this.handleSaveComponent}
 								//onClickLoad={this.handleLoadComponents}
@@ -3943,6 +3953,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							/>
 							
 							<Toolbar
+								components={this.components}
 								activeTier={this.state.activeTier}
 								ref={this.toolbarRef}
 								imagesPath={imagesPathSVG}

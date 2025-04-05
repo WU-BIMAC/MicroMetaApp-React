@@ -16,6 +16,7 @@ export default class CanvasElement extends React.PureComponent {
 		this.state = {
 			editing: false,
 			editForm: null,
+			filteredComponentsForForm: null,
 		};
 
 		this.handleClick = this.handleClick.bind(this);
@@ -31,15 +32,37 @@ export default class CanvasElement extends React.PureComponent {
 		this.updateMinMaxDimensions = this.updateMinMaxDimensions.bind(this);
 
 		this.counter = 0;
+		this.handleOpenMultiTabForm = this.handleOpenMultiTabForm.bind(this);
 	}
 
+	handleOpenMultiTabForm = () => {
+		const { components, schema } = this.props;
+		const categoryKey = schema.category;
+	
+		// Safety check
+		if (!components || !categoryKey) {
+			console.warn("Missing components or categoryKey:", components, categoryKey);
+			return [];
+		}
+	
+		const filteredComponents = Object.values(components[categoryKey] || {}).map(
+			(entry) => entry.component
+		);
+	
+		console.log("filteredComponents in canvasElement", filteredComponents);
+	
+		return filteredComponents;
+	};
+
 	handleClick() {
-		if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick");
+		if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.schema", this.props.schema);
 		if (!this.props.isViewOnly) {
 			if (this.props.isDebug) console.log("INSIDE CANVASELEMENT 1");
 			this.props.setEditingOnCanvas(true);
+			const filteredComponents = this.handleOpenMultiTabForm();
 			let editForm = (
 				<MultiTabFormWithHeaderV3
+					filteredComponents={filteredComponents}
 					imagesPath={this.props.imagesPath}
 					validationUpdate={this.props.validationUpdate}
 					title={"Edit " + this.props.formTitle}
