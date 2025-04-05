@@ -379,6 +379,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleCompleteLoadComponents",
     value: function handleCompleteLoadComponents(newComponents, resolve) {
+      console.log("in function handleCompleteLoadComponents and this is newComponents", newComponents);
       this.setState({
         components: newComponents
       }, resolve());
@@ -3051,7 +3052,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             isDebug: this.props.isDebug
           })));
         } else {
-          if (this.props.isDebug) console.log("IN APP.JS REACT 2"); //{overlayImporter}
+          if (this.props.isDebug) console.log("IN APP.JS REACT 2");
+          console.log("this is components state in React", this.components); //{overlayImporter}
 
           var isPasteEnabled = (0, _genericUtilities.isDefined)(this.state.tmpCopyElementFromData) ? true : false;
           return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
