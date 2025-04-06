@@ -53,9 +53,23 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       });
     });
 
-    _this.state = {
-      selectedComponent: null // Track selected component
+    _defineProperty(_assertThisInitialized(_this), "handleSubmit", function () {
+      var selectedComponent = _this.state.selectedComponent;
+      var _this$props = _this.props,
+          onClose = _this$props.onClose,
+          onLoadComponent = _this$props.onLoadComponent; // Access onLoadComponent
 
+      if (selectedComponent) {
+        onLoadComponent(selectedComponent); // Call the function to load the component
+
+        onClose(); // Close the modal after loading
+      } else {
+        alert("Please select a component to load.");
+      }
+    });
+
+    _this.state = {
+      selectedComponent: null
     };
     return _this;
   }
@@ -65,9 +79,9 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
     value: function render() {
       var _this2 = this;
 
-      var _this$props = this.props,
-          components = _this$props.components,
-          onClose = _this$props.onClose;
+      var _this$props2 = this.props,
+          components = _this$props2.components,
+          onClose = _this$props2.onClose;
       var selectedComponent = this.state.selectedComponent;
       return /*#__PURE__*/_reactDom.default.createPortal( /*#__PURE__*/_react.default.createElement("div", {
         className: "modal-overlay",
@@ -93,8 +107,15 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           maxHeight: '90vh',
           overflow: 'auto',
           display: 'flex',
+          flexDirection: 'column',
+          width: '80%' // Column layout
+
+        }
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          display: 'flex',
           flexDirection: 'row',
-          width: '80%'
+          height: '100%'
         }
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: {
@@ -114,13 +135,11 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           style: {
             padding: '5px 0',
             cursor: 'pointer',
-            fontWeight: selectedComponent === comp ? 'bold' : 'normal' // Highlight selected
-
+            fontWeight: selectedComponent === comp ? 'bold' : 'normal'
           },
           onClick: function onClick() {
             return _this2.handleComponentClick(comp);
-          } // Select component
-
+          }
         }, comp.Name);
       }))), /*#__PURE__*/_react.default.createElement("div", {
         style: {
@@ -158,15 +177,22 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           style: {
             padding: '5px 0'
           }
-        }, String(value), "  ");
-      })) : /*#__PURE__*/_react.default.createElement("p", null, "Select a component to view its details."))), /*#__PURE__*/_react.default.createElement("button", {
+        }, String(value));
+      })) : /*#__PURE__*/_react.default.createElement("p", null, "Select a component to view its details."))), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          display: 'flex',
+          justifyContent: 'flex-end',
+          marginTop: 15
+        }
+      }, /*#__PURE__*/_react.default.createElement("button", {
         onClick: onClose,
         style: {
-          position: 'absolute',
-          top: '10px',
-          right: '10px'
+          marginRight: 10
         }
-      }, "Close")), this.props.overlaysContainer);
+      }, "Close"), /*#__PURE__*/_react.default.createElement("button", {
+        onClick: this.handleSubmit,
+        disabled: !selectedComponent
+      }, "Submit")))), this.props.overlaysContainer);
     }
   }]);
 

@@ -30,6 +30,7 @@ export default class CanvasElement extends React.PureComponent {
 		this.handleCancel = this.handleCancel.bind(this);
 		this.handleSave = this.handleSave.bind(this);
 		this.handleLoad = this.handleLoad.bind(this);
+		this.handleLoadComponent = this.handleLoadComponent.bind(this);
 
 		this.handleResize = this.handleResize.bind(this);
 
@@ -126,6 +127,16 @@ export default class CanvasElement extends React.PureComponent {
 		this.props.handleConfirm(id, consolidatedData, linkedFields);
 		this.props.onClickSave(id, consolidatedData, linkedFields);
 	}
+
+	handleLoadComponent = (selectedComponent) => {
+		// Implement the logic to load the selected component here
+		// For example, update the state to trigger a re-render
+		// or call another function to fetch data based on the component
+	  
+		console.log("Loading component:", selectedComponent);
+		// Close modal or update state as needed
+		this.setState({ isModalOpen: false });
+	  };
 
 	handleLoad() {
 		if(this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
@@ -246,6 +257,7 @@ export default class CanvasElement extends React.PureComponent {
 						overlaysContainer={document.body}
 						components={this.state.modalContent}
 						onClose={this.handleCloseModal}
+						onLoadComponent={this.handleLoadComponent}
 				  	/>
 				// 	<ModalWindow overlaysContainer={document.body} style={{ position: 'fixed', zIndex: 1001 }}>
 				// 	<div className="loading-modal-content">

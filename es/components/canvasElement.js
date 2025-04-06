@@ -83,6 +83,17 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "handleLoadComponent", function (selectedComponent) {
+      // Implement the logic to load the selected component here
+      // For example, update the state to trigger a re-render
+      // or call another function to fetch data based on the component
+      console.log("Loading component:", selectedComponent); // Close modal or update state as needed
+
+      _this.setState({
+        isModalOpen: false
+      });
+    });
+
     _this.state = {
       editing: false,
       editForm: null,
@@ -96,6 +107,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleCancel = _this.handleCancel.bind(_assertThisInitialized(_this));
     _this.handleSave = _this.handleSave.bind(_assertThisInitialized(_this));
     _this.handleLoad = _this.handleLoad.bind(_assertThisInitialized(_this));
+    _this.handleLoadComponent = _this.handleLoadComponent.bind(_assertThisInitialized(_this));
     _this.handleResize = _this.handleResize.bind(_assertThisInitialized(_this));
     _this.updateMinMaxDimensions = _this.updateMinMaxDimensions.bind(_assertThisInitialized(_this));
     _this.counter = 0;
@@ -296,7 +308,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       }))), this.state.isModalOpen && /*#__PURE__*/_react.default.createElement(_componentsLoadingModal.default, {
         overlaysContainer: document.body,
         components: this.state.modalContent,
-        onClose: this.handleCloseModal
+        onClose: this.handleCloseModal,
+        onLoadComponent: this.handleLoadComponent
       }) // 	<ModalWindow overlaysContainer={document.body} style={{ position: 'fixed', zIndex: 1001 }}>
       // 	<div className="loading-modal-content">
       // 	<h2 style={{marginTop: 0}}>Component Details</h2>
