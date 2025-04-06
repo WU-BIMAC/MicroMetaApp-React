@@ -732,7 +732,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onLoad",
     value: function onLoad() {
-      if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents); //this.props.onLoad();
+      if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
+      this.props.onLoad();
     }
   }, {
     key: "onCancel",

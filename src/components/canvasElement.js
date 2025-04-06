@@ -5,6 +5,8 @@ import { ResizableBox } from "react-resizable";
 
 import ImageElement from "./imageElement";
 import MultiTabFormWithHeaderV3 from "./multiTabFormWithHeaderV3";
+import ComponentsLoadingModal from "./componentsLoadingModal";
+import ModalWindow from "./modalWindow";
 
 const url = require("url");
 
@@ -16,7 +18,9 @@ export default class CanvasElement extends React.PureComponent {
 		this.state = {
 			editing: false,
 			editForm: null,
-			filteredComponentsForForm: null,
+			//filteredComponentsForForm: null,
+			isModalOpen: false,
+      		modalContent: null
 		};
 
 		this.handleClick = this.handleClick.bind(this);
@@ -53,11 +57,14 @@ export default class CanvasElement extends React.PureComponent {
 	
 		return filteredComponents;
 	};
+	
+	handleCloseModal = () => {
+		this.setState({ isModalOpen: false });
+	};
 
 	handleClick() {
 		if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.schema", this.props.schema);
 		if (!this.props.isViewOnly) {
-			if (this.props.isDebug) console.log("INSIDE CANVASELEMENT 1");
 			this.props.setEditingOnCanvas(true);
 			const filteredComponents = this.handleOpenMultiTabForm();
 			let editForm = (
@@ -74,7 +81,7 @@ export default class CanvasElement extends React.PureComponent {
 					onCancel={this.handleCancel}
 					onDummy={this.handleDummy}
 					onSave={this.handleSave}
-					//onLoad={this.handleLoad}
+					onLoad={this.handleLoad}
 					overlaysContainer={this.props.overlaysContainer}
 					currentChildrenComponentIdentifier={
 						this.props.currentChildrenComponentIdentifier
@@ -122,9 +129,12 @@ export default class CanvasElement extends React.PureComponent {
 
 	handleLoad() {
 		if(this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
-		//this.props.onClickLoad();
-		//this.props.setEditingOnCanvas(false);
-		//this.setState({ editing: false, editForm: null });
+
+		const filteredComponents = this.handleOpenMultiTabForm();
+		this.setState({
+			modalContent: filteredComponents,
+			isModalOpen: true
+		});
 	}
 
 	handleResize(e, data) {
@@ -231,7 +241,48 @@ export default class CanvasElement extends React.PureComponent {
 						/>
 					</button>
 				</ResizableBox>
+				{this.state.isModalOpen && (
+					<ModalWindow overlaysContainer={document.body} style={{ position: 'fixed', zIndex: 1001 }}>
+					<div className="loading-modal-content">
+					<h2 style={{marginTop: 0}}>Component Details</h2>
+					<button 
+						onClick={this.handleCloseModal}
+						style={{marginBottom: 15}}
+					>
+						Close
+					</button>
+					<div style={{ // List container
+						borderTop: '1px solid #eee',
+						paddingTop: 15
+					}}>
+						{this.state.modalContent?.map((comp, index) => (
+						<div 
+							key={index}
+							style={{ // Card styles
+							margin: '10px 0',
+							padding: 15,
+							border: '1px solid #eee',
+							borderRadius: 4
+							}}
+						>
+							<h3 style={{margin: 0}}>
+							{comp.Name || 'Unnamed Component'}
+							</h3>
+							<pre style={{
+							whiteSpace: 'pre-wrap',
+							wordBreak: 'break-word',
+							margin: '10px 0 0 0'
+							}}>
+							{JSON.stringify(comp, null, 2)}
+							</pre>
+						</div>
+						))}
+					  </div>
+					</div>
+				  </ModalWindow>
+				)}
 				{editForm}
+			
 			</div>
 		);
 	}

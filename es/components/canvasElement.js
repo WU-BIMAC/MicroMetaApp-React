@@ -15,6 +15,10 @@ var _imageElement = _interopRequireDefault(require("./imageElement"));
 
 var _multiTabFormWithHeaderV = _interopRequireDefault(require("./multiTabFormWithHeaderV3"));
 
+var _componentsLoadingModal = _interopRequireDefault(require("./componentsLoadingModal"));
+
+var _modalWindow = _interopRequireDefault(require("./modalWindow"));
+
 var _constants = require("../constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -73,10 +77,18 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       return filteredComponents;
     });
 
+    _defineProperty(_assertThisInitialized(_this), "handleCloseModal", function () {
+      _this.setState({
+        isModalOpen: false
+      });
+    });
+
     _this.state = {
       editing: false,
       editForm: null,
-      filteredComponentsForForm: null
+      //filteredComponentsForForm: null,
+      isModalOpen: false,
+      modalContent: null
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     _this.handleDummy = _this.handleDummy.bind(_assertThisInitialized(_this));
@@ -97,7 +109,6 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.schema", this.props.schema);
 
       if (!this.props.isViewOnly) {
-        if (this.props.isDebug) console.log("INSIDE CANVASELEMENT 1");
         this.props.setEditingOnCanvas(true);
         var filteredComponents = this.handleOpenMultiTabForm();
 
@@ -113,8 +124,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
           onConfirm: this.handleConfirm,
           onCancel: this.handleCancel,
           onDummy: this.handleDummy,
-          onSave: this.handleSave //onLoad={this.handleLoad}
-          ,
+          onSave: this.handleSave,
+          onLoad: this.handleLoad,
           overlaysContainer: this.props.overlaysContainer,
           currentChildrenComponentIdentifier: this.props.currentChildrenComponentIdentifier,
           minChildrenComponentIdentifier: this.props.minChildrenComponentIdentifier,
@@ -171,9 +182,12 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleLoad",
     value: function handleLoad() {
-      if (this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js"); //this.props.onClickLoad();
-      //this.props.setEditingOnCanvas(false);
-      //this.setState({ editing: false, editForm: null });
+      if (this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
+      var filteredComponents = this.handleOpenMultiTabForm();
+      this.setState({
+        modalContent: filteredComponents,
+        isModalOpen: true
+      });
     }
   }, {
     key: "handleResize",
@@ -215,6 +229,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
+      var _this$state$modalCont;
+
       var style = {
         textAlign: "center",
         height: "100%",
@@ -279,7 +295,51 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
         image: this.props.image,
         name: this.props.schema.title,
         style: styleImage
-      }))), editForm);
+      }))), this.state.isModalOpen && /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+        overlaysContainer: document.body,
+        style: {
+          position: 'fixed',
+          zIndex: 1001
+        }
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        className: "loading-modal-content"
+      }, /*#__PURE__*/_react.default.createElement("h2", {
+        style: {
+          marginTop: 0
+        }
+      }, "Component Details"), /*#__PURE__*/_react.default.createElement("button", {
+        onClick: this.handleCloseModal,
+        style: {
+          marginBottom: 15
+        }
+      }, "Close"), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          // List container
+          borderTop: '1px solid #eee',
+          paddingTop: 15
+        }
+      }, (_this$state$modalCont = this.state.modalContent) === null || _this$state$modalCont === void 0 ? void 0 : _this$state$modalCont.map(function (comp, index) {
+        return /*#__PURE__*/_react.default.createElement("div", {
+          key: index,
+          style: {
+            // Card styles
+            margin: '10px 0',
+            padding: 15,
+            border: '1px solid #eee',
+            borderRadius: 4
+          }
+        }, /*#__PURE__*/_react.default.createElement("h3", {
+          style: {
+            margin: 0
+          }
+        }, comp.Name || 'Unnamed Component'), /*#__PURE__*/_react.default.createElement("pre", {
+          style: {
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+            margin: '10px 0 0 0'
+          }
+        }, JSON.stringify(comp, null, 2)));
+      })))), editForm);
     }
   }]);
 
