@@ -242,44 +242,49 @@ export default class CanvasElement extends React.PureComponent {
 					</button>
 				</ResizableBox>
 				{this.state.isModalOpen && (
-					<ModalWindow overlaysContainer={document.body} style={{ position: 'fixed', zIndex: 1001 }}>
-					<div className="loading-modal-content">
-					<h2 style={{marginTop: 0}}>Component Details</h2>
-					<button 
-						onClick={this.handleCloseModal}
-						style={{marginBottom: 15}}
-					>
-						Close
-					</button>
-					<div style={{ // List container
-						borderTop: '1px solid #eee',
-						paddingTop: 15
-					}}>
-						{this.state.modalContent?.map((comp, index) => (
-						<div 
-							key={index}
-							style={{ // Card styles
-							margin: '10px 0',
-							padding: 15,
-							border: '1px solid #eee',
-							borderRadius: 4
-							}}
-						>
-							<h3 style={{margin: 0}}>
-							{comp.Name || 'Unnamed Component'}
-							</h3>
-							<pre style={{
-							whiteSpace: 'pre-wrap',
-							wordBreak: 'break-word',
-							margin: '10px 0 0 0'
-							}}>
-							{JSON.stringify(comp, null, 2)}
-							</pre>
-						</div>
-						))}
-					  </div>
-					</div>
-				  </ModalWindow>
+					<ComponentsLoadingModal 
+						overlaysContainer={document.body}
+						components={this.state.modalContent}
+						onClose={this.handleCloseModal}
+				  	/>
+				// 	<ModalWindow overlaysContainer={document.body} style={{ position: 'fixed', zIndex: 1001 }}>
+				// 	<div className="loading-modal-content">
+				// 	<h2 style={{marginTop: 0}}>Component Details</h2>
+				// 	<button 
+				// 		onClick={this.handleCloseModal}
+				// 		style={{marginBottom: 15}}
+				// 	>
+				// 		Close
+				// 	</button>
+				// 	<div style={{ // List container
+				// 		borderTop: '1px solid #eee',
+				// 		paddingTop: 15
+				// 	}}>
+				// 		{this.state.modalContent?.map((comp, index) => (
+				// 		<div 
+				// 			key={index}
+				// 			style={{ // Card styles
+				// 			margin: '10px 0',
+				// 			padding: 15,
+				// 			border: '1px solid #eee',
+				// 			borderRadius: 4
+				// 			}}
+				// 		>
+				// 			<h3 style={{margin: 0}}>
+				// 			{comp.Name || 'Unnamed Component'}
+				// 			</h3>
+				// 			<pre style={{
+				// 			whiteSpace: 'pre-wrap',
+				// 			wordBreak: 'break-word',
+				// 			margin: '10px 0 0 0'
+				// 			}}>
+				// 			{JSON.stringify(comp, null, 2)}
+				// 			</pre>
+				// 		</div>
+				// 		))}
+				// 	  </div>
+				// 	</div>
+				//   </ModalWindow>
 				)}
 				{editForm}
 			

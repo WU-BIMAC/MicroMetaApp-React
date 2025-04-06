@@ -9,6 +9,8 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31,6 +33,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(ComponentsLoadingModal, _React$PureComponent);
 
@@ -42,32 +46,127 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
     _classCallCheck(this, ComponentsLoadingModal);
 
     _this = _super.call(this, props);
-    console.log("called ComponentsLoadingModal");
-    console.log("props.components", props.components);
-    console.log("props.onClose", props.onClose);
+
+    _defineProperty(_assertThisInitialized(_this), "handleComponentClick", function (component) {
+      _this.setState({
+        selectedComponent: component
+      });
+    });
+
+    _this.state = {
+      selectedComponent: null // Track selected component
+
+    };
     return _this;
   }
 
   _createClass(ComponentsLoadingModal, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var _this$props = this.props,
           components = _this$props.components,
           onClose = _this$props.onClose;
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "modal-overlay"
+      var selectedComponent = this.state.selectedComponent;
+      return /*#__PURE__*/_reactDom.default.createPortal( /*#__PURE__*/_react.default.createElement("div", {
+        className: "modal-overlay",
+        style: {
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1001
+        }
       }, /*#__PURE__*/_react.default.createElement("div", {
-        className: "modal-content"
-      }, /*#__PURE__*/_react.default.createElement("h2", null, "Component Details"), /*#__PURE__*/_react.default.createElement("button", {
-        onClick: onClose
-      }, "Close"), /*#__PURE__*/_react.default.createElement("div", {
-        className: "components-list"
-      }, components && components.map(function (comp, index) {
-        return /*#__PURE__*/_react.default.createElement("div", {
+        className: "modal-content",
+        style: {
+          backgroundColor: 'white',
+          padding: 20,
+          borderRadius: 8,
+          maxWidth: '90vw',
+          maxHeight: '90vh',
+          overflow: 'auto',
+          display: 'flex',
+          flexDirection: 'row',
+          width: '80%'
+        }
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          width: '30%',
+          paddingRight: 10,
+          borderRight: '1px solid #ccc',
+          overflowY: 'auto'
+        }
+      }, /*#__PURE__*/_react.default.createElement("h4", null, "List"), /*#__PURE__*/_react.default.createElement("ul", {
+        style: {
+          listStyleType: 'none',
+          padding: 0
+        }
+      }, components === null || components === void 0 ? void 0 : components.map(function (comp, index) {
+        return /*#__PURE__*/_react.default.createElement("li", {
           key: index,
-          className: "component-card"
-        }, /*#__PURE__*/_react.default.createElement("h3", null, comp.Name || 'Unnamed Component'), /*#__PURE__*/_react.default.createElement("pre", null, JSON.stringify(comp, null, 2)));
-      }))));
+          style: {
+            padding: '5px 0',
+            cursor: 'pointer',
+            fontWeight: selectedComponent === comp ? 'bold' : 'normal' // Highlight selected
+
+          },
+          onClick: function onClick() {
+            return _this2.handleComponentClick(comp);
+          } // Select component
+
+        }, comp.Name);
+      }))), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          width: '35%',
+          padding: '0 10px',
+          borderRight: '1px solid #ccc',
+          overflowY: 'auto'
+        }
+      }, /*#__PURE__*/_react.default.createElement("h4", null, "Keys"), selectedComponent ? /*#__PURE__*/_react.default.createElement("ul", {
+        style: {
+          listStyleType: 'none',
+          padding: 0
+        }
+      }, Object.keys(selectedComponent).map(function (key, index) {
+        return /*#__PURE__*/_react.default.createElement("li", {
+          key: index,
+          style: {
+            padding: '5px 0'
+          }
+        }, key);
+      })) : /*#__PURE__*/_react.default.createElement("p", null, "Select a component to view its details.")), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          width: '35%',
+          paddingLeft: 10,
+          overflowY: 'auto'
+        }
+      }, /*#__PURE__*/_react.default.createElement("h4", null, "Values"), selectedComponent ? /*#__PURE__*/_react.default.createElement("ul", {
+        style: {
+          listStyleType: 'none',
+          padding: 0
+        }
+      }, Object.values(selectedComponent).map(function (value, index) {
+        return /*#__PURE__*/_react.default.createElement("li", {
+          key: index,
+          style: {
+            padding: '5px 0'
+          }
+        }, String(value), "  ");
+      })) : /*#__PURE__*/_react.default.createElement("p", null, "Select a component to view its details."))), /*#__PURE__*/_react.default.createElement("button", {
+        onClick: onClose,
+        style: {
+          position: 'absolute',
+          top: '10px',
+          right: '10px'
+        }
+      }, "Close")), this.props.overlaysContainer);
     }
   }]);
 

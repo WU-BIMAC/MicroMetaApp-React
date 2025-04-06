@@ -229,8 +229,6 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
-      var _this$state$modalCont;
-
       var style = {
         textAlign: "center",
         height: "100%",
@@ -295,51 +293,49 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
         image: this.props.image,
         name: this.props.schema.title,
         style: styleImage
-      }))), this.state.isModalOpen && /*#__PURE__*/_react.default.createElement(_modalWindow.default, {
+      }))), this.state.isModalOpen && /*#__PURE__*/_react.default.createElement(_componentsLoadingModal.default, {
         overlaysContainer: document.body,
-        style: {
-          position: 'fixed',
-          zIndex: 1001
-        }
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        className: "loading-modal-content"
-      }, /*#__PURE__*/_react.default.createElement("h2", {
-        style: {
-          marginTop: 0
-        }
-      }, "Component Details"), /*#__PURE__*/_react.default.createElement("button", {
-        onClick: this.handleCloseModal,
-        style: {
-          marginBottom: 15
-        }
-      }, "Close"), /*#__PURE__*/_react.default.createElement("div", {
-        style: {
-          // List container
-          borderTop: '1px solid #eee',
-          paddingTop: 15
-        }
-      }, (_this$state$modalCont = this.state.modalContent) === null || _this$state$modalCont === void 0 ? void 0 : _this$state$modalCont.map(function (comp, index) {
-        return /*#__PURE__*/_react.default.createElement("div", {
-          key: index,
-          style: {
-            // Card styles
-            margin: '10px 0',
-            padding: 15,
-            border: '1px solid #eee',
-            borderRadius: 4
-          }
-        }, /*#__PURE__*/_react.default.createElement("h3", {
-          style: {
-            margin: 0
-          }
-        }, comp.Name || 'Unnamed Component'), /*#__PURE__*/_react.default.createElement("pre", {
-          style: {
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-word',
-            margin: '10px 0 0 0'
-          }
-        }, JSON.stringify(comp, null, 2)));
-      })))), editForm);
+        components: this.state.modalContent,
+        onClose: this.handleCloseModal
+      }) // 	<ModalWindow overlaysContainer={document.body} style={{ position: 'fixed', zIndex: 1001 }}>
+      // 	<div className="loading-modal-content">
+      // 	<h2 style={{marginTop: 0}}>Component Details</h2>
+      // 	<button 
+      // 		onClick={this.handleCloseModal}
+      // 		style={{marginBottom: 15}}
+      // 	>
+      // 		Close
+      // 	</button>
+      // 	<div style={{ // List container
+      // 		borderTop: '1px solid #eee',
+      // 		paddingTop: 15
+      // 	}}>
+      // 		{this.state.modalContent?.map((comp, index) => (
+      // 		<div 
+      // 			key={index}
+      // 			style={{ // Card styles
+      // 			margin: '10px 0',
+      // 			padding: 15,
+      // 			border: '1px solid #eee',
+      // 			borderRadius: 4
+      // 			}}
+      // 		>
+      // 			<h3 style={{margin: 0}}>
+      // 			{comp.Name || 'Unnamed Component'}
+      // 			</h3>
+      // 			<pre style={{
+      // 			whiteSpace: 'pre-wrap',
+      // 			wordBreak: 'break-word',
+      // 			margin: '10px 0 0 0'
+      // 			}}>
+      // 			{JSON.stringify(comp, null, 2)}
+      // 			</pre>
+      // 		</div>
+      // 		))}
+      // 	  </div>
+      // 	</div>
+      //   </ModalWindow>
+      , editForm);
     }
   }]);
 
