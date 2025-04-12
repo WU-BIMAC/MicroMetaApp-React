@@ -90,6 +90,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       console.log("Loading component:", selectedComponent); // Close modal or update state as needed
 
       _this.setState({
+        selectedLoadComponent: selectedComponent,
         isModalOpen: false
       });
     });
@@ -99,7 +100,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       editForm: null,
       //filteredComponentsForForm: null,
       isModalOpen: false,
-      modalContent: null
+      modalContent: null,
+      selectedLoadComponent: null
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     _this.handleDummy = _this.handleDummy.bind(_assertThisInitialized(_this));
@@ -119,12 +121,14 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     key: "handleClick",
     value: function handleClick() {
       if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.schema", this.props.schema);
+      if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.inputData", this.props.inputData);
 
       if (!this.props.isViewOnly) {
         this.props.setEditingOnCanvas(true);
         var filteredComponents = this.handleOpenMultiTabForm();
 
         var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          selectedLoadComponent: selectedLoadComponent,
           filteredComponents: filteredComponents,
           imagesPath: this.props.imagesPath,
           validationUpdate: this.props.validationUpdate,

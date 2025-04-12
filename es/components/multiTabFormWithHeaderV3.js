@@ -210,6 +210,9 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.props.inputData !== undefined && this.props.inputData !== null) {
         if (Array.isArray(this.props.inputData)) {
+          console.log("this.props.inputData in initializeForms()", this.props.inputData);
+          console.log("this.props.schema in initializeForms()", this.props.schema);
+
           for (var i = 0; i < this.props.schema.length; i++) {
             var schema = this.props.schema[i];
 
@@ -734,36 +737,35 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     value: function onLoad() {
       var _this5 = this;
 
-      this.props.onLoad();
-      if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
+      // this.props.onLoad();
+      // if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
+      console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
+      console.log("this.props.inputData in onLoad()", this.props.inputData);
+      console.log("this.props.schema in onLoad()", this.props.schema);
       var reader = new FileReader();
 
       reader.onload = function (event) {
         try {
-          var importedData = JSON.parse(event.target.result); // Validate importedData structure
+          var importedData = JSON.parse(event.target.result);
+          console.log("Parsed JSON data:", importedData); // Validate importedData structure
 
-          if (importedData.schema && importedData.inputData) {
-            _this5.setState({
-              partialInputData: {},
-              // Reset existing data
-              activeID: null // Reset active ID
+          _this5.setState({
+            partialInputData: {},
+            // Reset existing data
+            activeID: null // Reset active ID
 
-            }, function () {
-              // Update props and reinitialize forms
-              _this5.props.schema = importedData.schema;
-              _this5.props.inputData = importedData.inputData;
-
-              _this5.initializeForms();
-            });
-          } else {
-            console.error("Invalid JSON structure.");
-          }
+          }, function () {
+            // Update props and reinitialize forms
+            // this.props.schema = importedData.schema;
+            // this.props.inputData = importedData.inputData;
+            _this5.initializeForms();
+          });
         } catch (error) {
           console.error("Error parsing JSON:", error);
         }
       };
 
-      var jsonString = JSON.stringify(this.props.filteredComponents); // Create a Blob from the JSON string
+      var jsonString = JSON.stringify(this.props.selectedLoadComponent); // Create a Blob from the JSON string
 
       var blob = new Blob([jsonString], {
         type: 'application/json'

@@ -20,7 +20,8 @@ export default class CanvasElement extends React.PureComponent {
 			editForm: null,
 			//filteredComponentsForForm: null,
 			isModalOpen: false,
-      		modalContent: null
+      		modalContent: null,
+			selectedLoadComponent: null,
 		};
 
 		this.handleClick = this.handleClick.bind(this);
@@ -65,11 +66,13 @@ export default class CanvasElement extends React.PureComponent {
 
 	handleClick() {
 		if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.schema", this.props.schema);
+		if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.inputData", this.props.inputData);
 		if (!this.props.isViewOnly) {
 			this.props.setEditingOnCanvas(true);
 			const filteredComponents = this.handleOpenMultiTabForm();
 			let editForm = (
 				<MultiTabFormWithHeaderV3
+					selectedLoadComponent={selectedLoadComponent}
 					filteredComponents={filteredComponents}
 					imagesPath={this.props.imagesPath}
 					validationUpdate={this.props.validationUpdate}
@@ -135,7 +138,10 @@ export default class CanvasElement extends React.PureComponent {
 	  
 		console.log("Loading component:", selectedComponent);
 		// Close modal or update state as needed
-		this.setState({ isModalOpen: false });
+		this.setState({ 
+			selectedLoadComponent: selectedComponent,
+			isModalOpen: false
+		 });
 	}
 
 	handleLoad() {

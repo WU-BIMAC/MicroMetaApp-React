@@ -187,6 +187,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		if (this.props.inputData !== undefined && this.props.inputData !== null) {
 			if (Array.isArray(this.props.inputData)) {
+				console.log("this.props.inputData in initializeForms()", this.props.inputData);
+				console.log("this.props.schema in initializeForms()", this.props.schema);
 				for (let i = 0; i < this.props.schema.length; i++) {
 					let schema = this.props.schema[i];
 					for (let y = 0; y < this.props.inputData.length; y++) {
@@ -727,32 +729,35 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	}
 	
 	onLoad() {
-		this.props.onLoad();
-		if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
+		// this.props.onLoad();
+		// if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
+		console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
+
+		console.log("this.props.inputData in onLoad()", this.props.inputData);
+		console.log("this.props.schema in onLoad()", this.props.schema);
 
 		const reader = new FileReader();
 		reader.onload = (event) => {
 			try {
 				const importedData = JSON.parse(event.target.result);
+				console.log("Parsed JSON data:", importedData);
 				// Validate importedData structure
-				if (importedData.schema && importedData.inputData) {
-					this.setState({ 
-						partialInputData: {}, // Reset existing data
-						activeID: null,       // Reset active ID
-					}, () => {
-						// Update props and reinitialize forms
-						this.props.schema = importedData.schema;
-						this.props.inputData = importedData.inputData;
-						this.initializeForms();
-					});
-				} else {
-					console.error("Invalid JSON structure.");
-				}
+				
+				this.setState({ 
+					partialInputData: {}, // Reset existing data
+					activeID: null,       // Reset active ID
+				}, () => {
+					// Update props and reinitialize forms
+					// this.props.schema = importedData.schema;
+					// this.props.inputData = importedData.inputData;
+					this.initializeForms();
+				});
+			
 			} catch (error) {
 				console.error("Error parsing JSON:", error);
 			}
 		};
-		const jsonString = JSON.stringify(this.props.filteredComponents);
+		const jsonString = JSON.stringify(this.props.selectedLoadComponent);
 
 		// Create a Blob from the JSON string
 		const blob = new Blob([jsonString], { type: 'application/json' });
