@@ -763,7 +763,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }
       };
 
-      reader.readAsText(this.props.filteredComponents);
+      var jsonString = JSON.stringify(this.props.filteredComponents); // Create a Blob from the JSON string
+
+      var blob = new Blob([jsonString], {
+        type: 'application/json'
+      }); // Read the Blob as text
+
+      reader.readAsText(blob);
     }
   }, {
     key: "onCancel",
