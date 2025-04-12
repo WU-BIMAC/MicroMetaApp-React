@@ -763,7 +763,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }
       };
 
-      reader.readAsText(file);
+      reader.readAsText(this.props.filteredComponents);
     }
   }, {
     key: "onCancel",

@@ -752,7 +752,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				console.error("Error parsing JSON:", error);
 			}
 		};
-		reader.readAsText(file);
+		reader.readAsText(this.props.filteredComponents);
 	}
 
 	onCancel() {
