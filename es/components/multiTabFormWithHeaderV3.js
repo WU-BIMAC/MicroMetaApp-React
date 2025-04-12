@@ -737,8 +737,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     value: function onLoad() {
       var _this5 = this;
 
-      // this.props.onLoad();
-      // if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
+      this.props.onLoad(); // if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
+
       console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
       console.log("this.props.inputData in onLoad()", this.props.inputData);
       console.log("this.props.schema in onLoad()", this.props.schema);
