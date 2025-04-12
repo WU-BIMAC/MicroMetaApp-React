@@ -727,8 +727,32 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	}
 	
 	onLoad() {
-		if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
 		this.props.onLoad();
+		if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
+
+		const reader = new FileReader();
+		reader.onload = (event) => {
+			try {
+				const importedData = JSON.parse(event.target.result);
+				// Validate importedData structure
+				if (importedData.schema && importedData.inputData) {
+					this.setState({ 
+						partialInputData: {}, // Reset existing data
+						activeID: null,       // Reset active ID
+					}, () => {
+						// Update props and reinitialize forms
+						this.props.schema = importedData.schema;
+						this.props.inputData = importedData.inputData;
+						this.initializeForms();
+					});
+				} else {
+					console.error("Invalid JSON structure.");
+				}
+			} catch (error) {
+				console.error("Error parsing JSON:", error);
+			}
+		};
+		reader.readAsText(file);
 	}
 
 	onCancel() {

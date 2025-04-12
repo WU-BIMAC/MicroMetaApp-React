@@ -136,7 +136,7 @@ export default class CanvasElement extends React.PureComponent {
 		console.log("Loading component:", selectedComponent);
 		// Close modal or update state as needed
 		this.setState({ isModalOpen: false });
-	  };
+	}
 
 	handleLoad() {
 		if(this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
