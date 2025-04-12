@@ -128,7 +128,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
         var filteredComponents = this.handleOpenMultiTabForm();
 
         var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
-          selectedLoadComponent: selectedLoadComponent,
+          selectedLoadComponent: this.state.selectedLoadComponent,
           filteredComponents: filteredComponents,
           imagesPath: this.props.imagesPath,
           validationUpdate: this.props.validationUpdate,
