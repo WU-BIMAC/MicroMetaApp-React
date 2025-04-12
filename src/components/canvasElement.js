@@ -143,42 +143,6 @@ export default class CanvasElement extends React.PureComponent {
 			isModalOpen: false
 		 });
 
-		 if (!this.props.isViewOnly) {
-			this.props.setEditingOnCanvas(true);
-			const filteredComponents = this.handleOpenMultiTabForm();
-			let editForm = (
-				<MultiTabFormWithHeaderV3
-					selectedLoadComponent={this.state.selectedLoadComponent}
-					filteredComponents={filteredComponents}
-					imagesPath={this.props.imagesPath}
-					validationUpdate={this.props.validationUpdate}
-					title={"Edit " + this.props.formTitle}
-					schema={this.props.schema}
-					inputData={this.props.inputData}
-					id={this.props.id}
-					validationTier={this.props.validationTier}
-					onConfirm={this.handleConfirm}
-					onCancel={this.handleCancel}
-					onDummy={this.handleDummy}
-					onSave={this.handleSave}
-					onLoad={this.handleLoad}
-					overlaysContainer={this.props.overlaysContainer}
-					currentChildrenComponentIdentifier={
-						this.props.currentChildrenComponentIdentifier
-					}
-					minChildrenComponentIdentifier={
-						this.props.minChildrenComponentIdentifier
-					}
-					maxChildrenComponentIdentifier={
-						this.props.maxChildrenComponentIdentifier
-					}
-					elementByType={this.props.elementByType}
-					editable={true}
-					isDebug={this.props.isDebug}
-				/>
-			);
-			this.setState({ editing: true, editForm: editForm });
-		}
 	}
 
 	handleLoad() {
@@ -342,7 +306,7 @@ export default class CanvasElement extends React.PureComponent {
 				// 	</div>
 				//   </ModalWindow>
 				)}
-				{editForm}
+				{!(this.state.isModalOpen) || this.state.selectedLoadComponent ? editForm : null}
 			
 			</div>
 		);
