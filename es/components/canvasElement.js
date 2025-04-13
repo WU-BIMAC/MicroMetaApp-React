@@ -352,7 +352,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       // 	  </div>
       // 	</div>
       //   </ModalWindow>
-      , !this.state.isModalOpen || this.state.selectedLoadComponent ? editForm : null);
+      , editForm);
     }
   }]);
 

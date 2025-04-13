@@ -178,6 +178,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 	initializeForms() {
 		if (this.props.isDebug) console.log("inside of INITIALIZE FORMS");
+		console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
+		
 		let counter = 0;
 		let linkedFields = this.state.linkedFields;
 		let currentChildrenComponents = this.state.currentChildrenComponents;

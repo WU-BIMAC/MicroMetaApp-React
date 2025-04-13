@@ -306,7 +306,7 @@ export default class CanvasElement extends React.PureComponent {
 				// 	</div>
 				//   </ModalWindow>
 				)}
-				{!(this.state.isModalOpen) || this.state.selectedLoadComponent ? editForm : null}
+				{editForm}
 			
 			</div>
 		);

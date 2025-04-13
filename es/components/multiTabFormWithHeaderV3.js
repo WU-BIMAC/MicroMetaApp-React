@@ -201,6 +201,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     key: "initializeForms",
     value: function initializeForms() {
       if (this.props.isDebug) console.log("inside of INITIALIZE FORMS");
+      console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
       var counter = 0;
       var linkedFields = this.state.linkedFields;
       var currentChildrenComponents = this.state.currentChildrenComponents;
