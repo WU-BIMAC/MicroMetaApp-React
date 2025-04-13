@@ -198,6 +198,17 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let newActiveID = this.state.activeID;
 		let partialInputData = {};
 		let inputDataIDs = [];
+		let mergedData = {};
+
+		if (this.props.selectedLoadComponent !== null) {
+			mergedData = {
+				...props.inputData, // Existing input data
+				...props.selectedLoadComponent // Override with loaded component data
+			};
+
+			console.log("mergedData in initializeForms()", mergedData);
+			//this.props.inputData = mergedData;
+		}
 
 		if (this.props.inputData !== undefined && this.props.inputData !== null) {
 			if (Array.isArray(this.props.inputData)) {
