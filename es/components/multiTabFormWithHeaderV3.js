@@ -201,9 +201,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       console.log("calling initializeFormsFromLoadedComponent from constructor");
 
       _this.initializeFormsFromLoadedComponent();
-    } else if (props.schema !== null && props.schema !== undefined && Object.keys(_this.state.partialInputData).length === 0) if (_this.props.isDebug) console.log("calling INITIALIZE FORMS 1");
+    } else if (props.schema !== null && props.schema !== undefined && Object.keys(_this.state.partialInputData).length === 0) {
+      if (_this.props.isDebug) console.log("calling INITIALIZE FORMS 1");
 
-    _this.initializeForms();
+      _this.initializeForms();
+    }
 
     return _this;
   }
@@ -331,12 +333,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       var mergedData = _objectSpread(_objectSpread({}, this.props.inputData), this.props.selectedLoadComponent);
 
-      console.log("mergedData in initializeForms()", mergedData);
+      console.log("mergedData in initializeFormsFromLoadedComponent()", mergedData);
 
       if (mergedData !== undefined && mergedData !== null) {
         if (Array.isArray(mergedData)) {
-          console.log("this.props.inputData in initializeForms()", this.props.inputData);
-          console.log("this.props.schema in initializeForms()", this.props.schema);
+          console.log("this.props.inputData in initializeFormsFromLoadedComponent()", this.props.inputData);
+          console.log("this.props.schema in initializeFormsFromLoadedComponent()", this.props.schema);
 
           for (var i = 0; i < this.props.schema.length; i++) {
             var schema = this.props.schema[i];
@@ -408,12 +410,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var partialInputData = {};
       var inputDataIDs = [];
       var mergedData = {};
-
-      if (this.props.selectedLoadComponent !== null) {
-        mergedData = _objectSpread(_objectSpread({}, this.props.inputData), this.props.selectedLoadComponent);
-        console.log("mergedData in initializeForms()", mergedData);
-        this.props.inputData = mergedData;
-      }
 
       if (this.props.inputData !== undefined && this.props.inputData !== null) {
         if (Array.isArray(this.props.inputData)) {

@@ -182,10 +182,11 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			props.schema !== null &&
 			props.schema !== undefined &&
 			Object.keys(this.state.partialInputData).length === 0
-		)
-		if (this.props.isDebug) console.log("calling INITIALIZE FORMS 1");
+		) {
+			if (this.props.isDebug) console.log("calling INITIALIZE FORMS 1");
 			this.initializeForms();
-		
+		}
+
 	}
 
 	componentDidUpdate(prevProps) {
@@ -209,12 +210,12 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			...this.props.inputData, // Existing input data
 			...this.props.selectedLoadComponent // Override with loaded component data
 		};
-		console.log("mergedData in initializeForms()", mergedData);
+		console.log("mergedData in initializeFormsFromLoadedComponent()", mergedData);
 
 		if (mergedData !== undefined && mergedData !== null) {
 			if (Array.isArray(mergedData)) {
-				console.log("this.props.inputData in initializeForms()", this.props.inputData);
-				console.log("this.props.schema in initializeForms()", this.props.schema);
+				console.log("this.props.inputData in initializeFormsFromLoadedComponent()", this.props.inputData);
+				console.log("this.props.schema in initializeFormsFromLoadedComponent()", this.props.schema);
 				for (let i = 0; i < this.props.schema.length; i++) {
 					let schema = this.props.schema[i];
 					for (let y = 0; y < mergedData.length; y++) {
@@ -306,16 +307,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let partialInputData = {};
 		let inputDataIDs = [];
 		let mergedData = {};
-
-		if (this.props.selectedLoadComponent !== null) {
-			mergedData = {
-				...this.props.inputData, // Existing input data
-				...this.props.selectedLoadComponent // Override with loaded component data
-			};
-
-			console.log("mergedData in initializeForms()", mergedData);
-			this.props.inputData = mergedData;
-		}
 
 		if (this.props.inputData !== undefined && this.props.inputData !== null) {
 			if (Array.isArray(this.props.inputData)) {
