@@ -93,6 +93,41 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
         selectedLoadComponent: selectedComponent,
         isModalOpen: false
       });
+
+      if (!_this.props.isViewOnly) {
+        _this.props.setEditingOnCanvas(true);
+
+        var filteredComponents = _this.handleOpenMultiTabForm();
+
+        var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          selectedLoadComponent: selectedComponent,
+          filteredComponents: filteredComponents,
+          imagesPath: _this.props.imagesPath,
+          validationUpdate: _this.props.validationUpdate,
+          title: "Edit " + _this.props.formTitle,
+          schema: _this.props.schema,
+          inputData: _this.props.inputData,
+          id: _this.props.id,
+          validationTier: _this.props.validationTier,
+          onConfirm: _this.handleConfirm,
+          onCancel: _this.handleCancel,
+          onDummy: _this.handleDummy,
+          onSave: _this.handleSave,
+          onLoad: _this.handleLoad,
+          overlaysContainer: _this.props.overlaysContainer,
+          currentChildrenComponentIdentifier: _this.props.currentChildrenComponentIdentifier,
+          minChildrenComponentIdentifier: _this.props.minChildrenComponentIdentifier,
+          maxChildrenComponentIdentifier: _this.props.maxChildrenComponentIdentifier,
+          elementByType: _this.props.elementByType,
+          editable: true,
+          isDebug: _this.props.isDebug
+        });
+
+        _this.setState({
+          editing: true,
+          editForm: editForm
+        });
+      }
     });
 
     _this.state = {
