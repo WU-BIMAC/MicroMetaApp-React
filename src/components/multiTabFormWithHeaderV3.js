@@ -167,6 +167,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			this.onClickRemoveChildComponent.bind(this);
 
 		this.initializeForms = this.initializeForms.bind(this);
+
+		console.log("props.schema in constructor of multitab", props.schema);
+		console.log("props.selectedLoadComponent in constructor of multitab", props.selectedLoadComponent);
 		if (
 			props.schema !== null &&
 			props.schema !== undefined &&
@@ -177,7 +180,13 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		
 	}
 
-	
+	componentDidUpdate(prevProps) {
+		console.log("in componentDidUpdate function");
+		if (this.props.inputData !== prevProps.inputData) {
+			this.initializeForms();
+		}
+	}
+
 
 	initializeForms() {
 		if (this.props.isDebug) console.log("inside of INITIALIZE FORMS");

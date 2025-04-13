@@ -95,11 +95,14 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       });
 
       if (!_this.props.isViewOnly) {
+        var _this$state$selectedL;
+
         _this.props.setEditingOnCanvas(true);
 
         var filteredComponents = _this.handleOpenMultiTabForm();
 
         var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          key: ((_this$state$selectedL = _this.state.selectedLoadComponent) === null || _this$state$selectedL === void 0 ? void 0 : _this$state$selectedL.Name) || 'default-key',
           selectedLoadComponent: selectedComponent,
           filteredComponents: filteredComponents,
           imagesPath: _this.props.imagesPath,

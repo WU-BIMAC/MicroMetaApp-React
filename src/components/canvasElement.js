@@ -148,6 +148,7 @@ export default class CanvasElement extends React.PureComponent {
 			const filteredComponents = this.handleOpenMultiTabForm();
 			let editForm = (
 				<MultiTabFormWithHeaderV3
+					key={this.state.selectedLoadComponent?.Name || 'default-key'}
 					selectedLoadComponent={selectedComponent}
 					filteredComponents={filteredComponents}
 					imagesPath={this.props.imagesPath}
