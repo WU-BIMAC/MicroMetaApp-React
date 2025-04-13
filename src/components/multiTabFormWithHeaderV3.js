@@ -169,7 +169,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.initializeForms = this.initializeForms.bind(this);
 
 		console.log("props.schema in constructor of multitab", props.schema);
-		console.log("props.selectedLoadComponent in constructor of multitab", props.selectedLoadComponent);
+		console.log("props.inputData in constructor of multitab", props.inputData);
 		if (
 			props.schema !== null &&
 			props.schema !== undefined &&

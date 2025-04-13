@@ -191,7 +191,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     _this.onClickRemoveChildComponent = _this.onClickRemoveChildComponent.bind(_assertThisInitialized(_this));
     _this.initializeForms = _this.initializeForms.bind(_assertThisInitialized(_this));
     console.log("props.schema in constructor of multitab", props.schema);
-    console.log("props.selectedLoadComponent in constructor of multitab", props.selectedLoadComponent);
+    console.log("props.inputData in constructor of multitab", props.inputData);
     if (props.schema !== null && props.schema !== undefined && Object.keys(_this.state.partialInputData).length === 0) if (_this.props.isDebug) console.log("calling INITIALIZE FORMS 1");
 
     _this.initializeForms();
