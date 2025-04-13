@@ -326,7 +326,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var mergedData = {};
 
       if (this.props.selectedLoadComponent !== null) {
-        mergedData = _objectSpread(_objectSpread({}, props.inputData), props.selectedLoadComponent);
+        mergedData = _objectSpread(_objectSpread({}, this.props.inputData), this.props.selectedLoadComponent);
         console.log("mergedData in initializeForms()", mergedData); //this.props.inputData = mergedData;
       }
 
