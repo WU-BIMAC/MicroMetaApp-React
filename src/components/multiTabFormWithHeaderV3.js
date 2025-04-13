@@ -207,7 +207,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			};
 
 			console.log("mergedData in initializeForms()", mergedData);
-			//this.props.inputData = mergedData;
+			this.props.inputData = mergedData;
 		}
 
 		if (this.props.inputData !== undefined && this.props.inputData !== null) {
