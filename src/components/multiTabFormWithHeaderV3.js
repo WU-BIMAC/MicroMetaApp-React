@@ -202,8 +202,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		if (this.props.selectedLoadComponent !== null) {
 			mergedData = {
-				...props.inputData, // Existing input data
-				...props.selectedLoadComponent // Override with loaded component data
+				...this.props.inputData, // Existing input data
+				...this.props.selectedLoadComponent // Override with loaded component data
 			};
 
 			console.log("mergedData in initializeForms()", mergedData);
