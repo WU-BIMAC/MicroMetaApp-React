@@ -170,7 +170,15 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		console.log("props.schema in constructor of multitab", props.schema);
 		console.log("props.inputData in constructor of multitab", props.inputData);
-		if (
+
+		if (props.schema !== null &&
+			props.schema !== undefined &&
+			props.selectedLoadComponent !== null &&
+			Object.keys(this.state.partialInputData).length === 0) {
+			console.log("calling initializeFormsFromLoadedComponent from constructor");
+			this.initializeFormsFromLoadedComponent();
+		}
+		else if (
 			props.schema !== null &&
 			props.schema !== undefined &&
 			Object.keys(this.state.partialInputData).length === 0
@@ -184,6 +192,105 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		console.log("in componentDidUpdate function");
 		if (this.props.inputData !== prevProps.inputData) {
 			this.initializeForms();
+		}
+	}
+
+	initializeFormsFromLoadedComponent() {
+		if (this.props.isDebug) console.log("inside of initializeFormsFromLoadedComponent");
+		console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
+
+		let counter = 0;
+		let linkedFields = this.state.linkedFields;
+		let currentChildrenComponents = this.state.currentChildrenComponents;
+		let newActiveID = this.state.activeID;
+		let partialInputData = {};
+		let inputDataIDs = [];
+		const mergedData = {
+			...this.props.inputData, // Existing input data
+			...this.props.selectedLoadComponent // Override with loaded component data
+		};
+		console.log("mergedData in initializeForms()", mergedData);
+
+		if (mergedData !== undefined && mergedData !== null) {
+			if (Array.isArray(mergedData)) {
+				console.log("this.props.inputData in initializeForms()", this.props.inputData);
+				console.log("this.props.schema in initializeForms()", this.props.schema);
+				for (let i = 0; i < this.props.schema.length; i++) {
+					let schema = this.props.schema[i];
+					for (let y = 0; y < mergedData.length; y++) {
+						let inputData = mergedData[y];
+						let id = inputData.ID;
+						inputDataIDs.push(id);
+						if (newActiveID === null) newActiveID = id;
+						if (inputData.Schema_ID === schema.ID) {
+							let partialSchema = MultiTabFormWithHeaderV3.transformSchema(
+								currentChildrenComponents[id],
+								schema,
+								this.props.elementByType,
+								linkedFields,
+								inputDataIDs
+							);
+							let localPartialInputData =
+								MultiTabFormWithHeaderV3.transformInputData(
+									inputData,
+									partialSchema
+								);
+							partialInputData[id] = {
+								schemaTitle: schema.title,
+								data: localPartialInputData,
+								schema: partialSchema,
+								subCategoriesOrder: schema.subCategoriesOrder,
+							};
+							this.containerFormNames[id] = schema.title;
+						}
+					}
+				}
+			} else {
+				//create case if 1 input but multiple schemas ?
+				let schema = this.props.schema;
+				let inputData = mergedData;
+				let id = inputData.ID;
+				inputDataIDs.push(id);
+				let partialSchema = MultiTabFormWithHeaderV3.transformSchema(
+					currentChildrenComponents[id],
+					schema,
+					this.props.elementByType,
+					linkedFields,
+					inputDataIDs
+				);
+				let localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(
+					inputData,
+					partialSchema
+				);
+				partialInputData[id] = {
+					schemaTitle: schema.title,
+					data: localPartialInputData,
+					schema: partialSchema,
+					subCategoriesOrder: schema.subCategoriesOrder,
+				};
+				this.containerFormNames[id] = schema.title;
+			}
+		}
+
+		for (let id in partialInputData) {
+			let localPartialInputData = partialInputData[id].data;
+			let partialSchema = partialInputData[id].schema;
+			let subCategoriesOrder = partialInputData[id].subCategoriesOrder;
+			let partialForms = this.createForms(
+				id,
+				subCategoriesOrder,
+				partialSchema,
+				localPartialInputData
+			);
+			this.forms[id] = partialForms;
+		}
+
+		if (Object.keys(this.state.partialInputData).length === 0) {
+			this.state.partialInputData = partialInputData;
+			this.state.activeID = newActiveID;
+			//this.forceUpdate();
+		} else {
+			this.forceUpdate();
 		}
 	}
 
