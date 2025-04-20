@@ -65,16 +65,21 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
           schema = _this$props.schema;
       var categoryKey = schema.category; // Safety check
 
-      if (!components || !categoryKey) {
+      if (!(components !== null && components !== void 0 && components.loadedComponents) || !categoryKey) {
         console.warn("Missing components or categoryKey:", components, categoryKey);
-        return [];
+        return {};
       }
 
-      var filteredComponents = Object.values(components[categoryKey] || {}).map(function (entry) {
-        return entry.component;
-      });
-      console.log("filteredComponents in canvasElement", filteredComponents);
-      return filteredComponents;
+      var categoryComponents = components.loadedComponents[categoryKey];
+
+      if (!categoryComponents) {
+        console.warn("No components found for category: ".concat(categoryKey));
+        return {};
+      } // Return the full nested structure: Manufacturer → Model → Entry
+
+
+      console.log("filteredComponents in canvasElement", categoryComponents);
+      return categoryComponents;
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleCloseModal", function () {
@@ -153,7 +158,21 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     _this.counter = 0;
     _this.handleOpenMultiTabForm = _this.handleOpenMultiTabForm.bind(_assertThisInitialized(_this));
     return _this;
-  }
+  } // handleOpenMultiTabForm = () => {
+  // 	const { components, schema } = this.props;
+  // 	const categoryKey = schema.category;
+  // 	// Safety check
+  // 	if (!components || !categoryKey) {
+  // 		console.warn("Missing components or categoryKey:", components, categoryKey);
+  // 		return [];
+  // 	}
+  // 	const filteredComponents = Object.values(components[categoryKey] || {}).map(
+  // 		(entry) => entry.component
+  // 	);
+  // 	console.log("filteredComponents in canvasElement", filteredComponents);
+  // 	return filteredComponents;
+  // };
+
 
   _createClass(CanvasElement, [{
     key: "handleClick",

@@ -41,23 +41,45 @@ export default class CanvasElement extends React.PureComponent {
 		this.handleOpenMultiTabForm = this.handleOpenMultiTabForm.bind(this);
 	}
 
+	// handleOpenMultiTabForm = () => {
+	// 	const { components, schema } = this.props;
+	// 	const categoryKey = schema.category;
+	
+	// 	// Safety check
+	// 	if (!components || !categoryKey) {
+	// 		console.warn("Missing components or categoryKey:", components, categoryKey);
+	// 		return [];
+	// 	}
+	
+	// 	const filteredComponents = Object.values(components[categoryKey] || {}).map(
+	// 		(entry) => entry.component
+	// 	);
+	
+	// 	console.log("filteredComponents in canvasElement", filteredComponents);
+	
+	// 	return filteredComponents;
+	// };
+
 	handleOpenMultiTabForm = () => {
 		const { components, schema } = this.props;
 		const categoryKey = schema.category;
 	
 		// Safety check
-		if (!components || !categoryKey) {
+		if (!components?.loadedComponents || !categoryKey) {
 			console.warn("Missing components or categoryKey:", components, categoryKey);
-			return [];
+			return {};
 		}
 	
-		const filteredComponents = Object.values(components[categoryKey] || {}).map(
-			(entry) => entry.component
-		);
+		const categoryComponents = components.loadedComponents[categoryKey];
 	
-		console.log("filteredComponents in canvasElement", filteredComponents);
+		if (!categoryComponents) {
+			console.warn(`No components found for category: ${categoryKey}`);
+			return {};
+		}
 	
-		return filteredComponents;
+		// Return the full nested structure: Manufacturer → Model → Entry
+		console.log("filteredComponents in canvasElement", categoryComponents);
+		return categoryComponents;
 	};
 	
 	handleCloseModal = () => {
