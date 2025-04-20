@@ -25,6 +25,10 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -88,13 +92,30 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
 
   _createClass(ComponentsLoadingModal, [{
     key: "render",
-    value: function render() {
+    value: // helper = () => {
+    //     const { components, onClose, schema, inputData } = this.props;
+    //     const { selectedComponent } = this.state;
+    //     const mergedData = {
+    // 		...inputData, 
+    // 		...selectedComponent 
+    // 	};
+    //     let partialInputData = {};
+    // }
+    function render() {
       var _this2 = this;
 
       var _this$props2 = this.props,
           components = _this$props2.components,
-          onClose = _this$props2.onClose;
+          onClose = _this$props2.onClose,
+          schema = _this$props2.schema,
+          inputData = _this$props2.inputData;
       var selectedComponent = this.state.selectedComponent;
+
+      var mergedData = _objectSpread(_objectSpread({}, inputData), selectedComponent);
+
+      console.log("     **** schema in componentsLoadingModal:", schema);
+      console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
+      console.log("     ** mergedData in componentsLoadingModal", mergedData);
       return /*#__PURE__*/_reactDom.default.createPortal( /*#__PURE__*/_react.default.createElement("div", {
         className: "modal-overlay",
         style: {

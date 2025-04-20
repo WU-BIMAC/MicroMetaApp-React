@@ -183,7 +183,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			props.schema !== undefined &&
 			Object.keys(this.state.partialInputData).length === 0
 		) {
-			if (this.props.isDebug) console.log("calling INITIALIZE FORMS 1");
 			this.initializeForms();
 		}
 
@@ -277,6 +276,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			let localPartialInputData = partialInputData[id].data;
 			let partialSchema = partialInputData[id].schema;
 			let subCategoriesOrder = partialInputData[id].subCategoriesOrder;
+
 			let partialForms = this.createForms(
 				id,
 				subCategoriesOrder,
@@ -298,15 +298,11 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 	initializeForms() {
 		if (this.props.isDebug) console.log("inside of INITIALIZE FORMS");
-		console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
-
-		let counter = 0;
 		let linkedFields = this.state.linkedFields;
 		let currentChildrenComponents = this.state.currentChildrenComponents;
 		let newActiveID = this.state.activeID;
 		let partialInputData = {};
 		let inputDataIDs = [];
-		let mergedData = {};
 
 		if (this.props.inputData !== undefined && this.props.inputData !== null) {
 			if (Array.isArray(this.props.inputData)) {
@@ -346,6 +342,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				//create case if 1 input but multiple schemas ?
 				let schema = this.props.schema;
 				let inputData = this.props.inputData;
+				console.log("!!!!!inputData in else", inputData);
 				let id = inputData.ID;
 				inputDataIDs.push(id);
 				let partialSchema = MultiTabFormWithHeaderV3.transformSchema(
@@ -373,6 +370,10 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			let localPartialInputData = partialInputData[id].data;
 			let partialSchema = partialInputData[id].schema;
 			let subCategoriesOrder = partialInputData[id].subCategoriesOrder;
+
+			console.log(`subCategoriesOrder for component ID ${id}:`, subCategoriesOrder);
+			console.log(`partialSchema for component ID ${id}:`, partialSchema);
+			console.log(`localPartialInputData for component ID ${id}:`, localPartialInputData);
 			let partialForms = this.createForms(
 				id,
 				subCategoriesOrder,

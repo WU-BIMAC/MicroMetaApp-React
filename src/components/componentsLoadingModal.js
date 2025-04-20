@@ -24,11 +24,32 @@ export default class ComponentsLoadingModal extends React.PureComponent {
           alert("Please select a component to load.");
         }
       };
+
+    // helper = () => {
+    //     const { components, onClose, schema, inputData } = this.props;
+    //     const { selectedComponent } = this.state;
+    //     const mergedData = {
+	// 		...inputData, 
+	// 		...selectedComponent 
+	// 	};
+
+    //     let partialInputData = {};
+
+    // }
     
       render() {
-        const { components, onClose } = this.props;
+        const { components, onClose, schema, inputData } = this.props;
         const { selectedComponent } = this.state;
-    
+        const mergedData = {
+			...inputData, 
+			...selectedComponent 
+		};
+
+        console.log("     **** schema in componentsLoadingModal:", schema);
+        console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
+        console.log("     ** mergedData in componentsLoadingModal", mergedData);
+
+
         return ReactDOM.createPortal(
           <div className="modal-overlay" style={{
             position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,

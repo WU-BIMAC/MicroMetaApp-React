@@ -370,7 +370,9 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
         overlaysContainer: document.body,
         components: this.state.modalContent,
         onClose: this.handleCloseModal,
-        onLoadComponent: this.handleLoadComponent
+        onLoadComponent: this.handleLoadComponent,
+        schema: this.props.schema,
+        inputData: this.props.inputData
       }) // 	<ModalWindow overlaysContainer={document.body} style={{ position: 'fixed', zIndex: 1001 }}>
       // 	<div className="loading-modal-content">
       // 	<h2 style={{marginTop: 0}}>Component Details</h2>

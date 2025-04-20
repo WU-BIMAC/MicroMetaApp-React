@@ -326,6 +326,8 @@ export default class CanvasElement extends React.PureComponent {
 						components={this.state.modalContent}
 						onClose={this.handleCloseModal}
 						onLoadComponent={this.handleLoadComponent}
+						schema={this.props.schema}
+						inputData={this.props.inputData}
 				  	/>
 				// 	<ModalWindow overlaysContainer={document.body} style={{ position: 'fixed', zIndex: 1001 }}>
 				// 	<div className="loading-modal-content">

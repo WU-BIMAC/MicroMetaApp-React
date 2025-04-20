@@ -202,8 +202,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       _this.initializeFormsFromLoadedComponent();
     } else if (props.schema !== null && props.schema !== undefined && Object.keys(_this.state.partialInputData).length === 0) {
-      if (_this.props.isDebug) console.log("calling INITIALIZE FORMS 1");
-
       _this.initializeForms();
     }
 
@@ -402,14 +400,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     key: "initializeForms",
     value: function initializeForms() {
       if (this.props.isDebug) console.log("inside of INITIALIZE FORMS");
-      console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
-      var counter = 0;
       var linkedFields = this.state.linkedFields;
       var currentChildrenComponents = this.state.currentChildrenComponents;
       var newActiveID = this.state.activeID;
       var partialInputData = {};
       var inputDataIDs = [];
-      var mergedData = {};
 
       if (this.props.inputData !== undefined && this.props.inputData !== null) {
         if (Array.isArray(this.props.inputData)) {
@@ -442,6 +437,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           //create case if 1 input but multiple schemas ?
           var _schema2 = this.props.schema;
           var _inputData4 = this.props.inputData;
+          console.log("!!!!!inputData in else", _inputData4);
           var _id3 = _inputData4.ID;
           inputDataIDs.push(_id3);
 
@@ -463,6 +459,9 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var _localPartialInputData4 = partialInputData[_id4].data;
         var _partialSchema4 = partialInputData[_id4].schema;
         var subCategoriesOrder = partialInputData[_id4].subCategoriesOrder;
+        console.log("subCategoriesOrder for component ID ".concat(_id4, ":"), subCategoriesOrder);
+        console.log("partialSchema for component ID ".concat(_id4, ":"), _partialSchema4);
+        console.log("localPartialInputData for component ID ".concat(_id4, ":"), _localPartialInputData4);
         var partialForms = this.createForms(_id4, subCategoriesOrder, _partialSchema4, _localPartialInputData4);
         this.forms[_id4] = partialForms;
       }
