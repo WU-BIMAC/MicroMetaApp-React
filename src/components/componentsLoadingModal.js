@@ -45,19 +45,30 @@ export default class ComponentsLoadingModal extends React.PureComponent {
     
                 {/* List Column */}
                 <div style={{ width: '30%', paddingRight: 10, borderRight: '1px solid #ccc', overflowY: 'auto' }}>
-                  <h4>List</h4>
-                  <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    {components?.map((comp, index) => (
-                      <li key={index} style={{
-                        padding: '5px 0', cursor: 'pointer',
-                        fontWeight: selectedComponent === comp ? 'bold' : 'normal'
-                      }}
-                        onClick={() => this.handleComponentClick(comp)}
-                      >
-                        {comp.Name}
-                      </li>
-                    ))}
-                  </ul>
+                <h4>List</h4>
+                <ul style={{ listStyleType: 'none', padding: 0 }}>
+                {Object.entries(components).map(([manufacturer, models]) =>
+                    Object.entries(models).map(([model, entries]) =>
+                    Object.entries(entries).map(([entryKey, entryObj]) => {
+                        const comp = entryObj.component;
+                        const displayName = `${manufacturer} / ${model} / ${comp?.Name || entryKey}`;
+                        return (
+                        <li
+                            key={entryKey}
+                            style={{
+                            padding: '5px 0',
+                            cursor: 'pointer',
+                            fontWeight: selectedComponent === comp ? 'bold' : 'normal'
+                            }}
+                            onClick={() => this.handleComponentClick(comp)}
+                        >
+                            {displayName}
+                        </li>
+                        );
+                    })
+                    )
+                )}
+                </ul>
                 </div>
     
                 {/* Keys Column */}
