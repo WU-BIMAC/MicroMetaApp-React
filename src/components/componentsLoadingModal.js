@@ -47,27 +47,38 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                 <div style={{ width: '30%', paddingRight: 10, borderRight: '1px solid #ccc', overflowY: 'auto' }}>
                 <h4>List</h4>
                 <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {Object.entries(components).map(([manufacturer, models]) =>
-                    Object.entries(models).map(([model, entries]) =>
-                    Object.entries(entries).map(([entryKey, entryObj]) => {
-                        const comp = entryObj.component;
-                        const displayName = `${manufacturer} / ${model} / ${comp?.Name || entryKey}`;
-                        return (
-                        <li
-                            key={entryKey}
-                            style={{
-                            padding: '5px 0',
-                            cursor: 'pointer',
-                            fontWeight: selectedComponent === comp ? 'bold' : 'normal'
-                            }}
-                            onClick={() => this.handleComponentClick(comp)}
-                        >
-                            {displayName}
-                        </li>
-                        );
-                    })
-                    )
-                )}
+                    {Object.entries(components).map(([manufacturer, models]) => (
+                    <li key={manufacturer}>
+                        <strong>{manufacturer}</strong>
+                        <ul style={{ listStyleType: 'none', paddingLeft: 15 }}>
+                        {Object.entries(models).map(([model, entries]) => (
+                            <li key={model}>
+                            <em>{model}</em>
+                            <ul style={{ listStyleType: 'none', paddingLeft: 15 }}>
+                                {Object.entries(entries).map(([entryKey, entryObj]) => {
+                                const comp = entryObj.component;
+                                const isSelected = selectedComponent === comp;
+                                return (
+                                    <li
+                                    key={entryKey}
+                                    style={{
+                                        padding: '3px 0',
+                                        cursor: 'pointer',
+                                        fontWeight: isSelected ? 'bold' : 'normal',
+                                        color: isSelected ? '#007BFF' : 'black'
+                                    }}
+                                    onClick={() => this.handleComponentClick(comp)}
+                                    >
+                                    {comp.Name || entryKey}
+                                    </li>
+                                );
+                                })}
+                            </ul>
+                            </li>
+                        ))}
+                        </ul>
+                    </li>
+                    ))}
                 </ul>
                 </div>
     

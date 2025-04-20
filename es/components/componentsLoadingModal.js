@@ -146,31 +146,46 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             manufacturer = _ref2[0],
             models = _ref2[1];
 
-        return Object.entries(models).map(function (_ref3) {
+        return /*#__PURE__*/_react.default.createElement("li", {
+          key: manufacturer
+        }, /*#__PURE__*/_react.default.createElement("strong", null, manufacturer), /*#__PURE__*/_react.default.createElement("ul", {
+          style: {
+            listStyleType: 'none',
+            paddingLeft: 15
+          }
+        }, Object.entries(models).map(function (_ref3) {
           var _ref4 = _slicedToArray(_ref3, 2),
               model = _ref4[0],
               entries = _ref4[1];
 
-          return Object.entries(entries).map(function (_ref5) {
+          return /*#__PURE__*/_react.default.createElement("li", {
+            key: model
+          }, /*#__PURE__*/_react.default.createElement("em", null, model), /*#__PURE__*/_react.default.createElement("ul", {
+            style: {
+              listStyleType: 'none',
+              paddingLeft: 15
+            }
+          }, Object.entries(entries).map(function (_ref5) {
             var _ref6 = _slicedToArray(_ref5, 2),
                 entryKey = _ref6[0],
                 entryObj = _ref6[1];
 
             var comp = entryObj.component;
-            var displayName = "".concat(manufacturer, " / ").concat(model, " / ").concat((comp === null || comp === void 0 ? void 0 : comp.Name) || entryKey);
+            var isSelected = selectedComponent === comp;
             return /*#__PURE__*/_react.default.createElement("li", {
               key: entryKey,
               style: {
-                padding: '5px 0',
+                padding: '3px 0',
                 cursor: 'pointer',
-                fontWeight: selectedComponent === comp ? 'bold' : 'normal'
+                fontWeight: isSelected ? 'bold' : 'normal',
+                color: isSelected ? '#007BFF' : 'black'
               },
               onClick: function onClick() {
                 return _this2.handleComponentClick(comp);
               }
-            }, displayName);
-          });
-        });
+            }, comp.Name || entryKey);
+          })));
+        })));
       }))), /*#__PURE__*/_react.default.createElement("div", {
         style: {
           width: '35%',
