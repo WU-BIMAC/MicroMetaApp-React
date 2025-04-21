@@ -11,6 +11,10 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+var _reactTabs = require("react-tabs");
+
+require("react-tabs/style/react-tabs.css");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -116,6 +120,19 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       console.log("     **** schema in componentsLoadingModal:", schema);
       console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
       console.log("     ** mergedData in componentsLoadingModal", mergedData);
+      var allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {}).filter(function (key) {
+        return key !== "ID";
+      }); // Group properties by category
+
+      var categoryMap = {};
+      allKeys.forEach(function (key) {
+        var prop = schema.properties[key];
+        var category = prop.category || "General";
+        if (!categoryMap[category]) categoryMap[category] = [];
+        categoryMap[category].push(key);
+      }); // Get tab order from schema or use alphabetical
+
+      var tabOrder = Array.isArray(schema === null || schema === void 0 ? void 0 : schema.subCategoriesOrder) ? schema.subCategoriesOrder : Object.keys(categoryMap).sort();
       return /*#__PURE__*/_reactDom.default.createPortal( /*#__PURE__*/_react.default.createElement("div", {
         className: "modal-overlay",
         style: {
@@ -147,7 +164,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: {
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: 'column',
           height: '100%'
         }
       }, /*#__PURE__*/_react.default.createElement("div", {
@@ -207,44 +224,56 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             }, comp.Name || entryKey);
           })));
         })));
-      }))), /*#__PURE__*/_react.default.createElement("div", {
+      })))), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs, {
         style: {
-          width: '35%',
-          padding: '0 10px',
-          borderRight: '1px solid #ccc',
-          overflowY: 'auto'
+          flex: 1,
+          marginTop: 15
         }
-      }, /*#__PURE__*/_react.default.createElement("h4", null, "Keys"), selectedComponent ? /*#__PURE__*/_react.default.createElement("ul", {
-        style: {
-          listStyleType: 'none',
-          padding: 0
-        }
-      }, Object.keys(selectedComponent).map(function (key, index) {
-        return /*#__PURE__*/_react.default.createElement("li", {
-          key: index,
+      }, /*#__PURE__*/_react.default.createElement(_reactTabs.TabList, null, tabOrder.map(function (category) {
+        return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
+          key: category
+        }, category);
+      })), tabOrder.map(function (category) {
+        var _categoryMap$category;
+
+        return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
+          key: category
+        }, /*#__PURE__*/_react.default.createElement("div", {
           style: {
-            padding: '5px 0'
+            padding: '10px 0'
           }
-        }, key);
-      })) : /*#__PURE__*/_react.default.createElement("p", null, "Select a component to view its details.")), /*#__PURE__*/_react.default.createElement("div", {
-        style: {
-          width: '35%',
-          paddingLeft: 10,
-          overflowY: 'auto'
-        }
-      }, /*#__PURE__*/_react.default.createElement("h4", null, "Values"), selectedComponent ? /*#__PURE__*/_react.default.createElement("ul", {
-        style: {
-          listStyleType: 'none',
-          padding: 0
-        }
-      }, Object.values(selectedComponent).map(function (value, index) {
-        return /*#__PURE__*/_react.default.createElement("li", {
-          key: index,
+        }, /*#__PURE__*/_react.default.createElement("table", {
           style: {
-            padding: '5px 0'
+            width: '100%',
+            borderCollapse: 'collapse'
           }
-        }, String(value));
-      })) : /*#__PURE__*/_react.default.createElement("p", null, "Select a component to view its details."))), /*#__PURE__*/_react.default.createElement("div", {
+        }, /*#__PURE__*/_react.default.createElement("tbody", null, (_categoryMap$category = categoryMap[category]) === null || _categoryMap$category === void 0 ? void 0 : _categoryMap$category.map(function (key) {
+          var _mergedData$key;
+
+          var prop = schema.properties[key];
+          return /*#__PURE__*/_react.default.createElement("tr", {
+            key: key,
+            style: {
+              borderBottom: '1px solid #eee'
+            }
+          }, /*#__PURE__*/_react.default.createElement("td", {
+            style: {
+              padding: '8px',
+              fontWeight: 500,
+              width: '40%',
+              verticalAlign: 'top'
+            }
+          }, prop.description ? /*#__PURE__*/_react.default.createElement("span", {
+            title: prop.description
+          }, key) : key), /*#__PURE__*/_react.default.createElement("td", {
+            style: {
+              padding: '8px',
+              width: '60%',
+              wordBreak: 'break-word'
+            }
+          }, ((_mergedData$key = mergedData[key]) === null || _mergedData$key === void 0 ? void 0 : _mergedData$key.toString()) || 'N/A'));
+        })))));
+      })), /*#__PURE__*/_react.default.createElement("div", {
         style: {
           display: 'flex',
           justifyContent: 'flex-end',

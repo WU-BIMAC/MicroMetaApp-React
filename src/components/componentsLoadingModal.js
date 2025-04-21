@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from 'react-dom';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 export default class ComponentsLoadingModal extends React.PureComponent {
     constructor(props) {
@@ -49,6 +51,24 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
         console.log("     ** mergedData in componentsLoadingModal", mergedData);
 
+        const allKeys = Object.keys(schema?.properties || {}).filter(
+            (key) => key !== "ID"
+          );
+        
+        // Group properties by category
+        const categoryMap = {};
+    allKeys.forEach((key) => {
+      const prop = schema.properties[key];
+      const category = prop.category || "General";
+      if (!categoryMap[category]) categoryMap[category] = [];
+      categoryMap[category].push(key);
+    });
+
+        // Get tab order from schema or use alphabetical
+        const tabOrder = Array.isArray(schema?.subCategoriesOrder)
+  ? schema.subCategoriesOrder
+  : Object.keys(categoryMap).sort();
+
 
         return ReactDOM.createPortal(
           <div className="modal-overlay" style={{
@@ -62,7 +82,8 @@ export default class ComponentsLoadingModal extends React.PureComponent {
               display: 'flex', flexDirection: 'column', width: '80%'  // Column layout
             }}>
     
-              <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+              {/* <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}> */}
+              <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
     
                 {/* List Column */}
                 <div style={{ width: '30%', paddingRight: 10, borderRight: '1px solid #ccc', overflowY: 'auto' }}>
@@ -102,8 +123,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                     ))}
                 </ul>
                 </div>
-    
-                {/* Keys Column */}
+{/*     
                 <div style={{ width: '35%', padding: '0 10px', borderRight: '1px solid #ccc', overflowY: 'auto' }}>
                   <h4>Keys</h4>
                   {selectedComponent ? (
@@ -119,7 +139,6 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                   )}
                 </div>
     
-                {/* Values Column */}
                 <div style={{ width: '35%', paddingLeft: 10, overflowY: 'auto' }}>
                   <h4>Values</h4>
                   {selectedComponent ? (
@@ -133,8 +152,53 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                   ) : (
                     <p>Select a component to view its details.</p>
                   )}
-                </div>
-              </div>
+                </div> */}
+              </div> 
+
+<Tabs style={{ flex: 1, marginTop: 15 }}>
+                            <TabList>
+                                {tabOrder.map(category => (
+                                    <Tab key={category}>{category}</Tab>
+                                ))}
+                            </TabList>
+
+                            {tabOrder.map(category => (
+                                <TabPanel key={category}>
+                                    <div style={{ padding: '10px 0' }}>
+                                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                            <tbody>
+                                                {categoryMap[category]?.map(key => {
+                                                    const prop = schema.properties[key];
+                                                    return (
+                                                        <tr key={key} style={{ borderBottom: '1px solid #eee' }}>
+                                                            <td style={{ 
+                                                                padding: '8px',
+                                                                fontWeight: 500,
+                                                                width: '40%',
+                                                                verticalAlign: 'top'
+                                                            }}>
+                                                                {prop.description ? (
+                                                                    <span title={prop.description}>
+                                                                        {key}
+                                                                    </span>
+                                                                ) : key}
+                                                            </td>
+                                                            <td style={{ 
+                                                                padding: '8px',
+                                                                width: '60%',
+                                                                wordBreak: 'break-word'
+                                                            }}>
+                                                                {mergedData[key]?.toString() || 'N/A'}
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </TabPanel>
+                            ))}
+                        </Tabs>
     
     
               {/* Buttons at the bottom */}
