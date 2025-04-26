@@ -8,6 +8,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Button from "react-bootstrap/Button";
 import ModalWindow from "./modalWindow";
 import { isDefined } from "../genericUtilities";
+import { v4 as uuidv4 } from "uuid";
 
 //const url = require("url");
 
@@ -219,7 +220,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					let schema = this.props.schema[i];
 					for (let y = 0; y < mergedData.length; y++) {
 						let inputData = mergedData[y];
-						let id = inputData.ID;
+						// let id = inputData.ID;
+						let id = uuidv4();
+						inputData.ID = id;
 						inputDataIDs.push(id);
 						if (newActiveID === null) newActiveID = id;
 						if (inputData.Schema_ID === schema.ID) {

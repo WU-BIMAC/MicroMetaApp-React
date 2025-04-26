@@ -17,6 +17,8 @@ var _modalWindow = _interopRequireDefault(require("./modalWindow"));
 
 var _genericUtilities = require("../genericUtilities");
 
+var _uuid = require("uuid");
+
 var _constants = require("../constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -238,8 +240,10 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             var schema = this.props.schema[i];
 
             for (var y = 0; y < mergedData.length; y++) {
-              var inputData = mergedData[y];
-              var id = inputData.ID;
+              var inputData = mergedData[y]; // let id = inputData.ID;
+
+              var id = (0, _uuid.v4)();
+              inputData.ID = id;
               inputDataIDs.push(id);
               if (newActiveID === null) newActiveID = id;
 
