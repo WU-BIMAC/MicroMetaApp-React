@@ -315,6 +315,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					let schema = this.props.schema[i];
 					for (let y = 0; y < this.props.inputData.length; y++) {
 						let inputData = this.props.inputData[y];
+						console.log("inputData.ID", inputData.ID);
 						let id = inputData.ID;
 						inputDataIDs.push(id);
 						if (newActiveID === null) newActiveID = id;
@@ -370,6 +371,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		}
 
 		for (let id in partialInputData) {
+			console.log("id", id);
 			let localPartialInputData = partialInputData[id].data;
 			let partialSchema = partialInputData[id].schema;
 			let subCategoriesOrder = partialInputData[id].subCategoriesOrder;

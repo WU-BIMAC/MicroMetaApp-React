@@ -315,6 +315,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
             for (var y = 0; y < this.props.inputData.length; y++) {
               var inputData = this.props.inputData[y];
+              console.log("inputData.ID", inputData.ID);
               var id = inputData.ID;
               inputDataIDs.push(id);
               if (newActiveID === null) newActiveID = id;
@@ -355,6 +356,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       for (var _id4 in partialInputData) {
+        console.log("id", _id4);
         var _localPartialInputData4 = partialInputData[_id4].data;
         var _partialSchema4 = partialInputData[_id4].schema;
         var subCategoriesOrder = partialInputData[_id4].subCategoriesOrder; // console.log(`subCategoriesOrder for component ID ${id}:`, subCategoriesOrder);

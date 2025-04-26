@@ -63,7 +63,9 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       var _this$props = _this.props,
           components = _this$props.components,
           schema = _this$props.schema;
-      var categoryKey = schema.category; // Safety check
+      var categoryKey = schema.category;
+      console.log("all loaded components", components);
+      console.log("schema", schema); // Safety check
 
       if (!(components !== null && components !== void 0 && components.loadedComponents) || !categoryKey) {
         console.warn("Missing components or categoryKey:", components, categoryKey);
