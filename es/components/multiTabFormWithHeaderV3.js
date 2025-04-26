@@ -832,41 +832,35 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onLoad",
     value: function onLoad() {
-      var _this5 = this;
-
       this.props.onLoad(); // if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
       // console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
       // console.log("this.props.inputData in onLoad()", this.props.inputData);
       // console.log("this.props.schema in onLoad()", this.props.schema);
-
-      console.log("in onLoad of multitab");
-      var reader = new FileReader();
-
-      reader.onload = function (event) {
-        try {
-          var importedData = JSON.parse(event.target.result); //console.log("Parsed JSON data:", importedData);
-          // Validate importedData structure
-
-          _this5.setState({//partialInputData: {}, // Reset existing data
-            //activeID: null,       // Reset active ID
-            // }, () => {
-            // 	// Update props and reinitialize forms
-            // 	// this.props.schema = importedData.schema;
-            // 	// this.props.inputData = importedData.inputData;
-            // 	this.initializeForms();
-          });
-        } catch (error) {
-          console.error("Error parsing JSON:", error);
-        }
-      };
-
-      var jsonString = JSON.stringify(this.props.selectedLoadComponent); // Create a Blob from the JSON string
-
-      var blob = new Blob([jsonString], {
-        type: 'application/json'
-      }); // Read the Blob as text
-
-      reader.readAsText(blob);
+      // console.log("in onLoad of multitab");
+      // const reader = new FileReader();
+      // reader.onload = (event) => {
+      // 	try {
+      // 		const importedData = JSON.parse(event.target.result);
+      // 		//console.log("Parsed JSON data:", importedData);
+      // 		// Validate importedData structure
+      // 		this.setState({ 
+      // 			//partialInputData: {}, // Reset existing data
+      // 			//activeID: null,       // Reset active ID
+      // 		// }, () => {
+      // 		// 	// Update props and reinitialize forms
+      // 		// 	// this.props.schema = importedData.schema;
+      // 		// 	// this.props.inputData = importedData.inputData;
+      // 		// 	this.initializeForms();
+      // 		});
+      // 	} catch (error) {
+      // 		console.error("Error parsing JSON:", error);
+      // 	}
+      // };
+      // const jsonString = JSON.stringify(this.props.selectedLoadComponent);
+      // // Create a Blob from the JSON string
+      // const blob = new Blob([jsonString], { type: 'application/json' });
+      // // Read the Blob as text
+      // reader.readAsText(blob);
     }
   }, {
     key: "onCancel",
@@ -902,7 +896,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createUISchema",
     value: function createUISchema(partialSchema) {
-      var _this6 = this;
+      var _this5 = this;
 
       var partialUISchema = [];
       Object.keys(partialSchema).forEach(function (key, index1) {
@@ -944,7 +938,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             });
           }
 
-          if (!_this6.props.editable) {
+          if (!_this5.props.editable) {
             partialUISchema[key][propKey] = Object.assign(uiProperties, {
               "ui:disabled": true
             });
@@ -992,7 +986,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createForms",
     value: function createForms(id, subCategoriesOrder, partialSchema, partialInputData) {
-      var _this7 = this;
+      var _this6 = this;
 
       var currentButtonsRefs = [];
       var currentFormNames = [];
@@ -1007,7 +1001,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         });
         currentFormNames.splice(index, 0, key);
 
-        var form = _this7.createForm( //// check if we can add new parameter to createForm to tell it to display the error or not
+        var form = _this6.createForm( //// check if we can add new parameter to createForm to tell it to display the error or not
         partialSchema[key], partialUISchema[key], partialInputData[key], index, currentFormRefs, currentButtonsRefs);
 
         currentForms.push(form);
@@ -1029,7 +1023,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         });
         currentFormNames.push(key);
 
-        var form = _this7.createForm(partialSchema[key], partialUISchema[key], partialInputData[key], -1, currentFormRefs, currentButtonsRefs);
+        var form = _this6.createForm(partialSchema[key], partialUISchema[key], partialInputData[key], -1, currentFormRefs, currentButtonsRefs);
 
         currentForms.push(form);
       };
@@ -1094,7 +1088,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "createChildrenComponentsButton",
     value: function createChildrenComponentsButton(id) {
-      var _this8 = this;
+      var _this7 = this;
 
       var currentChildrenComponents = this.state.currentChildrenComponents[id];
       var minChildrenComponents = this.state.minChildrenComponents[id];
@@ -1127,7 +1121,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           style: sideButtonLeftMargin,
           variant: isMinDisabled ? "secondary" : "danger",
           onClick: isMinDisabled ? null : function () {
-            return _this8.onClickRemoveChildComponent(id, key);
+            return _this7.onClickRemoveChildComponent(id, key);
           },
           disabled: isMinDisabled,
           value: key
@@ -1140,7 +1134,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           style: sideButtonRightMargin,
           variant: isMaxDisabled ? "secondary" : "success",
           onClick: isMaxDisabled ? null : function () {
-            return _this8.onClickAddChildComponent(id, key);
+            return _this7.onClickAddChildComponent(id, key);
           },
           disabled: isMaxDisabled,
           value: key

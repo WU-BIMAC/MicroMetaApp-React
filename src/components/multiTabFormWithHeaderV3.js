@@ -860,35 +860,35 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		// console.log("this.props.inputData in onLoad()", this.props.inputData);
 		// console.log("this.props.schema in onLoad()", this.props.schema);
 
-		console.log("in onLoad of multitab");
-		const reader = new FileReader();
-		reader.onload = (event) => {
-			try {
-				const importedData = JSON.parse(event.target.result);
-				//console.log("Parsed JSON data:", importedData);
-				// Validate importedData structure
+		// console.log("in onLoad of multitab");
+		// const reader = new FileReader();
+		// reader.onload = (event) => {
+		// 	try {
+		// 		const importedData = JSON.parse(event.target.result);
+		// 		//console.log("Parsed JSON data:", importedData);
+		// 		// Validate importedData structure
 				
-				this.setState({ 
-					//partialInputData: {}, // Reset existing data
-					//activeID: null,       // Reset active ID
-				// }, () => {
-				// 	// Update props and reinitialize forms
-				// 	// this.props.schema = importedData.schema;
-				// 	// this.props.inputData = importedData.inputData;
-				// 	this.initializeForms();
-				});
+		// 		this.setState({ 
+		// 			//partialInputData: {}, // Reset existing data
+		// 			//activeID: null,       // Reset active ID
+		// 		// }, () => {
+		// 		// 	// Update props and reinitialize forms
+		// 		// 	// this.props.schema = importedData.schema;
+		// 		// 	// this.props.inputData = importedData.inputData;
+		// 		// 	this.initializeForms();
+		// 		});
 			
-			} catch (error) {
-				console.error("Error parsing JSON:", error);
-			}
-		};
-		const jsonString = JSON.stringify(this.props.selectedLoadComponent);
+		// 	} catch (error) {
+		// 		console.error("Error parsing JSON:", error);
+		// 	}
+		// };
+		// const jsonString = JSON.stringify(this.props.selectedLoadComponent);
 
-		// Create a Blob from the JSON string
-		const blob = new Blob([jsonString], { type: 'application/json' });
+		// // Create a Blob from the JSON string
+		// const blob = new Blob([jsonString], { type: 'application/json' });
 
-		// Read the Blob as text
-		reader.readAsText(blob);
+		// // Read the Blob as text
+		// reader.readAsText(blob);
 	}
 
 	onCancel() {
