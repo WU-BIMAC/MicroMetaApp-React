@@ -39,176 +39,162 @@ export default class ComponentsLoadingModal extends React.PureComponent {
 
     // }
     
-      render() {
+    render() {
         const { components, onClose, schema, inputData } = this.props;
         const { selectedComponent } = this.state;
         const mergedData = {
-			...inputData, 
-			...selectedComponent 
-		};
-
+            ...inputData, 
+            ...selectedComponent 
+        };
+    
         console.log("     **** schema in componentsLoadingModal:", schema);
         console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
         console.log("     ** mergedData in componentsLoadingModal", mergedData);
-
+    
         const allKeys = Object.keys(schema?.properties || {}).filter(
             (key) => key !== "ID"
-          );
+        );
         
         // Group properties by category
         const categoryMap = {};
-    allKeys.forEach((key) => {
-      const prop = schema.properties[key];
-      const category = prop.category || "General";
-      if (!categoryMap[category]) categoryMap[category] = [];
-      categoryMap[category].push(key);
-    });
-
+        allKeys.forEach((key) => {
+            const prop = schema.properties[key];
+            const category = prop.category || "General";
+            if (!categoryMap[category]) categoryMap[category] = [];
+            categoryMap[category].push(key);
+        });
+    
         // Get tab order from schema or use alphabetical
         const tabOrder = Array.isArray(schema?.subCategoriesOrder)
-  ? schema.subCategoriesOrder
-  : Object.keys(categoryMap).sort();
-
-
+            ? schema.subCategoriesOrder
+            : Object.keys(categoryMap).sort();
+    
         return ReactDOM.createPortal(
-          <div className="modal-overlay" style={{
-            position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
-            alignItems: 'center', justifyContent: 'center', zIndex: 1001
-          }}>
-            <div className="modal-content" style={{
-              backgroundColor: 'white', padding: 20, borderRadius: 8,
-              maxWidth: '90vw', maxHeight: '90vh', overflow: 'auto',
-              display: 'flex', flexDirection: 'column', width: '80%'  // Column layout
+            <div className="modal-overlay" style={{
+                position: 'fixed',
+                top: 0, left: 0, right: 0, bottom: 0,
+                backgroundColor: 'rgba(0,0,0,0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 1001
             }}>
-    
-              {/* <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}> */}
-              <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-    
-                {/* List Column */}
-                <div style={{ width: '30%', paddingRight: 10, borderRight: '1px solid #ccc', overflowY: 'auto' }}>
-                <h4>List</h4>
-                <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    {Object.entries(components).map(([manufacturer, models]) => (
-                    <li key={manufacturer}>
-                        <strong>{manufacturer}</strong>
-                        <ul style={{ listStyleType: 'none', paddingLeft: 15 }}>
-                        {Object.entries(models).map(([model, entries]) => (
-                            <li key={model}>
-                            <em>{model}</em>
-                            <ul style={{ listStyleType: 'none', paddingLeft: 15 }}>
-                                {Object.entries(entries).map(([entryKey, entryObj]) => {
-                                const comp = entryObj.component;
-                                const isSelected = selectedComponent === comp;
-                                return (
-                                    <li
-                                    key={entryKey}
-                                    style={{
-                                        padding: '3px 0',
-                                        cursor: 'pointer',
-                                        fontWeight: isSelected ? 'bold' : 'normal',
-                                        color: isSelected ? '#007BFF' : 'black'
-                                    }}
-                                    onClick={() => this.handleComponentClick(comp)}
-                                    >
-                                    {comp.Name || entryKey}
-                                    </li>
-                                );
-                                })}
-                            </ul>
-                            </li>
-                        ))}
-                        </ul>
-                    </li>
-                    ))}
-                </ul>
-                </div>
-{/*     
-                <div style={{ width: '35%', padding: '0 10px', borderRight: '1px solid #ccc', overflowY: 'auto' }}>
-                  <h4>Keys</h4>
-                  {selectedComponent ? (
-                    <ul style={{ listStyleType: 'none', padding: 0 }}>
-                      {Object.keys(selectedComponent).map((key, index) => (
-                        <li key={index} style={{ padding: '5px 0' }}>
-                          {key}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p>Select a component to view its details.</p>
-                  )}
-                </div>
-    
-                <div style={{ width: '35%', paddingLeft: 10, overflowY: 'auto' }}>
-                  <h4>Values</h4>
-                  {selectedComponent ? (
-                    <ul style={{ listStyleType: 'none', padding: 0 }}>
-                      {Object.values(selectedComponent).map((value, index) => (
-                        <li key={index} style={{ padding: '5px 0' }}>
-                          {String(value)}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p>Select a component to view its details.</p>
-                  )}
-                </div> */}
-              </div> 
-
-<Tabs style={{ flex: 1, marginTop: 15 }}>
-                            <TabList>
+                <div className="modal-content" style={{
+                    backgroundColor: 'white',
+                    padding: 20,
+                    borderRadius: 8,
+                    maxWidth: '90vw',
+                    maxHeight: '90vh',
+                    overflow: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '75%',
+                    height: '75%'  // Column layout
+                }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+                            {/* List Column */}
+                            <div style={{
+                                width: '30%',
+                                paddingRight: 10,
+                                borderRight: '1px solid #ccc',
+                                overflowY: 'auto',
+                                wordBreak: 'break-word'
+                            }}>
+                                <h4>List</h4>
+                                <ul style={{ listStyleType: 'none', padding: 0 }}>
+                                    {Object.entries(components).map(([manufacturer, models]) => (
+                                        <li key={manufacturer}>
+                                            <strong>{manufacturer}</strong>
+                                            <ul style={{ listStyleType: 'none', paddingLeft: 15 }}>
+                                                {Object.entries(models).map(([model, entries]) => (
+                                                    <li key={model}>
+                                                        <em>{model}</em>
+                                                        <ul style={{ listStyleType: 'none', paddingLeft: 15 }}>
+                                                            {Object.entries(entries).map(([entryKey, entryObj]) => {
+                                                                const comp = entryObj.component;
+                                                                const isSelected = selectedComponent === comp;
+                                                                return (
+                                                                    <li
+                                                                        key={entryKey}
+                                                                        style={{
+                                                                            padding: '3px 0',
+                                                                            cursor: 'pointer',
+                                                                            fontWeight: isSelected ? 'bold' : 'normal',
+                                                                            color: isSelected ? '#007BFF' : 'black'
+                                                                        }}
+                                                                        onClick={() => this.handleComponentClick(comp)}
+                                                                    >
+                                                                        {comp.Name || entryKey}
+                                                                    </li>
+                                                                );
+                                                            })}
+                                                        </ul>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+        
+                            <Tabs style={{ flex: 1 }}>
+                                <TabList>
+                                    {tabOrder.map(category => (
+                                        <Tab key={category}>{category}</Tab>
+                                    ))}
+                                </TabList>
+        
                                 {tabOrder.map(category => (
-                                    <Tab key={category}>{category}</Tab>
+                                    <TabPanel key={category}>
+                                        <div style={{ padding: '10px 0', overflowY: 'auto' }}>
+                                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                                <tbody>
+                                                    {categoryMap[category]?.map(key => {
+                                                        const prop = schema.properties[key];
+                                                        return (
+                                                            <tr key={key} style={{ borderBottom: '1px solid #eee' }}>
+                                                                <td style={{
+                                                                    padding: '8px',
+                                                                    fontWeight: 500,
+                                                                    width: '40%',
+                                                                    verticalAlign: 'top',
+                                                                    wordBreak: 'break-word'
+                                                                }}>
+                                                                    {prop.description ? (
+                                                                        <span title={prop.description}>
+                                                                            {key}
+                                                                        </span>
+                                                                    ) : key}
+                                                                </td>
+                                                                <td style={{
+                                                                    padding: '8px',
+                                                                    width: '60%',
+                                                                    wordBreak: 'break-word'
+                                                                }}>
+                                                                    {mergedData[key]?.toString() || 'N/A'}
+                                                                </td>
+                                                            </tr>
+                                                        );
+                                                    })}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </TabPanel>
                                 ))}
-                            </TabList>
-
-                            {tabOrder.map(category => (
-                                <TabPanel key={category}>
-                                    <div style={{ padding: '10px 0' }}>
-                                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                                            <tbody>
-                                                {categoryMap[category]?.map(key => {
-                                                    const prop = schema.properties[key];
-                                                    return (
-                                                        <tr key={key} style={{ borderBottom: '1px solid #eee' }}>
-                                                            <td style={{ 
-                                                                padding: '8px',
-                                                                fontWeight: 500,
-                                                                width: '40%',
-                                                                verticalAlign: 'top'
-                                                            }}>
-                                                                {prop.description ? (
-                                                                    <span title={prop.description}>
-                                                                        {key}
-                                                                    </span>
-                                                                ) : key}
-                                                            </td>
-                                                            <td style={{ 
-                                                                padding: '8px',
-                                                                width: '60%',
-                                                                wordBreak: 'break-word'
-                                                            }}>
-                                                                {mergedData[key]?.toString() || 'N/A'}
-                                                            </td>
-                                                        </tr>
-                                                    );
-                                                })}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </TabPanel>
-                            ))}
-                        </Tabs>
+                            </Tabs>
+                        </div>
+                    
     
-    
-              {/* Buttons at the bottom */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
-                <button onClick={onClose} style={{ marginRight: 10 }}>Close</button>
-                <button onClick={this.handleSubmit} disabled={!selectedComponent}>Submit</button>
-              </div>
-            </div>
-          </div>,
-          this.props.overlaysContainer
+                        {/* Buttons at the bottom */}
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
+                            <button onClick={onClose} style={{ marginRight: 10 }}>Close</button>
+                            <button onClick={this.handleSubmit} disabled={!selectedComponent}>Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>,
+            this.props.overlaysContainer
         );
-    }
+    }    
   }

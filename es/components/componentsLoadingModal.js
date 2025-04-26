@@ -158,13 +158,21 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           overflow: 'auto',
           display: 'flex',
           flexDirection: 'column',
-          width: '80%' // Column layout
+          width: '75%',
+          height: '75%' // Column layout
 
         }
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: {
           display: 'flex',
           flexDirection: 'column',
+          height: '100%',
+          justifyContent: 'space-between'
+        }
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          display: 'flex',
+          flexDirection: 'row',
           height: '100%'
         }
       }, /*#__PURE__*/_react.default.createElement("div", {
@@ -172,7 +180,8 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           width: '30%',
           paddingRight: 10,
           borderRight: '1px solid #ccc',
-          overflowY: 'auto'
+          overflowY: 'auto',
+          wordBreak: 'break-word'
         }
       }, /*#__PURE__*/_react.default.createElement("h4", null, "List"), /*#__PURE__*/_react.default.createElement("ul", {
         style: {
@@ -224,10 +233,9 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             }, comp.Name || entryKey);
           })));
         })));
-      })))), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs, {
+      }))), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs, {
         style: {
-          flex: 1,
-          marginTop: 15
+          flex: 1
         }
       }, /*#__PURE__*/_react.default.createElement(_reactTabs.TabList, null, tabOrder.map(function (category) {
         return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
@@ -240,7 +248,8 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           key: category
         }, /*#__PURE__*/_react.default.createElement("div", {
           style: {
-            padding: '10px 0'
+            padding: '10px 0',
+            overflowY: 'auto'
           }
         }, /*#__PURE__*/_react.default.createElement("table", {
           style: {
@@ -261,7 +270,8 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
               padding: '8px',
               fontWeight: 500,
               width: '40%',
-              verticalAlign: 'top'
+              verticalAlign: 'top',
+              wordBreak: 'break-word'
             }
           }, prop.description ? /*#__PURE__*/_react.default.createElement("span", {
             title: prop.description
@@ -273,7 +283,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             }
           }, ((_mergedData$key = mergedData[key]) === null || _mergedData$key === void 0 ? void 0 : _mergedData$key.toString()) || 'N/A'));
         })))));
-      })), /*#__PURE__*/_react.default.createElement("div", {
+      }))), /*#__PURE__*/_react.default.createElement("div", {
         style: {
           display: 'flex',
           justifyContent: 'flex-end',
@@ -287,7 +297,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       }, "Close"), /*#__PURE__*/_react.default.createElement("button", {
         onClick: this.handleSubmit,
         disabled: !selectedComponent
-      }, "Submit")))), this.props.overlaysContainer);
+      }, "Submit"))))), this.props.overlaysContainer);
     }
   }]);
 

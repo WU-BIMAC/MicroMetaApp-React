@@ -89,16 +89,11 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleLoadComponent", function (selectedComponent) {
-      // Implement the logic to load the selected component here
-      // For example, update the state to trigger a re-render
-      // or call another function to fetch data based on the component
-      console.log("Loading component:", selectedComponent); // Close modal or update state as needed
-
-      _this.setState({
-        selectedLoadComponent: selectedComponent,
-        isModalOpen: false
-      });
-
+      // this.setState({ 
+      // 	selectedLoadComponent: selectedComponent,
+      // 	isModalOpen: false,
+      // 	editForm: this.state.editForm,
+      //  });
       if (!_this.props.isViewOnly) {
         var _this$state$selectedL;
 
@@ -133,7 +128,9 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
 
         _this.setState({
           editing: true,
-          editForm: editForm
+          editForm: editForm,
+          selectedLoadComponent: selectedComponent,
+          isModalOpen: false
         });
       }
     });
@@ -259,6 +256,7 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       var filteredComponents = this.handleOpenMultiTabForm();
       this.setState({
         modalContent: filteredComponents,
+        editing: true,
         isModalOpen: true
       });
     }
@@ -366,52 +364,22 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
         image: this.props.image,
         name: this.props.schema.title,
         style: styleImage
-      }))), this.state.isModalOpen && /*#__PURE__*/_react.default.createElement(_componentsLoadingModal.default, {
+      }))), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          zIndex: 1000
+        }
+      }, editForm), this.state.isModalOpen && /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          zIndex: 1001
+        }
+      }, /*#__PURE__*/_react.default.createElement(_componentsLoadingModal.default, {
         overlaysContainer: document.body,
         components: this.state.modalContent,
         onClose: this.handleCloseModal,
         onLoadComponent: this.handleLoadComponent,
         schema: this.props.schema,
         inputData: this.props.inputData
-      }) // 	<ModalWindow overlaysContainer={document.body} style={{ position: 'fixed', zIndex: 1001 }}>
-      // 	<div className="loading-modal-content">
-      // 	<h2 style={{marginTop: 0}}>Component Details</h2>
-      // 	<button 
-      // 		onClick={this.handleCloseModal}
-      // 		style={{marginBottom: 15}}
-      // 	>
-      // 		Close
-      // 	</button>
-      // 	<div style={{ // List container
-      // 		borderTop: '1px solid #eee',
-      // 		paddingTop: 15
-      // 	}}>
-      // 		{this.state.modalContent?.map((comp, index) => (
-      // 		<div 
-      // 			key={index}
-      // 			style={{ // Card styles
-      // 			margin: '10px 0',
-      // 			padding: 15,
-      // 			border: '1px solid #eee',
-      // 			borderRadius: 4
-      // 			}}
-      // 		>
-      // 			<h3 style={{margin: 0}}>
-      // 			{comp.Name || 'Unnamed Component'}
-      // 			</h3>
-      // 			<pre style={{
-      // 			whiteSpace: 'pre-wrap',
-      // 			wordBreak: 'break-word',
-      // 			margin: '10px 0 0 0'
-      // 			}}>
-      // 			{JSON.stringify(comp, null, 2)}
-      // 			</pre>
-      // 		</div>
-      // 		))}
-      // 	  </div>
-      // 	</div>
-      //   </ModalWindow>
-      , editForm);
+      })));
     }
   }]);
 
