@@ -26,18 +26,6 @@ export default class ComponentsLoadingModal extends React.PureComponent {
           alert("Please select a component to load.");
         }
       };
-
-    // helper = () => {
-    //     const { components, onClose, schema, inputData } = this.props;
-    //     const { selectedComponent } = this.state;
-    //     const mergedData = {
-	// 		...inputData, 
-	// 		...selectedComponent 
-	// 	};
-
-    //     let partialInputData = {};
-
-    // }
     
     render() {
         const { components, onClose, schema, inputData } = this.props;
@@ -46,10 +34,38 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             ...inputData, 
             ...selectedComponent 
         };
+
+        const SubmitButton = {
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "flex-start",
+			height: "44px",
+			fontSize: "18px",
+			fontWeight: 500,
+			backgroundColor: "#4099AB",
+			color: "#FFFFFF",
+			borderColor: "#5d8f99",
+			paddingRight: "25px",
+			paddingLeft: "25px",
+			borderRadius: "8px",
+		};
+		const CancelButton = {
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "flex-start",
+			height: "44px",
+			fontSize: "18px",
+			fontWeight: 500,
+			backgroundColor: "#FFFFFF",
+			color: "#030303",
+			borderColor: "#FFFFFF",
+			paddingRight: "20px",
+			paddingLeft: "20px",
+		};
     
-        console.log("     **** schema in componentsLoadingModal:", schema);
-        console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
-        console.log("     ** mergedData in componentsLoadingModal", mergedData);
+        // console.log("     **** schema in componentsLoadingModal:", schema);
+        // console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
+        // console.log("     ** mergedData in componentsLoadingModal", mergedData);
     
         const allKeys = Object.keys(schema?.properties || {}).filter(
             (key) => key !== "ID"
@@ -188,8 +204,29 @@ export default class ComponentsLoadingModal extends React.PureComponent {
     
                         {/* Buttons at the bottom */}
                         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
-                            <button onClick={onClose} style={{ marginRight: 10 }}>Close</button>
-                            <button onClick={this.handleSubmit} disabled={!selectedComponent}>Submit</button>
+                            <button onClick={onClose} style={{ height: "36px", // Smaller height
+            fontSize: "16px", // Smaller font size
+            fontWeight: 500,
+            backgroundColor: "#FFFFFF",
+            color: "#030303",
+            border: "1px solid #ddd", // Less harsh border
+            paddingRight: "16px", // Adjust padding
+            paddingLeft: "16px",
+            boxShadow: "none", // Remove shadow
+            borderRadius: "4px", // Soften border-radius
+            cursor: "pointer",
+            marginRight: "8px" }}>Close</button>
+                            <button onClick={this.handleSubmit} disabled={!selectedComponent} style={{ height: "36px", // Smaller height
+            fontSize: "16px", // Smaller font size
+            fontWeight: 500,
+            backgroundColor: "#4099AB",
+            color: "#FFFFFF",
+            border: "1px solid #7ab8c4", // Less harsh border
+            paddingRight: "18px", // Adjust padding
+            paddingLeft: "18px",
+            borderRadius: "4px", // Soften border-radius
+            boxShadow: "none", // Remove shadow
+            opacity: selectedComponent ? 1 : 0.6 }}>Submit</button>
                         </div>
                     </div>
                 </div>

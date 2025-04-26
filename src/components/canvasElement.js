@@ -87,15 +87,15 @@ export default class CanvasElement extends React.PureComponent {
 	};
 
 	handleClick() {
-		if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.schema", this.props.schema);
-		if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.inputData", this.props.inputData);
+		// if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.schema", this.props.schema);
+		// if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.inputData", this.props.inputData);
 		if (!this.props.isViewOnly) {
 			this.props.setEditingOnCanvas(true);
-			const filteredComponents = this.handleOpenMultiTabForm();
+			//const filteredComponents = this.handleOpenMultiTabForm();
 			let editForm = (
 				<MultiTabFormWithHeaderV3
 					selectedLoadComponent={this.state.selectedLoadComponent}
-					filteredComponents={filteredComponents}
+					//filteredComponents={filteredComponents}
 					imagesPath={this.props.imagesPath}
 					validationUpdate={this.props.validationUpdate}
 					title={"Edit " + this.props.formTitle}
@@ -135,19 +135,19 @@ export default class CanvasElement extends React.PureComponent {
 	}
 
 	handleCancel() {
-		if(this.props.isDebug) console.log("inside of function handleCancel in canvasElement.js");
+		//if(this.props.isDebug) console.log("inside of function handleCancel in canvasElement.js");
 		this.props.setEditingOnCanvas(false);
 		this.setState({ editing: false, editForm: null });
 	}
 
 	handleDummy() {
-		if(this.props.isDebug) console.log("inside of function handleDummy in canvasElement.js");
+		//if(this.props.isDebug) console.log("inside of function handleDummy in canvasElement.js");
 		this.props.setEditingOnCanvas(true);
 		this.setState({ editing: true});
 	}
 
 	handleSave(id, consolidatedData, linkedFields) {
-		if(this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
+		//if(this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
 		this.props.setEditingOnCanvas(false);
 		this.props.handleConfirm(id, consolidatedData, linkedFields);
 		this.props.onClickSave(id, consolidatedData, linkedFields);
@@ -159,6 +159,8 @@ export default class CanvasElement extends React.PureComponent {
 		// 	isModalOpen: false,
 		// 	editForm: this.state.editForm,
 		//  });
+
+		console.log("gonna trigger multitab from handleLoadComponent");
 
 		 if (!this.props.isViewOnly) {
 			this.props.setEditingOnCanvas(true);

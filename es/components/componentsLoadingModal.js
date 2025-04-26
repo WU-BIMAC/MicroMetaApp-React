@@ -96,16 +96,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
 
   _createClass(ComponentsLoadingModal, [{
     key: "render",
-    value: // helper = () => {
-    //     const { components, onClose, schema, inputData } = this.props;
-    //     const { selectedComponent } = this.state;
-    //     const mergedData = {
-    // 		...inputData, 
-    // 		...selectedComponent 
-    // 	};
-    //     let partialInputData = {};
-    // }
-    function render() {
+    value: function render() {
       var _this2 = this;
 
       var _this$props2 = this.props,
@@ -117,9 +108,36 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
 
       var mergedData = _objectSpread(_objectSpread({}, inputData), selectedComponent);
 
-      console.log("     **** schema in componentsLoadingModal:", schema);
-      console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
-      console.log("     ** mergedData in componentsLoadingModal", mergedData);
+      var SubmitButton = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        height: "44px",
+        fontSize: "18px",
+        fontWeight: 500,
+        backgroundColor: "#4099AB",
+        color: "#FFFFFF",
+        borderColor: "#5d8f99",
+        paddingRight: "25px",
+        paddingLeft: "25px",
+        borderRadius: "8px"
+      };
+      var CancelButton = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        height: "44px",
+        fontSize: "18px",
+        fontWeight: 500,
+        backgroundColor: "#FFFFFF",
+        color: "#030303",
+        borderColor: "#FFFFFF",
+        paddingRight: "20px",
+        paddingLeft: "20px"
+      }; // console.log("     **** schema in componentsLoadingModal:", schema);
+      // console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
+      // console.log("     ** mergedData in componentsLoadingModal", mergedData);
+
       var allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {}).filter(function (key) {
         return key !== "ID";
       }); // Group properties by category
@@ -292,11 +310,47 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       }, /*#__PURE__*/_react.default.createElement("button", {
         onClick: onClose,
         style: {
-          marginRight: 10
+          height: "36px",
+          // Smaller height
+          fontSize: "16px",
+          // Smaller font size
+          fontWeight: 500,
+          backgroundColor: "#FFFFFF",
+          color: "#030303",
+          border: "1px solid #ddd",
+          // Less harsh border
+          paddingRight: "16px",
+          // Adjust padding
+          paddingLeft: "16px",
+          boxShadow: "none",
+          // Remove shadow
+          borderRadius: "4px",
+          // Soften border-radius
+          cursor: "pointer",
+          marginRight: "8px"
         }
       }, "Close"), /*#__PURE__*/_react.default.createElement("button", {
         onClick: this.handleSubmit,
-        disabled: !selectedComponent
+        disabled: !selectedComponent,
+        style: {
+          height: "36px",
+          // Smaller height
+          fontSize: "16px",
+          // Smaller font size
+          fontWeight: 500,
+          backgroundColor: "#4099AB",
+          color: "#FFFFFF",
+          border: "1px solid #7ab8c4",
+          // Less harsh border
+          paddingRight: "18px",
+          // Adjust padding
+          paddingLeft: "18px",
+          borderRadius: "4px",
+          // Soften border-radius
+          boxShadow: "none",
+          // Remove shadow
+          opacity: selectedComponent ? 1 : 0.6
+        }
       }, "Submit"))))), this.props.overlaysContainer);
     }
   }]);
