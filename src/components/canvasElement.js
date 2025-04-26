@@ -62,7 +62,8 @@ export default class CanvasElement extends React.PureComponent {
 
 	handleOpenMultiTabForm = () => {
 		const { components, schema } = this.props;
-		const categoryKey = schema.category;
+		//const categoryKey = schema.category;
+		const categoryKey = schema.ID.split('.')[0];
 
 		console.log("all loaded components", components);
 		console.log("schema", schema);

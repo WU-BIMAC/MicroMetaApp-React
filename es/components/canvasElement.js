@@ -62,8 +62,9 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     _defineProperty(_assertThisInitialized(_this), "handleOpenMultiTabForm", function () {
       var _this$props = _this.props,
           components = _this$props.components,
-          schema = _this$props.schema;
-      var categoryKey = schema.category;
+          schema = _this$props.schema; //const categoryKey = schema.category;
+
+      var categoryKey = schema.ID.split('.')[0];
       console.log("all loaded components", components);
       console.log("schema", schema); // Safety check
 
