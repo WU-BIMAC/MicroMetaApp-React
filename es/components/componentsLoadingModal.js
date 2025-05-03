@@ -1,7 +1,5 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -28,6 +26,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -177,8 +177,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       allKeys.forEach(function (key) {
         var prop = schema.properties[key];
         if (!prop) return;
-        var category = prop.category || "General";
-        if (!prop) return; // Only include array tabs if the selected component has this array property
+        var category = prop.category || "General"; // Only include array tabs if the selected component has this array property
 
         if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
           var elements = mergedData[key]; // If elements is an array with a single element that is itself an array, flatten it
@@ -186,10 +185,13 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
             elements = elements[0];
           } // If elements is not an array, wrap it
+          // if (!Array.isArray(elements)) {
+          //     elements = [elements];
+          // }
 
 
-          if (!Array.isArray(elements)) {
-            elements = [elements];
+          if (!Array.isArray(elements) && _typeof(elements) === "object" && elements !== null) {
+            elements = Object.values(elements);
           }
 
           arrayCategories[key] = {

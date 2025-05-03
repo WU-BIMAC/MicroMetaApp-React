@@ -115,7 +115,6 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             const prop = schema.properties[key];
             if (!prop) return;
             const category = prop.category || "General";
-            if (!prop) return;
             // Only include array tabs if the selected component has this array property
             if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
                 let elements = mergedData[key];
@@ -124,9 +123,14 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                     elements = elements[0];
                 }
                 // If elements is not an array, wrap it
-                if (!Array.isArray(elements)) {
-                    elements = [elements];
+                // if (!Array.isArray(elements)) {
+                //     elements = [elements];
+                // }
+
+                if (!Array.isArray(elements) && typeof elements === "object" && elements !== null) {
+                    elements = Object.values(elements);
                 }
+                
                 arrayCategories[key] = {
                     itemSchema: prop.items,
                     elements
