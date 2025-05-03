@@ -63,7 +63,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             console.log("mergedData[key]", mergedData[key]);
     
             // Check if property is an array
-            if (prop.type === 'array' && Array.isArray(mergedData[key])) {
+            if (prop.type === 'array') {
                 console.log(
                     `[ARRAY DETECTED] key: ${key}`,
                     "\n  prop:", prop,
