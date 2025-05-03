@@ -143,32 +143,57 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       //         categoryMap[category].push(key);
       //     }
       // });
+      // allKeys.forEach(key => {
+      //     const prop = schema.properties[key];
+      //     if (!prop) return;
+      //     const category = prop.category || 'General';
+      //     // Check if property is an array
+      //     if (prop.type === 'array') {
+      //         // If mergedData[key] is not an array, make it an array (wrap if defined, or set to empty array)
+      //         if (!Array.isArray(mergedData[key])) {
+      //             if (mergedData[key] !== undefined && mergedData[key] !== null) {
+      //                 mergedData[key] = [mergedData[key]];
+      //                 console.log(`[ARRAY WRAP] key: ${key} was not array, wrapped:`, mergedData[key]);
+      //             } else {
+      //                 mergedData[key] = [];
+      //                 console.log(`[ARRAY INIT] key: ${key} was undefined/null, set to empty array`);
+      //             }
+      //         }
+      //         console.log(
+      //             `[ARRAY DETECTED] key: ${key}`,
+      //             "\n  prop:", prop,
+      //             "\n  mergedData[key]:", mergedData[key]
+      //         );
+      //         arrayCategories[key] = {
+      //             itemSchema: prop.items,
+      //             elements: mergedData[key]
+      //         };
+      //     } else {
+      //         if (!categoryMap[category]) categoryMap[category] = [];
+      //         categoryMap[category].push(key);
+      //     }
+      // });
 
       allKeys.forEach(function (key) {
         var prop = schema.properties[key];
-        if (!prop) return;
-        var category = prop.category || 'General'; // Check if property is an array
+        if (!prop) return; // Only include array tabs if the selected component has this array property
 
-        if (prop.type === 'array') {
-          // If mergedData[key] is not an array, make it an array (wrap if defined, or set to empty array)
-          if (!Array.isArray(mergedData[key])) {
-            if (mergedData[key] !== undefined && mergedData[key] !== null) {
-              mergedData[key] = [mergedData[key]];
-              console.log("[ARRAY WRAP] key: ".concat(key, " was not array, wrapped:"), mergedData[key]);
-            } else {
-              mergedData[key] = [];
-              console.log("[ARRAY INIT] key: ".concat(key, " was undefined/null, set to empty array"));
-            }
+        if (prop && prop.type === "array" && mergedData[key] !== undefined) {
+          var elements = mergedData[key]; // If elements is an array with a single element that is itself an array, flatten it
+
+          if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
+            elements = elements[0];
+          } // If elements is not an array, wrap it
+
+
+          if (!Array.isArray(elements)) {
+            elements = [elements];
           }
 
-          console.log("[ARRAY DETECTED] key: ".concat(key), "\n  prop:", prop, "\n  mergedData[key]:", mergedData[key]);
           arrayCategories[key] = {
             itemSchema: prop.items,
-            elements: mergedData[key]
+            elements: elements
           };
-        } else {
-          if (!categoryMap[category]) categoryMap[category] = [];
-          categoryMap[category].push(key);
         }
       });
       console.log("arrayCategories for current mergedData:", arrayCategories); // Get tab order from schema or use alphabetical
@@ -359,10 +384,13 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
               width: '100%',
               borderCollapse: 'collapse'
             }
-          }, /*#__PURE__*/_react.default.createElement("tbody", null, Object.keys(itemSchema.properties || {}).map(function (key) {
-            var _element$key;
-
-            var prop = itemSchema.properties[key];
+          }, /*#__PURE__*/_react.default.createElement("tbody", null, Object.keys(element).map(function (key) {
+            console.log("Rendering array tab", {
+              fieldName: fieldName,
+              element: element,
+              itemSchema: itemSchema
+            });
+            var prop = (itemSchema.properties || {})[key] || {};
             return /*#__PURE__*/_react.default.createElement("tr", {
               key: key,
               style: {
@@ -382,7 +410,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
                 width: '60%',
                 wordBreak: 'break-word'
               }
-            }, ((_element$key = element[key]) === null || _element$key === void 0 ? void 0 : _element$key.toString()) || 'N/A'));
+            }, element[key] !== undefined && element[key] !== null ? element[key].toString() : 'N/A'));
           })))) : /*#__PURE__*/_react.default.createElement("p", {
             style: {
               paddingLeft: '10px'
