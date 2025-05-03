@@ -129,6 +129,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         var category = prop.category || 'General'; // Check if property is an array
 
         if (prop.type === 'array' && Array.isArray(mergedData[key])) {
+          console.log("[ARRAY DETECTED] key: ".concat(key), "\n  prop:", prop, "\n  mergedData[key]:", mergedData[key]);
           arrayCategories[key] = {
             itemSchema: prop.items,
             elements: mergedData[key]

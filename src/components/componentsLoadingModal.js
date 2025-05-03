@@ -62,6 +62,11 @@ export default class ComponentsLoadingModal extends React.PureComponent {
     
             // Check if property is an array
             if (prop.type === 'array' && Array.isArray(mergedData[key])) {
+                console.log(
+                    `[ARRAY DETECTED] key: ${key}`,
+                    "\n  prop:", prop,
+                    "\n  mergedData[key]:", mergedData[key]
+                );
                 arrayCategories[key] = {
                     itemSchema: prop.items,
                     elements: mergedData[key]
@@ -156,7 +161,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                             {Object.entries(arrayCategories).map(([fieldName, { itemSchema, elements }]) => (
                                 elements.map((_, index) => (
                                     <Tab key={`${fieldName}_${index}`}>
-                                        {`${itemSchema.title || fieldName} ${index + 1}`}
+                                        {`${itemSchema.title || fieldName}_${index}`}
                                     </Tab>
                                 ))
                             ))}
@@ -208,8 +213,8 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                         {Object.entries(arrayCategories).map(([fieldName, { itemSchema, elements }]) => (
                             elements.map((element, index) => (
                                 <TabPanel key={`${fieldName}_${index}`}>
+                                    {selectedComponent ? (
                                     <div style={{ padding: '10px 0' }}>
-                                        <h5>{`${itemSchema.title || fieldName}_${index}`}</h5>
                                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                             <tbody>
                                                 {Object.keys(itemSchema.properties || {}).map(key => {
@@ -230,6 +235,10 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                             </tbody>
                                         </table>
                                     </div>
+                                    )
+                                    : (
+                                        <p style={{paddingLeft: '10px' }}>Select a component to view its details.</p>
+                                    )}
                                 </TabPanel>
                             ))
                         ))}
