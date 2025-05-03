@@ -161,7 +161,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                             {Object.entries(arrayCategories).map(([fieldName, { itemSchema, elements }]) => (
                                 elements.map((_, index) => (
                                     <Tab key={`${fieldName}_${index}`}>
-                                        {`${itemSchema.title || fieldName}_${index}`}
+                                        {`${fieldName}_${index}`}
                                     </Tab>
                                 ))
                             ))}
@@ -217,7 +217,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                     <div style={{ padding: '10px 0' }}>
                                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                             <tbody>
-                                                {Object.keys(itemSchema.properties || {}).map(key => {
+                                                {/* {Object.keys(itemSchema.properties || {}).map(key => {
                                                     const prop = itemSchema.properties[key];
                                                     return (
                                                         <tr key={key} style={{ borderBottom: '1px solid #eee' }}>
@@ -231,7 +231,26 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                                             </td>
                                                         </tr>
                                                     );
-                                                })}
+                                                })} */}
+                                                {Object.keys(element).map(key => {
+                                                    console.log("Rendering array tab", { fieldName, element, itemSchema });
+
+  const prop = (itemSchema.properties || {})[key] || {};
+  return (
+    <tr key={key} style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '8px', fontWeight: 500, width: '40%' }}>
+        {prop.description ? (
+          <span title={prop.description}>{key}</span>
+        ) : key}
+      </td>
+      <td style={{ padding: '8px', width: '60%', wordBreak: 'break-word' }}>
+        {element[key] !== undefined && element[key] !== null
+          ? element[key].toString()
+          : 'N/A'}
+      </td>
+    </tr>
+  );
+})}
                                             </tbody>
                                         </table>
                                     </div>
