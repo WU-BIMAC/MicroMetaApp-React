@@ -320,7 +320,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             style: {
               padding: '10px 0'
             }
-          }, /*#__PURE__*/_react.default.createElement("h5", null, "".concat(itemSchema.title || fieldName, " ").concat(index + 1)), /*#__PURE__*/_react.default.createElement("table", {
+          }, /*#__PURE__*/_react.default.createElement("h5", null, "".concat(itemSchema.title || fieldName, "_").concat(index)), /*#__PURE__*/_react.default.createElement("table", {
             style: {
               width: '100%',
               borderCollapse: 'collapse'

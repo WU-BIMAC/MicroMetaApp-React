@@ -209,7 +209,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                             elements.map((element, index) => (
                                 <TabPanel key={`${fieldName}_${index}`}>
                                     <div style={{ padding: '10px 0' }}>
-                                        <h5>{`${itemSchema.title || fieldName} ${index + 1}`}</h5>
+                                        <h5>{`${itemSchema.title || fieldName}_${index}`}</h5>
                                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                             <tbody>
                                                 {Object.keys(itemSchema.properties || {}).map(key => {
