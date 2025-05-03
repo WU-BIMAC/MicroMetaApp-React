@@ -258,7 +258,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         return elements.map(function (_, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
             key: "".concat(fieldName, "_").concat(index)
-          }, "".concat(itemSchema.title || fieldName, " ").concat(index + 1));
+          }, "".concat(itemSchema.title || fieldName, "_").concat(index));
         });
       })), tabOrder.map(function (category) {
         var _categoryMap$category;
@@ -316,11 +316,11 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         return elements.map(function (element, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
             key: "".concat(fieldName, "_").concat(index)
-          }, /*#__PURE__*/_react.default.createElement("div", {
+          }, selectedComponent ? /*#__PURE__*/_react.default.createElement("div", {
             style: {
               padding: '10px 0'
             }
-          }, /*#__PURE__*/_react.default.createElement("h5", null, "".concat(itemSchema.title || fieldName, "_").concat(index)), /*#__PURE__*/_react.default.createElement("table", {
+          }, /*#__PURE__*/_react.default.createElement("table", {
             style: {
               width: '100%',
               borderCollapse: 'collapse'
@@ -349,7 +349,11 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
                 wordBreak: 'break-word'
               }
             }, ((_element$key = element[key]) === null || _element$key === void 0 ? void 0 : _element$key.toString()) || 'N/A'));
-          })))));
+          })))) : /*#__PURE__*/_react.default.createElement("p", {
+            style: {
+              paddingLeft: '10px'
+            }
+          }, "Select a component to view its details."));
         });
       }))), /*#__PURE__*/_react.default.createElement("div", {
         style: {
