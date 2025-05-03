@@ -58,6 +58,9 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             const prop = schema.properties[key];
             if (!prop) return;
             const category = prop.category || 'General';
+
+            console.log("prop", prop);
+            console.log("mergedData[key]", mergedData[key]);
     
             // Check if property is an array
             if (prop.type === 'array' && Array.isArray(mergedData[key])) {

@@ -125,7 +125,9 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       allKeys.forEach(function (key) {
         var prop = schema.properties[key];
         if (!prop) return;
-        var category = prop.category || 'General'; // Check if property is an array
+        var category = prop.category || 'General';
+        console.log("prop", prop);
+        console.log("mergedData[key]", mergedData[key]); // Check if property is an array
 
         if (prop.type === 'array' && Array.isArray(mergedData[key])) {
           console.log("[ARRAY DETECTED] key: ".concat(key), "\n  prop:", prop, "\n  mergedData[key]:", mergedData[key]);
