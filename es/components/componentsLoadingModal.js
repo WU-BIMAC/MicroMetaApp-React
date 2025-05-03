@@ -108,15 +108,14 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
 
       var mergedData = _objectSpread(_objectSpread({}, inputData), selectedComponent);
 
+      var categoryMap = {};
+      var arrayCategories = {};
       console.log("     **** schema in componentsLoadingModal:", schema);
       console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
       console.log("     ** mergedData in componentsLoadingModal", mergedData);
       var allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {}).filter(function (key) {
         return key !== "ID";
-      }); // Group properties by category
-
-      var categoryMap = {};
-      var arrayCategories = {}; // allKeys.forEach((key) => {
+      }); // allKeys.forEach((key) => {
       //     const prop = schema.properties[key];
       //     const category = prop.category || "General";
       //     if (!categoryMap[category]) categoryMap[category] = [];
@@ -138,7 +137,8 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           if (!categoryMap[category]) categoryMap[category] = [];
           categoryMap[category].push(key);
         }
-      }); // Get tab order from schema or use alphabetical
+      });
+      console.log("arrayCategories for current mergedData:", arrayCategories); // Get tab order from schema or use alphabetical
 
       var tabOrder = Array.isArray(schema === null || schema === void 0 ? void 0 : schema.subCategoriesOrder) ? schema.subCategoriesOrder : Object.keys(categoryMap).sort();
       return /*#__PURE__*/_reactDom.default.createPortal( /*#__PURE__*/_react.default.createElement("div", {

@@ -36,6 +36,9 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             ...selectedComponent 
         };
 
+        const categoryMap = {};
+        const arrayCategories = {};
+
         console.log("     **** schema in componentsLoadingModal:", schema);
         console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
         console.log("     ** mergedData in componentsLoadingModal", mergedData);
@@ -43,10 +46,6 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         const allKeys = Object.keys(schema?.properties || {}).filter(
             (key) => key !== "ID"
         );
-        
-        // Group properties by category
-        const categoryMap = {};
-        const arrayCategories = {};
 
         // allKeys.forEach((key) => {
         //     const prop = schema.properties[key];
@@ -76,6 +75,8 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                 categoryMap[category].push(key);
             }
         });
+
+        console.log("arrayCategories for current mergedData:", arrayCategories);
     
         // Get tab order from schema or use alphabetical
         const tabOrder = Array.isArray(schema?.subCategoriesOrder)
