@@ -115,7 +115,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             const prop = schema.properties[key];
             if (!prop) return;
             // Only include array tabs if the selected component has this array property
-            if (prop && prop.type === "array" && mergedData[key] !== undefined) {
+            if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
                 let elements = mergedData[key];
                 // If elements is an array with a single element that is itself an array, flatten it
                 if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
@@ -129,6 +129,9 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                     itemSchema: prop.items,
                     elements
                 };
+            } else {
+                if (!categoryMap[category]) categoryMap[category] = [];
+                categoryMap[category].push(key);
             }
         });
         

@@ -178,7 +178,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         var prop = schema.properties[key];
         if (!prop) return; // Only include array tabs if the selected component has this array property
 
-        if (prop && prop.type === "array" && mergedData[key] !== undefined) {
+        if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
           var elements = mergedData[key]; // If elements is an array with a single element that is itself an array, flatten it
 
           if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
@@ -194,6 +194,9 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             itemSchema: prop.items,
             elements: elements
           };
+        } else {
+          if (!categoryMap[category]) categoryMap[category] = [];
+          categoryMap[category].push(key);
         }
       });
       console.log("arrayCategories for current mergedData:", arrayCategories); // Get tab order from schema or use alphabetical
