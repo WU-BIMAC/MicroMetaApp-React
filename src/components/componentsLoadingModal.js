@@ -26,6 +26,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
           alert("Please select a component to load.");
         }
       };
+
     
     render() {
         const { components, onClose, schema, inputData } = this.props;
@@ -35,37 +36,9 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             ...selectedComponent 
         };
 
-        const SubmitButton = {
-			display: "flex",
-			alignItems: "center",
-			justifyContent: "flex-start",
-			height: "44px",
-			fontSize: "18px",
-			fontWeight: 500,
-			backgroundColor: "#4099AB",
-			color: "#FFFFFF",
-			borderColor: "#5d8f99",
-			paddingRight: "25px",
-			paddingLeft: "25px",
-			borderRadius: "8px",
-		};
-		const CancelButton = {
-			display: "flex",
-			alignItems: "center",
-			justifyContent: "flex-start",
-			height: "44px",
-			fontSize: "18px",
-			fontWeight: 500,
-			backgroundColor: "#FFFFFF",
-			color: "#030303",
-			borderColor: "#FFFFFF",
-			paddingRight: "20px",
-			paddingLeft: "20px",
-		};
-    
-        // console.log("     **** schema in componentsLoadingModal:", schema);
-        // console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
-        // console.log("     ** mergedData in componentsLoadingModal", mergedData);
+        console.log("     **** schema in componentsLoadingModal:", schema);
+        console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
+        console.log("     ** mergedData in componentsLoadingModal", mergedData);
     
         const allKeys = Object.keys(schema?.properties || {}).filter(
             (key) => key !== "ID"
@@ -163,6 +136,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         
                                 {tabOrder.map(category => (
                                     <TabPanel key={category}>
+                                        {selectedComponent ? (
                                         <div style={{ padding: '10px 0', overflowY: 'auto' }}>
                                             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                                 <tbody>
@@ -196,6 +170,9 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                                 </tbody>
                                             </table>
                                         </div>
+                                        ) : (
+                                            <p style={{paddingLeft: '10px' }}>Select a component to view its details.</p>
+                                        )}
                                     </TabPanel>
                                 ))}
                             </Tabs>

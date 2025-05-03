@@ -108,36 +108,9 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
 
       var mergedData = _objectSpread(_objectSpread({}, inputData), selectedComponent);
 
-      var SubmitButton = {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        height: "44px",
-        fontSize: "18px",
-        fontWeight: 500,
-        backgroundColor: "#4099AB",
-        color: "#FFFFFF",
-        borderColor: "#5d8f99",
-        paddingRight: "25px",
-        paddingLeft: "25px",
-        borderRadius: "8px"
-      };
-      var CancelButton = {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        height: "44px",
-        fontSize: "18px",
-        fontWeight: 500,
-        backgroundColor: "#FFFFFF",
-        color: "#030303",
-        borderColor: "#FFFFFF",
-        paddingRight: "20px",
-        paddingLeft: "20px"
-      }; // console.log("     **** schema in componentsLoadingModal:", schema);
-      // console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
-      // console.log("     ** mergedData in componentsLoadingModal", mergedData);
-
+      console.log("     **** schema in componentsLoadingModal:", schema);
+      console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
+      console.log("     ** mergedData in componentsLoadingModal", mergedData);
       var allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {}).filter(function (key) {
         return key !== "ID";
       }); // Group properties by category
@@ -264,7 +237,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
 
         return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
           key: category
-        }, /*#__PURE__*/_react.default.createElement("div", {
+        }, selectedComponent ? /*#__PURE__*/_react.default.createElement("div", {
           style: {
             padding: '10px 0',
             overflowY: 'auto'
@@ -300,7 +273,11 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
               wordBreak: 'break-word'
             }
           }, ((_mergedData$key = mergedData[key]) === null || _mergedData$key === void 0 ? void 0 : _mergedData$key.toString()) || 'N/A'));
-        })))));
+        })))) : /*#__PURE__*/_react.default.createElement("p", {
+          style: {
+            paddingLeft: '10px'
+          }
+        }, "Select a component to view its details."));
       }))), /*#__PURE__*/_react.default.createElement("div", {
         style: {
           display: 'flex',
