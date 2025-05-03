@@ -95,6 +95,21 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
   }
 
   _createClass(ComponentsLoadingModal, [{
+    key: "trimMicroscopeName",
+    value: function trimMicroscopeName(name) {
+      if (typeof name !== "string") return name;
+      var underscores = [];
+
+      for (var i = name.length - 1; i >= 0; i--) {
+        if (name[i] === "_") underscores.push(i);
+        if (underscores.length === 2) break;
+      }
+
+      if (underscores.length < 2) return name; // Not enough underscores
+
+      return name.slice(underscores[1] + 1);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -131,65 +146,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       console.log("     ** mergedData in componentsLoadingModal", mergedData);
       var allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {}).filter(function (key) {
         return key !== "ID";
-      }); // allKeys.forEach((key) => {
-      //     const prop = schema.properties[key];
-      //     const category = prop.category || "General";
-      //     if (!categoryMap[category]) categoryMap[category] = [];
-      //     categoryMap[category].push(key);
-      // });
-      // allKeys.forEach(key => {
-      //     const prop = schema.properties[key];
-      //     if (!prop) return;
-      //     const category = prop.category || 'General';
-      //     console.log("prop", prop);
-      //     console.log("mergedData[key]", mergedData[key]);
-      //     // Check if property is an array
-      //     if (prop.type === 'array') {
-      //         console.log(
-      //             `[ARRAY DETECTED] key: ${key}`,
-      //             "\n  prop:", prop,
-      //             "\n  mergedData[key]:", mergedData[key]
-      //         );
-      //         arrayCategories[key] = {
-      //             itemSchema: prop.items,
-      //             elements: mergedData[key]
-      //         };
-      //     } else {
-      //         if (!categoryMap[category]) categoryMap[category] = [];
-      //         categoryMap[category].push(key);
-      //     }
-      // });
-      // allKeys.forEach(key => {
-      //     const prop = schema.properties[key];
-      //     if (!prop) return;
-      //     const category = prop.category || 'General';
-      //     // Check if property is an array
-      //     if (prop.type === 'array') {
-      //         // If mergedData[key] is not an array, make it an array (wrap if defined, or set to empty array)
-      //         if (!Array.isArray(mergedData[key])) {
-      //             if (mergedData[key] !== undefined && mergedData[key] !== null) {
-      //                 mergedData[key] = [mergedData[key]];
-      //                 console.log(`[ARRAY WRAP] key: ${key} was not array, wrapped:`, mergedData[key]);
-      //             } else {
-      //                 mergedData[key] = [];
-      //                 console.log(`[ARRAY INIT] key: ${key} was undefined/null, set to empty array`);
-      //             }
-      //         }
-      //         console.log(
-      //             `[ARRAY DETECTED] key: ${key}`,
-      //             "\n  prop:", prop,
-      //             "\n  mergedData[key]:", mergedData[key]
-      //         );
-      //         arrayCategories[key] = {
-      //             itemSchema: prop.items,
-      //             elements: mergedData[key]
-      //         };
-      //     } else {
-      //         if (!categoryMap[category]) categoryMap[category] = [];
-      //         categoryMap[category].push(key);
-      //     }
-      // });
-
+      });
       allKeys.forEach(function (key) {
         var prop = schema.properties[key];
         if (!prop) return;
@@ -319,7 +276,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
               onClick: function onClick() {
                 return _this2.handleComponentClick(comp);
               }
-            }, comp.Name || entryKey);
+            }, _this2.trimMicroscopeName(comp.Name) || entryKey);
           })));
         })));
       }))), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs, {

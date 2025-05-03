@@ -27,6 +27,17 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         }
       };
 
+      trimMicroscopeName(name) {
+        if (typeof name !== "string") return name;
+        const underscores = [];
+        for (let i = name.length - 1; i >= 0; i--) {
+            if (name[i] === "_") underscores.push(i);
+            if (underscores.length === 2) break;
+        }
+        if (underscores.length < 2) return name; // Not enough underscores
+        return name.slice(underscores[1] + 1);
+    }
+
     
     render() {
         const { components, onClose, schema, inputData } = this.props;
@@ -61,70 +72,6 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         const allKeys = Object.keys(schema?.properties || {}).filter(
             (key) => key !== "ID"
         );
-
-        // allKeys.forEach((key) => {
-        //     const prop = schema.properties[key];
-        //     const category = prop.category || "General";
-        //     if (!categoryMap[category]) categoryMap[category] = [];
-        //     categoryMap[category].push(key);
-        // });
-
-        // allKeys.forEach(key => {
-        //     const prop = schema.properties[key];
-        //     if (!prop) return;
-        //     const category = prop.category || 'General';
-
-        //     console.log("prop", prop);
-        //     console.log("mergedData[key]", mergedData[key]);
-    
-        //     // Check if property is an array
-        //     if (prop.type === 'array') {
-        //         console.log(
-        //             `[ARRAY DETECTED] key: ${key}`,
-        //             "\n  prop:", prop,
-        //             "\n  mergedData[key]:", mergedData[key]
-        //         );
-        //         arrayCategories[key] = {
-        //             itemSchema: prop.items,
-        //             elements: mergedData[key]
-        //         };
-        //     } else {
-        //         if (!categoryMap[category]) categoryMap[category] = [];
-        //         categoryMap[category].push(key);
-        //     }
-        // });
-
-        // allKeys.forEach(key => {
-        //     const prop = schema.properties[key];
-        //     if (!prop) return;
-        //     const category = prop.category || 'General';
-        
-        //     // Check if property is an array
-        //     if (prop.type === 'array') {
-        //         // If mergedData[key] is not an array, make it an array (wrap if defined, or set to empty array)
-        //         if (!Array.isArray(mergedData[key])) {
-        //             if (mergedData[key] !== undefined && mergedData[key] !== null) {
-        //                 mergedData[key] = [mergedData[key]];
-        //                 console.log(`[ARRAY WRAP] key: ${key} was not array, wrapped:`, mergedData[key]);
-        //             } else {
-        //                 mergedData[key] = [];
-        //                 console.log(`[ARRAY INIT] key: ${key} was undefined/null, set to empty array`);
-        //             }
-        //         }
-        //         console.log(
-        //             `[ARRAY DETECTED] key: ${key}`,
-        //             "\n  prop:", prop,
-        //             "\n  mergedData[key]:", mergedData[key]
-        //         );
-        //         arrayCategories[key] = {
-        //             itemSchema: prop.items,
-        //             elements: mergedData[key]
-        //         };
-        //     } else {
-        //         if (!categoryMap[category]) categoryMap[category] = [];
-        //         categoryMap[category].push(key);
-        //     }
-        // });
 
         allKeys.forEach(key => {
             const prop = schema.properties[key];
@@ -220,7 +167,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                                                         }}
                                                                         onClick={() => this.handleComponentClick(comp)}
                                                                     >
-                                                                        {comp.Name || entryKey}
+                                                                        {this.trimMicroscopeName(comp.Name) || entryKey}
                                                                     </li>
                                                                 );
                                                             })}
