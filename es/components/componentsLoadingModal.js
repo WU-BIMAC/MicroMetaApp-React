@@ -121,15 +121,46 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       //     if (!categoryMap[category]) categoryMap[category] = [];
       //     categoryMap[category].push(key);
       // });
+      // allKeys.forEach(key => {
+      //     const prop = schema.properties[key];
+      //     if (!prop) return;
+      //     const category = prop.category || 'General';
+      //     console.log("prop", prop);
+      //     console.log("mergedData[key]", mergedData[key]);
+      //     // Check if property is an array
+      //     if (prop.type === 'array') {
+      //         console.log(
+      //             `[ARRAY DETECTED] key: ${key}`,
+      //             "\n  prop:", prop,
+      //             "\n  mergedData[key]:", mergedData[key]
+      //         );
+      //         arrayCategories[key] = {
+      //             itemSchema: prop.items,
+      //             elements: mergedData[key]
+      //         };
+      //     } else {
+      //         if (!categoryMap[category]) categoryMap[category] = [];
+      //         categoryMap[category].push(key);
+      //     }
+      // });
 
       allKeys.forEach(function (key) {
         var prop = schema.properties[key];
         if (!prop) return;
-        var category = prop.category || 'General';
-        console.log("prop", prop);
-        console.log("mergedData[key]", mergedData[key]); // Check if property is an array
+        var category = prop.category || 'General'; // Check if property is an array
 
         if (prop.type === 'array') {
+          // If mergedData[key] is not an array, make it an array (wrap if defined, or set to empty array)
+          if (!Array.isArray(mergedData[key])) {
+            if (mergedData[key] !== undefined && mergedData[key] !== null) {
+              mergedData[key] = [mergedData[key]];
+              console.log("[ARRAY WRAP] key: ".concat(key, " was not array, wrapped:"), mergedData[key]);
+            } else {
+              mergedData[key] = [];
+              console.log("[ARRAY INIT] key: ".concat(key, " was undefined/null, set to empty array"));
+            }
+          }
+
           console.log("[ARRAY DETECTED] key: ".concat(key), "\n  prop:", prop, "\n  mergedData[key]:", mergedData[key]);
           arrayCategories[key] = {
             itemSchema: prop.items,

@@ -54,16 +54,48 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         //     categoryMap[category].push(key);
         // });
 
+        // allKeys.forEach(key => {
+        //     const prop = schema.properties[key];
+        //     if (!prop) return;
+        //     const category = prop.category || 'General';
+
+        //     console.log("prop", prop);
+        //     console.log("mergedData[key]", mergedData[key]);
+    
+        //     // Check if property is an array
+        //     if (prop.type === 'array') {
+        //         console.log(
+        //             `[ARRAY DETECTED] key: ${key}`,
+        //             "\n  prop:", prop,
+        //             "\n  mergedData[key]:", mergedData[key]
+        //         );
+        //         arrayCategories[key] = {
+        //             itemSchema: prop.items,
+        //             elements: mergedData[key]
+        //         };
+        //     } else {
+        //         if (!categoryMap[category]) categoryMap[category] = [];
+        //         categoryMap[category].push(key);
+        //     }
+        // });
+
         allKeys.forEach(key => {
             const prop = schema.properties[key];
             if (!prop) return;
             const category = prop.category || 'General';
-
-            console.log("prop", prop);
-            console.log("mergedData[key]", mergedData[key]);
-    
+        
             // Check if property is an array
             if (prop.type === 'array') {
+                // If mergedData[key] is not an array, make it an array (wrap if defined, or set to empty array)
+                if (!Array.isArray(mergedData[key])) {
+                    if (mergedData[key] !== undefined && mergedData[key] !== null) {
+                        mergedData[key] = [mergedData[key]];
+                        console.log(`[ARRAY WRAP] key: ${key} was not array, wrapped:`, mergedData[key]);
+                    } else {
+                        mergedData[key] = [];
+                        console.log(`[ARRAY INIT] key: ${key} was undefined/null, set to empty array`);
+                    }
+                }
                 console.log(
                     `[ARRAY DETECTED] key: ${key}`,
                     "\n  prop:", prop,
@@ -78,6 +110,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                 categoryMap[category].push(key);
             }
         });
+        
 
         console.log("arrayCategories for current mergedData:", arrayCategories);
     
