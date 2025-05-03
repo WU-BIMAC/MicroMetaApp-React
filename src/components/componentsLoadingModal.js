@@ -114,6 +114,8 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         allKeys.forEach(key => {
             const prop = schema.properties[key];
             if (!prop) return;
+            const category = prop.category || "General";
+            if (!prop) return;
             // Only include array tabs if the selected component has this array property
             if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
                 let elements = mergedData[key];
