@@ -46,11 +46,30 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         
         // Group properties by category
         const categoryMap = {};
-        allKeys.forEach((key) => {
+        const arrayCategories = {};
+
+        // allKeys.forEach((key) => {
+        //     const prop = schema.properties[key];
+        //     const category = prop.category || "General";
+        //     if (!categoryMap[category]) categoryMap[category] = [];
+        //     categoryMap[category].push(key);
+        // });
+
+        allKeys.forEach(key => {
             const prop = schema.properties[key];
-            const category = prop.category || "General";
-            if (!categoryMap[category]) categoryMap[category] = [];
-            categoryMap[category].push(key);
+            if (!prop) return;
+            const category = prop.category || 'General';
+    
+            // Check if property is an array
+            if (prop.type === 'array' && Array.isArray(mergedData[key])) {
+                arrayCategories[key] = {
+                    itemSchema: prop.items,
+                    elements: mergedData[key]
+                };
+            } else {
+                if (!categoryMap[category]) categoryMap[category] = [];
+                categoryMap[category].push(key);
+            }
         });
     
         // Get tab order from schema or use alphabetical
@@ -132,6 +151,15 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                     {tabOrder.map(category => (
                                         <Tab key={category}>{category}</Tab>
                                     ))}
+
+                                    {/* Array categories */}
+                            {Object.entries(arrayCategories).map(([fieldName, { itemSchema, elements }]) => (
+                                elements.map((_, index) => (
+                                    <Tab key={`${fieldName}_${index}`}>
+                                        {`${itemSchema.title || fieldName} ${index + 1}`}
+                                    </Tab>
+                                ))
+                            ))}
                                 </TabList>
         
                                 {tabOrder.map(category => (
@@ -175,6 +203,36 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                         )}
                                     </TabPanel>
                                 ))}
+
+                                {/* Array category content */}
+                        {Object.entries(arrayCategories).map(([fieldName, { itemSchema, elements }]) => (
+                            elements.map((element, index) => (
+                                <TabPanel key={`${fieldName}_${index}`}>
+                                    <div style={{ padding: '10px 0' }}>
+                                        <h5>{`${itemSchema.title || fieldName} ${index + 1}`}</h5>
+                                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                            <tbody>
+                                                {Object.keys(itemSchema.properties || {}).map(key => {
+                                                    const prop = itemSchema.properties[key];
+                                                    return (
+                                                        <tr key={key} style={{ borderBottom: '1px solid #eee' }}>
+                                                            <td style={{ padding: '8px', fontWeight: 500, width: '40%' }}>
+                                                                {prop.description ? (
+                                                                    <span title={prop.description}>{key}</span>
+                                                                ) : key}
+                                                            </td>
+                                                            <td style={{ padding: '8px', width: '60%', wordBreak: 'break-word' }}>
+                                                                {element[key]?.toString() || 'N/A'}
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </TabPanel>
+                            ))
+                        ))}
                             </Tabs>
                         </div>
                     

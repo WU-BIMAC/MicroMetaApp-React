@@ -116,11 +116,27 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       }); // Group properties by category
 
       var categoryMap = {};
+      var arrayCategories = {}; // allKeys.forEach((key) => {
+      //     const prop = schema.properties[key];
+      //     const category = prop.category || "General";
+      //     if (!categoryMap[category]) categoryMap[category] = [];
+      //     categoryMap[category].push(key);
+      // });
+
       allKeys.forEach(function (key) {
         var prop = schema.properties[key];
-        var category = prop.category || "General";
-        if (!categoryMap[category]) categoryMap[category] = [];
-        categoryMap[category].push(key);
+        if (!prop) return;
+        var category = prop.category || 'General'; // Check if property is an array
+
+        if (prop.type === 'array' && Array.isArray(mergedData[key])) {
+          arrayCategories[key] = {
+            itemSchema: prop.items,
+            elements: mergedData[key]
+          };
+        } else {
+          if (!categoryMap[category]) categoryMap[category] = [];
+          categoryMap[category].push(key);
+        }
       }); // Get tab order from schema or use alphabetical
 
       var tabOrder = Array.isArray(schema === null || schema === void 0 ? void 0 : schema.subCategoriesOrder) ? schema.subCategoriesOrder : Object.keys(categoryMap).sort();
@@ -232,6 +248,18 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
           key: category
         }, category);
+      }), Object.entries(arrayCategories).map(function (_ref7) {
+        var _ref8 = _slicedToArray(_ref7, 2),
+            fieldName = _ref8[0],
+            _ref8$ = _ref8[1],
+            itemSchema = _ref8$.itemSchema,
+            elements = _ref8$.elements;
+
+        return elements.map(function (_, index) {
+          return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
+            key: "".concat(fieldName, "_").concat(index)
+          }, "".concat(itemSchema.title || fieldName, " ").concat(index + 1));
+        });
       })), tabOrder.map(function (category) {
         var _categoryMap$category;
 
@@ -278,6 +306,51 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             paddingLeft: '10px'
           }
         }, "Select a component to view its details."));
+      }), Object.entries(arrayCategories).map(function (_ref9) {
+        var _ref10 = _slicedToArray(_ref9, 2),
+            fieldName = _ref10[0],
+            _ref10$ = _ref10[1],
+            itemSchema = _ref10$.itemSchema,
+            elements = _ref10$.elements;
+
+        return elements.map(function (element, index) {
+          return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
+            key: "".concat(fieldName, "_").concat(index)
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: {
+              padding: '10px 0'
+            }
+          }, /*#__PURE__*/_react.default.createElement("h5", null, "".concat(itemSchema.title || fieldName, " ").concat(index + 1)), /*#__PURE__*/_react.default.createElement("table", {
+            style: {
+              width: '100%',
+              borderCollapse: 'collapse'
+            }
+          }, /*#__PURE__*/_react.default.createElement("tbody", null, Object.keys(itemSchema.properties || {}).map(function (key) {
+            var _element$key;
+
+            var prop = itemSchema.properties[key];
+            return /*#__PURE__*/_react.default.createElement("tr", {
+              key: key,
+              style: {
+                borderBottom: '1px solid #eee'
+              }
+            }, /*#__PURE__*/_react.default.createElement("td", {
+              style: {
+                padding: '8px',
+                fontWeight: 500,
+                width: '40%'
+              }
+            }, prop.description ? /*#__PURE__*/_react.default.createElement("span", {
+              title: prop.description
+            }, key) : key), /*#__PURE__*/_react.default.createElement("td", {
+              style: {
+                padding: '8px',
+                width: '60%',
+                wordBreak: 'break-word'
+              }
+            }, ((_element$key = element[key]) === null || _element$key === void 0 ? void 0 : _element$key.toString()) || 'N/A'));
+          })))));
+        });
       }))), /*#__PURE__*/_react.default.createElement("div", {
         style: {
           display: 'flex',
