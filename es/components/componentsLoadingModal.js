@@ -15,6 +15,12 @@ require("react-tabs/style/react-tabs.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -26,12 +32,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -104,12 +104,28 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           onClose = _this$props2.onClose,
           schema = _this$props2.schema,
           inputData = _this$props2.inputData;
-      var selectedComponent = this.state.selectedComponent;
+      var selectedComponent = this.state.selectedComponent; // const mergedData = {
+      //     ...inputData, 
+      //     ...selectedComponent 
+      // };
+      // Remove entries from inputData where the value is an array
 
-      var mergedData = _objectSpread(_objectSpread({}, inputData), selectedComponent);
+      var filteredInputData = {};
+      Object.entries(inputData || {}).forEach(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            key = _ref2[0],
+            value = _ref2[1];
+
+        if (!Array.isArray(value)) {
+          filteredInputData[key] = value;
+        }
+      }); // Now merge as usual
+
+      var mergedData = _objectSpread(_objectSpread({}, filteredInputData), selectedComponent);
 
       var categoryMap = {};
       var arrayCategories = {};
+      console.log("       &&& inputData", inputData);
       console.log("     **** schema in componentsLoadingModal:", schema);
       console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
       console.log("     ** mergedData in componentsLoadingModal", mergedData);
@@ -261,10 +277,10 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           listStyleType: 'none',
           padding: 0
         }
-      }, Object.entries(components).map(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            manufacturer = _ref2[0],
-            models = _ref2[1];
+      }, Object.entries(components).map(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            manufacturer = _ref4[0],
+            models = _ref4[1];
 
         return /*#__PURE__*/_react.default.createElement("li", {
           key: manufacturer
@@ -273,10 +289,10 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             listStyleType: 'none',
             paddingLeft: 15
           }
-        }, Object.entries(models).map(function (_ref3) {
-          var _ref4 = _slicedToArray(_ref3, 2),
-              model = _ref4[0],
-              entries = _ref4[1];
+        }, Object.entries(models).map(function (_ref5) {
+          var _ref6 = _slicedToArray(_ref5, 2),
+              model = _ref6[0],
+              entries = _ref6[1];
 
           return /*#__PURE__*/_react.default.createElement("li", {
             key: model
@@ -285,10 +301,10 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
               listStyleType: 'none',
               paddingLeft: 15
             }
-          }, Object.entries(entries).map(function (_ref5) {
-            var _ref6 = _slicedToArray(_ref5, 2),
-                entryKey = _ref6[0],
-                entryObj = _ref6[1];
+          }, Object.entries(entries).map(function (_ref7) {
+            var _ref8 = _slicedToArray(_ref7, 2),
+                entryKey = _ref8[0],
+                entryObj = _ref8[1];
 
             var comp = entryObj.component;
             var isSelected = selectedComponent === comp;
@@ -314,12 +330,12 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
           key: category
         }, category);
-      }), Object.entries(arrayCategories).map(function (_ref7) {
-        var _ref8 = _slicedToArray(_ref7, 2),
-            fieldName = _ref8[0],
-            _ref8$ = _ref8[1],
-            itemSchema = _ref8$.itemSchema,
-            elements = _ref8$.elements;
+      }), Object.entries(arrayCategories).map(function (_ref9) {
+        var _ref10 = _slicedToArray(_ref9, 2),
+            fieldName = _ref10[0],
+            _ref10$ = _ref10[1],
+            itemSchema = _ref10$.itemSchema,
+            elements = _ref10$.elements;
 
         return elements.map(function (_, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
@@ -372,12 +388,12 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             paddingLeft: '10px'
           }
         }, "Select a component to view its details."));
-      }), Object.entries(arrayCategories).map(function (_ref9) {
-        var _ref10 = _slicedToArray(_ref9, 2),
-            fieldName = _ref10[0],
-            _ref10$ = _ref10[1],
-            itemSchema = _ref10$.itemSchema,
-            elements = _ref10$.elements;
+      }), Object.entries(arrayCategories).map(function (_ref11) {
+        var _ref12 = _slicedToArray(_ref11, 2),
+            fieldName = _ref12[0],
+            _ref12$ = _ref12[1],
+            itemSchema = _ref12$.itemSchema,
+            elements = _ref12$.elements;
 
         return elements.map(function (element, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {

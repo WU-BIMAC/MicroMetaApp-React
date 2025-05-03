@@ -31,14 +31,29 @@ export default class ComponentsLoadingModal extends React.PureComponent {
     render() {
         const { components, onClose, schema, inputData } = this.props;
         const { selectedComponent } = this.state;
-        const mergedData = {
-            ...inputData, 
-            ...selectedComponent 
-        };
+        // const mergedData = {
+        //     ...inputData, 
+        //     ...selectedComponent 
+        // };
+
+        // Remove entries from inputData where the value is an array
+    const filteredInputData = {};
+    Object.entries(inputData || {}).forEach(([key, value]) => {
+        if (!Array.isArray(value)) {
+            filteredInputData[key] = value;
+        }
+    });
+
+    // Now merge as usual
+    const mergedData = {
+        ...filteredInputData,
+        ...selectedComponent
+    };
 
         const categoryMap = {};
         const arrayCategories = {};
-
+        
+        console.log("       &&& inputData", inputData);
         console.log("     **** schema in componentsLoadingModal:", schema);
         console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
         console.log("     ** mergedData in componentsLoadingModal", mergedData);
@@ -130,7 +145,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                 if (!Array.isArray(elements) && typeof elements === "object" && elements !== null) {
                     elements = Object.values(elements);
                 }
-                
+
                 arrayCategories[key] = {
                     itemSchema: prop.items,
                     elements
