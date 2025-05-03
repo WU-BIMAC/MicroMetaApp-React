@@ -328,13 +328,10 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
               width: '100%',
               borderCollapse: 'collapse'
             }
-          }, /*#__PURE__*/_react.default.createElement("tbody", null, Object.keys(element).map(function (key) {
-            console.log("Rendering array tab", {
-              fieldName: fieldName,
-              element: element,
-              itemSchema: itemSchema
-            });
-            var prop = (itemSchema.properties || {})[key] || {};
+          }, /*#__PURE__*/_react.default.createElement("tbody", null, Object.keys(itemSchema.properties || {}).map(function (key) {
+            var _element$key;
+
+            var prop = itemSchema.properties[key];
             return /*#__PURE__*/_react.default.createElement("tr", {
               key: key,
               style: {
@@ -354,7 +351,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
                 width: '60%',
                 wordBreak: 'break-word'
               }
-            }, element[key] !== undefined && element[key] !== null ? element[key].toString() : 'N/A'));
+            }, ((_element$key = element[key]) === null || _element$key === void 0 ? void 0 : _element$key.toString()) || 'N/A'));
           })))) : /*#__PURE__*/_react.default.createElement("p", {
             style: {
               paddingLeft: '10px'

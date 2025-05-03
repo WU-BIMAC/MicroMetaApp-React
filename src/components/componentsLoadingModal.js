@@ -221,7 +221,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                     <div style={{ padding: '10px 0' }}>
                                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                             <tbody>
-                                                {/* {Object.keys(itemSchema.properties || {}).map(key => {
+                                                {Object.keys(itemSchema.properties || {}).map(key => {
                                                     const prop = itemSchema.properties[key];
                                                     return (
                                                         <tr key={key} style={{ borderBottom: '1px solid #eee' }}>
@@ -235,8 +235,8 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                                             </td>
                                                         </tr>
                                                     );
-                                                })} */}
-                                                {Object.keys(element).map(key => {
+                                                })}
+                                                {/* {Object.keys(element).map(key => {
                                                     console.log("Rendering array tab", { fieldName, element, itemSchema });
 
   const prop = (itemSchema.properties || {})[key] || {};
@@ -254,7 +254,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
       </td>
     </tr>
   );
-})}
+})} */}
                                             </tbody>
                                         </table>
                                     </div>
