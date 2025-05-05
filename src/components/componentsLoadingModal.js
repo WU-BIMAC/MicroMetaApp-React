@@ -17,11 +17,11 @@ export default class ComponentsLoadingModal extends React.PureComponent {
     
       handleSubmit = () => {
         const { selectedComponent } = this.state;
-        const { onClose, onLoadComponent } = this.props; // Access onLoadComponent
+        const { onClose, onLoadComponent } = this.props; 
     
         if (selectedComponent) {
-          onLoadComponent(selectedComponent);  // Call the function to load the component
-          onClose(); // Close the modal after loading
+          onLoadComponent(selectedComponent);  
+          onClose(); 
         } else {
           alert("Please select a component to load.");
         }
@@ -34,7 +34,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             if (name[i] === "_") underscores.push(i);
             if (underscores.length === 2) break;
         }
-        if (underscores.length < 2) return name; // Not enough underscores
+        if (underscores.length < 2) return name; 
         return name.slice(underscores[1] + 1);
     }
 
@@ -64,10 +64,10 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         const categoryMap = {};
         const arrayCategories = {};
         
-        console.log("       &&& inputData", inputData);
-        console.log("     **** schema in componentsLoadingModal:", schema);
-        console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
-        console.log("     ** mergedData in componentsLoadingModal", mergedData);
+        // console.log("       &&& inputData", inputData);
+        // console.log("     **** schema in componentsLoadingModal:", schema);
+        // console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
+        // console.log("     ** mergedData in componentsLoadingModal", mergedData);
     
         const allKeys = Object.keys(schema?.properties || {}).filter(
             (key) => key !== "ID"
@@ -264,22 +264,22 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                                 {Object.keys(element).map(key => {
                                                     console.log("Rendering array tab", { fieldName, element, itemSchema });
 
-  const prop = (itemSchema.properties || {})[key] || {};
-  return (
-    <tr key={key} style={{ borderBottom: '1px solid #eee' }}>
-      <td style={{ padding: '8px', fontWeight: 500, width: '40%' }}>
-        {prop.description ? (
-          <span title={prop.description}>{key}</span>
-        ) : key}
-      </td>
-      <td style={{ padding: '8px', width: '60%', wordBreak: 'break-word' }}>
-        {element[key] !== undefined && element[key] !== null
-          ? element[key].toString()
-          : 'N/A'}
-      </td>
-    </tr>
-  );
-})}
+                                                const prop = (itemSchema.properties || {})[key] || {};
+                                                return (
+                                                    <tr key={key} style={{ borderBottom: '1px solid #eee' }}>
+                                                    <td style={{ padding: '8px', fontWeight: 500, width: '40%' }}>
+                                                        {prop.description ? (
+                                                        <span title={prop.description}>{key}</span>
+                                                        ) : key}
+                                                    </td>
+                                                    <td style={{ padding: '8px', width: '60%', wordBreak: 'break-word' }}>
+                                                        {element[key] !== undefined && element[key] !== null
+                                                        ? element[key].toString()
+                                                        : 'N/A'}
+                                                    </td>
+                                                    </tr>
+                                                );
+                                                })}
                                             </tbody>
                                         </table>
                                     </div>
@@ -292,33 +292,31 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                         ))}
                             </Tabs>
                         </div>
-                    
-    
-                        {/* Buttons at the bottom */}
+
                         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
-                            <button onClick={onClose} style={{ height: "36px", // Smaller height
-            fontSize: "16px", // Smaller font size
-            fontWeight: 500,
-            backgroundColor: "#FFFFFF",
-            color: "#030303",
-            border: "1px solid #ddd", // Less harsh border
-            paddingRight: "16px", // Adjust padding
-            paddingLeft: "16px",
-            boxShadow: "none", // Remove shadow
-            borderRadius: "4px", // Soften border-radius
-            cursor: "pointer",
-            marginRight: "8px" }}>Close</button>
-                            <button onClick={this.handleSubmit} disabled={!selectedComponent} style={{ height: "36px", // Smaller height
-            fontSize: "16px", // Smaller font size
-            fontWeight: 500,
-            backgroundColor: "#4099AB",
-            color: "#FFFFFF",
-            border: "1px solid #7ab8c4", // Less harsh border
-            paddingRight: "18px", // Adjust padding
-            paddingLeft: "18px",
-            borderRadius: "4px", // Soften border-radius
-            boxShadow: "none", // Remove shadow
-            opacity: selectedComponent ? 1 : 0.6 }}>Submit</button>
+                            <button onClick={onClose} style={{ height: "36px", 
+                                fontSize: "16px", 
+                                fontWeight: 500,
+                                backgroundColor: "#FFFFFF",
+                                color: "#030303",
+                                border: "1px solid #ddd", 
+                                paddingRight: "16px", 
+                                paddingLeft: "16px",
+                                boxShadow: "none", 
+                                borderRadius: "4px", 
+                                cursor: "pointer",
+                                marginRight: "8px" }}>Close</button>
+                            <button onClick={this.handleSubmit} disabled={!selectedComponent} style={{ height: "36px", 
+                                fontSize: "16px", 
+                                fontWeight: 500,
+                                backgroundColor: "#4099AB",
+                                color: "#FFFFFF",
+                                border: "1px solid #7ab8c4", 
+                                paddingRight: "18px", 
+                                paddingLeft: "18px",
+                                borderRadius: "4px", 
+                                boxShadow: "none", 
+                                opacity: selectedComponent ? 1 : 0.6 }}>Submit</button>
                         </div>
                     </div>
                 </div>

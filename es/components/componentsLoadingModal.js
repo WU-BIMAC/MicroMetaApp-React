@@ -77,12 +77,11 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       var selectedComponent = _this.state.selectedComponent;
       var _this$props = _this.props,
           onClose = _this$props.onClose,
-          onLoadComponent = _this$props.onLoadComponent; // Access onLoadComponent
+          onLoadComponent = _this$props.onLoadComponent;
 
       if (selectedComponent) {
-        onLoadComponent(selectedComponent); // Call the function to load the component
-
-        onClose(); // Close the modal after loading
+        onLoadComponent(selectedComponent);
+        onClose();
       } else {
         alert("Please select a component to load.");
       }
@@ -105,8 +104,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         if (underscores.length === 2) break;
       }
 
-      if (underscores.length < 2) return name; // Not enough underscores
-
+      if (underscores.length < 2) return name;
       return name.slice(underscores[1] + 1);
     }
   }, {
@@ -139,11 +137,11 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       var mergedData = _objectSpread(_objectSpread({}, filteredInputData), selectedComponent);
 
       var categoryMap = {};
-      var arrayCategories = {};
-      console.log("       &&& inputData", inputData);
-      console.log("     **** schema in componentsLoadingModal:", schema);
-      console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
-      console.log("     ** mergedData in componentsLoadingModal", mergedData);
+      var arrayCategories = {}; // console.log("       &&& inputData", inputData);
+      // console.log("     **** schema in componentsLoadingModal:", schema);
+      // console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
+      // console.log("     ** mergedData in componentsLoadingModal", mergedData);
+
       var allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {}).filter(function (key) {
         return key !== "ID";
       });
@@ -407,21 +405,15 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         onClick: onClose,
         style: {
           height: "36px",
-          // Smaller height
           fontSize: "16px",
-          // Smaller font size
           fontWeight: 500,
           backgroundColor: "#FFFFFF",
           color: "#030303",
           border: "1px solid #ddd",
-          // Less harsh border
           paddingRight: "16px",
-          // Adjust padding
           paddingLeft: "16px",
           boxShadow: "none",
-          // Remove shadow
           borderRadius: "4px",
-          // Soften border-radius
           cursor: "pointer",
           marginRight: "8px"
         }
@@ -430,21 +422,15 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         disabled: !selectedComponent,
         style: {
           height: "36px",
-          // Smaller height
           fontSize: "16px",
-          // Smaller font size
           fontWeight: 500,
           backgroundColor: "#4099AB",
           color: "#FFFFFF",
           border: "1px solid #7ab8c4",
-          // Less harsh border
           paddingRight: "18px",
-          // Adjust padding
           paddingLeft: "18px",
           borderRadius: "4px",
-          // Soften border-radius
           boxShadow: "none",
-          // Remove shadow
           opacity: selectedComponent ? 1 : 0.6
         }
       }, "Submit"))))), this.props.overlaysContainer);

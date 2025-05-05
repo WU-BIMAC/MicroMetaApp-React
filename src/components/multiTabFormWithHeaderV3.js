@@ -10,7 +10,7 @@ import ModalWindow from "./modalWindow";
 import { isDefined } from "../genericUtilities";
 import { v4 as uuidv4 } from "uuid";
 
-//const url = require("url");
+const url = require("url");
 
 import {
 	load_component_tooltip,
@@ -25,7 +25,7 @@ import {
 	save_component_tooltip,
 	string_globe_solid_img,
 	string_plus_solid_img,
-	string_floppy_disk_solid_img,
+	string_save_img,
 } from "../constants";
 
 export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
@@ -130,7 +130,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			}
 		}
 		
-		//this.formDescs = [];
 		this.buttonsRefs = {};
 		this.containerFormNames = {};
 		this.formNames = {};
@@ -143,7 +142,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.onSave = this.onSave.bind(this);
 		this.onLoad = this.onLoad.bind(this);
 		this.onValidate = this.onValidate.bind(this);
-		//this.resolve = this.resolve.bind(this);
 
 		this.handleChange = this.handleChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -189,13 +187,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 	}
 
-	// componentDidUpdate(prevProps) {
-	// 	console.log("in componentDidUpdate function");
-	// 	if (this.props.inputData !== prevProps.inputData) {
-	// 		this.initializeForms();
-	// 	}
-	// }
-
 	initializeFormsFromLoadedComponent() {
 		if (this.props.isDebug) console.log("inside of initializeFormsFromLoadedComponent");
 		//console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
@@ -207,8 +198,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let partialInputData = {};
 		let inputDataIDs = [];
 		const mergedData = {
-			...this.props.inputData, // Existing input data
-			...this.props.selectedLoadComponent // Override with loaded component data
+			...this.props.inputData, 
+			...this.props.selectedLoadComponent 
 		};
 		//console.log("mergedData in initializeFormsFromLoadedComponent()", mergedData);
 
@@ -1492,8 +1483,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			color: "#212121",
 			borderColor: "#bab8b8",
 			paddingRight: "25px",
-			paddingLeft: "25px",
 			borderRadius: "8px",
+			gap: "8px"
 		};
 		const SaveChangesButton = {
 			display: "flex",
@@ -1612,31 +1603,26 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let names = this.formNames;
 		let forms = this.forms;
 
-		// let globeImgPath_tmp = this.resolve(this.props.imagesPath, string_globe_solid_img);
-    	// let globeImgPath =
-		// 	globeImgPath_tmp.substring(1) +
-		// 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
-		// 		? "?sanitize=true"
-		// 		: "");
+		let saveImgPath_tmp = url.resolve(this.props.imagesPath, string_save_img);
+		let saveImgPath =
+			saveImgPath_tmp +
+			(saveImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 
-		// //let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
-		// let plusImgPath_tmp = this.resolve(this.props.imagesPath, string_plus_solid_img);
-    	// let plusImgPath =
-		// 	plusImgPath_tmp.substring(1) +
-		// 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
-		// 		? "?sanitize=true"
-		// 		: "");
+		let globeImgPath_tmp = url.resolve(this.props.imagesPath, string_globe_solid_img);
+    	let globeImgPath =
+			globeImgPath_tmp +
+			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 
-		// let floppyDiskImgPath_tmp = this.resolve(this.props.imagesPath, string_floppy_disk_solid_img);
-		// let floppyDiskImgPath =
-		// 	floppyDiskImgPath_tmp.substring(1) +
-		// 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
-		// 		? "?sanitize=true"
-		// 		: "");
-
-		// console.log('Globe Image Path:', globeImgPath_tmp);
-		// console.log('Plus Image Path:', plusImgPath_tmp);
-		// console.log('Floppy Disk Image Path:', floppyDiskImgPath_tmp);
+		let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
+    	let plusImgPath =
+			plusImgPath_tmp +
+			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 
 		for (let id in forms) {
 			let localCurrentChildrenComponents = currentChildrenComponents[id];
@@ -1744,7 +1730,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					size="lg"
 					onClick={this.onValidate}
 				>
-					Validate Input
+					{validated} Validate Input
 				</Button>
 			);
 		}
@@ -1786,9 +1772,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 								alignItems: "center",
 							}}
 						>
-							{/* <img
-								src={floppyDiskImgPath} alt="FloppyDisk Icon" style={styleImageIcon}
-							/> */}
+							<img src={saveImgPath} alt="Save Icon" style={styleImageIcon} />
 							{text}
 						</div>
 					</Button>
@@ -1813,9 +1797,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 						paddingRight: "2px",
 					}}
 				>
-					{/* <img
+					<img
 						src={globeImgPath} alt="Globe Icon" style={styleImageIcon}
-					/> */}
+					/>
 					<span style={{ whiteSpace: "nowrap" }}>Component Library</span>
 				</div>
 
@@ -1841,9 +1825,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 						paddingRight: "2px",
 						}}
 					>
-						{/* <img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} /> */}
+						<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
 						<span style={{ display: "flex", alignItems: "center" }}>
-						Create New {validated}
+						Create New 
 						</span>
 					</div>
 				</Button>

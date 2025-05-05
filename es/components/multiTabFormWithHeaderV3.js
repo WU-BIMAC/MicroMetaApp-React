@@ -63,6 +63,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var url = require("url");
+
 var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(MultiTabFormWithHeaderV3, _React$PureComponent);
 
@@ -164,8 +166,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           }
         });
       }
-    } //this.formDescs = [];
-
+    }
 
     _this.buttonsRefs = {};
     _this.containerFormNames = {};
@@ -178,8 +179,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleAction = _this.handleAction.bind(_assertThisInitialized(_this));
     _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
     _this.onLoad = _this.onLoad.bind(_assertThisInitialized(_this));
-    _this.onValidate = _this.onValidate.bind(_assertThisInitialized(_this)); //this.resolve = this.resolve.bind(this);
-
+    _this.onValidate = _this.onValidate.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.onError = _this.onError.bind(_assertThisInitialized(_this));
@@ -208,13 +208,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     }
 
     return _this;
-  } // componentDidUpdate(prevProps) {
-  // 	console.log("in componentDidUpdate function");
-  // 	if (this.props.inputData !== prevProps.inputData) {
-  // 		this.initializeForms();
-  // 	}
-  // }
-
+  }
 
   _createClass(MultiTabFormWithHeaderV3, [{
     key: "initializeFormsFromLoadedComponent",
@@ -1183,8 +1177,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         color: "#212121",
         borderColor: "#bab8b8",
         paddingRight: "25px",
-        paddingLeft: "25px",
-        borderRadius: "8px"
+        borderRadius: "8px",
+        gap: "8px"
       };
       var SaveChangesButton = {
         display: "flex",
@@ -1307,28 +1301,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var hasEditableChildren = [];
       var containerNames = this.containerFormNames;
       var names = this.formNames;
-      var forms = this.forms; // let globeImgPath_tmp = this.resolve(this.props.imagesPath, string_globe_solid_img);
-      // let globeImgPath =
-      // 	globeImgPath_tmp.substring(1) +
-      // 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
-      // 		? "?sanitize=true"
-      // 		: "");
-      // //let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
-      // let plusImgPath_tmp = this.resolve(this.props.imagesPath, string_plus_solid_img);
-      // let plusImgPath =
-      // 	plusImgPath_tmp.substring(1) +
-      // 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
-      // 		? "?sanitize=true"
-      // 		: "");
-      // let floppyDiskImgPath_tmp = this.resolve(this.props.imagesPath, string_floppy_disk_solid_img);
-      // let floppyDiskImgPath =
-      // 	floppyDiskImgPath_tmp.substring(1) +
-      // 	(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
-      // 		? "?sanitize=true"
-      // 		: "");
-      // console.log('Globe Image Path:', globeImgPath_tmp);
-      // console.log('Plus Image Path:', plusImgPath_tmp);
-      // console.log('Floppy Disk Image Path:', floppyDiskImgPath_tmp);
+      var forms = this.forms;
+      var saveImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_save_img);
+      var saveImgPath = saveImgPath_tmp + (saveImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var globeImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_globe_solid_img);
+      var globeImgPath = globeImgPath_tmp + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+      var plusImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_plus_solid_img);
+      var plusImgPath = plusImgPath_tmp + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
       for (var id in forms) {
         var localCurrentChildrenComponents = currentChildrenComponents[id];
@@ -1427,7 +1406,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           style: ValidateButton,
           size: "lg",
           onClick: this.onValidate
-        }, "Validate Input"));
+        }, validated, " Validate Input"));
       }
 
       if (!this.props.notModal || this.props.notModal && this.props.onConfirm !== null) {
@@ -1455,7 +1434,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             justifyContent: "center",
             alignItems: "center"
           }
-        }, text))));
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: saveImgPath,
+          alt: "Save Icon",
+          style: styleImageIcon
+        }), text))));
       }
 
       if (!this.props.notModal) {
@@ -1472,7 +1455,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             paddingLeft: "2px",
             paddingRight: "2px"
           }
-        }, /*#__PURE__*/_react.default.createElement("span", {
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: globeImgPath,
+          alt: "Globe Icon",
+          style: styleImageIcon
+        }), /*#__PURE__*/_react.default.createElement("span", {
           style: {
             whiteSpace: "nowrap"
           }
@@ -1493,12 +1480,16 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             paddingLeft: "2px",
             paddingRight: "2px"
           }
-        }, /*#__PURE__*/_react.default.createElement("span", {
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: plusImgPath,
+          alt: "Plus Icon",
+          style: styleImageIcon
+        }), /*#__PURE__*/_react.default.createElement("span", {
           style: {
             display: "flex",
             alignItems: "center"
           }
-        }, "Create New ", validated))));
+        }, "Create New"))));
       }
 
       var containerFormNames = [];
