@@ -307,7 +307,6 @@ export default class DataLoader extends React.PureComponent {
 	}
 
 	render() {
-		console.log("** inside of dataLoaderV2.js");
 		const buttonStyle = {
 			display: "none",
 			width: "200px",

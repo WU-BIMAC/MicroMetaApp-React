@@ -369,7 +369,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	handleLoadMetadataComplete(imageMetadata) {
-		//console.log("IM HERE");
 		if (isDefined(imageMetadata.Error)) {
 			this.setState({
 				errorMsg: "Error: " + imageMetadata.Error,

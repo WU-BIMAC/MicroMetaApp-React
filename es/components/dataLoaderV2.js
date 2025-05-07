@@ -339,7 +339,6 @@ var DataLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
-      console.log("** inside of dataLoaderV2.js");
       var buttonStyle = {
         display: "none",
         width: "200px",

@@ -77,18 +77,13 @@ export default class Canvas extends React.PureComponent {
 
 		this.areAllElementsValidated = this.areAllElementsValidated.bind(this);
 
-		//this.onImgLoad = this.onImgLoad.bind(this);
-
 		this.handleScroll = this.handleScroll.bind(this);
 
 		this.clearOccupiedSpotOnElements =
 			this.clearOccupiedSpotOnElements.bind(this);
-
-		//this.props.updateElementData(this.state.elementData, true);
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		//console.log("canvas-getDerivedStateFromProps-1");
 		let returnValue = {};
 		let stringProps1 = JSON.stringify(props.componentSchemas);
 		let stringProps2 = JSON.stringify(props.inputData);
@@ -106,7 +101,6 @@ export default class Canvas extends React.PureComponent {
 		) {
 			return returnValue;
 		}
-		if (props.isDebug) console.log("canvas-getDerivedStateFromProps-2");
 		returnValue.previousProps = stringProps;
 	
 		if (isDefined(props.componentSchemas)) {
@@ -126,15 +120,10 @@ export default class Canvas extends React.PureComponent {
 					let schema_id = element.schema_ID;
 					let schema = componentsSchema[schema_id];
 					let object = element.obj;
-					console.log("schema");
-					console.log(schema);
-					console.log("object");
-					console.log(object);
 					let validation = validate(object, schema);
 					let validated = validation.valid;
 					element.validated = validated;
 				}
-				if (props.isDebug) console.log("getDerivedStateFromProps - componentSchemas");
 				returnValue.componentsSchema = componentsSchema;
 			}
 		}
@@ -190,7 +179,6 @@ export default class Canvas extends React.PureComponent {
 				});
 				componentsSchema[schema_id] = schema;
 			});
-			if (props.isDebug) console.log("getDerivedStateFromProps - inputData");
 			returnValue.occupiedSpots = occupiedSpots;
 			returnValue.componentsSchema = componentsSchema;
 			returnValue.elementList = elementList;
@@ -271,7 +259,6 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	onCanvasElementDataSave(id, data, dataLinkedFields, isOnError) {
-		if (this.props.isDebug) console.log("in the function onCanvasElementDataSave(id, data, dataLinkedFields) of canvas");
 		let linkedFields = this.state.linkedFields;
 		if (
 			dataLinkedFields !== undefined &&
@@ -1174,12 +1161,8 @@ export default class Canvas extends React.PureComponent {
 		let droppableElement = [];
 		let componentsSchema = this.state.componentsSchema;
 		let elementByType = {};
-		// console.log("elementData");
-		// console.log(elementData);
 		Object.keys(elementData).forEach(function (key) {
 			let element = elementData[key];
-			// console.log("element");
-			// console.log(element);
 			let schemaID = element.Schema_ID.replace(string_json_ext, "");
 			let itemSchema = componentsSchema[element.Schema_ID];
 			let schemaCategory = itemSchema.category;
@@ -1235,7 +1218,6 @@ export default class Canvas extends React.PureComponent {
 					});
 					validated = <div style={styleNotValidated}>&#9679;</div>;
 				}
-				console.log("INSIDE OF CANVAS");
 				droppableElement.push(
 					<div
 						style={stylesContainer[item.ID]}
@@ -1276,9 +1258,7 @@ export default class Canvas extends React.PureComponent {
 										components={this.props.components}
 										validationTier={this.props.validationTier}
 										imagesPath={this.props.imagesPath}
-										// getComponent={this.props.getComponent}
 										onClickSave={this.props.onClickSave}
-										//onClickLoad={this.props.onClickLoad}
 										activeTier={this.props.activeTier}
 										id={item.ID}
 										rotate={item.rotate}
@@ -1294,7 +1274,6 @@ export default class Canvas extends React.PureComponent {
 										maxWidth={maxWidth}
 										minHeight={minHeight}
 										maxHeight={maxHeight}
-										//validated={item.validated}
 										dragged={item.dragged}
 										currentChildrenComponentIdentifier={
 											string_currentNumberOf_identifier
@@ -1339,8 +1318,6 @@ export default class Canvas extends React.PureComponent {
 		// 	console.log(linkedFields);
 		// }
 
-		// console.log("elementData");
-		// console.log(this.state.elementData);
 
 		let elementDimensions = this.props.canvasElementsDimensions;
 		let stand = this.props.stand;

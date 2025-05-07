@@ -98,11 +98,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
     _this.onCanvasElementDataSave = _this.onCanvasElementDataSave.bind(_assertThisInitialized(_this));
     _this.getElementData = _this.getElementData.bind(_assertThisInitialized(_this));
     _this.updatedDimensions = _this.updatedDimensions.bind(_assertThisInitialized(_this));
-    _this.areAllElementsValidated = _this.areAllElementsValidated.bind(_assertThisInitialized(_this)); //this.onImgLoad = this.onImgLoad.bind(this);
-
+    _this.areAllElementsValidated = _this.areAllElementsValidated.bind(_assertThisInitialized(_this));
     _this.handleScroll = _this.handleScroll.bind(_assertThisInitialized(_this));
-    _this.clearOccupiedSpotOnElements = _this.clearOccupiedSpotOnElements.bind(_assertThisInitialized(_this)); //this.props.updateElementData(this.state.elementData, true);
-
+    _this.clearOccupiedSpotOnElements = _this.clearOccupiedSpotOnElements.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -191,7 +189,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onCanvasElementDataSave",
     value: function onCanvasElementDataSave(id, data, dataLinkedFields, isOnError) {
-      if (this.props.isDebug) console.log("in the function onCanvasElementDataSave(id, data, dataLinkedFields) of canvas");
       var linkedFields = this.state.linkedFields;
 
       if (dataLinkedFields !== undefined && Object.keys(dataLinkedFields).length > 0) {
@@ -1123,13 +1120,9 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       });
       var droppableElement = [];
       var componentsSchema = this.state.componentsSchema;
-      var elementByType = {}; // console.log("elementData");
-      // console.log(elementData);
-
+      var elementByType = {};
       Object.keys(elementData).forEach(function (key) {
-        var element = elementData[key]; // console.log("element");
-        // console.log(element);
-
+        var element = elementData[key];
         var schemaID = element.Schema_ID.replace(_constants.string_json_ext, "");
         var itemSchema = componentsSchema[element.Schema_ID];
         var schemaCategory = itemSchema.category;
@@ -1192,7 +1185,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             }, "\u25CF");
           }
 
-          console.log("INSIDE OF CANVAS");
           droppableElement.push( /*#__PURE__*/_react.default.createElement("div", {
             style: stylesContainer[item.ID],
             key: "draggableWrapper" + index,
@@ -1233,10 +1225,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/_react.default.createElement(_canvasElement.default, {
             components: _this3.props.components,
             validationTier: _this3.props.validationTier,
-            imagesPath: _this3.props.imagesPath // getComponent={this.props.getComponent}
-            ,
-            onClickSave: _this3.props.onClickSave //onClickLoad={this.props.onClickLoad}
-            ,
+            imagesPath: _this3.props.imagesPath,
+            onClickSave: _this3.props.onClickSave,
             activeTier: _this3.props.activeTier,
             id: item.ID,
             rotate: item.rotate,
@@ -1251,8 +1241,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             minWidth: minWidth,
             maxWidth: maxWidth,
             minHeight: minHeight,
-            maxHeight: maxHeight //validated={item.validated}
-            ,
+            maxHeight: maxHeight,
             dragged: item.dragged,
             currentChildrenComponentIdentifier: _constants.string_currentNumberOf_identifier,
             minChildrenComponentIdentifier: _constants.string_minNumberOf_identifier,
@@ -1293,8 +1282,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       // 	console.log("LinkedFields");
       // 	console.log(linkedFields);
       // }
-      // console.log("elementData");
-      // console.log(this.state.elementData);
 
       var elementDimensions = this.props.canvasElementsDimensions;
       var stand = this.props.stand;
@@ -1610,7 +1597,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
   }], [{
     key: "getDerivedStateFromProps",
     value: function getDerivedStateFromProps(props, state) {
-      //console.log("canvas-getDerivedStateFromProps-1");
       var returnValue = {};
       var stringProps1 = JSON.stringify(props.componentSchemas);
       var stringProps2 = JSON.stringify(props.inputData);
@@ -1625,7 +1611,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         return returnValue;
       }
 
-      if (props.isDebug) console.log("canvas-getDerivedStateFromProps-2");
       returnValue.previousProps = stringProps;
 
       if ((0, _genericUtilities.isDefined)(props.componentSchemas)) {
@@ -1644,16 +1629,11 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             var schema_id = element.schema_ID;
             var schema = componentsSchema[schema_id];
             var object = element.obj;
-            console.log("schema");
-            console.log(schema);
-            console.log("object");
-            console.log(object);
             var validation = validate(object, schema);
             var validated = validation.valid;
             element.validated = validated;
           }
 
-          if (props.isDebug) console.log("getDerivedStateFromProps - componentSchemas");
           returnValue.componentsSchema = componentsSchema;
         }
       }
@@ -1713,7 +1693,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
           });
           _componentsSchema[schema_id] = schema;
         });
-        if (props.isDebug) console.log("getDerivedStateFromProps - inputData");
         returnValue.occupiedSpots = occupiedSpots;
         returnValue.componentsSchema = _componentsSchema;
         returnValue.elementList = _elementList;

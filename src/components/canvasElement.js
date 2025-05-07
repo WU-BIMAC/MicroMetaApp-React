@@ -26,63 +26,33 @@ export default class CanvasElement extends React.PureComponent {
 
 		this.handleClick = this.handleClick.bind(this);
 		this.handleDummy = this.handleDummy.bind(this);
-
 		this.handleConfirm = this.handleConfirm.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
 		this.handleSave = this.handleSave.bind(this);
 		this.handleLoad = this.handleLoad.bind(this);
 		this.handleLoadComponent = this.handleLoadComponent.bind(this);
-
 		this.handleResize = this.handleResize.bind(this);
-
 		this.updateMinMaxDimensions = this.updateMinMaxDimensions.bind(this);
-
 		this.counter = 0;
 		this.handleOpenMultiTabForm = this.handleOpenMultiTabForm.bind(this);
 	}
 
-	// handleOpenMultiTabForm = () => {
-	// 	const { components, schema } = this.props;
-	// 	const categoryKey = schema.category;
-	
-	// 	// Safety check
-	// 	if (!components || !categoryKey) {
-	// 		console.warn("Missing components or categoryKey:", components, categoryKey);
-	// 		return [];
-	// 	}
-	
-	// 	const filteredComponents = Object.values(components[categoryKey] || {}).map(
-	// 		(entry) => entry.component
-	// 	);
-	
-	// 	console.log("filteredComponents in canvasElement", filteredComponents);
-	
-	// 	return filteredComponents;
-	// };
-
 	handleOpenMultiTabForm = () => {
 		const { components, schema } = this.props;
-		//const categoryKey = schema.category;
 		const categoryKey = schema.ID.split('.')[0];
-
-		console.log("all loaded components", components);
-		console.log("schema", schema);
 	
 		// Safety check
 		if (!components?.loadedComponents || !categoryKey) {
 			console.warn("Missing components or categoryKey:", components, categoryKey);
 			return {};
 		}
-	
+
 		const categoryComponents = components.loadedComponents[categoryKey];
 	
 		if (!categoryComponents) {
 			console.warn(`No components found for category: ${categoryKey}`);
 			return {};
 		}
-	
-		// Return the full nested structure: Manufacturer → Model → Entry
-		console.log("filteredComponents in canvasElement", categoryComponents);
 		return categoryComponents;
 	};
 	
@@ -91,15 +61,11 @@ export default class CanvasElement extends React.PureComponent {
 	};
 
 	handleClick() {
-		// if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.schema", this.props.schema);
-		// if (this.props.isDebug) console.log("inside of canvasElement in the function handleClick this is this.props.inputData", this.props.inputData);
 		if (!this.props.isViewOnly) {
 			this.props.setEditingOnCanvas(true);
-			//const filteredComponents = this.handleOpenMultiTabForm();
 			let editForm = (
 				<MultiTabFormWithHeaderV3
 					selectedLoadComponent={this.state.selectedLoadComponent}
-					//filteredComponents={filteredComponents}
 					imagesPath={this.props.imagesPath}
 					validationUpdate={this.props.validationUpdate}
 					title={"Edit " + this.props.formTitle}
@@ -132,40 +98,28 @@ export default class CanvasElement extends React.PureComponent {
 	}
 
 	handleConfirm(id, data, linkedFields, isOnError) {
-		console.log("inside of handleConfirm");
 		this.setState({ editing: false, editForm: null });
 		this.props.setEditingOnCanvas(false);
 		this.props.handleConfirm(id, data, linkedFields, isOnError);
 	}
 
 	handleCancel() {
-		//if(this.props.isDebug) console.log("inside of function handleCancel in canvasElement.js");
 		this.props.setEditingOnCanvas(false);
 		this.setState({ editing: false, editForm: null });
 	}
 
 	handleDummy() {
-		//if(this.props.isDebug) console.log("inside of function handleDummy in canvasElement.js");
 		this.props.setEditingOnCanvas(true);
 		this.setState({ editing: true});
 	}
 
 	handleSave(id, consolidatedData, linkedFields) {
-		//if(this.props.isDebug) console.log("inside of function handleSave in canvasElement.js");
 		this.props.setEditingOnCanvas(false);
 		this.props.handleConfirm(id, consolidatedData, linkedFields);
 		this.props.onClickSave(id, consolidatedData, linkedFields);
 	}
 
 	handleLoadComponent = (selectedComponent) => {
-		// this.setState({ 
-		// 	selectedLoadComponent: selectedComponent,
-		// 	isModalOpen: false,
-		// 	editForm: this.state.editForm,
-		//  });
-
-		console.log("gonna trigger multitab from handleLoadComponent");
-
 		 if (!this.props.isViewOnly) {
 			this.props.setEditingOnCanvas(true);
 			const filteredComponents = this.handleOpenMultiTabForm();
@@ -210,8 +164,6 @@ export default class CanvasElement extends React.PureComponent {
 	}
 
 	handleLoad() {
-		if(this.props.isDebug) console.log("inside of function handleLoad in canvasElement.js");
-
 		const filteredComponents = this.handleOpenMultiTabForm();
 		this.setState({
 			modalContent: filteredComponents,
@@ -325,17 +277,6 @@ export default class CanvasElement extends React.PureComponent {
 						/>
 					</button>
 				</ResizableBox>
-				{/* {this.state.isModalOpen && (
-					<ComponentsLoadingModal 
-						overlaysContainer={document.body}
-						components={this.state.modalContent}
-						onClose={this.handleCloseModal}
-						onLoadComponent={this.handleLoadComponent}
-						schema={this.props.schema}
-						inputData={this.props.inputData}
-				  	/>
-				)}
-				{editForm} */}
 
 				<div style={{ zIndex: 1000 }}>
 					{editForm}

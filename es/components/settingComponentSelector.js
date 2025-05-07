@@ -955,7 +955,6 @@ var SettingComponentSelector = /*#__PURE__*/function (_React$PureComponent) {
           height: "60%"
         }); //}
 
-        if (this.props.isDebug) console.log("inside of settingsComponentSelector.js2");
         var multiTabPanel = null;
         if (selectedComp !== null && selectedComp !== undefined) multiTabPanel = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
           schema: selectedSchema,

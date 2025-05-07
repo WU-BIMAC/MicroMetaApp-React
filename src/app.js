@@ -111,8 +111,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			this.state.standTypes[modifiedCreateString] = name;
 		}
 
-
-		//this.isMicroscopeValidated = false;
 		this.toolbarRef = React.createRef();
 		this.canvasRef = React.createRef();
 		this.settingsMainViewRef = React.createRef();
@@ -157,8 +155,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.handleActiveTierSelection = this.handleActiveTierSelection.bind(this);
 		this.setCreateNewMicroscope = this.setCreateNewMicroscope.bind(this);
 		this.setLoadMicroscope = this.setLoadMicroscope.bind(this);
-
-		// this.handleConfirmComponent = this.handleConfirmComponent.bind(this);
 		this.clearAllComponents = this.clearAllComponents.bind(this);
 
 		// this.uploadMicroscopeFromDropzone =
@@ -382,12 +378,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleCompleteLoadMicroscopes(newMicroscopes, resolve) {
-		console.log("in function handleCompleteLoadComponents and this is newMicroscopes", newMicroscopes);
 		this.setState({ microscopes: newMicroscopes }, resolve());
 	}
 
 	handleCompleteLoadComponents(newComponents, resolve) {
-		console.log("in function handleCompleteLoadComponents and this is newComponents", newComponents);
 		this.setState({ components: newComponents }, resolve());
 	}
 
@@ -2849,7 +2843,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	updateElementData(elementData, areComponentsValidated) {
-		//console.log(elementData)
 		this.setState({
 			elementData: elementData,
 			areComponentsValidated: areComponentsValidated,
@@ -2907,7 +2900,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleExportMicroscopeImage(microscope, img /*, dataUrl*/) {
-		//console.log("im here");
 		let filename2 = `${microscope.Name}.png`;
 		var a = document.createElement("a");
 		document.body.appendChild(a);
@@ -2925,28 +2917,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	}
 
 	handleSaveComponent(id, consolidatedData, linkedFields) {
-		if (this.props.isDebug) {
-			console.log("inside handleSaveComponent function");
-			console.log("component's id is ", id);
-			console.log("this component's linkedFields is: ", linkedFields);
-			console.log("this component's consolidatedData is: ", consolidatedData);
-			console.log("this is elementData: ", this.state.elementData);
-		}
-
 		const elementData = this.state.elementData[id];
-		if (this.props.isDebug) {
-			console.log("Extracted element from elementData: ", elementData);
-		}
-
 		this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier);
-	}
-
-	handleLoadComponent() {
-		if (this.props.isDebug) {
-			console.log("inside handleLoadComponent function");
-		}
-
-
 	}
 
 	handleSaveMicroscope(item) {
@@ -2964,7 +2936,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 
 		let elementData = this.state.elementData;
-		// console.log("!!!! elementData is ", elementData);
 
 		let components = [];
 		Object.keys(elementData).forEach((item, index) => {
@@ -2978,18 +2949,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		let lowerCaseItem = item.toLowerCase();
 		if (lowerCaseItem.includes("save all")){
-			// this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents, this.state.validationTier);
 			this.props.saveAllComponents(elementData, this.handleCompleteSaveAllComponents, this.state.validationTier);
 			return;
 		}
 		else if (lowerCaseItem.includes("as new")) {
 			microscope.ID = uuidv4();
-			// if (
-			// 	microscope.MicroscopeStand !== null &&
-			// 	microscope.MicroscopeStand !== undefined
-			// ) {
-			// 	microscope.MicroscopeStand.ID = uuidv4();
-			// }
 		}
 		
 		this.setState({ microscope: microscope });
@@ -3049,42 +3013,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.setState({ originalSetting: setting });
 	}
 
-	// handleConfirmComponent(id, data, linkedFields) {
-	// 	this.setState(function (prevState) {
-	// 		// Find the index of the component with the given ID in allComponents
-	// 		const existingComponentIndex = prevState.allComponents.findIndex(function (component) {
-	// 		  return component.id === id;
-	// 		});
-		
-	// 		if (existingComponentIndex === -1) {
-	// 		  // If the component doesn't exist, add it to allComponents
-	// 		  const newComponents = prevState.allComponents.concat({
-	// 			id: id, // Add the component's ID
-	// 			consolidatedData: data, // Add the component's data
-	// 			linkedFields: linkedFields, // Add the linkedFields
-	// 		  });
-		
-	// 		  console.log("Updated allComponents state:", newComponents);
-	// 		  return {
-	// 			allComponents: newComponents,
-	// 		  };
-	// 		} else {
-	// 		  // If the component exists, update its data and linkedFields
-	// 		  const updatedComponents = prevState.allComponents.slice(); // Create a shallow copy of the array
-	// 		  updatedComponents[existingComponentIndex] = {
-	// 			id: id, // Retain the component's ID
-	// 			consolidatedData: data, // Update the component's data
-	// 			linkedFields: linkedFields, // Update the linkedFields
-	// 		  };
-		
-	// 		  console.log("Updated allComponents state:", updatedComponents);
-	// 		  return {
-	// 			allComponents: updatedComponents,
-	// 		  };
-	// 		}
-	// 	});
-	// }
-
 	clearAllComponents() {
 		console.log("Clearing allComponents...");
     	this.setState({ allComponents: [] });
@@ -3093,7 +3021,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	handleCompleteSave(name) {
 		//console.log(micName + " saved");
 		//WARN Microscope save
-		window.alert(name + " saved");
+		window.alert("Component saved");
 	}
 
 	handleCompleteSaveAllComponents() {
@@ -3564,7 +3492,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			this.state.isLoadingImage &&
 			this.state.isLoadingSettings
 		) {
-			//console.log("SETTINGS LOADER");
 			let imgLoadingOptions = [string_noImageLoad];
 			if (this.props.isElectron) {
 				imgLoadingOptions.push(string_createFromFile);
@@ -3723,13 +3650,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			comps[localSchema.ID] = localSchema;
 		}
 
-		// console.log("componentsSchema");
-		// console.log(componentsSchema);
 		let elementByType = {};
 		Object.keys(elementData).forEach(function (key) {
 			let element = elementData[key];
-			// console.log("element");
-			// console.log(element);
 			let schemaID = element.Schema_ID.replace(string_json_ext, "");
 			let itemSchema = comps[element.Schema_ID];
 			// if (itemSchema === null || itemSchema === undefined)
@@ -3752,7 +3675,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		});
 
 		if (!this.state.isCreatingNewMicroscope) {
-			if (this.props.isDebug) console.log("IN APP.JS REACT 0");
 			let footerSettingsSchemas = [imageSchema, pixelsSchema];
 			let footerSettingsInput = [setting, setting.Pixels];
 			//{overlayImporter}
@@ -3829,7 +3751,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			);
 		} else {
 			if (this.state.isViewOnly) {
-				if (this.props.isDebug) console.log("IN APP.JS REACT 1");
 				canvasDims.height =
 					canvasHeight + headerFooterHeight + headerFooterMargin;
 				canvasContainerStyle.height =
@@ -3884,8 +3805,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					</MicroMetaAppReactContainer>
 				);
 			} else {
-				if (this.props.isDebug) console.log("IN APP.JS REACT 2");
-				console.log("this is components state in React", this.components);
 				//{overlayImporter}
 				let isPasteEnabled = isDefined(this.state.tmpCopyElementFromData)
 					? true
@@ -3924,7 +3843,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								components={this.state.components}
 								validationTier={this.state.validationTier}
 								onClickSave={this.handleSaveComponent}
-								//onClickLoad={this.handleLoadComponents}
 								microscope={microscope}
 								stand={microscope.MicroscopeStand}
 								activeTier={this.state.activeTier}
@@ -4069,7 +3987,6 @@ MicroMetaAppReact.defaultProps = {
 		}, 1000);
 	},
 	onLoadComponents: function (complete, resolve) {
-		console.log("default props for onLoadComponents called");
 		setTimeout(function () {
 			complete(null, resolve);
 		}, 1000);
@@ -4088,10 +4005,11 @@ MicroMetaAppReact.defaultProps = {
 		}, 1000);
 	},
 	onSaveComponent: function (elementData, complete, validationTier) {
-		console.log("default props for onSaveComponent called");
+		setTimeout(function () {
+			complete();
+		}, 1000);
 	},
 	saveAllComponents: function (allComponents, complete, validationTier) {
-		console.log("In default props saveAllComponents of React");
 		setTimeout(function () {
 			complete();
 		}, 1000);

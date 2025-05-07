@@ -967,7 +967,6 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 			Object.assign(modalGridPanel, { height: "60%" });
 			//}
-			if (this.props.isDebug) console.log("inside of settingsComponentSelector.js2");
 			let multiTabPanel = null;
 			if (selectedComp !== null && selectedComp !== undefined)
 				multiTabPanel = (

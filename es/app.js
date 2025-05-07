@@ -154,8 +154,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var modifiedCreateString = _constants.string_createFromScratch.replace("#", name);
 
       _this.state.standTypes[modifiedCreateString] = name;
-    } //this.isMicroscopeValidated = false;
-
+    }
 
     _this.toolbarRef = /*#__PURE__*/_react.default.createRef();
     _this.canvasRef = /*#__PURE__*/_react.default.createRef();
@@ -191,8 +190,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.onSettingDataSave = _this.onSettingDataSave.bind(_assertThisInitialized(_this));
     _this.handleActiveTierSelection = _this.handleActiveTierSelection.bind(_assertThisInitialized(_this));
     _this.setCreateNewMicroscope = _this.setCreateNewMicroscope.bind(_assertThisInitialized(_this));
-    _this.setLoadMicroscope = _this.setLoadMicroscope.bind(_assertThisInitialized(_this)); // this.handleConfirmComponent = this.handleConfirmComponent.bind(this);
-
+    _this.setLoadMicroscope = _this.setLoadMicroscope.bind(_assertThisInitialized(_this));
     _this.clearAllComponents = _this.clearAllComponents.bind(_assertThisInitialized(_this)); // this.uploadMicroscopeFromDropzone =
     // 	this.uploadMicroscopeFromDropzone.bind(this);
     //this.uploadSettingFromDropzone = this.uploadSettingFromDropzone.bind(this);
@@ -370,7 +368,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleCompleteLoadMicroscopes",
     value: function handleCompleteLoadMicroscopes(newMicroscopes, resolve) {
-      console.log("in function handleCompleteLoadComponents and this is newMicroscopes", newMicroscopes);
       this.setState({
         microscopes: newMicroscopes
       }, resolve());
@@ -378,7 +375,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleCompleteLoadComponents",
     value: function handleCompleteLoadComponents(newComponents, resolve) {
-      console.log("in function handleCompleteLoadComponents and this is newComponents", newComponents);
       this.setState({
         components: newComponents
       }, resolve());
@@ -2090,7 +2086,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "updateElementData",
     value: function updateElementData(elementData, areComponentsValidated) {
-      //console.log(elementData)
       this.setState({
         elementData: elementData,
         areComponentsValidated: areComponentsValidated
@@ -2148,7 +2143,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleExportMicroscopeImage(microscope, img
     /*, dataUrl*/
     ) {
-      //console.log("im here");
       var filename2 = "".concat(microscope.Name, ".png");
       var a = document.createElement("a");
       document.body.appendChild(a);
@@ -2167,28 +2161,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleSaveComponent",
     value: function handleSaveComponent(id, consolidatedData, linkedFields) {
-      if (this.props.isDebug) {
-        console.log("inside handleSaveComponent function");
-        console.log("component's id is ", id);
-        console.log("this component's linkedFields is: ", linkedFields);
-        console.log("this component's consolidatedData is: ", consolidatedData);
-        console.log("this is elementData: ", this.state.elementData);
-      }
-
       var elementData = this.state.elementData[id];
-
-      if (this.props.isDebug) {
-        console.log("Extracted element from elementData: ", elementData);
-      }
-
       this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier);
-    }
-  }, {
-    key: "handleLoadComponent",
-    value: function handleLoadComponent() {
-      if (this.props.isDebug) {
-        console.log("inside handleLoadComponent function");
-      }
     }
   }, {
     key: "handleSaveMicroscope",
@@ -2208,8 +2182,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         //return;
       }
 
-      var elementData = this.state.elementData; // console.log("!!!! elementData is ", elementData);
-
+      var elementData = this.state.elementData;
       var components = [];
       Object.keys(elementData).forEach(function (item, index) {
         components[index] = elementData[item];
@@ -2222,16 +2195,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var lowerCaseItem = item.toLowerCase();
 
       if (lowerCaseItem.includes("save all")) {
-        // this.props.saveAllComponents(this.state.allComponents, this.handleCompleteSaveAllComponents, this.clearAllComponents, this.state.validationTier);
         this.props.saveAllComponents(elementData, this.handleCompleteSaveAllComponents, this.state.validationTier);
         return;
       } else if (lowerCaseItem.includes("as new")) {
-        microscope.ID = (0, _uuid.v4)(); // if (
-        // 	microscope.MicroscopeStand !== null &&
-        // 	microscope.MicroscopeStand !== undefined
-        // ) {
-        // 	microscope.MicroscopeStand.ID = uuidv4();
-        // }
+        microscope.ID = (0, _uuid.v4)();
       }
 
       this.setState({
@@ -2305,39 +2272,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         originalSetting: setting
       });
-    } // handleConfirmComponent(id, data, linkedFields) {
-    // 	this.setState(function (prevState) {
-    // 		// Find the index of the component with the given ID in allComponents
-    // 		const existingComponentIndex = prevState.allComponents.findIndex(function (component) {
-    // 		  return component.id === id;
-    // 		});
-    // 		if (existingComponentIndex === -1) {
-    // 		  // If the component doesn't exist, add it to allComponents
-    // 		  const newComponents = prevState.allComponents.concat({
-    // 			id: id, // Add the component's ID
-    // 			consolidatedData: data, // Add the component's data
-    // 			linkedFields: linkedFields, // Add the linkedFields
-    // 		  });
-    // 		  console.log("Updated allComponents state:", newComponents);
-    // 		  return {
-    // 			allComponents: newComponents,
-    // 		  };
-    // 		} else {
-    // 		  // If the component exists, update its data and linkedFields
-    // 		  const updatedComponents = prevState.allComponents.slice(); // Create a shallow copy of the array
-    // 		  updatedComponents[existingComponentIndex] = {
-    // 			id: id, // Retain the component's ID
-    // 			consolidatedData: data, // Update the component's data
-    // 			linkedFields: linkedFields, // Update the linkedFields
-    // 		  };
-    // 		  console.log("Updated allComponents state:", updatedComponents);
-    // 		  return {
-    // 			allComponents: updatedComponents,
-    // 		  };
-    // 		}
-    // 	});
-    // }
-
+    }
   }, {
     key: "clearAllComponents",
     value: function clearAllComponents() {
@@ -2351,7 +2286,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleCompleteSave(name) {
       //console.log(micName + " saved");
       //WARN Microscope save
-      window.alert(name + " saved");
+      window.alert("Component saved");
     }
   }, {
     key: "handleCompleteSaveAllComponents",
@@ -2766,7 +2701,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
 
       if (!this.state.isCreatingNewMicroscope && this.state.isLoadingImage && this.state.isLoadingSettings) {
-        //console.log("SETTINGS LOADER");
         var imgLoadingOptions = [_constants.string_noImageLoad];
 
         if (this.props.isElectron) {
@@ -2909,15 +2843,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       for (var _i2 in componentsSchema) {
         var _localSchema = componentsSchema[_i2];
         comps[_localSchema.ID] = _localSchema;
-      } // console.log("componentsSchema");
-      // console.log(componentsSchema);
-
+      }
 
       var elementByType = {};
       Object.keys(elementData).forEach(function (key) {
-        var element = elementData[key]; // console.log("element");
-        // console.log(element);
-
+        var element = elementData[key];
         var schemaID = element.Schema_ID.replace(_constants.string_json_ext, "");
         var itemSchema = comps[element.Schema_ID]; // if (itemSchema === null || itemSchema === undefined)
         // 	console.log(element);
@@ -2937,7 +2867,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       });
 
       if (!this.state.isCreatingNewMicroscope) {
-        if (this.props.isDebug) console.log("IN APP.JS REACT 0");
         var footerSettingsSchemas = [imageSchema, pixelsSchema];
         var footerSettingsInput = [setting, setting.Pixels]; //{overlayImporter}
 
@@ -3006,7 +2935,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }));
       } else {
         if (this.state.isViewOnly) {
-          if (this.props.isDebug) console.log("IN APP.JS REACT 1");
           canvasDims.height = canvasHeight + headerFooterHeight + headerFooterMargin;
           canvasContainerStyle.height = canvasHeight + headerFooterHeight + headerFooterMargin;
           return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
@@ -3051,9 +2979,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             isDebug: this.props.isDebug
           })));
         } else {
-          if (this.props.isDebug) console.log("IN APP.JS REACT 2");
-          console.log("this is components state in React", this.components); //{overlayImporter}
-
+          //{overlayImporter}
           var isPasteEnabled = (0, _genericUtilities.isDefined)(this.state.tmpCopyElementFromData) ? true : false;
           return /*#__PURE__*/_react.default.createElement(MicroMetaAppReactContainer, {
             width: width,
@@ -3086,8 +3012,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           }, /*#__PURE__*/_react.default.createElement(_canvas.default, {
             components: this.state.components,
             validationTier: this.state.validationTier,
-            onClickSave: this.handleSaveComponent //onClickLoad={this.handleLoadComponents}
-            ,
+            onClickSave: this.handleSaveComponent,
             microscope: microscope,
             stand: microscope.MicroscopeStand,
             activeTier: this.state.activeTier,
@@ -3508,7 +3433,6 @@ MicroMetaAppReact.defaultProps = {
     }, 1000);
   },
   onLoadComponents: function onLoadComponents(complete, resolve) {
-    console.log("default props for onLoadComponents called");
     setTimeout(function () {
       complete(null, resolve);
     }, 1000);
@@ -3526,10 +3450,11 @@ MicroMetaAppReact.defaultProps = {
     }, 1000);
   },
   onSaveComponent: function onSaveComponent(elementData, complete, validationTier) {
-    console.log("default props for onSaveComponent called");
+    setTimeout(function () {
+      complete();
+    }, 1000);
   },
   saveAllComponents: function saveAllComponents(allComponents, complete, validationTier) {
-    console.log("In default props saveAllComponents of React");
     setTimeout(function () {
       complete();
     }, 1000);

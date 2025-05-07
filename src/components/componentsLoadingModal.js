@@ -42,32 +42,20 @@ export default class ComponentsLoadingModal extends React.PureComponent {
     render() {
         const { components, onClose, schema, inputData } = this.props;
         const { selectedComponent } = this.state;
-        // const mergedData = {
-        //     ...inputData, 
-        //     ...selectedComponent 
-        // };
+        const filteredInputData = {};
+        Object.entries(inputData || {}).forEach(([key, value]) => {
+            if (!Array.isArray(value)) {
+                filteredInputData[key] = value;
+            }
+        });
 
-        // Remove entries from inputData where the value is an array
-    const filteredInputData = {};
-    Object.entries(inputData || {}).forEach(([key, value]) => {
-        if (!Array.isArray(value)) {
-            filteredInputData[key] = value;
-        }
-    });
-
-    // Now merge as usual
-    const mergedData = {
-        ...filteredInputData,
-        ...selectedComponent
-    };
+        const mergedData = {
+            ...filteredInputData,
+            ...selectedComponent
+        };
 
         const categoryMap = {};
         const arrayCategories = {};
-        
-        // console.log("       &&& inputData", inputData);
-        // console.log("     **** schema in componentsLoadingModal:", schema);
-        // console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
-        // console.log("     ** mergedData in componentsLoadingModal", mergedData);
     
         const allKeys = Object.keys(schema?.properties || {}).filter(
             (key) => key !== "ID"
@@ -77,17 +65,13 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             const prop = schema.properties[key];
             if (!prop) return;
             const category = prop.category || "General";
-            // Only include array tabs if the selected component has this array property
+
             if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
                 let elements = mergedData[key];
-                // If elements is an array with a single element that is itself an array, flatten it
+
                 if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
                     elements = elements[0];
                 }
-                // If elements is not an array, wrap it
-                // if (!Array.isArray(elements)) {
-                //     elements = [elements];
-                // }
 
                 if (!Array.isArray(elements) && typeof elements === "object" && elements !== null) {
                     elements = Object.values(elements);
@@ -102,11 +86,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                 categoryMap[category].push(key);
             }
         });
-        
-
-        console.log("arrayCategories for current mergedData:", arrayCategories);
     
-        // Get tab order from schema or use alphabetical
         const tabOrder = Array.isArray(schema?.subCategoriesOrder)
             ? schema.subCategoriesOrder
             : Object.keys(categoryMap).sort();
@@ -131,7 +111,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                     display: 'flex',
                     flexDirection: 'column',
                     width: '75%',
-                    height: '75%'  // Column layout
+                    height: '75%' 
                 }}>
                     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
@@ -186,7 +166,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                         <Tab key={category}>{category}</Tab>
                                     ))}
 
-                                    {/* Array categories */}
+                            {/* Array categories */}
                             {Object.entries(arrayCategories).map(([fieldName, { itemSchema, elements }]) => (
                                 elements.map((_, index) => (
                                     <Tab key={`${fieldName}_${index}`}>
@@ -238,7 +218,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                     </TabPanel>
                                 ))}
 
-                                {/* Array category content */}
+                        {/* Array category content */}
                         {Object.entries(arrayCategories).map(([fieldName, { itemSchema, elements }]) => (
                             elements.map((element, index) => (
                                 <TabPanel key={`${fieldName}_${index}`}>
@@ -246,39 +226,22 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                     <div style={{ padding: '10px 0' }}>
                                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                             <tbody>
-                                                {/* {Object.keys(itemSchema.properties || {}).map(key => {
-                                                    const prop = itemSchema.properties[key];
+                                                {Object.keys(element).map(key => {
+                                                    const prop = (itemSchema.properties || {})[key] || {};
                                                     return (
                                                         <tr key={key} style={{ borderBottom: '1px solid #eee' }}>
-                                                            <td style={{ padding: '8px', fontWeight: 500, width: '40%' }}>
-                                                                {prop.description ? (
-                                                                    <span title={prop.description}>{key}</span>
-                                                                ) : key}
-                                                            </td>
-                                                            <td style={{ padding: '8px', width: '60%', wordBreak: 'break-word' }}>
-                                                                {element[key]?.toString() || 'N/A'}
-                                                            </td>
+                                                        <td style={{ padding: '8px', fontWeight: 500, width: '40%' }}>
+                                                            {prop.description ? (
+                                                            <span title={prop.description}>{key}</span>
+                                                            ) : key}
+                                                        </td>
+                                                        <td style={{ padding: '8px', width: '60%', wordBreak: 'break-word' }}>
+                                                            {element[key] !== undefined && element[key] !== null
+                                                            ? element[key].toString()
+                                                            : 'N/A'}
+                                                        </td>
                                                         </tr>
                                                     );
-                                                })} */}
-                                                {Object.keys(element).map(key => {
-                                                    console.log("Rendering array tab", { fieldName, element, itemSchema });
-
-                                                const prop = (itemSchema.properties || {})[key] || {};
-                                                return (
-                                                    <tr key={key} style={{ borderBottom: '1px solid #eee' }}>
-                                                    <td style={{ padding: '8px', fontWeight: 500, width: '40%' }}>
-                                                        {prop.description ? (
-                                                        <span title={prop.description}>{key}</span>
-                                                        ) : key}
-                                                    </td>
-                                                    <td style={{ padding: '8px', width: '60%', wordBreak: 'break-word' }}>
-                                                        {element[key] !== undefined && element[key] !== null
-                                                        ? element[key].toString()
-                                                        : 'N/A'}
-                                                    </td>
-                                                    </tr>
-                                                );
                                                 })}
                                             </tbody>
                                         </table>

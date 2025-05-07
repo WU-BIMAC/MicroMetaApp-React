@@ -196,12 +196,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     _this.onClickAddChildComponent = _this.onClickAddChildComponent.bind(_assertThisInitialized(_this));
     _this.onClickRemoveChildComponent = _this.onClickRemoveChildComponent.bind(_assertThisInitialized(_this));
     _this.initializeForms = _this.initializeForms.bind(_assertThisInitialized(_this));
-    console.log("props.schema in constructor of multitab", props.schema);
-    console.log("props.inputData in constructor of multitab", props.inputData);
 
     if (props.schema !== null && props.schema !== undefined && props.selectedLoadComponent !== null && Object.keys(_this.state.partialInputData).length === 0) {
-      console.log("calling initializeFormsFromLoadedComponent from constructor");
-
       _this.initializeFormsFromLoadedComponent();
     } else if (props.schema !== null && props.schema !== undefined && Object.keys(_this.state.partialInputData).length === 0) {
       _this.initializeForms();
@@ -213,8 +209,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   _createClass(MultiTabFormWithHeaderV3, [{
     key: "initializeFormsFromLoadedComponent",
     value: function initializeFormsFromLoadedComponent() {
-      if (this.props.isDebug) console.log("inside of initializeFormsFromLoadedComponent"); //console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
-
       var counter = 0;
       var linkedFields = this.state.linkedFields;
       var currentChildrenComponents = this.state.currentChildrenComponents;
@@ -222,14 +216,10 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var partialInputData = {};
       var inputDataIDs = [];
 
-      var mergedData = _objectSpread(_objectSpread({}, this.props.inputData), this.props.selectedLoadComponent); //console.log("mergedData in initializeFormsFromLoadedComponent()", mergedData);
-
+      var mergedData = _objectSpread(_objectSpread({}, this.props.inputData), this.props.selectedLoadComponent);
 
       if (mergedData !== undefined && mergedData !== null) {
         if (Array.isArray(mergedData)) {
-          console.log("this.props.inputData in initializeFormsFromLoadedComponent()", this.props.inputData);
-          console.log("this.props.schema in initializeFormsFromLoadedComponent()", this.props.schema);
-
           for (var i = 0; i < this.props.schema.length; i++) {
             var schema = this.props.schema[i];
 
@@ -293,7 +283,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "initializeForms",
     value: function initializeForms() {
-      if (this.props.isDebug) console.log("inside of INITIALIZE FORMS");
       var linkedFields = this.state.linkedFields;
       var currentChildrenComponents = this.state.currentChildrenComponents;
       var newActiveID = this.state.activeID;
@@ -302,14 +291,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.props.inputData !== undefined && this.props.inputData !== null) {
         if (Array.isArray(this.props.inputData)) {
-          //console.log("this.props.inputData in initializeForms()", this.props.inputData);
-          //console.log("this.props.schema in initializeForms()", this.props.schema);
           for (var i = 0; i < this.props.schema.length; i++) {
             var schema = this.props.schema[i];
 
             for (var y = 0; y < this.props.inputData.length; y++) {
               var inputData = this.props.inputData[y];
-              console.log("inputData.ID", inputData.ID);
               var id = inputData.ID;
               inputDataIDs.push(id);
               if (newActiveID === null) newActiveID = id;
@@ -330,8 +316,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         } else {
           //create case if 1 input but multiple schemas ?
           var _schema2 = this.props.schema;
-          var _inputData2 = this.props.inputData; //console.log("!!!!!inputData in else", inputData);
-
+          var _inputData2 = this.props.inputData;
           var _id3 = _inputData2.ID;
           inputDataIDs.push(_id3);
 
@@ -350,13 +335,9 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       for (var _id4 in partialInputData) {
-        console.log("id", _id4);
         var _localPartialInputData4 = partialInputData[_id4].data;
         var _partialSchema4 = partialInputData[_id4].schema;
-        var subCategoriesOrder = partialInputData[_id4].subCategoriesOrder; // console.log(`subCategoriesOrder for component ID ${id}:`, subCategoriesOrder);
-        // console.log(`partialSchema for component ID ${id}:`, partialSchema);
-        // console.log(`localPartialInputData for component ID ${id}:`, localPartialInputData);
-
+        var subCategoriesOrder = partialInputData[_id4].subCategoriesOrder;
         var partialForms = this.createForms(_id4, subCategoriesOrder, _partialSchema4, _localPartialInputData4);
         this.forms[_id4] = partialForms;
       }
@@ -415,9 +396,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
               if (_this2.state.currentChildrenComponents[id] === undefined || _this2.state.currentChildrenComponents[id] === null) {
                 _this2.state.currentChildrenComponents[id] = {};
-              } //console.log("inputData");
-              //console.log(inputData);
-
+              }
 
               Object.keys(inputData).forEach(function (key) {
                 if (key.includes(_this2.props.minChildrenComponentIdentifier)) {
@@ -471,8 +450,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
               }
             });
           }
-        } //if (this.props.isDebug) console.log("calling INITIALIZE FORMS 2");
-
+        }
 
         this.initializeForms();
       }
@@ -489,7 +467,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var localForms = this.formRefs;
       var index = -1;
       var id = -1;
-      if (this.props.isDebug) console.log("multi tab form onSubmit - find form");
 
       for (var currentID in localForms) {
         var forms = localForms[currentID];
@@ -498,7 +475,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           var ref = forms[i];
 
           if (ref.state.formData === data.formData) {
-            //**** the level above is formData is what is being passed to onSubmit, I think we need to pass ref.state to onSubmit function and not ref.state.formData
             index = i;
             id = currentID;
             break;
@@ -506,7 +482,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
-      if (this.props.isDebug) console.log("multi tab form onSubmit - find linked field");
       var linkedFields = this.state.linkedFields;
 
       for (var key in data.formData) {
@@ -540,7 +515,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         linkedFields: linkedFields
       });
-      if (this.props.isDebug) console.log("multi tab form onSubmit - process data");
       var currentData = [];
       var currentErrors = [];
       if (this.data[id] !== null && this.data[id] !== undefined) currentData = this.data[id].slice();
@@ -549,13 +523,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       currentErrors.splice(index, 0, null);
       this.data[id] = currentData;
       this.errors[id] = currentErrors;
-      console.log("in onSubmit and calling processData");
       this.processData(action);
     }
   }, {
     key: "onError",
     value: function onError(errors) {
-      console.log("this is the errors passed to onError: ", errors);
       var localForms = this.formRefs; //localForms is a reference to all the forms we are currently using
 
       var index = -1;
@@ -569,13 +541,10 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           var ref = forms[i];
 
           if (ref.state.errors === errors) {
-            ////////// check if the error in the state is the same as the error we are getting as a parameter in the function. (if error in parameter is the same as error in the form)
             if (this.action === "confirm") {
               this.action = this.action + "OnError";
-              if (this.props.isDebug) console.log("Confirm action detected. Calling onSubmit inside of onError function despite errors.");
               this.onSubmit(ref.state);
             } else if (this.action === "confirmOnError") {
-              if (this.props.isDebug) console.log("ConfirmOnError action detected. Calling onSubmit inside of onError function despite errors.");
               this.onSubmit(ref.state);
             } else {
               index = i;
@@ -601,10 +570,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       this.errors[id] = currentErrors;
 
       if (this.action === "confirm") {
-        if (this.props.isDebug) console.log("Confirm action detected. Processing data despite errors.");
         this.processData(this.action);
       } else if (this.action === "confirmOnError") {
-        if (this.props.isDebug) console.log("CONFIRMONERROR CALLING PROCESSDATA");
         this.processData(this.action);
       } else {
         this.processErrors();
@@ -615,13 +582,10 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     value: function processData(action) {
       var _this3 = this;
 
-      if (this.props.isDebug) console.log("inside of processData function");
-      if (this.props.isDebug) console.log("this is the action: " + action);
       var partialInputData = this.state.partialInputData;
       var localData = this.data;
       var localForms = this.formRefs;
       var partialConsolidatedData = {};
-      if (this.props.isDebug) console.log("multi tab form processData - data process");
 
       var _loop3 = function _loop3(currentID) {
         var forms = localForms[currentID];
@@ -629,7 +593,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var numberOfForms = forms.length;
 
         if (!(0, _genericUtilities.isDefined)(currentData) || currentData.length < numberOfForms || currentData.includes(null)) {
-          if (_this3.props.isDebug) console.log("multi tab form processData - data not found");
           return {
             v: void 0
           };
@@ -656,10 +619,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         if (_typeof(_ret) === "object") return _ret.v;
       }
 
-      if (this.props.isDebug) console.log("multi tab form processData - modal check");
-
       if (this.props.notModal) {
-        if (this.props.isDebug) console.log("multi tab form processData - not modal");
         this.props.onConfirm(this.props.id);
         return;
       }
@@ -673,7 +633,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var consolidatedData = partialConsolidatedData[mainID];
-      if (this.props.isDebug) console.log("multi tab form processData - process consolidated data");
       var subComponents = {};
 
       for (var id in partialConsolidatedData) {
@@ -692,8 +651,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         subComponents[schemaTitle] = localSubComponents;
       }
 
-      if (this.props.isDebug) console.log("multi tab form processData - organize data");
-
       for (var _schemaTitle in subComponents) {
         var _localSubComponents = subComponents[_schemaTitle];
 
@@ -707,17 +664,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var linkedFields = Object.assign({}, this.state.linkedFields);
 
       if (action === "confirm") {
-        if (this.props.isDebug) console.log("props.onConfirm function will get called");
         this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
       } else if (action === "confirmOnError") {
-        if (this.props.isDebug) console.log("CONFIRMONERROR: props.onConfirm function will get called");
         this.props.onConfirm(this.props.id, consolidatedData, linkedFields, true);
       } else if (action === "save") {
-        if (this.props.isDebug) console.log("props.onSave function will get called");
         this.props.onSave(this.props.id, consolidatedData, linkedFields);
         this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
       } else {
-        if (this.props.isDebug) console.log("inside of processData and the action is validate");
         this.setState({
           isValidated: true
         }, function () {
@@ -787,8 +740,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleAction(action) {
       var _this4 = this;
 
-      if (this.props.isDebug) console.log("inside of ".concat(action, " function"));
-
       if (action === "save" && !this.state.isValidated) {
         window.alert("You must validate the form before saving.");
         return;
@@ -797,7 +748,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       this.data = {};
       this.errors = {};
       this.action = action;
-      if (this.props.isDebug) console.log("multi tab form ".concat(action, " - submit all forms"));
       Object.entries(this.formRefs).forEach(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 2),
             id = _ref2[0],
@@ -805,8 +755,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
         var buttons = _this4.buttonsRefs[id];
         forms.forEach(function (refForm, i) {
-          if (_this4.props.isDebug) console.log("value stored in refForm at index ".concat(i, ":"), refForm);
-          if (_this4.props.isDebug) console.log("multi tab form ".concat(action, " - submit form ").concat(i));
           refForm.formElement.dispatchEvent(new CustomEvent("submit", {
             bubbles: true,
             cancelable: true
@@ -832,35 +780,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onLoad",
     value: function onLoad() {
-      this.props.onLoad(); // if (this.props.isDebug) console.log("calling onLoad and this is filteredComponents", this.props.filteredComponents);
-      // console.log("this.props.selectedLoadComponent", this.props.selectedLoadComponent);
-      // console.log("this.props.inputData in onLoad()", this.props.inputData);
-      // console.log("this.props.schema in onLoad()", this.props.schema);
-      // console.log("in onLoad of multitab");
-      // const reader = new FileReader();
-      // reader.onload = (event) => {
-      // 	try {
-      // 		const importedData = JSON.parse(event.target.result);
-      // 		//console.log("Parsed JSON data:", importedData);
-      // 		// Validate importedData structure
-      // 		this.setState({ 
-      // 			//partialInputData: {}, // Reset existing data
-      // 			//activeID: null,       // Reset active ID
-      // 		// }, () => {
-      // 		// 	// Update props and reinitialize forms
-      // 		// 	// this.props.schema = importedData.schema;
-      // 		// 	// this.props.inputData = importedData.inputData;
-      // 		// 	this.initializeForms();
-      // 		});
-      // 	} catch (error) {
-      // 		console.error("Error parsing JSON:", error);
-      // 	}
-      // };
-      // const jsonString = JSON.stringify(this.props.selectedLoadComponent);
-      // // Create a Blob from the JSON string
-      // const blob = new Blob([jsonString], { type: 'application/json' });
-      // // Read the Blob as text
-      // reader.readAsText(blob);
+      this.props.onLoad();
     }
   }, {
     key: "onCancel",
@@ -870,7 +790,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "transformOutputData",
     value: function transformOutputData(data) {
-      //if (this.props.isDebug) console.log("component's data before transforming: ", data);
       var consolidatedData = {};
       data.map(function (item) {
         if (item === null || item === undefined) return;
@@ -889,8 +808,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             consolidatedData[key] = item.formData[key];
           }
         });
-      }); //if (this.props.isDebug) console.log("component's consolidatedData before returning: ", consolidatedData);
-
+      });
       return consolidatedData;
     }
   }, {
@@ -1001,8 +919,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         });
         currentFormNames.splice(index, 0, key);
 
-        var form = _this6.createForm( //// check if we can add new parameter to createForm to tell it to display the error or not
-        partialSchema[key], partialUISchema[key], partialInputData[key], index, currentFormRefs, currentButtonsRefs);
+        var form = _this6.createForm(partialSchema[key], partialUISchema[key], partialInputData[key], index, currentFormRefs, currentButtonsRefs);
 
         currentForms.push(form);
       });
@@ -1264,7 +1181,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       };
       var styleValidation = {
         display: "inline-block",
-        // Ensure it behaves like an inline element
         position: "relative",
         marginLeft: "10px",
         fontWeight: "bold",
@@ -1381,16 +1297,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             key: "ContainerTab-" + currentNames[index],
             forceRender: true
           }, item));
-        } //let currentTabs = currentForms.map(function (item, index) {
-        //	if (names[id][index] === "undefined") return null;
-        //	return (
-        //		<TabPane tab={names[id][index]} key={index} forceRender={true}>
-        //			{item}
-        //		</TabPane>
-        //	);
-        //});
-        //tabs[id] = currentTabs;
-
+        }
       } // let title = "Selected Hardware";
       // if (this.props.schema !== null) {
       // 	title = this.props.schema.title;
@@ -1709,8 +1616,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           };
         }
 
-        var newProperty = Object.assign({}, property); // console.log("elementByType");
-        // console.log(elementByType);
+        var newProperty = Object.assign({}, property);
 
         if (property.linkTo !== undefined) {
           newProperty[_constants.string_default] = _constants.string_na;
@@ -1745,9 +1651,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
               schemaType: schema.title,
               value: _constants.string_not_assigned
             };
-          } // console.log("elementByType");
-          // console.log(elementByType);
-
+          }
 
           if (elementByType[property.items.linkTo] !== undefined) {
             var _propElementByType = elementByType[property.items.linkTo];

@@ -140,7 +140,6 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         editing: false,
         editForm: null
       });
-      console.log('Cancel called from: header');
     }
   }, {
     key: "onFormSave",
@@ -351,10 +350,6 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
           style: styleImage
         }));
         index++;
-      }
-
-      if (this.props.isDebug) {
-        console.log("RERENDER");
       }
 
       if (this.state.viewAbout) {

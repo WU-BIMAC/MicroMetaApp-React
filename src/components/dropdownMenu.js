@@ -44,10 +44,7 @@ export default class DropdownMenu extends React.PureComponent {
 	}
 
 	handleMenuItemClick(e) {
-		if (this.props.isDebug) console.log("INSIDE DROPDOWNMENU.JS IN HANDLEMENUITEMCLICK FUNCTION");
 		let item = e.target.id;
-
-		console.log("Clicked item:", item);
 		let currentTitle = `${this.state.title} ${item}`;
 		this.props.handleMenuItemClick(item);
 		this.setState({ currentTitle: currentTitle });

@@ -95,7 +95,6 @@ export default class Header extends React.PureComponent {
 
 	onFormCancel() {
 		this.setState({ editing: false, editForm: null });
-		console.log('Cancel called from: header');
 	}
 
 	onFormSave() {
@@ -325,9 +324,6 @@ export default class Header extends React.PureComponent {
 				</Button>
 			);
 			index++;
-		}
-		if (this.props.isDebug) {
-			console.log("RERENDER");
 		}
 		if (this.state.viewAbout) {
 			const wrapperContainer = {

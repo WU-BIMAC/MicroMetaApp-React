@@ -117,12 +117,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           onClose = _this$props2.onClose,
           schema = _this$props2.schema,
           inputData = _this$props2.inputData;
-      var selectedComponent = this.state.selectedComponent; // const mergedData = {
-      //     ...inputData, 
-      //     ...selectedComponent 
-      // };
-      // Remove entries from inputData where the value is an array
-
+      var selectedComponent = this.state.selectedComponent;
       var filteredInputData = {};
       Object.entries(inputData || {}).forEach(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 2),
@@ -132,34 +127,26 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         if (!Array.isArray(value)) {
           filteredInputData[key] = value;
         }
-      }); // Now merge as usual
+      });
 
       var mergedData = _objectSpread(_objectSpread({}, filteredInputData), selectedComponent);
 
       var categoryMap = {};
-      var arrayCategories = {}; // console.log("       &&& inputData", inputData);
-      // console.log("     **** schema in componentsLoadingModal:", schema);
-      // console.log("     **** selectedComponent in componentsLoadingModal:", selectedComponent);
-      // console.log("     ** mergedData in componentsLoadingModal", mergedData);
-
+      var arrayCategories = {};
       var allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {}).filter(function (key) {
         return key !== "ID";
       });
       allKeys.forEach(function (key) {
         var prop = schema.properties[key];
         if (!prop) return;
-        var category = prop.category || "General"; // Only include array tabs if the selected component has this array property
+        var category = prop.category || "General";
 
         if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
-          var elements = mergedData[key]; // If elements is an array with a single element that is itself an array, flatten it
+          var elements = mergedData[key];
 
           if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
             elements = elements[0];
-          } // If elements is not an array, wrap it
-          // if (!Array.isArray(elements)) {
-          //     elements = [elements];
-          // }
-
+          }
 
           if (!Array.isArray(elements) && _typeof(elements) === "object" && elements !== null) {
             elements = Object.values(elements);
@@ -174,8 +161,6 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           categoryMap[category].push(key);
         }
       });
-      console.log("arrayCategories for current mergedData:", arrayCategories); // Get tab order from schema or use alphabetical
-
       var tabOrder = Array.isArray(schema === null || schema === void 0 ? void 0 : schema.subCategoriesOrder) ? schema.subCategoriesOrder : Object.keys(categoryMap).sort();
       return /*#__PURE__*/_reactDom.default.createPortal( /*#__PURE__*/_react.default.createElement("div", {
         className: "modal-overlay",
@@ -203,8 +188,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           display: 'flex',
           flexDirection: 'column',
           width: '75%',
-          height: '75%' // Column layout
-
+          height: '75%'
         }
       }, /*#__PURE__*/_react.default.createElement("div", {
         style: {
@@ -363,11 +347,6 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
               borderCollapse: 'collapse'
             }
           }, /*#__PURE__*/_react.default.createElement("tbody", null, Object.keys(element).map(function (key) {
-            console.log("Rendering array tab", {
-              fieldName: fieldName,
-              element: element,
-              itemSchema: itemSchema
-            });
             var prop = (itemSchema.properties || {})[key] || {};
             return /*#__PURE__*/_react.default.createElement("tr", {
               key: key,

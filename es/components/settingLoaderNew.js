@@ -409,7 +409,6 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "handleLoadMetadataComplete",
     value: function handleLoadMetadataComplete(imageMetadata) {
-      //console.log("IM HERE");
       if ((0, _genericUtilities.isDefined)(imageMetadata.Error)) {
         this.setState({
           errorMsg: "Error: " + imageMetadata.Error,
