@@ -189,6 +189,7 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onCanvasElementDataSave",
     value: function onCanvasElementDataSave(id, data, dataLinkedFields, isOnError) {
+      console.log("in the function onCanvasElementDataSave, here is the id, data, and linkedFields", id, data, dataLinkedFields);
       var linkedFields = this.state.linkedFields;
 
       if (dataLinkedFields !== undefined && Object.keys(dataLinkedFields).length > 0) {
@@ -216,6 +217,8 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         elementData: currentElementData,
         linkedFields: linkedFields
       });
+      console.log("this is currentElementData", currentElementData);
+      console.log("this is linkedFields", linkedFields);
       var validated = this.areAllElementsValidated();
       this.props.updateElementData(currentElementData, validated);
       this.props.updateLinkedFields(linkedFields);
