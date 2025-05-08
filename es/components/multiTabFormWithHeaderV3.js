@@ -19,7 +19,7 @@ var _genericUtilities = require("../genericUtilities");
 
 var _uuid = require("uuid");
 
-var _constants = require("../constants");
+var _constants2 = require("../constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62,6 +62,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _constants = require("../constants");
 
 var url = require("url");
 
@@ -675,7 +677,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           isValidated: true
         }, function () {
           if (_this3.state.isValidated) {
-            window.alert("The component has been successfully validated");
+            window.alert(_constants.save_success_window_message);
           }
         });
       }
@@ -741,7 +743,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var _this4 = this;
 
       if (action === "save" && !this.state.isValidated) {
-        window.alert("You must validate the form before saving.");
+        window.alert(_constants.save_non_validation_warning_message);
         return;
       }
 
@@ -1218,11 +1220,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var containerNames = this.containerFormNames;
       var names = this.formNames;
       var forms = this.forms;
-      var saveImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_save_img);
+      var saveImgPath_tmp = url.resolve(this.props.imagesPath, _constants2.string_save_img);
       var saveImgPath = saveImgPath_tmp + (saveImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var globeImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_globe_solid_img);
+      var globeImgPath_tmp = url.resolve(this.props.imagesPath, _constants2.string_globe_solid_img);
       var globeImgPath = globeImgPath_tmp + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      var plusImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_plus_solid_img);
+      var plusImgPath_tmp = url.resolve(this.props.imagesPath, _constants2.string_plus_solid_img);
       var plusImgPath = plusImgPath_tmp + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
       for (var id in forms) {
@@ -1313,7 +1315,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           style: ValidateButton,
           size: "lg",
           onClick: this.onValidate
-        }, validated, " Validate Input"));
+        }, "Validate"));
       }
 
       if (!this.props.notModal || this.props.notModal && this.props.onConfirm !== null) {
@@ -1424,7 +1426,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         containerForms.push( /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
           forceRender: true,
           key: "ContainerTab-" + containerNames[_id6]
-        }, /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren[_id6] ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs // tabPosition={"top"}
+        }, /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren[_id6] ? _constants2.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs // tabPosition={"top"}
         // tabBarStyle={{
         // 	border: "none",
         // }}
@@ -1563,7 +1565,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var property = schema.properties[key];
 
         if (currentChildrenComponents !== undefined && currentChildrenComponents !== null && Object.keys(currentChildrenComponents).includes(key)) {
-          if (property.type === _constants.string_object) {
+          if (property.type === _constants2.string_object) {
             var count = 0;
 
             for (var inputKey in currentChildrenComponents) {
@@ -1574,12 +1576,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
 
             for (var i = 0; i < count; i++) {
-              var localPartialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, _constants.string_object, linkedFields);
+              var localPartialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, property, elementByType, -1, _constants2.string_object, linkedFields);
               partialSchema = Object.assign(partialSchema, localPartialSchema);
             }
 
             return;
-          } else if (property.type === _constants.string_array) {
+          } else if (property.type === _constants2.string_array) {
             var _count = 0;
 
             for (var _inputKey in currentChildrenComponents) {
@@ -1590,7 +1592,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
 
             for (var _i2 = 0; _i2 < _count; _i2++) {
-              var _localPartialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, _i2, _constants.string_array, linkedFields);
+              var _localPartialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, property.items, elementByType, _i2, _constants2.string_array, linkedFields);
 
               partialSchema = Object.assign(partialSchema, _localPartialSchema);
             }
@@ -1608,7 +1610,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         if (keysForCategory === undefined || keysForCategory === null) {
           keysForCategory = {
             title: newCategory,
-            type: _constants.string_object,
+            type: _constants2.string_object,
             subType: subType,
             container: category,
             counter: counter,
@@ -1619,14 +1621,14 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var newProperty = Object.assign({}, property);
 
         if (property.linkTo !== undefined) {
-          newProperty[_constants.string_default] = _constants.string_na;
-          newProperty[_constants.string_enum] = [_constants.string_na];
-          newProperty[_constants.string_enumNames] = [_constants.string_not_assigned];
+          newProperty[_constants2.string_default] = _constants2.string_na;
+          newProperty[_constants2.string_enum] = [_constants2.string_na];
+          newProperty[_constants2.string_enumNames] = [_constants2.string_not_assigned];
 
           if (linkedFields[key] === undefined) {
             linkedFields[key] = {
               schemaType: schema.title,
-              value: _constants.string_not_assigned
+              value: _constants2.string_not_assigned
             };
           }
 
@@ -1636,20 +1638,20 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
               var propElementByTypeName = propElementByType[propElementByTypeID];
               if (inputDataIDs.includes(propElementByTypeID)) return;
 
-              newProperty[_constants.string_enum].push(property.linkTo + "/" + propElementByTypeID);
+              newProperty[_constants2.string_enum].push(property.linkTo + "/" + propElementByTypeID);
 
-              newProperty[_constants.string_enumNames].push(propElementByTypeName);
+              newProperty[_constants2.string_enumNames].push(propElementByTypeName);
             });
           }
         } else if (property.items !== undefined && property.items.linkTo !== undefined) {
-          newProperty.items[_constants.string_default] = _constants.string_na;
-          newProperty.items[_constants.string_enum] = [_constants.string_na];
-          newProperty.items[_constants.string_enumNames] = [_constants.string_not_assigned];
+          newProperty.items[_constants2.string_default] = _constants2.string_na;
+          newProperty.items[_constants2.string_enum] = [_constants2.string_na];
+          newProperty.items[_constants2.string_enumNames] = [_constants2.string_not_assigned];
 
           if (linkedFields[key] === undefined) {
             linkedFields[key] = {
               schemaType: schema.title,
-              value: _constants.string_not_assigned
+              value: _constants2.string_not_assigned
             };
           }
 
@@ -1659,9 +1661,9 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
               var propElementByTypeName = _propElementByType[propElementByTypeID];
               if (inputDataIDs.includes(propElementByTypeID)) return;
 
-              newProperty.items[_constants.string_enum].push(property.items.linkTo + "/" + propElementByTypeID);
+              newProperty.items[_constants2.string_enum].push(property.items.linkTo + "/" + propElementByTypeID);
 
-              newProperty.items[_constants.string_enumNames].push(propElementByTypeName);
+              newProperty.items[_constants2.string_enumNames].push(propElementByTypeName);
             });
           }
         }
@@ -1685,7 +1687,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "transformSchema",
     value: function transformSchema(currentChildrenComponents, schema, elementByType, linkedFields, inputDataIDs) {
-      var partialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, _constants.string_default, linkedFields, inputDataIDs); //partialSchema = Object.assign(partialSchema, { type: "object" });
+      var partialSchema = MultiTabFormWithHeaderV3.transformSchemaCategorizeField(currentChildrenComponents, schema, elementByType, -1, _constants2.string_default, linkedFields, inputDataIDs); //partialSchema = Object.assign(partialSchema, { type: "object" });
 
       return partialSchema;
     }

@@ -74,6 +74,12 @@ export const string_dropbox_settings_new =
 export const string_dropbox_settings_replace =
 	"Click and select, or drag a file here to replace the currently selected Settings file.";
 
+export const save_success_window_message = 
+	"The component has been successfully validated";
+
+export const save_non_validation_warning_message = 
+	"You must validate the form before saving.";
+
 export const number_logo_width = 800;
 export const number_logo_height = 280;
 export const number_small_logo_width = 430;

@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import ModalWindow from "./modalWindow";
 import { isDefined } from "../genericUtilities";
 import { v4 as uuidv4 } from "uuid";
+var _constants = require("../constants");
 
 const url = require("url");
 
@@ -695,7 +696,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		else {
 			this.setState({ isValidated: true }, () => {
 				if (this.state.isValidated) {
-					window.alert("The component has been successfully validated");
+					window.alert(_constants.save_success_window_message);
 				}
 			});
 		}
@@ -746,7 +747,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 	handleAction(action) {
 		if (action === "save" && !this.state.isValidated) {
-			window.alert("You must validate the form before saving.");
+			window.alert(_constants.save_non_validation_warning_message);
 			return;
 		}
 		this.data = {};
@@ -1605,7 +1606,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					size="lg"
 					onClick={this.onValidate}
 				>
-					{validated} Validate Input
+				 Validate
 				</Button>
 			);
 		}
