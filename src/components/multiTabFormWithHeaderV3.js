@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import ModalWindow from "./modalWindow";
 import { isDefined } from "../genericUtilities";
 import { v4 as uuidv4 } from "uuid";
-var _constants = require("../constants");
+import PopoverTooltip from "./popoverTooltip";
 
 const url = require("url");
 
@@ -27,6 +27,11 @@ import {
 	string_globe_solid_img,
 	string_plus_solid_img,
 	string_save_img,
+	component_validate,
+	component_template_save,
+	component_specific_save,
+	save_success_window_message,
+	save_non_validation_warning_message
 } from "../constants";
 
 export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
@@ -696,7 +701,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		else {
 			this.setState({ isValidated: true }, () => {
 				if (this.state.isValidated) {
-					window.alert(_constants.save_success_window_message);
+					window.alert(save_success_window_message);
 				}
 			});
 		}
@@ -747,7 +752,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 	handleAction(action) {
 		if (action === "save" && !this.state.isValidated) {
-			window.alert(_constants.save_non_validation_warning_message);
+			window.alert(save_non_validation_warning_message);
 			return;
 		}
 		this.data = {};
@@ -1368,6 +1373,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			color: "#212121",
 			borderColor: "#bab8b8",
 			paddingRight: "25px",
+			paddingLeft: "20px",
 			borderRadius: "8px",
 			gap: "8px"
 		};
@@ -1597,17 +1603,26 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		let buttons = [];
 		let topButtons = [];
+		let validateTooltip = component_validate;
+		let saveTemplateTooltip = component_template_save;
 
 		if (!this.props.notModal) {
 			buttons.push(
-				<Button
-					key="button-validate"
-					style={ValidateButton}
-					size="lg"
-					onClick={this.onValidate}
-				>
-				 Validate
-				</Button>
+				<PopoverTooltip
+					position={validateTooltip.position}
+					title={validateTooltip.title}
+					content={validateTooltip.content}
+					element={
+						<Button
+							key="button-validate"
+							style={ValidateButton}
+							size="lg"
+							onClick={this.onValidate}
+						>
+							Validate
+						</Button>
+					}
+				/>
 			);
 		}
 
@@ -1686,27 +1701,35 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		if (!this.props.notModal) {
 			topButtons.push(
-				<Button
-					key="button-save"
-					style={CreateNewButton}
-					size="lg"
-					onClick={this.onSave}
-					>
-					<div
-						style={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						paddingLeft: "2px",
-						paddingRight: "2px",
-						}}
-					>
-						<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
-						<span style={{ display: "flex", alignItems: "center" }}>
-						Create New 
-						</span>
-					</div>
-				</Button>
+
+				<PopoverTooltip
+					position={saveTemplateTooltip.position}
+					title={saveTemplateTooltip.title}
+					content={saveTemplateTooltip.content}
+					element={
+						<Button
+							key="button-save"
+							style={CreateNewButton}
+							size="lg"
+							onClick={this.onSave}
+							>
+							<div
+								style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+								paddingLeft: "2px",
+								paddingRight: "2px",
+								}}
+							>
+								<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
+								<span style={{ display: "flex", alignItems: "center" }}>
+								Create New 
+								</span>
+							</div>
+						</Button>
+					}
+				/>
 			);
 
 		}

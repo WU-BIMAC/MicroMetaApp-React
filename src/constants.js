@@ -1188,3 +1188,33 @@ export const select_additional_right = {
 	),
 	position: "right",
 };
+
+export const component_validate = {
+	title: "Validation Title",
+	content: (
+		<p>
+			Validation Message.
+		</p>
+	),
+	position: "top",
+};
+
+export const component_template_save = {
+	title: "Component Template Title",
+	content: (
+		<p>
+			Component Template Message.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const component_specific_save = {
+	title: "Component Specific Title",
+	content: (
+		<p>
+			Component Specific Message.
+		</p>
+	),
+	position: "bottom",
+};
