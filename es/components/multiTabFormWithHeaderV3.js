@@ -222,6 +222,9 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (mergedData !== undefined && mergedData !== null) {
         console.log("[initializeFormsFromLoadedComponent] inside of first if statement");
+        console.log("[initializeFormsFromLoadedComponent] ** mergedData", mergedData);
+        console.log("[initializeFormsFromLoadedComponent] ** this.props.inputData", this.props.inputData);
+        console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
 
         if (Array.isArray(mergedData)) {
           console.log("[initializeFormsFromLoadedComponent] inside of second if statement");
@@ -251,7 +254,10 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
           }
         } else {
-          console.log("[initializeFormsFromLoadedComponent] inside of first else statement"); //create case if 1 input but multiple schemas ?
+          console.log("[initializeFormsFromLoadedComponent] inside of first else statement");
+          console.log("[initializeFormsFromLoadedComponent] ** mergedData", mergedData);
+          console.log("[initializeFormsFromLoadedComponent] ** this.props.inputData", this.props.inputData);
+          console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent); //create case if 1 input but multiple schemas ?
 
           var _schema = this.props.schema;
           var _inputData = mergedData;
@@ -298,6 +304,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.props.inputData !== undefined && this.props.inputData !== null) {
         console.log("[initializeForms] inside of first if statement");
+        console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
 
         if (Array.isArray(this.props.inputData)) {
           console.log("[initializeForms] inside of second if statement");
@@ -325,7 +332,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
           }
         } else {
-          console.log("[initializeForms] inside of first else statement"); //create case if 1 input but multiple schemas ?
+          console.log("[initializeForms] inside of first else statement");
+          console.log("[initializeForms] ** this.props.inputData", this.props.inputData); //create case if 1 input but multiple schemas ?
 
           var _schema2 = this.props.schema;
           var _inputData2 = this.props.inputData;

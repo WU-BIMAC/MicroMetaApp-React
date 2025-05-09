@@ -196,6 +196,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		};
 		if (mergedData !== undefined && mergedData !== null) {
 			console.log("[initializeFormsFromLoadedComponent] inside of first if statement");
+			console.log("[initializeFormsFromLoadedComponent] ** mergedData", mergedData);
+			console.log("[initializeFormsFromLoadedComponent] ** this.props.inputData", this.props.inputData);
+			console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
 			if (Array.isArray(mergedData)) {
 				console.log("[initializeFormsFromLoadedComponent] inside of second if statement");
 				for (let i = 0; i < this.props.schema.length; i++) {
@@ -232,6 +235,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				}
 			} else {
 				console.log("[initializeFormsFromLoadedComponent] inside of first else statement");
+				console.log("[initializeFormsFromLoadedComponent] ** mergedData", mergedData);
+			console.log("[initializeFormsFromLoadedComponent] ** this.props.inputData", this.props.inputData);
+			console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
 				//create case if 1 input but multiple schemas ?
 				let schema = this.props.schema;
 				let inputData = mergedData;
@@ -291,6 +297,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		if (this.props.inputData !== undefined && this.props.inputData !== null) {
 			console.log("[initializeForms] inside of first if statement");
+			console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
 			if (Array.isArray(this.props.inputData)) {
 				console.log("[initializeForms] inside of second if statement");
 				for (let i = 0; i < this.props.schema.length; i++) {
@@ -325,6 +332,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				}
 			} else {
 				console.log("[initializeForms] inside of first else statement");
+				console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
 				//create case if 1 input but multiple schemas ?
 				let schema = this.props.schema;
 				let inputData = this.props.inputData;
