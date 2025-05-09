@@ -221,7 +221,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var mergedData = _objectSpread(_objectSpread({}, this.props.inputData), this.props.selectedLoadComponent);
 
       if (mergedData !== undefined && mergedData !== null) {
+        console.log("[initializeFormsFromLoadedComponent] inside of first if statement");
+
         if (Array.isArray(mergedData)) {
+          console.log("[initializeFormsFromLoadedComponent] inside of second if statement");
+
           for (var i = 0; i < this.props.schema.length; i++) {
             var schema = this.props.schema[i];
 
@@ -247,7 +251,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
           }
         } else {
-          //create case if 1 input but multiple schemas ?
+          console.log("[initializeFormsFromLoadedComponent] inside of first else statement"); //create case if 1 input but multiple schemas ?
+
           var _schema = this.props.schema;
           var _inputData = mergedData;
           var _id = _inputData.ID;
@@ -292,7 +297,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var inputDataIDs = [];
 
       if (this.props.inputData !== undefined && this.props.inputData !== null) {
+        console.log("[initializeForms] inside of first if statement");
+
         if (Array.isArray(this.props.inputData)) {
+          console.log("[initializeForms] inside of second if statement");
+
           for (var i = 0; i < this.props.schema.length; i++) {
             var schema = this.props.schema[i];
 
@@ -316,7 +325,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
           }
         } else {
-          //create case if 1 input but multiple schemas ?
+          console.log("[initializeForms] inside of first else statement"); //create case if 1 input but multiple schemas ?
+
           var _schema2 = this.props.schema;
           var _inputData2 = this.props.inputData;
           var _id3 = _inputData2.ID;
@@ -383,6 +393,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         this.state.maxChildrenComponents = {};
 
         if (Array.isArray(this.props.inputData)) {
+          console.log("[componentDidUpdate] in if condition");
+
           if (this.props.currentChildrenComponentIdentifier !== null && this.props.minChildrenComponentIdentifier !== null && this.props.maxChildrenComponentIdentifier !== null) {
             var _loop2 = function _loop2(y) {
               var inputData = _this2.props.inputData[y];
@@ -421,6 +433,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
           }
         } else {
+          console.log("[componentDidUpdate] in else condition");
+
           if (this.props.currentChildrenComponentIdentifier !== null && this.props.minChildrenComponentIdentifier !== null && this.props.maxChildrenComponentIdentifier !== null) {
             var _inputData4 = this.props.inputData;
             var id = _inputData4.ID;

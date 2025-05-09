@@ -195,7 +195,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			...this.props.selectedLoadComponent 
 		};
 		if (mergedData !== undefined && mergedData !== null) {
+			console.log("[initializeFormsFromLoadedComponent] inside of first if statement");
 			if (Array.isArray(mergedData)) {
+				console.log("[initializeFormsFromLoadedComponent] inside of second if statement");
 				for (let i = 0; i < this.props.schema.length; i++) {
 					let schema = this.props.schema[i];
 					for (let y = 0; y < mergedData.length; y++) {
@@ -229,6 +231,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				}
 			} else {
+				console.log("[initializeFormsFromLoadedComponent] inside of first else statement");
 				//create case if 1 input but multiple schemas ?
 				let schema = this.props.schema;
 				let inputData = mergedData;
@@ -287,7 +290,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let inputDataIDs = [];
 
 		if (this.props.inputData !== undefined && this.props.inputData !== null) {
+			console.log("[initializeForms] inside of first if statement");
 			if (Array.isArray(this.props.inputData)) {
+				console.log("[initializeForms] inside of second if statement");
 				for (let i = 0; i < this.props.schema.length; i++) {
 					let schema = this.props.schema[i];
 					for (let y = 0; y < this.props.inputData.length; y++) {
@@ -319,6 +324,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				}
 			} else {
+				console.log("[initializeForms] inside of first else statement");
 				//create case if 1 input but multiple schemas ?
 				let schema = this.props.schema;
 				let inputData = this.props.inputData;
@@ -395,6 +401,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			this.state.minChildrenComponents = {};
 			this.state.maxChildrenComponents = {};
 			if (Array.isArray(this.props.inputData)) {
+				console.log("[componentDidUpdate] in if condition");
 				if (
 					this.props.currentChildrenComponentIdentifier !== null &&
 					this.props.minChildrenComponentIdentifier !== null &&
@@ -450,6 +457,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				}
 			} else {
+				console.log("[componentDidUpdate] in else condition");
 				if (
 					this.props.currentChildrenComponentIdentifier !== null &&
 					this.props.minChildrenComponentIdentifier !== null &&
@@ -503,6 +511,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					});
 				}
 			}
+			
 			this.initializeForms();
 		}
 	}
