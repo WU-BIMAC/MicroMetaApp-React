@@ -156,8 +156,8 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       if (!this.props.isViewOnly) {
         this.props.setEditingOnCanvas(true);
 
-        var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
-          selectedLoadComponent: this.state.selectedLoadComponent,
+        var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default // selectedLoadComponent={this.state.selectedLoadComponent}
+        , {
           imagesPath: this.props.imagesPath,
           validationUpdate: this.props.validationUpdate,
           title: "Edit " + this.props.formTitle,

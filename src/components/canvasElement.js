@@ -57,7 +57,8 @@ export default class CanvasElement extends React.PureComponent {
 	};
 	
 	handleCloseModal = () => {
-		this.setState({ isModalOpen: false });
+		this.setState({ isModalOpen: false 
+		});
 	};
 
 	handleClick() {
@@ -65,7 +66,7 @@ export default class CanvasElement extends React.PureComponent {
 			this.props.setEditingOnCanvas(true);
 			let editForm = (
 				<MultiTabFormWithHeaderV3
-					selectedLoadComponent={this.state.selectedLoadComponent}
+					// selectedLoadComponent={this.state.selectedLoadComponent}
 					imagesPath={this.props.imagesPath}
 					validationUpdate={this.props.validationUpdate}
 					title={"Edit " + this.props.formTitle}
