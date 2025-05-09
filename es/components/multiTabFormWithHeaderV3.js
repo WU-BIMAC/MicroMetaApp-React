@@ -692,7 +692,10 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       } else if (action === "confirmOnError") {
         this.props.onConfirm(this.props.id, consolidatedData, linkedFields, true);
       } else if (action === "save") {
-        this.props.onSave(this.props.id, consolidatedData, linkedFields);
+        this.props.onSave(this.props.id, consolidatedData, linkedFields, true);
+        this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
+      } else if (action === "saveSpecific") {
+        this.props.onSave(this.props.id, consolidatedData, linkedFields, false);
         this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
       } else {
         this.setState({
@@ -764,7 +767,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleAction(action) {
       var _this4 = this;
 
-      if (action === "save" && !this.state.isValidated) {
+      if ((action === "save" || action === "saveSpecific") && !this.state.isValidated) {
         window.alert(_constants.save_non_validation_warning_message);
         return;
       }
@@ -800,6 +803,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     key: "onSave",
     value: function onSave() {
       this.handleAction("save");
+    }
+  }, {
+    key: "onSaveSpecific",
+    value: function onSaveSpecific() {
+      this.handleAction("saveSpecific");
     }
   }, {
     key: "onLoad",
@@ -1333,6 +1341,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var topButtons = [];
       var validateTooltip = _constants.component_validate;
       var saveTemplateTooltip = _constants.component_template_save;
+      var saveSpecificTooltip = _constants.component_specific_save;
 
       if (!this.props.notModal) {
         buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -1403,9 +1412,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             whiteSpace: "nowrap"
           }
         }, "Component Library"))));
-      }
-
-      if (!this.props.notModal) {
         topButtons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           position: saveTemplateTooltip.position,
           title: saveTemplateTooltip.title,
@@ -1432,9 +1438,69 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
               display: "flex",
               alignItems: "center"
             }
-          }, "Create New")))
+          }, "Create template")))
         }));
-      }
+        topButtons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          position: saveSpecificTooltip.position,
+          title: saveSpecificTooltip.title,
+          content: saveSpecificTooltip.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "button-save",
+            style: CreateNewButton,
+            size: "lg",
+            onClick: this.onSave
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: {
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingLeft: "2px",
+              paddingRight: "2px"
+            }
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            src: plusImgPath,
+            alt: "Plus Icon",
+            style: styleImageIcon
+          }), /*#__PURE__*/_react.default.createElement("span", {
+            style: {
+              display: "flex",
+              alignItems: "center"
+            }
+          }, "Save component")))
+        }));
+      } // if (!this.props.notModal) {
+      // 	topButtons.push(
+      // 		<PopoverTooltip
+      // 			position={saveTemplateTooltip.position}
+      // 			title={saveTemplateTooltip.title}
+      // 			content={saveTemplateTooltip.content}
+      // 			element={
+      // 				<Button
+      // 					key="button-save"
+      // 					style={CreateNewButton}
+      // 					size="lg"
+      // 					onClick={this.onSave}
+      // 					>
+      // 					<div
+      // 						style={{
+      // 						display: "flex",
+      // 						justifyContent: "center",
+      // 						alignItems: "center",
+      // 						paddingLeft: "2px",
+      // 						paddingRight: "2px",
+      // 						}}
+      // 					>
+      // 						<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
+      // 						<span style={{ display: "flex", alignItems: "center" }}>
+      // 						Create template
+      // 						</span>
+      // 					</div>
+      // 				</Button>
+      // 			}
+      // 		/>
+      // 	);
+      // }
+
 
       var containerFormNames = [];
       var containerForms = [];

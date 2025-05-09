@@ -2916,9 +2916,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		document.body.removeChild(a);
 	}
 
-	handleSaveComponent(id, consolidatedData, linkedFields) {
+	handleSaveComponent(id, consolidatedData, linkedFields, isTemplate) {
 		const elementData = this.state.elementData[id];
-		this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier);
+		this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier, isTemplate);
 	}
 
 	handleSaveMicroscope(item) {

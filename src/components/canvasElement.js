@@ -114,10 +114,10 @@ export default class CanvasElement extends React.PureComponent {
 		this.setState({ editing: true});
 	}
 
-	handleSave(id, consolidatedData, linkedFields) {
+	handleSave(id, consolidatedData, linkedFields, isTemplate) {
 		this.props.setEditingOnCanvas(false);
 		this.props.handleConfirm(id, consolidatedData, linkedFields);
-		this.props.onClickSave(id, consolidatedData, linkedFields);
+		this.props.onClickSave(id, consolidatedData, linkedFields, isTemplate);
 	}
 
 	handleLoadComponent = (selectedComponent) => {

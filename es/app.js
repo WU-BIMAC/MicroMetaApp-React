@@ -2160,9 +2160,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleSaveComponent",
-    value: function handleSaveComponent(id, consolidatedData, linkedFields) {
+    value: function handleSaveComponent(id, consolidatedData, linkedFields, isTemplate) {
       var elementData = this.state.elementData[id];
-      this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier);
+      this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier, isTemplate);
     }
   }, {
     key: "handleSaveMicroscope",

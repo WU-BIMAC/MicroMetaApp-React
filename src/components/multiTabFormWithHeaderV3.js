@@ -712,7 +712,12 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		}
 		else if (action === "save")
 		{
-			this.props.onSave(this.props.id, consolidatedData, linkedFields);
+			this.props.onSave(this.props.id, consolidatedData, linkedFields, true);
+			this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
+		}
+		else if (action === "saveSpecific")
+		{
+			this.props.onSave(this.props.id, consolidatedData, linkedFields, false);
 			this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
 		}
 		else {
@@ -768,7 +773,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	}
 
 	handleAction(action) {
-		if (action === "save" && !this.state.isValidated) {
+		if ((action === "save" || action === "saveSpecific") && !this.state.isValidated) {
 			window.alert(save_non_validation_warning_message);
 			return;
 		}
@@ -794,6 +799,10 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 	onSave() {
 		this.handleAction("save");
+	}
+
+	onSaveSpecific() {
+		this.handleAction("saveSpecific");
 	}
 	
 	onLoad() {
@@ -1622,6 +1631,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let topButtons = [];
 		let validateTooltip = component_validate;
 		let saveTemplateTooltip = component_template_save;
+		let saveSpecificTooltip = component_specific_save;
 
 		if (!this.props.notModal) {
 			buttons.push(
@@ -1714,9 +1724,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			</Button>
 
 			);
-		}
 
-		if (!this.props.notModal) {
 			topButtons.push(
 
 				<PopoverTooltip
@@ -1741,7 +1749,39 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 							>
 								<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
 								<span style={{ display: "flex", alignItems: "center" }}>
-								Create New 
+								Create template
+								</span>
+							</div>
+						</Button>
+					}
+				/>
+			);
+
+			topButtons.push(
+
+				<PopoverTooltip
+					position={saveSpecificTooltip.position}
+					title={saveSpecificTooltip.title}
+					content={saveSpecificTooltip.content}
+					element={
+						<Button
+							key="button-save"
+							style={CreateNewButton}
+							size="lg"
+							onClick={this.onSave}
+							>
+							<div
+								style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+								paddingLeft: "2px",
+								paddingRight: "2px",
+								}}
+							>
+								<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
+								<span style={{ display: "flex", alignItems: "center" }}>
+								Save component
 								</span>
 							</div>
 						</Button>
@@ -1750,6 +1790,41 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			);
 
 		}
+
+		// if (!this.props.notModal) {
+		// 	topButtons.push(
+
+		// 		<PopoverTooltip
+		// 			position={saveTemplateTooltip.position}
+		// 			title={saveTemplateTooltip.title}
+		// 			content={saveTemplateTooltip.content}
+		// 			element={
+		// 				<Button
+		// 					key="button-save"
+		// 					style={CreateNewButton}
+		// 					size="lg"
+		// 					onClick={this.onSave}
+		// 					>
+		// 					<div
+		// 						style={{
+		// 						display: "flex",
+		// 						justifyContent: "center",
+		// 						alignItems: "center",
+		// 						paddingLeft: "2px",
+		// 						paddingRight: "2px",
+		// 						}}
+		// 					>
+		// 						<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
+		// 						<span style={{ display: "flex", alignItems: "center" }}>
+		// 						Create template
+		// 						</span>
+		// 					</div>
+		// 				</Button>
+		// 			}
+		// 		/>
+		// 	);
+
+		// }
 
 		let containerFormNames = [];
 		let containerForms = [];

@@ -214,10 +214,10 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleSave",
-    value: function handleSave(id, consolidatedData, linkedFields) {
+    value: function handleSave(id, consolidatedData, linkedFields, isTemplate) {
       this.props.setEditingOnCanvas(false);
       this.props.handleConfirm(id, consolidatedData, linkedFields);
-      this.props.onClickSave(id, consolidatedData, linkedFields);
+      this.props.onClickSave(id, consolidatedData, linkedFields, isTemplate);
     }
   }, {
     key: "handleLoad",
