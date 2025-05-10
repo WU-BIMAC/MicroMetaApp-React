@@ -133,9 +133,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
 
       var categoryMap = {};
       var arrayCategories = {};
-      var allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {}).filter(function (key) {
-        return key !== "ID";
-      });
+      var allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {});
       allKeys.forEach(function (key) {
         var prop = schema.properties[key];
         if (!prop) return;
@@ -157,10 +155,39 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             elements: elements
           };
         } else {
+          // Only include ID if selectedComponent has it
+          if (key === "ID" && (!selectedComponent || selectedComponent.ID === undefined)) {
+            return;
+          }
+
           if (!categoryMap[category]) categoryMap[category] = [];
           categoryMap[category].push(key);
         }
-      });
+      }); // const allKeys = Object.keys(schema?.properties || {}).filter(
+      //     (key) => key !== "ID"
+      // );
+      // allKeys.forEach(key => {
+      //     const prop = schema.properties[key];
+      //     if (!prop) return;
+      //     const category = prop.category || "General";
+      //     if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
+      //         let elements = mergedData[key];
+      //         if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
+      //             elements = elements[0];
+      //         }
+      //         if (!Array.isArray(elements) && typeof elements === "object" && elements !== null) {
+      //             elements = Object.values(elements);
+      //         }
+      //         arrayCategories[key] = {
+      //             itemSchema: prop.items,
+      //             elements
+      //         };
+      //     } else {
+      //         if (!categoryMap[category]) categoryMap[category] = [];
+      //         categoryMap[category].push(key);
+      //     }
+      // });
+
       var tabOrder = Array.isArray(schema === null || schema === void 0 ? void 0 : schema.subCategoriesOrder) ? schema.subCategoriesOrder : Object.keys(categoryMap).sort();
       return /*#__PURE__*/_reactDom.default.createPortal( /*#__PURE__*/_react.default.createElement("div", {
         className: "modal-overlay",

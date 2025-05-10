@@ -2918,7 +2918,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	handleSaveComponent(id, consolidatedData, linkedFields, isTemplate) {
 		const elementData = this.state.elementData[id];
-		console.log("*** this is elementData in handleSaveComponent function", elementData);
 		this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier, isTemplate);
 	}
 

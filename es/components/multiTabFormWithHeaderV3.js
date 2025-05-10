@@ -212,7 +212,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   _createClass(MultiTabFormWithHeaderV3, [{
     key: "initializeFormsFromLoadedComponent",
     value: function initializeFormsFromLoadedComponent() {
-      var counter = 0;
       var linkedFields = this.state.linkedFields;
       var currentChildrenComponents = this.state.currentChildrenComponents;
       var newActiveID = this.state.activeID;
@@ -232,10 +231,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             var schema = this.props.schema[i];
 
             for (var y = 0; y < mergedData.length; y++) {
-              var inputData = mergedData[y]; // let id = inputData.ID;
+              var inputData = mergedData[y]; // let id = uuidv4();
+              // inputData.ID = id;
+              // === NEW LOGIC HERE ===
 
-              var id = (0, _uuid.v4)();
-              inputData.ID = id;
+              var id = inputData.ID !== undefined && inputData.ID !== null && inputData.ID !== "" ? inputData.ID : (0, _uuid.v4)();
+              inputData.ID = id; // Ensure the ID is set
+
               inputDataIDs.push(id);
               if (newActiveID === null) newActiveID = id;
 
@@ -259,8 +261,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           // console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
           //create case if 1 input but multiple schemas ?
           var _schema = this.props.schema;
-          var _inputData = mergedData;
-          var _id = _inputData.ID;
+          var _inputData = mergedData; //let id = inputData.ID;
+          // === NEW LOGIC HERE ===
+
+          var _id = _inputData.ID !== undefined && _inputData.ID !== null && _inputData.ID !== "" ? _inputData.ID : (0, _uuid.v4)();
+
+          _inputData.ID = _id; // Ensure the ID is set
+
           inputDataIDs.push(_id);
 
           var _partialSchema = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[_id], _schema, this.props.elementByType, linkedFields, inputDataIDs);

@@ -56,10 +56,8 @@ export default class ComponentsLoadingModal extends React.PureComponent {
 
         const categoryMap = {};
         const arrayCategories = {};
-    
-        const allKeys = Object.keys(schema?.properties || {}).filter(
-            (key) => key !== "ID"
-        );
+
+        const allKeys = Object.keys(schema?.properties || {});
 
         allKeys.forEach(key => {
             const prop = schema.properties[key];
@@ -82,10 +80,44 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                     elements
                 };
             } else {
+                // Only include ID if selectedComponent has it
+                if (key === "ID" && (!selectedComponent || selectedComponent.ID === undefined)) {
+                    return;
+                }
                 if (!categoryMap[category]) categoryMap[category] = [];
                 categoryMap[category].push(key);
             }
         });
+    
+        // const allKeys = Object.keys(schema?.properties || {}).filter(
+        //     (key) => key !== "ID"
+        // );
+
+        // allKeys.forEach(key => {
+        //     const prop = schema.properties[key];
+        //     if (!prop) return;
+        //     const category = prop.category || "General";
+
+        //     if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
+        //         let elements = mergedData[key];
+
+        //         if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
+        //             elements = elements[0];
+        //         }
+
+        //         if (!Array.isArray(elements) && typeof elements === "object" && elements !== null) {
+        //             elements = Object.values(elements);
+        //         }
+
+        //         arrayCategories[key] = {
+        //             itemSchema: prop.items,
+        //             elements
+        //         };
+        //     } else {
+        //         if (!categoryMap[category]) categoryMap[category] = [];
+        //         categoryMap[category].push(key);
+        //     }
+        // });
     
         const tabOrder = Array.isArray(schema?.subCategoriesOrder)
             ? schema.subCategoriesOrder
