@@ -724,12 +724,17 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       } else {
         this.processErrors();
       }
-    }
+    } // this.props.inputData, 
+    // 		...this.props.selectedLoadComponent
+
   }, {
     key: "processData",
     value: function processData(action) {
       var _this3 = this;
 
+      console.log("~~~~ in processData and this is props.schema", this.props.schema);
+      console.log("~~~~ in processData and this is this.props.inputData", this.props.inputData);
+      console.log("~~~~ in processData and this is this.props.selectedLoadComponent", this.props.selectedLoadComponent);
       var partialInputData = this.state.partialInputData;
       var localData = this.data;
       var localForms = this.formRefs;
@@ -810,6 +815,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var linkedFields = Object.assign({}, this.state.linkedFields);
+      console.log("in processData function and this is this.props.id", this.props.id);
 
       if (action === "confirm") {
         this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);

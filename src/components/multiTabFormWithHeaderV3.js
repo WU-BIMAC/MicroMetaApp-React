@@ -777,7 +777,14 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		}
 	}
 
+	// this.props.inputData, 
+	// 		...this.props.selectedLoadComponent
+
 	processData(action) {
+		console.log("~~~~ in processData and this is props.schema", this.props.schema)
+		console.log("~~~~ in processData and this is this.props.inputData", this.props.inputData)
+		console.log("~~~~ in processData and this is this.props.selectedLoadComponent", this.props.selectedLoadComponent)
+
 		let partialInputData = this.state.partialInputData;
 		let localData = this.data;
 		let localForms = this.formRefs;
@@ -846,6 +853,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		}
 
 		let linkedFields = Object.assign({}, this.state.linkedFields);
+
+		console.log("in processData function and this is this.props.id", this.props.id);
 
 		if (action === "confirm") 
 		{
