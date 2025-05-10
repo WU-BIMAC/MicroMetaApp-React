@@ -134,6 +134,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       var categoryMap = {};
       var arrayCategories = {};
       var allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {});
+      console.log("selectedComponent in the component componentsLoadingModal", selectedComponent);
       allKeys.forEach(function (key) {
         var prop = schema.properties[key];
         if (!prop) return;
@@ -157,6 +158,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         } else {
           // Only include ID if selectedComponent has it
           if (key === "ID" && (!selectedComponent || selectedComponent.ID === undefined)) {
+            console.log("selectedComponent has no ID fiel");
             return;
           }
 

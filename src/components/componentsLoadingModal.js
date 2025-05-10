@@ -59,6 +59,8 @@ export default class ComponentsLoadingModal extends React.PureComponent {
 
         const allKeys = Object.keys(schema?.properties || {});
 
+        console.log("selectedComponent in the component componentsLoadingModal", selectedComponent)
+
         allKeys.forEach(key => {
             const prop = schema.properties[key];
             if (!prop) return;
@@ -82,6 +84,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             } else {
                 // Only include ID if selectedComponent has it
                 if (key === "ID" && (!selectedComponent || selectedComponent.ID === undefined)) {
+                    console.log("selectedComponent has no ID fiel");
                     return;
                 }
                 if (!categoryMap[category]) categoryMap[category] = [];

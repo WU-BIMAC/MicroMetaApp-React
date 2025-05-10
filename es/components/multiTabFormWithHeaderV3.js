@@ -137,8 +137,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           _loop(y);
         }
       } else {
-        var inputData = props.inputData;
-        var id = inputData.ID;
+        var _inputData = props.inputData;
+        var id = _inputData.ID;
         if (_this.state.activeID === null) _this.state.activeID = id;
 
         if (_this.state.minChildrenComponents[id] === undefined || _this.state.minChildrenComponents[id] === null) {
@@ -153,18 +153,18 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           _this.state.currentChildrenComponents[id] = {};
         }
 
-        Object.keys(inputData).forEach(function (key) {
+        Object.keys(_inputData).forEach(function (key) {
           if (key.includes(props.minChildrenComponentIdentifier)) {
             var name = key.replace(props.minChildrenComponentIdentifier, "");
-            _this.state.minChildrenComponents[id][name] = inputData[key];
+            _this.state.minChildrenComponents[id][name] = _inputData[key];
           } else if (key.includes(props.maxChildrenComponentIdentifier)) {
             var _name3 = key.replace(props.maxChildrenComponentIdentifier, "");
 
-            _this.state.maxChildrenComponents[id][_name3] = inputData[key];
+            _this.state.maxChildrenComponents[id][_name3] = _inputData[key];
           } else if (key.includes(props.currentChildrenComponentIdentifier)) {
             var _name4 = key.replace(props.currentChildrenComponentIdentifier, "");
 
-            _this.state.currentChildrenComponents[id][_name4] = inputData[key];
+            _this.state.currentChildrenComponents[id][_name4] = _inputData[key];
           }
         });
       }
@@ -226,24 +226,26 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         // console.log("[initializeFormsFromLoadedComponent] ** this.props.inputData", this.props.inputData);
         // console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
         if (Array.isArray(mergedData)) {
-          // console.log("[initializeFormsFromLoadedComponent] inside of second if statement");
+          console.log("[initializeFormsFromLoadedComponent] inside of second if statement");
+          console.log("inputData.ID", inputData.ID);
+
           for (var i = 0; i < this.props.schema.length; i++) {
             var schema = this.props.schema[i];
 
             for (var y = 0; y < mergedData.length; y++) {
-              var inputData = mergedData[y]; // let id = uuidv4();
+              var _inputData2 = mergedData[y]; // let id = uuidv4();
               // inputData.ID = id;
               // === NEW LOGIC HERE ===
 
-              var id = inputData.ID !== undefined && inputData.ID !== null && inputData.ID !== "" ? inputData.ID : (0, _uuid.v4)();
-              inputData.ID = id; // Ensure the ID is set
+              var id = _inputData2.ID !== undefined && _inputData2.ID !== null && _inputData2.ID !== "" ? _inputData2.ID : (0, _uuid.v4)();
+              _inputData2.ID = id; // Ensure the ID is set
 
               inputDataIDs.push(id);
               if (newActiveID === null) newActiveID = id;
 
-              if (inputData.Schema_ID === schema.ID) {
+              if (_inputData2.Schema_ID === schema.ID) {
                 var partialSchema = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[id], schema, this.props.elementByType, linkedFields, inputDataIDs);
-                var localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(inputData, partialSchema);
+                var localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(_inputData2, partialSchema);
                 partialInputData[id] = {
                   schemaTitle: schema.title,
                   data: localPartialInputData,
@@ -255,24 +257,25 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
           }
         } else {
-          // 	console.log("[initializeFormsFromLoadedComponent] inside of first else statement");
-          // 	console.log("[initializeFormsFromLoadedComponent] ** mergedData", mergedData);
+          console.log("[initializeFormsFromLoadedComponent] inside of first else statement");
+          console.log("inputData.ID", _inputData3.ID); // 	console.log("[initializeFormsFromLoadedComponent] ** mergedData", mergedData);
           // console.log("[initializeFormsFromLoadedComponent] ** this.props.inputData", this.props.inputData);
           // console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
           //create case if 1 input but multiple schemas ?
+
           var _schema = this.props.schema;
-          var _inputData = mergedData; //let id = inputData.ID;
+          var _inputData3 = mergedData; //let id = inputData.ID;
           // === NEW LOGIC HERE ===
 
-          var _id = _inputData.ID !== undefined && _inputData.ID !== null && _inputData.ID !== "" ? _inputData.ID : (0, _uuid.v4)();
+          var _id = _inputData3.ID !== undefined && _inputData3.ID !== null && _inputData3.ID !== "" ? _inputData3.ID : (0, _uuid.v4)();
 
-          _inputData.ID = _id; // Ensure the ID is set
+          _inputData3.ID = _id; // Ensure the ID is set
 
           inputDataIDs.push(_id);
 
           var _partialSchema = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[_id], _schema, this.props.elementByType, linkedFields, inputDataIDs);
 
-          var _localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(_inputData, _partialSchema);
+          var _localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(_inputData3, _partialSchema);
 
           partialInputData[_id] = {
             schemaTitle: _schema.title,
@@ -317,14 +320,14 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             var schema = this.props.schema[i];
 
             for (var y = 0; y < this.props.inputData.length; y++) {
-              var inputData = this.props.inputData[y];
-              var id = inputData.ID;
+              var _inputData4 = this.props.inputData[y];
+              var id = _inputData4.ID;
               inputDataIDs.push(id);
               if (newActiveID === null) newActiveID = id;
 
-              if (inputData.Schema_ID === schema.ID) {
+              if (_inputData4.Schema_ID === schema.ID) {
                 var partialSchema = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[id], schema, this.props.elementByType, linkedFields, inputDataIDs);
-                var localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(inputData, partialSchema);
+                var localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(_inputData4, partialSchema);
                 partialInputData[id] = {
                   schemaTitle: schema.title,
                   data: localPartialInputData,
@@ -340,13 +343,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           // console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
           //create case if 1 input but multiple schemas ?
           var _schema2 = this.props.schema;
-          var _inputData2 = this.props.inputData;
-          var _id3 = _inputData2.ID;
+          var _inputData5 = this.props.inputData;
+          var _id3 = _inputData5.ID;
           inputDataIDs.push(_id3);
 
           var _partialSchema3 = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[_id3], _schema2, this.props.elementByType, linkedFields, inputDataIDs);
 
-          var _localPartialInputData3 = MultiTabFormWithHeaderV3.transformInputData(_inputData2, _partialSchema3);
+          var _localPartialInputData3 = MultiTabFormWithHeaderV3.transformInputData(_inputData5, _partialSchema3);
 
           partialInputData[_id3] = {
             schemaTitle: _schema2.title,
@@ -382,11 +385,11 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var activeID = null;
 
         if (Array.isArray(this.props.inputData)) {
-          var inputData = this.props.inputData[0];
-          activeID = inputData.ID;
+          var _inputData6 = this.props.inputData[0];
+          activeID = _inputData6.ID;
         } else {
-          var _inputData3 = this.props.inputData;
-          activeID = _inputData3.ID;
+          var _inputData7 = this.props.inputData;
+          activeID = _inputData7.ID;
         }
 
         this.state.activeID = activeID;
@@ -446,8 +449,8 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         } else {
           // console.log("[componentDidUpdate] in else condition");
           if (this.props.currentChildrenComponentIdentifier !== null && this.props.minChildrenComponentIdentifier !== null && this.props.maxChildrenComponentIdentifier !== null) {
-            var _inputData4 = this.props.inputData;
-            var id = _inputData4.ID;
+            var _inputData8 = this.props.inputData;
+            var id = _inputData8.ID;
 
             if (this.state.minChildrenComponents[id] === undefined || this.state.minChildrenComponents[id] === null) {
               this.state.minChildrenComponents[id] = {};
@@ -461,18 +464,18 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
               this.state.currentChildrenComponents[id] = {};
             }
 
-            Object.keys(_inputData4).forEach(function (key) {
+            Object.keys(_inputData8).forEach(function (key) {
               if (key.includes(_this2.props.minChildrenComponentIdentifier)) {
                 var name = key.replace(_this2.props.minChildrenComponentIdentifier, "");
-                _this2.state.minChildrenComponents[id][name] = _inputData4[key];
+                _this2.state.minChildrenComponents[id][name] = _inputData8[key];
               } else if (key.includes(_this2.props.maxChildrenComponentIdentifier)) {
                 var _name7 = key.replace(_this2.props.maxChildrenComponentIdentifier, "");
 
-                _this2.state.maxChildrenComponents[id][_name7] = _inputData4[key];
+                _this2.state.maxChildrenComponents[id][_name7] = _inputData8[key];
               } else if (key.includes(_this2.props.currentChildrenComponentIdentifier)) {
                 var _name8 = key.replace(_this2.props.currentChildrenComponentIdentifier, "");
 
-                _this2.state.currentChildrenComponents[id][_name8] = _inputData4[key];
+                _this2.state.currentChildrenComponents[id][_name8] = _inputData8[key];
               }
             });
           }
