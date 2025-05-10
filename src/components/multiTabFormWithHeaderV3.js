@@ -201,11 +201,11 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			// console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
 			if (Array.isArray(mergedData)) {
 				console.log("[initializeFormsFromLoadedComponent] inside of second if statement");
-				console.log("inputData.ID", inputData.ID);
 				for (let i = 0; i < this.props.schema.length; i++) {
 					let schema = this.props.schema[i];
 					for (let y = 0; y < mergedData.length; y++) {
 						let inputData = mergedData[y];
+						console.log("inputData.ID", inputData.ID);
 
 						// let id = uuidv4();
 						// inputData.ID = id;
@@ -243,13 +243,13 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				}
 			} else {
 			console.log("[initializeFormsFromLoadedComponent] inside of first else statement");
-			console.log("inputData.ID", inputData.ID);
 			// 	console.log("[initializeFormsFromLoadedComponent] ** mergedData", mergedData);
 			// console.log("[initializeFormsFromLoadedComponent] ** this.props.inputData", this.props.inputData);
 			// console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
 				//create case if 1 input but multiple schemas ?
 				let schema = this.props.schema;
 				let inputData = mergedData;
+				console.log("inputData.ID", inputData.ID);
 				//let id = inputData.ID;
 
 				// === NEW LOGIC HERE ===
