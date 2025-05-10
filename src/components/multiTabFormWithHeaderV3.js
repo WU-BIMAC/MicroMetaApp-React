@@ -195,12 +195,12 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			...this.props.selectedLoadComponent 
 		};
 		if (mergedData !== undefined && mergedData !== null) {
-			console.log("[initializeFormsFromLoadedComponent] inside of first if statement");
-			console.log("[initializeFormsFromLoadedComponent] ** mergedData", mergedData);
-			console.log("[initializeFormsFromLoadedComponent] ** this.props.inputData", this.props.inputData);
-			console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
+			// console.log("[initializeFormsFromLoadedComponent] inside of first if statement");
+			// console.log("[initializeFormsFromLoadedComponent] ** mergedData", mergedData);
+			// console.log("[initializeFormsFromLoadedComponent] ** this.props.inputData", this.props.inputData);
+			// console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
 			if (Array.isArray(mergedData)) {
-				console.log("[initializeFormsFromLoadedComponent] inside of second if statement");
+				// console.log("[initializeFormsFromLoadedComponent] inside of second if statement");
 				for (let i = 0; i < this.props.schema.length; i++) {
 					let schema = this.props.schema[i];
 					for (let y = 0; y < mergedData.length; y++) {
@@ -234,10 +234,10 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				}
 			} else {
-				console.log("[initializeFormsFromLoadedComponent] inside of first else statement");
-				console.log("[initializeFormsFromLoadedComponent] ** mergedData", mergedData);
-			console.log("[initializeFormsFromLoadedComponent] ** this.props.inputData", this.props.inputData);
-			console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
+			// 	console.log("[initializeFormsFromLoadedComponent] inside of first else statement");
+			// 	console.log("[initializeFormsFromLoadedComponent] ** mergedData", mergedData);
+			// console.log("[initializeFormsFromLoadedComponent] ** this.props.inputData", this.props.inputData);
+			// console.log("[initializeFormsFromLoadedComponent] ** this.props.selectedLoadComponent", this.props.selectedLoadComponent);
 				//create case if 1 input but multiple schemas ?
 				let schema = this.props.schema;
 				let inputData = mergedData;
@@ -296,10 +296,10 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let inputDataIDs = [];
 
 		if (this.props.inputData !== undefined && this.props.inputData !== null) {
-			console.log("[initializeForms] inside of first if statement");
-			console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
+			// console.log("[initializeForms] inside of first if statement");
+			// console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
 			if (Array.isArray(this.props.inputData)) {
-				console.log("[initializeForms] inside of second if statement");
+				// console.log("[initializeForms] inside of second if statement");
 				for (let i = 0; i < this.props.schema.length; i++) {
 					let schema = this.props.schema[i];
 					for (let y = 0; y < this.props.inputData.length; y++) {
@@ -331,8 +331,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				}
 			} else {
-				console.log("[initializeForms] inside of first else statement");
-				console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
+				// console.log("[initializeForms] inside of first else statement");
+				// console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
 				//create case if 1 input but multiple schemas ?
 				let schema = this.props.schema;
 				let inputData = this.props.inputData;
@@ -409,7 +409,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			this.state.minChildrenComponents = {};
 			this.state.maxChildrenComponents = {};
 			if (Array.isArray(this.props.inputData)) {
-				console.log("[componentDidUpdate] in if condition");
+				// console.log("[componentDidUpdate] in if condition");
 				if (
 					this.props.currentChildrenComponentIdentifier !== null &&
 					this.props.minChildrenComponentIdentifier !== null &&
@@ -465,7 +465,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				}
 			} else {
-				console.log("[componentDidUpdate] in else condition");
+				// console.log("[componentDidUpdate] in else condition");
 				if (
 					this.props.currentChildrenComponentIdentifier !== null &&
 					this.props.minChildrenComponentIdentifier !== null &&
@@ -1768,7 +1768,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 							key="button-save"
 							style={CreateNewButton}
 							size="lg"
-							onClick={this.onSave}
+							onClick={this.onSaveSpecific}
 							>
 							<div
 								style={{

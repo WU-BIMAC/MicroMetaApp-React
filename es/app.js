@@ -2162,6 +2162,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     key: "handleSaveComponent",
     value: function handleSaveComponent(id, consolidatedData, linkedFields, isTemplate) {
       var elementData = this.state.elementData[id];
+      console.log("*** this is elementData in handleSaveComponent function", elementData);
       this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier, isTemplate);
     }
   }, {
