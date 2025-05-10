@@ -3019,10 +3019,16 @@ export default class MicroMetaAppReact extends React.PureComponent {
     	this.setState({ allComponents: [] });
 	}
 
-	handleCompleteSave(name) {
+	handleCompleteSave(name, error) {
 		//console.log(micName + " saved");
 		//WARN Microscope save
-		window.alert("Component saved");
+		// window.alert("Component saved");
+
+		if (error) {
+			window.alert(error); // Show the error message
+		} else {
+			window.alert("Component saved");
+		}
 	}
 
 	handleCompleteSaveAllComponents() {
