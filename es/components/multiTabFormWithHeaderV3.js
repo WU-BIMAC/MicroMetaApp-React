@@ -733,7 +733,9 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var partialInputData = this.state.partialInputData;
       var localData = this.data;
       var localForms = this.formRefs;
-      var partialConsolidatedData = {};
+      var partialConsolidatedData = {}; // Get the current active ID from state
+
+      var mainID = this.state.activeID; // Use the updated active ID
 
       var _loop3 = function _loop3(currentID) {
         var forms = localForms[currentID];
@@ -770,17 +772,16 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       if (this.props.notModal) {
         this.props.onConfirm(this.props.id);
         return;
+      } // Use the active ID directly instead of deriving from props
+
+
+      var consolidatedData = partialConsolidatedData[mainID]; // Add null check for safety
+
+      if (!consolidatedData) {
+        console.error("No consolidated data found for mainID:", mainID);
+        return;
       }
 
-      var mainID = null;
-
-      if (Array.isArray(this.props.inputData)) {
-        mainID = this.props.inputData[0].ID;
-      } else {
-        mainID = this.props.inputData.ID;
-      }
-
-      var consolidatedData = partialConsolidatedData[mainID];
       var subComponents = {};
 
       for (var id in partialConsolidatedData) {
@@ -809,18 +810,20 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
-      var linkedFields = Object.assign({}, this.state.linkedFields);
+      var linkedFields = Object.assign({}, this.state.linkedFields); // Ensure we're using the updated ID in all callbacks
+
+      var currentComponentID = mainID || this.props.id;
 
       if (action === "confirm") {
-        this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
+        this.props.onConfirm(currentComponentID, consolidatedData, linkedFields, false);
       } else if (action === "confirmOnError") {
-        this.props.onConfirm(this.props.id, consolidatedData, linkedFields, true);
+        this.props.onConfirm(currentComponentID, consolidatedData, linkedFields, true);
       } else if (action === "save") {
-        this.props.onSave(this.props.id, consolidatedData, linkedFields, true);
-        this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
+        this.props.onSave(currentComponentID, consolidatedData, linkedFields, true);
+        this.props.onConfirm(currentComponentID, consolidatedData, linkedFields, false);
       } else if (action === "saveSpecific") {
-        this.props.onSave(this.props.id, consolidatedData, linkedFields, false);
-        this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
+        this.props.onSave(currentComponentID, consolidatedData, linkedFields, false);
+        this.props.onConfirm(currentComponentID, consolidatedData, linkedFields, false);
       } else {
         this.setState({
           isValidated: true
@@ -830,7 +833,96 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           }
         });
       }
-    }
+    } // processData(action) {
+    // 	let partialInputData = this.state.partialInputData;
+    // 	let localData = this.data;
+    // 	let localForms = this.formRefs;
+    // 	let partialConsolidatedData = {};
+    // 	for (let currentID in localForms) {
+    // 		let forms = localForms[currentID];
+    // 		let currentData = localData[currentID];
+    // 		let numberOfForms = forms.length;
+    // 		if (!isDefined(currentData) || currentData.length < numberOfForms || currentData.includes(null)) {
+    // 			return;
+    // 		}
+    // 		let localConsolidatedData = this.transformOutputData(currentData);
+    // 		let currentChildrenComponents =
+    // 			this.state.currentChildrenComponents[currentID];
+    // 		if (
+    // 			currentChildrenComponents !== null &&
+    // 			currentChildrenComponents !== undefined
+    // 		) {
+    // 			let attrName = this.props.currentChildrenComponentIdentifier;
+    // 			Object.keys(currentChildrenComponents).forEach(function (key) {
+    // 				let attr = attrName + key;
+    // 				localConsolidatedData[attr] = currentChildrenComponents[key];
+    // 			});
+    // 		}
+    // 		partialConsolidatedData[currentID] = localConsolidatedData;
+    // 	}
+    // 	if (this.props.notModal) {
+    // 		this.props.onConfirm(this.props.id);
+    // 		return;
+    // 	}
+    // 	let mainID = null;
+    // 	if (Array.isArray(this.props.inputData)) {
+    // 		mainID = this.props.inputData[0].ID;
+    // 	} else {
+    // 		mainID = this.props.inputData.ID;
+    // 	}
+    // 	let consolidatedData = partialConsolidatedData[mainID];
+    // 	let subComponents = {};
+    // 	for (let id in partialConsolidatedData) {
+    // 		if (id === mainID) continue;
+    // 		let localConsolidatedData = partialConsolidatedData[id];
+    // 		let localPartialInputData = partialInputData[id];
+    // 		let schemaTitle = localPartialInputData.schemaTitle;
+    // 		let schema = localPartialInputData.schema;
+    // 		let localSubComponents = [];
+    // 		if (
+    // 			subComponents[schemaTitle] !== null &&
+    // 			subComponents[schemaTitle] !== undefined
+    // 		) {
+    // 			localSubComponents = subComponents[schemaTitle];
+    // 		}
+    // 		localSubComponents.push(localConsolidatedData);
+    // 		subComponents[schemaTitle] = localSubComponents;
+    // 	}
+    // 	for (let schemaTitle in subComponents) {
+    // 		let localSubComponents = subComponents[schemaTitle];
+    // 		if (localSubComponents.length > 1) {
+    // 			consolidatedData[schemaTitle] = localSubComponents;
+    // 		} else {
+    // 			consolidatedData[schemaTitle] = localSubComponents[0];
+    // 		}
+    // 	}
+    // 	let linkedFields = Object.assign({}, this.state.linkedFields);
+    // 	if (action === "confirm") 
+    // 	{
+    // 		this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
+    // 	} 
+    // 	else if (action === "confirmOnError") {
+    // 		this.props.onConfirm(this.props.id, consolidatedData, linkedFields, true);
+    // 	}
+    // 	else if (action === "save")
+    // 	{
+    // 		this.props.onSave(this.props.id, consolidatedData, linkedFields, true);
+    // 		this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
+    // 	}
+    // 	else if (action === "saveSpecific")
+    // 	{
+    // 		this.props.onSave(this.props.id, consolidatedData, linkedFields, false);
+    // 		this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
+    // 	}
+    // 	else {
+    // 		this.setState({ isValidated: true }, () => {
+    // 			if (this.state.isValidated) {
+    // 				window.alert(save_success_window_message);
+    // 			}
+    // 		});
+    // 	}
+    // }
+
   }, {
     key: "processErrors",
     value: function processErrors() {
