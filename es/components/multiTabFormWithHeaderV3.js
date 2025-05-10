@@ -315,13 +315,15 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         // console.log("[initializeForms] inside of first if statement");
         // console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
         if (Array.isArray(this.props.inputData)) {
-          // console.log("[initializeForms] inside of second if statement");
+          console.log("[initializeForms] inside of second if statement");
+
           for (var i = 0; i < this.props.schema.length; i++) {
             var schema = this.props.schema[i];
 
             for (var y = 0; y < this.props.inputData.length; y++) {
               var inputData = this.props.inputData[y];
               var id = inputData.ID;
+              console.log("inputData.ID", inputData.ID);
               inputDataIDs.push(id);
               if (newActiveID === null) newActiveID = id;
 
@@ -339,12 +341,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
           }
         } else {
-          // console.log("[initializeForms] inside of first else statement");
-          // console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
+          console.log("[initializeForms] inside of first else statement"); // console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
           //create case if 1 input but multiple schemas ?
+
           var _schema2 = this.props.schema;
           var _inputData2 = this.props.inputData;
           var _id3 = _inputData2.ID;
+          console.log("inputData.ID", _inputData2.ID);
           inputDataIDs.push(_id3);
 
           var _partialSchema3 = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[_id3], _schema2, this.props.elementByType, linkedFields, inputDataIDs);

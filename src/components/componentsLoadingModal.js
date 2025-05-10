@@ -12,6 +12,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
       }
     
       handleComponentClick = (component) => {
+        console.log("inside of handleComponentClick function in the component componentsLoadingModal");
         this.setState({ selectedComponent: component });
       };
     

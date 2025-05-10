@@ -315,12 +315,14 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			// console.log("[initializeForms] inside of first if statement");
 			// console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
 			if (Array.isArray(this.props.inputData)) {
-				// console.log("[initializeForms] inside of second if statement");
+				console.log("[initializeForms] inside of second if statement");
 				for (let i = 0; i < this.props.schema.length; i++) {
 					let schema = this.props.schema[i];
 					for (let y = 0; y < this.props.inputData.length; y++) {
 						let inputData = this.props.inputData[y];
 						let id = inputData.ID;
+
+						console.log("inputData.ID", inputData.ID);
 						inputDataIDs.push(id);
 						if (newActiveID === null) newActiveID = id;
 						if (inputData.Schema_ID === schema.ID) {
@@ -347,12 +349,13 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				}
 			} else {
-				// console.log("[initializeForms] inside of first else statement");
+				console.log("[initializeForms] inside of first else statement");
 				// console.log("[initializeForms] ** this.props.inputData", this.props.inputData);
 				//create case if 1 input but multiple schemas ?
 				let schema = this.props.schema;
 				let inputData = this.props.inputData;
 				let id = inputData.ID;
+				console.log("inputData.ID", inputData.ID);
 				inputDataIDs.push(id);
 				let partialSchema = MultiTabFormWithHeaderV3.transformSchema(
 					currentChildrenComponents[id],

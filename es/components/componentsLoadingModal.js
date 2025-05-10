@@ -68,6 +68,8 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
     _this = _super.call(this, props);
 
     _defineProperty(_assertThisInitialized(_this), "handleComponentClick", function (component) {
+      console.log("inside of handleComponentClick function in the component componentsLoadingModal");
+
       _this.setState({
         selectedComponent: component
       });
