@@ -146,6 +146,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		this.action = null;
 		this.handleAction = this.handleAction.bind(this);
 		this.onSave = this.onSave.bind(this);
+		this.onSaveSpecific = this.onSaveSpecific.bind(this);
 		this.onLoad = this.onLoad.bind(this);
 		this.onValidate = this.onValidate.bind(this);
 		this.handleChange = this.handleChange.bind(this);

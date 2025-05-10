@@ -180,6 +180,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     _this.action = null;
     _this.handleAction = _this.handleAction.bind(_assertThisInitialized(_this));
     _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
+    _this.onSaveSpecific = _this.onSaveSpecific.bind(_assertThisInitialized(_this));
     _this.onLoad = _this.onLoad.bind(_assertThisInitialized(_this));
     _this.onValidate = _this.onValidate.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
