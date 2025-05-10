@@ -3031,8 +3031,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 	}
 
-	handleCompleteSaveAllComponents() {
-		window.alert("All components saved");
+	handleCompleteSaveAllComponents(error) {
+		//window.alert("All components saved");
+
+		if (error) {
+			window.alert(error); // Show the error(s) to the user
+		} else {
+			window.alert("All components saved");
+		}
 	}
 
 	handleCompleteExport(name) {

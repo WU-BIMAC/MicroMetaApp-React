@@ -2296,8 +2296,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleCompleteSaveAllComponents",
-    value: function handleCompleteSaveAllComponents() {
-      window.alert("All components saved");
+    value: function handleCompleteSaveAllComponents(error) {
+      //window.alert("All components saved");
+      if (error) {
+        window.alert(error); // Show the error(s) to the user
+      } else {
+        window.alert("All components saved");
+      }
     }
   }, {
     key: "handleCompleteExport",
