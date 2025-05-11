@@ -260,7 +260,18 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       //     }
       // });
 
-      var tabOrder = Array.isArray(schema === null || schema === void 0 ? void 0 : schema.subCategoriesOrder) ? schema.subCategoriesOrder : Object.keys(categoryMap).sort();
+      var tabOrder = Array.isArray(schema === null || schema === void 0 ? void 0 : schema.subCategoriesOrder) ? schema.subCategoriesOrder : Object.keys(categoryMap).sort(); // Carrot icon component
+
+      var CarrotIcon = function CarrotIcon(_ref9) {
+        var expanded = _ref9.expanded;
+        return /*#__PURE__*/_react.default.createElement("span", {
+          style: {
+            display: 'inline-block',
+            width: 16
+          }
+        }, expanded ? '▼' : '▶');
+      };
+
       return /*#__PURE__*/_reactDom.default.createPortal( /*#__PURE__*/_react.default.createElement("div", {
         className: "modal-overlay",
         style: {
@@ -314,9 +325,16 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         treeData: this.buildTreeData(components),
         defaultExpandAll: true,
         selectable: true,
+        showIcon: false,
+        switcherIcon: function switcherIcon(_ref10) {
+          var expanded = _ref10.expanded;
+          return /*#__PURE__*/_react.default.createElement(CarrotIcon, {
+            expanded: expanded
+          });
+        },
         selectedKeys: this.state.selectedComponent ? [this.findTreeKeyForComponent(this.state.selectedComponent, components)] : [],
-        onSelect: function onSelect(selectedKeys, _ref9) {
-          var node = _ref9.node;
+        onSelect: function onSelect(selectedKeys, _ref11) {
+          var node = _ref11.node;
 
           if (node.component) {
             _this2.handleComponentClick(node.component);
@@ -333,12 +351,12 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
           key: category
         }, category);
-      }), Object.entries(arrayCategories).map(function (_ref10) {
-        var _ref11 = _slicedToArray(_ref10, 2),
-            fieldName = _ref11[0],
-            _ref11$ = _ref11[1],
-            itemSchema = _ref11$.itemSchema,
-            elements = _ref11$.elements;
+      }), Object.entries(arrayCategories).map(function (_ref12) {
+        var _ref13 = _slicedToArray(_ref12, 2),
+            fieldName = _ref13[0],
+            _ref13$ = _ref13[1],
+            itemSchema = _ref13$.itemSchema,
+            elements = _ref13$.elements;
 
         return elements.map(function (_, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
@@ -391,12 +409,12 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             paddingLeft: '10px'
           }
         }, "Select a component to view its details."));
-      }), Object.entries(arrayCategories).map(function (_ref12) {
-        var _ref13 = _slicedToArray(_ref12, 2),
-            fieldName = _ref13[0],
-            _ref13$ = _ref13[1],
-            itemSchema = _ref13$.itemSchema,
-            elements = _ref13$.elements;
+      }), Object.entries(arrayCategories).map(function (_ref14) {
+        var _ref15 = _slicedToArray(_ref14, 2),
+            fieldName = _ref15[0],
+            _ref15$ = _ref15[1],
+            itemSchema = _ref15$.itemSchema,
+            elements = _ref15$.elements;
 
         return elements.map(function (element, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {

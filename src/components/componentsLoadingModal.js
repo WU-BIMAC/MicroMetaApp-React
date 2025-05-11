@@ -161,6 +161,13 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         const tabOrder = Array.isArray(schema?.subCategoriesOrder)
             ? schema.subCategoriesOrder
             : Object.keys(categoryMap).sort();
+
+        // Carrot icon component
+        const CarrotIcon = ({ expanded }) => (
+            <span style={{ display: 'inline-block', width: 16 }}>
+            {expanded ? '▼' : '▶'}
+            </span>
+        );
     
         return ReactDOM.createPortal(
             <div className="modal-overlay" style={{
@@ -234,6 +241,8 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         treeData={this.buildTreeData(components)}
         defaultExpandAll
         selectable
+        showIcon={false}
+        switcherIcon={({ expanded }) => <CarrotIcon expanded={expanded} />}
         selectedKeys={
             this.state.selectedComponent
                 ? [this.findTreeKeyForComponent(this.state.selectedComponent, components)]
