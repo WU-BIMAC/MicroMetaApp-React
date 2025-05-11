@@ -2,8 +2,6 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import Tree from 'rc-tree';
-import 'rc-tree/assets/index.css';
 
 
 export default class ComponentsLoadingModal extends React.PureComponent {
@@ -53,24 +51,6 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         }
         if (underscores.length < 2) return name; 
         return name.slice(underscores[1] + 1);
-        }
-
-        buildTreeData(components) {
-            // components[manufacturer][model][entryKey] = { component }
-            return Object.entries(components).map(([manufacturer, models]) => ({
-                title: manufacturer,
-                key: manufacturer,
-                children: Object.entries(models).map(([model, entries]) => ({
-                    title: model,
-                    key: `${manufacturer}|${model}`,
-                    children: Object.entries(entries).map(([entryKey, entryObj]) => ({
-                        title: entryObj.component.Name,
-                        key: `${manufacturer}|${model}|${entryKey}`,
-                        isLeaf: true,
-                        component: entryObj.component
-                    }))
-                }))
-            }));
         }
 
         findTreeKeyForComponent(selectedComponent, components) {
@@ -230,83 +210,83 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                 <h4>List</h4>
 
                                 <ul style={{ listStyleType: 'none', padding: 0 }}>
-    {Object.entries(components).map(([manufacturer, models]) => {
-        const isManuExpanded = this.state.expandedManufacturers.has(manufacturer);
-        return (
-            <li key={manufacturer} style={{ marginBottom: 4 }}>
-                {/* Manufacturer row */}
-                <span
-                    style={{ cursor: 'pointer', userSelect: 'none', marginRight: 4 }}
-                    onClick={() => this.toggleManufacturer(manufacturer)}
-                    title={isManuExpanded ? "Collapse" : "Expand"}
-                >
-                    {isManuExpanded ? '▼' : '▶'}
-                </span>
-                <strong style={{
-                    wordBreak: 'break-word',
-                    whiteSpace: 'normal',
-                    overflowWrap: 'anywhere',
-                    display: 'inline-block',
-                    maxWidth: '85%'
-                }}>{manufacturer}</strong>
-                {isManuExpanded && (
-                    <ul style={{ listStyleType: 'none', paddingLeft: 18 }}>
-                        {Object.entries(models).map(([model, entries]) => {
-                            const modelKey = `${manufacturer}|${model}`;
-                            const isModelExpanded = this.state.expandedModels.has(modelKey);
-                            return (
-                                <li key={model} style={{ marginBottom: 2 }}>
-                                    {/* Model row */}
-                                    <span
-                                        style={{ cursor: 'pointer', userSelect: 'none', marginRight: 4 }}
-                                        onClick={() => this.toggleModel(manufacturer, model)}
-                                        title={isModelExpanded ? "Collapse" : "Expand"}
-                                    >
-                                        {isModelExpanded ? '▼' : '▶'}
-                                    </span>
-                                    <em style={{
-                                        wordBreak: 'break-word',
-                                        whiteSpace: 'normal',
-                                        overflowWrap: 'anywhere',
-                                        display: 'inline-block',
-                                        maxWidth: '80%'
-                                    }}>{model}</em>
-                                    {isModelExpanded && (
-                                        <ul style={{ listStyleType: 'none', paddingLeft: 18 }}>
-                                            {Object.entries(entries).map(([entryKey, entryObj]) => {
-                                                const comp = entryObj.component;
-                                                const isSelected = selectedComponent === comp;
-                                                return (
-                                                    <li
-                                                        key={entryKey}
-                                                        style={{
-                                                            padding: '3px 0',
-                                                            cursor: 'pointer',
-                                                            fontWeight: isSelected ? 'bold' : 'normal',
-                                                            color: isSelected ? '#007BFF' : 'black',
-                                                            wordBreak: 'break-word',
-                                                            whiteSpace: 'normal',
-                                                            overflowWrap: 'anywhere',
-                                                            display: 'inline-block',
-                                                            maxWidth: '95%'
-                                                        }}
-                                                        onClick={() => this.handleComponentClick(comp)}
-                                                    >
-                                                        {this.trimMicroscopeName(comp.Name) || entryKey}
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
-                                    )}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                )}
-            </li>
-        );
-    })}
-</ul>
+                                    {Object.entries(components).map(([manufacturer, models]) => {
+                                        const isManuExpanded = this.state.expandedManufacturers.has(manufacturer);
+                                        return (
+                                            <li key={manufacturer} style={{ marginBottom: 4 }}>
+                                                {/* Manufacturer row */}
+                                                <span
+                                                    style={{ cursor: 'pointer', userSelect: 'none', marginRight: 4 }}
+                                                    onClick={() => this.toggleManufacturer(manufacturer)}
+                                                    title={isManuExpanded ? "Collapse" : "Expand"}
+                                                >
+                                                    {isManuExpanded ? '▼' : '▶'}
+                                                </span>
+                                                <strong style={{
+                                                    wordBreak: 'break-word',
+                                                    whiteSpace: 'normal',
+                                                    overflowWrap: 'anywhere',
+                                                    // display: 'inline-block',
+                                                    maxWidth: '85%'
+                                                }}>{manufacturer}</strong>
+                                                {isManuExpanded && (
+                                                    <ul style={{ listStyleType: 'none', paddingLeft: 18 }}>
+                                                        {Object.entries(models).map(([model, entries]) => {
+                                                            const modelKey = `${manufacturer}|${model}`;
+                                                            const isModelExpanded = this.state.expandedModels.has(modelKey);
+                                                            return (
+                                                                <li key={model} style={{ marginBottom: 2 }}>
+                                                                    {/* Model row */}
+                                                                    <span
+                                                                        style={{ cursor: 'pointer', userSelect: 'none', marginRight: 4 }}
+                                                                        onClick={() => this.toggleModel(manufacturer, model)}
+                                                                        title={isModelExpanded ? "Collapse" : "Expand"}
+                                                                    >
+                                                                        {isModelExpanded ? '▼' : '▶'}
+                                                                    </span>
+                                                                    <em style={{
+                                                                        wordBreak: 'break-word',
+                                                                        whiteSpace: 'normal',
+                                                                        overflowWrap: 'anywhere',
+                                                                        // display: 'inline-block',
+                                                                        maxWidth: '80%'
+                                                                    }}>{model}</em>
+                                                                    {isModelExpanded && (
+                                                                        <ul style={{ listStyleType: 'none', paddingLeft: 18 }}>
+                                                                            {Object.entries(entries).map(([entryKey, entryObj]) => {
+                                                                                const comp = entryObj.component;
+                                                                                const isSelected = selectedComponent === comp;
+                                                                                return (
+                                                                                    <li
+                                                                                        key={entryKey}
+                                                                                        style={{
+                                                                                            padding: '3px 0',
+                                                                                            cursor: 'pointer',
+                                                                                            fontWeight: isSelected ? 'bold' : 'normal',
+                                                                                            color: isSelected ? '#007BFF' : 'black',
+                                                                                            wordBreak: 'break-word',
+                                                                                            whiteSpace: 'normal',
+                                                                                            overflowWrap: 'anywhere',
+                                                                                            // display: 'inline-block',
+                                                                                            maxWidth: '95%'
+                                                                                        }}
+                                                                                        onClick={() => this.handleComponentClick(comp)}
+                                                                                    >
+                                                                                        {this.trimMicroscopeName(comp.Name) || entryKey}
+                                                                                    </li>
+                                                                                );
+                                                                            })}
+                                                                        </ul>
+                                                                    )}
+                                                                </li>
+                                                            );
+                                                        })}
+                                                    </ul>
+                                                )}
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
 
 
                                 {/* <ul style={{ listStyleType: 'none', padding: 0 }}>
@@ -344,23 +324,6 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                     ))}
                                 </ul> */}
 
-{/* <Tree
-        treeData={this.buildTreeData(components)}
-        defaultExpandAll
-        selectable
-        showIcon={false}
-        selectedKeys={
-            this.state.selectedComponent
-                ? [this.findTreeKeyForComponent(this.state.selectedComponent, components)]
-                : []
-        }
-        onSelect={(selectedKeys, { node }) => {
-            if (node.component) {
-                this.handleComponentClick(node.component);
-            }
-        }}
-        style={{ background: 'none' }}
-    /> */}
                             </div>
         
                             <Tabs style={{ flex: 1 }}>
@@ -369,14 +332,14 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                         <Tab key={category}>{category}</Tab>
                                     ))}
 
-                            {/* Array categories */}
-                            {Object.entries(arrayCategories).map(([fieldName, { itemSchema, elements }]) => (
-                                elements.map((_, index) => (
-                                    <Tab key={`${fieldName}_${index}`}>
-                                        {`${fieldName}_${index}`}
-                                    </Tab>
-                                ))
-                            ))}
+                                    {/* Array categories */}
+                                    {Object.entries(arrayCategories).map(([fieldName, { itemSchema, elements }]) => (
+                                        elements.map((_, index) => (
+                                            <Tab key={`${fieldName}_${index}`}>
+                                                {`${fieldName}_${index}`}
+                                            </Tab>
+                                        ))
+                                    ))}
                                 </TabList>
         
                                 {tabOrder.map(category => (

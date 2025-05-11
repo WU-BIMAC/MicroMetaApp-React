@@ -13,10 +13,6 @@ var _reactTabs = require("react-tabs");
 
 require("react-tabs/style/react-tabs.css");
 
-var _rcTree = _interopRequireDefault(require("rc-tree"));
-
-require("rc-tree/assets/index.css");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -157,43 +153,6 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       return name.slice(underscores[1] + 1);
     }
   }, {
-    key: "buildTreeData",
-    value: function buildTreeData(components) {
-      // components[manufacturer][model][entryKey] = { component }
-      return Object.entries(components).map(function (_ref3) {
-        var _ref4 = _slicedToArray(_ref3, 2),
-            manufacturer = _ref4[0],
-            models = _ref4[1];
-
-        return {
-          title: manufacturer,
-          key: manufacturer,
-          children: Object.entries(models).map(function (_ref5) {
-            var _ref6 = _slicedToArray(_ref5, 2),
-                model = _ref6[0],
-                entries = _ref6[1];
-
-            return {
-              title: model,
-              key: "".concat(manufacturer, "|").concat(model),
-              children: Object.entries(entries).map(function (_ref7) {
-                var _ref8 = _slicedToArray(_ref7, 2),
-                    entryKey = _ref8[0],
-                    entryObj = _ref8[1];
-
-                return {
-                  title: entryObj.component.Name,
-                  key: "".concat(manufacturer, "|").concat(model, "|").concat(entryKey),
-                  isLeaf: true,
-                  component: entryObj.component
-                };
-              })
-            };
-          })
-        };
-      });
-    }
-  }, {
     key: "findTreeKeyForComponent",
     value: function findTreeKeyForComponent(selectedComponent, components) {
       for (var _i2 = 0, _Object$entries = Object.entries(components); _i2 < _Object$entries.length; _i2++) {
@@ -232,10 +191,10 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           inputData = _this$props2.inputData;
       var selectedComponent = this.state.selectedComponent;
       var filteredInputData = {};
-      Object.entries(inputData || {}).forEach(function (_ref9) {
-        var _ref10 = _slicedToArray(_ref9, 2),
-            key = _ref10[0],
-            value = _ref10[1];
+      Object.entries(inputData || {}).forEach(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            key = _ref4[0],
+            value = _ref4[1];
 
         if (!Array.isArray(value)) {
           filteredInputData[key] = value;
@@ -358,10 +317,10 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           listStyleType: 'none',
           padding: 0
         }
-      }, Object.entries(components).map(function (_ref11) {
-        var _ref12 = _slicedToArray(_ref11, 2),
-            manufacturer = _ref12[0],
-            models = _ref12[1];
+      }, Object.entries(components).map(function (_ref5) {
+        var _ref6 = _slicedToArray(_ref5, 2),
+            manufacturer = _ref6[0],
+            models = _ref6[1];
 
         var isManuExpanded = _this2.state.expandedManufacturers.has(manufacturer);
 
@@ -385,7 +344,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             wordBreak: 'break-word',
             whiteSpace: 'normal',
             overflowWrap: 'anywhere',
-            display: 'inline-block',
+            // display: 'inline-block',
             maxWidth: '85%'
           }
         }, manufacturer), isManuExpanded && /*#__PURE__*/_react.default.createElement("ul", {
@@ -393,10 +352,10 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             listStyleType: 'none',
             paddingLeft: 18
           }
-        }, Object.entries(models).map(function (_ref13) {
-          var _ref14 = _slicedToArray(_ref13, 2),
-              model = _ref14[0],
-              entries = _ref14[1];
+        }, Object.entries(models).map(function (_ref7) {
+          var _ref8 = _slicedToArray(_ref7, 2),
+              model = _ref8[0],
+              entries = _ref8[1];
 
           var modelKey = "".concat(manufacturer, "|").concat(model);
 
@@ -422,7 +381,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
               wordBreak: 'break-word',
               whiteSpace: 'normal',
               overflowWrap: 'anywhere',
-              display: 'inline-block',
+              // display: 'inline-block',
               maxWidth: '80%'
             }
           }, model), isModelExpanded && /*#__PURE__*/_react.default.createElement("ul", {
@@ -430,10 +389,10 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
               listStyleType: 'none',
               paddingLeft: 18
             }
-          }, Object.entries(entries).map(function (_ref15) {
-            var _ref16 = _slicedToArray(_ref15, 2),
-                entryKey = _ref16[0],
-                entryObj = _ref16[1];
+          }, Object.entries(entries).map(function (_ref9) {
+            var _ref10 = _slicedToArray(_ref9, 2),
+                entryKey = _ref10[0],
+                entryObj = _ref10[1];
 
             var comp = entryObj.component;
             var isSelected = selectedComponent === comp;
@@ -447,7 +406,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
                 wordBreak: 'break-word',
                 whiteSpace: 'normal',
                 overflowWrap: 'anywhere',
-                display: 'inline-block',
+                // display: 'inline-block',
                 maxWidth: '95%'
               },
               onClick: function onClick() {
@@ -464,12 +423,12 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
           key: category
         }, category);
-      }), Object.entries(arrayCategories).map(function (_ref17) {
-        var _ref18 = _slicedToArray(_ref17, 2),
-            fieldName = _ref18[0],
-            _ref18$ = _ref18[1],
-            itemSchema = _ref18$.itemSchema,
-            elements = _ref18$.elements;
+      }), Object.entries(arrayCategories).map(function (_ref11) {
+        var _ref12 = _slicedToArray(_ref11, 2),
+            fieldName = _ref12[0],
+            _ref12$ = _ref12[1],
+            itemSchema = _ref12$.itemSchema,
+            elements = _ref12$.elements;
 
         return elements.map(function (_, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
@@ -522,12 +481,12 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             paddingLeft: '10px'
           }
         }, "Select a component to view its details."));
-      }), Object.entries(arrayCategories).map(function (_ref19) {
-        var _ref20 = _slicedToArray(_ref19, 2),
-            fieldName = _ref20[0],
-            _ref20$ = _ref20[1],
-            itemSchema = _ref20$.itemSchema,
-            elements = _ref20$.elements;
+      }), Object.entries(arrayCategories).map(function (_ref13) {
+        var _ref14 = _slicedToArray(_ref13, 2),
+            fieldName = _ref14[0],
+            _ref14$ = _ref14[1],
+            itemSchema = _ref14$.itemSchema,
+            elements = _ref14$.elements;
 
         return elements.map(function (element, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
