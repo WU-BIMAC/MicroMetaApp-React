@@ -116,14 +116,24 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "buildTreeData",
     value: function buildTreeData(components) {
-      // components[manufacturer][model][entryKey] = { component }
+      var wrapStyle = {
+        wordBreak: 'break-word',
+        whiteSpace: 'normal',
+        overflowWrap: 'anywhere',
+        maxWidth: '90%',
+        // or whatever fits your design
+        display: 'inline-block',
+        verticalAlign: 'top'
+      };
       return Object.entries(components).map(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 2),
             manufacturer = _ref2[0],
             models = _ref2[1];
 
         return {
-          title: manufacturer,
+          title: /*#__PURE__*/_react.default.createElement("span", {
+            style: wrapStyle
+          }, manufacturer),
           key: manufacturer,
           children: Object.entries(models).map(function (_ref3) {
             var _ref4 = _slicedToArray(_ref3, 2),
@@ -131,7 +141,9 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
                 entries = _ref4[1];
 
             return {
-              title: model,
+              title: /*#__PURE__*/_react.default.createElement("span", {
+                style: wrapStyle
+              }, model),
               key: "".concat(manufacturer, "|").concat(model),
               children: Object.entries(entries).map(function (_ref5) {
                 var _ref6 = _slicedToArray(_ref5, 2),
@@ -139,7 +151,9 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
                     entryObj = _ref6[1];
 
                 return {
-                  title: entryObj.component.Name,
+                  title: /*#__PURE__*/_react.default.createElement("span", {
+                    style: wrapStyle
+                  }, entryObj.component.Name),
                   key: "".concat(manufacturer, "|").concat(model, "|").concat(entryKey),
                   isLeaf: true,
                   component: entryObj.component
@@ -148,7 +162,20 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             };
           })
         };
-      });
+      }); // return Object.entries(components).map(([manufacturer, models]) => ({
+      //     title: manufacturer,
+      //     key: manufacturer,
+      //     children: Object.entries(models).map(([model, entries]) => ({
+      //         title: model,
+      //         key: `${manufacturer}|${model}`,
+      //         children: Object.entries(entries).map(([entryKey, entryObj]) => ({
+      //             title: entryObj.component.Name,
+      //             key: `${manufacturer}|${model}|${entryKey}`,
+      //             isLeaf: true,
+      //             component: entryObj.component
+      //         }))
+      //     }))
+      // }));
     }
   }, {
     key: "findTreeKeyForComponent",

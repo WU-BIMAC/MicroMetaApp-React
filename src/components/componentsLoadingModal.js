@@ -43,21 +43,44 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         }
 
         buildTreeData(components) {
-            // components[manufacturer][model][entryKey] = { component }
+            const wrapStyle = {
+                wordBreak: 'break-word',
+                whiteSpace: 'normal',
+                overflowWrap: 'anywhere',
+                maxWidth: '90%', // or whatever fits your design
+                display: 'inline-block',
+                verticalAlign: 'top'
+            };
+        
             return Object.entries(components).map(([manufacturer, models]) => ({
-                title: manufacturer,
+                title: <span style={wrapStyle}>{manufacturer}</span>,
                 key: manufacturer,
                 children: Object.entries(models).map(([model, entries]) => ({
-                    title: model,
+                    title: <span style={wrapStyle}>{model}</span>,
                     key: `${manufacturer}|${model}`,
                     children: Object.entries(entries).map(([entryKey, entryObj]) => ({
-                        title: entryObj.component.Name,
+                        title: <span style={wrapStyle}>{entryObj.component.Name}</span>,
                         key: `${manufacturer}|${model}|${entryKey}`,
                         isLeaf: true,
                         component: entryObj.component
                     }))
                 }))
             }));
+
+            // return Object.entries(components).map(([manufacturer, models]) => ({
+            //     title: manufacturer,
+            //     key: manufacturer,
+            //     children: Object.entries(models).map(([model, entries]) => ({
+            //         title: model,
+            //         key: `${manufacturer}|${model}`,
+            //         children: Object.entries(entries).map(([entryKey, entryObj]) => ({
+            //             title: entryObj.component.Name,
+            //             key: `${manufacturer}|${model}|${entryKey}`,
+            //             isLeaf: true,
+            //             component: entryObj.component
+            //         }))
+            //     }))
+            // }));
         }
 
         findTreeKeyForComponent(selectedComponent, components) {
