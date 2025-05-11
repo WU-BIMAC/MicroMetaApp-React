@@ -264,6 +264,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 // Regex for a valid UUID (case-insensitive)
 const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+let title = schema.title;
 
 if (id !== undefined && id !== null && id !== "") {
     // If ID does not start with "title_", but is a UUID, prepend title + "_"

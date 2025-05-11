@@ -274,6 +274,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           var _id = _inputData.ID; // Regex for a valid UUID (case-insensitive)
 
           var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+          var title = _schema.title;
 
           if (_id !== undefined && _id !== null && _id !== "") {
             // If ID does not start with "title_", but is a UUID, prepend title + "_"
