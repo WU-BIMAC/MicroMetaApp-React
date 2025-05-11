@@ -93,13 +93,56 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "toggleManufacturer", function (manufacturer) {
+      _this.setState(function (prevState) {
+        var expanded = new Set(prevState.expandedManufacturers);
+        if (expanded.has(manufacturer)) expanded.delete(manufacturer);else expanded.add(manufacturer);
+        return {
+          expandedManufacturers: expanded
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "toggleModel", function (manufacturer, model) {
+      var key = "".concat(manufacturer, "|").concat(model);
+
+      _this.setState(function (prevState) {
+        var expanded = new Set(prevState.expandedModels);
+        if (expanded.has(key)) expanded.delete(key);else expanded.add(key);
+        return {
+          expandedModels: expanded
+        };
+      });
+    });
+
     _this.state = {
-      selectedComponent: null
+      selectedComponent: null,
+      expandedManufacturers: new Set(),
+      expandedModels: new Set()
     };
     return _this;
   }
 
   _createClass(ComponentsLoadingModal, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var expandedManufacturers = new Set(Object.keys(this.props.components));
+      var expandedModels = new Set();
+      Object.entries(this.props.components).forEach(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            manufacturer = _ref2[0],
+            models = _ref2[1];
+
+        Object.keys(models).forEach(function (model) {
+          expandedModels.add("".concat(manufacturer, "|").concat(model));
+        });
+      });
+      this.setState({
+        expandedManufacturers: expandedManufacturers,
+        expandedModels: expandedModels
+      });
+    }
+  }, {
     key: "trimMicroscopeName",
     value: function trimMicroscopeName(name) {
       if (typeof name !== "string") return name;
@@ -116,44 +159,30 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "buildTreeData",
     value: function buildTreeData(components) {
-      var wrapStyle = {
-        wordBreak: 'break-word',
-        whiteSpace: 'normal',
-        overflowWrap: 'anywhere',
-        maxWidth: '90%',
-        // or whatever fits your design
-        display: 'inline-block',
-        verticalAlign: 'top'
-      };
-      return Object.entries(components).map(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            manufacturer = _ref2[0],
-            models = _ref2[1];
+      // components[manufacturer][model][entryKey] = { component }
+      return Object.entries(components).map(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            manufacturer = _ref4[0],
+            models = _ref4[1];
 
         return {
-          title: /*#__PURE__*/_react.default.createElement("span", {
-            style: wrapStyle
-          }, manufacturer),
+          title: manufacturer,
           key: manufacturer,
-          children: Object.entries(models).map(function (_ref3) {
-            var _ref4 = _slicedToArray(_ref3, 2),
-                model = _ref4[0],
-                entries = _ref4[1];
+          children: Object.entries(models).map(function (_ref5) {
+            var _ref6 = _slicedToArray(_ref5, 2),
+                model = _ref6[0],
+                entries = _ref6[1];
 
             return {
-              title: /*#__PURE__*/_react.default.createElement("span", {
-                style: wrapStyle
-              }, model),
+              title: model,
               key: "".concat(manufacturer, "|").concat(model),
-              children: Object.entries(entries).map(function (_ref5) {
-                var _ref6 = _slicedToArray(_ref5, 2),
-                    entryKey = _ref6[0],
-                    entryObj = _ref6[1];
+              children: Object.entries(entries).map(function (_ref7) {
+                var _ref8 = _slicedToArray(_ref7, 2),
+                    entryKey = _ref8[0],
+                    entryObj = _ref8[1];
 
                 return {
-                  title: /*#__PURE__*/_react.default.createElement("span", {
-                    style: wrapStyle
-                  }, entryObj.component.Name),
+                  title: entryObj.component.Name,
                   key: "".concat(manufacturer, "|").concat(model, "|").concat(entryKey),
                   isLeaf: true,
                   component: entryObj.component
@@ -162,20 +191,7 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             };
           })
         };
-      }); // return Object.entries(components).map(([manufacturer, models]) => ({
-      //     title: manufacturer,
-      //     key: manufacturer,
-      //     children: Object.entries(models).map(([model, entries]) => ({
-      //         title: model,
-      //         key: `${manufacturer}|${model}`,
-      //         children: Object.entries(entries).map(([entryKey, entryObj]) => ({
-      //             title: entryObj.component.Name,
-      //             key: `${manufacturer}|${model}|${entryKey}`,
-      //             isLeaf: true,
-      //             component: entryObj.component
-      //         }))
-      //     }))
-      // }));
+      });
     }
   }, {
     key: "findTreeKeyForComponent",
@@ -216,10 +232,10 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           inputData = _this$props2.inputData;
       var selectedComponent = this.state.selectedComponent;
       var filteredInputData = {};
-      Object.entries(inputData || {}).forEach(function (_ref7) {
-        var _ref8 = _slicedToArray(_ref7, 2),
-            key = _ref8[0],
-            value = _ref8[1];
+      Object.entries(inputData || {}).forEach(function (_ref9) {
+        var _ref10 = _slicedToArray(_ref9, 2),
+            key = _ref10[0],
+            value = _ref10[1];
 
         if (!Array.isArray(value)) {
           filteredInputData[key] = value;
@@ -337,23 +353,110 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           overflowY: 'auto',
           wordBreak: 'break-word'
         }
-      }, /*#__PURE__*/_react.default.createElement("h4", null, "List"), /*#__PURE__*/_react.default.createElement(_rcTree.default, {
-        treeData: this.buildTreeData(components),
-        defaultExpandAll: true,
-        selectable: true,
-        showIcon: false,
-        selectedKeys: this.state.selectedComponent ? [this.findTreeKeyForComponent(this.state.selectedComponent, components)] : [],
-        onSelect: function onSelect(selectedKeys, _ref9) {
-          var node = _ref9.node;
-
-          if (node.component) {
-            _this2.handleComponentClick(node.component);
-          }
-        },
+      }, /*#__PURE__*/_react.default.createElement("h4", null, "List"), /*#__PURE__*/_react.default.createElement("ul", {
         style: {
-          background: 'none'
+          listStyleType: 'none',
+          padding: 0
         }
-      })), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs, {
+      }, Object.entries(components).map(function (_ref11) {
+        var _ref12 = _slicedToArray(_ref11, 2),
+            manufacturer = _ref12[0],
+            models = _ref12[1];
+
+        var isManuExpanded = _this2.state.expandedManufacturers.has(manufacturer);
+
+        return /*#__PURE__*/_react.default.createElement("li", {
+          key: manufacturer,
+          style: {
+            marginBottom: 4
+          }
+        }, /*#__PURE__*/_react.default.createElement("span", {
+          style: {
+            cursor: 'pointer',
+            userSelect: 'none',
+            marginRight: 4
+          },
+          onClick: function onClick() {
+            return _this2.toggleManufacturer(manufacturer);
+          },
+          title: isManuExpanded ? "Collapse" : "Expand"
+        }, isManuExpanded ? '▼' : '▶'), /*#__PURE__*/_react.default.createElement("strong", {
+          style: {
+            wordBreak: 'break-word',
+            whiteSpace: 'normal',
+            overflowWrap: 'anywhere',
+            display: 'inline-block',
+            maxWidth: '85%'
+          }
+        }, manufacturer), isManuExpanded && /*#__PURE__*/_react.default.createElement("ul", {
+          style: {
+            listStyleType: 'none',
+            paddingLeft: 18
+          }
+        }, Object.entries(models).map(function (_ref13) {
+          var _ref14 = _slicedToArray(_ref13, 2),
+              model = _ref14[0],
+              entries = _ref14[1];
+
+          var modelKey = "".concat(manufacturer, "|").concat(model);
+
+          var isModelExpanded = _this2.state.expandedModels.has(modelKey);
+
+          return /*#__PURE__*/_react.default.createElement("li", {
+            key: model,
+            style: {
+              marginBottom: 2
+            }
+          }, /*#__PURE__*/_react.default.createElement("span", {
+            style: {
+              cursor: 'pointer',
+              userSelect: 'none',
+              marginRight: 4
+            },
+            onClick: function onClick() {
+              return _this2.toggleModel(manufacturer, model);
+            },
+            title: isModelExpanded ? "Collapse" : "Expand"
+          }, isModelExpanded ? '▼' : '▶'), /*#__PURE__*/_react.default.createElement("em", {
+            style: {
+              wordBreak: 'break-word',
+              whiteSpace: 'normal',
+              overflowWrap: 'anywhere',
+              display: 'inline-block',
+              maxWidth: '80%'
+            }
+          }, model), isModelExpanded && /*#__PURE__*/_react.default.createElement("ul", {
+            style: {
+              listStyleType: 'none',
+              paddingLeft: 18
+            }
+          }, Object.entries(entries).map(function (_ref15) {
+            var _ref16 = _slicedToArray(_ref15, 2),
+                entryKey = _ref16[0],
+                entryObj = _ref16[1];
+
+            var comp = entryObj.component;
+            var isSelected = selectedComponent === comp;
+            return /*#__PURE__*/_react.default.createElement("li", {
+              key: entryKey,
+              style: {
+                padding: '3px 0',
+                cursor: 'pointer',
+                fontWeight: isSelected ? 'bold' : 'normal',
+                color: isSelected ? '#007BFF' : 'black',
+                wordBreak: 'break-word',
+                whiteSpace: 'normal',
+                overflowWrap: 'anywhere',
+                display: 'inline-block',
+                maxWidth: '95%'
+              },
+              onClick: function onClick() {
+                return _this2.handleComponentClick(comp);
+              }
+            }, _this2.trimMicroscopeName(comp.Name) || entryKey);
+          })));
+        })));
+      }))), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs, {
         style: {
           flex: 1
         }
@@ -361,12 +464,12 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
           key: category
         }, category);
-      }), Object.entries(arrayCategories).map(function (_ref10) {
-        var _ref11 = _slicedToArray(_ref10, 2),
-            fieldName = _ref11[0],
-            _ref11$ = _ref11[1],
-            itemSchema = _ref11$.itemSchema,
-            elements = _ref11$.elements;
+      }), Object.entries(arrayCategories).map(function (_ref17) {
+        var _ref18 = _slicedToArray(_ref17, 2),
+            fieldName = _ref18[0],
+            _ref18$ = _ref18[1],
+            itemSchema = _ref18$.itemSchema,
+            elements = _ref18$.elements;
 
         return elements.map(function (_, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
@@ -419,12 +522,12 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             paddingLeft: '10px'
           }
         }, "Select a component to view its details."));
-      }), Object.entries(arrayCategories).map(function (_ref12) {
-        var _ref13 = _slicedToArray(_ref12, 2),
-            fieldName = _ref13[0],
-            _ref13$ = _ref13[1],
-            itemSchema = _ref13$.itemSchema,
-            elements = _ref13$.elements;
+      }), Object.entries(arrayCategories).map(function (_ref19) {
+        var _ref20 = _slicedToArray(_ref19, 2),
+            fieldName = _ref20[0],
+            _ref20$ = _ref20[1],
+            itemSchema = _ref20$.itemSchema,
+            elements = _ref20$.elements;
 
         return elements.map(function (element, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {

@@ -11,8 +11,21 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         super(props);
         this.state = {
           selectedComponent: null,
+          expandedManufacturers: new Set(),
+            expandedModels: new Set(),
         };
       }
+
+      componentDidMount() {
+        const expandedManufacturers = new Set(Object.keys(this.props.components));
+        const expandedModels = new Set();
+        Object.entries(this.props.components).forEach(([manufacturer, models]) => {
+            Object.keys(models).forEach(model => {
+                expandedModels.add(`${manufacturer}|${model}`);
+            });
+        });
+        this.setState({ expandedManufacturers, expandedModels });
+    }
     
       handleComponentClick = (component) => {
         console.log("inside of handleComponentClick function in the component componentsLoadingModal");
@@ -43,44 +56,21 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         }
 
         buildTreeData(components) {
-            const wrapStyle = {
-                wordBreak: 'break-word',
-                whiteSpace: 'normal',
-                overflowWrap: 'anywhere',
-                maxWidth: '90%', // or whatever fits your design
-                display: 'inline-block',
-                verticalAlign: 'top'
-            };
-        
+            // components[manufacturer][model][entryKey] = { component }
             return Object.entries(components).map(([manufacturer, models]) => ({
-                title: <span style={wrapStyle}>{manufacturer}</span>,
+                title: manufacturer,
                 key: manufacturer,
                 children: Object.entries(models).map(([model, entries]) => ({
-                    title: <span style={wrapStyle}>{model}</span>,
+                    title: model,
                     key: `${manufacturer}|${model}`,
                     children: Object.entries(entries).map(([entryKey, entryObj]) => ({
-                        title: <span style={wrapStyle}>{entryObj.component.Name}</span>,
+                        title: entryObj.component.Name,
                         key: `${manufacturer}|${model}|${entryKey}`,
                         isLeaf: true,
                         component: entryObj.component
                     }))
                 }))
             }));
-
-            // return Object.entries(components).map(([manufacturer, models]) => ({
-            //     title: manufacturer,
-            //     key: manufacturer,
-            //     children: Object.entries(models).map(([model, entries]) => ({
-            //         title: model,
-            //         key: `${manufacturer}|${model}`,
-            //         children: Object.entries(entries).map(([entryKey, entryObj]) => ({
-            //             title: entryObj.component.Name,
-            //             key: `${manufacturer}|${model}|${entryKey}`,
-            //             isLeaf: true,
-            //             component: entryObj.component
-            //         }))
-            //     }))
-            // }));
         }
 
         findTreeKeyForComponent(selectedComponent, components) {
@@ -95,6 +85,25 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             }
             return '';
         }
+
+        toggleManufacturer = (manufacturer) => {
+            this.setState(prevState => {
+                const expanded = new Set(prevState.expandedManufacturers);
+                if (expanded.has(manufacturer)) expanded.delete(manufacturer);
+                else expanded.add(manufacturer);
+                return { expandedManufacturers: expanded };
+            });
+        };
+        
+        toggleModel = (manufacturer, model) => {
+            const key = `${manufacturer}|${model}`;
+            this.setState(prevState => {
+                const expanded = new Set(prevState.expandedModels);
+                if (expanded.has(key)) expanded.delete(key);
+                else expanded.add(key);
+                return { expandedModels: expanded };
+            });
+        };
         
 
     
@@ -219,6 +228,87 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                 wordBreak: 'break-word'
                             }}>
                                 <h4>List</h4>
+
+                                <ul style={{ listStyleType: 'none', padding: 0 }}>
+    {Object.entries(components).map(([manufacturer, models]) => {
+        const isManuExpanded = this.state.expandedManufacturers.has(manufacturer);
+        return (
+            <li key={manufacturer} style={{ marginBottom: 4 }}>
+                {/* Manufacturer row */}
+                <span
+                    style={{ cursor: 'pointer', userSelect: 'none', marginRight: 4 }}
+                    onClick={() => this.toggleManufacturer(manufacturer)}
+                    title={isManuExpanded ? "Collapse" : "Expand"}
+                >
+                    {isManuExpanded ? '▼' : '▶'}
+                </span>
+                <strong style={{
+                    wordBreak: 'break-word',
+                    whiteSpace: 'normal',
+                    overflowWrap: 'anywhere',
+                    display: 'inline-block',
+                    maxWidth: '85%'
+                }}>{manufacturer}</strong>
+                {isManuExpanded && (
+                    <ul style={{ listStyleType: 'none', paddingLeft: 18 }}>
+                        {Object.entries(models).map(([model, entries]) => {
+                            const modelKey = `${manufacturer}|${model}`;
+                            const isModelExpanded = this.state.expandedModels.has(modelKey);
+                            return (
+                                <li key={model} style={{ marginBottom: 2 }}>
+                                    {/* Model row */}
+                                    <span
+                                        style={{ cursor: 'pointer', userSelect: 'none', marginRight: 4 }}
+                                        onClick={() => this.toggleModel(manufacturer, model)}
+                                        title={isModelExpanded ? "Collapse" : "Expand"}
+                                    >
+                                        {isModelExpanded ? '▼' : '▶'}
+                                    </span>
+                                    <em style={{
+                                        wordBreak: 'break-word',
+                                        whiteSpace: 'normal',
+                                        overflowWrap: 'anywhere',
+                                        display: 'inline-block',
+                                        maxWidth: '80%'
+                                    }}>{model}</em>
+                                    {isModelExpanded && (
+                                        <ul style={{ listStyleType: 'none', paddingLeft: 18 }}>
+                                            {Object.entries(entries).map(([entryKey, entryObj]) => {
+                                                const comp = entryObj.component;
+                                                const isSelected = selectedComponent === comp;
+                                                return (
+                                                    <li
+                                                        key={entryKey}
+                                                        style={{
+                                                            padding: '3px 0',
+                                                            cursor: 'pointer',
+                                                            fontWeight: isSelected ? 'bold' : 'normal',
+                                                            color: isSelected ? '#007BFF' : 'black',
+                                                            wordBreak: 'break-word',
+                                                            whiteSpace: 'normal',
+                                                            overflowWrap: 'anywhere',
+                                                            display: 'inline-block',
+                                                            maxWidth: '95%'
+                                                        }}
+                                                        onClick={() => this.handleComponentClick(comp)}
+                                                    >
+                                                        {this.trimMicroscopeName(comp.Name) || entryKey}
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    )}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                )}
+            </li>
+        );
+    })}
+</ul>
+
+
                                 {/* <ul style={{ listStyleType: 'none', padding: 0 }}>
                                     {Object.entries(components).map(([manufacturer, models]) => (
                                         <li key={manufacturer}>
@@ -254,23 +344,23 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                     ))}
                                 </ul> */}
 
-                                <Tree
-                                    treeData={this.buildTreeData(components)}
-                                    defaultExpandAll
-                                    selectable
-                                    showIcon={false}
-                                    selectedKeys={
-                                        this.state.selectedComponent
-                                            ? [this.findTreeKeyForComponent(this.state.selectedComponent, components)]
-                                            : []
-                                    }
-                                    onSelect={(selectedKeys, { node }) => {
-                                        if (node.component) {
-                                            this.handleComponentClick(node.component);
-                                        }
-                                    }}
-                                    style={{ background: 'none' }}
-                                />
+{/* <Tree
+        treeData={this.buildTreeData(components)}
+        defaultExpandAll
+        selectable
+        showIcon={false}
+        selectedKeys={
+            this.state.selectedComponent
+                ? [this.findTreeKeyForComponent(this.state.selectedComponent, components)]
+                : []
+        }
+        onSelect={(selectedKeys, { node }) => {
+            if (node.component) {
+                this.handleComponentClick(node.component);
+            }
+        }}
+        style={{ background: 'none' }}
+    /> */}
                             </div>
         
                             <Tabs style={{ flex: 1 }}>
