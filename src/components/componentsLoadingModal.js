@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import Tree from 'rc-tree';
+import 'rc-tree/assets/index.css';
+
 
 export default class ComponentsLoadingModal extends React.PureComponent {
     constructor(props) {
@@ -37,7 +40,39 @@ export default class ComponentsLoadingModal extends React.PureComponent {
         }
         if (underscores.length < 2) return name; 
         return name.slice(underscores[1] + 1);
-    }
+        }
+
+        buildTreeData(components) {
+            // components[manufacturer][model][entryKey] = { component }
+            return Object.entries(components).map(([manufacturer, models]) => ({
+                title: manufacturer,
+                key: manufacturer,
+                children: Object.entries(models).map(([model, entries]) => ({
+                    title: model,
+                    key: `${manufacturer}|${model}`,
+                    children: Object.entries(entries).map(([entryKey, entryObj]) => ({
+                        title: entryObj.component.Name,
+                        key: `${manufacturer}|${model}|${entryKey}`,
+                        isLeaf: true,
+                        component: entryObj.component
+                    }))
+                }))
+            }));
+        }
+
+        findTreeKeyForComponent(selectedComponent, components) {
+            for (const [manufacturer, models] of Object.entries(components)) {
+                for (const [model, entries] of Object.entries(models)) {
+                    for (const [entryKey, entryObj] of Object.entries(entries)) {
+                        if (entryObj.component === selectedComponent) {
+                            return `${manufacturer}|${model}|${entryKey}`;
+                        }
+                    }
+                }
+            }
+            return '';
+        }
+        
 
     
     render() {
@@ -160,7 +195,7 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                 wordBreak: 'break-word'
                             }}>
                                 <h4>List</h4>
-                                <ul style={{ listStyleType: 'none', padding: 0 }}>
+                                {/* <ul style={{ listStyleType: 'none', padding: 0 }}>
                                     {Object.entries(components).map(([manufacturer, models]) => (
                                         <li key={manufacturer}>
                                             <strong>{manufacturer}</strong>
@@ -193,7 +228,24 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                             </ul>
                                         </li>
                                     ))}
-                                </ul>
+                                </ul> */}
+
+<Tree
+        treeData={this.buildTreeData(components)}
+        defaultExpandAll
+        selectable
+        selectedKeys={
+            this.state.selectedComponent
+                ? [this.findTreeKeyForComponent(this.state.selectedComponent, components)]
+                : []
+        }
+        onSelect={(selectedKeys, { node }) => {
+            if (node.component) {
+                this.handleComponentClick(node.component);
+            }
+        }}
+        style={{ background: 'none' }}
+    />
                             </div>
         
                             <Tabs style={{ flex: 1 }}>

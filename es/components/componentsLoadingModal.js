@@ -13,6 +13,10 @@ var _reactTabs = require("react-tabs");
 
 require("react-tabs/style/react-tabs.css");
 
+var _rcTree = _interopRequireDefault(require("rc-tree"));
+
+require("rc-tree/assets/index.css");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -110,6 +114,70 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
       return name.slice(underscores[1] + 1);
     }
   }, {
+    key: "buildTreeData",
+    value: function buildTreeData(components) {
+      // components[manufacturer][model][entryKey] = { component }
+      return Object.entries(components).map(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            manufacturer = _ref2[0],
+            models = _ref2[1];
+
+        return {
+          title: manufacturer,
+          key: manufacturer,
+          children: Object.entries(models).map(function (_ref3) {
+            var _ref4 = _slicedToArray(_ref3, 2),
+                model = _ref4[0],
+                entries = _ref4[1];
+
+            return {
+              title: model,
+              key: "".concat(manufacturer, "|").concat(model),
+              children: Object.entries(entries).map(function (_ref5) {
+                var _ref6 = _slicedToArray(_ref5, 2),
+                    entryKey = _ref6[0],
+                    entryObj = _ref6[1];
+
+                return {
+                  title: entryObj.component.Name,
+                  key: "".concat(manufacturer, "|").concat(model, "|").concat(entryKey),
+                  isLeaf: true,
+                  component: entryObj.component
+                };
+              })
+            };
+          })
+        };
+      });
+    }
+  }, {
+    key: "findTreeKeyForComponent",
+    value: function findTreeKeyForComponent(selectedComponent, components) {
+      for (var _i2 = 0, _Object$entries = Object.entries(components); _i2 < _Object$entries.length; _i2++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+            manufacturer = _Object$entries$_i[0],
+            models = _Object$entries$_i[1];
+
+        for (var _i3 = 0, _Object$entries2 = Object.entries(models); _i3 < _Object$entries2.length; _i3++) {
+          var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i3], 2),
+              model = _Object$entries2$_i[0],
+              entries = _Object$entries2$_i[1];
+
+          for (var _i4 = 0, _Object$entries3 = Object.entries(entries); _i4 < _Object$entries3.length; _i4++) {
+            var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i4], 2),
+                entryKey = _Object$entries3$_i[0],
+                entryObj = _Object$entries3$_i[1];
+
+            if (entryObj.component === selectedComponent) {
+              return "".concat(manufacturer, "|").concat(model, "|").concat(entryKey);
+            }
+          }
+        }
+      }
+
+      return '';
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -121,10 +189,10 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           inputData = _this$props2.inputData;
       var selectedComponent = this.state.selectedComponent;
       var filteredInputData = {};
-      Object.entries(inputData || {}).forEach(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            key = _ref2[0],
-            value = _ref2[1];
+      Object.entries(inputData || {}).forEach(function (_ref7) {
+        var _ref8 = _slicedToArray(_ref7, 2),
+            key = _ref8[0],
+            value = _ref8[1];
 
         if (!Array.isArray(value)) {
           filteredInputData[key] = value;
@@ -242,57 +310,22 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
           overflowY: 'auto',
           wordBreak: 'break-word'
         }
-      }, /*#__PURE__*/_react.default.createElement("h4", null, "List"), /*#__PURE__*/_react.default.createElement("ul", {
-        style: {
-          listStyleType: 'none',
-          padding: 0
-        }
-      }, Object.entries(components).map(function (_ref3) {
-        var _ref4 = _slicedToArray(_ref3, 2),
-            manufacturer = _ref4[0],
-            models = _ref4[1];
+      }, /*#__PURE__*/_react.default.createElement("h4", null, "List"), /*#__PURE__*/_react.default.createElement(_rcTree.default, {
+        treeData: this.buildTreeData(components),
+        defaultExpandAll: true,
+        selectable: true,
+        selectedKeys: this.state.selectedComponent ? [this.findTreeKeyForComponent(this.state.selectedComponent, components)] : [],
+        onSelect: function onSelect(selectedKeys, _ref9) {
+          var node = _ref9.node;
 
-        return /*#__PURE__*/_react.default.createElement("li", {
-          key: manufacturer
-        }, /*#__PURE__*/_react.default.createElement("strong", null, manufacturer), /*#__PURE__*/_react.default.createElement("ul", {
-          style: {
-            listStyleType: 'none',
-            paddingLeft: 15
+          if (node.component) {
+            _this2.handleComponentClick(node.component);
           }
-        }, Object.entries(models).map(function (_ref5) {
-          var _ref6 = _slicedToArray(_ref5, 2),
-              model = _ref6[0],
-              entries = _ref6[1];
-
-          return /*#__PURE__*/_react.default.createElement("li", {
-            key: model
-          }, /*#__PURE__*/_react.default.createElement("em", null, model), /*#__PURE__*/_react.default.createElement("ul", {
-            style: {
-              listStyleType: 'none',
-              paddingLeft: 15
-            }
-          }, Object.entries(entries).map(function (_ref7) {
-            var _ref8 = _slicedToArray(_ref7, 2),
-                entryKey = _ref8[0],
-                entryObj = _ref8[1];
-
-            var comp = entryObj.component;
-            var isSelected = selectedComponent === comp;
-            return /*#__PURE__*/_react.default.createElement("li", {
-              key: entryKey,
-              style: {
-                padding: '3px 0',
-                cursor: 'pointer',
-                fontWeight: isSelected ? 'bold' : 'normal',
-                color: isSelected ? '#007BFF' : 'black'
-              },
-              onClick: function onClick() {
-                return _this2.handleComponentClick(comp);
-              }
-            }, _this2.trimMicroscopeName(comp.Name) || entryKey);
-          })));
-        })));
-      }))), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs, {
+        },
+        style: {
+          background: 'none'
+        }
+      })), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs, {
         style: {
           flex: 1
         }
@@ -300,12 +333,12 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
           key: category
         }, category);
-      }), Object.entries(arrayCategories).map(function (_ref9) {
-        var _ref10 = _slicedToArray(_ref9, 2),
-            fieldName = _ref10[0],
-            _ref10$ = _ref10[1],
-            itemSchema = _ref10$.itemSchema,
-            elements = _ref10$.elements;
+      }), Object.entries(arrayCategories).map(function (_ref10) {
+        var _ref11 = _slicedToArray(_ref10, 2),
+            fieldName = _ref11[0],
+            _ref11$ = _ref11[1],
+            itemSchema = _ref11$.itemSchema,
+            elements = _ref11$.elements;
 
         return elements.map(function (_, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
@@ -358,12 +391,12 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             paddingLeft: '10px'
           }
         }, "Select a component to view its details."));
-      }), Object.entries(arrayCategories).map(function (_ref11) {
-        var _ref12 = _slicedToArray(_ref11, 2),
-            fieldName = _ref12[0],
-            _ref12$ = _ref12[1],
-            itemSchema = _ref12$.itemSchema,
-            elements = _ref12$.elements;
+      }), Object.entries(arrayCategories).map(function (_ref12) {
+        var _ref13 = _slicedToArray(_ref12, 2),
+            fieldName = _ref13[0],
+            _ref13$ = _ref13[1],
+            itemSchema = _ref13$.itemSchema,
+            elements = _ref13$.elements;
 
         return elements.map(function (element, index) {
           return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
