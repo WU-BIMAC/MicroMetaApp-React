@@ -267,7 +267,8 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         return /*#__PURE__*/_react.default.createElement("span", {
           style: {
             display: 'inline-block',
-            width: 16
+            width: 16,
+            background: 'none'
           }
         }, expanded ? '▼' : '▶');
       };

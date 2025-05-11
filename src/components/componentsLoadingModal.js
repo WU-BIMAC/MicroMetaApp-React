@@ -164,8 +164,8 @@ export default class ComponentsLoadingModal extends React.PureComponent {
 
         // Carrot icon component
         const CarrotIcon = ({ expanded }) => (
-            <span style={{ display: 'inline-block', width: 16 }}>
-            {expanded ? '▼' : '▶'}
+            <span style={{ display: 'inline-block', width: 16, background: 'none' }}>
+                {expanded ? '▼' : '▶'}
             </span>
         );
     
