@@ -162,12 +162,6 @@ export default class ComponentsLoadingModal extends React.PureComponent {
             ? schema.subCategoriesOrder
             : Object.keys(categoryMap).sort();
 
-        // Carrot icon component
-        const CarrotIcon = ({ expanded }) => (
-            <span style={{ display: 'inline-block', width: 16, background: 'none' }}>
-                {expanded ? '▼' : '▶'}
-            </span>
-        );
     
         return ReactDOM.createPortal(
             <div className="modal-overlay" style={{
@@ -237,24 +231,23 @@ export default class ComponentsLoadingModal extends React.PureComponent {
                                     ))}
                                 </ul> */}
 
-<Tree
-        treeData={this.buildTreeData(components)}
-        defaultExpandAll
-        selectable
-        showIcon={false}
-        switcherIcon={({ expanded }) => <CarrotIcon expanded={expanded} />}
-        selectedKeys={
-            this.state.selectedComponent
-                ? [this.findTreeKeyForComponent(this.state.selectedComponent, components)]
-                : []
-        }
-        onSelect={(selectedKeys, { node }) => {
-            if (node.component) {
-                this.handleComponentClick(node.component);
-            }
-        }}
-        style={{ background: 'none' }}
-    />
+                                <Tree
+                                    treeData={this.buildTreeData(components)}
+                                    defaultExpandAll
+                                    selectable
+                                    showIcon={false}
+                                    selectedKeys={
+                                        this.state.selectedComponent
+                                            ? [this.findTreeKeyForComponent(this.state.selectedComponent, components)]
+                                            : []
+                                    }
+                                    onSelect={(selectedKeys, { node }) => {
+                                        if (node.component) {
+                                            this.handleComponentClick(node.component);
+                                        }
+                                    }}
+                                    style={{ background: 'none' }}
+                                />
                             </div>
         
                             <Tabs style={{ flex: 1 }}>
