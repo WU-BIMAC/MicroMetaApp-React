@@ -264,30 +264,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
           var _schema = this.props.schema;
           var _inputData = mergedData;
-          console.log("inputData.ID", _inputData.ID); //let id = inputData.ID;
-          // // === NEW LOGIC HERE ===
+          console.log("inputData.ID", _inputData.ID);
+          var _id = _inputData.ID; // // === NEW LOGIC HERE ===
           // let id = (inputData.ID !== undefined && inputData.ID !== null && inputData.ID !== "")
           // ? inputData.ID
           // : uuidv4();
           // inputData.ID = id; // Ensure the ID is set
-
-          var _id = _inputData.ID; // Regex for a valid UUID (case-insensitive)
-
-          var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-          var title = _schema.title;
-
-          if (_id !== undefined && _id !== null && _id !== "") {
-            // If ID does not start with "title_", but is a UUID, prepend title + "_"
-            if (!_id.startsWith(title + "_") && uuidRegex.test(_id)) {
-              _id = "".concat(title, "_").concat(_id);
-            } // else, if it already starts with title_, leave as is
-            // else, if it's not a UUID, leave as is (could be custom)
-
-          } else {
-            _id = (0, _uuid.v4)();
-          }
-
-          _inputData.ID = _id; // Ensure the ID is set
 
           inputDataIDs.push(_id);
 

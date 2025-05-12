@@ -250,7 +250,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
     			console.log("inputData.ID", inputData.ID);
 
 
-    			//let id = inputData.ID;
+    			let id = inputData.ID;
 
 
     			// // === NEW LOGIC HERE ===
@@ -258,27 +258,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
                 // ? inputData.ID
                 // : uuidv4();
             	// inputData.ID = id; // Ensure the ID is set
-
-
-
-				let id = inputData.ID;
-
-// Regex for a valid UUID (case-insensitive)
-const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-let title = schema.title;
-
-if (id !== undefined && id !== null && id !== "") {
-    // If ID does not start with "title_", but is a UUID, prepend title + "_"
-    if (!id.startsWith(title + "_") && uuidRegex.test(id)) {
-        id = `${title}_${id}`;
-    }
-    // else, if it already starts with title_, leave as is
-    // else, if it's not a UUID, leave as is (could be custom)
-} else {
-    id = uuidv4();
-}
-
-inputData.ID = id; // Ensure the ID is set
 
 
 
