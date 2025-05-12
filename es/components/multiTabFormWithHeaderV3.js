@@ -138,33 +138,33 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }
       } else {
         var inputData = props.inputData;
-        var id = inputData.ID;
-        if (_this.state.activeID === null) _this.state.activeID = id;
+        var _id = inputData.ID;
+        if (_this.state.activeID === null) _this.state.activeID = _id;
 
-        if (_this.state.minChildrenComponents[id] === undefined || _this.state.minChildrenComponents[id] === null) {
-          _this.state.minChildrenComponents[id] = {};
+        if (_this.state.minChildrenComponents[_id] === undefined || _this.state.minChildrenComponents[_id] === null) {
+          _this.state.minChildrenComponents[_id] = {};
         }
 
-        if (_this.state.maxChildrenComponents[id] === undefined || _this.state.maxChildrenComponents[id] === null) {
-          _this.state.maxChildrenComponents[id] = {};
+        if (_this.state.maxChildrenComponents[_id] === undefined || _this.state.maxChildrenComponents[_id] === null) {
+          _this.state.maxChildrenComponents[_id] = {};
         }
 
-        if (_this.state.currentChildrenComponents[id] === undefined || _this.state.currentChildrenComponents[id] === null) {
-          _this.state.currentChildrenComponents[id] = {};
+        if (_this.state.currentChildrenComponents[_id] === undefined || _this.state.currentChildrenComponents[_id] === null) {
+          _this.state.currentChildrenComponents[_id] = {};
         }
 
         Object.keys(inputData).forEach(function (key) {
           if (key.includes(props.minChildrenComponentIdentifier)) {
             var name = key.replace(props.minChildrenComponentIdentifier, "");
-            _this.state.minChildrenComponents[id][name] = inputData[key];
+            _this.state.minChildrenComponents[_id][name] = inputData[key];
           } else if (key.includes(props.maxChildrenComponentIdentifier)) {
             var _name3 = key.replace(props.maxChildrenComponentIdentifier, "");
 
-            _this.state.maxChildrenComponents[id][_name3] = inputData[key];
+            _this.state.maxChildrenComponents[_id][_name3] = inputData[key];
           } else if (key.includes(props.currentChildrenComponentIdentifier)) {
             var _name4 = key.replace(props.currentChildrenComponentIdentifier, "");
 
-            _this.state.currentChildrenComponents[id][_name4] = inputData[key];
+            _this.state.currentChildrenComponents[_id][_name4] = inputData[key];
           }
         });
       }
@@ -234,10 +234,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             for (var y = 0; y < mergedData.length; y++) {
               var inputData = mergedData[y];
               console.log("inputData.ID", inputData.ID); // let id = uuidv4();
-              // inputData.ID = id;
-              // === NEW LOGIC HERE ===
 
-              var id = inputData.ID !== undefined && inputData.ID !== null && inputData.ID !== "" ? inputData.ID : (0, _uuid.v4)();
+              inputData.ID = id; // // === NEW LOGIC HERE ===
+              // let id = (inputData.ID !== undefined && inputData.ID !== null && inputData.ID !== "") 
+              // ? inputData.ID 
+              // : uuidv4();
+
               inputData.ID = id; // Ensure the ID is set
 
               inputDataIDs.push(id);
@@ -265,34 +267,34 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           var _schema = this.props.schema;
           var _inputData = mergedData;
           console.log("inputData.ID", _inputData.ID);
-          var _id = _inputData.ID; // // === NEW LOGIC HERE ===
+          var _id2 = _inputData.ID; // // === NEW LOGIC HERE ===
           // let id = (inputData.ID !== undefined && inputData.ID !== null && inputData.ID !== "")
           // ? inputData.ID
           // : uuidv4();
           // inputData.ID = id; // Ensure the ID is set
 
-          inputDataIDs.push(_id);
+          inputDataIDs.push(_id2);
 
-          var _partialSchema = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[_id], _schema, this.props.elementByType, linkedFields, inputDataIDs);
+          var _partialSchema = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[_id2], _schema, this.props.elementByType, linkedFields, inputDataIDs);
 
           var _localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(_inputData, _partialSchema);
 
-          partialInputData[_id] = {
+          partialInputData[_id2] = {
             schemaTitle: _schema.title,
             data: _localPartialInputData,
             schema: _partialSchema,
             subCategoriesOrder: _schema.subCategoriesOrder
           };
-          this.containerFormNames[_id] = _schema.title;
+          this.containerFormNames[_id2] = _schema.title;
         }
       }
 
-      for (var _id2 in partialInputData) {
-        var _localPartialInputData2 = partialInputData[_id2].data;
-        var _partialSchema2 = partialInputData[_id2].schema;
-        var subCategoriesOrder = partialInputData[_id2].subCategoriesOrder;
-        var partialForms = this.createForms(_id2, subCategoriesOrder, _partialSchema2, _localPartialInputData2);
-        this.forms[_id2] = partialForms;
+      for (var _id3 in partialInputData) {
+        var _localPartialInputData2 = partialInputData[_id3].data;
+        var _partialSchema2 = partialInputData[_id3].schema;
+        var subCategoriesOrder = partialInputData[_id3].subCategoriesOrder;
+        var partialForms = this.createForms(_id3, subCategoriesOrder, _partialSchema2, _localPartialInputData2);
+        this.forms[_id3] = partialForms;
       }
 
       if (Object.keys(this.state.partialInputData).length === 0) {
@@ -539,21 +541,21 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
             for (var y = 0; y < this.props.inputData.length; y++) {
               var inputData = this.props.inputData[y];
-              var id = inputData.ID;
+              var _id4 = inputData.ID;
               console.log("inputData.ID", inputData.ID);
-              inputDataIDs.push(id);
-              if (newActiveID === null) newActiveID = id;
+              inputDataIDs.push(_id4);
+              if (newActiveID === null) newActiveID = _id4;
 
               if (inputData.Schema_ID === schema.ID) {
-                var partialSchema = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[id], schema, this.props.elementByType, linkedFields, inputDataIDs);
+                var partialSchema = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[_id4], schema, this.props.elementByType, linkedFields, inputDataIDs);
                 var localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(inputData, partialSchema);
-                partialInputData[id] = {
+                partialInputData[_id4] = {
                   schemaTitle: schema.title,
                   data: localPartialInputData,
                   schema: partialSchema,
                   subCategoriesOrder: schema.subCategoriesOrder
                 };
-                this.containerFormNames[id] = schema.title;
+                this.containerFormNames[_id4] = schema.title;
               }
             }
           }
@@ -563,30 +565,30 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
           var _schema2 = this.props.schema;
           var _inputData2 = this.props.inputData;
-          var _id3 = _inputData2.ID;
+          var _id5 = _inputData2.ID;
           console.log("inputData.ID", _inputData2.ID);
-          inputDataIDs.push(_id3);
+          inputDataIDs.push(_id5);
 
-          var _partialSchema3 = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[_id3], _schema2, this.props.elementByType, linkedFields, inputDataIDs);
+          var _partialSchema3 = MultiTabFormWithHeaderV3.transformSchema(currentChildrenComponents[_id5], _schema2, this.props.elementByType, linkedFields, inputDataIDs);
 
           var _localPartialInputData3 = MultiTabFormWithHeaderV3.transformInputData(_inputData2, _partialSchema3);
 
-          partialInputData[_id3] = {
+          partialInputData[_id5] = {
             schemaTitle: _schema2.title,
             data: _localPartialInputData3,
             schema: _partialSchema3,
             subCategoriesOrder: _schema2.subCategoriesOrder
           };
-          this.containerFormNames[_id3] = _schema2.title;
+          this.containerFormNames[_id5] = _schema2.title;
         }
       }
 
-      for (var _id4 in partialInputData) {
-        var _localPartialInputData4 = partialInputData[_id4].data;
-        var _partialSchema4 = partialInputData[_id4].schema;
-        var subCategoriesOrder = partialInputData[_id4].subCategoriesOrder;
-        var partialForms = this.createForms(_id4, subCategoriesOrder, _partialSchema4, _localPartialInputData4);
-        this.forms[_id4] = partialForms;
+      for (var _id6 in partialInputData) {
+        var _localPartialInputData4 = partialInputData[_id6].data;
+        var _partialSchema4 = partialInputData[_id6].schema;
+        var subCategoriesOrder = partialInputData[_id6].subCategoriesOrder;
+        var partialForms = this.createForms(_id6, subCategoriesOrder, _partialSchema4, _localPartialInputData4);
+        this.forms[_id6] = partialForms;
       }
 
       if (Object.keys(this.state.partialInputData).length === 0) {
@@ -670,32 +672,32 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           // console.log("[componentDidUpdate] in else condition");
           if (this.props.currentChildrenComponentIdentifier !== null && this.props.minChildrenComponentIdentifier !== null && this.props.maxChildrenComponentIdentifier !== null) {
             var _inputData4 = this.props.inputData;
-            var id = _inputData4.ID;
+            var _id7 = _inputData4.ID;
 
-            if (this.state.minChildrenComponents[id] === undefined || this.state.minChildrenComponents[id] === null) {
-              this.state.minChildrenComponents[id] = {};
+            if (this.state.minChildrenComponents[_id7] === undefined || this.state.minChildrenComponents[_id7] === null) {
+              this.state.minChildrenComponents[_id7] = {};
             }
 
-            if (this.state.maxChildrenComponents[id] === undefined || this.state.maxChildrenComponents[id] === null) {
-              this.state.maxChildrenComponents[id] = {};
+            if (this.state.maxChildrenComponents[_id7] === undefined || this.state.maxChildrenComponents[_id7] === null) {
+              this.state.maxChildrenComponents[_id7] = {};
             }
 
-            if (this.state.currentChildrenComponents[id] === undefined || this.state.currentChildrenComponents[id] === null) {
-              this.state.currentChildrenComponents[id] = {};
+            if (this.state.currentChildrenComponents[_id7] === undefined || this.state.currentChildrenComponents[_id7] === null) {
+              this.state.currentChildrenComponents[_id7] = {};
             }
 
             Object.keys(_inputData4).forEach(function (key) {
               if (key.includes(_this2.props.minChildrenComponentIdentifier)) {
                 var name = key.replace(_this2.props.minChildrenComponentIdentifier, "");
-                _this2.state.minChildrenComponents[id][name] = _inputData4[key];
+                _this2.state.minChildrenComponents[_id7][name] = _inputData4[key];
               } else if (key.includes(_this2.props.maxChildrenComponentIdentifier)) {
                 var _name7 = key.replace(_this2.props.maxChildrenComponentIdentifier, "");
 
-                _this2.state.maxChildrenComponents[id][_name7] = _inputData4[key];
+                _this2.state.maxChildrenComponents[_id7][_name7] = _inputData4[key];
               } else if (key.includes(_this2.props.currentChildrenComponentIdentifier)) {
                 var _name8 = key.replace(_this2.props.currentChildrenComponentIdentifier, "");
 
-                _this2.state.currentChildrenComponents[id][_name8] = _inputData4[key];
+                _this2.state.currentChildrenComponents[_id7][_name8] = _inputData4[key];
               }
             });
           }
@@ -887,10 +889,10 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var consolidatedData = partialConsolidatedData[mainID];
       var subComponents = {};
 
-      for (var id in partialConsolidatedData) {
-        if (id === mainID) continue;
-        var localConsolidatedData = partialConsolidatedData[id];
-        var localPartialInputData = partialInputData[id];
+      for (var _id8 in partialConsolidatedData) {
+        if (_id8 === mainID) continue;
+        var localConsolidatedData = partialConsolidatedData[_id8];
+        var localPartialInputData = partialInputData[_id8];
         var schemaTitle = localPartialInputData.schemaTitle;
         var schema = localPartialInputData.schema;
         var localSubComponents = [];
@@ -1487,13 +1489,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var plusImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_plus_solid_img);
       var plusImgPath = plusImgPath_tmp + (globeImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
-      for (var id in forms) {
-        var localCurrentChildrenComponents = currentChildrenComponents[id];
-        var localMinChildrenComponents = minChildrenComponents[id];
-        var localMaxChildrenComponents = maxChildrenComponents[id];
+      for (var _id9 in forms) {
+        var localCurrentChildrenComponents = currentChildrenComponents[_id9];
+        var localMinChildrenComponents = minChildrenComponents[_id9];
+        var localMaxChildrenComponents = maxChildrenComponents[_id9];
 
         if (localCurrentChildrenComponents === null || localCurrentChildrenComponents === undefined) {
-          hasEditableChildren[id] = false;
+          hasEditableChildren[_id9] = false;
           break;
         }
 
@@ -1511,7 +1513,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             }
           }
 
-          hasEditableChildren[id] = localHasEditableChildren;
+          hasEditableChildren[_id9] = localHasEditableChildren;
         }
       }
 
@@ -1542,20 +1544,20 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var tabNames = {};
       var tabs = {};
 
-      for (var _id5 in forms) {
-        var currentForms = forms[_id5];
-        var currentNames = names[_id5];
-        tabNames[_id5] = [];
-        tabs[_id5] = [];
+      for (var _id10 in forms) {
+        var currentForms = forms[_id10];
+        var currentNames = names[_id10];
+        tabNames[_id10] = [];
+        tabs[_id10] = [];
 
         for (var index in currentForms) {
           var item = currentForms[index];
 
-          tabNames[_id5].push( /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
+          tabNames[_id10].push( /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
             key: "ContainerTabName-" + currentNames[index]
           }, currentNames[index]));
 
-          tabs[_id5].push( /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
+          tabs[_id10].push( /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
             key: "ContainerTab-" + currentNames[index],
             forceRender: true
           }, item));
@@ -1734,29 +1736,29 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var containerFormNames = [];
       var containerForms = [];
 
-      for (var _id6 in forms) {
+      for (var _id11 in forms) {
         var editChildrenCompButton = null;
-        if (hasEditableChildren[_id6] && !this.props.notModal) editChildrenCompButton = /*#__PURE__*/_react.default.createElement(_Button.default, {
+        if (hasEditableChildren[_id11] && !this.props.notModal) editChildrenCompButton = /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "button-addremove",
           style: button2,
           size: "lg",
-          variant: !hasEditableChildren[_id6] ? "secondary" : "primary",
-          onClick: !hasEditableChildren[_id6] ? null : this.onEditComponents,
-          disabled: !hasEditableChildren[_id6]
+          variant: !hasEditableChildren[_id11] ? "secondary" : "primary",
+          onClick: !hasEditableChildren[_id11] ? null : this.onEditComponents,
+          disabled: !hasEditableChildren[_id11]
         }, "Add/Remove wavelength range or sub-component");
-        var localTabs = tabs[_id6];
-        var localTabNames = tabNames[_id6]; //let index = Object.keys(forms).indexOf(id);
+        var localTabs = tabs[_id11];
+        var localTabNames = tabNames[_id11]; //let index = Object.keys(forms).indexOf(id);
         //<h3>{containerNames[id]}</h3>
         //<TabPane tab={containerNames[id]} key={index} forceRender={true}>
         //</TabPane>
 
         containerFormNames.push( /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
-          key: "ContainerTabName-" + containerNames[_id6]
-        }, containerNames[_id6]));
+          key: "ContainerTabName-" + containerNames[_id11]
+        }, containerNames[_id11]));
         containerForms.push( /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
           forceRender: true,
-          key: "ContainerTab-" + containerNames[_id6]
-        }, /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren[_id6] ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs // tabPosition={"top"}
+          key: "ContainerTab-" + containerNames[_id11]
+        }, /*#__PURE__*/_react.default.createElement("p", null, hasEditableChildren[_id11] ? _constants.string_bandpass_warning : ""), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs // tabPosition={"top"}
         // tabBarStyle={{
         // 	border: "none",
         // }}

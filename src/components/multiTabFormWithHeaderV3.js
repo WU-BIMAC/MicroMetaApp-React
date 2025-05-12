@@ -208,11 +208,13 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
     					let inputData = mergedData[y];
     					console.log("inputData.ID", inputData.ID);
     					// let id = uuidv4();
-    					// inputData.ID = id;
-    					// === NEW LOGIC HERE ===
-    					let id = (inputData.ID !== undefined && inputData.ID !== null && inputData.ID !== "") 
-                        ? inputData.ID 
-                        : uuidv4();
+    					inputData.ID = id;
+
+    					// // === NEW LOGIC HERE ===
+    					// let id = (inputData.ID !== undefined && inputData.ID !== null && inputData.ID !== "") 
+                        // ? inputData.ID 
+                        // : uuidv4();
+
                     	inputData.ID = id; // Ensure the ID is set
     					inputDataIDs.push(id);
     					if (newActiveID === null) newActiveID = id;
@@ -258,8 +260,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
                 // ? inputData.ID
                 // : uuidv4();
             	// inputData.ID = id; // Ensure the ID is set
-
-
 
     			inputDataIDs.push(id);
     			let partialSchema = MultiTabFormWithHeaderV3.transformSchema(
