@@ -200,7 +200,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     _this.onClickRemoveChildComponent = _this.onClickRemoveChildComponent.bind(_assertThisInitialized(_this));
     _this.initializeForms = _this.initializeForms.bind(_assertThisInitialized(_this));
 
-    if (props.schema !== null && props.schema !== undefined && props.selectedLoadComponent !== null && Object.keys(_this.state.partialInputData).length === 0) {
+    if (props.schema !== null && props.schema !== undefined && props.selectedLoadComponent !== null && props.selectedLoadComponent !== undefined && Object.keys(_this.state.partialInputData).length === 0) {
       _this.initializeFormsFromLoadedComponent();
     } else if (props.schema !== null && props.schema !== undefined && Object.keys(_this.state.partialInputData).length === 0) {
       _this.initializeForms();

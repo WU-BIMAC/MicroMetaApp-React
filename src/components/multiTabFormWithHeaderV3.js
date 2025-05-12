@@ -171,6 +171,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		if (props.schema !== null &&
 			props.schema !== undefined &&
 			props.selectedLoadComponent !== null &&
+			props.selectedLoadComponent !== undefined &&
 			Object.keys(this.state.partialInputData).length === 0) {
 			this.initializeFormsFromLoadedComponent();
 		}
