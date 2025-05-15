@@ -2285,8 +2285,10 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleCompleteSave",
-    value: function handleCompleteSave(micName, error) {
-      console.log(micName + " saved"); //WARN Microscope save
+    value: function handleCompleteSave(name) {
+      //console.log(micName + " saved");
+      //WARN Microscope save
+      window.alert(name + " saved");
     }
   }, {
     key: "handleCompleteSaveComponent",
