@@ -219,6 +219,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.handleSaveSetting = this.handleSaveSetting.bind(this);
 
 		this.handleCompleteSave = this.handleCompleteSave.bind(this);
+		this.handleSaveComponent = this.handleSaveComponent.bind(this);
 		this.handleCompleteSaveAllComponents = this.handleCompleteSaveAllComponents.bind(this);
 		this.handleCompleteExport = this.handleCompleteExport.bind(this);
 
@@ -2919,7 +2920,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	handleSaveComponent(id, consolidatedData, linkedFields, isTemplate) {
 		console.log("id in MicroMetaApp-React app.js", id);
 		const elementData = this.state.elementData[id];
-		this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier, isTemplate);
+		this.props.onSaveComponent(elementData, this.handleCompleteSaveComponent, this.state.validationTier, isTemplate);
 	}
 
 	handleSaveMicroscope(item) {
@@ -3019,11 +3020,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
     	this.setState({ allComponents: [] });
 	}
 
-	handleCompleteSave(name, error) {
-		//console.log(micName + " saved");
+	handleCompleteSave(micName, error) {
+		console.log(micName + " saved");
 		//WARN Microscope save
-		// window.alert("Component saved");
 
+	}
+
+	handleCompleteSaveComponent(name, error) {
 		if (error) {
 			window.alert(error); // Show the error message
 		} else {

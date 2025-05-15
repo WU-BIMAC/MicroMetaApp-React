@@ -230,6 +230,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.handleSaveMicroscope = _this.handleSaveMicroscope.bind(_assertThisInitialized(_this));
     _this.handleSaveSetting = _this.handleSaveSetting.bind(_assertThisInitialized(_this));
     _this.handleCompleteSave = _this.handleCompleteSave.bind(_assertThisInitialized(_this));
+    _this.handleSaveComponent = _this.handleSaveComponent.bind(_assertThisInitialized(_this));
     _this.handleCompleteSaveAllComponents = _this.handleCompleteSaveAllComponents.bind(_assertThisInitialized(_this));
     _this.handleCompleteExport = _this.handleCompleteExport.bind(_assertThisInitialized(_this));
     _this.handleMicroscopePreset = _this.handleMicroscopePreset.bind(_assertThisInitialized(_this));
@@ -2163,7 +2164,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     value: function handleSaveComponent(id, consolidatedData, linkedFields, isTemplate) {
       console.log("id in MicroMetaApp-React app.js", id);
       var elementData = this.state.elementData[id];
-      this.props.onSaveComponent(elementData, this.handleCompleteSave, this.state.validationTier, isTemplate);
+      this.props.onSaveComponent(elementData, this.handleCompleteSaveComponent, this.state.validationTier, isTemplate);
     }
   }, {
     key: "handleSaveMicroscope",
@@ -2284,10 +2285,12 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     }
   }, {
     key: "handleCompleteSave",
-    value: function handleCompleteSave(name, error) {
-      //console.log(micName + " saved");
-      //WARN Microscope save
-      // window.alert("Component saved");
+    value: function handleCompleteSave(micName, error) {
+      console.log(micName + " saved"); //WARN Microscope save
+    }
+  }, {
+    key: "handleCompleteSaveComponent",
+    value: function handleCompleteSaveComponent(name, error) {
       if (error) {
         window.alert(error); // Show the error message
       } else {

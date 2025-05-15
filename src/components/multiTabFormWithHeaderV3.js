@@ -1669,7 +1669,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			color: "#212121",
 			borderColor: "#bab8b8",
 			paddingRight: "25px",
-			paddingLeft: "20px",
+			paddingLeft: "25px",
 			borderRadius: "8px",
 			gap: "8px"
 		};
@@ -2027,74 +2027,39 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				/>
 			);
 
-			topButtons.push(
+			// topButtons.push(
 
-				<PopoverTooltip
-					position={saveSpecificTooltip.position}
-					title={saveSpecificTooltip.title}
-					content={saveSpecificTooltip.content}
-					element={
-						<Button
-							key="button-save"
-							style={CreateNewButton}
-							size="lg"
-							onClick={this.onSaveSpecific}
-							>
-							<div
-								style={{
-								display: "flex",
-								justifyContent: "center",
-								alignItems: "center",
-								paddingLeft: "2px",
-								paddingRight: "2px",
-								}}
-							>
-								<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
-								<span style={{ display: "flex", alignItems: "center" }}>
-								Save component
-								</span>
-							</div>
-						</Button>
-					}
-				/>
-			);
+			// 	<PopoverTooltip
+			// 		position={saveSpecificTooltip.position}
+			// 		title={saveSpecificTooltip.title}
+			// 		content={saveSpecificTooltip.content}
+			// 		element={
+			// 			<Button
+			// 				key="button-save"
+			// 				style={CreateNewButton}
+			// 				size="lg"
+			// 				onClick={this.onSaveSpecific}
+			// 				>
+			// 				<div
+			// 					style={{
+			// 					display: "flex",
+			// 					justifyContent: "center",
+			// 					alignItems: "center",
+			// 					paddingLeft: "2px",
+			// 					paddingRight: "2px",
+			// 					}}
+			// 				>
+			// 					<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
+			// 					<span style={{ display: "flex", alignItems: "center" }}>
+			// 					Save component
+			// 					</span>
+			// 				</div>
+			// 			</Button>
+			// 		}
+			// 	/>
+			// );
 
 		}
-
-		// if (!this.props.notModal) {
-		// 	topButtons.push(
-
-		// 		<PopoverTooltip
-		// 			position={saveTemplateTooltip.position}
-		// 			title={saveTemplateTooltip.title}
-		// 			content={saveTemplateTooltip.content}
-		// 			element={
-		// 				<Button
-		// 					key="button-save"
-		// 					style={CreateNewButton}
-		// 					size="lg"
-		// 					onClick={this.onSave}
-		// 					>
-		// 					<div
-		// 						style={{
-		// 						display: "flex",
-		// 						justifyContent: "center",
-		// 						alignItems: "center",
-		// 						paddingLeft: "2px",
-		// 						paddingRight: "2px",
-		// 						}}
-		// 					>
-		// 						<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
-		// 						<span style={{ display: "flex", alignItems: "center" }}>
-		// 						Create template
-		// 						</span>
-		// 					</div>
-		// 				</Button>
-		// 			}
-		// 		/>
-		// 	);
-
-		// }
 
 		let containerFormNames = [];
 		let containerForms = [];
