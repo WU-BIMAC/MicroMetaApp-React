@@ -104,7 +104,27 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         fileLoaded: false
       });
-    }
+    } // onFileReaderLoad(e) {
+    // 	let binaryStr = e.target.result;
+    // 	let microscope = null;
+    // 	let errorMsg = null;
+    // 	try {
+    // 		microscope = JSON.parse(binaryStr);
+    // 		if (validateMicroscopeFile(microscope, this.props.schema, true)) {
+    // 			this.setState({ fileLoaded: true, loadedMicroscope: microscope });
+    // 		} else {
+    // 			errorMsg =
+    // 				"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
+    // 		}
+    // 	} catch (exception) {
+    // 		if (this.props.isDebug) console.log(exception);
+    // 		errorMsg = "The file you are trying to load is not a proper json file";
+    // 	}
+    // 	if (errorMsg !== null) {
+    // 		this.setState({ fileLoaded: false, errorMsg: errorMsg });
+    // 	}
+    // }
+
   }, {
     key: "onFileReaderLoad",
     value: function onFileReaderLoad(e) {
@@ -113,9 +133,12 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var errorMsg = null;
 
       try {
-        microscope = JSON.parse(binaryStr);
+        microscope = JSON.parse(binaryStr); // === ModelVersion check here ===
 
-        if ((0, _genericUtilities.validateMicroscopeFile)(microscope, this.props.schema, true)) {
+        if (microscope.ModelVersion && parseInt(microscope.ModelVersion.split(".")[0], 10) < 2) {
+          errorMsg = "This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded.";
+        } // === End ModelVersion check ===
+        else if ((0, _genericUtilities.validateMicroscopeFile)(microscope, this.props.schema, true)) {
           this.setState({
             fileLoaded: true,
             loadedMicroscope: microscope
@@ -133,6 +156,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           fileLoaded: false,
           errorMsg: errorMsg
         });
+        window.alert(errorMsg); // Optional: show immediate alert to user
       }
     }
   }, {
@@ -871,6 +895,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.props.isDebug) {
         console.log("mode : " + modeSelection);
+        console.log("loadedMicroscope", loadedMicroscope);
       }
 
       if (!(0, _genericUtilities.isDefined)(modeSelection)) disabled = true;else if (modeSelection === _constants.string_createFromFile && (!fileLoaded || loadedMicroscope === null)) disabled = true;else if ((modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder) && filename === null) disabled = true;

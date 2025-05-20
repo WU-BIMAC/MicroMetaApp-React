@@ -88,13 +88,44 @@ export default class MicroscopeLoader extends React.PureComponent {
 		this.setState({ fileLoaded: false });
 	}
 
+	// onFileReaderLoad(e) {
+	// 	let binaryStr = e.target.result;
+	// 	let microscope = null;
+	// 	let errorMsg = null;
+	// 	try {
+	// 		microscope = JSON.parse(binaryStr);
+	// 		if (validateMicroscopeFile(microscope, this.props.schema, true)) {
+	// 			this.setState({ fileLoaded: true, loadedMicroscope: microscope });
+	// 		} else {
+	// 			errorMsg =
+	// 				"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
+	// 		}
+	// 	} catch (exception) {
+	// 		if (this.props.isDebug) console.log(exception);
+	// 		errorMsg = "The file you are trying to load is not a proper json file";
+	// 	}
+
+	// 	if (errorMsg !== null) {
+	// 		this.setState({ fileLoaded: false, errorMsg: errorMsg });
+	// 	}
+	// }
+
 	onFileReaderLoad(e) {
 		let binaryStr = e.target.result;
 		let microscope = null;
 		let errorMsg = null;
 		try {
 			microscope = JSON.parse(binaryStr);
-			if (validateMicroscopeFile(microscope, this.props.schema, true)) {
+	
+			if (
+				microscope.ModelVersion &&
+				parseInt(microscope.ModelVersion.split(".")[0], 10) < 2
+			) {
+				errorMsg =
+					"This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded.";
+			}
+	
+			else if (validateMicroscopeFile(microscope, this.props.schema, true)) {
 				this.setState({ fileLoaded: true, loadedMicroscope: microscope });
 			} else {
 				errorMsg =
@@ -104,11 +135,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 			if (this.props.isDebug) console.log(exception);
 			errorMsg = "The file you are trying to load is not a proper json file";
 		}
-
+	
 		if (errorMsg !== null) {
 			this.setState({ fileLoaded: false, errorMsg: errorMsg });
+			window.alert(errorMsg); 
 		}
 	}
+	
 
 	dropzoneDrop() {
 		this.setState({ fileLoading: true, fileLoaded: false });
@@ -869,7 +902,9 @@ export default class MicroscopeLoader extends React.PureComponent {
 		let disabled = false;
 		if (this.props.isDebug) {
 			console.log("mode : " + modeSelection);
+			console.log("loadedMicroscope", loadedMicroscope);
 		}
+
 		if (!isDefined(modeSelection)) disabled = true;
 		else if (
 			modeSelection === string_createFromFile &&
