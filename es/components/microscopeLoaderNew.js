@@ -226,7 +226,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onClickManufacturerSelection",
     value: function onClickManufacturerSelection(item) {
-      //console.log("onClickManufacturerSelection - " + item);
+      // console.log("onClickManufacturerSelection - " + item);
+      // console.log("onClickManufacturerSelection - " + this.props.microscopes);
       var micNames = this.props.microscopes[item];
       this.setState({
         selectedManu: item,

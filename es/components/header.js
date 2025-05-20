@@ -116,7 +116,8 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         overlaysContainer: this.props.overlaysContainer,
         editable: true,
         elementByType: this.props.elementByType,
-        isDebug: this.props.isDebug
+        isDebug: this.props.isDebug,
+        imagesPath: this.props.imagesPathSVG
       });
 
       this.setState({
