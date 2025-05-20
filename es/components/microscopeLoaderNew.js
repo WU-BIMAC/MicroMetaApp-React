@@ -760,15 +760,24 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           }, "Load Microscope file"), dropbox));
         } else if (modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder) {
           //windowButtonsContainer.flexFlow = "row";
+          // const radioButtonsContainer = {
+          // 	display: "flex",
+          // 	justifyContent: "center",
+          // 	flexFlow: "column",
+          // 	width: "430px",
+          // 	height: buttonContainerHeight,
+          // 	alignItems: "flex-start",
+          // 	maxHeight: buttonContainerHeight,
+          // 	overflow: "auto",
+          // };
           var radioButtonsContainer = {
             display: "flex",
-            justifyContent: "center",
-            flexFlow: "column",
+            flexDirection: "column",
             width: "430px",
-            height: buttonContainerHeight,
-            alignItems: "flex-start",
-            maxHeight: buttonContainerHeight,
-            overflow: "auto"
+            maxHeight: "550px",
+            // or whatever value you want
+            overflowY: "auto",
+            alignItems: "flex-start"
           };
           var manufacturers = Object.keys(inputData); // let defaultManu = isDefined(selectedManu)
           // 	? manufacturers.indexOf(selectedManu)

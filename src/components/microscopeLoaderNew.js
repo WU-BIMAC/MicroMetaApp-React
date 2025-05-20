@@ -752,16 +752,27 @@ export default class MicroscopeLoader extends React.PureComponent {
 				modeSelection === string_loadFromHomeFolder
 			) {
 				//windowButtonsContainer.flexFlow = "row";
+
+				// const radioButtonsContainer = {
+				// 	display: "flex",
+				// 	justifyContent: "center",
+				// 	flexFlow: "column",
+				// 	width: "430px",
+				// 	height: buttonContainerHeight,
+				// 	alignItems: "flex-start",
+				// 	maxHeight: buttonContainerHeight,
+				// 	overflow: "auto",
+				// };
+
 				const radioButtonsContainer = {
 					display: "flex",
-					justifyContent: "center",
-					flexFlow: "column",
+					flexDirection: "column",
 					width: "430px",
-					height: buttonContainerHeight,
+					maxHeight: "550px", // or whatever value you want
+					overflowY: "auto",
 					alignItems: "flex-start",
-					maxHeight: buttonContainerHeight,
-					overflow: "auto",
-				};
+				  };
+				  
 
 				let manufacturers = Object.keys(inputData);
 				// let defaultManu = isDefined(selectedManu)
