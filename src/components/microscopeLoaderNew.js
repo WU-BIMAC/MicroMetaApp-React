@@ -190,7 +190,8 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	onClickManufacturerSelection(item) {
-		//console.log("onClickManufacturerSelection - " + item);
+		// console.log("onClickManufacturerSelection - " + item);
+		// console.log("onClickManufacturerSelection - " + this.props.microscopes);
 		let micNames = this.props.microscopes[item];
 		this.setState({ selectedManu: item, micNames: micNames });
 		//this.props.onClickMicroscopeSelection(this.props.microscopes[item][0]);
