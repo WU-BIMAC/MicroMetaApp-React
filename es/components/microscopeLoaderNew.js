@@ -133,12 +133,11 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       var errorMsg = null;
 
       try {
-        microscope = JSON.parse(binaryStr); // === ModelVersion check here ===
+        microscope = JSON.parse(binaryStr);
 
         if (microscope.ModelVersion && parseInt(microscope.ModelVersion.split(".")[0], 10) < 2) {
           errorMsg = "This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded.";
-        } // === End ModelVersion check ===
-        else if ((0, _genericUtilities.validateMicroscopeFile)(microscope, this.props.schema, true)) {
+        } else if ((0, _genericUtilities.validateMicroscopeFile)(microscope, this.props.schema, true)) {
           this.setState({
             fileLoaded: true,
             loadedMicroscope: microscope
@@ -156,7 +155,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           fileLoaded: false,
           errorMsg: errorMsg
         });
-        window.alert(errorMsg); // Optional: show immediate alert to user
+        window.alert(errorMsg);
       }
     }
   }, {
