@@ -895,6 +895,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       if (this.props.isDebug) {
         console.log("mode : " + modeSelection);
         console.log("loadedMicroscope", loadedMicroscope);
+        console.log("filename of microscope from home directory", filename);
       }
 
       if (!(0, _genericUtilities.isDefined)(modeSelection)) disabled = true;else if (modeSelection === _constants.string_createFromFile && (!fileLoaded || loadedMicroscope === null)) disabled = true;else if ((modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder) && filename === null) disabled = true;
