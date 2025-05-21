@@ -815,13 +815,36 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             }, manufacturerRadios)
           });
 
-          list.push( /*#__PURE__*/_react.default.createElement("div", {
+          list.push(
+          /*#__PURE__*/
+          // <div
+          // 	key="radio-manufactorer-container"
+          // 	id="radio-manufactorer-container"
+          // 	style={radioButtonsContainer}
+          // >
+          // 	<h4 key={"select-manufacturer"}>Select Manufacturer</h4>
+          // 	{manufacturerRadio}
+          // </div>
+          _react.default.createElement("div", {
             key: "radio-manufactorer-container",
             id: "radio-manufactorer-container",
-            style: radioButtonsContainer
+            style: {
+              display: "flex",
+              flexDirection: "column",
+              width: "430px",
+              alignItems: "flex-start" // No height, maxHeight, or overflow here!
+
+            }
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "select-manufacturer"
-          }, "Select Manufacturer"), manufacturerRadio));
+          }, "Select Manufacturer"), /*#__PURE__*/_react.default.createElement("div", {
+            style: {
+              maxHeight: "450px",
+              // or whatever fits your layout
+              overflowY: "auto",
+              width: "100%"
+            }
+          }, manufacturerRadio)));
 
           if ((0, _genericUtilities.isDefined)(selectedManu)) {
             // let defaultMic = isDefined(selectedMic)

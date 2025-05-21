@@ -818,14 +818,37 @@ export default class MicroscopeLoader extends React.PureComponent {
 					/>
 				);
 				list.push(
+					// <div
+					// 	key="radio-manufactorer-container"
+					// 	id="radio-manufactorer-container"
+					// 	style={radioButtonsContainer}
+					// >
+					// 	<h4 key={"select-manufacturer"}>Select Manufacturer</h4>
+					// 	{manufacturerRadio}
+					// </div>
 					<div
 						key="radio-manufactorer-container"
 						id="radio-manufactorer-container"
-						style={radioButtonsContainer}
-					>
+						style={{
+							display: "flex",
+							flexDirection: "column",
+							width: "430px",
+							alignItems: "flex-start",
+							// No height, maxHeight, or overflow here!
+						}}
+						>
 						<h4 key={"select-manufacturer"}>Select Manufacturer</h4>
-						{manufacturerRadio}
+						<div
+							style={{
+							maxHeight: "450px", // or whatever fits your layout
+							overflowY: "auto",
+							width: "100%",
+							}}
+						>
+							{manufacturerRadio}
+						</div>
 					</div>
+
 				);
 
 				if (isDefined(selectedManu)) {
