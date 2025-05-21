@@ -329,7 +329,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			height: buttonContainerHeight,
 			alignItems: "center",
 			margin: "10px",
-			overflow: auto
+			overflow: "auto"
 		};
 		const logoContainer = {
 			display: "flex",

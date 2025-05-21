@@ -375,7 +375,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         height: buttonContainerHeight,
         alignItems: "center",
         margin: "10px",
-        overflow: auto
+        overflow: "auto"
       };
       var logoContainer = {
         display: "flex",
