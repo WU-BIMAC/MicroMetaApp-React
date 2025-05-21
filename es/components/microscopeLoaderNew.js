@@ -839,7 +839,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             key: "select-manufacturer"
           }, "Select Manufacturer"), /*#__PURE__*/_react.default.createElement("div", {
             style: {
-              maxHeight: "450px",
+              maxHeight: "300px",
               // or whatever fits your layout
               overflowY: "auto",
               width: "100%"

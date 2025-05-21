@@ -840,7 +840,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						<h4 key={"select-manufacturer"}>Select Manufacturer</h4>
 						<div
 							style={{
-							maxHeight: "450px", // or whatever fits your layout
+							maxHeight: "300px", // or whatever fits your layout
 							overflowY: "auto",
 							width: "100%",
 							}}
