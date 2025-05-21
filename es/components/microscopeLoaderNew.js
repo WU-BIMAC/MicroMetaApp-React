@@ -374,7 +374,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
         width: "100%",
         height: buttonContainerHeight,
         alignItems: "center",
-        margin: "10px"
+        margin: "10px",
+        overflow: auto
       };
       var logoContainer = {
         display: "flex",
@@ -774,7 +775,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
             display: "flex",
             flexDirection: "column",
             width: "430px",
-            maxHeight: "550px",
+            maxHeight: "300px",
             // or whatever value you want
             overflowY: "auto",
             alignItems: "flex-start"
@@ -874,13 +875,37 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               }, microscopeRadios)
             });
 
-            list.push( /*#__PURE__*/_react.default.createElement("div", {
+            list.push(
+            /*#__PURE__*/
+            // <div
+            // 	key="radio-microscope-options"
+            // 	id="radio-microscope-options"
+            // 	style={radioButtonsContainer}
+            // >
+            // 	<h4 key={"select-microscope"}>Select Microscope file</h4>
+            // 	{microscopeRadio}
+            // </div>
+            _react.default.createElement("div", {
               key: "radio-microscope-options",
               id: "radio-microscope-options",
-              style: radioButtonsContainer
+              style: {
+                display: "flex",
+                flexDirection: "column",
+                width: "430px",
+                alignItems: "flex-start" // No height, maxHeight, or overflow here!
+
+              }
             }, /*#__PURE__*/_react.default.createElement("h4", {
               key: "select-microscope"
-            }, "Select Microscope file"), microscopeRadio));
+            }, "Select Microscope file"), /*#__PURE__*/_react.default.createElement("div", {
+              style: {
+                maxHeight: "300px",
+                // or whatever fits your layout
+                overflowY: "auto",
+                width: "100%" // Optionally add padding or margin if needed
+
+              }
+            }, microscopeRadio)));
           }
         }
       }

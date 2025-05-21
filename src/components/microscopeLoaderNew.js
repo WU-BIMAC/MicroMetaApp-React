@@ -329,6 +329,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			height: buttonContainerHeight,
 			alignItems: "center",
 			margin: "10px",
+			overflow: auto
 		};
 		const logoContainer = {
 			display: "flex",
@@ -768,7 +769,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					display: "flex",
 					flexDirection: "column",
 					width: "430px",
-					maxHeight: "550px", // or whatever value you want
+					maxHeight: "300px", // or whatever value you want
 					overflowY: "auto",
 					alignItems: "flex-start",
 				  };
@@ -884,13 +885,36 @@ export default class MicroscopeLoader extends React.PureComponent {
 						/>
 					);
 					list.push(
+						// <div
+						// 	key="radio-microscope-options"
+						// 	id="radio-microscope-options"
+						// 	style={radioButtonsContainer}
+						// >
+						// 	<h4 key={"select-microscope"}>Select Microscope file</h4>
+						// 	{microscopeRadio}
+						// </div>
 						<div
 							key="radio-microscope-options"
 							id="radio-microscope-options"
-							style={radioButtonsContainer}
-						>
+							style={{
+								display: "flex",
+								flexDirection: "column",
+								width: "430px",
+								alignItems: "flex-start",
+								// No height, maxHeight, or overflow here!
+							}}
+							>
 							<h4 key={"select-microscope"}>Select Microscope file</h4>
-							{microscopeRadio}
+							<div
+								style={{
+								maxHeight: "300px", // or whatever fits your layout
+								overflowY: "auto",
+								width: "100%",
+								// Optionally add padding or margin if needed
+								}}
+							>
+								{microscopeRadio}
+							</div>
 						</div>
 					);
 				}
