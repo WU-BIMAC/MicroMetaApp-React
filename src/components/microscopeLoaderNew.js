@@ -228,9 +228,12 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	onClickConfirm() {
+		console.log("homePath", this.props.homePath);
+		console.log("workingDirectory", this.props.workingDirectory);
 		let modeSelection = this.state.modeSelection;
 		let filename = null;
 		let microscope = null;
+
 		if (
 			modeSelection === string_loadFromRepository ||
 			modeSelection === string_loadFromHomeFolder
@@ -241,6 +244,52 @@ export default class MicroscopeLoader extends React.PureComponent {
 		}
 		this.props.onClickConfirm(modeSelection, filename, microscope);
 	}
+
+	// onClickConfirm() {
+	// 	// const path = require('path');
+	// 	// const fs = require('fs');
+	// 	// const homeDir = require('os').homedir();
+	
+	// 	let modeSelection = this.state.modeSelection;
+	// 	let filename = null;
+	// 	let microscope = null;
+	
+	// 	if (
+	// 		modeSelection === string_loadFromRepository ||
+	// 		modeSelection === string_loadFromHomeFolder
+	// 	) {
+	// 		filename = this.state.filename;
+	// 		if (!filename) return;
+	
+	// 		const microscopesDir = path.resolve(this.props.workingDirectory, './microscopes/');
+	// 		const filePath = path.join(microscopesDir, filename);
+	
+	// 		try {
+	// 			const fileContent = fs.readFileSync(filePath, "utf-8");
+	// 			microscope = JSON.parse(fileContent);
+	
+	// 			// === ModelVersion check ===
+	// 			const mv = microscope.ModelVersion;
+	// 			const majorVersion = mv ? parseInt(mv.split(".")[0], 10) : NaN;
+	// 			if (isNaN(majorVersion) || majorVersion < 2) {
+	// 				window.alert(
+	// 					"This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded."
+	// 				);
+	// 				return; // Block further action
+	// 			}
+	// 			// === End ModelVersion check ===
+	
+	// 		} catch (err) {
+	// 			window.alert("Could not read or parse the selected microscope file.");
+	// 			return;
+	// 		}
+	// 	} else if (modeSelection === string_createFromFile) {
+	// 		microscope = this.state.loadedMicroscope;
+	// 	}
+	
+	// 	this.props.onClickConfirm(modeSelection, filename, microscope);
+	// }
+	
 
 	render() {
 		let buttonContainerHeight = "550px";
@@ -834,13 +883,12 @@ export default class MicroscopeLoader extends React.PureComponent {
 							flexDirection: "column",
 							width: "430px",
 							alignItems: "flex-start",
-							// No height, maxHeight, or overflow here!
 						}}
 						>
 						<h4 key={"select-manufacturer"}>Select Manufacturer</h4>
 						<div
 							style={{
-							maxHeight: "300px", // or whatever fits your layout
+							maxHeight: "300px", 
 							overflowY: "auto",
 							width: "100%",
 							}}
@@ -924,16 +972,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 								flexDirection: "column",
 								width: "430px",
 								alignItems: "flex-start",
-								// No height, maxHeight, or overflow here!
 							}}
 							>
 							<h4 key={"select-microscope"}>Select Microscope file</h4>
 							<div
 								style={{
-								maxHeight: "300px", // or whatever fits your layout
+								maxHeight: "300px",
 								overflowY: "auto",
 								width: "100%",
-								// Optionally add padding or margin if needed
 								}}
 							>
 								{microscopeRadio}

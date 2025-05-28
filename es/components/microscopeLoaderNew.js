@@ -266,16 +266,56 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         step: item
       });
-    }
+    } // onClickConfirm() {
+    // 	let modeSelection = this.state.modeSelection;
+    // 	let filename = null;
+    // 	let microscope = null;
+    // 	if (
+    // 		modeSelection === string_loadFromRepository ||
+    // 		modeSelection === string_loadFromHomeFolder
+    // 	) {
+    // 		filename = this.state.filename;
+    // 	} else if (modeSelection === string_createFromFile) {
+    // 		microscope = this.state.loadedMicroscope;
+    // 	}
+    // 	this.props.onClickConfirm(modeSelection, filename, microscope);
+    // }
+
   }, {
     key: "onClickConfirm",
     value: function onClickConfirm() {
+      var path = require('path');
+
+      var fs = require('fs');
+
+      var homeDir = require('os').homedir();
+
       var modeSelection = this.state.modeSelection;
       var filename = null;
       var microscope = null;
 
       if (modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder) {
         filename = this.state.filename;
+        if (!filename) return;
+        var microscopesDir = path.join(homeDir, 'MicroMetaApp', 'microscopes');
+        var filePath = path.join(microscopesDir, filename);
+
+        try {
+          var fileContent = fs.readFileSync(filePath, "utf-8");
+          microscope = JSON.parse(fileContent); // === ModelVersion check ===
+
+          var mv = microscope.ModelVersion;
+          var majorVersion = mv ? parseInt(mv.split(".")[0], 10) : NaN;
+
+          if (isNaN(majorVersion) || majorVersion < 2) {
+            window.alert("This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded.");
+            return; // Block further action
+          } // === End ModelVersion check ===
+
+        } catch (err) {
+          window.alert("Could not read or parse the selected microscope file.");
+          return;
+        }
       } else if (modeSelection === _constants.string_createFromFile) {
         microscope = this.state.loadedMicroscope;
       }
@@ -832,15 +872,13 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
               display: "flex",
               flexDirection: "column",
               width: "430px",
-              alignItems: "flex-start" // No height, maxHeight, or overflow here!
-
+              alignItems: "flex-start"
             }
           }, /*#__PURE__*/_react.default.createElement("h4", {
             key: "select-manufacturer"
           }, "Select Manufacturer"), /*#__PURE__*/_react.default.createElement("div", {
             style: {
               maxHeight: "300px",
-              // or whatever fits your layout
               overflowY: "auto",
               width: "100%"
             }
@@ -915,18 +953,15 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
                 display: "flex",
                 flexDirection: "column",
                 width: "430px",
-                alignItems: "flex-start" // No height, maxHeight, or overflow here!
-
+                alignItems: "flex-start"
               }
             }, /*#__PURE__*/_react.default.createElement("h4", {
               key: "select-microscope"
             }, "Select Microscope file"), /*#__PURE__*/_react.default.createElement("div", {
               style: {
                 maxHeight: "300px",
-                // or whatever fits your layout
                 overflowY: "auto",
-                width: "100%" // Optionally add padding or margin if needed
-
+                width: "100%"
               }
             }, microscopeRadio)));
           }

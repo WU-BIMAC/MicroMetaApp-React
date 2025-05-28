@@ -3339,6 +3339,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							schema={schema}
 							isDebug={this.props.isDebug}
 							isImporter={true}
+							workingDirectory={this.props.workingDirectory}
+							homePath={this.props.homePath}
 						/>
 					</MicroMetaAppReactContainer>
 				);
@@ -3465,6 +3467,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						//isSettings={this.state.isLoadingMicroscope}
 						schema={this.state.schema}
 						isDebug={this.props.isDebug}
+						workingDirectory={this.props.workingDirectory}
+						homePath={this.props.homePath}
 					/>
 				</MicroMetaAppReactContainer>
 			);
