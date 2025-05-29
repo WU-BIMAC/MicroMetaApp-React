@@ -177,9 +177,7 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
         tmpSlots: [],
         settingData: {},
         channelData: {}
-      }); // console.log("channelData");
-      // console.log(channelData);
-
+      });
       this.props.onConfirm(this.props.id, channelData);
     }
   }, {
@@ -347,10 +345,8 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onElementDataSave",
     value: function onElementDataSave(id, data) {
-      //console.log("onElementDataSave");
       var selectedComp = this.state.selectedComp;
-      var selectedSlot = this.state.selectedSlot; //let category = this.state.category;
-
+      var selectedSlot = this.state.selectedSlot;
       var settingData = Object.assign({}, this.state.settingData);
 
       if (this.state.editingSettings) {
@@ -493,8 +489,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
           editingSettings: false
         });
       }
-
-      console.log('Cancel called from: settingsMainViews');
     }
   }, {
     key: "onEditElement",
@@ -986,8 +980,6 @@ var ChannelCanvas_V2 = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       if (this.state.editing) {
-        console.log("INSIDE CHANNELCANVAS_V2 1");
-
         if (this.state.editingSettings) {
           var settingsName = selectedSchema.modelSettings + _constants.string_json_ext;
           var settings = null;

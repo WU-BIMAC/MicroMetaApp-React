@@ -104,27 +104,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         fileLoaded: false
       });
-    } // onFileReaderLoad(e) {
-    // 	let binaryStr = e.target.result;
-    // 	let microscope = null;
-    // 	let errorMsg = null;
-    // 	try {
-    // 		microscope = JSON.parse(binaryStr);
-    // 		if (validateMicroscopeFile(microscope, this.props.schema, true)) {
-    // 			this.setState({ fileLoaded: true, loadedMicroscope: microscope });
-    // 		} else {
-    // 			errorMsg =
-    // 				"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
-    // 		}
-    // 	} catch (exception) {
-    // 		if (this.props.isDebug) console.log(exception);
-    // 		errorMsg = "The file you are trying to load is not a proper json file";
-    // 	}
-    // 	if (errorMsg !== null) {
-    // 		this.setState({ fileLoaded: false, errorMsg: errorMsg });
-    // 	}
-    // }
-
+    }
   }, {
     key: "onFileReaderLoad",
     value: function onFileReaderLoad(e) {
@@ -135,9 +115,7 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       try {
         microscope = JSON.parse(binaryStr);
 
-        if (microscope.ModelVersion && parseInt(microscope.ModelVersion.split(".")[0], 10) < 2) {
-          errorMsg = "This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded.";
-        } else if ((0, _genericUtilities.validateMicroscopeFile)(microscope, this.props.schema, true)) {
+        if ((0, _genericUtilities.validateMicroscopeFile)(microscope, this.props.schema, true)) {
           this.setState({
             fileLoaded: true,
             loadedMicroscope: microscope
@@ -155,9 +133,36 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
           fileLoaded: false,
           errorMsg: errorMsg
         });
-        window.alert(errorMsg);
       }
-    }
+    } // onFileReaderLoad(e) {
+    // 	let binaryStr = e.target.result;
+    // 	let microscope = null;
+    // 	let errorMsg = null;
+    // 	try {
+    // 		microscope = JSON.parse(binaryStr);
+    // 		if (
+    // 			microscope.ModelVersion &&
+    // 			parseInt(microscope.ModelVersion.split(".")[0], 10) < 2
+    // 		) {
+    // 			errorMsg =
+    // 				"This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded.";
+    // 		}
+    // 		else if (validateMicroscopeFile(microscope, this.props.schema, true)) {
+    // 			this.setState({ fileLoaded: true, loadedMicroscope: microscope });
+    // 		} else {
+    // 			errorMsg =
+    // 				"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
+    // 		}
+    // 	} catch (exception) {
+    // 		if (this.props.isDebug) console.log(exception);
+    // 		errorMsg = "The file you are trying to load is not a proper json file";
+    // 	}
+    // 	if (errorMsg !== null) {
+    // 		this.setState({ fileLoaded: false, errorMsg: errorMsg });
+    // 		window.alert(errorMsg); 
+    // 	}
+    // }
+
   }, {
     key: "dropzoneDrop",
     value: function dropzoneDrop() {
@@ -266,56 +271,16 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         step: item
       });
-    } // onClickConfirm() {
-    // 	let modeSelection = this.state.modeSelection;
-    // 	let filename = null;
-    // 	let microscope = null;
-    // 	if (
-    // 		modeSelection === string_loadFromRepository ||
-    // 		modeSelection === string_loadFromHomeFolder
-    // 	) {
-    // 		filename = this.state.filename;
-    // 	} else if (modeSelection === string_createFromFile) {
-    // 		microscope = this.state.loadedMicroscope;
-    // 	}
-    // 	this.props.onClickConfirm(modeSelection, filename, microscope);
-    // }
-
+    }
   }, {
     key: "onClickConfirm",
     value: function onClickConfirm() {
-      var path = require('path');
-
-      var fs = require('fs');
-
-      var homeDir = require('os').homedir();
-
       var modeSelection = this.state.modeSelection;
       var filename = null;
       var microscope = null;
 
       if (modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder) {
         filename = this.state.filename;
-        if (!filename) return;
-        var microscopesDir = path.join(homeDir, 'MicroMetaApp', 'microscopes');
-        var filePath = path.join(microscopesDir, filename);
-
-        try {
-          var fileContent = fs.readFileSync(filePath, "utf-8");
-          microscope = JSON.parse(fileContent); // === ModelVersion check ===
-
-          var mv = microscope.ModelVersion;
-          var majorVersion = mv ? parseInt(mv.split(".")[0], 10) : NaN;
-
-          if (isNaN(majorVersion) || majorVersion < 2) {
-            window.alert("This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded.");
-            return; // Block further action
-          } // === End ModelVersion check ===
-
-        } catch (err) {
-          window.alert("Could not read or parse the selected microscope file.");
-          return;
-        }
       } else if (modeSelection === _constants.string_createFromFile) {
         microscope = this.state.loadedMicroscope;
       }
@@ -969,28 +934,8 @@ var MicroscopeLoader = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var continue_tooltip = _constants.create_mode_continue_tooltip;
-      var buttons = []; // buttons.push(
-      // 	<PopoverTooltip
-      // 		key={"button-back"}
-      // 		position={back_tooltip.position}
-      // 		title={back_tooltip.title}
-      // 		content={back_tooltip.content}
-      // 		element={
-      // 			<Button onClick={console.log("back")} style={buttonStyle} size="lg">
-      // 				Back
-      // 			</Button>
-      // 		}
-      // 	/>
-      // );
-
+      var buttons = [];
       var disabled = false;
-
-      if (this.props.isDebug) {
-        console.log("mode : " + modeSelection);
-        console.log("loadedMicroscope", loadedMicroscope);
-        console.log("filename of microscope from home directory", filename);
-      }
-
       if (!(0, _genericUtilities.isDefined)(modeSelection)) disabled = true;else if (modeSelection === _constants.string_createFromFile && (!fileLoaded || loadedMicroscope === null)) disabled = true;else if ((modeSelection === _constants.string_loadFromRepository || modeSelection === _constants.string_loadFromHomeFolder) && filename === null) disabled = true;
       var forwardImg = url.resolve(this.props.imagesPathSVG, _constants.string_next_img);
       var forwardImgPath = forwardImg + (forwardImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");

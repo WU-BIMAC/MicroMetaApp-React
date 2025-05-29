@@ -232,8 +232,6 @@ var SettingMainView = /*#__PURE__*/function (_React$PureComponent) {
       } else if (id === elements.indexOf("objSettings")) {
         var newObjSettings = {};
         var objective = null;
-        console.log("data");
-        console.log(data);
 
         if (Object.keys(data).length > 0) {
           var oldObjSettings = this.state.objSettings;

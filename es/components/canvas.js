@@ -189,7 +189,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "onCanvasElementDataSave",
     value: function onCanvasElementDataSave(id, data, dataLinkedFields, isOnError) {
-      console.log("in the function onCanvasElementDataSave, here is the id, data, and linkedFields", id, data, dataLinkedFields);
       var linkedFields = this.state.linkedFields;
 
       if (dataLinkedFields !== undefined && Object.keys(dataLinkedFields).length > 0) {
@@ -217,8 +216,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
         elementData: currentElementData,
         linkedFields: linkedFields
       });
-      console.log("this is currentElementData", currentElementData);
-      console.log("this is linkedFields", linkedFields);
       var validated = this.areAllElementsValidated();
       this.props.updateElementData(currentElementData, validated);
       this.props.updateLinkedFields(linkedFields);
@@ -853,8 +850,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
             newElementData[maxNumber] = 1;
           }
         }
-
-        console.log(newElementData);
       });
     }
   }, {
@@ -942,8 +937,6 @@ var Canvas = /*#__PURE__*/function (_React$PureComponent) {
       var deletedSchema = schemaID.replace(_constants.string_json_ext, "");
       var deletedID = id.replace(deletedSchema, "");
       deletedID = deletedID.replace("_", "");
-      console.log("deletedID");
-      console.log(deletedID);
       var linkedFields = this.state.linkedFields;
 
       if (Object.keys(linkedFields).includes(id)) {

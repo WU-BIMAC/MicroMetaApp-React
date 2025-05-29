@@ -677,7 +677,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (microscope !== null && microscope !== undefined) {
         microscope.ValidationTier = validationTier;
-        console.log("#1 call to validate");
         var validation = validate(microscope, microscopeSchema);
         validated = validation.valid;
       }
@@ -1363,10 +1362,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var linkedFields = Object.assign({}, modifiedMic.linkedFields);
-      console.log("#2 call to validate");
       var validationMicroscope = validate(modifiedMic, microscopeSchema);
       var validatedMicroscope = validationMicroscope.valid;
-      console.log("#3 call to validate");
       var validationStand = validate(modifiedMic.MicroscopeStand, microscopeStandSchema);
       var validatedStand = validationStand.valid;
       var validated = validatedMicroscope && validatedStand;
@@ -1430,10 +1427,8 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       }
 
       var linkedFields = Object.assign({}, modifiedMic.linkedFields);
-      console.log("#4 call to validate");
       var validationMicroscope = validate(modifiedMic, microscopeSchema);
       var validatedMicroscope = validationMicroscope.valid;
-      console.log("#5 call to validate");
       var validationStand = validate(modifiedMic.MicroscopeStand, microscopeStandSchema);
       var validatedStand = validationStand.valid;
       var validated = validatedMicroscope && validatedStand;
@@ -1986,13 +1981,11 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
       if (this.state.is4DNPortal) {
         if (item === "Back to list" && (0, _genericUtilities.isDefined)(this.props.onReturnToMicroscopeList)) {
-          console.log("Back to list click");
           var originalMicroscope = this.state.originalMicroscope;
 
           if (!_.isEqual(oldMicroscope, originalMicroscope)) {
             console.log(oldMicroscope);
             console.log(originalMicroscope);
-            console.log("Back to list click 2");
 
             if (!window.confirm("You have unsaved changes. Are you sure you want to leave this page?")) {
               return;
@@ -2001,7 +1994,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
         }
       }
 
-      console.log("Back to list click 3");
       this.setState({
         microscope: null,
         microscopes: null,
@@ -2570,7 +2562,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
             isSettings: this.state.isLoadingMicroscope,
             schema: schema,
             isDebug: this.props.isDebug,
-            isImporter: true
+            isImporter: true,
+            workingDirectory: this.props.workingDirectory,
+            homePath: this.props.homePath
           }));
         } else if (microscope !== null && elementData === null) {
           if (this.props.isDebug) {
@@ -2680,7 +2674,9 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
           onClickHome: this.onClickHome //isSettings={this.state.isLoadingMicroscope}
           ,
           schema: this.state.schema,
-          isDebug: this.props.isDebug
+          isDebug: this.props.isDebug,
+          workingDirectory: this.props.workingDirectory,
+          homePath: this.props.homePath
         }));
       } // if (
       // 	!this.state.isCreatingNewMicroscope &&
