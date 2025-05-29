@@ -259,7 +259,6 @@ export default class Canvas extends React.PureComponent {
 	}
 
 	onCanvasElementDataSave(id, data, dataLinkedFields, isOnError) {
-		console.log("in the function onCanvasElementDataSave, here is the id, data, and linkedFields", id, data, dataLinkedFields);
 		let linkedFields = this.state.linkedFields;
 		if (
 			dataLinkedFields !== undefined &&
@@ -288,9 +287,6 @@ export default class Canvas extends React.PureComponent {
 			elementData: currentElementData,
 			linkedFields: linkedFields,
 		});
-
-		console.log("this is currentElementData", currentElementData);
-		console.log("this is linkedFields", linkedFields);
 
 		let validated = this.areAllElementsValidated();
 		this.props.updateElementData(currentElementData, validated);
@@ -885,7 +881,6 @@ export default class Canvas extends React.PureComponent {
 					newElementData[maxNumber] = 1;
 				}
 			}
-			console.log(newElementData);
 		});
 	}
 
@@ -975,9 +970,6 @@ export default class Canvas extends React.PureComponent {
 		let deletedSchema = schemaID.replace(string_json_ext, "");
 		let deletedID = id.replace(deletedSchema, "");
 		deletedID = deletedID.replace("_", "");
-
-		console.log("deletedID");
-		console.log(deletedID);
 
 		let linkedFields = this.state.linkedFields;
 		if (Object.keys(linkedFields).includes(id)) {

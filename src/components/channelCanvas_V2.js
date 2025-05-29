@@ -185,9 +185,7 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 			settingData: {},
 			channelData: {},
 		});
-
-		// console.log("channelData");
-		// console.log(channelData);
+		
 		this.props.onConfirm(this.props.id, channelData);
 	}
 
@@ -345,10 +343,8 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 	}
 
 	onElementDataSave(id, data) {
-		//console.log("onElementDataSave");
 		let selectedComp = this.state.selectedComp;
 		let selectedSlot = this.state.selectedSlot;
-		//let category = this.state.category;
 		let settingData = Object.assign({}, this.state.settingData);
 		if (this.state.editingSettings) {
 			if (selectedSlot.includes("AdditionalSlot_")) {
@@ -476,7 +472,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		} else {
 			this.setState({ editing: false, editingSettings: false });
 		}
-		console.log('Cancel called from: settingsMainViews');
 	}
 
 	onEditElement() {
@@ -1077,7 +1072,6 @@ export default class ChannelCanvas_V2 extends React.PureComponent {
 		}
 
 		if (this.state.editing) {
-			console.log("INSIDE CHANNELCANVAS_V2 1");
 			if (this.state.editingSettings) {
 				let settingsName = selectedSchema.modelSettings + string_json_ext;
 				let settings = null;

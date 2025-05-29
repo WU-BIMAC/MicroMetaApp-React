@@ -65,9 +65,6 @@ export default class Header extends React.PureComponent {
 	}
 
 	onClickEdit() {
-		if (this.props.isDebug) {
-			console.log("inside of header.js in function onClickEdit");
-		}
 		let editForm = (
 			<MultiTabFormWithHeaderV3
 				title={"Edit " + this.props.formTitle}

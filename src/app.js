@@ -676,7 +676,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let validated = false;
 		if (microscope !== null && microscope !== undefined) {
 			microscope.ValidationTier = validationTier;
-			console.log("#1 call to validate");
 			let validation = validate(microscope, microscopeSchema);
 			validated = validation.valid;
 		}
@@ -2060,10 +2059,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			});
 		}
 		let linkedFields = Object.assign({}, modifiedMic.linkedFields);
-		console.log("#2 call to validate");
 		let validationMicroscope = validate(modifiedMic, microscopeSchema);
 		let validatedMicroscope = validationMicroscope.valid;
-		console.log("#3 call to validate");
 		let validationStand = validate(
 			modifiedMic.MicroscopeStand,
 			microscopeStandSchema
@@ -2137,10 +2134,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			});
 		}
 		let linkedFields = Object.assign({}, modifiedMic.linkedFields);
-		console.log("#4 call to validate");
 		let validationMicroscope = validate(modifiedMic, microscopeSchema);
 		let validatedMicroscope = validationMicroscope.valid;
-		console.log("#5 call to validate");
 		let validationStand = validate(
 			modifiedMic.MicroscopeStand,
 			microscopeStandSchema
@@ -2737,12 +2732,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				item === "Back to list" &&
 				isDefined(this.props.onReturnToMicroscopeList)
 			) {
-				console.log("Back to list click");
 				let originalMicroscope = this.state.originalMicroscope;
 				if (!_.isEqual(oldMicroscope, originalMicroscope)) {
 					console.log(oldMicroscope);
 					console.log(originalMicroscope);
-					console.log("Back to list click 2");
 					if (
 						!window.confirm(
 							"You have unsaved changes. Are you sure you want to leave this page?"
@@ -2754,7 +2747,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			}
 		}
 
-		console.log("Back to list click 3");
 		this.setState(
 			{
 				microscope: null,

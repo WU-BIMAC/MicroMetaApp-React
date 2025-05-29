@@ -235,8 +235,6 @@ export default class SettingMainView extends React.PureComponent {
 		} else if (id === elements.indexOf("objSettings")) {
 			let newObjSettings = {};
 			let objective = null;
-			console.log("data");
-			console.log(data);
 			if (Object.keys(data).length > 0) {
 				let oldObjSettings = this.state.objSettings;
 				if (oldObjSettings !== null && oldObjSettings !== undefined) {

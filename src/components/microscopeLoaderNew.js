@@ -88,44 +88,13 @@ export default class MicroscopeLoader extends React.PureComponent {
 		this.setState({ fileLoaded: false });
 	}
 
-	// onFileReaderLoad(e) {
-	// 	let binaryStr = e.target.result;
-	// 	let microscope = null;
-	// 	let errorMsg = null;
-	// 	try {
-	// 		microscope = JSON.parse(binaryStr);
-	// 		if (validateMicroscopeFile(microscope, this.props.schema, true)) {
-	// 			this.setState({ fileLoaded: true, loadedMicroscope: microscope });
-	// 		} else {
-	// 			errorMsg =
-	// 				"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
-	// 		}
-	// 	} catch (exception) {
-	// 		if (this.props.isDebug) console.log(exception);
-	// 		errorMsg = "The file you are trying to load is not a proper json file";
-	// 	}
-
-	// 	if (errorMsg !== null) {
-	// 		this.setState({ fileLoaded: false, errorMsg: errorMsg });
-	// 	}
-	// }
-
 	onFileReaderLoad(e) {
 		let binaryStr = e.target.result;
 		let microscope = null;
 		let errorMsg = null;
 		try {
 			microscope = JSON.parse(binaryStr);
-	
-			if (
-				microscope.ModelVersion &&
-				parseInt(microscope.ModelVersion.split(".")[0], 10) < 2
-			) {
-				errorMsg =
-					"This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded.";
-			}
-	
-			else if (validateMicroscopeFile(microscope, this.props.schema, true)) {
+			if (validateMicroscopeFile(microscope, this.props.schema, true)) {
 				this.setState({ fileLoaded: true, loadedMicroscope: microscope });
 			} else {
 				errorMsg =
@@ -135,12 +104,43 @@ export default class MicroscopeLoader extends React.PureComponent {
 			if (this.props.isDebug) console.log(exception);
 			errorMsg = "The file you are trying to load is not a proper json file";
 		}
-	
+
 		if (errorMsg !== null) {
 			this.setState({ fileLoaded: false, errorMsg: errorMsg });
-			window.alert(errorMsg); 
 		}
 	}
+
+	// onFileReaderLoad(e) {
+	// 	let binaryStr = e.target.result;
+	// 	let microscope = null;
+	// 	let errorMsg = null;
+	// 	try {
+	// 		microscope = JSON.parse(binaryStr);
+	
+	// 		if (
+	// 			microscope.ModelVersion &&
+	// 			parseInt(microscope.ModelVersion.split(".")[0], 10) < 2
+	// 		) {
+	// 			errorMsg =
+	// 				"This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded.";
+	// 		}
+	
+	// 		else if (validateMicroscopeFile(microscope, this.props.schema, true)) {
+	// 			this.setState({ fileLoaded: true, loadedMicroscope: microscope });
+	// 		} else {
+	// 			errorMsg =
+	// 				"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
+	// 		}
+	// 	} catch (exception) {
+	// 		if (this.props.isDebug) console.log(exception);
+	// 		errorMsg = "The file you are trying to load is not a proper json file";
+	// 	}
+	
+	// 	if (errorMsg !== null) {
+	// 		this.setState({ fileLoaded: false, errorMsg: errorMsg });
+	// 		window.alert(errorMsg); 
+	// 	}
+	// }
 	
 
 	dropzoneDrop() {
@@ -228,8 +228,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 	}
 
 	onClickConfirm() {
-		console.log("homePath", this.props.homePath);
-		console.log("workingDirectory", this.props.workingDirectory);
 		let modeSelection = this.state.modeSelection;
 		let filename = null;
 		let microscope = null;
@@ -245,51 +243,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 		this.props.onClickConfirm(modeSelection, filename, microscope);
 	}
 
-	// onClickConfirm() {
-	// 	// const path = require('path');
-	// 	// const fs = require('fs');
-	// 	// const homeDir = require('os').homedir();
-	
-	// 	let modeSelection = this.state.modeSelection;
-	// 	let filename = null;
-	// 	let microscope = null;
-	
-	// 	if (
-	// 		modeSelection === string_loadFromRepository ||
-	// 		modeSelection === string_loadFromHomeFolder
-	// 	) {
-	// 		filename = this.state.filename;
-	// 		if (!filename) return;
-	
-	// 		const microscopesDir = path.resolve(this.props.workingDirectory, './microscopes/');
-	// 		const filePath = path.join(microscopesDir, filename);
-	
-	// 		try {
-	// 			const fileContent = fs.readFileSync(filePath, "utf-8");
-	// 			microscope = JSON.parse(fileContent);
-	
-	// 			// === ModelVersion check ===
-	// 			const mv = microscope.ModelVersion;
-	// 			const majorVersion = mv ? parseInt(mv.split(".")[0], 10) : NaN;
-	// 			if (isNaN(majorVersion) || majorVersion < 2) {
-	// 				window.alert(
-	// 					"This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded."
-	// 				);
-	// 				return; // Block further action
-	// 			}
-	// 			// === End ModelVersion check ===
-	
-	// 		} catch (err) {
-	// 			window.alert("Could not read or parse the selected microscope file.");
-	// 			return;
-	// 		}
-	// 	} else if (modeSelection === string_createFromFile) {
-	// 		microscope = this.state.loadedMicroscope;
-	// 	}
-	
-	// 	this.props.onClickConfirm(modeSelection, filename, microscope);
-	// }
-	
 
 	render() {
 		let buttonContainerHeight = "550px";
@@ -991,25 +944,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 		}
 		let continue_tooltip = create_mode_continue_tooltip;
 		let buttons = [];
-		// buttons.push(
-		// 	<PopoverTooltip
-		// 		key={"button-back"}
-		// 		position={back_tooltip.position}
-		// 		title={back_tooltip.title}
-		// 		content={back_tooltip.content}
-		// 		element={
-		// 			<Button onClick={console.log("back")} style={buttonStyle} size="lg">
-		// 				Back
-		// 			</Button>
-		// 		}
-		// 	/>
-		// );
 		let disabled = false;
-		if (this.props.isDebug) {
-			console.log("mode : " + modeSelection);
-			console.log("loadedMicroscope", loadedMicroscope);
-			console.log("filename of microscope from home directory", filename);
-		}
 
 		if (!isDefined(modeSelection)) disabled = true;
 		else if (
