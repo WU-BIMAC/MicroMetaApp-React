@@ -20,7 +20,7 @@ export default class CanvasElement extends React.PureComponent {
 			editForm: null,
 			//filteredComponentsForForm: null,
 			isModalOpen: false,
-      		modalContent: null,
+			modalContent: null,
 			selectedLoadComponent: null,
 		};
 
@@ -35,31 +35,39 @@ export default class CanvasElement extends React.PureComponent {
 		this.updateMinMaxDimensions = this.updateMinMaxDimensions.bind(this);
 		this.counter = 0;
 		this.handleOpenMultiTabForm = this.handleOpenMultiTabForm.bind(this);
+		this.handleCloseModal = this.handleCloseModal.bind(this);
 	}
 
-	handleOpenMultiTabForm = () => {
+	handleOpenMultiTabForm() {
 		const { components, schema } = this.props;
-		const categoryKey = schema.ID.split('.')[0];
-	
+		const categoryKey = schema.ID.split(".")[0];
+
 		// Safety check
-		if (!components?.loadedComponents || !categoryKey) {
-			console.warn("Missing components or categoryKey:", components, categoryKey);
+		if (!categoryKey) {
+			console.warn("Missing categoryKey:", components, categoryKey);
+			return {};
+		}
+		if (!components?.loadedComponents) {
+			// console.warn(
+			// 	"Missing components or categoryKey:",
+			// 	components,
+			// 	categoryKey
+			// );
 			return {};
 		}
 
 		const categoryComponents = components.loadedComponents[categoryKey];
-	
+
 		if (!categoryComponents) {
 			console.warn(`No components found for category: ${categoryKey}`);
 			return {};
 		}
 		return categoryComponents;
-	};
-	
-	handleCloseModal = () => {
-		this.setState({ isModalOpen: false 
-		});
-	};
+	}
+
+	handleCloseModal() {
+		this.setState({ isModalOpen: false });
+	}
 
 	handleClick() {
 		if (!this.props.isViewOnly) {
@@ -111,7 +119,7 @@ export default class CanvasElement extends React.PureComponent {
 
 	handleDummy() {
 		this.props.setEditingOnCanvas(true);
-		this.setState({ editing: true});
+		this.setState({ editing: true });
 	}
 
 	handleSave(id, consolidatedData, linkedFields, isTemplate) {
@@ -120,13 +128,13 @@ export default class CanvasElement extends React.PureComponent {
 		this.props.onClickSave(id, consolidatedData, linkedFields, isTemplate);
 	}
 
-	handleLoadComponent = (selectedComponent) => {
-		 if (!this.props.isViewOnly) {
+	handleLoadComponent(selectedComponent) {
+		if (!this.props.isViewOnly) {
 			this.props.setEditingOnCanvas(true);
 			const filteredComponents = this.handleOpenMultiTabForm();
 			let editForm = (
 				<MultiTabFormWithHeaderV3
-					key={this.state.selectedLoadComponent?.Name || 'default-key'}
+					key={this.state.selectedLoadComponent?.Name || "default-key"}
 					selectedLoadComponent={selectedComponent}
 					filteredComponents={filteredComponents}
 					imagesPath={this.props.imagesPath}
@@ -156,11 +164,12 @@ export default class CanvasElement extends React.PureComponent {
 					isDebug={this.props.isDebug}
 				/>
 			);
-			this.setState({ 
-				editing: true, 
+			this.setState({
+				editing: true,
 				editForm: editForm,
 				selectedLoadComponent: selectedComponent,
-				isModalOpen: false, });
+				isModalOpen: false,
+			});
 		}
 	}
 
@@ -169,9 +178,8 @@ export default class CanvasElement extends React.PureComponent {
 		this.setState({
 			modalContent: filteredComponents,
 			editing: true,
-			isModalOpen: true
+			isModalOpen: true,
 		});
-		
 	}
 
 	handleResize(e, data) {
@@ -279,12 +287,10 @@ export default class CanvasElement extends React.PureComponent {
 					</button>
 				</ResizableBox>
 
-				<div style={{ zIndex: 1000 }}>
-					{editForm}
-				</div>
+				<div style={{ zIndex: 1000 }}>{editForm}</div>
 				{this.state.isModalOpen && (
 					<div style={{ zIndex: 1001 }}>
-						<ComponentsLoadingModal 
+						<ComponentsLoadingModal
 							overlaysContainer={document.body}
 							components={this.state.modalContent}
 							onClose={this.handleCloseModal}
@@ -294,7 +300,6 @@ export default class CanvasElement extends React.PureComponent {
 						/>
 					</div>
 				)}
-		
 			</div>
 		);
 	}
