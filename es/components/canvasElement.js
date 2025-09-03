@@ -43,8 +43,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var url = require("url");
 
 var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
@@ -58,76 +56,6 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     _classCallCheck(this, CanvasElement);
 
     _this = _super.call(this, props);
-
-    _defineProperty(_assertThisInitialized(_this), "handleOpenMultiTabForm", function () {
-      var _this$props = _this.props,
-          components = _this$props.components,
-          schema = _this$props.schema;
-      var categoryKey = schema.ID.split('.')[0]; // Safety check
-
-      if (!(components !== null && components !== void 0 && components.loadedComponents) || !categoryKey) {
-        console.warn("Missing components or categoryKey:", components, categoryKey);
-        return {};
-      }
-
-      var categoryComponents = components.loadedComponents[categoryKey];
-
-      if (!categoryComponents) {
-        console.warn("No components found for category: ".concat(categoryKey));
-        return {};
-      }
-
-      return categoryComponents;
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "handleCloseModal", function () {
-      _this.setState({
-        isModalOpen: false
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "handleLoadComponent", function (selectedComponent) {
-      if (!_this.props.isViewOnly) {
-        var _this$state$selectedL;
-
-        _this.props.setEditingOnCanvas(true);
-
-        var filteredComponents = _this.handleOpenMultiTabForm();
-
-        var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
-          key: ((_this$state$selectedL = _this.state.selectedLoadComponent) === null || _this$state$selectedL === void 0 ? void 0 : _this$state$selectedL.Name) || 'default-key',
-          selectedLoadComponent: selectedComponent,
-          filteredComponents: filteredComponents,
-          imagesPath: _this.props.imagesPath,
-          validationUpdate: _this.props.validationUpdate,
-          title: "Edit " + _this.props.formTitle,
-          schema: _this.props.schema,
-          inputData: _this.props.inputData,
-          id: _this.props.id,
-          validationTier: _this.props.validationTier,
-          onConfirm: _this.handleConfirm,
-          onCancel: _this.handleCancel,
-          onDummy: _this.handleDummy,
-          onSave: _this.handleSave,
-          onLoad: _this.handleLoad,
-          overlaysContainer: _this.props.overlaysContainer,
-          currentChildrenComponentIdentifier: _this.props.currentChildrenComponentIdentifier,
-          minChildrenComponentIdentifier: _this.props.minChildrenComponentIdentifier,
-          maxChildrenComponentIdentifier: _this.props.maxChildrenComponentIdentifier,
-          elementByType: _this.props.elementByType,
-          editable: true,
-          isDebug: _this.props.isDebug
-        });
-
-        _this.setState({
-          editing: true,
-          editForm: editForm,
-          selectedLoadComponent: selectedComponent,
-          isModalOpen: false
-        });
-      }
-    });
-
     _this.state = {
       editing: false,
       editForm: null,
@@ -147,10 +75,49 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
     _this.updateMinMaxDimensions = _this.updateMinMaxDimensions.bind(_assertThisInitialized(_this));
     _this.counter = 0;
     _this.handleOpenMultiTabForm = _this.handleOpenMultiTabForm.bind(_assertThisInitialized(_this));
+    _this.handleCloseModal = _this.handleCloseModal.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(CanvasElement, [{
+    key: "handleOpenMultiTabForm",
+    value: function handleOpenMultiTabForm() {
+      var _this$props = this.props,
+          components = _this$props.components,
+          schema = _this$props.schema;
+      var categoryKey = schema.ID.split(".")[0]; // Safety check
+
+      if (!categoryKey) {
+        console.warn("Missing categoryKey:", components, categoryKey);
+        return {};
+      }
+
+      if (!(components !== null && components !== void 0 && components.loadedComponents)) {
+        // console.warn(
+        // 	"Missing components or categoryKey:",
+        // 	components,
+        // 	categoryKey
+        // );
+        return {};
+      }
+
+      var categoryComponents = components.loadedComponents[categoryKey];
+
+      if (!categoryComponents) {
+        console.warn("No components found for category: ".concat(categoryKey));
+        return {};
+      }
+
+      return categoryComponents;
+    }
+  }, {
+    key: "handleCloseModal",
+    value: function handleCloseModal() {
+      this.setState({
+        isModalOpen: false
+      });
+    }
+  }, {
     key: "handleClick",
     value: function handleClick() {
       if (!this.props.isViewOnly) {
@@ -218,6 +185,48 @@ var CanvasElement = /*#__PURE__*/function (_React$PureComponent) {
       this.props.setEditingOnCanvas(false);
       this.props.handleConfirm(id, consolidatedData, linkedFields);
       this.props.onClickSave(id, consolidatedData, linkedFields, isTemplate);
+    }
+  }, {
+    key: "handleLoadComponent",
+    value: function handleLoadComponent(selectedComponent) {
+      if (!this.props.isViewOnly) {
+        var _this$state$selectedL;
+
+        this.props.setEditingOnCanvas(true);
+        var filteredComponents = this.handleOpenMultiTabForm();
+
+        var editForm = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          key: ((_this$state$selectedL = this.state.selectedLoadComponent) === null || _this$state$selectedL === void 0 ? void 0 : _this$state$selectedL.Name) || "default-key",
+          selectedLoadComponent: selectedComponent,
+          filteredComponents: filteredComponents,
+          imagesPath: this.props.imagesPath,
+          validationUpdate: this.props.validationUpdate,
+          title: "Edit " + this.props.formTitle,
+          schema: this.props.schema,
+          inputData: this.props.inputData,
+          id: this.props.id,
+          validationTier: this.props.validationTier,
+          onConfirm: this.handleConfirm,
+          onCancel: this.handleCancel,
+          onDummy: this.handleDummy,
+          onSave: this.handleSave,
+          onLoad: this.handleLoad,
+          overlaysContainer: this.props.overlaysContainer,
+          currentChildrenComponentIdentifier: this.props.currentChildrenComponentIdentifier,
+          minChildrenComponentIdentifier: this.props.minChildrenComponentIdentifier,
+          maxChildrenComponentIdentifier: this.props.maxChildrenComponentIdentifier,
+          elementByType: this.props.elementByType,
+          editable: true,
+          isDebug: this.props.isDebug
+        });
+
+        this.setState({
+          editing: true,
+          editForm: editForm,
+          selectedLoadComponent: selectedComponent,
+          isModalOpen: false
+        });
+      }
     }
   }, {
     key: "handleLoad",

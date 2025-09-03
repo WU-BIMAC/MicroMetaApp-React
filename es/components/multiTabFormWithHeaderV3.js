@@ -43,6 +43,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -63,8 +65,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var url = require("url");
 
 var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
@@ -78,13 +78,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
     _classCallCheck(this, MultiTabFormWithHeaderV3);
 
     _this = _super.call(this, props);
-
-    _defineProperty(_assertThisInitialized(_this), "handleChange", function () {
-      _this.setState({
-        isValidated: false
-      });
-    });
-
     _this.state = {
       showForm: true,
       linkedFields: {},
@@ -455,6 +448,13 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
         this.initializeForms();
       }
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange() {
+      this.setState({
+        isValidated: false
+      });
     }
   }, {
     key: "onSubmit",
@@ -1071,27 +1071,39 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
-      var _ComponentLibraryButt, _CreateNewButton;
-
       var button = {
         width: "250px",
         marginLeft: "5px",
         marginRight: "5px"
       };
-      var ComponentLibraryButton = (_ComponentLibraryButt = {
+      var ComponentLibraryButton = {
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start",
-        width: "150px",
-        marginRight: "5px"
-      }, _defineProperty(_ComponentLibraryButt, "width", "100%"), _defineProperty(_ComponentLibraryButt, "height", "36px"), _defineProperty(_ComponentLibraryButt, "fontSize", "16px"), _defineProperty(_ComponentLibraryButt, "fontWeight", 500), _defineProperty(_ComponentLibraryButt, "backgroundColor", "#F6F6F6"), _defineProperty(_ComponentLibraryButt, "color", "#212121"), _defineProperty(_ComponentLibraryButt, "borderColor", "#bab8b8"), _ComponentLibraryButt);
-      var CreateNewButton = (_CreateNewButton = {
+        //width: "150px",
+        marginRight: "5px",
+        width: "100%",
+        height: "36px",
+        fontSize: "16px",
+        fontWeight: 500,
+        backgroundColor: "#F6F6F6",
+        color: "#212121",
+        borderColor: "#bab8b8"
+      };
+      var CreateNewButton = {
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start",
-        width: "150px",
-        marginRight: "5px"
-      }, _defineProperty(_CreateNewButton, "width", "100%"), _defineProperty(_CreateNewButton, "height", "36px"), _defineProperty(_CreateNewButton, "fontSize", "16px"), _defineProperty(_CreateNewButton, "fontWeight", 500), _defineProperty(_CreateNewButton, "backgroundColor", "#4099AB"), _defineProperty(_CreateNewButton, "color", "#FFFFFF"), _defineProperty(_CreateNewButton, "borderColor", "#5d8f99"), _CreateNewButton);
+        //width: "150px",
+        marginRight: "5px",
+        width: "100%",
+        height: "36px",
+        fontSize: "16px",
+        fontWeight: 500,
+        backgroundColor: "#4099AB",
+        color: "#FFFFFF",
+        borderColor: "#5d8f99"
+      };
       var ValidateButton = {
         display: "flex",
         alignItems: "center",
@@ -1277,10 +1289,12 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }, childrenButtons), /*#__PURE__*/_react.default.createElement("div", {
           style: buttonContainerRow
         }, /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "button-confirm",
           style: button,
           size: "lg",
           onClick: this.onEditComponentsConfirm
         }, "Confirm"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+          key: "button-cancel",
           style: button,
           size: "lg",
           onClick: this.onEditComponentsCancel
@@ -1322,6 +1336,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
 
       if (!this.props.notModal) {
         buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "popovertooltip-validate",
           position: validateTooltip.position,
           title: validateTooltip.title,
           content: validateTooltip.content,
@@ -1338,6 +1353,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         var text = "Save Changes";
         if (this.props.notModal && this.props.onConfirm !== null) text = "Add";
         buttons.push( /*#__PURE__*/_react.default.createElement("div", {
+          key: "buttons-div",
           style: {
             display: "flex",
             justifyContent: "flex-end",
@@ -1366,7 +1382,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
         }), text))));
       }
 
-      if (!this.props.notModal) {
+      if (!this.props.notModal && !this.props.hideComponentsLibrary) {
         topButtons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
           key: "button-load",
           style: ComponentLibraryButton,
@@ -1390,6 +1406,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           }
         }, "Component Library"))));
         topButtons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "popovertooltip-save",
           position: saveTemplateTooltip.position,
           title: saveTemplateTooltip.title,
           content: saveTemplateTooltip.content,
@@ -1418,6 +1435,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
           }, "Create template")))
         })); // topButtons.push(
         // 	<PopoverTooltip
+        //		key = "popovertooltip-save";
         // 		position={saveSpecificTooltip.position}
         // 		title={saveSpecificTooltip.title}
         // 		content={saveSpecificTooltip.content}

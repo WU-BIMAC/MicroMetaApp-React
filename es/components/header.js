@@ -113,7 +113,8 @@ var Header = /*#__PURE__*/function (_React$PureComponent) {
         editable: true,
         elementByType: this.props.elementByType,
         isDebug: this.props.isDebug,
-        imagesPath: this.props.imagesPathSVG
+        imagesPath: this.props.imagesPathSVG,
+        hideComponentsLibrary: true
       });
 
       this.setState({
