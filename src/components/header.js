@@ -81,7 +81,7 @@ export default class Header extends React.PureComponent {
 				elementByType={this.props.elementByType}
 				isDebug={this.props.isDebug}
 				imagesPath={this.props.imagesPathSVG}
-
+				hideComponentsLibrary={true}
 			/>
 		);
 		this.setState({ editing: true, editForm: editForm });
