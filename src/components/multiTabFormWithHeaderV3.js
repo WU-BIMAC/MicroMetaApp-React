@@ -31,7 +31,7 @@ import {
 	component_template_save,
 	component_specific_save,
 	save_success_window_message,
-	save_non_validation_warning_message
+	save_non_validation_warning_message,
 } from "../constants";
 
 export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
@@ -135,7 +135,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				});
 			}
 		}
-		
+
 		this.buttonsRefs = {};
 		this.containerFormNames = {};
 		this.formNames = {};
@@ -168,116 +168,116 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			this.onClickRemoveChildComponent.bind(this);
 		this.initializeForms = this.initializeForms.bind(this);
 
-		if (props.schema !== null &&
+		if (
+			props.schema !== null &&
 			props.schema !== undefined &&
 			props.selectedLoadComponent !== null &&
 			props.selectedLoadComponent !== undefined &&
-			Object.keys(this.state.partialInputData).length === 0) {
+			Object.keys(this.state.partialInputData).length === 0
+		) {
 			this.initializeFormsFromLoadedComponent();
-		}
-		else if (
+		} else if (
 			props.schema !== null &&
 			props.schema !== undefined &&
 			Object.keys(this.state.partialInputData).length === 0
 		) {
 			this.initializeForms();
 		}
-
 	}
 
 	initializeFormsFromLoadedComponent() {
-    	let linkedFields = this.state.linkedFields;
-    	let currentChildrenComponents = this.state.currentChildrenComponents;
-    	let newActiveID = this.state.activeID;
-    	let partialInputData = {};
-    	let inputDataIDs = [];
-    	const mergedData = {
-    		...this.props.inputData, 
-    		...this.props.selectedLoadComponent 
-    	};
-    	if (mergedData !== undefined && mergedData !== null) {
-    		if (Array.isArray(mergedData)) {
-    			for (let i = 0; i < this.props.schema.length; i++) {
-    				let schema = this.props.schema[i];
-    				for (let y = 0; y < mergedData.length; y++) {
-    					let inputData = mergedData[y];
-    					inputData.ID = id;
+		let linkedFields = this.state.linkedFields;
+		let currentChildrenComponents = this.state.currentChildrenComponents;
+		let newActiveID = this.state.activeID;
+		let partialInputData = {};
+		let inputDataIDs = [];
+		const mergedData = {
+			...this.props.inputData,
+			...this.props.selectedLoadComponent,
+		};
+		if (mergedData !== undefined && mergedData !== null) {
+			if (Array.isArray(mergedData)) {
+				for (let i = 0; i < this.props.schema.length; i++) {
+					let schema = this.props.schema[i];
+					for (let y = 0; y < mergedData.length; y++) {
+						let inputData = mergedData[y];
+						inputData.ID = id;
 
-                    	inputData.ID = id; 
-    					inputDataIDs.push(id);
-    					if (newActiveID === null) newActiveID = id;
-    					if (inputData.Schema_ID === schema.ID) {
-    						let partialSchema = MultiTabFormWithHeaderV3.transformSchema(
-    							currentChildrenComponents[id],
-    							schema,
-    							this.props.elementByType,
-    							linkedFields,
-    							inputDataIDs
-    						);
-    						let localPartialInputData =
-    							MultiTabFormWithHeaderV3.transformInputData(
-    								inputData,
-    								partialSchema
-    							);
-    						partialInputData[id] = {
-    							schemaTitle: schema.title,
-    							data: localPartialInputData,
-    							schema: partialSchema,
-    							subCategoriesOrder: schema.subCategoriesOrder,
-    						};
-    						this.containerFormNames[id] = schema.title;
-    					}
-    				}
-    			}
-    		} else {
-    			//create case if 1 input but multiple schemas ?
-    			let schema = this.props.schema;
-    			let inputData = mergedData;
+						inputData.ID = id;
+						inputDataIDs.push(id);
+						if (newActiveID === null) newActiveID = id;
+						if (inputData.Schema_ID === schema.ID) {
+							let partialSchema = MultiTabFormWithHeaderV3.transformSchema(
+								currentChildrenComponents[id],
+								schema,
+								this.props.elementByType,
+								linkedFields,
+								inputDataIDs
+							);
+							let localPartialInputData =
+								MultiTabFormWithHeaderV3.transformInputData(
+									inputData,
+									partialSchema
+								);
+							partialInputData[id] = {
+								schemaTitle: schema.title,
+								data: localPartialInputData,
+								schema: partialSchema,
+								subCategoriesOrder: schema.subCategoriesOrder,
+							};
+							this.containerFormNames[id] = schema.title;
+						}
+					}
+				}
+			} else {
+				//create case if 1 input but multiple schemas ?
+				let schema = this.props.schema;
+				let inputData = mergedData;
 
-    			let id = inputData.ID;
+				let id = inputData.ID;
 
-    			inputDataIDs.push(id);
-    			let partialSchema = MultiTabFormWithHeaderV3.transformSchema(
-    				currentChildrenComponents[id],
-    				schema,
-    				this.props.elementByType,
-    				linkedFields,
-    				inputDataIDs
-    			);
-    			let localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(
-    				inputData,
-    				partialSchema
-    			);
-    			partialInputData[id] = {
-    				schemaTitle: schema.title,
-    				data: localPartialInputData,
-    				schema: partialSchema,
-    				subCategoriesOrder: schema.subCategoriesOrder,
-    			};
-    			this.containerFormNames[id] = schema.title;
-    		}
-    	}
-    	for (let id in partialInputData) {
-    		let localPartialInputData = partialInputData[id].data;
-    		let partialSchema = partialInputData[id].schema;
-    		let subCategoriesOrder = partialInputData[id].subCategoriesOrder;
-    		let partialForms = this.createForms(
-    			id,
-    			subCategoriesOrder,
-    			partialSchema,
-    			localPartialInputData
-    		);
-    		this.forms[id] = partialForms;
-    	}
-    	if (Object.keys(this.state.partialInputData).length === 0) {
-    		this.state.partialInputData = partialInputData;
-    		this.state.activeID = newActiveID;
-    		//this.forceUpdate();
-    	} else {
-    		this.forceUpdate();
-    	}
-    }
-	
+				inputDataIDs.push(id);
+				let partialSchema = MultiTabFormWithHeaderV3.transformSchema(
+					currentChildrenComponents[id],
+					schema,
+					this.props.elementByType,
+					linkedFields,
+					inputDataIDs
+				);
+				let localPartialInputData = MultiTabFormWithHeaderV3.transformInputData(
+					inputData,
+					partialSchema
+				);
+				partialInputData[id] = {
+					schemaTitle: schema.title,
+					data: localPartialInputData,
+					schema: partialSchema,
+					subCategoriesOrder: schema.subCategoriesOrder,
+				};
+				this.containerFormNames[id] = schema.title;
+			}
+		}
+		for (let id in partialInputData) {
+			let localPartialInputData = partialInputData[id].data;
+			let partialSchema = partialInputData[id].schema;
+			let subCategoriesOrder = partialInputData[id].subCategoriesOrder;
+			let partialForms = this.createForms(
+				id,
+				subCategoriesOrder,
+				partialSchema,
+				localPartialInputData
+			);
+			this.forms[id] = partialForms;
+		}
+		if (Object.keys(this.state.partialInputData).length === 0) {
+			this.state.partialInputData = partialInputData;
+			this.state.activeID = newActiveID;
+			//this.forceUpdate();
+		} else {
+			this.forceUpdate();
+		}
+	}
+
 	initializeForms() {
 		let linkedFields = this.state.linkedFields;
 		let currentChildrenComponents = this.state.currentChildrenComponents;
@@ -319,7 +319,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				}
 			} else {
-
 				//create case if 1 input but multiple schemas ?
 				let schema = this.props.schema;
 				let inputData = this.props.inputData;
@@ -504,14 +503,14 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					});
 				}
 			}
-			
+
 			this.initializeForms();
 		}
 	}
 
-	handleChange = () => {
+	handleChange() {
 		this.setState({ isValidated: false });
-	};
+	}
 
 	onSubmit(data) {
 		if (!this.action) {
@@ -527,7 +526,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			let forms = localForms[currentID];
 			for (let i = 0; i < forms.length; i++) {
 				let ref = forms[i];
-				if (ref.state.formData === data.formData) {		
+				if (ref.state.formData === data.formData) {
 					index = i;
 					id = currentID;
 					break;
@@ -554,7 +553,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					linkedFieldsValues = newValue;
 				}
 				linkedFields[key].value = linkedFieldsValues;
-
 			}
 		}
 		this.setState({ linkedFields: linkedFields });
@@ -564,7 +562,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			currentData = this.data[id].slice();
 		if (this.errors[id] !== null && this.errors[id] !== undefined)
 			currentErrors = this.errors[id].slice();
-		currentData.splice(index, 0, data);  
+		currentData.splice(index, 0, data);
 		currentErrors.splice(index, 0, null);
 		this.data[id] = currentData;
 		this.errors[id] = currentErrors;
@@ -572,7 +570,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	}
 
 	onError(errors) {
-		let localForms = this.formRefs;  //localForms is a reference to all the forms we are currently using
+		let localForms = this.formRefs; //localForms is a reference to all the forms we are currently using
 		let index = -1;
 		let id = -1;
 		if (this.props.isDebug) console.log("multi tab form onError - find form");
@@ -580,7 +578,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			let forms = localForms[currentID];
 			for (let i = 0; i < forms.length; i++) {
 				let ref = forms[i];
-				if (ref.state.errors === errors) {  
+				if (ref.state.errors === errors) {
 					if (this.action === "confirm") {
 						this.action = this.action + "OnError";
 						this.onSubmit(ref.state);
@@ -618,7 +616,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		}
 	}
 
-
 	processData(action) {
 		let partialInputData = this.state.partialInputData;
 		let localData = this.data;
@@ -630,7 +627,11 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			let currentData = localData[currentID];
 			let numberOfForms = forms.length;
 
-			if (!isDefined(currentData) || currentData.length < numberOfForms || currentData.includes(null)) {
+			if (
+				!isDefined(currentData) ||
+				currentData.length < numberOfForms ||
+				currentData.includes(null)
+			) {
 				return;
 			}
 
@@ -689,24 +690,32 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 
 		let linkedFields = Object.assign({}, this.state.linkedFields);
 
-		if (action === "confirm") 
-		{
-			this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
-		} 
-		else if (action === "confirmOnError") {
+		if (action === "confirm") {
+			this.props.onConfirm(
+				this.props.id,
+				consolidatedData,
+				linkedFields,
+				false
+			);
+		} else if (action === "confirmOnError") {
 			this.props.onConfirm(this.props.id, consolidatedData, linkedFields, true);
-		}
-		else if (action === "save")
-		{
+		} else if (action === "save") {
 			this.props.onSave(this.props.id, consolidatedData, linkedFields, true);
-			this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
-		}
-		else if (action === "saveSpecific")
-		{
+			this.props.onConfirm(
+				this.props.id,
+				consolidatedData,
+				linkedFields,
+				false
+			);
+		} else if (action === "saveSpecific") {
 			this.props.onSave(this.props.id, consolidatedData, linkedFields, false);
-			this.props.onConfirm(this.props.id, consolidatedData, linkedFields, false);
-		}
-		else {
+			this.props.onConfirm(
+				this.props.id,
+				consolidatedData,
+				linkedFields,
+				false
+			);
+		} else {
 			this.setState({ isValidated: true }, () => {
 				if (this.state.isValidated) {
 					window.alert(save_success_window_message);
@@ -759,7 +768,10 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	}
 
 	handleAction(action) {
-		if ((action === "save" || action === "saveSpecific") && !this.state.isValidated) {
+		if (
+			(action === "save" || action === "saveSpecific") &&
+			!this.state.isValidated
+		) {
 			window.alert(save_non_validation_warning_message);
 			return;
 		}
@@ -770,7 +782,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		Object.entries(this.formRefs).forEach(([id, forms]) => {
 			const buttons = this.buttonsRefs[id];
 			forms.forEach((refForm, i) => {
-				refForm.formElement.dispatchEvent(new CustomEvent("submit", { bubbles: true, cancelable: true }));
+				refForm.formElement.dispatchEvent(
+					new CustomEvent("submit", { bubbles: true, cancelable: true })
+				);
 			});
 		});
 	}
@@ -790,7 +804,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	onSaveSpecific() {
 		this.handleAction("saveSpecific");
 	}
-	
+
 	onLoad() {
 		this.props.onLoad();
 	}
@@ -798,7 +812,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 	onCancel() {
 		this.props.onCancel();
 	}
-
 
 	transformOutputData(data) {
 		let consolidatedData = {};
@@ -824,7 +837,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			});
 		});
 		return consolidatedData;
-
 	}
 
 	static findInputPropKeyValue(groupKey, index, propKey, inputData) {
@@ -1140,7 +1152,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		input,
 		index,
 		currentFormRefs,
-		currentButtonsRefs,
+		currentButtonsRefs
 	) {
 		return (
 			<Form
@@ -1190,13 +1202,13 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				description,
 			});
 			currentFormNames.splice(index, 0, key);
-			let form = this.createForm(   
+			let form = this.createForm(
 				partialSchema[key],
 				partialUISchema[key],
 				partialInputData[key],
 				index,
 				currentFormRefs,
-				currentButtonsRefs,
+				currentButtonsRefs
 			);
 			currentForms.push(form);
 		});
@@ -1219,7 +1231,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				partialInputData[key],
 				-1,
 				currentFormRefs,
-				currentButtonsRefs,
+				currentButtonsRefs
 			);
 			currentForms.push(form);
 		}
@@ -1350,7 +1362,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			display: "flex",
 			alignItems: "center",
 			justifyContent: "flex-start",
-			width: "150px", 
+			//width: "150px",
 			marginRight: "5px",
 			width: "100%",
 			height: "36px",
@@ -1364,7 +1376,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			display: "flex",
 			alignItems: "center",
 			justifyContent: "flex-start",
-			width: "150px", 
+			//width: "150px",
 			marginRight: "5px",
 			width: "100%",
 			height: "36px",
@@ -1387,7 +1399,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			paddingRight: "25px",
 			paddingLeft: "25px",
 			borderRadius: "8px",
-			gap: "8px"
+			gap: "8px",
 		};
 		const SaveChangesButton = {
 			display: "flex",
@@ -1427,9 +1439,9 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		};
 		const headerContainerStyle = {
 			display: "flex",
-			justifyContent: "space-between", 
-			alignItems: "center", 
-			marginBottom: "10px", 
+			justifyContent: "space-between",
+			alignItems: "center",
+			marginBottom: "10px",
 			height: "40px",
 			width: "100%",
 		};
@@ -1468,13 +1480,13 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			display: "flex",
 			flexDirection: "row",
 			//flexWrap: "wrap",
-			justifyContent: "flex-end", 
+			justifyContent: "flex-end",
 			marginBottom: "5px",
 		};
 		const styleValidation = {
-			display: "inline-block", 
-  			position: "relative",
-			marginLeft: "10px",  
+			display: "inline-block",
+			position: "relative",
+			marginLeft: "10px",
 			fontWeight: "bold",
 			textAlign: "center",
 		};
@@ -1513,15 +1525,21 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 				? "?sanitize=true"
 				: "");
 
-		let globeImgPath_tmp = url.resolve(this.props.imagesPath, string_globe_solid_img);
-    	let globeImgPath =
+		let globeImgPath_tmp = url.resolve(
+			this.props.imagesPath,
+			string_globe_solid_img
+		);
+		let globeImgPath =
 			globeImgPath_tmp +
 			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
 
-		let plusImgPath_tmp = url.resolve(this.props.imagesPath, string_plus_solid_img);
-    	let plusImgPath =
+		let plusImgPath_tmp = url.resolve(
+			this.props.imagesPath,
+			string_plus_solid_img
+		);
+		let plusImgPath =
 			plusImgPath_tmp +
 			(globeImgPath_tmp.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
@@ -1564,6 +1582,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 						<div style={buttonContainerColumn}>{childrenButtons}</div>
 						<div style={buttonContainerRow}>
 							<Button
+								key="button-confirm"
 								style={button}
 								size="lg"
 								onClick={this.onEditComponentsConfirm}
@@ -1571,6 +1590,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 								Confirm
 							</Button>
 							<Button
+								key="button-cancel"
 								style={button}
 								size="lg"
 								onClick={this.onEditComponentsCancel}
@@ -1622,6 +1642,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		if (!this.props.notModal) {
 			buttons.push(
 				<PopoverTooltip
+					key="popovertooltip-validate"
 					position={validateTooltip.position}
 					title={validateTooltip.title}
 					content={validateTooltip.content}
@@ -1646,8 +1667,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			let text = "Save Changes";
 			if (this.props.notModal && this.props.onConfirm !== null) text = "Add";
 			buttons.push(
-
 				<div
+					key="buttons-div"
 					style={{
 						display: "flex",
 						justifyContent: "flex-end",
@@ -1684,36 +1705,32 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			);
 		}
 
-		if (!this.props.notModal) {
+		if (!this.props.notModal && !this.props.hideComponentsLibrary) {
 			topButtons.push(
-			<Button
-				key="button-load"
-				style={ComponentLibraryButton}
-				size="lg"
-				onClick={this.onLoad}
-			>
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						paddingLeft: "2px",
-						paddingRight: "2px",
-					}}
+				<Button
+					key="button-load"
+					style={ComponentLibraryButton}
+					size="lg"
+					onClick={this.onLoad}
 				>
-					<img
-						src={globeImgPath} alt="Globe Icon" style={styleImageIcon}
-					/>
-					<span style={{ whiteSpace: "nowrap" }}>Component Library</span>
-				</div>
-
-			</Button>
-
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							paddingLeft: "2px",
+							paddingRight: "2px",
+						}}
+					>
+						<img src={globeImgPath} alt="Globe Icon" style={styleImageIcon} />
+						<span style={{ whiteSpace: "nowrap" }}>Component Library</span>
+					</div>
+				</Button>
 			);
 
 			topButtons.push(
-
 				<PopoverTooltip
+					key="popovertooltip-save"
 					position={saveTemplateTooltip.position}
 					title={saveTemplateTooltip.title}
 					content={saveTemplateTooltip.content}
@@ -1723,19 +1740,19 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 							style={CreateNewButton}
 							size="lg"
 							onClick={this.onSave}
-							>
+						>
 							<div
 								style={{
-								display: "flex",
-								justifyContent: "center",
-								alignItems: "center",
-								paddingLeft: "2px",
-								paddingRight: "2px",
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									paddingLeft: "2px",
+									paddingRight: "2px",
 								}}
 							>
 								<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
 								<span style={{ display: "flex", alignItems: "center" }}>
-								Create template
+									Create template
 								</span>
 							</div>
 						</Button>
@@ -1746,6 +1763,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			// topButtons.push(
 
 			// 	<PopoverTooltip
+			//		key = "popovertooltip-save";
 			// 		position={saveSpecificTooltip.position}
 			// 		title={saveSpecificTooltip.title}
 			// 		content={saveSpecificTooltip.content}
@@ -1774,7 +1792,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 			// 		}
 			// 	/>
 			// );
-
 		}
 
 		let containerFormNames = [];
@@ -1838,8 +1855,8 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let form = (
 			<div style={containerStyle}>
 				<div style={headerContainerStyle}>
-				<h3>{this.props.title}</h3>
-				<div style={topButtonContainer}>{topButtons}</div>
+					<h3>{this.props.title}</h3>
+					<div style={topButtonContainer}>{topButtons}</div>
 				</div>
 				<Tabs
 					// tabPosition={"top"}
