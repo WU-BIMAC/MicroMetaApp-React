@@ -42,8 +42,10 @@ export function verifyModelVersion(microscope, currentModelVersion) {
 	if (
 		!hasModelVersion ||
 		oldMainVersion > modelMainVersion ||
-		oldSubVersion > modelSubVersion ||
-		oldPatchVersion > modelPatchVersion
+		(oldMainVersion === modelMainVersion && oldSubVersion > modelSubVersion) ||
+		(oldMainVersion === modelMainVersion &&
+			oldSubVersion === modelSubVersion &&
+			oldPatchVersion > modelPatchVersion)
 	) {
 		return false;
 	}
@@ -80,9 +82,14 @@ export function verifyAppVersion(microscope) {
 	if (
 		!hasAppVersion ||
 		oldMainVersion < appMainVersion ||
-		oldSubVersion < appSubVersion ||
-		oldPatchVersion < appPatchVersion ||
-		oldBetaVersion < appBetaVersion
+		(oldMainVersion === appMainVersion && oldSubVersion < appSubVersion) ||
+		(oldMainVersion === appMainVersion &&
+			oldSubVersion === appSubVersion &&
+			oldPatchVersion < appPatchVersion) ||
+		(oldMainVersion === appMainVersion &&
+			oldSubVersion === appSubVersion &&
+			oldPatchVersion === appPatchVersion &&
+			oldBetaVersion < appBetaVersion)
 	) {
 		return false;
 	}
