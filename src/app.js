@@ -57,7 +57,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			allComponents: [],
+			// allComponents: [],
 			microscope: props.microscope || null,
 			setting: props.setting || null,
 			originalMicroscope: Object.assign({}, props.microscope) || null,
@@ -101,7 +101,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			isDataLoaded: false,
 			tmpCopyElementFromData: null,
 			modelVersion: null,
-			filteredComponent: null,
+			// filteredComponent: null,
 		};
 
 		for (let i = 0; i < current_stands.length; i++) {
@@ -155,7 +155,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.handleActiveTierSelection = this.handleActiveTierSelection.bind(this);
 		this.setCreateNewMicroscope = this.setCreateNewMicroscope.bind(this);
 		this.setLoadMicroscope = this.setLoadMicroscope.bind(this);
-		this.clearAllComponents = this.clearAllComponents.bind(this);
+		// this.clearAllComponents = this.clearAllComponents.bind(this);
 
 		// this.uploadMicroscopeFromDropzone =
 		// 	this.uploadMicroscopeFromDropzone.bind(this);
@@ -242,7 +242,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.onCopy = this.onCopy.bind(this);
 		this.onPaste = this.onPaste.bind(this);
 
-		this.handleFilteredComponent = this.handleFilteredComponent.bind(this);
+		// this.handleFilteredComponent = this.handleFilteredComponent.bind(this);
 
 		// Set up API
 		const { public: api /*, destroy: apiDestroy, publish: apiPublish*/ } =
@@ -287,9 +287,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return null;
 	}
 
-	handleFilteredComponent(filteredComponents) {
-		this.setState({ filteredComponents: filteredComponents });
-	}
+	// handleFilteredComponent(filteredComponents) {
+	// 	this.setState({ filteredComponents: filteredComponents });
+	// }
 
 	componentDidMount() {
 		this.setState({ mounted: true });
@@ -3012,10 +3012,10 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.setState({ originalSetting: setting });
 	}
 
-	clearAllComponents() {
-		console.log("Clearing allComponents...");
-		this.setState({ allComponents: [] });
-	}
+	// clearAllComponents() {
+	// 	console.log("Clearing allComponents...");
+	// 	this.setState({ allComponents: [] });
+	// }
 
 	handleCompleteSave(name) {
 		//console.log(micName + " saved");
