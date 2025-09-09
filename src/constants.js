@@ -74,10 +74,10 @@ export const string_dropbox_settings_new =
 export const string_dropbox_settings_replace =
 	"Click and select, or drag a file here to replace the currently selected Settings file.";
 
-export const save_success_window_message = 
+export const save_success_window_message =
 	"The component has been successfully validated";
 
-export const save_non_validation_warning_message = 
+export const save_non_validation_warning_message =
 	"You must validate the form before saving.";
 
 export const number_logo_width = 800;
@@ -694,9 +694,17 @@ export const back_tooltip = {
 	position: "left",
 };
 
+export const component_selector_tooltip = {
+	title: "Functionality Selector",
+	content: (
+		<p>Return to the Micro-Meta App versus Explorer selection window.</p>
+	),
+	position: "top",
+};
+
 export const home_tooltip = {
 	title: "Home",
-	content: <p>Return to the initial window.</p>,
+	content: <p>Return to the initial window of Micro-Meta App.</p>,
 	position: "top",
 };
 
@@ -762,9 +770,9 @@ export const save_component_tooltip = {
 	content: (
 		<p>
 			Save the JSON file for this Component to the active Micro-Meta App
-			pository or to the local home folder. You have one of two options: 1) 'Save'
-			allows to save the Component JSON file in its current status. 2) 'Save as
-			new' allows to save the Component JSON file with a new Unique ID.
+			pository or to the local home folder. You have one of two options: 1)
+			'Save' allows to save the Component JSON file in its current status. 2)
+			'Save as new' allows to save the Component JSON file with a new Unique ID.
 		</p>
 	),
 	position: "bottom",
@@ -775,9 +783,10 @@ export const load_component_tooltip = {
 	content: (
 		<p>
 			Load the JSON file for this Component from the active Micro-Meta App
-			repository or to the local home folder. You have one of two options: 1) 'Import from file'
-			allows to load the Component JSON file from your own file system. 2) 'Load from the local home folder' 
-			allows to load the Component JSON file from the Micro-Meta App.
+			repository or to the local home folder. You have one of two options: 1)
+			'Import from file' allows to load the Component JSON file from your own
+			file system. 2) 'Load from the local home folder' allows to load the
+			Component JSON file from the Micro-Meta App.
 		</p>
 	),
 	position: "bottom",
@@ -1190,20 +1199,32 @@ export const select_additional_right = {
 };
 
 export const component_validate = {
-	title: "Validation Title",
+	title: "Validate Metadata",
 	content: (
 		<p>
-			Validation Message.
+			Ensure all the required metadata has been entered. This step is required
+			to be able to create a template from this hardware component.
 		</p>
 	),
 	position: "top",
 };
 
-export const component_template_save = {
-	title: "Component Template Title",
+export const component_template_open = {
+	title: "Component Template Library",
 	content: (
 		<p>
-			Component Template Message.
+			Search previously saved hardware components templates and import metadata.
+		</p>
+	),
+	position: "bottom",
+};
+
+export const component_template_save = {
+	title: "Create Component Template",
+	content: (
+		<p>
+			Create a template from this hardware component and save it to the
+			Component library.
 		</p>
 	),
 	position: "bottom",
@@ -1211,10 +1232,18 @@ export const component_template_save = {
 
 export const component_specific_save = {
 	title: "Component Specific Title",
-	content: (
-		<p>
-			Component Specific Message.
-		</p>
-	),
+	content: <p>Component Specific Message.</p>,
 	position: "bottom",
+};
+
+export const component_cancel = {
+	title: "Cancel",
+	content: <p>Exit without validation or saving.</p>,
+	position: "top",
+};
+
+export const component_save = {
+	title: "Save Changes",
+	content: <p>Save changes to the metadata even without validation.</p>,
+	position: "top",
 };
