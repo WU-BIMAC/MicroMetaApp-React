@@ -91,7 +91,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
     _this = _super.call(this, props);
     _this.state = {
-      // allComponents: [],
       microscope: props.microscope || null,
       setting: props.setting || null,
       originalMicroscope: Object.assign({}, props.microscope) || null,
@@ -134,8 +133,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       microscopePresetHandled: false,
       isDataLoaded: false,
       tmpCopyElementFromData: null,
-      modelVersion: null // filteredComponent: null,
-
+      modelVersion: null
     };
 
     for (var i = 0; i < _constants.current_stands.length; i++) {
@@ -181,8 +179,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.onSettingDataSave = _this.onSettingDataSave.bind(_assertThisInitialized(_this));
     _this.handleActiveTierSelection = _this.handleActiveTierSelection.bind(_assertThisInitialized(_this));
     _this.setCreateNewMicroscope = _this.setCreateNewMicroscope.bind(_assertThisInitialized(_this));
-    _this.setLoadMicroscope = _this.setLoadMicroscope.bind(_assertThisInitialized(_this)); // this.clearAllComponents = this.clearAllComponents.bind(this);
-    // this.uploadMicroscopeFromDropzone =
+    _this.setLoadMicroscope = _this.setLoadMicroscope.bind(_assertThisInitialized(_this)); // this.uploadMicroscopeFromDropzone =
     // 	this.uploadMicroscopeFromDropzone.bind(this);
     //this.uploadSettingFromDropzone = this.uploadSettingFromDropzone.bind(this);
     // this.handleLoadMetadataComplete =
@@ -234,8 +231,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.loadMicroscopeFromPortal = _this.loadMicroscopeFromPortal.bind(_assertThisInitialized(_this));
     _this.setDataLoaded = _this.setDataLoaded.bind(_assertThisInitialized(_this));
     _this.onCopy = _this.onCopy.bind(_assertThisInitialized(_this));
-    _this.onPaste = _this.onPaste.bind(_assertThisInitialized(_this)); // this.handleFilteredComponent = this.handleFilteredComponent.bind(this);
-    // Set up API
+    _this.onPaste = _this.onPaste.bind(_assertThisInitialized(_this)); // Set up API
 
     var _createApi = createApi(_assertThisInitialized(_this)),
         api = _createApi.public;
@@ -246,10 +242,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
 
   _createClass(MicroMetaAppReact, [{
     key: "componentDidMount",
-    value: // handleFilteredComponent(filteredComponents) {
-    // 	this.setState({ filteredComponents: filteredComponents });
-    // }
-    function componentDidMount() {
+    value: function componentDidMount() {
       this.setState({
         mounted: true
       });
@@ -2261,11 +2254,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       this.setState({
         originalSetting: setting
       });
-    } // clearAllComponents() {
-    // 	console.log("Clearing allComponents...");
-    // 	this.setState({ allComponents: [] });
-    // }
-
+    }
   }, {
     key: "handleCompleteSave",
     value: function handleCompleteSave(name) {
