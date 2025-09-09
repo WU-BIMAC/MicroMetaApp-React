@@ -28,8 +28,11 @@ import {
 	string_plus_solid_img,
 	string_save_img,
 	component_validate,
+	component_template_open,
 	component_template_save,
 	component_specific_save,
+	component_cancel,
+	component_save,
 	save_success_window_message,
 	save_non_validation_warning_message,
 } from "../constants";
@@ -1636,8 +1639,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 		let buttons = [];
 		let topButtons = [];
 		let validateTooltip = component_validate;
-		let saveTemplateTooltip = component_template_save;
-		let saveSpecificTooltip = component_specific_save;
 
 		if (!this.props.notModal) {
 			buttons.push(
@@ -1675,68 +1676,101 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 						alignItems: "center",
 					}}
 				>
-					<Button
-						key="button-cancel"
-						style={CancelButton}
-						size="lg"
-						onClick={this.onCancel}
-					>
-						Cancel
-					</Button>
-
-					<Button
-						key="button-confirm"
-						style={SaveChangesButton}
-						size="lg"
-						onClick={this.onConfirm}
-					>
-						<div
-							style={{
-								display: "flex",
-								justifyContent: "center",
-								alignItems: "center",
-							}}
-						>
-							<img src={saveImgPath} alt="Save Icon" style={styleImageIcon} />
-							{text}
-						</div>
-					</Button>
+					<PopoverTooltip
+						key="popovertooltip-cancel"
+						position={component_cancel.position}
+						title={component_cancel.title}
+						content={component_cancel.content}
+						element={
+							<Button
+								key="button-cancel"
+								style={CancelButton}
+								size="lg"
+								onClick={this.onCancel}
+							>
+								Cancel
+							</Button>
+						}
+					/>
+					);
+					<PopoverTooltip
+						key="popovertooltip-confirm"
+						position={component_save.position}
+						title={component_save.title}
+						content={component_save.content}
+						element={
+							<Button
+								key="button-confirm"
+								style={SaveChangesButton}
+								size="lg"
+								onClick={this.onConfirm}
+							>
+								<div
+									style={{
+										display: "flex",
+										justifyContent: "center",
+										alignItems: "center",
+									}}
+								>
+									<img
+										src={saveImgPath}
+										alt="Save Icon"
+										style={styleImageIcon}
+									/>
+									{text}
+								</div>
+							</Button>
+						}
+					/>
 				</div>
 			);
 		}
 
 		if (!this.props.notModal && !this.props.hideComponentsLibrary) {
-			topButtons.push(
-				<Button
-					key="button-load"
-					style={ComponentLibraryButton}
-					size="lg"
-					onClick={this.onLoad}
-				>
-					<div
-						style={{
-							display: "flex",
-							justifyContent: "center",
-							alignItems: "center",
-							paddingLeft: "2px",
-							paddingRight: "2px",
-						}}
-					>
-						<img src={globeImgPath} alt="Globe Icon" style={styleImageIcon} />
-						<span style={{ whiteSpace: "nowrap" }}>Component Library</span>
-					</div>
-				</Button>
-			);
-
+			let openTemplateTxt = "Component Library";
 			topButtons.push(
 				<PopoverTooltip
-					key="popovertooltip-save"
-					position={saveTemplateTooltip.position}
-					title={saveTemplateTooltip.title}
-					content={saveTemplateTooltip.content}
+					key="popovertooltip-template-open"
+					position={component_template_open.position}
+					title={component_template_open.title}
+					content={component_template_open.content}
 					element={
 						<Button
-							key="button-save"
+							key="button-template-open"
+							style={ComponentLibraryButton}
+							size="lg"
+							onClick={this.onLoad}
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									paddingLeft: "2px",
+									paddingRight: "2px",
+								}}
+							>
+								<img
+									src={globeImgPath}
+									alt="Globe Icon"
+									style={styleImageIcon}
+								/>
+								<span style={{ whiteSpace: "nowrap" }}>{openTemplateTxt}</span>
+							</div>
+						</Button>
+					}
+				/>
+			);
+			let saveTemplateTxt = "+ Create Template";
+			topButtons.push(
+				<PopoverTooltip
+					key="popovertooltip-template-save"
+					position={component_template_save.position}
+					title={component_template_save.title}
+					content={component_template_save.content}
+					element={
+						<Button
+							key="button-template-save"
 							style={CreateNewButton}
 							size="lg"
 							onClick={this.onSave}
@@ -1752,7 +1786,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 							>
 								<img src={plusImgPath} alt="Plus Icon" style={styleImageIcon} />
 								<span style={{ display: "flex", alignItems: "center" }}>
-									Create template
+									{saveTemplateTxt}
 								</span>
 							</div>
 						</Button>
