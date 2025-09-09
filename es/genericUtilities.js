@@ -54,7 +54,7 @@ function verifyModelVersion(microscope, currentModelVersion) {
   var modelSubVersion = Number(modelVersionSplit[1]);
   var modelPatchVersion = Number(modelVersionSplit[2]);
 
-  if (!hasModelVersion || oldMainVersion > modelMainVersion || oldSubVersion > modelSubVersion || oldPatchVersion > modelPatchVersion) {
+  if (!hasModelVersion || oldMainVersion > modelMainVersion || oldMainVersion === modelMainVersion && oldSubVersion > modelSubVersion || oldMainVersion === modelMainVersion && oldSubVersion === modelSubVersion && oldPatchVersion > modelPatchVersion) {
     return false;
   }
 
@@ -92,7 +92,7 @@ function verifyAppVersion(microscope) {
   // console.log("appVersionSplit");
   // console.log(appVersionSplit);
 
-  if (!hasAppVersion || oldMainVersion < appMainVersion || oldSubVersion < appSubVersion || oldPatchVersion < appPatchVersion || oldBetaVersion < appBetaVersion) {
+  if (!hasAppVersion || oldMainVersion < appMainVersion || oldMainVersion === appMainVersion && oldSubVersion < appSubVersion || oldMainVersion === appMainVersion && oldSubVersion === appSubVersion && oldPatchVersion < appPatchVersion || oldMainVersion === appMainVersion && oldSubVersion === appSubVersion && oldPatchVersion === appPatchVersion && oldBetaVersion < appBetaVersion) {
     return false;
   }
 

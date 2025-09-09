@@ -133,7 +133,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.handleLoadComponents = this.handleLoadComponents.bind(this);
 		this.handleCompleteLoadMicroscopes =
 			this.handleCompleteLoadMicroscopes.bind(this);
-		this.handleCompleteLoadComponents = 
+		this.handleCompleteLoadComponents =
 			this.handleCompleteLoadComponents.bind(this);
 		this.handleLoadSettings = this.handleLoadSettings.bind(this);
 		this.handleCompleteLoadSettings =
@@ -220,7 +220,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 		this.handleCompleteSave = this.handleCompleteSave.bind(this);
 		this.handleSaveComponent = this.handleSaveComponent.bind(this);
-		this.handleCompleteSaveAllComponents = this.handleCompleteSaveAllComponents.bind(this);
+		this.handleCompleteSaveAllComponents =
+			this.handleCompleteSaveAllComponents.bind(this);
 		this.handleCompleteExport = this.handleCompleteExport.bind(this);
 
 		this.handleMicroscopePreset = this.handleMicroscopePreset.bind(this);
@@ -241,15 +242,13 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.onCopy = this.onCopy.bind(this);
 		this.onPaste = this.onPaste.bind(this);
 
-		this.handleFilteredComponent = this.handleFilteredComponent(this);
+		this.handleFilteredComponent = this.handleFilteredComponent.bind(this);
 
 		// Set up API
 		const { public: api /*, destroy: apiDestroy, publish: apiPublish*/ } =
 			createApi(this);
 		this.api = api;
 	}
-
-
 
 	static getDerivedStateFromProps(props, state) {
 		// if (props.schema !== state.schema && isDefined(props.schema)) {
@@ -288,9 +287,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return null;
 	}
 
-	handleFilteredComponent = (filteredComponents) => {
-		this.setState({ filteredComponents }); 
-	};
+	handleFilteredComponent(filteredComponents) {
+		this.setState({ filteredComponents: filteredComponents });
+	}
 
 	componentDidMount() {
 		this.setState({ mounted: true });
@@ -351,11 +350,8 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	handleLoadComponents(e) {
 		return new Promise((resolve, reject) => {
-			this.props.onLoadComponents(
-			  this.handleCompleteLoadComponents,
-			  resolve,
-			);
-		  });
+			this.props.onLoadComponents(this.handleCompleteLoadComponents, resolve);
+		});
 	}
 
 	handleLoadSettings(e) {
@@ -2912,12 +2908,18 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	handleSaveComponent(id, consolidatedData, linkedFields, isTemplate) {
 		console.log("id in MicroMetaApp-React app.js", id);
 		const elementData = this.state.elementData[id];
-		this.props.onSaveComponent(elementData, this.handleCompleteSaveComponent, this.state.validationTier, isTemplate);
+		this.props.onSaveComponent(
+			elementData,
+			this.handleCompleteSaveComponent,
+			this.state.validationTier,
+			isTemplate
+		);
 	}
 
 	handleSaveMicroscope(item) {
 		let validated = true;
 		if (!this.state.isMicroscopeValidated) {
+			F;
 			validated = false;
 		}
 		if (!this.state.areComponentsValidated) {
@@ -2942,14 +2944,17 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		microscope.linkedFields = this.state.linkedFields;
 
 		let lowerCaseItem = item.toLowerCase();
-		if (lowerCaseItem.includes("save all")){
-			this.props.saveAllComponents(elementData, this.handleCompleteSaveAllComponents, this.state.validationTier);
+		if (lowerCaseItem.includes("save all")) {
+			this.props.saveAllComponents(
+				elementData,
+				this.handleCompleteSaveAllComponents,
+				this.state.validationTier
+			);
 			return;
-		}
-		else if (lowerCaseItem.includes("as new")) {
+		} else if (lowerCaseItem.includes("as new")) {
 			microscope.ID = uuidv4();
 		}
-		
+
 		this.setState({ microscope: microscope });
 
 		if (this.props.isDebug) {
@@ -3009,7 +3014,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 
 	clearAllComponents() {
 		console.log("Clearing allComponents...");
-    	this.setState({ allComponents: [] });
+		this.setState({ allComponents: [] });
 	}
 
 	handleCompleteSave(name) {
@@ -3882,7 +3887,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								//setScale={this.setMicroscopeScale}
 								isDebug={this.props.isDebug}
 							/>
-							
+
 							<Toolbar
 								components={this.components}
 								activeTier={this.state.activeTier}

@@ -201,12 +201,11 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
       var homeImgPath = homeImg + (homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 
       if ((0, _genericUtilities.isDefined)(this.props.onClickParentHome)) {
-        var _homeButtText = "Component Selector";
         buttonsLeft[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
           key: "TooltipButtonLeft-" + index,
-          position: "top",
-          title: _constants.home_tooltip.title,
-          content: _constants.home_tooltip.content,
+          position: _constants.component_selector_tooltip.position,
+          title: _constants.component_selector_tooltip.title,
+          content: _constants.component_selector_tooltip.content,
           element: /*#__PURE__*/_react.default.createElement(_Button.default, {
             key: "ButtonLeft-" + index,
             onClick: function onClick() {
@@ -226,12 +225,12 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
             src: homeImgPath,
             alt: homeImg,
             style: styleImageIconHome
-          }), _homeButtText))
+          }), _constants.component_selector_tooltip.title))
         });
         index++;
       }
 
-      var homeButtText = "Home";
+      var homeButtText = _constants.home_tooltip.title;
 
       if (this.props.is4DNPortal) {
         homeButtText = "Back to list";
@@ -239,7 +238,7 @@ var Footer = /*#__PURE__*/function (_React$PureComponent) {
 
       buttonsLeft[index] = /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
         key: "TooltipButtonLeft-" + index,
-        position: "top",
+        position: _constants.home_tooltip.position,
         title: _constants.home_tooltip.title,
         content: _constants.home_tooltip.content,
         element: /*#__PURE__*/_react.default.createElement(_Button.default, {

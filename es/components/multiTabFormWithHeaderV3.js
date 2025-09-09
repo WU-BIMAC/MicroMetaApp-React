@@ -1331,8 +1331,6 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
       var buttons = [];
       var topButtons = [];
       var validateTooltip = _constants.component_validate;
-      var saveTemplateTooltip = _constants.component_template_save;
-      var saveSpecificTooltip = _constants.component_specific_save;
 
       if (!this.props.notModal) {
         buttons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
@@ -1359,59 +1357,79 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
             justifyContent: "flex-end",
             alignItems: "center"
           }
-        }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "button-cancel",
-          style: CancelButton,
-          size: "lg",
-          onClick: this.onCancel
-        }, "Cancel"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "button-confirm",
-          style: SaveChangesButton,
-          size: "lg",
-          onClick: this.onConfirm
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }
-        }, /*#__PURE__*/_react.default.createElement("img", {
-          src: saveImgPath,
-          alt: "Save Icon",
-          style: styleImageIcon
-        }), text))));
+        }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "popovertooltip-cancel",
+          position: _constants.component_cancel.position,
+          title: _constants.component_cancel.title,
+          content: _constants.component_cancel.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "button-cancel",
+            style: CancelButton,
+            size: "lg",
+            onClick: this.onCancel
+          }, "Cancel")
+        }), ");", /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "popovertooltip-confirm",
+          position: _constants.component_save.position,
+          title: _constants.component_save.title,
+          content: _constants.component_save.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "button-confirm",
+            style: SaveChangesButton,
+            size: "lg",
+            onClick: this.onConfirm
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: {
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            src: saveImgPath,
+            alt: "Save Icon",
+            style: styleImageIcon
+          }), text))
+        })));
       }
 
       if (!this.props.notModal && !this.props.hideComponentsLibrary) {
-        topButtons.push( /*#__PURE__*/_react.default.createElement(_Button.default, {
-          key: "button-load",
-          style: ComponentLibraryButton,
-          size: "lg",
-          onClick: this.onLoad
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            paddingLeft: "2px",
-            paddingRight: "2px"
-          }
-        }, /*#__PURE__*/_react.default.createElement("img", {
-          src: globeImgPath,
-          alt: "Globe Icon",
-          style: styleImageIcon
-        }), /*#__PURE__*/_react.default.createElement("span", {
-          style: {
-            whiteSpace: "nowrap"
-          }
-        }, "Component Library"))));
+        var openTemplateTxt = "Component Library";
         topButtons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-          key: "popovertooltip-save",
-          position: saveTemplateTooltip.position,
-          title: saveTemplateTooltip.title,
-          content: saveTemplateTooltip.content,
+          key: "popovertooltip-template-open",
+          position: _constants.component_template_open.position,
+          title: _constants.component_template_open.title,
+          content: _constants.component_template_open.content,
           element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-            key: "button-save",
+            key: "button-template-open",
+            style: ComponentLibraryButton,
+            size: "lg",
+            onClick: this.onLoad
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            style: {
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingLeft: "2px",
+              paddingRight: "2px"
+            }
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            src: globeImgPath,
+            alt: "Globe Icon",
+            style: styleImageIcon
+          }), /*#__PURE__*/_react.default.createElement("span", {
+            style: {
+              whiteSpace: "nowrap"
+            }
+          }, openTemplateTxt)))
+        }));
+        var saveTemplateTxt = "+ Create Template";
+        topButtons.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+          key: "popovertooltip-template-save",
+          position: _constants.component_template_save.position,
+          title: _constants.component_template_save.title,
+          content: _constants.component_template_save.content,
+          element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+            key: "button-template-save",
             style: CreateNewButton,
             size: "lg",
             onClick: this.onSave
@@ -1432,7 +1450,7 @@ var MultiTabFormWithHeaderV3 = /*#__PURE__*/function (_React$PureComponent) {
               display: "flex",
               alignItems: "center"
             }
-          }, "Create template")))
+          }, saveTemplateTxt)))
         })); // topButtons.push(
         // 	<PopoverTooltip
         //		key = "popovertooltip-save";
