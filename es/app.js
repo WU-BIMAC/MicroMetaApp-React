@@ -73,8 +73,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var _ = require("lodash");
 
 var url = require("url");
@@ -92,13 +90,6 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _classCallCheck(this, MicroMetaAppReact);
 
     _this = _super.call(this, props);
-
-    _defineProperty(_assertThisInitialized(_this), "handleFilteredComponent", function (filteredComponents) {
-      _this.setState({
-        filteredComponents: filteredComponents
-      });
-    });
-
     _this.state = {
       allComponents: [],
       microscope: props.microscope || null,
@@ -244,7 +235,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
     _this.setDataLoaded = _this.setDataLoaded.bind(_assertThisInitialized(_this));
     _this.onCopy = _this.onCopy.bind(_assertThisInitialized(_this));
     _this.onPaste = _this.onPaste.bind(_assertThisInitialized(_this));
-    _this.handleFilteredComponent = _this.handleFilteredComponent(_assertThisInitialized(_this)); // Set up API
+    _this.handleFilteredComponent = _this.handleFilteredComponent.bind(_assertThisInitialized(_this)); // Set up API
 
     var _createApi = createApi(_assertThisInitialized(_this)),
         api = _createApi.public;
@@ -254,6 +245,13 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
   }
 
   _createClass(MicroMetaAppReact, [{
+    key: "handleFilteredComponent",
+    value: function handleFilteredComponent(filteredComponents) {
+      this.setState({
+        filteredComponents: filteredComponents
+      });
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.setState({
@@ -2164,6 +2162,7 @@ var MicroMetaAppReact = /*#__PURE__*/function (_React$PureComponent) {
       var validated = true;
 
       if (!this.state.isMicroscopeValidated) {
+        F;
         validated = false;
       }
 
