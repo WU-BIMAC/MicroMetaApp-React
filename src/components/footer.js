@@ -13,6 +13,7 @@ import {
 	export_microscope_tooltip,
 	save_setting_tooltip,
 	export_setting_tooltip,
+	component_selector_tooltip,
 	home_tooltip,
 	string_home_circle_img,
 	string_home_img,
@@ -195,13 +196,12 @@ export default class Footer extends React.PureComponent {
 			homeImg +
 			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 		if (isDefined(this.props.onClickParentHome)) {
-			let homeButtText = "Component Selector";
 			buttonsLeft[index] = (
 				<PopoverTooltip
 					key={"TooltipButtonLeft-" + index}
-					position={"top"}
-					title={home_tooltip.title}
-					content={home_tooltip.content}
+					position={component_selector_tooltip.position}
+					title={component_selector_tooltip.title}
+					content={component_selector_tooltip.content}
 					element={
 						<Button
 							key={"ButtonLeft-" + index}
@@ -223,7 +223,7 @@ export default class Footer extends React.PureComponent {
 									alt={homeImg}
 									style={styleImageIconHome}
 								/>
-								{homeButtText}
+								{component_selector_tooltip.title}
 							</div>
 						</Button>
 					}
@@ -232,14 +232,14 @@ export default class Footer extends React.PureComponent {
 			index++;
 		}
 
-		let homeButtText = "Home";
+		let homeButtText = home_tooltip.title;
 		if (this.props.is4DNPortal) {
 			homeButtText = "Back to list";
 		}
 		buttonsLeft[index] = (
 			<PopoverTooltip
 				key={"TooltipButtonLeft-" + index}
-				position={"top"}
+				position={home_tooltip.position}
 				title={home_tooltip.title}
 				content={home_tooltip.content}
 				element={
