@@ -402,7 +402,7 @@ export default class Header extends React.PureComponent {
 										Micro Meta App is an open-source, community-defined, and
 										easy-to-use software platform that provides an intuitive
 										visual guide to capturing and managing Microscopy Metadata
-										based on the
+										based on the{" "}
 										<a href="https://github.com/WU-BIMAC/NBOMicroscopyMetadataSpecs/tree/master/Model/stable%20version/v02-01">
 											4DN-BINA-QUAREP extension
 										</a>{" "}
