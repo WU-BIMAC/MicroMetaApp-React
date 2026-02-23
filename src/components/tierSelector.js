@@ -11,7 +11,6 @@ import {
 	tier_selector_tooltip,
 	home_tooltip,
 	string_logo_img_no_bk,
-	string_home_circle_img,
 	string_home_img,
 	string_hardware_tier_1_img,
 	string_hardware_tier_2_img,
@@ -19,7 +18,10 @@ import {
 	string_settings_tier_1_img,
 	string_settings_tier_2_img,
 	string_settings_tier_3_img,
+	func_selector_tooltip,
+	string_func_selector_img,
 } from "../constants";
+import { isDefined } from "../genericUtilities";
 
 export default class TierSelector extends React.PureComponent {
 	constructor(props) {
@@ -133,6 +135,14 @@ export default class TierSelector extends React.PureComponent {
 		// 	wordBreak: "break-word",
 		// 	whiteSpace: "normal",
 		// };
+		const styleButtonContainer = {
+			marginRight: "20px",
+			marginLeft: "20px",
+			display: "flex",
+			flexDirection: "row",
+			alignItems: "center",
+			//justifyContent: "flex-end",
+		};
 		let styleButton = {
 			width: "250px",
 			minWidth: "250px",
@@ -154,28 +164,28 @@ export default class TierSelector extends React.PureComponent {
 		if (this.props.isHardware) {
 			iconImg_tier1 = url.resolve(
 				this.props.imagesPathSVG,
-				string_hardware_tier_1_img
+				string_hardware_tier_1_img,
 			);
 			iconImg_tier2 = url.resolve(
 				this.props.imagesPathSVG,
-				string_hardware_tier_2_img
+				string_hardware_tier_2_img,
 			);
 			iconImg_tier3 = url.resolve(
 				this.props.imagesPathSVG,
-				string_hardware_tier_3_img
+				string_hardware_tier_3_img,
 			);
 		} else {
 			iconImg_tier1 = url.resolve(
 				this.props.imagesPathSVG,
-				string_settings_tier_1_img
+				string_settings_tier_1_img,
 			);
 			iconImg_tier2 = url.resolve(
 				this.props.imagesPathSVG,
-				string_settings_tier_2_img
+				string_settings_tier_2_img,
 			);
 			iconImg_tier3 = url.resolve(
 				this.props.imagesPathSVG,
-				string_settings_tier_3_img
+				string_settings_tier_3_img,
 			);
 		}
 		let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_no_bk);
@@ -244,7 +254,18 @@ export default class TierSelector extends React.PureComponent {
 			homeImg +
 			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 		let backText = "Home";
-		let homeButton = (
+		let funcSelImg = url.resolve(
+			this.props.imagesPathSVG,
+			string_func_selector_img,
+		);
+		let funcSelPath =
+			funcSelImg +
+			(funcSelImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+		let buttons = [];
+		let index = 0;
+		buttons[index] = (
 			<PopoverTooltip
 				key={"TooltipButtonLeft-0"}
 				position={"top"}
@@ -273,13 +294,51 @@ export default class TierSelector extends React.PureComponent {
 				}
 			/>
 		);
+		index++;
+
+		if (isDefined(this.props.onClickParentHome)) {
+			buttons[index] = (
+				<PopoverTooltip
+					key={"TooltipButtonLeft-" + index}
+					position={func_selector_tooltip.position}
+					title={func_selector_tooltip.title}
+					content={func_selector_tooltip.content}
+					element={
+						<Button
+							key={"ButtonLeft-" + index}
+							onClick={() => this.props.onClickParentHome()}
+							style={styleButton}
+							size="lg"
+							variant="outline-dark"
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									//gap: "10px",
+								}}
+							>
+								<img
+									src={funcSelPath}
+									alt={funcSelImg}
+									style={styleImageIconHome}
+								/>
+								{func_selector_tooltip.title}
+							</div>
+						</Button>
+					}
+				/>
+			);
+			index++;
+		}
 		//handleMenuItemClick={this.props.onClickTierSelection}
 		return (
 			<div style={wrapperContainer}>
 				<div style={mainContainer}>
 					<div style={buttonsContainer}>{tiers}</div>
 					<div style={logoContainer}>
-						{homeButton}
+						<div style={styleButtonContainer}>{buttons}</div>
 						<div style={styleImageContainer}>
 							<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
 						</div>

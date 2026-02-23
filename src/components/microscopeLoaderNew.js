@@ -35,6 +35,8 @@ import {
 	string_home_img,
 	string_dropbox_hardware_new,
 	string_dropbox_hardware_replace,
+	func_selector_tooltip,
+	string_func_selector_img,
 } from "../constants";
 
 export default class MicroscopeLoader extends React.PureComponent {
@@ -116,7 +118,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 	// 	let errorMsg = null;
 	// 	try {
 	// 		microscope = JSON.parse(binaryStr);
-	
+
 	// 		if (
 	// 			microscope.ModelVersion &&
 	// 			parseInt(microscope.ModelVersion.split(".")[0], 10) < 2
@@ -124,7 +126,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 	// 			errorMsg =
 	// 				"This microscope file is incompatible. Only files with ModelVersion 2.00 or higher can be loaded.";
 	// 		}
-	
+
 	// 		else if (validateMicroscopeFile(microscope, this.props.schema, true)) {
 	// 			this.setState({ fileLoaded: true, loadedMicroscope: microscope });
 	// 		} else {
@@ -135,13 +137,12 @@ export default class MicroscopeLoader extends React.PureComponent {
 	// 		if (this.props.isDebug) console.log(exception);
 	// 		errorMsg = "The file you are trying to load is not a proper json file";
 	// 	}
-	
+
 	// 	if (errorMsg !== null) {
 	// 		this.setState({ fileLoaded: false, errorMsg: errorMsg });
-	// 		window.alert(errorMsg); 
+	// 		window.alert(errorMsg);
 	// 	}
 	// }
-	
 
 	dropzoneDrop() {
 		this.setState({ fileLoading: true, fileLoaded: false });
@@ -243,7 +244,6 @@ export default class MicroscopeLoader extends React.PureComponent {
 		this.props.onClickConfirm(modeSelection, filename, microscope);
 	}
 
-
 	render() {
 		let buttonContainerHeight = "550px";
 		let dropzoneContainerSize = "420px";
@@ -331,7 +331,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			height: buttonContainerHeight,
 			alignItems: "center",
 			margin: "10px",
-			overflow: "auto"
+			overflow: "auto",
 		};
 		const logoContainer = {
 			display: "flex",
@@ -351,6 +351,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 			alignItems: "center",
 			marginTop: "10px",
 			marginBottom: "10px",
+		};
+		const styleButtonContainer = {
+			marginRight: "20px",
+			marginLeft: "20px",
+			display: "flex",
+			flexDirection: "row",
+			alignItems: "center",
+			//justifyContent: "flex-end",
 		};
 		const buttonsInnerTextContainer = {
 			display: "flex",
@@ -623,7 +631,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							{creatingOption}
 						</ToggleButton>
 					}
-				/>
+				/>,
 			);
 		}
 
@@ -660,7 +668,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								{loadingOption}
 							</ToggleButton>
 						}
-					/>
+					/>,
 				);
 			}
 			let toggles = [];
@@ -683,7 +691,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					vertical
 				>
 					{toggles}
-				</ToggleButtonGroup>
+				</ToggleButtonGroup>,
 			);
 
 			//TODO upload zone
@@ -748,7 +756,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					>
 						<h4 key={"dropzone"}>Load Microscope file</h4>
 						{dropbox}
-					</div>
+					</div>,
 				);
 			} else if (
 				modeSelection === string_loadFromRepository ||
@@ -774,8 +782,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					maxHeight: "300px", // or whatever value you want
 					overflowY: "auto",
 					alignItems: "flex-start",
-				  };
-				  
+				};
 
 				let manufacturers = Object.keys(inputData);
 				// let defaultManu = isDefined(selectedManu)
@@ -792,7 +799,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							style={buttonStyleWide}
 						>
 							{manufacturers[i]}
-						</ToggleButton>
+						</ToggleButton>,
 					);
 				}
 				let manufacturerRadio = (
@@ -837,19 +844,18 @@ export default class MicroscopeLoader extends React.PureComponent {
 							width: "430px",
 							alignItems: "flex-start",
 						}}
-						>
+					>
 						<h4 key={"select-manufacturer"}>Select Manufacturer</h4>
 						<div
 							style={{
-							maxHeight: "300px", 
-							overflowY: "auto",
-							width: "100%",
+								maxHeight: "300px",
+								overflowY: "auto",
+								width: "100%",
 							}}
 						>
 							{manufacturerRadio}
 						</div>
-					</div>
-
+					</div>,
 				);
 
 				if (isDefined(selectedManu)) {
@@ -881,7 +887,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								>
 									{micLabel}
 								</div>
-							</ToggleButton>
+							</ToggleButton>,
 						);
 					}
 					let microscopeRadio = (
@@ -926,18 +932,18 @@ export default class MicroscopeLoader extends React.PureComponent {
 								width: "430px",
 								alignItems: "flex-start",
 							}}
-							>
+						>
 							<h4 key={"select-microscope"}>Select Microscope file</h4>
 							<div
 								style={{
-								maxHeight: "300px",
-								overflowY: "auto",
-								width: "100%",
+									maxHeight: "300px",
+									overflowY: "auto",
+									width: "100%",
 								}}
 							>
 								{microscopeRadio}
 							</div>
-						</div>
+						</div>,
 					);
 				}
 			}
@@ -995,7 +1001,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						</div>
 					</Button>
 				}
-			/>
+			/>,
 		);
 
 		let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_no_bk);
@@ -1007,8 +1013,20 @@ export default class MicroscopeLoader extends React.PureComponent {
 		let homeImgPath =
 			homeImg +
 			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+
+		let funcSelImg = url.resolve(
+			this.props.imagesPathSVG,
+			string_func_selector_img,
+		);
+		let funcSelPath =
+			funcSelImg +
+			(funcSelImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 		let buttText = "Home";
-		let homeButton = (
+		let homeButtons = [];
+		let index = 0;
+		homeButtons[index] = (
 			<PopoverTooltip
 				key={"TooltipButtonLeft-0"}
 				position={"top"}
@@ -1037,6 +1055,44 @@ export default class MicroscopeLoader extends React.PureComponent {
 				}
 			/>
 		);
+		index++;
+
+		if (isDefined(this.props.onClickParentHome)) {
+			homeButtons[index] = (
+				<PopoverTooltip
+					key={"TooltipButtonLeft-" + index}
+					position={func_selector_tooltip.position}
+					title={func_selector_tooltip.title}
+					content={func_selector_tooltip.content}
+					element={
+						<Button
+							key={"ButtonLeft-" + index}
+							onClick={() => this.props.onClickParentHome()}
+							style={styleButton}
+							size="lg"
+							variant="outline-dark"
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									//gap: "10px",
+								}}
+							>
+								<img
+									src={funcSelPath}
+									alt={funcSelImg}
+									style={styleImageIconHome}
+								/>
+								{func_selector_tooltip.title}
+							</div>
+						</Button>
+					}
+				/>
+			);
+			index++;
+		}
 
 		return (
 			<div style={wrapperContainer}>
@@ -1050,7 +1106,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						<div style={bottomButtonsContainer}>{buttons}</div>
 					</div>
 					<div style={logoContainer}>
-						{homeButton}
+						<div style={styleButtonContainer}>{homeButtons}</div>
 						<div style={styleImageContainer}>
 							<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
 						</div>

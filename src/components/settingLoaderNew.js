@@ -50,7 +50,6 @@ import {
 	home_tooltip,
 	string_noImageLoad,
 	string_logo_img_no_bk,
-	string_home_circle_img,
 	string_home_img,
 	string_back_img,
 	string_next_img,
@@ -60,6 +59,8 @@ import {
 	string_dropbox_image_replace,
 	string_dropbox_settings_new,
 	string_dropbox_settings_replace,
+	func_selector_tooltip,
+	string_func_selector_img,
 } from "../constants";
 
 export default class MicroscopeLoader extends React.PureComponent {
@@ -477,7 +478,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 			microscope,
 			settingFilename,
 			setting,
-			metadata
+			metadata,
 		);
 	}
 
@@ -601,6 +602,14 @@ export default class MicroscopeLoader extends React.PureComponent {
 			alignItems: "center",
 			marginTop: "10px",
 			marginBottom: "10px",
+		};
+		const styleButtonContainer = {
+			marginRight: "20px",
+			marginLeft: "20px",
+			display: "flex",
+			flexDirection: "row",
+			alignItems: "center",
+			//justifyContent: "flex-end",
 		};
 		const buttonsInnerTextContainer = {
 			display: "flex",
@@ -1239,7 +1248,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								{loadingOption}
 							</ToggleButton>
 						}
-					/>
+					/>,
 				);
 			}
 			let toggles = [];
@@ -1256,7 +1265,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					vertical
 				>
 					{toggles}
-				</ToggleButtonGroup>
+				</ToggleButtonGroup>,
 			);
 			if (micModeSelection === string_createFromFile) {
 				let text = <p style={styleCenterText}>{string_dropbox_hardware_new}</p>;
@@ -1319,7 +1328,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					>
 						<h4 key={"dropzone"}>Load Microscope file</h4>
 						{dropbox}
-					</div>
+					</div>,
 				);
 			} else if (
 				micModeSelection === string_loadFromRepository ||
@@ -1356,7 +1365,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							style={buttonStyleWide}
 						>
 							{manufacturers[i]}
-						</ToggleButton>
+						</ToggleButton>,
 					);
 				}
 				let manufacturerRadio = (
@@ -1390,7 +1399,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							content={create_from_repo_manufacturer_tooltip.content}
 							element={<div style={toggleStyle}>{manufacturerRadio}</div>}
 						/>
-					</div>
+					</div>,
 				);
 
 				if (isDefined(selectedManu)) {
@@ -1419,7 +1428,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								>
 									{micLabel}
 								</div>
-							</ToggleButton>
+							</ToggleButton>,
 						);
 					}
 					let microscopeRadio = (
@@ -1453,7 +1462,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								content={create_from_repo_names_tooltip.content}
 								element={<div style={toggleStyle}>{microscopeRadio}</div>}
 							/>
-						</div>
+						</div>,
 					);
 				}
 			}
@@ -1495,7 +1504,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								{loadingOption}
 							</ToggleButton>
 						}
-					/>
+					/>,
 				);
 			}
 			let toggles = [];
@@ -1512,7 +1521,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					vertical={true}
 				>
 					{toggles}
-				</ToggleButtonGroup>
+				</ToggleButtonGroup>,
 			);
 			if (imgModeSelection === string_createFromFile) {
 				let text = <p style={styleCenterText}>{string_dropbox_image_new}</p>;
@@ -1569,7 +1578,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								style={buttonStyleWide}
 							>
 								{imageKeys[i]}
-							</ToggleButton>
+							</ToggleButton>,
 						);
 					}
 					imageRadio = (
@@ -1630,7 +1639,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					>
 						<h4 key={"dropzone"}>Load Image file</h4>
 						{dropbox}
-					</div>
+					</div>,
 				);
 				if (imageRadio !== null) {
 					list.push(
@@ -1648,7 +1657,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								content={loadImage_from_names_tooltip.content}
 								element={<div style={toggleStyle}>{imageRadio}</div>}
 							/>
-						</div>
+						</div>,
 					);
 				}
 			} else if (imgModeSelection === string_loadFromRepository) {
@@ -1678,7 +1687,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						disabled={imgSelectionDisabled}
 					>
 						{imageName}
-					</ToggleButton>
+					</ToggleButton>,
 				);
 				let imageRadio = (
 					<ToggleButtonGroup
@@ -1692,7 +1701,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								? null
 								: (e) => {
 										this.onClickImageSelection(1, e);
-								  }
+									}
 						}
 						vertical={true}
 					>
@@ -1714,7 +1723,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							content={loadImage_from_repo_image_tooltip.content}
 							element={<div style={toggleStyle}>{imageRadio}</div>}
 						/>
-					</div>
+					</div>,
 				);
 				if (errorMsg !== null) {
 					//<p style={styleCenterText}>{string_dropbox_image_replace}</p>
@@ -1725,7 +1734,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							<p style={styleCenterText}>
 								{"Select a different image or skip."}
 							</p>
-						</div>
+						</div>,
 					);
 				}
 			}
@@ -1757,7 +1766,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								{creatingOption}
 							</ToggleButton>
 						}
-					/>
+					/>,
 				);
 			}
 			let loadRadios = [];
@@ -1792,7 +1801,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 								{loadingOption}
 							</ToggleButton>
 						}
-					/>
+					/>,
 				);
 			}
 			let toggles = [];
@@ -1811,7 +1820,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					vertical={true}
 				>
 					{toggles}
-				</ToggleButtonGroup>
+				</ToggleButtonGroup>,
 			);
 			if (settModeSelection === string_createFromFile) {
 				let text = <p style={styleCenterText}>{string_dropbox_settings_new}</p>;
@@ -1874,7 +1883,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 					>
 						<h4 key={"dropzone"}>Load Setting file</h4>
 						{dropbox}
-					</div>
+					</div>,
 				);
 			} else if (
 				settModeSelection === string_loadFromRepository ||
@@ -1933,7 +1942,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							>
 								{fullSettName}
 							</div>
-						</ToggleButton>
+						</ToggleButton>,
 					);
 				}
 				if (settingRadios.length === 0) {
@@ -1943,7 +1952,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							key={"no-setting"}
 						>
 							No Setting matching selected\nMicroscope ID have been found
-						</p>
+						</p>,
 					);
 				}
 
@@ -1977,7 +1986,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 							content={createSettings_from_repo_names_tooltip.content}
 							element={<div style={toggleStyle}>{settingRadio}</div>}
 						/>
-					</div>
+					</div>,
 				);
 			}
 		}
@@ -2018,7 +2027,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						</div>
 					</Button>
 				}
-			/>
+			/>,
 		);
 
 		if (imgSelectionDisabled) {
@@ -2061,7 +2070,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						</div>
 					</Button>
 				}
-			/>
+			/>,
 		);
 
 		let logoImg = url.resolve(this.props.imagesPathPNG, string_logo_img_no_bk);
@@ -2074,13 +2083,23 @@ export default class MicroscopeLoader extends React.PureComponent {
 			homeImg +
 			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
 		let buttText = "Home";
+		let funcSelImg = url.resolve(
+			this.props.imagesPathSVG,
+			string_func_selector_img,
+		);
+		let funcSelPath =
+			funcSelImg +
+			(funcSelImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 
 		let homeDisabled = false;
 		if (imgSelectionDisabled) {
 			homeDisabled = true;
 		}
-
-		let homeButton = (
+		let homeButtons = [];
+		let index = 0;
+		homeButtons[index] = (
 			<PopoverTooltip
 				key={"TooltipButtonLeft-0"}
 				position={"top"}
@@ -2112,6 +2131,44 @@ export default class MicroscopeLoader extends React.PureComponent {
 				}
 			/>
 		);
+		index++;
+
+		if (isDefined(this.props.onClickParentHome)) {
+			homeButtons[index] = (
+				<PopoverTooltip
+					key={"TooltipButtonLeft-" + index}
+					position={func_selector_tooltip.position}
+					title={func_selector_tooltip.title}
+					content={func_selector_tooltip.content}
+					element={
+						<Button
+							key={"ButtonLeft-" + index}
+							onClick={() => this.props.onClickParentHome()}
+							style={styleButton}
+							size="lg"
+							variant="outline-dark"
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									//gap: "10px",
+								}}
+							>
+								<img
+									src={funcSelPath}
+									alt={funcSelImg}
+									style={styleImageIconHome}
+								/>
+								{func_selector_tooltip.title}
+							</div>
+						</Button>
+					}
+				/>
+			);
+			index++;
+		}
 
 		return (
 			<div style={wrapperContainer}>
@@ -2125,7 +2182,7 @@ export default class MicroscopeLoader extends React.PureComponent {
 						<div style={bottomButtonsContainer}>{buttons}</div>
 					</div>
 					<div style={logoContainer}>
-						{homeButton}
+						<div style={styleButtonContainer}>{homeButtons}</div>
 						<div style={styleImageContainer}>
 							<img src={logoPath} alt={this.props.logoImg} style={styleImage} />
 						</div>

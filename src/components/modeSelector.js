@@ -12,7 +12,10 @@ import {
 	string_logo_img_micro_bk,
 	string_manage_hardware_circle_img,
 	string_manage_settings_circle_img,
+	func_selector_tooltip,
+	string_func_selector_img,
 } from "../constants";
+import { isDefined } from "../genericUtilities";
 
 export default class ModeSelector extends React.PureComponent {
 	constructor(props) {
@@ -99,6 +102,28 @@ export default class ModeSelector extends React.PureComponent {
 			alignItems: "center",
 		};
 
+		const styleButtonContainer = {
+			marginRight: "20px",
+			marginLeft: "20px",
+			display: "flex",
+			flexDirection: "row",
+			alignItems: "center",
+			//justifyContent: "flex-end",
+		};
+		const styleButton = {
+			width: "250px",
+			minWidth: "250px",
+			height: "50px",
+			marginLeft: "5px",
+			marginRight: "5px",
+		};
+		const styleImageIconHome = {
+			width: "30px",
+			height: "30px",
+			marginLeft: "10px",
+			marginRight: "10px",
+		};
+
 		let styleIconImage = {
 			width: "100%",
 			height: "100%",
@@ -120,15 +145,19 @@ export default class ModeSelector extends React.PureComponent {
 
 		let logoImg = url.resolve(
 			this.props.imagesPathPNG,
-			string_logo_img_micro_bk
+			string_logo_img_micro_bk,
 		);
 		let hardwareImg = url.resolve(
 			this.props.imagesPathSVG,
-			string_manage_hardware_circle_img
+			string_manage_hardware_circle_img,
 		);
 		let settingsImg = url.resolve(
 			this.props.imagesPathSVG,
-			string_manage_settings_circle_img
+			string_manage_settings_circle_img,
+		);
+		let funcSelImg = url.resolve(
+			this.props.imagesPathSVG,
+			string_func_selector_img,
 		);
 
 		let logoPath =
@@ -144,6 +173,50 @@ export default class ModeSelector extends React.PureComponent {
 			(settingsImg.indexOf("githubusercontent.com") > -1
 				? "?sanitize=true"
 				: "");
+		let funcSelPath =
+			funcSelImg +
+			(funcSelImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
+		let buttons = [];
+
+		let index = 0;
+		if (isDefined(this.props.onClickParentHome)) {
+			buttons[index] = (
+				<PopoverTooltip
+					key={"TooltipButtonLeft-" + index}
+					position={func_selector_tooltip.position}
+					title={func_selector_tooltip.title}
+					content={func_selector_tooltip.content}
+					element={
+						<Button
+							key={"ButtonLeft-" + index}
+							onClick={() => this.props.onClickParentHome()}
+							style={styleButton}
+							size="lg"
+							variant="outline-dark"
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									//gap: "10px",
+								}}
+							>
+								<img
+									src={funcSelPath}
+									alt={funcSelImg}
+									style={styleImageIconHome}
+								/>
+								{func_selector_tooltip.title}
+							</div>
+						</Button>
+					}
+				/>
+			);
+			index++;
+		}
 		return (
 			<div style={wrapperContainer}>
 				<div style={mainContainer}>
@@ -220,6 +293,7 @@ export default class ModeSelector extends React.PureComponent {
 							}
 						/>
 					</div>
+					<div style={styleButtonContainer}>{buttons}</div>
 					<p>
 						(c) Copyright 2018-2023 University of Massachusetts Chan Medical
 						School. All Rights Reserved.
