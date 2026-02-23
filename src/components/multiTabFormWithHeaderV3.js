@@ -1692,7 +1692,6 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 							</Button>
 						}
 					/>
-					);
 					<PopoverTooltip
 						key="popovertooltip-confirm"
 						position={component_save.position}
@@ -1761,7 +1760,7 @@ export default class MultiTabFormWithHeaderV3 extends React.PureComponent {
 					}
 				/>
 			);
-			let saveTemplateTxt = "+ Create Template";
+			let saveTemplateTxt = "Create Template";
 			topButtons.push(
 				<PopoverTooltip
 					key="popovertooltip-template-save"
