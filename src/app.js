@@ -239,7 +239,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		this.onCopy = this.onCopy.bind(this);
 		this.onPaste = this.onPaste.bind(this);
 
-
 		// Set up API
 		const { public: api /*, destroy: apiDestroy, publish: apiPublish*/ } =
 			createApi(this);
@@ -283,7 +282,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return null;
 	}
 
-
 	componentDidMount() {
 		this.setState({ mounted: true });
 	}
@@ -326,7 +324,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
 				this.props.onLoadDimensions(this.handleCompleteLoadDimensions, resolve);
-			}, 1000)
+			}, 1000),
 		);
 	}
 
@@ -335,9 +333,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			setTimeout(() => {
 				this.props.onLoadMicroscopes(
 					this.handleCompleteLoadMicroscopes,
-					resolve
+					resolve,
 				);
-			}, 1000)
+			}, 1000),
 		);
 	}
 
@@ -351,7 +349,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
 				this.props.onLoadSettings(this.handleCompleteLoadSettings, resolve);
-			}, 1000)
+			}, 1000),
 		);
 	}
 
@@ -359,7 +357,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
 				this.props.onLoadTierList(this.handleCompleteLoadTierList, resolve);
-			}, 1000)
+			}, 1000),
 		);
 	}
 
@@ -387,7 +385,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
 				this.props.onLoadSchema(this.handleCompleteLoadSchema, resolve);
-			}, 1000)
+			}, 1000),
 		);
 	}
 
@@ -428,7 +426,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		return new Promise((resolve, reject) =>
 			setTimeout(() => {
 				this.handleMicroscopePreset(resolve);
-			}, 1000)
+			}, 1000),
 		);
 	}
 
@@ -453,7 +451,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						resolve();
 					}
 				});
-			}
+			},
 		);
 	}
 
@@ -478,7 +476,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			() => {
 				if (isDefined(this.props.onModeSelection))
 					this.props.onModeSelection(1);
-			}
+			},
 		);
 		//this.handleLoadingOptionSelection(createFromScratch);
 	}
@@ -494,7 +492,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			() => {
 				if (isDefined(this.props.onModeSelection))
 					this.props.onModeSelection(2);
-			}
+			},
 		);
 		//this.handleLoadingOptionSelection(createFromFile);
 	}
@@ -540,7 +538,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let singleSchema = Object.assign({}, singleSchemaOriginal);
 		singleSchema.properties = Object.assign(
 			{},
-			singleSchemaOriginal.properties
+			singleSchemaOriginal.properties,
 		);
 
 		if (singleSchema.required !== undefined)
@@ -578,7 +576,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				let newProp = this.createAdaptedSchema(
 					property,
 					activeTier,
-					validationTier
+					validationTier,
 				);
 				properties[propKey] = newProp;
 			}
@@ -633,14 +631,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			let singleSchema = this.createAdaptedSchema(
 				singleSchemaOriginal,
 				activeTier,
-				validationTier
+				validationTier,
 			);
 			if (singleSchema.title === "Instrument") {
 				microscopeSchema = Object.assign(microscopeSchema, singleSchema);
 			} else if (singleSchema.title === currentStandType) {
 				microscopeStandSchema = Object.assign(
 					microscopeStandSchema,
-					singleSchema
+					singleSchema,
 				);
 			} else if (singleSchema.title === "Image") {
 				imageSchema = Object.assign(imageSchema, singleSchema);
@@ -699,7 +697,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	static checkScalingFactorAndRescaleIfNeeded(
 		modifiedMic,
 		elementData,
-		scalingFactor
+		scalingFactor,
 	) {
 		//console.log("checkScalingFactorAndRescaleIfNeeded");
 		let micScalingFactor = 1;
@@ -721,7 +719,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				" to " +
 				scalingFactor +
 				" newScalingFactor: " +
-				newScalingFactor
+				newScalingFactor,
 		);
 
 		modifiedMic.ScalingFactor = scalingFactor;
@@ -754,7 +752,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		fieldsToDelete,
 		fieldsToNameChange,
 		objSchemas,
-		objSchemas2
+		objSchemas2,
 	) {
 		let objSchemaID = originalObj.Schema_ID;
 		if (objSchemaID === null || objSchemaID === undefined) {
@@ -814,7 +812,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						objSchemas,
-						objSchemas2
+						objSchemas2,
 					);
 				obj.LightPath = newLightPath;
 			}
@@ -835,7 +833,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						objSchemas,
-						objSchemas2
+						objSchemas2,
 					);
 					compSettings.LightSource = sett;
 				}
@@ -851,7 +849,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						objSchemas,
-						objSchemas2
+						objSchemas2,
 					);
 					compSettings.CouplingLens = sett;
 				}
@@ -867,7 +865,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						objSchemas,
-						objSchemas2
+						objSchemas2,
 					);
 					compSettings.LightSourceCoupling = sett;
 				}
@@ -883,7 +881,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						objSchemas,
-						objSchemas2
+						objSchemas2,
 					);
 					compSettings.ExcitationFilter = sett;
 				}
@@ -899,7 +897,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						objSchemas,
-						objSchemas2
+						objSchemas2,
 					);
 					compSettings.Dichroic = sett;
 				}
@@ -915,7 +913,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						objSchemas,
-						objSchemas2
+						objSchemas2,
 					);
 					compSettings.EmissionFilter = sett;
 				}
@@ -931,7 +929,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						objSchemas,
-						objSchemas2
+						objSchemas2,
 					);
 					compSettings.RelayLens = sett;
 				}
@@ -947,7 +945,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						objSchemas,
-						objSchemas2
+						objSchemas2,
 					);
 					compSettings.Detector = sett;
 				}
@@ -964,7 +962,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							fieldsToDelete,
 							fieldsToNameChange,
 							objSchemas,
-							objSchemas2
+							objSchemas2,
 						);
 					compSettings.AdditionalSlot_1 = setts;
 				}
@@ -981,7 +979,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							fieldsToDelete,
 							fieldsToNameChange,
 							objSchemas,
-							objSchemas2
+							objSchemas2,
 						);
 					compSettings.AdditionalSlot_2 = setts;
 				}
@@ -998,7 +996,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							fieldsToDelete,
 							fieldsToNameChange,
 							objSchemas,
-							objSchemas2
+							objSchemas2,
 						);
 					compSettings.AdditionalSlot_3 = setts;
 				}
@@ -1015,7 +1013,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							fieldsToDelete,
 							fieldsToNameChange,
 							objSchemas,
-							objSchemas2
+							objSchemas2,
 						);
 					compSettings.AdditionalSlot_4 = setts;
 				}
@@ -1032,7 +1030,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							fieldsToDelete,
 							fieldsToNameChange,
 							objSchemas,
-							objSchemas2
+							objSchemas2,
 						);
 					compSettings.AdditionalSlot_5 = setts;
 				}
@@ -1049,7 +1047,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							fieldsToDelete,
 							fieldsToNameChange,
 							objSchemas,
-							objSchemas2
+							objSchemas2,
 						);
 					compSettings.AdditionalSlot_6 = setts;
 				}
@@ -1066,7 +1064,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							fieldsToDelete,
 							fieldsToNameChange,
 							objSchemas,
-							objSchemas2
+							objSchemas2,
 						);
 					compSettings.AdditionalSlot_7 = setts;
 				}
@@ -1083,7 +1081,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							fieldsToDelete,
 							fieldsToNameChange,
 							objSchemas,
-							objSchemas2
+							objSchemas2,
 						);
 					compSettings.AdditionalSlot_8 = setts;
 				}
@@ -1098,7 +1096,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						objSchemas,
-						objSchemas2
+						objSchemas2,
 					);
 				obj.Fluorophore = newFluorophore;
 			}
@@ -1112,14 +1110,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						objSchemas,
-						objSchemas2
+						objSchemas2,
 					);
 				obj.ImmersionLiquid = newImmersionLiquid;
 			}
 		} else {
 			console.log(
 				"Error: applyPreviousAppVersionModificationToObj : schema not found for " +
-					objSchemaID
+					objSchemaID,
 			);
 		}
 		return obj;
@@ -1133,7 +1131,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		fieldsToDelete,
 		fieldsToNameChange,
 		objSchemas,
-		objSchemas2
+		objSchemas2,
 	) {
 		let newArray = [];
 		for (let i = 0; i < originalArray.length; i++) {
@@ -1146,7 +1144,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				fieldsToDelete,
 				fieldsToNameChange,
 				objSchemas,
-				objSchemas2
+				objSchemas2,
 			);
 			newArray[i] = newObj;
 		}
@@ -1290,7 +1288,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.Planes = newPlanes;
 		}
@@ -1307,7 +1305,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.Channels = newChannels;
 		}
@@ -1324,7 +1322,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.TIRFSettings = newTIRFSettings;
 		}
@@ -1341,7 +1339,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.ImagingEnvironment = newImagingEnvironment;
 		}
@@ -1358,7 +1356,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.SamplePositioningSettings = newSamplePositioningSettings;
 		}
@@ -1375,7 +1373,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.MicroscopeTableSettings = newMicroscopeTableSettings;
 		}
@@ -1394,7 +1392,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.ObjectiveSettings = newObjectiveSettings;
 		}
@@ -1411,7 +1409,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.MicroscopeStandSettings = newMicroscopeStandSettings;
 		}
@@ -1470,7 +1468,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.Planes = newPlanes;
 		}
@@ -1487,7 +1485,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.Channels = newChannels;
 		}
@@ -1504,7 +1502,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.TIRFSettings = newTIRFSettings;
 		}
@@ -1521,7 +1519,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.ImagingEnvironment = newImagingEnvironment;
 		}
@@ -1538,7 +1536,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.SamplePositioningSettings = newSamplePositioningSettings;
 		}
@@ -1555,7 +1553,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.MicroscopeTableSettings = newMicroscopeTableSettings;
 		}
@@ -1574,7 +1572,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.ObjectiveSettings = newObjectiveSettings;
 		}
@@ -1591,7 +1589,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					settingsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newSetting.MicroscopeStandSettings = newMicroscopeStandSettings;
 		}
@@ -1643,12 +1641,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			if (singleSchemaOriginal.title === "Instrument") {
 				microscopeSchema = Object.assign(
 					microscopeSchema,
-					singleSchemaOriginal
+					singleSchemaOriginal,
 				);
 			} else if (singleSchemaOriginal.title === standType) {
 				microscopeStandSchema = Object.assign(
 					microscopeStandSchema,
-					singleSchemaOriginal
+					singleSchemaOriginal,
 				);
 			} else if (
 				singleSchemaOriginal.domain === "MicroscopeHardwareSpecifications" ||
@@ -1789,7 +1787,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					fieldsToDelete,
 					fieldsToNameChange,
 					componentsSchema,
-					experimentalSchema
+					experimentalSchema,
 				);
 			newMicroscope.components = newComponents;
 		}
@@ -1819,12 +1817,12 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			if (singleSchemaOriginal.title === "Instrument") {
 				microscopeSchema = Object.assign(
 					microscopeSchema,
-					singleSchemaOriginal
+					singleSchemaOriginal,
 				);
 			} else if (singleSchemaOriginal.title === standType) {
 				microscopeStandSchema = Object.assign(
 					microscopeStandSchema,
-					singleSchemaOriginal
+					singleSchemaOriginal,
 				);
 			} else if (
 				singleSchemaOriginal.domain === "MicroscopeHardwareSpecifications" ||
@@ -1922,7 +1920,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						fieldsToDelete,
 						fieldsToNameChange,
 						componentsSchema,
-						experimentalSchema
+						experimentalSchema,
 					);
 				} else if (compSchema === undefined || compSchema === null) {
 					//Adjustment case for renamed Schemas
@@ -1955,7 +1953,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							fieldsToDelete,
 							fieldsToNameChange,
 							componentsSchema,
-							experimentalSchema
+							experimentalSchema,
 						);
 					}
 				}
@@ -2025,7 +2023,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let standType = modifiedMic.MicroscopeStand.Schema_ID.replace(".json", "");
 		let adaptedSchemas = this.createAdaptedSchemas(
 			modifiedMic.ValidationTier,
-			standType
+			standType,
 		);
 		let typeDimensions = this.state.dimensions[standType];
 		let microscopeSchema = adaptedSchemas[0];
@@ -2052,14 +2050,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let validatedMicroscope = validationMicroscope.valid;
 		let validationStand = validate(
 			modifiedMic.MicroscopeStand,
-			microscopeStandSchema
+			microscopeStandSchema,
 		);
 		let validatedStand = validationStand.valid;
 		let validated = validatedMicroscope && validatedStand;
 		MicroMetaAppReact.checkScalingFactorAndRescaleIfNeeded(
 			modifiedMic,
 			newElementData,
-			this.props.scalingFactor
+			this.props.scalingFactor,
 		);
 		//console.log("createOrUseMicroscopeFromDroppedFile - 2");
 		this.setState(
@@ -2080,7 +2078,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					//console.log("createOrUseMicroscopeFromDroppedFile - callback");
 					resolve();
 				}
-			}
+			},
 		);
 	}
 
@@ -2100,7 +2098,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let standType = modifiedMic.MicroscopeStand.Schema_ID.replace(".json", "");
 		let adaptedSchemas = this.createAdaptedSchemas(
 			modifiedMic.ValidationTier,
-			standType
+			standType,
 		);
 		let typeDimensions = this.state.dimensions[standType];
 		let microscopeSchema = adaptedSchemas[0];
@@ -2127,14 +2125,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		let validatedMicroscope = validationMicroscope.valid;
 		let validationStand = validate(
 			modifiedMic.MicroscopeStand,
-			microscopeStandSchema
+			microscopeStandSchema,
 		);
 		let validatedStand = validationStand.valid;
 		let validated = validatedMicroscope && validatedStand;
 		MicroMetaAppReact.checkScalingFactorAndRescaleIfNeeded(
 			modifiedMic,
 			newElementData,
-			this.props.scalingFactor
+			this.props.scalingFactor,
 		);
 		this.setState(
 			{
@@ -2152,7 +2150,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				if (isDefined(resolve)) {
 					resolve();
 				}
-			}
+			},
 		);
 	}
 
@@ -2197,14 +2195,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			if (isLoadingMicroscope) {
 				if (!verifyAppVersion(microscope)) {
 					window.alert(
-						"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again."
+						"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again.",
 					);
 					return;
 				}
 			} else {
 				if (!verifyModelVersion(microscope, this.state.modelVersion)) {
 					window.alert(
-						"The Microscope file you are trying to use was saved with a more recent model version. You have to open it using a matching version of Micro-Meta App."
+						"The Microscope file you are trying to use was saved with a more recent model version. You have to open it using a matching version of Micro-Meta App.",
 					);
 					return;
 				}
@@ -2224,7 +2222,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				} else {
 					this.createOrUseMicroscopeFromSelectedFile(resolve);
 				}
-			}
+			},
 		);
 	}
 
@@ -2344,7 +2342,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			},
 			() => {
 				if (isDefined(resolve)) resolve();
-			}
+			},
 		);
 	}
 
@@ -2367,7 +2365,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			this.applyPreviousVersionModificationToSetting(modifiedSetting);
 		let adaptedSchemas = this.createAdaptedSchemas(
 			modifiedSetting.ValidationTier,
-			this.state.standType
+			this.state.standType,
 		);
 		let imageSchema = adaptedSchemas[3];
 		let settingsSchema = adaptedSchemas[4];
@@ -2444,7 +2442,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			},
 			() => {
 				if (isDefined(resolve)) resolve();
-			}
+			},
 		);
 	}
 
@@ -2474,7 +2472,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			this.applyPreviousVersionModificationToSetting(modifiedSetting);
 		let adaptedSchemas = this.createAdaptedSchemas(
 			modifiedSetting.ValidationTier,
-			this.state.standType
+			this.state.standType,
 		);
 		let imageSchema = adaptedSchemas[3];
 		let settingsSchema = adaptedSchemas[4];
@@ -2549,7 +2547,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			},
 			() => {
 				if (isDefined(resolve)) resolve();
-			}
+			},
 		);
 	}
 
@@ -2561,14 +2559,14 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		newMicroscope,
 		settFilename,
 		newSetting,
-		newMetadata
+		newMetadata,
 	) {
 		let promiseMicroscope = new Promise((resolve, reject) => {
 			this.createOrUseMicroscope(
 				micLoadingOption,
 				micFilename,
 				newMicroscope,
-				resolve
+				resolve,
 			);
 		});
 
@@ -2611,7 +2609,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				if (micID !== instrumentID || micName !== instrumentName) {
 					if (
 						!window.confirm(
-							"The unique ID & Name of the Microscope file you have selected do not match those that has been saved in the Settings file you are trying to load. If you continue the Microscope ID and Name stored in the Settings file will be overwritten. Are you sure?"
+							"The unique ID & Name of the Microscope file you have selected do not match those that has been saved in the Settings file you are trying to load. If you continue the Microscope ID and Name stored in the Settings file will be overwritten. Are you sure?",
 						)
 					) {
 						return;
@@ -2636,7 +2634,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						} else {
 							this.createOrUseSettingFromSelectedFile(resolve);
 						}
-					}
+					},
 				);
 			});
 			promiseSetting.then(() => {
@@ -2668,7 +2666,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				loadingOption,
 				loadingOption,
 				newMicroscope,
-				resolve
+				resolve,
 			);
 		});
 		promiseMicroscope.then(() => {
@@ -2727,7 +2725,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					console.log(originalMicroscope);
 					if (
 						!window.confirm(
-							"You have unsaved changes. Are you sure you want to leave this page?"
+							"You have unsaved changes. Are you sure you want to leave this page?",
 						)
 					) {
 						return;
@@ -2782,7 +2780,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				if (isDefined(this.props.onModeSelection)) {
 					this.props.onModeSelection(-1);
 				}
-			}
+			},
 		);
 	}
 
@@ -2820,7 +2818,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 				imageMetadata: null,
 				isDataLoaded: isDataLoaded,
 			},
-			() => this.props.onClickHome()
+			() => this.props.onClickHome(),
 		);
 	}
 
@@ -2905,7 +2903,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			elementData,
 			this.handleCompleteSaveComponent,
 			this.state.validationTier,
-			isTemplate
+			isTemplate,
 		);
 	}
 
@@ -2941,7 +2939,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 			this.props.saveAllComponents(
 				elementData,
 				this.handleCompleteSaveAllComponents,
-				this.state.validationTier
+				this.state.validationTier,
 			);
 			return;
 		} else if (lowerCaseItem.includes("as new")) {
@@ -3004,7 +3002,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 		this.setState({ originalSetting: setting });
 	}
-
 
 	handleCompleteSave(name) {
 		//console.log(micName + " saved");
@@ -3126,6 +3123,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							// is4DNPortal={this.state.is4DNPortal}
 							hasSettings={this.props.hasSettings}
 							isDebug={this.props.isDebug}
+							onClickParentHome={
+								isDefined(this.props.onClickHome)
+									? this.onClickParentHome
+									: null
+							}
 						/>
 					</MicroMetaAppReactContainer>
 				);
@@ -3260,6 +3262,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						onClickHome={this.onClickHome}
 						isDebug={this.props.isDebug}
 						isHardware={this.state.isCreatingNewMicroscope}
+						onClickParentHome={
+							isDefined(this.props.onClickHome) ? this.onClickParentHome : null
+						}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3327,6 +3332,11 @@ export default class MicroMetaAppReact extends React.PureComponent {
 							isImporter={true}
 							workingDirectory={this.props.workingDirectory}
 							homePath={this.props.homePath}
+							onClickParentHome={
+								isDefined(this.props.onClickHome)
+									? this.onClickParentHome
+									: null
+							}
 						/>
 					</MicroMetaAppReactContainer>
 				);
@@ -3390,7 +3400,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 					let name = stand.name;
 					let modifiedCreateString = string_createFromScratch.replace(
 						"#",
-						name
+						name,
 					);
 					creatingOptions.push(modifiedCreateString);
 				}
@@ -3455,6 +3465,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						isDebug={this.props.isDebug}
 						workingDirectory={this.props.workingDirectory}
 						homePath={this.props.homePath}
+						onClickParentHome={
+							isDefined(this.props.onClickHome) ? this.onClickParentHome : null
+						}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3594,6 +3607,9 @@ export default class MicroMetaAppReact extends React.PureComponent {
 						//hasMetadataLoader={hasMetadataLoader}
 						onLoadMetadata={this.props.onLoadMetadata}
 						imageName={this.props.imageName}
+						onClickParentHome={
+							isDefined(this.props.onClickHome) ? this.onClickParentHome : null
+						}
 					/>
 				</MicroMetaAppReactContainer>
 			);
@@ -3790,7 +3806,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								//backgroundImage={`${imagesPath}${microscopeSchema.image}`}
 								backgroundImage={url.resolve(
 									imagesPathSVG,
-									microscopeStandSchema.image
+									microscopeStandSchema.image,
 								)}
 								updateElementData={this.updateElementData}
 								updateLinkedFields={this.updateLinkedFields}
@@ -3860,7 +3876,7 @@ export default class MicroMetaAppReact extends React.PureComponent {
 								linkedFields={linkedFields}
 								backgroundImage={url.resolve(
 									imagesPathSVG,
-									microscopeStandSchema.image
+									microscopeStandSchema.image,
 								)}
 								updateElementData={this.updateElementData}
 								updateLinkedFields={this.updateLinkedFields}
@@ -3999,10 +4015,10 @@ MicroMetaAppReact.defaultProps = {
 	},
 	onLoadSettings: function (complete, resolve) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
-		setTimeout(function () {
+		(setTimeout(function () {
 			complete(null, resolve);
 		}),
-			1000;
+			1000);
 	},
 	onSaveMicroscope: function (microscope, complete) {
 		// Do some stuff... show pane for people to browse/select schema.. etc.
@@ -4061,14 +4077,14 @@ const createApi = function api(context) {
 				schemas,
 				checkForMicroscopeStand,
 				checkForModelVersion,
-				checkForAppVersion
+				checkForAppVersion,
 			) {
 				return validateMicroscope(
 					microscope,
 					schemas,
 					checkForMicroscopeStand,
 					checkForModelVersion,
-					checkForAppVersion
+					checkForAppVersion,
 				);
 			},
 
