@@ -19,9 +19,9 @@ export const string_maxNumberOf_identifier = "Max_Number_Of_";
 
 export const string_json_ext = ".json";
 
-export const string_logo_img_no_bk = "MicroMetaApp_noBkg_noOutline_3.png"; //"MicroMetaApp_noBkg_noOutline.png";
+export const string_logo_img_no_bk = "MicroMetaApp_noBkg_4.png"; //"MicroMetaApp_noBkg_noOutline.png";
 export const string_logo_img_cell_bk = "MicroMetaApp_cellBkg.png";
-export const string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_4.png"; //"MicroMetaApp_TESMBkg_2.png";
+export const string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_5.png"; //"MicroMetaApp_TESMBkg_2.png";
 
 export const string_globe_solid_img = "globe-solid.svg";
 export const string_plus_solid_img = "plus-solid.svg";
@@ -40,6 +40,7 @@ export const string_manage_hardware_circle_img = "hardware-large-circle.svg";
 export const string_manage_settings_circle_img = "settings-large-circle.svg";
 export const string_help_img = "question-mark-small.svg";
 export const string_about_img = "about-solid.svg";
+export const string_func_selector_img = "functionality_selector.svg";
 
 export const string_copy_img = "copy-solid.svg";
 export const string_paste_img = "paste-solid.svg";
@@ -694,7 +695,7 @@ export const back_tooltip = {
 	position: "left",
 };
 
-export const component_selector_tooltip = {
+export const func_selector_tooltip = {
 	title: "Functionality Selector",
 	content: (
 		<p>Return to the Micro-Meta App versus Explorer selection window.</p>
@@ -703,7 +704,7 @@ export const component_selector_tooltip = {
 };
 
 export const home_tooltip = {
-	title: "Home",
+	title: "Micro-Meta App Home",
 	content: <p>Return to the initial window of Micro-Meta App.</p>,
 	position: "top",
 };
