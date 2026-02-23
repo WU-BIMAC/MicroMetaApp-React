@@ -4,81 +4,32 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
 var _react = _interopRequireDefault(require("react"));
-
 var _reactDom = _interopRequireDefault(require("react-dom"));
-
 var _reactTabs = require("react-tabs");
-
 require("react-tabs/style/react-tabs.css");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
-  _inherits(ComponentsLoadingModal, _React$PureComponent);
-
-  var _super = _createSuper(ComponentsLoadingModal);
-
-  function ComponentsLoadingModal(props) {
-    var _this;
-
-    _classCallCheck(this, ComponentsLoadingModal);
-
-    _this = _super.call(this, props);
-
-    _defineProperty(_assertThisInitialized(_this), "handleComponentClick", function (component) {
-      _this.setState({
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == typeof i ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != typeof i) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+class ComponentsLoadingModal extends _react.default.PureComponent {
+  constructor(props) {
+    super(props);
+    _defineProperty(this, "handleComponentClick", component => {
+      this.setState({
         selectedComponent: component
       });
     });
-
-    _defineProperty(_assertThisInitialized(_this), "handleSubmit", function () {
-      var selectedComponent = _this.state.selectedComponent;
-      var _this$props = _this.props,
-          onClose = _this$props.onClose,
-          onLoadComponent = _this$props.onLoadComponent;
-
+    _defineProperty(this, "handleSubmit", () => {
+      const {
+        selectedComponent
+      } = this.state;
+      const {
+        onClose,
+        onLoadComponent
+      } = this.props;
       if (selectedComponent) {
         onLoadComponent(selectedComponent);
         onClose();
@@ -86,244 +37,236 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
         alert("Please select a component to load.");
       }
     });
-
-    _defineProperty(_assertThisInitialized(_this), "toggleManufacturer", function (manufacturer) {
-      _this.setState(function (prevState) {
-        var expanded = new Set(prevState.expandedManufacturers);
+    _defineProperty(this, "toggleManufacturer", manufacturer => {
+      this.setState(prevState => {
+        const expanded = new Set(prevState.expandedManufacturers);
         if (expanded.has(manufacturer)) expanded.delete(manufacturer);else expanded.add(manufacturer);
         return {
           expandedManufacturers: expanded
         };
       });
     });
-
-    _defineProperty(_assertThisInitialized(_this), "toggleModel", function (manufacturer, model) {
-      var key = "".concat(manufacturer, "|").concat(model);
-
-      _this.setState(function (prevState) {
-        var expanded = new Set(prevState.expandedModels);
+    _defineProperty(this, "toggleModel", (manufacturer, model) => {
+      const key = "".concat(manufacturer, "|").concat(model);
+      this.setState(prevState => {
+        const expanded = new Set(prevState.expandedModels);
         if (expanded.has(key)) expanded.delete(key);else expanded.add(key);
         return {
           expandedModels: expanded
         };
       });
     });
-
-    _this.state = {
+    this.state = {
       selectedComponent: null,
       expandedManufacturers: new Set(),
       expandedModels: new Set()
     };
-    return _this;
   }
-
-  _createClass(ComponentsLoadingModal, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var expandedManufacturers = new Set(Object.keys(this.props.components));
-      var expandedModels = new Set();
-      Object.entries(this.props.components).forEach(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            manufacturer = _ref2[0],
-            models = _ref2[1];
-
-        Object.keys(models).forEach(function (model) {
-          expandedModels.add("".concat(manufacturer, "|").concat(model));
-        });
+  componentDidMount() {
+    const expandedManufacturers = new Set(Object.keys(this.props.components));
+    const expandedModels = new Set();
+    Object.entries(this.props.components).forEach(_ref => {
+      let [manufacturer, models] = _ref;
+      Object.keys(models).forEach(model => {
+        expandedModels.add("".concat(manufacturer, "|").concat(model));
       });
-      this.setState({
-        expandedManufacturers: expandedManufacturers,
-        expandedModels: expandedModels
-      });
+    });
+    this.setState({
+      expandedManufacturers,
+      expandedModels
+    });
+  }
+  trimMicroscopeName(name) {
+    if (typeof name !== "string") return name;
+    const underscores = [];
+    for (let i = name.length - 1; i >= 0; i--) {
+      if (name[i] === "_") underscores.push(i);
+      if (underscores.length === 2) break;
     }
-  }, {
-    key: "trimMicroscopeName",
-    value: function trimMicroscopeName(name) {
-      if (typeof name !== "string") return name;
-      var underscores = [];
-
-      for (var i = name.length - 1; i >= 0; i--) {
-        if (name[i] === "_") underscores.push(i);
-        if (underscores.length === 2) break;
-      }
-
-      if (underscores.length < 2) return name;
-      return name.slice(underscores[1] + 1);
-    }
-  }, {
-    key: "findTreeKeyForComponent",
-    value: function findTreeKeyForComponent(selectedComponent, components) {
-      for (var _i2 = 0, _Object$entries = Object.entries(components); _i2 < _Object$entries.length; _i2++) {
-        var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
-            manufacturer = _Object$entries$_i[0],
-            models = _Object$entries$_i[1];
-
-        for (var _i3 = 0, _Object$entries2 = Object.entries(models); _i3 < _Object$entries2.length; _i3++) {
-          var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i3], 2),
-              model = _Object$entries2$_i[0],
-              entries = _Object$entries2$_i[1];
-
-          for (var _i4 = 0, _Object$entries3 = Object.entries(entries); _i4 < _Object$entries3.length; _i4++) {
-            var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i4], 2),
-                entryKey = _Object$entries3$_i[0],
-                entryObj = _Object$entries3$_i[1];
-
-            if (entryObj.component === selectedComponent) {
-              return "".concat(manufacturer, "|").concat(model, "|").concat(entryKey);
-            }
+    if (underscores.length < 2) return name;
+    return name.slice(underscores[1] + 1);
+  }
+  findTreeKeyForComponent(selectedComponent, components) {
+    for (const [manufacturer, models] of Object.entries(components)) {
+      for (const [model, entries] of Object.entries(models)) {
+        for (const [entryKey, entryObj] of Object.entries(entries)) {
+          if (entryObj.component === selectedComponent) {
+            return "".concat(manufacturer, "|").concat(model, "|").concat(entryKey);
           }
         }
       }
-
-      return '';
     }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var _this$props2 = this.props,
-          components = _this$props2.components,
-          onClose = _this$props2.onClose,
-          schema = _this$props2.schema,
-          inputData = _this$props2.inputData;
-      var selectedComponent = this.state.selectedComponent;
-      var filteredInputData = {};
-      Object.entries(inputData || {}).forEach(function (_ref3) {
-        var _ref4 = _slicedToArray(_ref3, 2),
-            key = _ref4[0],
-            value = _ref4[1];
-
-        if (!Array.isArray(value)) {
-          filteredInputData[key] = value;
+    return '';
+  }
+  render() {
+    const {
+      components,
+      onClose,
+      schema,
+      inputData
+    } = this.props;
+    const {
+      selectedComponent
+    } = this.state;
+    const filteredInputData = {};
+    Object.entries(inputData || {}).forEach(_ref2 => {
+      let [key, value] = _ref2;
+      if (!Array.isArray(value)) {
+        filteredInputData[key] = value;
+      }
+    });
+    const mergedData = _objectSpread(_objectSpread({}, filteredInputData), selectedComponent);
+    const categoryMap = {};
+    const arrayCategories = {};
+    const allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {});
+    allKeys.forEach(key => {
+      const prop = schema.properties[key];
+      if (!prop) return;
+      const category = prop.category || "General";
+      if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
+        let elements = mergedData[key];
+        if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
+          elements = elements[0];
         }
-      });
-
-      var mergedData = _objectSpread(_objectSpread({}, filteredInputData), selectedComponent);
-
-      var categoryMap = {};
-      var arrayCategories = {};
-      var allKeys = Object.keys((schema === null || schema === void 0 ? void 0 : schema.properties) || {});
-      allKeys.forEach(function (key) {
-        var prop = schema.properties[key];
-        if (!prop) return;
-        var category = prop.category || "General";
-
-        if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
-          var elements = mergedData[key];
-
-          if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
-            elements = elements[0];
-          }
-
-          if (!Array.isArray(elements) && _typeof(elements) === "object" && elements !== null) {
-            elements = Object.values(elements);
-          }
-
-          arrayCategories[key] = {
-            itemSchema: prop.items,
-            elements: elements
-          };
-        } else {
-          // Only include ID if selectedComponent has it
-          if (key === "ID" && (!selectedComponent || selectedComponent.ID === undefined)) {
-            return;
-          }
-
-          if (!categoryMap[category]) categoryMap[category] = [];
-          categoryMap[category].push(key);
+        if (!Array.isArray(elements) && typeof elements === "object" && elements !== null) {
+          elements = Object.values(elements);
         }
-      }); // const allKeys = Object.keys(schema?.properties || {}).filter(
-      //     (key) => key !== "ID"
-      // );
-      // allKeys.forEach(key => {
-      //     const prop = schema.properties[key];
-      //     if (!prop) return;
-      //     const category = prop.category || "General";
-      //     if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
-      //         let elements = mergedData[key];
-      //         if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
-      //             elements = elements[0];
-      //         }
-      //         if (!Array.isArray(elements) && typeof elements === "object" && elements !== null) {
-      //             elements = Object.values(elements);
-      //         }
-      //         arrayCategories[key] = {
-      //             itemSchema: prop.items,
-      //             elements
-      //         };
-      //     } else {
-      //         if (!categoryMap[category]) categoryMap[category] = [];
-      //         categoryMap[category].push(key);
-      //     }
-      // });
+        arrayCategories[key] = {
+          itemSchema: prop.items,
+          elements
+        };
+      } else {
+        // Only include ID if selectedComponent has it
+        if (key === "ID" && (!selectedComponent || selectedComponent.ID === undefined)) {
+          return;
+        }
+        if (!categoryMap[category]) categoryMap[category] = [];
+        categoryMap[category].push(key);
+      }
+    });
 
-      var tabOrder = Array.isArray(schema === null || schema === void 0 ? void 0 : schema.subCategoriesOrder) ? schema.subCategoriesOrder : Object.keys(categoryMap).sort();
-      return /*#__PURE__*/_reactDom.default.createPortal( /*#__PURE__*/_react.default.createElement("div", {
-        className: "modal-overlay",
+    // const allKeys = Object.keys(schema?.properties || {}).filter(
+    //     (key) => key !== "ID"
+    // );
+
+    // allKeys.forEach(key => {
+    //     const prop = schema.properties[key];
+    //     if (!prop) return;
+    //     const category = prop.category || "General";
+
+    //     if (selectedComponent != null && prop && prop.type === "array" && mergedData[key] !== undefined) {
+    //         let elements = mergedData[key];
+
+    //         if (Array.isArray(elements) && elements.length === 1 && Array.isArray(elements[0])) {
+    //             elements = elements[0];
+    //         }
+
+    //         if (!Array.isArray(elements) && typeof elements === "object" && elements !== null) {
+    //             elements = Object.values(elements);
+    //         }
+
+    //         arrayCategories[key] = {
+    //             itemSchema: prop.items,
+    //             elements
+    //         };
+    //     } else {
+    //         if (!categoryMap[category]) categoryMap[category] = [];
+    //         categoryMap[category].push(key);
+    //     }
+    // });
+
+    const tabOrder = Array.isArray(schema === null || schema === void 0 ? void 0 : schema.subCategoriesOrder) ? schema.subCategoriesOrder : Object.keys(categoryMap).sort();
+    return /*#__PURE__*/_reactDom.default.createPortal(/*#__PURE__*/_react.default.createElement("div", {
+      className: "modal-overlay",
+      style: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1001
+      }
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      className: "modal-content",
+      style: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 8,
+        maxWidth: '90vw',
+        maxHeight: '90vh',
+        overflow: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '75%',
+        height: '75%'
+      }
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        justifyContent: 'space-between'
+      }
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'row',
+        height: '100%'
+      }
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        width: '30%',
+        paddingRight: 10,
+        borderRight: '1px solid #ccc',
+        overflowY: 'auto',
+        wordBreak: 'break-word'
+      }
+    }, /*#__PURE__*/_react.default.createElement("h4", null, "List"), /*#__PURE__*/_react.default.createElement("ul", {
+      style: {
+        listStyleType: 'none',
+        padding: 0
+      }
+    }, Object.entries(components).map(_ref3 => {
+      let [manufacturer, models] = _ref3;
+      const isManuExpanded = this.state.expandedManufacturers.has(manufacturer);
+      return /*#__PURE__*/_react.default.createElement("li", {
+        key: manufacturer,
         style: {
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1001
+          marginBottom: 4
         }
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        className: "modal-content",
+      }, /*#__PURE__*/_react.default.createElement("span", {
         style: {
-          backgroundColor: 'white',
-          padding: 20,
-          borderRadius: 8,
-          maxWidth: '90vw',
-          maxHeight: '90vh',
-          overflow: 'auto',
-          display: 'flex',
-          flexDirection: 'column',
-          width: '75%',
-          height: '75%'
-        }
-      }, /*#__PURE__*/_react.default.createElement("div", {
+          cursor: 'pointer',
+          userSelect: 'none',
+          marginRight: 4
+        },
+        onClick: () => this.toggleManufacturer(manufacturer),
+        title: isManuExpanded ? "Collapse" : "Expand"
+      }, isManuExpanded ? '▼' : '▶'), /*#__PURE__*/_react.default.createElement("strong", {
         style: {
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-          justifyContent: 'space-between'
+          wordBreak: 'break-word',
+          whiteSpace: 'normal',
+          overflowWrap: 'anywhere',
+          // display: 'inline-block',
+          maxWidth: '85%'
         }
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: {
-          display: 'flex',
-          flexDirection: 'row',
-          height: '100%'
-        }
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: {
-          width: '30%',
-          paddingRight: 10,
-          borderRight: '1px solid #ccc',
-          overflowY: 'auto',
-          wordBreak: 'break-word'
-        }
-      }, /*#__PURE__*/_react.default.createElement("h4", null, "List"), /*#__PURE__*/_react.default.createElement("ul", {
+      }, manufacturer), isManuExpanded && /*#__PURE__*/_react.default.createElement("ul", {
         style: {
           listStyleType: 'none',
-          padding: 0
+          paddingLeft: 18
         }
-      }, Object.entries(components).map(function (_ref5) {
-        var _ref6 = _slicedToArray(_ref5, 2),
-            manufacturer = _ref6[0],
-            models = _ref6[1];
-
-        var isManuExpanded = _this2.state.expandedManufacturers.has(manufacturer);
-
+      }, Object.entries(models).map(_ref4 => {
+        let [model, entries] = _ref4;
+        const modelKey = "".concat(manufacturer, "|").concat(model);
+        const isModelExpanded = this.state.expandedModels.has(modelKey);
         return /*#__PURE__*/_react.default.createElement("li", {
-          key: manufacturer,
+          key: model,
           style: {
-            marginBottom: 4
+            marginBottom: 2
           }
         }, /*#__PURE__*/_react.default.createElement("span", {
           style: {
@@ -331,242 +274,182 @@ var ComponentsLoadingModal = /*#__PURE__*/function (_React$PureComponent) {
             userSelect: 'none',
             marginRight: 4
           },
-          onClick: function onClick() {
-            return _this2.toggleManufacturer(manufacturer);
-          },
-          title: isManuExpanded ? "Collapse" : "Expand"
-        }, isManuExpanded ? '▼' : '▶'), /*#__PURE__*/_react.default.createElement("strong", {
+          onClick: () => this.toggleModel(manufacturer, model),
+          title: isModelExpanded ? "Collapse" : "Expand"
+        }, isModelExpanded ? '▼' : '▶'), /*#__PURE__*/_react.default.createElement("em", {
           style: {
             wordBreak: 'break-word',
             whiteSpace: 'normal',
             overflowWrap: 'anywhere',
             // display: 'inline-block',
-            maxWidth: '85%'
+            maxWidth: '80%'
           }
-        }, manufacturer), isManuExpanded && /*#__PURE__*/_react.default.createElement("ul", {
+        }, model), isModelExpanded && /*#__PURE__*/_react.default.createElement("ul", {
           style: {
             listStyleType: 'none',
             paddingLeft: 18
           }
-        }, Object.entries(models).map(function (_ref7) {
-          var _ref8 = _slicedToArray(_ref7, 2),
-              model = _ref8[0],
-              entries = _ref8[1];
-
-          var modelKey = "".concat(manufacturer, "|").concat(model);
-
-          var isModelExpanded = _this2.state.expandedModels.has(modelKey);
-
+        }, Object.entries(entries).map(_ref5 => {
+          let [entryKey, entryObj] = _ref5;
+          const comp = entryObj.component;
+          const isSelected = selectedComponent === comp;
           return /*#__PURE__*/_react.default.createElement("li", {
-            key: model,
+            key: entryKey,
             style: {
-              marginBottom: 2
-            }
-          }, /*#__PURE__*/_react.default.createElement("span", {
-            style: {
+              padding: '3px 0',
               cursor: 'pointer',
-              userSelect: 'none',
-              marginRight: 4
-            },
-            onClick: function onClick() {
-              return _this2.toggleModel(manufacturer, model);
-            },
-            title: isModelExpanded ? "Collapse" : "Expand"
-          }, isModelExpanded ? '▼' : '▶'), /*#__PURE__*/_react.default.createElement("em", {
-            style: {
+              fontWeight: isSelected ? 'bold' : 'normal',
+              color: isSelected ? '#007BFF' : 'black',
               wordBreak: 'break-word',
               whiteSpace: 'normal',
               overflowWrap: 'anywhere',
               // display: 'inline-block',
-              maxWidth: '80%'
-            }
-          }, model), isModelExpanded && /*#__PURE__*/_react.default.createElement("ul", {
-            style: {
-              listStyleType: 'none',
-              paddingLeft: 18
-            }
-          }, Object.entries(entries).map(function (_ref9) {
-            var _ref10 = _slicedToArray(_ref9, 2),
-                entryKey = _ref10[0],
-                entryObj = _ref10[1];
-
-            var comp = entryObj.component;
-            var isSelected = selectedComponent === comp;
-            return /*#__PURE__*/_react.default.createElement("li", {
-              key: entryKey,
-              style: {
-                padding: '3px 0',
-                cursor: 'pointer',
-                fontWeight: isSelected ? 'bold' : 'normal',
-                color: isSelected ? '#007BFF' : 'black',
-                wordBreak: 'break-word',
-                whiteSpace: 'normal',
-                overflowWrap: 'anywhere',
-                // display: 'inline-block',
-                maxWidth: '95%'
-              },
-              onClick: function onClick() {
-                return _this2.handleComponentClick(comp);
-              }
-            }, _this2.trimMicroscopeName(comp.Name) || entryKey);
-          })));
+              maxWidth: '95%'
+            },
+            onClick: () => this.handleComponentClick(comp)
+          }, this.trimMicroscopeName(comp.Name) || entryKey);
         })));
-      }))), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs, {
+      })));
+    }))), /*#__PURE__*/_react.default.createElement(_reactTabs.Tabs, {
+      style: {
+        flex: 1
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactTabs.TabList, null, tabOrder.map(category => /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
+      key: category
+    }, category)), Object.entries(arrayCategories).map(_ref6 => {
+      let [fieldName, {
+        itemSchema,
+        elements
+      }] = _ref6;
+      return elements.map((_, index) => /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
+        key: "".concat(fieldName, "_").concat(index)
+      }, "".concat(fieldName, "_").concat(index)));
+    })), tabOrder.map(category => {
+      var _categoryMap$category;
+      return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
+        key: category
+      }, selectedComponent ? /*#__PURE__*/_react.default.createElement("div", {
         style: {
-          flex: 1
+          padding: '10px 0',
+          overflowY: 'auto'
         }
-      }, /*#__PURE__*/_react.default.createElement(_reactTabs.TabList, null, tabOrder.map(function (category) {
-        return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
-          key: category
-        }, category);
-      }), Object.entries(arrayCategories).map(function (_ref11) {
-        var _ref12 = _slicedToArray(_ref11, 2),
-            fieldName = _ref12[0],
-            _ref12$ = _ref12[1],
-            itemSchema = _ref12$.itemSchema,
-            elements = _ref12$.elements;
-
-        return elements.map(function (_, index) {
-          return /*#__PURE__*/_react.default.createElement(_reactTabs.Tab, {
-            key: "".concat(fieldName, "_").concat(index)
-          }, "".concat(fieldName, "_").concat(index));
-        });
-      })), tabOrder.map(function (category) {
-        var _categoryMap$category;
-
-        return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
-          key: category
-        }, selectedComponent ? /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement("table", {
+        style: {
+          width: '100%',
+          borderCollapse: 'collapse'
+        }
+      }, /*#__PURE__*/_react.default.createElement("tbody", null, (_categoryMap$category = categoryMap[category]) === null || _categoryMap$category === void 0 ? void 0 : _categoryMap$category.map(key => {
+        var _mergedData$key;
+        const prop = schema.properties[key];
+        return /*#__PURE__*/_react.default.createElement("tr", {
+          key: key,
           style: {
-            padding: '10px 0',
-            overflowY: 'auto'
+            borderBottom: '1px solid #eee'
           }
-        }, /*#__PURE__*/_react.default.createElement("table", {
+        }, /*#__PURE__*/_react.default.createElement("td", {
           style: {
-            width: '100%',
-            borderCollapse: 'collapse'
+            padding: '8px',
+            fontWeight: 500,
+            width: '40%',
+            verticalAlign: 'top',
+            wordBreak: 'break-word'
           }
-        }, /*#__PURE__*/_react.default.createElement("tbody", null, (_categoryMap$category = categoryMap[category]) === null || _categoryMap$category === void 0 ? void 0 : _categoryMap$category.map(function (key) {
-          var _mergedData$key;
-
-          var prop = schema.properties[key];
-          return /*#__PURE__*/_react.default.createElement("tr", {
-            key: key,
-            style: {
-              borderBottom: '1px solid #eee'
-            }
-          }, /*#__PURE__*/_react.default.createElement("td", {
-            style: {
-              padding: '8px',
-              fontWeight: 500,
-              width: '40%',
-              verticalAlign: 'top',
-              wordBreak: 'break-word'
-            }
-          }, prop.description ? /*#__PURE__*/_react.default.createElement("span", {
-            title: prop.description
-          }, key) : key), /*#__PURE__*/_react.default.createElement("td", {
-            style: {
-              padding: '8px',
-              width: '60%',
-              wordBreak: 'break-word'
-            }
-          }, ((_mergedData$key = mergedData[key]) === null || _mergedData$key === void 0 ? void 0 : _mergedData$key.toString()) || 'N/A'));
-        })))) : /*#__PURE__*/_react.default.createElement("p", {
+        }, prop.description ? /*#__PURE__*/_react.default.createElement("span", {
+          title: prop.description
+        }, key) : key), /*#__PURE__*/_react.default.createElement("td", {
           style: {
-            paddingLeft: '10px'
+            padding: '8px',
+            width: '60%',
+            wordBreak: 'break-word'
           }
-        }, "Select a component to view its details."));
-      }), Object.entries(arrayCategories).map(function (_ref13) {
-        var _ref14 = _slicedToArray(_ref13, 2),
-            fieldName = _ref14[0],
-            _ref14$ = _ref14[1],
-            itemSchema = _ref14$.itemSchema,
-            elements = _ref14$.elements;
-
-        return elements.map(function (element, index) {
-          return /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
-            key: "".concat(fieldName, "_").concat(index)
-          }, selectedComponent ? /*#__PURE__*/_react.default.createElement("div", {
-            style: {
-              padding: '10px 0'
-            }
-          }, /*#__PURE__*/_react.default.createElement("table", {
-            style: {
-              width: '100%',
-              borderCollapse: 'collapse'
-            }
-          }, /*#__PURE__*/_react.default.createElement("tbody", null, Object.keys(element).map(function (key) {
-            var prop = (itemSchema.properties || {})[key] || {};
-            return /*#__PURE__*/_react.default.createElement("tr", {
-              key: key,
-              style: {
-                borderBottom: '1px solid #eee'
-              }
-            }, /*#__PURE__*/_react.default.createElement("td", {
-              style: {
-                padding: '8px',
-                fontWeight: 500,
-                width: '40%'
-              }
-            }, prop.description ? /*#__PURE__*/_react.default.createElement("span", {
-              title: prop.description
-            }, key) : key), /*#__PURE__*/_react.default.createElement("td", {
-              style: {
-                padding: '8px',
-                width: '60%',
-                wordBreak: 'break-word'
-              }
-            }, element[key] !== undefined && element[key] !== null ? element[key].toString() : 'N/A'));
-          })))) : /*#__PURE__*/_react.default.createElement("p", {
-            style: {
-              paddingLeft: '10px'
-            }
-          }, "Select a component to view its details."));
-        });
-      }))), /*#__PURE__*/_react.default.createElement("div", {
+        }, ((_mergedData$key = mergedData[key]) === null || _mergedData$key === void 0 ? void 0 : _mergedData$key.toString()) || 'N/A'));
+      })))) : /*#__PURE__*/_react.default.createElement("p", {
         style: {
-          display: 'flex',
-          justifyContent: 'flex-end',
-          marginTop: 15
+          paddingLeft: '10px'
         }
-      }, /*#__PURE__*/_react.default.createElement("button", {
-        onClick: onClose,
+      }, "Select a component to view its details."));
+    }), Object.entries(arrayCategories).map(_ref7 => {
+      let [fieldName, {
+        itemSchema,
+        elements
+      }] = _ref7;
+      return elements.map((element, index) => /*#__PURE__*/_react.default.createElement(_reactTabs.TabPanel, {
+        key: "".concat(fieldName, "_").concat(index)
+      }, selectedComponent ? /*#__PURE__*/_react.default.createElement("div", {
         style: {
-          height: "36px",
-          fontSize: "16px",
-          fontWeight: 500,
-          backgroundColor: "#FFFFFF",
-          color: "#030303",
-          border: "1px solid #ddd",
-          paddingRight: "16px",
-          paddingLeft: "16px",
-          boxShadow: "none",
-          borderRadius: "4px",
-          cursor: "pointer",
-          marginRight: "8px"
+          padding: '10px 0'
         }
-      }, "Close"), /*#__PURE__*/_react.default.createElement("button", {
-        onClick: this.handleSubmit,
-        disabled: !selectedComponent,
+      }, /*#__PURE__*/_react.default.createElement("table", {
         style: {
-          height: "36px",
-          fontSize: "16px",
-          fontWeight: 500,
-          backgroundColor: "#4099AB",
-          color: "#FFFFFF",
-          border: "1px solid #7ab8c4",
-          paddingRight: "18px",
-          paddingLeft: "18px",
-          borderRadius: "4px",
-          boxShadow: "none",
-          opacity: selectedComponent ? 1 : 0.6
+          width: '100%',
+          borderCollapse: 'collapse'
         }
-      }, "Submit"))))), this.props.overlaysContainer);
-    }
-  }]);
-
-  return ComponentsLoadingModal;
-}(_react.default.PureComponent);
-
+      }, /*#__PURE__*/_react.default.createElement("tbody", null, Object.keys(element).map(key => {
+        const prop = (itemSchema.properties || {})[key] || {};
+        return /*#__PURE__*/_react.default.createElement("tr", {
+          key: key,
+          style: {
+            borderBottom: '1px solid #eee'
+          }
+        }, /*#__PURE__*/_react.default.createElement("td", {
+          style: {
+            padding: '8px',
+            fontWeight: 500,
+            width: '40%'
+          }
+        }, prop.description ? /*#__PURE__*/_react.default.createElement("span", {
+          title: prop.description
+        }, key) : key), /*#__PURE__*/_react.default.createElement("td", {
+          style: {
+            padding: '8px',
+            width: '60%',
+            wordBreak: 'break-word'
+          }
+        }, element[key] !== undefined && element[key] !== null ? element[key].toString() : 'N/A'));
+      })))) : /*#__PURE__*/_react.default.createElement("p", {
+        style: {
+          paddingLeft: '10px'
+        }
+      }, "Select a component to view its details.")));
+    }))), /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        marginTop: 15
+      }
+    }, /*#__PURE__*/_react.default.createElement("button", {
+      onClick: onClose,
+      style: {
+        height: "36px",
+        fontSize: "16px",
+        fontWeight: 500,
+        backgroundColor: "#FFFFFF",
+        color: "#030303",
+        border: "1px solid #ddd",
+        paddingRight: "16px",
+        paddingLeft: "16px",
+        boxShadow: "none",
+        borderRadius: "4px",
+        cursor: "pointer",
+        marginRight: "8px"
+      }
+    }, "Close"), /*#__PURE__*/_react.default.createElement("button", {
+      onClick: this.handleSubmit,
+      disabled: !selectedComponent,
+      style: {
+        height: "36px",
+        fontSize: "16px",
+        fontWeight: 500,
+        backgroundColor: "#4099AB",
+        color: "#FFFFFF",
+        border: "1px solid #7ab8c4",
+        paddingRight: "18px",
+        paddingLeft: "18px",
+        borderRadius: "4px",
+        boxShadow: "none",
+        opacity: selectedComponent ? 1 : 0.6
+      }
+    }, "Submit"))))), this.props.overlaysContainer);
+  }
+}
 exports.default = ComponentsLoadingModal;

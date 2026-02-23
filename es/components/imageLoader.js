@@ -1,62 +1,22 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
 var _react = _interopRequireDefault(require("react"));
-
 var _ButtonToolbar = _interopRequireDefault(require("react-bootstrap/ButtonToolbar"));
-
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
 var _reactDropzone = _interopRequireDefault(require("react-dropzone"));
-
 var _dropdownMenu = _interopRequireDefault(require("./dropdownMenu"));
-
 var _popoverTooltip = _interopRequireDefault(require("./popoverTooltip"));
-
 var _constants = require("../constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-var url = require("url");
-
-var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
-  _inherits(ImageLoader, _React$PureComponent);
-
-  var _super = _createSuper(ImageLoader);
-
-  function ImageLoader(props) {
-    var _this;
-
-    _classCallCheck(this, ImageLoader);
-
-    _this = _super.call(this, props);
-    _this.state = {
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const url = require("url");
+class ImageLoader extends _react.default.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
       fileLoaded: false,
       fileLoading: false,
       //selectedManu: null,
@@ -64,282 +24,255 @@ var ImageLoader = /*#__PURE__*/function (_React$PureComponent) {
       //settingsNames: null,
       imageMap: null
     };
-    _this.dropzoneDropAccepted = _this.dropzoneDropAccepted.bind(_assertThisInitialized(_this));
-    _this.dropzoneDropRejected = _this.dropzoneDropRejected.bind(_assertThisInitialized(_this));
-    _this.dropzoneDrop = _this.dropzoneDrop.bind(_assertThisInitialized(_this));
-    _this.dropzoneDialogOpen = _this.dropzoneDialogOpen.bind(_assertThisInitialized(_this));
-    _this.dropzoneDialogCancel = _this.dropzoneDialogCancel.bind(_assertThisInitialized(_this));
-    _this.handleLoadMetadataComplete = _this.handleLoadMetadataComplete.bind(_assertThisInitialized(_this));
-    _this.handleImageSelection = _this.handleImageSelection.bind(_assertThisInitialized(_this)); // this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
+    this.dropzoneDropAccepted = this.dropzoneDropAccepted.bind(this);
+    this.dropzoneDropRejected = this.dropzoneDropRejected.bind(this);
+    this.dropzoneDrop = this.dropzoneDrop.bind(this);
+    this.dropzoneDialogOpen = this.dropzoneDialogOpen.bind(this);
+    this.dropzoneDialogCancel = this.dropzoneDialogCancel.bind(this);
+    this.handleLoadMetadataComplete = this.handleLoadMetadataComplete.bind(this);
+    this.handleImageSelection = this.handleImageSelection.bind(this);
+
+    // this.onFileReaderAbort = this.onFileReaderAbort.bind(this);
     // this.onFileReaderError = this.onFileReaderError.bind(this);
     // this.onFileReaderLoad = this.onFileReaderLoad.bind(this);
+
     //this.onClickSettingsSelection = this.onClickSettingsSelection.bind(this);
-
-    return _this;
   }
-
-  _createClass(ImageLoader, [{
-    key: "handleImageSelection",
-    value: function handleImageSelection(item) {
-      var imageMap = this.state.imageMap;
-      var image = imageMap[item];
-      this.props.handleLoadMetadataComplete(image);
-    }
-  }, {
-    key: "handleLoadMetadataComplete",
-    value: function handleLoadMetadataComplete(imageMetadata) {
-      if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
-        window.alert("Error " + imageMetadata.Error);
-      } else if (imageMetadata.Images !== null && imageMetadata.Images !== undefined) {
-        var images = imageMetadata.Images;
-        var firstImage = null;
-        var imageMap = {};
-
-        for (var index in images) {
-          var image = images[index];
-          if (firstImage === null) firstImage = image;
-          var name = image.Name;
-          imageMap[name] = image;
-        }
-
-        this.props.handleLoadMetadataComplete(firstImage);
-        this.setState({
-          imageMap: imageMap,
-          fileLoaded: true
-        });
-      } else {
-        var _image = imageMetadata.Image;
-        this.props.handleLoadMetadataComplete(_image);
-        this.setState({
-          fileLoaded: true
-        });
+  static getDerivedStateFromProps(props, state) {
+    return null;
+  }
+  handleImageSelection(item) {
+    let imageMap = this.state.imageMap;
+    let image = imageMap[item];
+    this.props.handleLoadMetadataComplete(image);
+  }
+  handleLoadMetadataComplete(imageMetadata) {
+    if (imageMetadata.Error != null && imageMetadata.Error !== undefined) {
+      window.alert("Error " + imageMetadata.Error);
+    } else if (imageMetadata.Images !== null && imageMetadata.Images !== undefined) {
+      let images = imageMetadata.Images;
+      let firstImage = null;
+      let imageMap = {};
+      for (let index in images) {
+        let image = images[index];
+        if (firstImage === null) firstImage = image;
+        let name = image.Name;
+        imageMap[name] = image;
       }
-    }
-  }, {
-    key: "dropzoneDrop",
-    value: function dropzoneDrop() {
+      this.props.handleLoadMetadataComplete(firstImage);
       this.setState({
-        fileLoading: true,
-        fileLoaded: false
+        imageMap: imageMap,
+        fileLoaded: true
+      });
+    } else {
+      let image = imageMetadata.Image;
+      this.props.handleLoadMetadataComplete(image);
+      this.setState({
+        fileLoaded: true
       });
     }
-  }, {
-    key: "dropzoneDropRejected",
-    value: function dropzoneDropRejected() {
-      this.setState({
-        fileLoading: false,
-        fileLoaded: false
-      });
-    }
-  }, {
-    key: "processFile",
-    value: function processFile() {//let binaryStr = e.target.result;
-      //let microscope = JSON.parse(binaryStr);
-      //
-    }
-  }, {
-    key: "dropzoneDropAccepted",
-    value: function dropzoneDropAccepted(acceptedFiles) {
-      var _this2 = this;
+  }
+  dropzoneDrop() {
+    this.setState({
+      fileLoading: true,
+      fileLoaded: false
+    });
+  }
+  dropzoneDropRejected() {
+    this.setState({
+      fileLoading: false,
+      fileLoaded: false
+    });
+  }
+  processFile() {
+    //let binaryStr = e.target.result;
+    //let microscope = JSON.parse(binaryStr);
+    //
+  }
+  dropzoneDropAccepted(acceptedFiles) {
+    // const reader = new FileReader();
+    // reader.onabort = this.onFileReaderAbort;
+    // reader.onerror = this.onFileReaderError;
+    // reader.onload = this.onFileReaderLoad;
 
-      // const reader = new FileReader();
-      // reader.onabort = this.onFileReaderAbort;
-      // reader.onerror = this.onFileReaderError;
-      // reader.onload = this.onFileReaderLoad;
-      acceptedFiles.forEach(function (file) {
-        console.log(file);
+    acceptedFiles.forEach(file => {
+      console.log(file);
+      this.props.onLoadMetadata(file.path, this.handleLoadMetadataComplete);
+    });
+    this.setState({
+      fileLoading: false
+    });
+  }
+  dropzoneDialogOpen() {
+    this.setState({
+      fileLoading: true,
+      fileLoaded: false
+    });
+  }
+  dropzoneDialogCancel() {
+    this.setState({
+      fileLoading: false,
+      fileLoaded: false
+    });
+  }
+  render() {
+    const buttonStyle = {
+      width: "200px",
+      height: "50px",
+      padding: "5px",
+      margin: "5px"
+    };
+    const windowExternalContainer = {
+      display: "flex",
+      justifyContent: "center",
+      flexFlow: "column",
+      width: "100%",
+      height: "100%",
+      alignItems: "center"
+    };
+    const windowInternalContainer = {
+      display: "flex",
+      justifyContent: "center",
+      flexFlow: "column",
+      width: "100%",
+      height: "100%",
+      alignItems: "center"
+    };
+    let width = 410;
+    let margin = 5;
 
-        _this2.props.onLoadMetadata(file.path, _this2.handleLoadMetadataComplete);
-      });
-      this.setState({
-        fileLoading: false
-      });
-    }
-  }, {
-    key: "dropzoneDialogOpen",
-    value: function dropzoneDialogOpen() {
-      this.setState({
-        fileLoading: true,
-        fileLoaded: false
-      });
-    }
-  }, {
-    key: "dropzoneDialogCancel",
-    value: function dropzoneDialogCancel() {
-      this.setState({
-        fileLoading: false,
-        fileLoaded: false
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
+    //let inputData = this.props.settings;
 
-      var buttonStyle = {
-        width: "200px",
-        height: "50px",
-        padding: "5px",
-        margin: "5px"
-      };
-      var windowExternalContainer = {
-        display: "flex",
-        justifyContent: "center",
-        flexFlow: "column",
-        width: "100%",
-        height: "100%",
-        alignItems: "center"
-      };
-      var windowInternalContainer = {
-        display: "flex",
-        justifyContent: "center",
-        flexFlow: "column",
-        width: "100%",
-        height: "100%",
-        alignItems: "center"
-      };
-      var width = 410;
-      var margin = 5; //let inputData = this.props.settings;
-
-      var dropzoneStyle = {
-        borderStyle: "dashed",
-        borderWidth: "thin",
-        width: "".concat(width, "px")
-      };
-      var styleImageContainer = {
-        width: "".concat(_constants.number_logo_width, "px"),
-        height: "".concat(_constants.number_logo_height, "px")
-      };
-      var styleImage = {
-        width: "100%",
-        height: "100%",
-        margin: "auto"
-      };
-      var styleImageBk = {
-        width: "20px",
-        height: "20px",
-        marginLeft: "10px",
-        marginRight: "10px"
-      };
-      var imageMap = this.state.imageMap;
-      var loadingMode = this.props.loadingMode;
-      var fileLoading = this.state.fileLoading;
-      var fileLoaded = this.state.fileLoaded;
-      var isDropzoneActive = false;
-      if (loadingMode === 1) isDropzoneActive = true;
-      var list = [];
-      list.push( /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
-        key: "dropdown-loadingOption",
+    let dropzoneStyle = {
+      borderStyle: "dashed",
+      borderWidth: "thin",
+      width: "".concat(width, "px")
+    };
+    let styleImageContainer = {
+      width: "".concat(_constants.number_logo_width, "px"),
+      height: "".concat(_constants.number_logo_height, "px")
+    };
+    let styleImage = {
+      width: "100%",
+      height: "100%",
+      margin: "auto"
+    };
+    let styleImageBk = {
+      width: "20px",
+      height: "20px",
+      marginLeft: "10px",
+      marginRight: "10px"
+    };
+    let imageMap = this.state.imageMap;
+    let loadingMode = this.props.loadingMode;
+    let fileLoading = this.state.fileLoading;
+    let fileLoaded = this.state.fileLoaded;
+    let isDropzoneActive = false;
+    if (loadingMode === 1) isDropzoneActive = true;
+    let list = [];
+    list.push(/*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+      key: "dropdown-loadingOption",
+      title: "",
+      handleMenuItemClick: this.props.onClickLoadingOptionSelection,
+      defaultValue: this.props.loadingOptions.indexOf(this.props.loadingOption),
+      inputData: this.props.loadingOptions,
+      width: width,
+      margin: margin,
+      tooltip: _constants.loadImage_mode_selector_tooltip
+    }));
+    if (loadingMode === 1) {
+      list.push(/*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+        key: "dropzone-tooltip",
+        position: _constants.loadImage_from_file_tooltip.position,
+        title: _constants.loadImage_from_file_tooltip.title,
+        content: _constants.loadImage_from_file_tooltip.content,
+        element: /*#__PURE__*/_react.default.createElement(_reactDropzone.default, {
+          key: "dropzone",
+          onFileDialogCancel: this.dropzoneDialogCancel,
+          onDrop: this.dropzoneDrop,
+          onDropAccepted: this.dropzoneDropAccepted,
+          onDropRejected: this.dropzoneDropRejected,
+          multiple: false
+        }, _ref => {
+          let {
+            getRootProps,
+            getInputProps
+          } = _ref;
+          return /*#__PURE__*/_react.default.createElement("section", {
+            style: dropzoneStyle
+          }, /*#__PURE__*/_react.default.createElement("div", getRootProps(), /*#__PURE__*/_react.default.createElement("input", getInputProps({
+            onClick: this.dropzoneDialogOpen
+          })), /*#__PURE__*/_react.default.createElement("p", null, "Select an existing Image file you want to work on.")));
+        })
+      }));
+    }
+    if (imageMap !== null) {
+      list.push(/*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
+        key: "dropdown-names",
         title: "",
-        handleMenuItemClick: this.props.onClickLoadingOptionSelection,
-        defaultValue: this.props.loadingOptions.indexOf(this.props.loadingOption),
-        inputData: this.props.loadingOptions,
+        handleMenuItemClick: this.handleImageSelection,
+        inputData: Object.keys(imageMap)
+        //defaultValue={defaultMic}
+        ,
         width: width,
         margin: margin,
-        tooltip: _constants.loadImage_mode_selector_tooltip
+        tooltip: _constants.loadImage_from_names_tooltip
       }));
-
-      if (loadingMode === 1) {
-        list.push( /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-          key: "dropzone-tooltip",
-          position: _constants.loadImage_from_file_tooltip.position,
-          title: _constants.loadImage_from_file_tooltip.title,
-          content: _constants.loadImage_from_file_tooltip.content,
-          element: /*#__PURE__*/_react.default.createElement(_reactDropzone.default, {
-            key: "dropzone",
-            onFileDialogCancel: this.dropzoneDialogCancel,
-            onDrop: this.dropzoneDrop,
-            onDropAccepted: this.dropzoneDropAccepted,
-            onDropRejected: this.dropzoneDropRejected,
-            multiple: false
-          }, function (_ref) {
-            var getRootProps = _ref.getRootProps,
-                getInputProps = _ref.getInputProps;
-            return /*#__PURE__*/_react.default.createElement("section", {
-              style: dropzoneStyle
-            }, /*#__PURE__*/_react.default.createElement("div", getRootProps(), /*#__PURE__*/_react.default.createElement("input", getInputProps({
-              onClick: _this3.dropzoneDialogOpen
-            })), /*#__PURE__*/_react.default.createElement("p", null, "Select an existing Image file you want to work on.")));
-          })
-        }));
-      }
-
-      if (imageMap !== null) {
-        list.push( /*#__PURE__*/_react.default.createElement(_dropdownMenu.default, {
-          key: "dropdown-names",
-          title: "",
-          handleMenuItemClick: this.handleImageSelection,
-          inputData: Object.keys(imageMap) //defaultValue={defaultMic}
-          ,
-          width: width,
-          margin: margin,
-          tooltip: _constants.loadImage_from_names_tooltip
-        }));
-      }
-
-      var backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
-      var backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
-      list.push( /*#__PURE__*/_react.default.createElement("div", {
-        key: "buttons"
-      }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        position: _constants.back_tooltip.position,
-        title: _constants.back_tooltip.title,
-        content: _constants.back_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-          onClick: this.props.onClickBack,
-          style: buttonStyle,
-          size: "lg",
-          variant: "outline-dark"
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center" //gap: "10px",
-
-          }
-        }, /*#__PURE__*/_react.default.createElement("img", {
-          src: backImgPath,
-          alt: backImgPath_tmp,
-          style: styleImageBk,
-          onLoad: this.onImgLoad
-        }), "Back"))
-      }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
-        position: _constants.loadImage_mode_continue_tooltip.position,
-        title: _constants.loadImage_mode_continue_tooltip.title,
-        content: _constants.loadImage_mode_continue_tooltip.content,
-        element: /*#__PURE__*/_react.default.createElement(_Button.default, {
-          onClick: isDropzoneActive && fileLoaded && !fileLoading || !isDropzoneActive ? this.props.onClickConfirm : null,
-          style: buttonStyle,
-          size: "lg",
-          disabled: isDropzoneActive && (!fileLoaded || fileLoading)
-        }, isDropzoneActive && !fileLoaded && !fileLoading ? "Waiting for file" : isDropzoneActive && fileLoading ? "Loading file" : "Continue")
-      })));
-      return /*#__PURE__*/_react.default.createElement("div", {
-        style: windowExternalContainer
+    }
+    let backImgPath_tmp = url.resolve(this.props.imagesPath, _constants.string_back_img);
+    let backImgPath = backImgPath_tmp + (backImgPath_tmp.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+    list.push(/*#__PURE__*/_react.default.createElement("div", {
+      key: "buttons"
+    }, /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      position: _constants.back_tooltip.position,
+      title: _constants.back_tooltip.title,
+      content: _constants.back_tooltip.content,
+      element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+        onClick: this.props.onClickBack,
+        style: buttonStyle,
+        size: "lg",
+        variant: "outline-dark"
       }, /*#__PURE__*/_react.default.createElement("div", {
-        style: windowInternalContainer
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: styleImageContainer
-      }, /*#__PURE__*/_react.default.createElement("img", {
-        src: this.props.logoImg,
-        alt: this.props.logoImg,
-        style: styleImage,
-        onLoad: this.onImgLoad
-      })), /*#__PURE__*/_react.default.createElement("div", {
         style: {
-          textAlign: "center",
-          fontWeight: "bold"
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+          //gap: "10px",
         }
-      }, "Manage Settings Step 2/3: Load Image File"), list));
-    }
-  }], [{
-    key: "getDerivedStateFromProps",
-    value: function getDerivedStateFromProps(props, state) {
-      return null;
-    }
-  }]);
-
-  return ImageLoader;
-}(_react.default.PureComponent);
-
+      }, /*#__PURE__*/_react.default.createElement("img", {
+        src: backImgPath,
+        alt: backImgPath_tmp,
+        style: styleImageBk,
+        onLoad: this.onImgLoad
+      }), "Back"))
+    }), /*#__PURE__*/_react.default.createElement(_popoverTooltip.default, {
+      position: _constants.loadImage_mode_continue_tooltip.position,
+      title: _constants.loadImage_mode_continue_tooltip.title,
+      content: _constants.loadImage_mode_continue_tooltip.content,
+      element: /*#__PURE__*/_react.default.createElement(_Button.default, {
+        onClick: isDropzoneActive && fileLoaded && !fileLoading || !isDropzoneActive ? this.props.onClickConfirm : null,
+        style: buttonStyle,
+        size: "lg",
+        disabled: isDropzoneActive && (!fileLoaded || fileLoading)
+      }, isDropzoneActive && !fileLoaded && !fileLoading ? "Waiting for file" : isDropzoneActive && fileLoading ? "Loading file" : "Continue")
+    })));
+    return /*#__PURE__*/_react.default.createElement("div", {
+      style: windowExternalContainer
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: windowInternalContainer
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: styleImageContainer
+    }, /*#__PURE__*/_react.default.createElement("img", {
+      src: this.props.logoImg,
+      alt: this.props.logoImg,
+      style: styleImage,
+      onLoad: this.onImgLoad
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        textAlign: "center",
+        fontWeight: "bold"
+      }
+    }, "Manage Settings Step 2/3: Load Image File"), list));
+  }
+}
 exports.default = ImageLoader;
