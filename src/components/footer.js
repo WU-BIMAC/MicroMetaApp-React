@@ -13,14 +13,14 @@ import {
 	export_microscope_tooltip,
 	save_setting_tooltip,
 	export_setting_tooltip,
-	component_selector_tooltip,
+	func_selector_tooltip,
 	home_tooltip,
-	string_home_circle_img,
 	string_home_img,
 	string_save_img,
 	string_export_img,
 	string_import_img,
 	import_tooltip,
+	string_func_selector_img,
 } from "../constants";
 import { isDefined } from "../genericUtilities";
 
@@ -91,7 +91,7 @@ export default class Footer extends React.PureComponent {
 
 		let importImgPath_tmp = url.resolve(
 			this.props.imagesPath,
-			string_import_img
+			string_import_img,
 		);
 		let importImgPath =
 			importImgPath_tmp +
@@ -108,7 +108,7 @@ export default class Footer extends React.PureComponent {
 
 		let exportImgPath_tmp = url.resolve(
 			this.props.imagesPath,
-			string_export_img
+			string_export_img,
 		);
 		let exportImgPath =
 			exportImgPath_tmp +
@@ -195,13 +195,23 @@ export default class Footer extends React.PureComponent {
 		let homeImgPath =
 			homeImg +
 			(homeImg.indexOf("githubusercontent.com") > -1 ? "?sanitize=true" : "");
+
+		let funcSelImg = url.resolve(
+			this.props.imagesPath,
+			string_func_selector_img,
+		);
+		let funcSelPath =
+			funcSelImg +
+			(funcSelImg.indexOf("githubusercontent.com") > -1
+				? "?sanitize=true"
+				: "");
 		if (isDefined(this.props.onClickParentHome)) {
 			buttonsLeft[index] = (
 				<PopoverTooltip
 					key={"TooltipButtonLeft-" + index}
-					position={component_selector_tooltip.position}
-					title={component_selector_tooltip.title}
-					content={component_selector_tooltip.content}
+					position={func_selector_tooltip.position}
+					title={func_selector_tooltip.title}
+					content={func_selector_tooltip.content}
 					element={
 						<Button
 							key={"ButtonLeft-" + index}
@@ -219,11 +229,11 @@ export default class Footer extends React.PureComponent {
 								}}
 							>
 								<img
-									src={homeImgPath}
-									alt={homeImg}
+									src={funcSelPath}
+									alt={funcSelImg}
 									style={styleImageIconHome}
 								/>
-								{component_selector_tooltip.title}
+								{func_selector_tooltip.title}
 							</div>
 						</Button>
 					}
@@ -232,7 +242,8 @@ export default class Footer extends React.PureComponent {
 			index++;
 		}
 
-		let homeButtText = home_tooltip.title;
+		//let homeButtText = home_tooltip.title;
+		let homeButtText = "Home";
 		if (this.props.is4DNPortal) {
 			homeButtText = "Back to list";
 		}
