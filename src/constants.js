@@ -19,7 +19,7 @@ export const string_maxNumberOf_identifier = "Max_Number_Of_";
 
 export const string_json_ext = ".json";
 
-export const string_logo_img_no_bk = "MicroMetaApp_noBkg_4.png"; //"MicroMetaApp_noBkg_noOutline.png";
+export const string_logo_img_no_bk = "MicroMetaApp_noBkg_noOutline_4.png"; //"MicroMetaApp_noBkg_noOutline.png";
 export const string_logo_img_cell_bk = "MicroMetaApp_cellBkg.png";
 export const string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_5.png"; //"MicroMetaApp_TESMBkg_2.png";
 
