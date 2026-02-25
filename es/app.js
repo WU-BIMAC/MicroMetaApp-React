@@ -1427,13 +1427,19 @@ class MicroMetaAppReact extends _react.default.PureComponent {
     }
     if ((0, _genericUtilities.isDefined)(microscope)) {
       if (isLoadingMicroscope) {
-        if (!(0, _genericUtilities.verifyAppVersion)(microscope)) {
-          window.alert("The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again.");
+        let isValidAppVersion = (0, _genericUtilities.verifyMajorAppVersion)(microscope);
+        let errorMsg = (0, _genericUtilities.retrieveErrorMsg)(true, isValidAppVersion);
+        if (isValidAppVersion == -1 && (0, _genericUtilities.isDefined)(errorMsg)) {
+          window.warning(errorMsg);
+        } else if (isValidAppVersion != 1) {
+          window.alert(errorMsg);
           return;
         }
       } else {
-        if (!(0, _genericUtilities.verifyModelVersion)(microscope, this.state.modelVersion)) {
-          window.alert("The Microscope file you are trying to use was saved with a more recent model version. You have to open it using a matching version of Micro-Meta App.");
+        let isValidModelVersion = (0, _genericUtilities.verifyMajorModelVersion)(microscope, this.state.modelVersion);
+        let errorMsg = (0, _genericUtilities.retrieveErrorMsg)(false, isValidModelVersion);
+        if (isValidModelVersion != 1) {
+          window.alert(errorMsg);
           return;
         }
       }
@@ -2023,7 +2029,6 @@ class MicroMetaAppReact extends _react.default.PureComponent {
   handleSaveMicroscope(item) {
     let validated = true;
     if (!this.state.isMicroscopeValidated) {
-      F;
       validated = false;
     }
     if (!this.state.areComponentsValidated) {

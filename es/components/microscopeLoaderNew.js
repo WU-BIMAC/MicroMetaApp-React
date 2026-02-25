@@ -65,14 +65,22 @@ class MicroscopeLoader extends _react.default.PureComponent {
     let errorMsg = null;
     try {
       microscope = JSON.parse(binaryStr);
-      if ((0, _genericUtilities.validateMicroscopeFile)(microscope, this.props.schema, true)) {
+      let isMicroscopeValid = (0, _genericUtilities.validateMicroscope)(microscope, this.props.schema, true, true, true);
+      //console.log(isMicroscopeValid);
+      if (isMicroscopeValid.isValid) {
         this.setState({
           fileLoaded: true,
           loadedMicroscope: microscope
         });
       } else {
-        errorMsg = "The file you are trying to load does not contain a proper MicroMetaApp Microscope";
+        errorMsg = isMicroscopeValid.errorMsg;
       }
+      // if (validateMicroscopeFile(microscope, this.props.schema, true)) {
+      // 	this.setState({ fileLoaded: true, loadedMicroscope: microscope });
+      // } else {
+      // 	errorMsg =
+      // 		"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
+      // }
     } catch (exception) {
       if (this.props.isDebug) console.log(exception);
       errorMsg = "The file you are trying to load is not a proper json file";
