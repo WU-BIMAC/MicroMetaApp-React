@@ -24,8 +24,9 @@ import { version as appVersion } from "../package.json";
 import { v4 as uuidv4 } from "uuid";
 import {
 	isDefined,
-	verifyAppVersion,
-	verifyModelVersion,
+	verifyMajorAppVersion,
+	verifyMajorModelVersion,
+	retrieveErrorMsg,
 	validateMicroscope,
 } from "./genericUtilities";
 
@@ -2193,17 +2194,22 @@ export default class MicroMetaAppReact extends React.PureComponent {
 		}
 		if (isDefined(microscope)) {
 			if (isLoadingMicroscope) {
-				if (!verifyAppVersion(microscope)) {
-					window.alert(
-						"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again.",
-					);
+				let isValidAppVersion = verifyMajorAppVersion(microscope);
+				let errorMsg = retrieveErrorMsg(true, isValidAppVersion);
+				if (isValidAppVersion == -1 && isDefined(errorMsg)) {
+					window.warning(errorMsg);
+				} else if (isValidAppVersion != 1) {
+					window.alert(errorMsg);
 					return;
 				}
 			} else {
-				if (!verifyModelVersion(microscope, this.state.modelVersion)) {
-					window.alert(
-						"The Microscope file you are trying to use was saved with a more recent model version. You have to open it using a matching version of Micro-Meta App.",
-					);
+				let isValidModelVersion = verifyMajorModelVersion(
+					microscope,
+					this.state.modelVersion,
+				);
+				let errorMsg = retrieveErrorMsg(false, isValidModelVersion);
+				if (isValidModelVersion != 1) {
+					window.alert(errorMsg);
 					return;
 				}
 			}
@@ -2910,7 +2916,6 @@ export default class MicroMetaAppReact extends React.PureComponent {
 	handleSaveMicroscope(item) {
 		let validated = true;
 		if (!this.state.isMicroscopeValidated) {
-			F;
 			validated = false;
 		}
 		if (!this.state.areComponentsValidated) {

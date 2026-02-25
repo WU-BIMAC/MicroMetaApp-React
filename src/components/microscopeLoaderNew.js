@@ -7,7 +7,11 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import DropdownMenu from "./dropdownMenu";
 import PopoverTooltip from "./popoverTooltip";
 
-import { isDefined, validateMicroscopeFile } from "../genericUtilities";
+import {
+	isDefined,
+	validateMicroscopeFile,
+	validateMicroscope,
+} from "../genericUtilities";
 
 const url = require("url");
 
@@ -96,12 +100,25 @@ export default class MicroscopeLoader extends React.PureComponent {
 		let errorMsg = null;
 		try {
 			microscope = JSON.parse(binaryStr);
-			if (validateMicroscopeFile(microscope, this.props.schema, true)) {
+			let isMicroscopeValid = validateMicroscope(
+				microscope,
+				this.props.schema,
+				true,
+				true,
+				true,
+			);
+			//console.log(isMicroscopeValid);
+			if (isMicroscopeValid.isValid) {
 				this.setState({ fileLoaded: true, loadedMicroscope: microscope });
 			} else {
-				errorMsg =
-					"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
+				errorMsg = isMicroscopeValid.errorMsg;
 			}
+			// if (validateMicroscopeFile(microscope, this.props.schema, true)) {
+			// 	this.setState({ fileLoaded: true, loadedMicroscope: microscope });
+			// } else {
+			// 	errorMsg =
+			// 		"The file you are trying to load does not contain a proper MicroMetaApp Microscope";
+			// }
 		} catch (exception) {
 			if (this.props.isDebug) console.log(exception);
 			errorMsg = "The file you are trying to load is not a proper json file";

@@ -21,79 +21,87 @@ export function replaceLast(str, pattern, replacement) {
 		: str;
 }
 
-export function verifyModelVersion(microscope, currentModelVersion) {
+//Check only major model version, minor and patches should not break stuff
+//Return codes -2 < 2.0.0, -1 older model, 0 model does not exists, 1 current model, 2 newer model
+export function verifyMajorModelVersion(microscope, currentModelVersion) {
 	let oldModelVersion = microscope.ModelVersion;
 	let oldMainVersion = null;
-	let oldSubVersion = null;
-	let oldPatchVersion = null;
-	let hasModelVersion = true;
-	if (isDefined(oldModelVersion)) {
-		let oldModelVersionSplit = oldModelVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
-		oldMainVersion = Number(oldModelVersionSplit[0]);
-		oldSubVersion = Number(oldModelVersionSplit[1]);
-		oldPatchVersion = Number(oldModelVersionSplit[2]);
-	} else {
-		hasModelVersion = false;
-	}
+	// let oldSubVersion = null;
+	// let oldPatchVersion = null;
+	//let hasModelVersion = true;
+	if (!isDefined(oldModelVersion)) {
+		return 0;
+		// oldSubVersion = Number(oldModelVersionSplit[1]);
+		// oldPatchVersion = Number(oldModelVersionSplit[2]);
+	} // else {
+	// 	hasModelVersion = false;
+	// }
+	let oldModelVersionSplit = oldModelVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+	oldMainVersion = Number(oldModelVersionSplit[0]);
 	let modelVersionSplit = currentModelVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
 	let modelMainVersion = Number(modelVersionSplit[0]);
-	let modelSubVersion = Number(modelVersionSplit[1]);
-	let modelPatchVersion = Number(modelVersionSplit[2]);
-	if (
-		!hasModelVersion ||
-		oldMainVersion > modelMainVersion ||
-		(oldMainVersion === modelMainVersion && oldSubVersion > modelSubVersion) ||
-		(oldMainVersion === modelMainVersion &&
-			oldSubVersion === modelSubVersion &&
-			oldPatchVersion > modelPatchVersion)
+	// let modelSubVersion = Number(modelVersionSplit[1]);
+	// let modelPatchVersion = Number(modelVersionSplit[2]);
+	if (oldMainVersion < 2) return -2;
+	else if (
+		//!hasModelVersion ||
+		oldMainVersion < modelMainVersion //||
+		// (oldMainVersion === modelMainVersion && oldSubVersion < modelSubVersion) ||
+		// (oldMainVersion === modelMainVersion &&
+		// 	oldSubVersion === modelSubVersion &&
+		// 	oldPatchVersion < modelPatchVersion)
 	) {
-		return false;
-	}
-	return true;
+		return -1;
+	} else if (oldMainVersion > modelMainVersion) return 2;
+	return 1;
 }
 
-export function verifyAppVersion(microscope) {
+//Check only major model version, minor and patches should not break stuff
+//Return codes -1 older app, 0 model does not exists, 1 current app, 2 newer app
+export function verifyMajorAppVersion(microscope) {
 	let oldAppVersion = microscope.AppVersion;
 	let oldMainVersion = null;
-	let oldSubVersion = null;
-	let oldPatchVersion = null;
-	let oldBetaVersion = null;
-	let hasAppVersion = true;
-	if (isDefined(oldAppVersion)) {
-		let oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
-		oldMainVersion = Number(oldAppVersionSplit[0]);
-		oldSubVersion = Number(oldAppVersionSplit[1]);
-		oldPatchVersion = Number(oldAppVersionSplit[2]);
-		oldBetaVersion = Number(oldAppVersionSplit[3].replace("b", ""));
+	// let oldSubVersion = null;
+	// let oldPatchVersion = null;
+	// let oldBetaVersion = null;
+	// let hasAppVersion = true;
+	if (!isDefined(oldAppVersion)) {
+		return 0;
 		//let appVersionSplit = appVersion.split(/[\.,]+/);
 		// console.log("oldAppVersionSplit");
 		// console.log(oldAppVersionSplit);
-	} else {
-		hasAppVersion = false;
 	}
+	// else {
+	// 	hasAppVersion = false;
+	// }
+	let oldAppVersionSplit = oldAppVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
+	oldMainVersion = Number(oldAppVersionSplit[0]);
+	// oldSubVersion = Number(oldAppVersionSplit[1]);
+	// oldPatchVersion = Number(oldAppVersionSplit[2]);
+	// oldBetaVersion = Number(oldAppVersionSplit[3].replace("b", ""));
 	let appVersionSplit = appVersion.split(/[\.-]+/); //oldVersion.replaceAll(".", "");
 	let appMainVersion = Number(appVersionSplit[0]);
-	let appSubVersion = Number(appVersionSplit[1]);
-	let appPatchVersion = Number(appVersionSplit[2]);
-	let appBetaVersion = Number(appVersionSplit[3].replace("b", ""));
+	// let appSubVersion = Number(appVersionSplit[1]);
+	// let appPatchVersion = Number(appVersionSplit[2]);
+	// let appBetaVersion = Number(appVersionSplit[3].replace("b", ""));
 	//let appVersionSplit = appVersion.split(/[\.,]+/);
 	// console.log("appVersionSplit");
 	// console.log(appVersionSplit);
 	if (
-		!hasAppVersion ||
-		oldMainVersion < appMainVersion ||
-		(oldMainVersion === appMainVersion && oldSubVersion < appSubVersion) ||
-		(oldMainVersion === appMainVersion &&
-			oldSubVersion === appSubVersion &&
-			oldPatchVersion < appPatchVersion) ||
-		(oldMainVersion === appMainVersion &&
-			oldSubVersion === appSubVersion &&
-			oldPatchVersion === appPatchVersion &&
-			oldBetaVersion < appBetaVersion)
+		//!hasAppVersion ||
+		oldMainVersion < appMainVersion //||
+		// (oldMainVersion === appMainVersion && oldSubVersion < appSubVersion) ||
+		// (oldMainVersion === appMainVersion &&
+		// 	oldSubVersion === appSubVersion &&
+		// 	oldPatchVersion < appPatchVersion) ||
+		// (oldMainVersion === appMainVersion &&
+		// 	oldSubVersion === appSubVersion &&
+		// 	oldPatchVersion === appPatchVersion &&
+		// 	oldBetaVersion < appBetaVersion)
 	) {
-		return false;
-	}
-	return true;
+		return -1;
+	} else if (oldMainVersion > appMainVersion) return 2;
+	return 1;
 }
 
 export function validateAcquisitionSettingsFile(settings, schemas) {
@@ -120,7 +128,7 @@ export function validateAcquisitionSettingsFile(settings, schemas) {
 export function validateMicroscopeFile(
 	microscope,
 	schemas,
-	checkForMicroscopeStand
+	checkForMicroscopeStand,
 ) {
 	let micStandSchemaName = null;
 	let microscopeSchema = null;
@@ -160,24 +168,58 @@ export function validateMicroscopeFile(
 	return validated;
 }
 
+export function retrieveErrorMsg(isApp, errorCode) {
+	if (isApp) {
+		switch (errorCode) {
+			case -1:
+				return "This file was created using a previous version of Micro-Meta App. Please save it using this version to avoid future issues if you want to create a Settings file.";
+
+			case 0:
+				return "This file does not contain a valid 'App Version' field and cannot be opened with this version of Micro-Meta App.";
+
+			case 2:
+				return "This file was created using a more recent version of Micro-Meta App. Please update your Micro-Meta App to the latest version you can download from here: https://github.com/WU-BIMAC/MicroMetaApp-Electron/releases/latest.";
+			default:
+				return null;
+		}
+	} else {
+		switch (errorCode) {
+			case -2:
+				return "This file was created using a version of the Microscopy Metadata model that is no longer supported. You might be able to open it using v1.6.15 or earlier.";
+			case -1:
+				return;
+				"This file was created using a previous version of the Microscopy Metadata model. Please contact us for possible solutions.";
+
+			case 0:
+				return;
+				"This file does not contain a valid 'Model Version' field and cannot be opened with this version of Micro-Meta App.";
+
+			case 2:
+				return "This file was created using a version of the Microscopy Metadata model, which is not yet supported by this Micro-Meta App version. Please open it using a matching version of the App.";
+			default:
+				return null;
+		}
+	}
+}
+
 export function validateMicroscope(
 	microscope,
 	schemas,
 	checkForMicroscopeStand,
 	checkForModelVersion,
-	checkForAppVersion
+	checkForAppVersion,
 ) {
 	let isValidMicroscopeFile = validate(
 		microscope,
 		schemas,
-		checkForMicroscopeStand
+		checkForMicroscopeStand,
 	);
 
 	if (!isValidMicroscopeFile) {
 		return {
 			isValid: false,
 			errorMsg:
-				"The Microscope file you are trying to load does not contain a proper MicroMetaApp Microscope",
+				"This file does not appear to be a valid Microscope.JSON file. Please select a valid file.",
 		};
 	}
 
@@ -189,23 +231,30 @@ export function validateMicroscope(
 				modelVersion = singleSchema.modelVersion;
 			}
 		});
-		let isValidModelNumber = verifyModelVersion(microscope, modelVersion);
-		if (!isValidModelNumber) {
+		let isValidModelNumber = verifyMajorModelVersion(microscope, modelVersion);
+		//console.log("isValidModelNumber-" + isValidModelNumber);
+		let errorMsg = retrieveErrorMsg(false, isValidModelNumber);
+		if (isValidModelNumber != 1) {
 			return {
 				isValid: false,
-				errorMsg:
-					"The Microscope file you are trying to use was saved with a more recent model version. You have to open it using a matching version of Micro-Meta App.",
+				errorMsg: errorMsg,
 			};
 		}
 	}
 
 	if (checkForAppVersion) {
-		let isValidAppNumber = verifyAppVersion(microscope);
-		if (!isValidAppNumber) {
+		let isValidAppNumber = verifyMajorAppVersion(microscope);
+		//console.log("isValidAppNumber-" + isValidAppNumber);
+		let errorMsg = retrieveErrorMsg(true, isValidAppNumber);
+		if (isValidAppNumber == -1) {
+			return {
+				isValid: true,
+				errorMsg: errorMsg,
+			};
+		} else if (isValidAppNumber != 1) {
 			return {
 				isValid: false,
-				errorMsg:
-					"The Microscope file you are trying to use was saved with a previous version of Micro-Meta App. To avoid errors, before proceeding please go back to the Manage Instrument section of the App and save this file again.",
+				errorMsg: errorMsg,
 			};
 		}
 	}
