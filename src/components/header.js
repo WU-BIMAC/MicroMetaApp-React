@@ -52,7 +52,7 @@ export default class Header extends React.PureComponent {
 	onClickHelp() {
 		window.open(
 			"https://micrometaapp-docs.readthedocs.io/en/latest/docs/tutorials/index.html#step-by-step-instructions",
-			"_blank"
+			"_blank",
 		);
 	}
 
@@ -160,7 +160,7 @@ export default class Header extends React.PureComponent {
 
 		let bigLogoImg = url.resolve(
 			this.props.imagesPathPNG,
-			string_logo_img_micro_bk
+			string_logo_img_micro_bk,
 		);
 		let bigLogoPath =
 			bigLogoImg +
@@ -418,7 +418,7 @@ export default class Header extends React.PureComponent {
 										Model version: {this.props.modelVersion}
 										<br />
 										<br />
-										(c) Copyright 2018-2023 University of Massachusetts Chan
+										(c) Copyright 2018-2026 University of Massachusetts Chan
 										Medical School. All Rights Reserved.
 										<br />
 										The software is distributed under the terms of the{" "}
