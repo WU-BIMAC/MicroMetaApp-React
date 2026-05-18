@@ -102,7 +102,7 @@ export default class Canvas extends React.PureComponent {
 			return returnValue;
 		}
 		returnValue.previousProps = stringProps;
-	
+
 		if (isDefined(props.componentSchemas)) {
 			let componentsSchema = {};
 			Object.keys(props.componentSchemas).forEach((schemaIndex) => {
@@ -737,7 +737,6 @@ export default class Canvas extends React.PureComponent {
 			newElementList.push(newElement);
 			if (this.props.isDebug) console.log("newElement", newElement);
 			if (this.props.isDebug) console.log("newElementList", newElementList);
-			if (this.props.isDebug) console.log("newElementData", newElementData);
 			let newElementData = {
 				Name: `New ${schema.title}`,
 				ID: uuid,
@@ -756,6 +755,7 @@ export default class Canvas extends React.PureComponent {
 				OffsetY: offsetY,
 				OccupiedSpot: occupiedSpot,
 			};
+			if (this.props.isDebug) console.log("newElementData", newElementData);
 			if (rotate !== null) newElementData.Rotate = rotate;
 			newElement.name = newElementData.Name;
 			this.addComponentsIndexesIfMissing(schema, newElementData);
@@ -1147,7 +1147,7 @@ export default class Canvas extends React.PureComponent {
 					width: `${scaledContainerWidth}px`,
 					height: `${scaledContainerHeight}px`,
 				},
-				style
+				style,
 			);
 			stylesImages[item.ID] = {
 				width: item.width,
@@ -1286,12 +1286,12 @@ export default class Canvas extends React.PureComponent {
 										formTitle={item.name}
 										isDebug={this.props.isDebug}
 									/>
-									
+
 									<div style={styleName}>{item.name}</div>
 								</div>
 							</div>
 						</DragDropContainer>
-					</div>
+					</div>,
 				);
 			});
 		}
@@ -1313,7 +1313,6 @@ export default class Canvas extends React.PureComponent {
 		// 	console.log("LinkedFields");
 		// 	console.log(linkedFields);
 		// }
-
 
 		let elementDimensions = this.props.canvasElementsDimensions;
 		let stand = this.props.stand;
