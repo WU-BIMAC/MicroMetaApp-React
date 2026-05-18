@@ -636,7 +636,6 @@ class Canvas extends _react.default.PureComponent {
       newElementList.push(newElement);
       if (this.props.isDebug) console.log("newElement", newElement);
       if (this.props.isDebug) console.log("newElementList", newElementList);
-      if (this.props.isDebug) console.log("newElementData", newElementData);
       let newElementData = {
         Name: "New ".concat(schema.title),
         ID: uuid,
@@ -655,6 +654,7 @@ class Canvas extends _react.default.PureComponent {
         OffsetY: offsetY,
         OccupiedSpot: occupiedSpot
       };
+      if (this.props.isDebug) console.log("newElementData", newElementData);
       if (rotate !== null) newElementData.Rotate = rotate;
       newElement.name = newElementData.Name;
       this.addComponentsIndexesIfMissing(schema, newElementData);

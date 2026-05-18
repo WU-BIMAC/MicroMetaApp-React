@@ -1071,7 +1071,7 @@ class MultiTabFormWithHeaderV3 extends _react.default.PureComponent {
       fontWeight: 500,
       backgroundColor: "#FFFFFF",
       color: "#030303",
-      borderColor: "#FFFFFF",
+      borderColor: "#030303",
       paddingRight: "20px",
       paddingLeft: "20px"
     };
