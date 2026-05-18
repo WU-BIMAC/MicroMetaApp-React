@@ -19,9 +19,11 @@ export const string_maxNumberOf_identifier = "Max_Number_Of_";
 
 export const string_json_ext = ".json";
 
-export const string_logo_img_no_bk = "MicroMetaApp_noBkg_noOutline_4.png"; //"MicroMetaApp_noBkg_noOutline.png";
+export const string_logo_img_no_bk =
+	"MicroMetaTools_BWLogo_noBkg_noOutline_v01.png"; //"MicroMetaApp_noBkg_noOutline_4.png"; //"MicroMetaApp_noBkg_noOutline.png";
 export const string_logo_img_cell_bk = "MicroMetaApp_cellBkg.png";
-export const string_logo_img_micro_bk = "MicroMetaApp_TESMBkg_5.png"; //"MicroMetaApp_TESMBkg_2.png";
+export const string_logo_img_micro_bk =
+	"MicroMetaTools_ColorLogo_Bkg_ noOutline_v01.png"; //"MicroMetaApp_TESMBkg_5.png"; //"MicroMetaApp_TESMBkg_2.png";
 
 export const string_globe_solid_img = "globe-solid.svg";
 export const string_plus_solid_img = "plus-solid.svg";
