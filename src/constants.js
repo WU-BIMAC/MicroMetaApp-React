@@ -707,7 +707,14 @@ export const func_selector_tooltip = {
 
 export const home_tooltip = {
 	title: "Micro-Meta App Home",
-	content: <p>Return to the initial window of Micro-Meta App.</p>,
+	content: (
+		<p>
+			If you have opened this Microscope via Micro-Meta App, clicking on this
+			button will return to the initial window of Micro-Meta App. If you have
+			opened the Microscope via Micro-Meta Explorer, clicking on this button
+			will return to this same page
+		</p>
+	),
 	position: "top",
 };
 
