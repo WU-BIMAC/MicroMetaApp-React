@@ -246,11 +246,11 @@ export default class SettingMainView extends React.PureComponent {
 					) {
 						let oldImmersionLiquid = Object.assign(
 							{},
-							oldObjSettings.ImmersionLiquid
+							oldObjSettings.ImmersionLiquid,
 						);
 						let newImmersionLiquid = Object.assign(
 							oldImmersionLiquid,
-							data.ImmersionLiquid
+							data.ImmersionLiquid,
 						);
 						newObjSettings.ImmersionLiquid = newImmersionLiquid;
 					}
@@ -288,7 +288,7 @@ export default class SettingMainView extends React.PureComponent {
 
 	onElementDataCancel() {
 		this.setState({ editingElement: -1 });
-		console.log('Cancel called from: settingsMainViews');
+		console.log("Cancel called from: settingsMainViews");
 	}
 
 	onClickEditSettings(editingElement) {
@@ -470,6 +470,7 @@ export default class SettingMainView extends React.PureComponent {
 					<div style={containerStyle}>
 						<div style={styleMainContainer}>
 							<MultiTabFormWithHeaderV3
+								imagesPath={this.props.imagesPath}
 								settings={this.props.settingSchemas}
 								schema={schema}
 								inputData={obj}
@@ -549,7 +550,7 @@ export default class SettingMainView extends React.PureComponent {
 						pixels.SizeY !== undefined
 					) {
 						settingsInfo.push(
-							`Dimensions (XY): ${pixels.SizeX} x ${pixels.SizeY}`
+							`Dimensions (XY): ${pixels.SizeX} x ${pixels.SizeY}`,
 						);
 						settingsInfo.push(<br key={"newline-2"} />);
 					}
@@ -562,7 +563,7 @@ export default class SettingMainView extends React.PureComponent {
 						pixels.SizeZ !== undefined
 					) {
 						settingsInfo.push(
-							`Dimensions (CTZ): ${pixels.SizeC} x ${pixels.SizeT} x ${pixels.SizeZ}`
+							`Dimensions (CTZ): ${pixels.SizeC} x ${pixels.SizeT} x ${pixels.SizeZ}`,
 						);
 						settingsInfo.push(<br key={"newline-3"} />);
 					}
@@ -606,7 +607,7 @@ export default class SettingMainView extends React.PureComponent {
 					>
 						{disabled ? null : valid}
 						{"Edit Experiment"}
-					</Button>
+					</Button>,
 				);
 			}
 
@@ -660,7 +661,7 @@ export default class SettingMainView extends React.PureComponent {
 					>
 						{disabled ? null : valid}
 						{"Edit TIRF Settings"}
-					</Button>
+					</Button>,
 				);
 			}
 
@@ -721,7 +722,7 @@ export default class SettingMainView extends React.PureComponent {
 							{"Edit Imaging Environment"}
 						</Button>
 					}
-				/>
+				/>,
 			);
 
 			index = elements.indexOf("micTableSettings");
@@ -781,7 +782,7 @@ export default class SettingMainView extends React.PureComponent {
 							{"Edit Microscope Table Settings"}
 						</Button>
 					}
-				/>
+				/>,
 			);
 
 			index = elements.indexOf("micSettings");
@@ -824,7 +825,7 @@ export default class SettingMainView extends React.PureComponent {
 							{"Edit Microscope Stand Settings"}
 						</Button>
 					}
-				/>
+				/>,
 			);
 
 			index = elements.indexOf("objSettings");
@@ -851,7 +852,7 @@ export default class SettingMainView extends React.PureComponent {
 				) {
 					let validation2 = validate(
 						object.ImmersionLiquid,
-						immersionLiquidSchema
+						immersionLiquidSchema,
 					);
 					validated2 = validation2.valid;
 				}
@@ -891,7 +892,7 @@ export default class SettingMainView extends React.PureComponent {
 							{"Edit Objective Settings"}
 						</Button>
 					}
-				/>
+				/>,
 			);
 
 			index = elements.indexOf("samplePosSettings");
@@ -951,7 +952,7 @@ export default class SettingMainView extends React.PureComponent {
 							{"Edit Sample Positioning Settings"}
 						</Button>
 					}
-				/>
+				/>,
 			);
 
 			index = elements.indexOf("planes");
@@ -999,7 +1000,7 @@ export default class SettingMainView extends React.PureComponent {
 							{"Edit Planes"}
 						</Button>
 					}
-				/>
+				/>,
 			);
 
 			index = elements.indexOf("channels");
@@ -1054,7 +1055,7 @@ export default class SettingMainView extends React.PureComponent {
 							{"Edit Channels"}
 						</Button>
 					}
-				/>
+				/>,
 			);
 
 			return (

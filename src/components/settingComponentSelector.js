@@ -89,7 +89,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 				let newSettingCompData = Object.assign(
 					{},
 					imageObjSettings,
-					this.state.settingData
+					this.state.settingData,
 				);
 				let newImmersionLiquid = null;
 				if (
@@ -103,7 +103,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 						newImmersionLiquid = Object.assign(
 							{},
 							imageObjSettings.ImmersionLiquid,
-							this.state.settingData.ImmersionLiquid
+							this.state.settingData.ImmersionLiquid,
 						);
 					} else {
 						newImmersionLiquid = this.state.settingData.ImmersionLiquid;
@@ -252,7 +252,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 		if (settingData === null) {
 			console.log(
-				"Settings data not found in SettingComponentSelector-editing"
+				"Settings data not found in SettingComponentSelector-editing",
 			);
 			return;
 		}
@@ -262,7 +262,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 			let oldImmersionLiquid = Object.assign({}, settingData.ImmersionLiquid);
 			let immersionLiquid = Object.assign(
 				oldImmersionLiquid,
-				data.ImmersionLiquid
+				data.ImmersionLiquid,
 			);
 			newSettingData.ImmersionLiquid = immersionLiquid;
 		}
@@ -286,7 +286,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 		// 	this.setState({ editing: false, editingSettings: false });
 		// }
 		this.setState({ editing: false });
-		console.log('Cancel called from: settingsComponentSelector');
+		console.log("Cancel called from: settingsComponentSelector");
 	}
 
 	onAddConfirm() {
@@ -443,7 +443,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 				newSettingCompData = Object.assign(
 					{},
 					imageObjSettings,
-					settingCompData
+					settingCompData,
 				);
 				let newImmersionLiquid = null;
 				if (
@@ -453,7 +453,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 					newImmersionLiquid = Object.assign(
 						{},
 						imageObjSettings.ImmersionLiquid,
-						settingCompData.ImmersionLiquid
+						settingCompData.ImmersionLiquid,
 					);
 				} else {
 					newImmersionLiquid = settingCompData.ImmersionLiquid;
@@ -690,7 +690,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 			if (settingData === null) {
 				console.log(
-					"Settings data not found in SettingComponentSelector-editing"
+					"Settings data not found in SettingComponentSelector-editing",
 				);
 				return;
 			}
@@ -713,6 +713,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 			if (this.props.isDebug) console.log("inside of settingsMainView.js1");
 			return (
 				<MultiTabFormWithHeaderV3
+					imagesPath={this.props.imagesPath}
 					schema={settings}
 					inputData={settingsObj}
 					id={id}
@@ -748,7 +749,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 					category.includes(schema_id.replace(string_json_ext, "")) ||
 					category.includes(compSchemaCategory) ||
 					category.includes(
-						compSchemaCategory.substring(0, compSchemaCategory.indexOf("."))
+						compSchemaCategory.substring(0, compSchemaCategory.indexOf(".")),
 					)
 				) {
 					let found = false;
@@ -778,14 +779,12 @@ export default class SettingComponentSelector extends React.PureComponent {
 						buttonStyleModified = Object.assign({}, buttonStyleModified, {
 							border: "2px solid cyan",
 						});
-					} else {
-						buttonStyleModified = buttonStyleModified;
 					}
 
 					let validation = validate(comp, compSchema);
 					let validated = validation.valid;
 					let valid = null;
-					console.log("ALERT COMPONENT COLOR");
+					if (this.props.isDebug) console.log("ALERT COMPONENT COLOR");
 					if (validated) {
 						valid = isValid1;
 					} else {
@@ -833,7 +832,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 
 					if (settingData === null) {
 						console.log(
-							"Settings data not found in SettingComponentSelector-display"
+							"Settings data not found in SettingComponentSelector-display",
 						);
 						return;
 					}
@@ -884,7 +883,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 								let validated1 = validation1.valid;
 								let validation2 = validate(
 									settingData.ImmersionLiquid,
-									schema[1]
+									schema[1],
 								);
 								let validated2 = validation2.valid;
 								validated = validated1 && validated2;
@@ -971,6 +970,7 @@ export default class SettingComponentSelector extends React.PureComponent {
 			if (selectedComp !== null && selectedComp !== undefined)
 				multiTabPanel = (
 					<MultiTabFormWithHeaderV3
+						imagesPath={this.props.imagesPath}
 						schema={selectedSchema}
 						inputData={selectedComp}
 						id={selectedComp.ID}
