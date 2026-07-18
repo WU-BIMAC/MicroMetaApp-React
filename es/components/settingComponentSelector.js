@@ -232,7 +232,7 @@ class SettingComponentSelector extends _react.default.PureComponent {
     this.setState({
       editing: false
     });
-    console.log('Cancel called from: settingsComponentSelector');
+    console.log("Cancel called from: settingsComponentSelector");
   }
   onAddConfirm() {
     let selectedComp = this.state.selectedComp;
@@ -621,6 +621,7 @@ class SettingComponentSelector extends _react.default.PureComponent {
       let settings = this.props.schema;
       if (this.props.isDebug) console.log("inside of settingsMainView.js1");
       return /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+        imagesPath: this.props.imagesPath,
         schema: settings,
         inputData: settingsObj,
         id: id,
@@ -669,13 +670,11 @@ class SettingComponentSelector extends _react.default.PureComponent {
             buttonStyleModified = Object.assign({}, buttonStyleModified, {
               border: "2px solid cyan"
             });
-          } else {
-            buttonStyleModified = buttonStyleModified;
           }
           let validation = validate(comp, compSchema);
           let validated = validation.valid;
           let valid = null;
-          console.log("ALERT COMPONENT COLOR");
+          if (this.props.isDebug) console.log("ALERT COMPONENT COLOR");
           if (validated) {
             valid = isValid1;
           } else {
@@ -819,6 +818,7 @@ class SettingComponentSelector extends _react.default.PureComponent {
       //}
       let multiTabPanel = null;
       if (selectedComp !== null && selectedComp !== undefined) multiTabPanel = /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+        imagesPath: this.props.imagesPath,
         schema: selectedSchema,
         inputData: selectedComp,
         id: selectedComp.ID,

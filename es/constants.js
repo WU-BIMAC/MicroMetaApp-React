@@ -490,7 +490,7 @@ const func_selector_tooltip = {
 exports.func_selector_tooltip = func_selector_tooltip;
 const home_tooltip = {
   title: "Micro-Meta App Home",
-  content: /*#__PURE__*/_react.default.createElement("p", null, "Return to the initial window of Micro-Meta App."),
+  content: /*#__PURE__*/_react.default.createElement("p", null, "If you have opened this Microscope via Micro-Meta App, clicking on this button will return to the initial window of Micro-Meta App. If you have opened the Microscope via Micro-Meta Explorer, clicking on this button will return to this same page"),
   position: "top"
 };
 exports.home_tooltip = home_tooltip;

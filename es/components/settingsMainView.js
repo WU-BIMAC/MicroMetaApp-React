@@ -219,7 +219,7 @@ class SettingMainView extends _react.default.PureComponent {
     this.setState({
       editingElement: -1
     });
-    console.log('Cancel called from: settingsMainViews');
+    console.log("Cancel called from: settingsMainViews");
   }
   onClickEditSettings(editingElement) {
     this.setState({
@@ -377,6 +377,7 @@ class SettingMainView extends _react.default.PureComponent {
         }, /*#__PURE__*/_react.default.createElement("div", {
           style: styleMainContainer
         }, /*#__PURE__*/_react.default.createElement(_multiTabFormWithHeaderV.default, {
+          imagesPath: this.props.imagesPath,
           settings: this.props.settingSchemas,
           schema: schema,
           inputData: obj,
