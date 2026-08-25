@@ -238,7 +238,7 @@ export default class SettingMainView extends React.PureComponent {
 			if (Object.keys(data).length > 0) {
 				let oldObjSettings = this.state.objSettings;
 				if (oldObjSettings !== null && oldObjSettings !== undefined) {
-					let oldObjSettings = Object.assign({}, oldObjSettings);
+					//oldObjSettings = Object.assign({}, oldObjSettings);
 					newObjSettings = Object.assign(oldObjSettings, data);
 					if (
 						oldObjSettings.ImmersionLiquid !== null &&
